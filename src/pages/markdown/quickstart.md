@@ -10,7 +10,7 @@ Apache NiFi source code is version controlled using [Git][git] version control (
 
 The code is also mirrored to [Github][githubrepo]
 
-The NiFi website source code ([browse][gitbrowsenifisite]|[checkout][gitreponifisite).
+The NiFi website source code ([browse][gitbrowsenifisite]|[checkout][gitreponifisite]).
 
 The NiFi Nar maven plugin source code ([browse][gitbrowsenifimaven]|[checkout][gitreponifimaven]).
 
