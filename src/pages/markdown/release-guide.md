@@ -80,8 +80,6 @@ Create the next version in JIRA if necessary so develop work can continue toward
 Create new branch off develop named after the JIRA ticket or just use the develop branch itself.  Here we'll use a branch off of develop with
 `git checkout -b NIFI-270-RC1`
 
-Change directory into that of the project you wish to release.  For example `cd nifi`
-
 Verify that Maven has sufficient heap space to perform the build tasks.  Some plugins and parts of the build 
 consumes a surprisingly large amount of space.  These settings have been shown to 
 work `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`

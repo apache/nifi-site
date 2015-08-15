@@ -9,6 +9,10 @@ title:     Apache NiFi Development Quickstart
 Apache NiFi source code is version controlled using [Git][git] version control ([browse][gitbrowse]|[checkout][gitrepo]).  
 The code is also mirrored to [Github][githubrepo]
 
+See the following repositories for their own specific instruction (not further discussed here)
+    The NiFi website source code is here ([browse][gitbrowsenifisite]|[checkout][gitreponifisite).
+    The NiFi Nar maven plugin source code is here ([browse][gitbrowsenifimaven]|[checkout][gitreponifimaven]).
+
 ## Issue Tracking
 
 Track issues on the "NIFI" Project on the Apache Jira ([browse][jira]).
@@ -102,14 +106,10 @@ Additional information on system administration and settings can be located in o
 2. You need Apache [Maven 3.X][maven]. We've successfully used 3.2.3 and as far back as 3.0.5
 3. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
     - These settings have worked well `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`
-4. Build the nifi parent. In the root dir of the source tree cd to `nifi-parent`.
-   Run `mvn clean install`
-5. Build the nifi nar maven plugin.  In the root dir of the source tree cd to `nifi-nar-maven-plugin`.
-   Run `mvn clean install`
-6. Build the entire code base.  In the root dir of the source tree cd to `nifi` and run `mvn -T C2.0 clean install`
+4. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install`
    You can tweak the maven build settings as you like but the previous command will execute with 2 threads per core.
 
-Now you should have a fully functioning build off the latest code in the develop branch.
+Now you should have a fully functioning build off the latest codebase.
 
 ## Running the application
 
@@ -122,7 +122,7 @@ to 8080 is a good start, but on systems with multiple (potentially untrusted) us
 
 #### Decompress and launch
 
-Running the above build will create a tar.gz (and zip) file in `nifi/nifi-assembly/target`. This tar.gz should
+Running the above build will create a tar.gz (and zip) file in `./nifi-assembly/target`. This tar.gz should
 contain the full application. Decompressing the tar.gz should make a directory for you containing several other
 directories. `conf` contains application configuration, `bin` contains scripts
 for launching the application. On linux and OSX, NiFi can be run using `bin/nifi.sh <command>` where
@@ -158,6 +158,10 @@ is ready for use:
 [jira]: https://issues.apache.org/jira/browse/NIFI
 [git]: http://git-scm.com/
 [gitbrowse]: https://git-wip-us.apache.org/repos/asf?p=nifi.git;a=summary
+[gitbrowsenifisite]: https://git-wip-us.apache.org/repos/asf?p=nifi-site.git;a=summary
+[gitbrowsenifimaven]: https://git-wip-us.apache.org/repos/asf?p=nifi-maven.git;a=summary
 [gitrepo]: http://git-wip-us.apache.org/repos/asf/nifi.git
+[gitreponifisite]: http://git-wip-us.apache.org/repos/asf/nifi-site.git
+[gitreponifimaven]: http://git-wip-us.apache.org/repos/asf/nifi-maven.git
 [githubrepo]: https://github.com/apache/nifi
 
