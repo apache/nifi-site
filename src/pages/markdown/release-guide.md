@@ -69,15 +69,15 @@ when evaluating a release for a vote.
 Follow the steps outlined in the [Quickstart Guide][quickstart-guide]
 
 ```        
-At this point you're on the latest 'develop' branch and are able to build the entire application
+At this point you're on the latest 'master' branch and are able to build the entire application
 ```
 <br/>
 Create a JIRA ticket for the release tasks and use that ticket number for the commit messages.  For example we'll consider NIFI-270 as our ticket.  Also
 have in mind the release version you are planning for.  For example we'll consider '0.0.1'.
 
-Create the next version in JIRA if necessary so develop work can continue towards that release.
+Create the next version in JIRA if necessary so work can continue towards that release.
 
-Create new branch off develop named after the JIRA ticket or just use the develop branch itself.  Here we'll use a branch off of develop with
+Create new branch off 'master' named after the JIRA ticket.  Here we'll use a branch off of 'master' with
 `git checkout -b NIFI-270-RC1`
 
 Verify that Maven has sufficient heap space to perform the build tasks.  Some plugins and parts of the build 
@@ -236,15 +236,13 @@ Here are the steps of the release once the release is approved:
 
 4.  Merge the release branch into master
 
-5.  Merge the release branch into develop
+5.  Update the NiFi website to point to the new download(s)
 
-6.  Update the NiFi website to point to the new download(s)
+6.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
 
-7.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
+7.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
 
-8.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
-
-9.  Wait 24 hours then send release announcement.
+8.  Wait 24 hours then send release announcement.
     - See [here][release-announce] for an understanding of why you need to wait 24 hours
     - Then create an announcement like the one shown below addressed to 'announce@apache.org, dev@nifi..apache.org' with a reply-to of 'dev@nifi.apache.org'.  
     - The email has to be sent from an apache.org email address and should be by the release manager of the build.

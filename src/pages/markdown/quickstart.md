@@ -6,13 +6,9 @@ title:     Apache NiFi Development Quickstart
 
 ## Source Code
 
-Apache NiFi source code is version controlled using [Git][git] version control ([browse][gitbrowse]|[checkout][gitrepo]).  
-
-The code is also mirrored to [Github][githubrepo]
-
-The NiFi website source code ([browse][gitbrowsenifisite]|[checkout][gitreponifisite]).
-
-The NiFi Nar maven plugin source code ([browse][gitbrowsenifimaven]|[checkout][gitreponifimaven]).
+Apache NiFi source code is version controlled using [Git][git] version control ([browse][gitbrowse]|[checkout][gitrepo]) and mirrored to [Github][githubrepo].
+<br />The NiFi website source code is available ([browse][gitbrowsenifisite]|[checkout][gitreponifisite]).
+<br />The NiFi Nar maven plugin source code is available ([browse][gitbrowsenifimaven]|[checkout][gitreponifimaven]).
 
 ## Issue Tracking
 
@@ -43,11 +39,10 @@ To check out the code:
 git clone http://git-wip-us.apache.org/repos/asf/nifi.git
 ```
 <br/>
-Then checkout the 'develop' branch
+Then checkout the 'master' branch (which should be the default)
 
 ```
-cd nifi/
-git checkout develop
+git checkout master 
 ```
 <br/>
 
