@@ -77,6 +77,8 @@ have in mind the release version you are planning for.  For example we'll consid
 
 Create the next version in JIRA if necessary so work can continue towards that release.
 
+Create meaningful release notes for this version if not already created.  [Enter them here][release-notes]
+
 Create new branch off 'master' named after the JIRA ticket.  Here we'll use a branch off of 'master' with
 `git checkout -b NIFI-270-RC1`
 
@@ -194,6 +196,9 @@ https://dist.apache.org/repos/dist/release/nifi/KEYS
 8 issues were closed/resolved for this release:
 https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316020&version=12329307
 
+Release note highlights can be found here:
+https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version0.0.1
+
 The vote will be open for 72 hours. 
 Please download the release candidate and evaluate the necessary items including checking hashes, signatures, build from source, and test.  The please vote:
 
@@ -248,11 +253,11 @@ Here are the steps of the release once the release is approved:
     - The email has to be sent from an apache.org email address and should be by the release manager of the build.
 
 ```
-SUBJECT:  [ANNOUNCE] Apache NiFi 0.0.2 release
+SUBJECT:  [ANNOUNCE] Apache NiFi 0.0.1 release
 BODY:
 Hello
 
-The Apache NiFi team would like to announce the release of Apache NiFi 0.0.2.
+The Apache NiFi team would like to announce the release of Apache NiFi 0.0.1.
 
 Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data.  Apache NiFi was made for dataflow.  It supports highly configurable directed graphs of data routing, transformation, and system mediation logic.
 
@@ -265,8 +270,11 @@ http://nifi.apache.org/download.html
 Maven artifacts have been made available here:
 https://repository.apache.org/content/repositories/releases/org/apache/nifi/
      
-Release notes available here:
+Issues closed/resolved for this list can be found here:
 https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316020&version=12329373
+
+Release note highlights can be found here:
+https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version0.0.1
      
 Thank you
 The Apache NiFi team
@@ -285,3 +293,4 @@ The Apache NiFi team
 [apache-pgp]: http://www.apache.org/dev/openpgp.html
 [apache-release-signing]: http://www.apache.org/dev/release-signing.html
 [apache-guide-publish-maven]: http://www.apache.org/dev/publishing-maven-artifacts.html
+[release-notes]: https://cwiki.apache.org/confluence/display/NIFI/Release+Notes
