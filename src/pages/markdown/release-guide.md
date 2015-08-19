@@ -245,9 +245,19 @@ Here are the steps of the release once the release is approved:
 
 6.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
 
-7.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+7.  From a nifi.tar.gz collect the docs/html/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/html/
 
-8.  Wait 24 hours then send release announcement.
+8.  From a nifi.tar.gz collect the nifi-framework-nar.nar/META-INF/bundled-dependencies/nifi-web-api.war/docs/rest-api/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/rest-api/
+
+9.  Run an instance of nifi
+
+10. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
+
+11. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
+
+12.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+
+13.  Wait 24 hours then send release announcement.
     - See [here][release-announce] for an understanding of why you need to wait 24 hours
     - Then create an announcement like the one shown below addressed to 'announce@apache.org, dev@nifi..apache.org' with a reply-to of 'dev@nifi.apache.org'.  
     - The email has to be sent from an apache.org email address and should be by the release manager of the build.
