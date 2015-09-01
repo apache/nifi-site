@@ -17,13 +17,13 @@
 
 ## Getting Started
 
-The site is built using [grunt][] task runner, [bower][] package manager for
-the web, and [npm][] package manager for node. npm is used to manage the
+The site is built using grunt task runner, bower package manager for
+the web, and npm package manager for node. npm is used to manage the
 node modules required for building this site. bower is used to manage the 
 front end packages that the site will depend on.
 
 Before installing bower and grunt, the NodeJS Package Manager (npm) must
-be installed. For instructions on installing npm, see [npm-install][]
+be installed. For instructions on installing npm, see npm-install
 
 Both grunt and bower can be installed via npm once, it is installed. 
 
