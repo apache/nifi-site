@@ -158,10 +158,15 @@ Validate that all the various aspects of the staged artifacts appear correct
 If all looks good then push the branch to origin `git push origin NIFI-270`
 
 If it is intended that convenience binaries will be provided for this release then the community has requested that
-a copy it be made available for reviewing of the release candidate.  The convenience binary, its hashes, and signature
- should be placed here:
-  - https://dist.apache.org/repos/dist/dev/nifi
-
+a copy it be made available for reviewing of the release candidate.  The convenience binary, its hashes, and signature should be placed here:
+    - https://dist.apache.org/repos/dist/dev/nifi
+<br/>
+For each convenience binary
+    - Generate ascii armored detached signature by running `gpg -a -b nifi-0.0.1-bin.tar.gz`
+    - Generate md5 hash summary by running `md5sum nifi-0.0.1-bin.tar.gz | awk '{ printf substr($0,0,32)}' >  nifi-0.0.1-bin.tar.gz.md5`
+    - Generate sha1 hash summary by running `sha1sum nifi-0.0.1-bin.tar.gz | awk '{ printf substr($0,0,40)}' >  nifi-0.0.1-bin.tar.gz.sha1`
+    - Upload the bin, asc, sha1, md5 for each binary convenience build to the same location as the source release
+<br/>
 If anything isn't correct about the staged artifacts you can drop the staged repo from repository.apache.org and delete the
 local tag in git.  If you also delete the local branch and clear your local maven repository under org/apache/nifi then it is
 as if the release never happened.  Before doing that though try to figure out what went wrong.  So as described here you see
@@ -231,12 +236,9 @@ Here are the steps of the release once the release is approved:
 1. Upload source-release artifacts to dist.  If the release version is 0.0.1 then upload them (zip, asc, md5, sha1) to
 `https://dist.apache.org/repos/dist/release/nifi/0.0.1`
 
-2. To produce binary convenience release build the application from the raw source in staging.  For each binary convenience artifact:  
-    - Generate ascii armored detached signature by running `gpg -a -b nifi-0.0.1-bin.tar.gz`
-    - Generate md5 hash summary by running `md5sum nifi-0.0.1-bin.tar.gz | awk '{ printf substr($0,0,32)}' >  nifi-0.0.1-bin.tar.gz.md5`
-    - Generate sha1 hash summary by running `sha1sum nifi-0.0.1-bin.tar.gz | awk '{ printf substr($0,0,40)}' >  nifi-0.0.1-bin.tar.gz.sha1`
-    - Upload the bin, asc, sha1, md5 for each binary convenience build to the same location as the source release
-
+2. Move convenience binaries and related artifacts from dist/dev to dist/release:  
+`svn mv https://dist.apache.org/repos/dist/dev/nifi/nifi-0.0.1/$artifact https://dist.apache.org/repos/dist/release/nifi/0.0.1/`
+<br/>
 3.  In repository.apache.org go to the staging repository and select `release` and follow instructions on the site.
 
 4.  Merge the release branch into master
