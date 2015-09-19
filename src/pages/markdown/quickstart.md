@@ -99,7 +99,7 @@ Additional information on system administration and settings can be located in o
 ### Build steps
 
 1. You need a recent Java 7 (or newer) JDK.
-2. You need Apache [Maven 3.X][maven]. We've successfully used 3.2.3 and as far back as 3.0.5
+2. You need Apache [Maven 3.1.0][maven] or newer.
 3. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
     - These settings have worked well `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`
 4. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install`
