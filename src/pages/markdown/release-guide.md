@@ -245,21 +245,23 @@ Here are the steps of the release once the release is approved:
 
 5.  Update the NiFi website to point to the new download(s)
 
-6.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
+6.  Update the [Migration Guide][migration-guide] on the Wiki.
 
-7.  From a nifi.tar.gz collect the docs/html/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/html/
+7.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
 
-8.  From a nifi.tar.gz collect the nifi-framework-nar.nar/META-INF/bundled-dependencies/nifi-web-api.war/docs/rest-api/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/rest-api/
+8.  From a nifi.tar.gz collect the docs/html/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/html/
 
-9.  Run an instance of nifi
+9.  From a nifi.tar.gz collect the nifi-framework-nar.nar/META-INF/bundled-dependencies/nifi-web-api.war/docs/rest-api/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/rest-api/
 
-10. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
+10.  Run an instance of nifi
 
-11. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
+11. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
 
-12.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+12. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
 
-13.  Wait 24 hours then send release announcement.
+13.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+
+14.  Wait 24 hours then send release announcement.
     - See [here][release-announce] for an understanding of why you need to wait 24 hours
     - Then create an announcement like the one shown below addressed to 'announce@apache.org, dev@nifi..apache.org' with a reply-to of 'dev@nifi.apache.org'.  
     - The email has to be sent from an apache.org email address and should be by the release manager of the build.
@@ -306,3 +308,4 @@ The Apache NiFi team
 [apache-release-signing]: http://www.apache.org/dev/release-signing.html
 [apache-guide-publish-maven]: http://www.apache.org/dev/publishing-maven-artifacts.html
 [release-notes]: https://cwiki.apache.org/confluence/display/NIFI/Release+Notes
+[migration-guide]: https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance
