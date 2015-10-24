@@ -243,7 +243,7 @@ Here are the steps of the release once the release is approved:
 
 4.  Merge the release branch into master
 
-5.  Update the NiFi website to point to the new download(s)
+5.  Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave the current release and the previous one).  For the release just previous to this new one change the links to point to the archive location.  See current page as an example of the needed URL changes.  In addition to updating the download page as described delete artifacts other than the current/new release from the dist/nifi SVN storage.  They are already in the archive location so no need to do anything else.
 
 6.  Update the [Migration Guide][migration-guide] on the Wiki.
 
