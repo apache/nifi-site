@@ -261,7 +261,9 @@ Here are the steps of the release once the release is approved:
 
 13.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
 
-14.  Wait 24 hours then send release announcement.
+14.  Create a proper signed tag of the released codebase.  If the approved RC tag was 'nifi-0.0.1-RC1' then create a signed release tag of 'nifi-0.0.1'.  For instructions on setting up to sign your tag see [here][sign-tag-instructs].  To create a signed release tag enter `git tag -s nifi-0.0.1 -m "Signed release tag for approved release of nifi 0.0.1"`
+
+15.  Wait 24 hours then send release announcement.
     - See [here][release-announce] for an understanding of why you need to wait 24 hours
     - Then create an announcement like the one shown below addressed to 'announce@apache.org, dev@nifi..apache.org' with a reply-to of 'dev@nifi.apache.org'.  
     - The email has to be sent from an apache.org email address and should be by the release manager of the build.
@@ -309,3 +311,4 @@ The Apache NiFi team
 [apache-guide-publish-maven]: http://www.apache.org/dev/publishing-maven-artifacts.html
 [release-notes]: https://cwiki.apache.org/confluence/display/NIFI/Release+Notes
 [migration-guide]: https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance
+[sign-tag-instructs]: http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html
