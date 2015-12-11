@@ -157,9 +157,8 @@ Validate that all the various aspects of the staged artifacts appear correct
   
 If all looks good then push the branch to origin `git push origin NIFI-270`
 
-If it is intended that convenience binaries will be provided for this release then the community has requested that
-a copy it be made available for reviewing of the release candidate.  The convenience binary, its hashes, and signature should be placed here:
-    - https://dist.apache.org/repos/dist/dev/nifi
+For reviewing of the release candidate -  The sources, hashses, signature, and the convenience binary, its hashes, and signature should be placed here:
+    - https://dist.apache.org/repos/dist/dev/nifi-0.0.1/
 <br/>
 For each convenience binary
     - Generate ascii armored detached signature by running `gpg -a -b nifi-0.0.1-bin.tar.gz`
@@ -233,37 +232,34 @@ Now all the voting is done and the release is good to go.
 
 Here are the steps of the release once the release is approved:
 
-1. Upload source-release artifacts to dist.  If the release version is 0.0.1 then upload them (zip, asc, md5, sha1) to
-`https://dist.apache.org/repos/dist/release/nifi/0.0.1`
-
-2. Move convenience binaries and related artifacts from dist/dev to dist/release:  
-`svn mv https://dist.apache.org/repos/dist/dev/nifi/nifi-0.0.1/$artifact https://dist.apache.org/repos/dist/release/nifi/0.0.1/`
+1. Move convenience binaries and related artifacts from dist/dev to dist/release:  
+`svn move -m "NIFI-1122" https://dist.apache.org/repos/dist/dev/nifi/nifi-0.0.1 https://dist.apache.org/repos/dist/release/nifi/0.0.1`
 <br/>
-3.  In repository.apache.org go to the staging repository and select `release` and follow instructions on the site.
+2.  In repository.apache.org go to the staging repository and select `release` and follow instructions on the site.
 
-4.  Merge the release branch into master
+3.  Merge the release branch into master
 
-5.  Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave the current release and the previous one).  For the release just previous to this new one change the links to point to the archive location.  See current page as an example of the needed URL changes.  In addition to updating the download page as described delete artifacts other than the current/new release from the dist/nifi SVN storage.  They are already in the archive location so no need to do anything else.
+4.  Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave the current release and the previous one).  For the release just previous to this new one change the links to point to the archive location.  See current page as an example of the needed URL changes.  In addition to updating the download page as described delete artifacts other than the current/new release from the dist/nifi SVN storage.  They are already in the archive location so no need to do anything else.
 
-6.  Update the [Migration Guide][migration-guide] on the Wiki.
+5.  Update the [Migration Guide][migration-guide] on the Wiki.
 
-7.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
+6.  Update the NiFi Web Page to indicate NEWS of the release as appropriate
 
-8.  From a nifi.tar.gz collect the docs/html/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/html/
+7.  From a nifi.tar.gz collect the docs/html/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/html/
 
-9.  From a nifi.tar.gz collect the nifi-framework-nar.nar/META-INF/bundled-dependencies/nifi-web-api.war/docs/rest-api/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/rest-api/
+8.  From a nifi.tar.gz collect the nifi-framework-nar.nar/META-INF/bundled-dependencies/nifi-web-api.war/docs/rest-api/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/rest-api/
 
-10.  Run an instance of nifi
+9.  Run an instance of nifi
 
-11. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
+10. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
 
-12. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
+11. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
 
-13.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+12.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
 
-14.  Create a proper signed tag of the released codebase.  If the approved RC tag was 'nifi-0.0.1-RC1' then create a signed release tag of 'nifi-0.0.1'.  For instructions on setting up to sign your tag see [here][sign-tag-instructs].  To create a signed release tag enter `git tag -s nifi-0.0.1 -m "Signed release tag for approved release of nifi 0.0.1"`
+13.  Create a proper signed tag of the released codebase.  If the approved RC tag was 'nifi-0.0.1-RC1' then create a signed release tag of 'nifi-0.0.1'.  For instructions on setting up to sign your tag see [here][sign-tag-instructs].  To create a signed release tag enter `git tag -s nifi-0.0.1 -m "Signed release tag for approved release of nifi 0.0.1"`
 
-15.  Wait 24 hours then send release announcement.
+14.  Wait 24 hours then send release announcement.
     - See [here][release-announce] for an understanding of why you need to wait 24 hours
     - Then create an announcement like the one shown below addressed to 'announce@apache.org, dev@nifi..apache.org' with a reply-to of 'dev@nifi.apache.org'.  
     - The email has to be sent from an apache.org email address and should be by the release manager of the build.
