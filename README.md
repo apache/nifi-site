@@ -13,26 +13,19 @@
   limitations under the License.
 -->
 # About
-[Apache NiFi project] (http://nifi.apache.org).
+[Apache NiFi project] (http://nifi.incubator.apache.org).
 
-## Getting Started
+## Setting up Build Environment
 
-The site is built using grunt task runner, bower package manager for
-the web, and npm package manager for node. npm is used to manage the
-node modules required for building this site. bower is used to manage the 
+The site is built using [grunt][] task runner, [bower][] package manager for
+the web, and [npm][] package manager for node. npm is used to manage the
+node modules required for building this site. bower is used to manage the
 front end packages that the site will depend on.
 
-Before installing bower and grunt, the NodeJS Package Manager (npm) must
-be installed. For instructions on installing npm, see npm-install
+Both grunt and bower can be installed via npm once it is installed.
 
-Both grunt and bower can be installed via npm once, it is installed. 
-
-
-```
+```bash
 sudo npm install -g grunt-cli
-```
-
-```
 sudo npm install -g bower
 ```
 
@@ -50,66 +43,19 @@ command from the nifi-site directory.
 npm install
 ```
 
-The site is built using [foundation][], a responsive front end framework. 
+The site is built using [foundation][] a responsive front end framework.
 Consequently, the site is using [sass][] and [compass][] for CSS pre-processing.
-This will also require ruby to be installed, as it is a a pre-requisite for sass and compass.
+This will also require ruby to be installed along with sass and compass. Please
+follow the appropriate steps for installing Ruby in your environment.
 
-After installing Ruby, sass can be installed via:
-```
-gem install sass
-```
+Only Ruby is installed, both sass and compass can be installed via ruby gem with
+the following command.
 
-Compass will require that the `ruby-devel` package also be installed. This is typically
-accomplished by running
-
-```
-sudo yum install ruby-devel
-```
-
-for Fedora users or
-
-```
-sudo apt-get install ruby-dev
-```
-
-for Ubuntu users.
-
-The compass gem can then be installed:
-
-```
+```bash
 gem install compass
 ```
 
-For Ubuntu users, it may also be necessary to install the `nodejs-legacy` package in order for
-grunt to run properly:
-
-```
-sudo apt-get install nodejs-legacy
-```
-
-
-Now that the necessary gems are installed, it is important that the gems' executable directory is
-in the user's PATH. For example:
-
-```
-export PATH=$PATH:/home/username/bin
-```
-
-**NOTE:** it is important that the fully qualified directory name be used. Simply using `~/bin` will
-result in errors when running Grunt, such as:
-
-```Running "compass:dist" (compass) task```
-
-```Warning: You need to have Ruby and Compass installed and in your system PATH for this task to work.
-	More info: https://github.com/gruntjs/grunt-contrib-compass Use --force to continue.
-```
-
-```
-	Aborted due to warnings.
-```
-
-It is recommended that you update your environment's configuration so that this is always in your PATH,
-as this will be required every time that grunt is run.
+Additionally, deploying the site will require SVN 1.6+.
 
 [grunt]: http://gruntjs.com/
 [bower]: http://bower.io/
@@ -117,18 +63,62 @@ as this will be required every time that grunt is run.
 [foundation]: http://foundation.zurb.com/
 [sass]: http://sass-lang.com/
 [compass]: http://compass-style.org/
-[npm-install]: https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
+
+### Linux Environments
+
+Users running on Linux may need to install the ruby development package using
+one of the following commands.
+
+```bash
+sudo yum install ruby-devel
+```
+```bash
+sudo apt-get install ruby-dev
+```
+
+Additionally, it may also be necessary to install the `nodejs-legacy` package in order for
+grunt to run properly:
+
+```bash
+sudo apt-get install nodejs-legacy
+```
+
+Once the necessary gems are installed, it is important that the gems' executable directory is
+in the user's PATH. For example:
+
+```bash
+export PATH=$PATH:/home/username/bin
+```
+
+**NOTE:** it is important that the fully qualified directory name be used. Simply using `~/bin` will
+result in errors when running Grunt, such as:
+
+```
+Running "compass:dist" (compass) task
+```
+
+```
+Warning: You need to have Ruby and Compass installed and in your system PATH for this task to work.
+More info: https://github.com/gruntjs/grunt-contrib-compass Use --force to continue.
+```
+
+```
+Aborted due to warnings.
+```
+
+It is recommended that you update your environment's configuration so that this is always in your PATH,
+as this will be required every time that grunt is run.
 
 ## Grunt Tasks
 
-To build the site run the default grunt task. This will assemble the site and 
+To build the site run the default grunt task. This will assemble the site and
 place the resulting site in the dist folder. Part of this assembly is actually
-building the various guides and Rest Api documentation bundled in the application. 
-Because of this, Maven must be installed and available on the PATH. Additionally Java 
-must be installed in order for the Maven build to succeed. Refer to the [NiFi][] 
-documentation for minimum requirements for Maven and Java. 
+building the various guides and Rest Api documentation bundled in the application.
+Because of this, Maven must be installed and available on the PATH. Additionally Java
+must be installed in order for the Maven build to succeed. Refer to the [NiFi][]
+documentation for minimum requirements for Maven and Java.
 
-[NiFi]: https://nifi.apache.org/quickstart.html
+[NiFi]: https://nifi.incubator.apache.org/quickstart.html
 
 ```bash
 grunt
@@ -158,8 +148,8 @@ proceed with the commit, or abort.
 
 ### src/includes
 
-Contains fragments that will be included on all pages of the site. Most notably 
-here is the topbar.hbs that defines the Menus on the top of the site. If a new 
+Contains fragments that will be included on all pages of the site. Most notably
+here is the topbar.hbs that defines the Menus on the top of the site. If a new
 page is being added or removed it is done here.
 
 ### src/pages/html
@@ -210,4 +200,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
