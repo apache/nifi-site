@@ -257,7 +257,7 @@ Here are the steps of the release once the release is approved:
 
 12.  In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
 
-13.  Create a proper signed tag of the released codebase.  If the approved RC tag was 'nifi-0.0.1-RC1' then create a signed release tag of 'nifi-0.0.1'.  For instructions on setting up to sign your tag see [here][sign-tag-instructs].  To create a signed release tag enter `git tag -s nifi-0.0.1 -m "NIFI-XYZ Signed release tag for approved release of nifi 0.0.1" COMMIT-ID-OF-RC-TAG`
+13.  Create a proper signed tag of the released codebase.  If the approved RC tag was 'nifi-0.0.1-RC1' then create a signed release tag of 'rel/nifi-0.0.1'.  For instructions on setting up to sign your tag see [here][sign-tag-instructs].  To create a signed release tag enter `git tag -s rel/nifi-0.0.1 -m "NIFI-XYZ Signed release tag for approved release of nifi 0.0.1" COMMIT-ID-OF-RC-TAG`
 
 14.  Wait 24 hours then send release announcement.
     - See [here][release-announce] for an understanding of why you need to wait 24 hours
