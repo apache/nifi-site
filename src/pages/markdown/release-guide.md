@@ -157,7 +157,7 @@ Validate that all the various aspects of the staged artifacts appear correct
   
 If all looks good then push the branch to origin `git push origin NIFI-270`
 
-For reviewing of the release candidate -  The sources, hashses, signature, and the convenience binary, its hashes, and signature should be placed here:
+For reviewing of the release candidate -  The sources, hashes, signature, and the convenience binary, its hashes, and signature should be placed here:
     - https://dist.apache.org/repos/dist/dev/nifi-0.0.1/
 <br/>
 For each convenience binary
