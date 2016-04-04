@@ -42,13 +42,24 @@ git clone http://git-wip-us.apache.org/repos/asf/nifi.git
 Then checkout the 'master' branch (which should be the default)
 
 ```
-git checkout master 
+git checkout master
 ```
+
+<br/>
+The master branch currently represents the next major release line (1.x). Substantial work here is underway to improve the NiFi's core framework and UI. If your interested in building the 0.x baseline which is still actively released to include new components and bug fixes please checkout the 0.x branch.
+<br/>
+
+```
+git checkout -b 0.x origin/0.x
+```
+
+<br/>
+This will checkout the 0.x branch locally and set it to track the 0.x branch in the remote named origin (the default name).
 <br/>
 
 ### Linux Operating System Configuration
 
-_NOTE_: If you are building on Linux, consider these best practices. Typical Linux defaults are not necessarily well tuned for the needs of an IO intensive application like NiFi. 
+_NOTE_: If you are building on Linux, consider these best practices. Typical Linux defaults are not necessarily well tuned for the needs of an IO intensive application like NiFi.
 For all of these areas, your distribution's requirements may vary.  Use these sections as advice, but consult your distribution-specific documentation for how best to achieve these recommendations.
 
 
@@ -160,4 +171,3 @@ is ready for use:
 [gitreponifisite]: http://git-wip-us.apache.org/repos/asf/nifi-site.git
 [gitreponifimaven]: http://git-wip-us.apache.org/repos/asf/nifi-maven.git
 [githubrepo]: https://github.com/apache/nifi
-
