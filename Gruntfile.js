@@ -21,6 +21,7 @@ module.exports = function (grunt) {
         },
         assemble: {
             options: {
+                assets: 'dist/assets',
                 partials: 'src/includes/*.hbs',
                 layout: 'src/layouts/html.hbs',
                 flatten: true
@@ -37,6 +38,19 @@ module.exports = function (grunt) {
                 files: {
                     'dist/': ['src/pages/markdown/*.md']
                 }
+            },
+            minifi: {
+              options: {
+                  partials: 'src/includes/minifi/*.hbs',
+                  layout: 'src/layouts/minifi/minifi-html.hbs'
+
+              },
+              files: {
+                  'dist/minifi/': [
+                    'src/pages/markdown/minifi/*.md',
+                    'src/pages/html/minifi/*.hbs'
+                  ]
+              }
             }
         },
         compass: {
@@ -68,7 +82,7 @@ module.exports = function (grunt) {
                 src: [
                     'src/js/app.js'
                 ],
-                dest: 'dist/js/app.js'
+                dest: 'dist/assets/js/app.js'
             }
         },
         copy: {
@@ -99,7 +113,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: 'src/images/',
                         src: ['**/*.{png,jpg,gif,svg,ico}'],
-                        dest: 'dist/images/'
+                        dest: 'dist/assets/images/'
                     }, {
                         expand: true,
                         cwd: 'bower_components/jquery/dist',
@@ -285,7 +299,7 @@ module.exports = function (grunt) {
                 tasks: ['img']
             },
             assemble: {
-                files: ['src/{includes,layouts}/*.hbs', 'src/pages/{html,markdown}/*.{hbs,md}'],
+                files: ['src/{includes,layouts}/*.hbs', 'src/pages/{html,markdown}/*.{hbs,md}', 'src/{pages,includes,layouts}/**/minifi/*.hbs'],
                 tasks: ['assemble']
             }
         }
@@ -311,6 +325,6 @@ module.exports = function (grunt) {
 //    grunt.registerTask('build', ['assemble', 'css', 'js', 'img', 'generate-docs', 'copy:dist']);
     grunt.registerTask('deploy', ['clean:all', 'prompt:username', 'exec:checkout', 'build', 'exec:status', 'prompt:commit']);
     grunt.registerTask('dev', ['default', 'watch']);
-    
+
     grunt.registerTask('default', ['clean:all', 'build']);
 };
