@@ -22,13 +22,17 @@ module.exports = function (grunt) {
         assemble: {
             options: {
                 assets: 'dist/assets',
-                partials: 'src/includes/*.hbs',
-                layout: 'src/layouts/html.hbs',
+                partials: [
+                  'src/includes/*.hbs',
+                  'src/includes/minifi/*.hbs'
+                ],
+                layout: ['src/layouts/html.hbs'],
                 flatten: true
             },
             html: {
                 files: {
-                    'dist/': ['src/pages/html/*.hbs']
+                    'dist/': ['src/pages/html/*.hbs'],
+                    'dist/minifi': ['src/pages/html/minifi/*.hbs']
                 }
             },
             markdown: {
@@ -36,18 +40,26 @@ module.exports = function (grunt) {
                     layout: 'src/layouts/markdown.hbs'
                 },
                 files: {
-                    'dist/': ['src/pages/markdown/*.md']
+                    'dist/': ['src/pages/markdown/*.md'],
+                    'dist/minifi/': ['src/pages/markdown/minifi/*.md']
+                }
+            },
+            minifimarkdown: {
+                options: {
+                    layout: 'src/layouts/minifi/markdown.hbs'
+                },
+                files: {
+                    'dist/': ['src/pages/markdown/*.md'],
+                    'dist/minifi/': ['src/pages/markdown/minifi/*.md']
                 }
             },
             minifi: {
               options: {
                   partials: 'src/includes/minifi/*.hbs',
                   layout: 'src/layouts/minifi/minifi-html.hbs'
-
               },
               files: {
                   'dist/minifi/': [
-                    'src/pages/markdown/minifi/*.md',
                     'src/pages/html/minifi/*.hbs'
                   ]
               }
@@ -299,7 +311,7 @@ module.exports = function (grunt) {
                 tasks: ['img']
             },
             assemble: {
-                files: ['src/{includes,layouts}/*.hbs', 'src/pages/{html,markdown}/*.{hbs,md}', 'src/{pages,includes,layouts}/**/minifi/*.hbs'],
+                files: ['src/{includes,layouts}/*.hbs', 'src/pages/{html,markdown}/*.{hbs,md}', 'src/{pages,includes,layouts}/**/minifi/*.{hbs,md}'],
                 tasks: ['assemble']
             }
         }
