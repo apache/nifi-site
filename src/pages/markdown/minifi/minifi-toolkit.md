@@ -42,7 +42,7 @@ After downloading the binary and extracting it, to run the MiNiFi Toolkit Conver
         $ ./config.sh
 
   - Windows
-      execute bin/config.bat
+        execute bin/config.bat
 
 - Usage Information
 
