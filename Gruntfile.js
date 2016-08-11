@@ -40,8 +40,7 @@ module.exports = function (grunt) {
                     layout: 'src/layouts/markdown.hbs'
                 },
                 files: {
-                    'dist/': ['src/pages/markdown/*.md'],
-                    'dist/minifi/': ['src/pages/markdown/minifi/*.md']
+                    'dist/': ['src/pages/markdown/*.md']
                 }
             },
             minifimarkdown: {
@@ -49,7 +48,6 @@ module.exports = function (grunt) {
                     layout: 'src/layouts/minifi/markdown.hbs'
                 },
                 files: {
-                    'dist/': ['src/pages/markdown/*.md'],
                     'dist/minifi/': ['src/pages/markdown/minifi/*.md']
                 }
             },
