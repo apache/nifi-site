@@ -109,11 +109,12 @@ Additional information on system administration and settings can be located in o
 
 ### Build steps
 
-1. You need a recent Java 7 (or newer) JDK.
+1. You need a recent Java 8 (or newer) JDK for the 1.x NiFi line.  The 0.x line works on Java 7 or newer.
 2. You need Apache [Maven 3.1.0][maven] or newer.
-3. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
+3. You need a recent git client for the 1.x NiFi line.
+4. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
     - These settings have worked well `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`
-4. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install`
+5. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install`
    You can tweak the maven build settings as you like but the previous command will execute with 2 threads per core.
 
 Now you should have a fully functioning build off the latest codebase.
