@@ -37,16 +37,16 @@ when evaluating a release for a vote.
     - Specifically look in the *-sources.zip artifact and ensure these items are present at the root of the archive.
   - Evaluate the sources and dependencies.  Does the overall LICENSE and NOTICE appear correct?  Do all licenses fit within the ASF approved licenses?
     - Here is an example path to a sources artifact:  
-      - `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip`
+      `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip`
   - Is there a README available that explains how to build the application and to execute it?
     - Look in the *-sources.zip artifact root for the readme.
   - Are the signatures and hashes correct for the source release?
     - Validate the hashes of the sources artifact do in fact match:
-      - `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.md5`
-      - `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.sha1`
+      `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.md5`
+      `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.sha1`
     - Validate the signature of the source artifact.  Here is an example path:
-      - `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.asc`
-      - Need a quick reminder on how to [verify a signature](http://www.apache.org/dev/release-signing.html#verifying-signature)?
+      `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.asc`
+    - Need a quick reminder on how to [verify a signature](http://www.apache.org/dev/release-signing.html#verifying-signature)?
   - Do all sources have necessary headers?
     - Unzip the sources file into a directory and execute `mvn install -Pcontrib-check`
   - Are there no unexpected binary files in the release?
@@ -60,83 +60,101 @@ when evaluating a release for a vote.
   - Someone volunteers to be an RM for the release (can be a committer but apache guides indicate preference is a PMC member)
   - A release candidate is put together and a vote sent to the team.
   - If the NiFi community rejects the vote the issues noted are resolved and another RC is generated
-  - If the NiFi community accepts the vote then the release is 'releasable' and can be placed into the appropriate 'dist' location, maven artifacts released from staging.
+  - If the NiFi community accepts the vote then the release is 'releasable' and can be placed into the appropriate 
+    'dist' location, maven artifacts released from staging.
   
 ## The mechanics of the release
 
-### Prepare your environment
+### Configure your environment
   
-Follow the steps outlined in the [Quickstart Guide][quickstart-guide]
+1. Follow the steps outlined in the [Quickstart Guide][quickstart-guide].
+1. *Confirm that you can*
+    1. *checkout the branch that is being released, and*
+    1. *build the entire application.*
+    
+### A. Preparation to release
 
-```        
-At this point you're on the latest 'master' branch and are able to build the entire application
-```
-<br/>
-Create a JIRA ticket for the release tasks and use that ticket number for the commit messages.  For example we'll consider NIFI-270 as our ticket.  Also
-have in mind the release version you are planning for.  For example we'll consider '0.0.1'.
-
-Create the next version in JIRA if necessary so work can continue towards that release.
-
-Create meaningful release notes for this version if not already created.  [Enter them here][release-notes]
-
-Create new branch off 'master' named after the JIRA ticket.  Here we'll use a branch off of 'master' with
-`git checkout -b NIFI-270-RC1`
-
-Verify that Maven has sufficient heap space to perform the build tasks.  Some plugins and parts of the build 
-consumes a surprisingly large amount of space.  These settings have been shown to 
-work `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`
-
-Ensure your settings.xml has been updated as shown below.  There are other ways to ensure your PGP key is available for signing as well
-  
-```
-        ...
+1. Create a JIRA ticket for the release tasks and use that ticket number for the commit messages.  For example we'll 
+    consider NIFI-270 as our ticket.  Also have in mind the release version you are planning for.  For example we'll consider '0.0.1'.
+1. Create the next version in JIRA if necessary so work can continue towards that release.
+1. Create meaningful release notes for this version if not already created.  [Enter them here][release-notes]
+1. Create new branch off 'master' named after the JIRA ticket.  Here we'll use a branch off of 'master' with
+    ```bash
+    $ git checkout -b NIFI-${RELEASE_TICKET}-RC${RC}
+    ```
+1. Verify that Maven has sufficient heap space to perform the build tasks.  Some plugins and parts of the build 
+consumes a surprisingly large amount of space.  These settings have been shown to work.
+    ```
+    $ export MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"
+    ```
+1. Ensure your settings.xml has been updated to include a `signed_release` profile and a `<server>` entry for 
+    "repository.apache.org" as shown below.  There are other ways to ensure your PGP key is available for signing as well.  
+    ```
+    ...
         <profile>
-           <id>signed_release</id>
-           <properties>
-               <mavenExecutorId>forked-path</mavenExecutorId>
-               <gpg.keyname>YOUR GPG KEY ID HERE</gpg.keyname>
-               <gpg.passphrase>YOUR GPG PASSPHRASE HERE</gpg.passphrase>
-           </properties>
-       </profile>
-       ...
-       <servers>
-          <server>
-              <id>repository.apache.org</id>
-              <username>YOUR USER NAME HERE</username>
-              <password>YOUR MAVEN ENCRYPTED PASSWORD HERE</password>
-          </server>
-       </servers>
-       ...
-```
+            <id>signed_release</id>
+            <properties>
+                <mavenExecutorId>forked-path</mavenExecutorId>
+                <gpg.keyname>username@apache.org</gpg.keyname>
+                <gpg.passphrase>your GPG passphrase</gpg.passphrase>
+            </properties>
+        </profile>
+    ...
+        <servers>
+            <server>
+                <id>repository.apache.org</id>
+                <username>YOUR USER NAME HERE</username>
+                <password>YOUR MAVEN ENCRYPTED PASSWORD HERE</password>
+            </server>
+        </servers>
+    ...
+    ```
+1. Ensure the the full application builds and all tests work by executing
+    ```
+    $ mvn -T 2.5C clean install
+    ```
+    for a parallel build.  Once that completes you can startup and test the application with
+    ```
+    $ cd nifi-assembly/target/nifi-x.y.z
+    $ bin/nifi.sh start
+    ```
+   from the root source folder.  After a few seconds, NiFi should be up and running at `http://localhost:8080/nifi`.
+1. Evaluate and ensure the appropriate license headers are present on all source files.
+1. Ensure LICENSE and NOTICE files are complete and accurate. (Developers should always be keeping these up to date as 
+    they go along adding source and modifying dependencies to keep this burden manageable.)
+1. Run 
+   ```
+   $ mvn install -Pcontrib-check
+   ```
+   validate contribution expectations and any problems found must be addressed before proceeding.
 
-Ensure the the full application build and tests all work by executing
-`mvn -T 2.5C clean install` for a parallel build.  Once that completes you can
-startup and test the application by `cd nifi-assembly/target` then run `bin/nifi.sh start` in the nifi build.
-The application should be up and running in a few seconds at `http://localhost:8080/nifi`
+## Perform the release
 
-Evaluate and ensure the appropriate license headers are present on all source files.  Ensure LICENSE and NOTICE files are complete and accurate.  
-Developers should always be keeping these up to date as they go along adding source and modifying dependencies to keep this burden manageable.  
-This command `mvn install -Pcontrib-check` should be run as well to help validate.  If that doesn't complete cleanly it must be addressed.
+1. Now its time to have maven prepare the release with this command.
+    ```
+    $ mvn --batch-mode release:prepare \
+        -Psigned_release \
+        -DscmCommentPrefix="NIFI-${RELEASE_TICKET}-RC${RC}" \
+        -Dtag="nifi-${NIFI_VERSION}-RC${RC}" \
+        -DreleaseVersion="${NIFI_VERSION}" \
+        -DdevelopmentVersion="${NEXT_VERSION}" \
+        -Darguments="-DskipTests"
+    ```
+1. Review the release preparation results.
+    1. if problems are found `mvn release:rollback` to reset the changes or it may be necessary to run 
+        `mvn release:clean` to get the project to a state where it can be rebuilt.
 
-Now its time to have maven prepare the release so execute `mvn release:prepare -Psigned_release -DscmCommentPrefix="NIFI-270-RC1 " -Darguments="-DskipTests"`.
-Maven will ask:
+@TODO from here!
 
-`What is the release version for "Apache NiFi"? (org.apache.nifi:nifi) 0.0.1: :`
+@TODO hash files
 
-Just hit enter to accept the default.
+@TODO signature hash algorithm
 
-Maven will then ask:
+@TODO helper email
 
-`What is SCM release tag or label for "Apache NiFi"? (org.apache.nifi:nifi) nifi-0.0.1: : `
-
-Enter `nifi-0.0.1-RC1` or whatever the appropriate release candidate (RC) number is.
-Maven will then ask:
-
-`What is the new development version for "Apache NiFi"? (org.apache.nifi:nifi) 0.0.2-SNAPSHOT: :`
-
-Just hit enter to accept the default.
-
-Now that preparation went perfectly it is time to perform the release and deploy artifacts to staging.  To do that execute
+@TODO push tag 
+        
+1. Now that preparation went perfectly it is time to perform the release and deploy artifacts to staging.  To do that execute
 
 `mvn release:perform -Psigned_release -DscmCommentPrefix="NIFI-270-RC1 " -Darguments="-DskipTests"`
 
