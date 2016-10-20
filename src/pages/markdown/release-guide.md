@@ -153,6 +153,10 @@ consumes a surprisingly large amount of space.  These settings have been shown t
 @TODO helper email
 
 @TODO push tag 
+
+@TODO only update documentation on website for releases on the latest line
+
+@TODO add final release date to the release notes entry
         
 1. Now that preparation went perfectly it is time to perform the release and deploy artifacts to staging.  To do that execute
 
