@@ -90,7 +90,7 @@ consumes a surprisingly large amount of space.  These settings have been shown t
     $ export MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"
     ```
 1. Ensure your settings.xml has been updated to include a `signed_release` profile and a `<server>` entry for 
-"repository.apache.org" as shown below.  There are other ways to ensure your PGP key is available for signing as well.  
+"repository.apache.org" as shown below. [Steps to configure and encrypt Maven passwords](http://blog.sonatype.com/2009/10/maven-tips-and-tricks-encrypting-passwords/). There are other ways to ensure your PGP key is available for signing as well.  
     ```XML
         <profile>
             <id>signed_release</id>
@@ -122,7 +122,7 @@ running at [http://localhost:8080/nifi](http://localhost:8080/nifi).
 1. Evaluate and ensure the appropriate license headers are present on all source files.
 1. Ensure LICENSE and NOTICE files are complete and accurate. (Developers should always be keeping these up to date as 
     they go along adding source and modifying dependencies to keep this burden manageable.)
-1. Build the project with the ```contrib-check``` profile enabled to validate contribution expectations and find any 
+1. Build the project with the `contrib-check` profile enabled to validate contribution expectations and find any 
 problems that must be addressed before proceeding.  
     ```
     $ mvn install -Pcontrib-check
@@ -170,7 +170,7 @@ inspect the various staged artifacts.
 1. The validated artifacts all look good then push the branch to origin `git push origin NIFI-270`.
 
 1. Create the signature and hashes for the source release and convenience binary files.
-    1. ASCII armored GPG signatures (`--digest-algo=SHA512` select the SHA512 hash algorithm).
+    1. ASCII armored GPG signatures (`--digest-algo=SHA512` select the SHA512 hash algorithm). [Configure GPG to always prefer stronger hashes](https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1). 
         ```
         $ gpg -a -b --digest-algo=SHA512 nifi-x.y.z-source-release.zip  # produces nifi-x.y.z-source-release.zip.asc 
         $ gpg -a -b --digest-algo=SHA512 nifi-x.y.z-bin.tar.gz          # produces nifi-x.y.z-bin.tar.gz.asc
@@ -188,6 +188,12 @@ inspect the various staged artifacts.
         $ sha1sum nifi-x.y.z-bin.tar.gz | cut -d" " -f1 >  nifi-x.y.z-bin.tar.gz.sha1
         $ sha1sum nifi-x.y.z-bin.zip | cut -d" " -f1 >  nifi-x.y.z-bin.zip.sha1
         ```
+    1. Generate SHA256 hash summaries.
+        ```
+        $ shasum -a 256 nifi-x.y.z-source-release.zip | cut -d" " -f1 >  nifi-x.y.z-source-release.zip.sha256
+        $ shasum -a 256 nifi-x.y.z-bin.tar.gz | cut -d" " -f1 >  nifi-x.y.z-bin.tar.gz.sha256
+        $ shasum -a 256 nifi-x.y.z-bin.zip | cut -d" " -f1 >  nifi-x.y.z-bin.zip.sha256
+        ```
 
 1. For reviewing of the release candidate, commit the source release and convenience binaries files along with their hashes and signatures to 
 [https://dist.apache.org/repos/dist/dev/nifi-x.y.z](https://dist.apache.org/repos/dist/dev/nifi-x.y.z).
@@ -199,8 +205,8 @@ local tag in git.  If you also delete the local branch and clear your local mave
 as if the release never happened.  Before doing that though try to figure out what went wrong so the Release Guide can be
 updated or corrected if necessary.
   
-So, as has been described here you can test the release process until you get it right.  The `mvn versions:set ` and 
-`mvn versions:commit ` commands can come in handy to help do this so you can set versions to something clearly release test related.
+So, as has been described here you can test the release process until you get it right.  The `mvn versions:set` and 
+`mvn versions:commit` commands can come in handy to help do this so you can set versions to something clearly release test related.
 
 ## Apache NiFi Community Release Vote
 After the release is staged it's time to initiate a release vote within the NiFi community.  
