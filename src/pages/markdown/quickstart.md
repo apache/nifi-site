@@ -144,8 +144,10 @@ for launching the application. On linux and OSX, NiFi can be run using `bin/nifi
 via `service nifi start`, `service nifi stop`, `service nifi status`.
 
 
-For Windows users, there exist several scripts in the `bin` directory that are analogous to those above:
-`start-nifi.bat`, `stop-nifi.bat`, `nifi-status.bat`, and `run-nifi.bat`.
+For Windows users, the following scripts exist in the `bin` directory:
+
++ `run-nifi.bat`: runs NiFi in the foreground and waits to receive a Ctrl-C, which then shuts down NiFi
++ `status-nifi.bat`: provides the current status of NiFi
 
 The configuration that is to be used when launching NiFi, such as Java heap size, the user
 to run as, which Java command to use, etc. are configurable via the `conf/bootstrap.conf` file.
