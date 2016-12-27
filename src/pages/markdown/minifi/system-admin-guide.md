@@ -6,7 +6,7 @@ title:     Apache NiFi MiNiFi System Administrator's Guide
 
 [Apache NiFi Team](dev@nifi.apache.org>)
 
-[NiFi Homepage](http://nifi.apache.org)
+[NiFi Homepage](https://nifi.apache.org)
 
 # FlowStatus Query Options
 
