@@ -46,7 +46,7 @@ when evaluating a release for a vote.
       - `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.sha1`
     - Validate the signature of the source artifact.  Here is an example path:
       - `https://repository.apache.org/service/local/repositories/orgapachenifi-1011/content/org/apache/nifi/nifi/0.0.1/nifi-0.0.1-source-release.zip.asc`
-      - Need a quick reminder on how to [verify a signature](http://www.apache.org/dev/release-signing.html#verifying-signature)?
+      - Need a quick reminder on how to [verify a signature](https://www.apache.org/dev/release-signing.html#verifying-signature)?
   - Do all sources have necessary headers?
     - Unzip the sources file into a directory and execute `mvn install -Pcontrib-check`
   - Are there no unexpected binary files in the release?
@@ -274,10 +274,10 @@ The Apache NiFi team would like to announce the release of Apache NiFi 0.0.1.
 Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data.  Apache NiFi was made for dataflow.  It supports highly configurable directed graphs of data routing, transformation, and system mediation logic.
 
 More details on Apache NiFi can be found here:
-http://nifi.apache.org/
+https://nifi.apache.org/
 
 The release artifacts can be downloaded from here:
-http://nifi.apache.org/download.html
+https://nifi.apache.org/download.html
     
 Maven artifacts have been made available here:
 https://repository.apache.org/content/repositories/releases/org/apache/nifi/
@@ -293,18 +293,18 @@ The Apache NiFi team
     
 ```
 
-[quickstart-guide]: http://nifi.apache.org/quickstart.html
-[release-manager]: http://www.apache.org/dev/release-publishing.html#release_manager
-[release-announce]: http://www.apache.org/dev/release.html#release-announcements
-[apache-license]: http://apache.org/licenses/LICENSE-2.0
-[apache-license-apply]: http://www.apache.org/dev/apply-license.html
-[apache-legal-resolve]: http://www.apache.org/legal/resolved.html
-[apache-encryption]: http://www.apache.org/licenses/exports/
-[apache-release-policy]: http://www.apache.org/dev/release.html
-[apache-release-guide]: http://www.apache.org/dev/release-publishing
-[apache-pgp]: http://www.apache.org/dev/openpgp.html
-[apache-release-signing]: http://www.apache.org/dev/release-signing.html
-[apache-guide-publish-maven]: http://www.apache.org/dev/publishing-maven-artifacts.html
+[quickstart-guide]: https://nifi.apache.org/quickstart.html
+[release-manager]: https://www.apache.org/dev/release-publishing.html#release_manager
+[release-announce]: https://www.apache.org/dev/release.html#release-announcements
+[apache-license]: https://www.apache.org/licenses/LICENSE-2.0
+[apache-license-apply]: https://www.apache.org/dev/apply-license.html
+[apache-legal-resolve]: https://www.apache.org/legal/resolved.html
+[apache-encryption]: https://www.apache.org/licenses/exports/
+[apache-release-policy]: https://www.apache.org/dev/release.html
+[apache-release-guide]: https://www.apache.org/dev/release-publishing
+[apache-pgp]: https://www.apache.org/dev/openpgp.html
+[apache-release-signing]: https://www.apache.org/dev/release-signing.html
+[apache-guide-publish-maven]: https://www.apache.org/dev/publishing-maven-artifacts.html
 [release-notes]: https://cwiki.apache.org/confluence/display/NIFI/Release+Notes
 [migration-guide]: https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance
 [sign-tag-instructs]: http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html
