@@ -36,7 +36,7 @@ git config --global core.autocrlf false
 To check out the code:
 
 ```
-git clone http://git-wip-us.apache.org/repos/asf/nifi.git
+git clone https://git-wip-us.apache.org/repos/asf/nifi.git
 ```
 <br/>
 Then checkout the 'master' branch (which should be the default)
@@ -164,13 +164,13 @@ is ready for use:
     2014-12-09 00:42:03,540 INFO [main] org.apache.nifi.web.server.JettyServer NiFi has started. The UI is available at the following URLs:
 
 [adminguide]: https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html
-[maven]: http://maven.apache.org/
+[maven]: https://maven.apache.org/
 [jira]: https://issues.apache.org/jira/browse/NIFI
-[git]: http://git-scm.com/
+[git]: https://git-scm.com/
 [gitbrowse]: https://git-wip-us.apache.org/repos/asf?p=nifi.git;a=summary
 [gitbrowsenifisite]: https://git-wip-us.apache.org/repos/asf?p=nifi-site.git;a=summary
 [gitbrowsenifimaven]: https://git-wip-us.apache.org/repos/asf?p=nifi-maven.git;a=summary
-[gitrepo]: http://git-wip-us.apache.org/repos/asf/nifi.git
-[gitreponifisite]: http://git-wip-us.apache.org/repos/asf/nifi-site.git
-[gitreponifimaven]: http://git-wip-us.apache.org/repos/asf/nifi-maven.git
-[githubrepo]: https://github.com/apache/nifi
+[gitrepo]: https://git-wip-us.apache.org/repos/asf/nifi.git
+[gitreponifisite]: https://git-wip-us.apache.org/repos/asf/nifi-site.git
+[gitreponifimaven]: https://git-wip-us.apache.org/repos/asf/nifi-maven.git
+[githubrepo]: https://github.com/apache/nifihttps://git-wip-us.apache.org/repos/asf/nifi-maven.git
