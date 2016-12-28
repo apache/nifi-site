@@ -42,7 +42,7 @@ After downloading the binary and extracting it, to run the MiNiFi Toolkit Conver
         $ ./config.sh
 
   - Windows
-        execute bin/config.bat
+      execute bin/config.bat
 
 - Usage Information
 
@@ -53,6 +53,8 @@ After downloading the binary and extracting it, to run the MiNiFi Toolkit Conver
       Valid commands include:
       transform: Transform template xml into MiNiFi config YAML
       validate: Validate config YAML
+
+Note: Currently MiNiFi does not support external Input Ports or Output Ports. Any templates that contain these will fail transformation.
 
 ## Getting Help
 If you have questions, you can reach out to our mailing list: dev@nifi.apache.org
