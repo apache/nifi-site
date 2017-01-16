@@ -1,0 +1,57 @@
+---
+title: Apache NiFi Security Reports
+---
+
+<div class="large-space"></div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Fixed in Apache NiFi 1.0.1 and 1.1.1</h2>
+    </div>
+</div>
+<div class="row">
+        <div class="large-12 columns">
+            <p><b>CVE-2106-8748</b>: Apache NiFi XSS vulnerability in connection details dialogue</p>
+            <p>Severity: <b>Moderate</b></p>
+            <p>Versions Affected:</p>
+		<ul>
+			<li>Apache NiFi 1.0.0</li>
+			<li>Apache NiFi 1.1.0</li>
+		</ul>
+	    </p>
+	    <p>Description: There is a cross-site scripting vulnerability in connection details dialog when accessed by an authorized user. The user supplied text was not being properly handled when added to the DOM.</p>
+	    <p>Mitigation: 1.0.0 users should upgrade to 1.0.1 or 1.1.1.  1.1.0 users should upgrade to 1.1.1. Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a></p>
+	    <p>Credit: This issue was discovered by Matt Gilman of the Apache NiFi PMC during a code review.</p>
+        </div>
+     </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Severity Levels</h2>
+    </div>
+</div>
+<div class="row">
+  <p class="description">The following lists the severity levels and criteria followed.  It closely aligns to and borrows from Apache HTTP Server Project <a href="https://httpd.apache.org/security/impact_levels.html">guidance.</a></p>
+  <div class="large-12 columns">
+	<table>
+    	 <tr>
+           <td>Critical</td>
+           <td>A vulnerability rated with a critical impact is one which could be potentially exploited by a remote attacker to get NiFi to execute arbitrary code either as the user the server is running as or root.  These are the sorts of vulnerabilities that could be exploited automatically by worms.</td>
+    	</tr>
+        <tr>
+           <td>Important</td>
+           <td>A vulnerability rated as Important impact is one which could result in the compromise of data or availability of the server.  For Apache NiFi this includes issues that allow an easy remote denial of service or access to files that should be otherwise prevented by limits or authentication.</td>
+        </tr>
+         <tr>
+           <td>Moderate</td>
+           <td>A vulnerability is likely to be rated as Moderate if there is significant mitigation to make the issue less of an impact.  This might be done because the flaw does not affect likely configurations, or it is a configuration that isn't widely used, or where a remote user must be authenticated in order to exploit the issue.</td>
+        </tr>
+         <tr>
+           <td>Low</td>
+           <td>All other security flaws are classed as a Low impact.  This rating is used for issues that are believed to be extremely hard to exploit, or where an exploit gives minimal consequences.</td>
+        </tr>
+        </table>
+    </div>
+</div>
