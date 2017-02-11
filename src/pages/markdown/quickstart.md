@@ -109,7 +109,7 @@ Additional information on system administration and settings can be located in o
 
 ### Build steps
 
-1. You need a recent Java 8 (or newer) JDK for the 1.x NiFi line.  The 0.x line works on Java 7 or newer.
+1. You need a recent Java 8 (or newer) JDK for the 1.x NiFi line. Older Java 8 (such as 1.8.0_31) is known to fail with some unit tests, ensure to use the most recent version.  The 0.x line works on Java 7 or newer.
 2. You need Apache [Maven 3.1.0][maven] or newer.
 3. You need a recent git client for the 1.x NiFi line.
 4. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
