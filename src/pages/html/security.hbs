@@ -7,6 +7,48 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
+        <h2>Fixed in Apache NiFi 0.7.2 and 1.1.2</h2>
+    </div>
+</div>
+<div class="row">
+        <div class="large-12 columns">
+            <p><b>CVE-2107-5635</b>: Apache NiFi Unauthorized Data Access In Cluster Environment</p>
+            <p>Severity: <b>Important</b></p>
+            <p>Versions Affected:</p>
+    <ul>
+      <li>Apache NiFi 0.7.0</li>
+      <li>Apache NiFi 0.7.1</li>
+      <li>Apache NiFi 1.1.0</li>
+      <li>Apache NiFi 1.1.1</li>
+    </ul>
+      </p>
+      <p>Description: In a cluster environment, if an anonymous user request is replicated to another node, the originating node identity is used rather than the “anonymous” user. </p>
+      <p>Mitigation: A fix has been provided (removing the negative check for anonymous user before building the proxy chain and throwing an exception, and evaluating each user in the proxy chain iteration and comparing against a static constant anonymous user).  This fix was applied in NIFI-3487 and released in Apache NiFi 0.7.2 and 1.1.2.  1.x users running a clustered environment should upgrade to 1.1.2.  0.x users running a clustered environment should upgrade to 0.7.2.  Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
+      <p>Credit: This issue was discovered by Leonardo Dias in conjunction with Matt Gilman.</p>
+        </div>
+     </div>
+</div>
+<div class="row">
+        <div class="large-12 columns">
+            <p><b>CVE-2107-5636</b>: Apache NiFi User Impersonation In Cluster Environment</p>
+            <p>Severity: <b>Moderate</b></p>
+            <p>Versions Affected:</p>
+    <ul>
+      <li>Apache NiFi 0.7.0</li>
+      <li>Apache NiFi 0.7.1</li>
+      <li>Apache NiFi 1.1.0</li>
+      <li>Apache NiFi 1.1.1</li>
+    </ul>
+      </p>
+      <p>Description: In a cluster environment, the proxy chain serialization/deserialization is vulnerable to an injection attack where a carefully crafted username could impersonate another user and gain their permissions on a replicated request to another node. </p>
+      <p>Mitigation: A fix has been provided (modification of the tokenization code and sanitization of user-provided input).  This fix was applied in NIFI-3487 and released in Apache NiFi 0.7.2 and 1.1.2.  1.x users running a clustered environment should upgrade to 1.1.2.  0.x users running a clustered environment should upgrade to 0.7.2.  Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
+      <p>Credit: This issue was discovered by Andy LoPresto.</p>
+        </div>
+     </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
         <h2>Fixed in Apache NiFi 1.0.1 and 1.1.1</h2>
     </div>
 </div>
@@ -21,7 +63,7 @@ title: Apache NiFi Security Reports
 		</ul>
 	    </p>
 	    <p>Description: There is a cross-site scripting vulnerability in connection details dialog when accessed by an authorized user. The user supplied text was not being properly handled when added to the DOM.</p>
-	    <p>Mitigation: 1.0.0 users should upgrade to 1.0.1 or 1.1.1.  1.1.0 users should upgrade to 1.1.1. Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a></p>
+	    <p>Mitigation: 1.0.0 users should upgrade to 1.0.1 or 1.1.1.  1.1.0 users should upgrade to 1.1.1. Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
 	    <p>Credit: This issue was discovered by Matt Gilman of the Apache NiFi PMC during a code review.</p>
         </div>
      </div>
