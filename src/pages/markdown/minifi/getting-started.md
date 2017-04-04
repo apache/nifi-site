@@ -82,7 +82,7 @@ Now create a template, download it as an XML file, and download the [Converter T
 
 From the toolkit directory:
 ```
-[root@host minifi-toolkit-0.0.1]# ./bin/config.sh transform /path/to/template.xml /output/path/config.yml
+[user@host minifi-toolkit-0.0.1]# ./bin/config.sh transform /path/to/template.xml /output/path/config.yml
 
 Java home: /usr/lib/jvm/jre-1.8.0-openjdk
 MiNiFi Toolkit home: /minifi-toolkit-0.0.1
@@ -112,9 +112,11 @@ Remote Processing Groups:
 
 Copy the generated config.yml file into $MINIFI/conf/config.yml, and start MiNiFi:
 ```
-[root@host nifi-minifi-cpp-0.1.0]# ./bin/minifi.sh start
+[user@host nifi-minifi-cpp-0.1.0]# ./bin/minifi.sh start
 Starting MiNiFi with PID 463 and pid file /nifi-minifi-cpp-0.1.0/bin/.minifi.pid
 ```
 
 After a few seconds, you should see NiFi receiving data on the input port:
 ![](../assets/images/minifi/nifi-received.png)
+
+If you do not see data in the queue, it may have already been consumed by the downstream processor (PutFile in this case). If no data is arriving on the input port at all, check the MiNiFi log files, and confirm that the file being tailed exists and is not empty.
