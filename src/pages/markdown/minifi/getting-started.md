@@ -1,5 +1,5 @@
 ---
-title:     Apache NiFi MiNiFi: Getting Started
+title:     Apache NiFi MiNiFi Getting Started
 ---
 
 # Getting started with MiNiFi
@@ -25,7 +25,7 @@ The C++ agent is a smaller binary (3.2MB), consumes low system memory (about 5MB
    ###### Debian/Ubuntu:
    - apt install -y libleveldb-dev
    - apt install -y libxml2
-2. Download the relevant compressed binary from the [Downloads](download.html) page 
+2. Download the relevant compressed binary from the [Downloads](download.html) page
 3. Copy and decompress the binary to your target deployment environment
 4. Set the MINIFI_HOME environment variable to your decompressed binary directory
 5. From $MINIFI_HOME, ./bin/minifi.sh {start|stop|run|restart|status|flowStatus|dump|install}
@@ -50,7 +50,7 @@ While it's possible to create and modify config.yml programmatically or by hand,
 
 What follows is an illustrated walkthrough of configuring MiNiFi and NiFi to generate and collect log data.
 
-If you're new to NiFi, watch the [NiFi introductory video series](http://nifi.apache.org/videos.html) before proceeding. If you don't already have NiFi, you can download it from [here](http://nifi.apache.org/download.html). 
+If you're new to NiFi, watch the [NiFi introductory video series](http://nifi.apache.org/videos.html) before proceeding. If you don't already have NiFi, you can download it from [here](http://nifi.apache.org/download.html).
 
 ## Configuring NiFi to Receive Data
 
