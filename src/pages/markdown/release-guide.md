@@ -139,8 +139,8 @@ NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
 
 ### Step 2. Prepare and stage the release (RM)
 
-1. Create a JIRA ticket for the release tasks for version ${NIFI_VERSION}.  
-    ___The resulting JIRA ticket number is referred to as__ ${JIRA_TICKET} __in this guide.___
+1. Create a JIRA ticket for the release tasks for version ${NIFI\_VERSION}.  
+    ___The resulting JIRA ticket number is referred to as ${JIRA\_TICKET} in this guide.___
 1. Create the next version in JIRA, if it doesn't already exist, so work can continue towards that release.
 1. Create meaningful release notes for this version if not already created.  [Enter them here][nifi-release-notes] on
 the NiFi wiki.
@@ -475,9 +475,7 @@ in the archive location so no need to do anything else.
     - REPLY-TO: `dev@nifi.apache.org`
     - FROM: ${RM_USERID}@apache.org
   + The subject should include `[ANNOUNCE] Apache NiFi x.y.z release`.
-  + The text should on the template included below.
-
-
+  + The text should be based on the template included below.
     ```
     Hello
 
