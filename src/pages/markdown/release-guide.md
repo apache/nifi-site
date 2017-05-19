@@ -71,7 +71,7 @@ those variable values have been written like Bash variable references.  When a t
     ${NEXT_VERSION}      0.7.1-SNAPSHOT      the future version for development on the release branch.
     ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
     ${RC}                2                   the Release Candidate index start at 1 for the first release candidate.
-    ${RC_TAG_COMMIT_ID}                      the commit ID of the RC tag created during the Maven release process.
+    ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the Maven release process.
     ${STAGING_REPO_ID}   orgapachenifi-1088  the temporate repository ID where staged artifacts have been placed.
     ${RM_USERID}         johndoe             the Apache account ID of Release Manager.
     ${RELEASE_TAG}       rel/nifi-0.7.0      the Git repository tag for the source code as released.
@@ -140,7 +140,7 @@ NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
 ### Step 2. Prepare and stage the release (RM)
 
 1. Create a JIRA ticket for the release tasks for version ${NIFI_VERSION}.  
-    ___The resulting JIRA ticket number is referred to as__ ${JIRA\_TICKET} __in this guide.___
+    ___The resulting JIRA ticket number is referred to as__ ${JIRA_TICKET} __in this guide.___
 1. Create the next version in JIRA, if it doesn't already exist, so work can continue towards that release.
 1. Create meaningful release notes for this version if not already created.  [Enter them here][nifi-release-notes] on
 the NiFi wiki.
@@ -244,6 +244,7 @@ click on that you can inspect the various staged artifacts.
     ```
     $ git push asf NIFI-${JIRA_TICKET}-RC${RC}
     ```
+    ___From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment NIFI-${JIRA_TICKET}-RC${RC} prepare release nifi-${NIFI_VERSION}-RC${RC}___
 
 1. Create the signature and hashes for the source release and convenience binary files.
     1. ASCII armored GPG signatures (`--digest-algo=SHA512` select the SHA512 hash algorithm). [Configure GPG to always prefer stronger hashes](https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1).
@@ -309,8 +310,8 @@ and more positive than negative binding votes._
     https://repository.apache.org/content/repositories/orgapachenifi-nnnn
 
     The Git tag is nifi-${NIFI_VERSION}-RC${RC}
-    The Git commit ID is <40-BYTE-COMMIT-HASH>
-    https://git-wip-us.apache.org/repos/asf?p=nifi.git;a=commit;h=<40-BYTE-COMMIT-HASH>
+    The Git commit ID is ${RC_TAG_COMMIT_ID}
+    https://git-wip-us.apache.org/repos/asf?p=nifi.git;a=commit;h=${RC_TAG_COMMIT_ID}
 
     Checksums of nifi-x.y.z-source-release.zip:
     MD5: <32-BYTE-MD5SUM-HASH>
@@ -454,7 +455,7 @@ in the archive location so no need to do anything else.
 
 1. In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
 
-1. Create a proper signed tag of the released codebase based on the RC Tag craeted during the Maven release process.
+1. Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.
    ```
    $ git tag -s rel/nifi-${NIFI_VERSION} -m "${JIRA_TICKET} signed release tag for approved release of NiFi ${NIFI_VERSION}" ${RC_TAG_COMMIT_ID}
    ```
@@ -475,7 +476,7 @@ in the archive location so no need to do anything else.
     - FROM: ${RM_USERID}@apache.org
   + The subject should include `[ANNOUNCE] Apache NiFi x.y.z release`.
   + The text should on the template included below.
-  +
+
 
     ```
     Hello
