@@ -436,6 +436,11 @@ After the vote is complete and the release is approved, these steps complete the
     ```
     $ git push asf NIFI-${JIRA_TICKET}
     ```
+
+1. Update Docker version information to point to the next release.  For instance, if the next version applied by Maven is 1.3.0-SNAPSHOT, these values should be updated to 1.3.0. This currently consists of two files:
+  * [nifi-docker/dockerhub/Dockerfile, Line 24][dockerhub-version], and
+  * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version].
+
 1. Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave
 the current release and the previous one).  For the release just previous to this new one change the links to point to
 the archive location.  See current page as an example of the needed URL changes.  In addition to updating the download
@@ -453,7 +458,9 @@ in the archive location so no need to do anything else.
     1. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
     1. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
 
-1. In Jira mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+1. In JIRA mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+
+1. Ensure the release artifacts are successfully mirrored to the archive, specifically https://archive.apache.org/dist/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-bin.tar.gz.  This convenience binary file is the basis for our [Docker build][docker-build] and is needed in place before the released tag is pushed to the repository.  If there were any issues with the above listed file not being available, it may be necessary to reach out to the ASF Infra team to adjust file size limits to accommodate larger artifacts.
 
 1. Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.
    ```
@@ -465,6 +472,8 @@ in the archive location so no need to do anything else.
    ```
    $ git push asf rel/nifi-${NIFI_VERSION} rel/nifi-${NIFI_VERSION}
    ```
+
+1. Verify that the Docker build began at the [Build Status][docker-build-status] page.  If the build does not take place soon after the release tag was pushed, it may be necessary to contact ASF Infra to ask for assistance and the job to be triggered again.
 
 1. Update the release notes with the final date of the release.
 
@@ -527,5 +536,10 @@ in the archive location so no need to do anything else.
 
 [git-sign-tag-instructs]: http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html
 [sonatype-maven-password]: http://blog.sonatype.com/2009/10/maven-tips-and-tricks-encrypting-passwords
+
+[dockerhub-version]: https://github.com/apache/nifi/blob/master/nifi-docker/dockerhub/Dockerfile#L24
+[dockerimage-version]: https://github.com/apache/nifi/blob/master/nifi-docker/dockerhub/DockerImage.txt#L16
+[docker-build]: https://hub.docker.com/r/apache/nifi
+[docker-build-status]: https://hub.docker.com/r/apache/nifi/builds/
 
 [070-rc2-vote]: https://lists.apache.org/thread.html/8b111ce611238af8b71b95039c299ae0a1ec063ea77f83aa34e6a2bd@%3Cdev.nifi.apache.org%3E
