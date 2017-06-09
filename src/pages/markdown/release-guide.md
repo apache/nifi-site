@@ -209,7 +209,7 @@ problems that must be addressed before proceeding.
     ```
     $ mvn --batch-mode release:prepare \
         -Psigned_release \
-        -DscmCommentPrefix="NIFI-${JIRA_TICKET}-RC${RC}" \
+        -DscmCommentPrefix="NIFI-${JIRA_TICKET}-RC${RC} " \
         -Dtag="nifi-${NIFI_VERSION}-RC${RC}" \
         -DreleaseVersion="${NIFI_VERSION}" \
         -DdevelopmentVersion="${NEXT_VERSION}" \
@@ -220,9 +220,9 @@ it may be necessary to run `$ mvn release:clean` to get the project to a state w
 
 1. If the preparation without problems, it is time to perform the release and deploy artifacts to staging.
     ```
-    $ mvn release:perform
+    $ mvn release:perform \
         -Psigned_release \
-        -DscmCommentPrefix="${JIRA_TICKET}-RC${RC}" \
+        -DscmCommentPrefix="${JIRA_TICKET}-RC${RC} " \
         -Darguments="-DskipTests"
     ```
     When this completes the artifacts have been released to the Apache Nexus staging repository, a local release branch
