@@ -66,9 +66,9 @@ those variable values have been written like Bash variable references.  When a t
     <pre>
     Reference            Example value       Description
     =========            ==============      ===========
-    ${BRANCH}            0.7.0-SNAPSHOT      the development branch on which the release is based.
+    ${BRANCH}            master              the development branch on which the release is based.
     ${NIFI_VERSION}      0.7.0               the version currently in development on the release branch.
-    ${NEXT_VERSION}      0.7.1-SNAPSHOT      the future version for development on the release branch.
+    ${NEXT_VERSION}      0.8.0-SNAPSHOT      the future version for development on the release branch.
     ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
     ${RC}                2                   the Release Candidate index start at 1 for the first release candidate.
     ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the Maven release process.
@@ -80,6 +80,11 @@ those variable values have been written like Bash variable references.  When a t
 
     _To be practical but avoid confusion with future release details, these example values reflect the previous release
 NiFi 0.7.0 RC2 release details._
+
+NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g master
+or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
+support/nifi-1.1.x or support/nifi-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
+branch may need to be created.
 
 ## What to validate and how to validate a release
 
@@ -217,7 +222,7 @@ it may be necessary to run `$ mvn release:clean` to get the project to a state w
     ```
     $ mvn release:perform
         -Psigned_release \
-        -DscmCommentPrefix="${JIRA_TICKET}-RC${RC}"
+        -DscmCommentPrefix="${JIRA_TICKET}-RC${RC}" \
         -Darguments="-DskipTests"
     ```
     When this completes the artifacts have been released to the Apache Nexus staging repository, a local release branch
@@ -252,28 +257,36 @@ click on that you can inspect the various staged artifacts.
         $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-source-release.zip  # produces nifi-${NIFI_VERSION}-source-release.zip.asc
         $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.tar.gz          # produces nifi-${NIFI_VERSION}-bin.tar.gz.asc
         $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.zip             # produces nifi-${NIFI_VERSION}-bin.zip.asc
+        $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.zip     # produces nifi-toolkit-${NIFI_VERSION}-bin.zip.asc
+        $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz  # produces nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.asc
         ```
     1. Generate md5 hash summaries.
         ```
         $ md5sum nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 > nifi-${NIFI_VERSION}-source-release.zip.md5
         $ md5sum nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 > nifi-${NIFI_VERSION}-bin.tar.gz.md5
         $ md5sum nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 > nifi-${NIFI_VERSION}-bin.zip.md5
+        $ md5sum nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 > nifi-toolkit-${NIFI_VERSION}-bin.zip.md5
+        $ md5sum nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 > nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.md5
         ```
     1. Generate SHA1 hash summaries.
         ```
         $ sha1sum nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-${RELEASAE}-source-release.zip.sha1
         $ sha1sum nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-${RELEASAE}-bin.tar.gz.sha1
         $ sha1sum nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-${RELEASAE}-bin.zip.sha1
+        $ sha1sum nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-toolkit-${RELEASAE}-bin.zip.sha1
+        $ sha1sum nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-toolkit-${RELEASAE}-bin.tar.gz.sha1
         ```
     1. Generate SHA256 hash summaries.
         ```
         $ shasum -a 256 nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-source-release.zip.sha256
         $ shasum -a 256 nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.tar.gz.sha256
         $ shasum -a 256 nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.zip.sha256
+        $ shasum -a 256 nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi--toolkit${NIFI_VERSION}-bin.zip.sha256
+        $ shasum -a 256 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.sha256
         ```
 
 1. For reviewing of the release candidate, commit the source release and convenience binaries files along with their
-hashes and signatures to `https://dist.apache.org/repos/dist/dev/nifi-${NIFI_VERSION}`.
+hashes and signatures to `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}`.
 
 ### Step 4. Error recovery (RM)
 
@@ -335,7 +348,7 @@ and more positive than negative binding votes._
 
     [ ] +1 Release this package as nifi-${NIFI_VERSION}
     [ ] +0 no opinion
-    [ ] -1 Do not release this package because because...
+    [ ] -1 Do not release this package because...
     ```
 
 1. RM sends the following helper email to the NiFi Developers Mailing List.
@@ -411,7 +424,7 @@ and more positive than negative binding votes._
 
     I am pleased to announce that the ${NIFI_VERSION} release of Apache NiFi passes with
         X +1 (binding) votes
-        Y -1 (binding) votes
+        Y +1 (non-binding) votes
         0 0 votes
         0 -1 votes
 
@@ -434,7 +447,9 @@ After the vote is complete and the release is approved, these steps complete the
 
 1. Merge the release branch into master.
     ```
-    $ git push asf NIFI-${JIRA_TICKET}
+    $ git checkout master
+    $ git merge --no-ff NIFI-${JIRA_TICKET}-RC${RC}
+    $ git push asf master
     ```
 
 1. Update Docker version information to point to the next release.  For instance, if the next version applied by Maven is 1.3.0-SNAPSHOT, these values should be updated to 1.3.0. This currently consists of two files:
@@ -452,15 +467,19 @@ in the archive location so no need to do anything else.
 1. Update the NiFi Web Page to indicate NEWS of the release as appropriate
 
 1. If the release is on the latest development line, update the NiFi website documentation pages to match the release.
-    1. From a nifi.tar.gz collect the docs/html/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/html/
-    1. From a nifi.tar.gz collect the nifi-framework-nar.nar/META-INF/bundled-dependencies/nifi-web-api.war/docs/rest-api/* files and svn commit them to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/rest-api/
-    1. Run an instance of nifi
-    1. Copy nifi/work/docs/components/* and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/components/
-    1. wget http://localhost:8080/nifi-docs/documentation and svn commit to https://svn.apache.org/repos/asf/nifi/site/trunk/docs/nifi-docs/index.html
+    1. Run the NiFi ${NIFI_VERSION}
+    1. Pull down the documentation by running `wget -prk http://${host}:${port}/nifi-docs/documentation`
+    1. Rename the file index file that was generated by running `mv ${host}:${port}/nifi-docs/documentation ${host}:${port}/nifi-docs/index.html`
+    1. Use svn to replace the `nifi` and `nifi-docs` folders in `https://svn.apache.org/repos/asf/nifi/site/trunk/docs` with those in the `${host}:${port}` directory pulled down above
 
 1. In JIRA mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
 
-1. Ensure the release artifacts are successfully mirrored to the archive, specifically https://archive.apache.org/dist/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-bin.tar.gz.  This convenience binary file is the basis for our [Docker build][docker-build] and is needed in place before the released tag is pushed to the repository.  If there were any issues with the above listed file not being available, it may be necessary to reach out to the ASF Infra team to adjust file size limits to accommodate larger artifacts.
+1. Ensure the release artifacts are successfully mirrored to the archive, specifically https://archive.apache.org/dist/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-bin.tar.gz.  
+This convenience binary file is the basis for our [Docker build][docker-build] and is needed in place before the released tag is pushed to the repository.  If there were any 
+issues with the above listed file not being available, it may be necessary to reach out to the ASF Infra team to adjust file size limits to accommodate larger artifacts.
+
+NOTE: The [Docker build][docker-build] is triggered by pushing the signed tag in the next step. The release artifacts must be present
+in the archive before continuing.
 
 1. Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.
    ```
@@ -470,7 +489,7 @@ in the archive location so no need to do anything else.
 
 1. Push the release tag to the official ASF repository.
    ```
-   $ git push asf rel/nifi-${NIFI_VERSION} rel/nifi-${NIFI_VERSION}
+   $ git push asf rel/nifi-${NIFI_VERSION}
    ```
 
 1. Verify that the Docker build began at the [Build Status][docker-build-status] page.  If the build does not take place soon after the release tag was pushed, it may be necessary to contact ASF Infra to ask for assistance and the job to be triggered again.
