@@ -62,7 +62,7 @@ those variable values have been written like Bash variable references.  When a t
 "```/tmp/src/nifi-${NIFI_VERSION}```" is seen in an instruction or email template it should be replaced with
 "```/tmp/src/nifi-0.7.0```" when working the release of "Apache NiFi 0.7.0".
 
- * Subtitutions used in tasks and email templates
+ * Substitutions used in tasks and email templates
     <pre>
     Reference            Example value       Description
     =========            ==============      ===========
@@ -72,7 +72,7 @@ those variable values have been written like Bash variable references.  When a t
     ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
     ${RC}                2                   the Release Candidate index start at 1 for the first release candidate.
     ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the Maven release process.
-    ${STAGING_REPO_ID}   orgapachenifi-1088  the temporate repository ID where staged artifacts have been placed.
+    ${STAGING_REPO_ID}   orgapachenifi-1088  the temporary repository ID where staged artifacts have been placed.
     ${RM_USERID}         johndoe             the Apache account ID of Release Manager.
     ${RELEASE_TAG}       rel/nifi-0.7.0      the Git repository tag for the source code as released.
     ${VOTE_THREAD_URL}   [0.7.0 vote thread][070-rc2-vote]   the URL for the Apache Pony Mail archive of the release vote thread.
@@ -407,7 +407,7 @@ and more positive than negative binding votes._
     Thank you for your time and effort to validate the release!
     ```    
 
-1. Developers in the community review the release candiate and reply to the vote email with their vote.
+1. Developers in the community review the release candidate and reply to the vote email with their vote.
 1. After 72 hours if
     - at least 3 binding (PMC members) cast +1 votes, and
     - the positive binding votes out number any negative binding votes

@@ -219,7 +219,7 @@ bulletins | A list of all the current bulletins (if there are any).
 inputPorts | A list of every input port for this RPG and their status. Their status includes it's name, whether the target exit and whether it's currently running.
 stats | The current stats of the RPG. This includes the active threads, sent content size and count.
 
-An example query to get the health, bulletins, input ports and stats of all the RPGS is below.
+An example query to get the health, bulletins, input ports and stats of all the RPGs is below.
 
 ```
 minifi.sh flowStatus remoteprocessgroup:all:health,bulletins,inputports,stats

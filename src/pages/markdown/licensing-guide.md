@@ -63,7 +63,7 @@ files) then you must only account for any 3rd party works source dependencies.  
 dependencies then you should create or edit the LICENSE and/or NOTICE local to that subcomponent AND modify the 
 NOTICE and/or LICENSE of the top level nifi source.
 	
-In the case of subcomponents which produce binary artifacts which themselves can bunde 3rd party works (as would be 
+In the case of subcomponents which produce binary artifacts which themselves can bundle 3rd party works (as would be 
 typical in a NAR, WAR, tar.gz, zip bundle) then you must ensure that the subcomponent binary artifact itself includes 
 a full and complete LICENSE and/or NOTICE as needed to cover those 3rd party works.  For every modification to the 
 subcomponent LICENSE/NOTICE for a given 3rd party work the overall Apache NiFi source and binary LICENSE/NOTICE pairs 
@@ -76,10 +76,10 @@ local and accurate LICENSE/NOTICE for that artifact.
 
 ### How to go about working with the LICENSE/NOTICE modifications
 
-If the dependency is a source dependency (ie you copied in javascript, css, java source files from a website) then you
+If the dependency is a source dependency (for example: you copied in javascript, css, java source files from a website) then you
  must ensure it is from [Category-A](https://www.apache.org/legal/resolved.html#category-a) licenses.
     
-If the dependency is a binary dependency (ie maven pulled in a jar file) then you must ensure it is either from 
+If the dependency is a binary dependency (for example: maven pulled in a jar file) then you must ensure it is either from 
 [Category-A](https://www.apache.org/legal/resolved.html#category-a) or
 [Category-B](https://www.apache.org/legal/resolved.html#category-b).
 

@@ -12,7 +12,7 @@ Apache NiFi source code is version controlled using [Git][git] version control (
 
 ## Issue Tracking
 
-Track issues on the "NIFI" Project on the Apache Jira ([browse][jira]).
+Track issues on the "NIFI" Project on the Apache JIRA ([browse][jira]).
 
 ## Building
 
@@ -158,7 +158,7 @@ be excellent.
 
 With the default settings you can point a web browser at `http://localhost:8080/nifi/`
 
-Logging is configured by default to log to `./logs/nifi-app.log`. The following log message should indicate the web ui
+Logging is configured by default to log to `./logs/nifi-app.log`. The following log message should indicate the web UI
 is ready for use:
 
     2014-12-09 00:42:03,540 INFO [main] org.apache.nifi.web.server.JettyServer NiFi has started. The UI is available at the following URLs:
