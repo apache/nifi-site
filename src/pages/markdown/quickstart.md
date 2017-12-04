@@ -119,7 +119,7 @@ Additional information on system administration and settings can be located in o
 
 Now you should have a fully functioning build off the latest codebase.
 
-_NOTE_:  During development it is not necessary to build the entire code base. Typically, in case of a NAR bundle change you can build only the particular bundle followed by running `mvn -T C2.0 clean install -Pdir-only` in `nifi-assembly`.
+_NOTE_:  During development it is not necessary to build the entire code base. Typically, in case of a NAR bundle change you can build only the particular bundle followed by running `mvn -T C2.0 clean install -Ddir-only` in `nifi-assembly`.
 
 ## Running the application
 
