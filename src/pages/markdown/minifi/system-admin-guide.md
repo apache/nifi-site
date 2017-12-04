@@ -4,7 +4,7 @@ title:     Apache NiFi MiNiFi System Administrator's Guide
 
 # MiNiFi System Administrator's Guide
 
-[Apache NiFi Team](dev@nifi.apache.org>)
+[Apache NiFi Team](mailto:dev@nifi.apache.org)
 
 [MiNiFi Homepage](https://nifi.apache.org/minifi/index.html)
 
