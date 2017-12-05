@@ -114,8 +114,9 @@ Additional information on system administration and settings can be located in o
 3. You need a recent git client for the 1.x NiFi line.
 4. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
     - These settings have worked well `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`
-5. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install`
+5. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install -Pinclude-grpc`
    You can tweak the maven build settings as you like but the previous command will execute with 2 threads per core.
+   You can omit the '-Pinclude-grpc' if you're not on a platform that it supports.
 
 Now you should have a fully functioning build off the latest codebase.
 

@@ -109,7 +109,8 @@ when evaluating a release for a vote.
       `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc`
     - Need a quick reminder on how to [verify a signature][apache-signature-verify]?
   - Do all sources have necessary headers?
-    - Unzip the sources file into a directory and execute `mvn install -Pcontrib-check`
+    - Unzip the sources file into a directory and execute `mvn install -Pcontrib-check,include-grpc`
+    - You can avoid 'include-grpc' if you're building on a system that doesn't support it.
   - Are there no unexpected binary files in the release?
     - The only thing we'd expect would be potentially test resources files.
   - Does the app (if appropriate) execute and function as expected?
@@ -186,7 +187,7 @@ There are  other ways to ensure your PGP key is available for signing as well.
     ```
 1. Ensure the the full application builds and all tests work by executing a parallel (multi-threaded) build.
     ```
-    $ mvn -T 2.5C clean install
+    $ mvn -T 2.5C clean install -Pinclude-grpc
     ```
 1. Startup and test the application with from the root source folder.  After a few seconds, NiFi should be up and
 running at [http://localhost:8080/nifi](http://localhost:8080/nifi).
@@ -200,7 +201,7 @@ running at [http://localhost:8080/nifi](http://localhost:8080/nifi).
 1. Build the project with the `contrib-check` profile enabled to validate contribution expectations and find any
 problems that must be addressed before proceeding.  
     ```
-    $ mvn install -Pcontrib-check
+    $ mvn install -Pcontrib-check,include-grpc
     ```
 
 ### Step 3. Perform the release (RM)
@@ -208,7 +209,7 @@ problems that must be addressed before proceeding.
 1. Now its time to have maven prepare the release with this command.
     ```
     $ mvn --batch-mode release:prepare \
-        -Psigned_release \
+        -Psigned_release,include-grpc \
         -DscmCommentPrefix="NIFI-${JIRA_TICKET}-RC${RC} " \
         -Dtag="nifi-${NIFI_VERSION}-RC${RC}" \
         -DreleaseVersion="${NIFI_VERSION}" \
@@ -221,7 +222,7 @@ it may be necessary to run `$ mvn release:clean` to get the project to a state w
 1. If the preparation without problems, it is time to perform the release and deploy artifacts to staging.
     ```
     $ mvn release:perform \
-        -Psigned_release \
+        -Psigned_release,include-grpc \
         -DscmCommentPrefix="${JIRA_TICKET}-RC${RC} " \
         -Darguments="-DskipTests"
     ```
@@ -295,8 +296,8 @@ the local tag in git.  If you also delete the local branch and clear your local 
 then it is as if the release never happened.  Before doing that though try to figure out what went wrong so the Release
 Guide can be updated or corrected if necessary.
 
-So, as has been described here you can test the release process until you get it right.  The `mvn versions:set` and
-`mvn versions:commit` commands can come in handy to help do this so you can set versions to something clearly release
+So, as has been described here you can test the release process until you get it right.  The `mvn versions:set -Pinclude-grpc` and
+`mvn versions:commit -Pinclude-grpc` commands can come in handy to help do this so you can set versions to something clearly release
 test related.
 
 ### Step 5. Release Vote (RM and community)
@@ -388,7 +389,7 @@ and more positive than negative binding votes._
 
     # Verify the build works including release audit tool (RAT) checks
     cd nifi-${NIFI_VERSION}
-    mvn clean install -Pcontrib-check
+    mvn clean install -Pcontrib-check,include-grpc
 
     # Verify the contents contain a good README, NOTICE, and LICENSE.
 
