@@ -47,22 +47,58 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
+        <h2>Fixed in Apache NiFi 1.5.0</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-12632" href="#CVE-2017-12632"><strong>CVE-2017-12632</strong></a>: Apache NiFi host header poisoning issue</p>
+        <p>Severity: <strong>Medium</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.4.0</li>
+        </ul>
+        </p>
+        <p>Description: A malicious host header in an incoming HTTP request could cause NiFi to load resources from an external server. </p>
+        <p>Mitigation: The fix to sanitize host headers and compare to a controlled whitelist was applied on the Apache NiFi 1.5.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole. </p>
+        <p>Released: January 12, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-15697" href="#CVE-2017-15697"><strong>CVE-2017-15697</strong></a>: Apache NiFi XSS issue in context path handling</p>
+        <p>Severity: <strong>Medium</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.4.0</li>
+        </ul>
+        </p>
+        <p>Description: A malicious <code>X-ProxyContextPath</code> or <code>X-Forwarded-Context</code> header containing external resources or embedded code could cause remote code execution. </p>
+        <p>Mitigation: The fix to properly handle these headers was applied on the Apache NiFi 1.5.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Andy LoPresto. </p>
+        <p>Released: January 12, 2018</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
         <h2>Fixed in Apache NiFi 1.4.0</h2>
     </div>
 </div>
 <div class="row">
     <div class="large-12 columns">
         <p><a id="CVE-2017-12623" href="#CVE-2017-12623"><b>CVE-2017-12623</b></a>: Apache NiFi XXE issue in template XML upload</p>
-        <p>Severity: <b>Medium</b></p>
+        <p>Severity: <del><b>Medium</b></del> <strong>Important</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.0.0 - 1.3.0</li>
         </ul>
         </p>
-        <p>Description: An authorized user could upload a template which contained malicious code and accessed sensitive files via an XML External Entity (XXE) attack. </p>
+        <p>Description: <del>An authorized user</del> Any authenticated user (valid client certificate but without ACL permissions) could upload a template which contained malicious code and accessed sensitive files via an XML External Entity (XXE) attack. </p>
         <p>Mitigation: The fix to properly handle XML External Entities was applied on the Apache NiFi 1.4.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
-        <p>Credit: This issue was discovered by Paweł Gocyla. </p>
-        <p>Released: October 2, 2017</p>
+        <p>Credit: This issue was discovered by Paweł Gocyla and further information was provided by Mike Cole. </p>
+        <p>Released: October 2, 2017 (Updated January 23, 2018)</p>
     </div>
 </div>
 <div class="medium-space"></div>
