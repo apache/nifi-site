@@ -103,8 +103,9 @@ when evaluating a release for a vote.
     - Look in the *-sources.zip artifact root for the readme.
   - Are the signatures and hashes correct for the source release?
     - Validate the hashes of the sources artifact do in fact match:
-      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.md5`
       `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha1`
+      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha256`
+      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha512`
     - Validate the signature of the source artifact.  Here is an example path:
       `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc`
     - Need a quick reminder on how to [verify a signature][apache-signature-verify]?
@@ -261,21 +262,13 @@ click on that you can inspect the various staged artifacts.
         $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.zip     # produces nifi-toolkit-${NIFI_VERSION}-bin.zip.asc
         $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz  # produces nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.asc
         ```
-    1. Generate md5 hash summaries.
-        ```
-        $ md5sum nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 > nifi-${NIFI_VERSION}-source-release.zip.md5
-        $ md5sum nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 > nifi-${NIFI_VERSION}-bin.tar.gz.md5
-        $ md5sum nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 > nifi-${NIFI_VERSION}-bin.zip.md5
-        $ md5sum nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 > nifi-toolkit-${NIFI_VERSION}-bin.zip.md5
-        $ md5sum nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 > nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.md5
-        ```
     1. Generate SHA1 hash summaries.
         ```
-        $ sha1sum nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-${RELEASAE}-source-release.zip.sha1
-        $ sha1sum nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-${RELEASAE}-bin.tar.gz.sha1
-        $ sha1sum nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-${RELEASAE}-bin.zip.sha1
-        $ sha1sum nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-toolkit-${RELEASAE}-bin.zip.sha1
-        $ sha1sum nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-toolkit-${RELEASAE}-bin.tar.gz.sha1
+        $ shasum -a 1 nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-source-release.zip.sha1
+        $ shasum -a 1 nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.tar.gz.sha1
+        $ shasum -a 1 nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.zip.sha1
+        $ shasum -a 1 nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi--toolkit${NIFI_VERSION}-bin.zip.sha1
+        $ shasum -a 1 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.sha1
         ```
     1. Generate SHA256 hash summaries.
         ```
@@ -284,6 +277,14 @@ click on that you can inspect the various staged artifacts.
         $ shasum -a 256 nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.zip.sha256
         $ shasum -a 256 nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi--toolkit${NIFI_VERSION}-bin.zip.sha256
         $ shasum -a 256 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.sha256
+        ```
+    1. Generate SHA512 hash summaries.
+        ```
+        $ shasum -a 512 nifi-${NIFI_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-source-release.zip.sha512
+        $ shasum -a 512 nifi-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.tar.gz.sha512
+        $ shasum -a 512 nifi-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi-${NIFI_VERSION}-bin.zip.sha512
+        $ shasum -a 512 nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d" " -f1 >  nifi--toolkit${NIFI_VERSION}-bin.zip.sha512
+        $ shasum -a 512 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d" " -f1 >  nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.sha512
         ```
 
 1. For reviewing of the release candidate, commit the source release and convenience binaries files along with their
@@ -328,8 +329,9 @@ and more positive than negative binding votes._
     https://git-wip-us.apache.org/repos/asf?p=nifi.git;a=commit;h=${RC_TAG_COMMIT_ID}
 
     Checksums of nifi-x.y.z-source-release.zip:
-    MD5: <32-BYTE-MD5SUM-HASH>
     SHA1: <40-BYTE-SHA1SUM-HASH>
+    SHA256: <64-CHAR-SHA256SUM-HASH>
+    SHA512: <128-CHAR-SHA512SUM-HASH>
 
     Release artifacts are signed with the following key:
     https://people.apache.org/keys/committer/${RM_USERID}.asc
@@ -373,17 +375,17 @@ and more positive than negative binding votes._
 
     wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip
     wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc
-    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.md5
     wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha1
     wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha256
+    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha512
 
     # Verify the signature
     gpg --verify nifi-${NIFI_VERSION}-source-release.zip.asc
 
-    # Verify the hashes (md5, sha1, sha256) match the source and what was provided in the vote email thread
-    md5sum nifi-${NIFI_VERSION}-source-release.zip
-    sha1sum nifi-${NIFI_VERSION}-source-release.zip
-    sha256sum nifi-${NIFI_VERSION}-source-release.zip
+    # Verify the hashes (sha1, sha256, sha512) match the source and what was provided in the vote email thread
+    shasum -a 1 nifi-${NIFI_VERSION}-source-release.zip
+    shasum -a 256 nifi-${NIFI_VERSION}-source-release.zip
+    shasum -a 512 nifi-${NIFI_VERSION}-source-release.zip
 
     # Unzip nifi-${NIFI_VERSION}-source-release.zip
 
