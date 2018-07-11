@@ -6,7 +6,7 @@ title: GPG (Gnu Privacy Guard / Open PGP) Signatures
 
 The purpose of this document is to capture and describe the steps involved in generating and verifying cryptographic signatures of official releases of Apache NiFi, as well as configuring cryptographic signatures of individual code commits.  It is written for contributors, committers, and users of Apache NiFi (and related applications).  
 
-## Table of Contents
+## <a name="table-of-contents">Table of Contents</a>
   * [The Objective](#the-objective)
   * [Background Material](#background-material)
   * [Terms](#terms)
@@ -30,7 +30,7 @@ The purpose of this document is to capture and describe the steps involved in ge
 
 Our aim is to instruct users on how to sign their commits, verify other's signatures, and do the same for official releases of Apache NiFi. 
   
-## Background Material
+## <a name="background-material">Background Material</a>
 
   - These documents are helpful for general environmental setup to perform GPG signing and signature verification
     - [Apache PGP Info][apache-pgp]
