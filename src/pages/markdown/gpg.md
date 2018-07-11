@@ -12,15 +12,13 @@ The purpose of this document is to capture and describe the steps involved in ge
   * [Terms](#terms)
   * [Variable Reference Substitutions](#variable-reference-substitutions)
   * [Download GPG](#download-gpg)
-  * [Set up a GPG key](#set-up-a-gpg-key)
-  * [Sign your GPG key](#sign-your-gpg-key)
+  * [Setting up your key](#setting-up-your-key)
   * [Publish your key](#publish-your-key)
   * [Import another GPG key](#import-another-gpg-key)
   * [Verify a key](#verify-a-key)
-  * [Sign an external key](#sign-an-external-key)
   * [Web of trust](#web-of-trust)
-  * [Set up git with your key](#set-up-git-with-your-key)
-  * [Signing code](#signing-code)
+  * [Set up Git with your key](#set-up-git-with-your-key)
+  * [Sign commits](#sign-commits)
   * [Verifying a signature](#verifying-a-signature)
   * [Set up GitHub with your key](#set-up-github-with-your-key)
   * [Signing a release artifact](#signing-a-release-artifact)
@@ -32,7 +30,7 @@ Our aim is to instruct users on how to sign their commits, verify other's signat
   
 ## <a name="background-material">Background Material</a>
 
-  - These documents are helpful for general environmental setup to perform GPG signing and signature verification
+  - These documents are helpful for general environmental setup to perform GPG signing and signature verification: 
     - [Apache PGP Info][apache-pgp]
     - [Apache Release Signing][apache-release-signing]
     - [Git Ready: Signing Releases with GPG][git-sign-tag-instructs]
@@ -75,10 +73,10 @@ those variable values have been written like Bash variable references.  When a t
     _To be practical but avoid confusion with future release details, these example values reflect the previous release
 NiFi 1.7.0 RC2 release details._
 
-NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g master
+*NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g master
 or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
 support/nifi-1.1.x or support/nifi-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
-branch may need to be created.
+branch may need to be created.*
 
 ## <a name="download-gpg">Download GPG</a>
 
@@ -175,9 +173,9 @@ The **key fingerprint** can be referred to by the last 8 hex digits (**short ID*
 
 ### Trust vs. Validity
 
-It is important to understand the difference between two closely related concepts -- **ownertrust** and **validity**. Validity is how much *you* trust a *key*; that is *how well you have verified the key represents who it claims*. Ownertrust is how much transitive trust you give to that entity; how well do you believe *Person X* verifies keys that *they* sign? 
+It is important to understand the difference between two closely related concepts -- **trust** and **validity**. Validity is how much *you* trust a *key*; that is *how well you have verified the key represents who it claims*. Trust (sometimes referred to as **ownertrust**) is how much transitive trust you give to that entity; how well do you believe *Person X* verifies keys that *they* sign? 
 
-There are four levels of **ownertrust** and five levels of **validity**. 
+There are four levels of **trust** and five levels of **validity**. 
 
 **Trust**
 1. `unknown` -- you do not know how well the owner verifies keys
@@ -192,7 +190,7 @@ There are four levels of **ownertrust** and five levels of **validity**.
 1. `full` -- you have verified that this key belongs to the owner
 1. `ultimate` -- you have no doubt that this key belongs to the owner (likely because you generated it)
 
-Your generated key is granted `ultimate` ownertrust by default, because you just generated it. See [Web of Trust][web-of-trust] and [GNU Privacy Handbook][gnu-privacy-handbook] for more information and good diagrams. 
+Your generated key is granted `ultimate` trust by default, because you just generated it. See [Web of Trust][web-of-trust] and [GNU Privacy Handbook][gnu-privacy-handbook] for more information and helpful diagrams. 
 
 ## <a name="publish-your-key">Publish your key</a>
 
@@ -275,7 +273,7 @@ gpg: RSA/SHA512 signature from: "3C6EF65B2F7DEF69 Andy LoPresto <alopresto@apach
 
 ### Web of Trust
 
-If it is infeasible to directly contact the key bearer directly, you can delegate that trust to a third-party who you already trust. For example, if you cannot directly contact Joe Witt, but you already trust Andy LoPresto (i.e. you have verified Andy's key and believe Andy would verify keys he trusts), you can sign Joe's key if Andy has already done so. You can choose to employ a lower level of validity (`marginal` vs. `full`) in that case depending on your transitive **ownertrust** in Andy's verification. See [Web of Trust][web-of-trust] and [GNU Privacy Handbook][gnu-privacy-handbook] for more information and good diagrams. 
+If it is infeasible to contact the key bearer directly, you can delegate that trust to a third-party who you already trust. For example, if you cannot directly contact Joe Witt, but you already trust Andy LoPresto (i.e. you have verified Andy's key and believe Andy would verify keys he trusts), you can sign Joe's key if Andy has already done so. You can choose to employ a lower level of validity (`marginal` vs. `full`) in that case depending on your transitive **ownertrust** in Andy's verification. See [Web of Trust][web-of-trust] and [GNU Privacy Handbook][gnu-privacy-handbook] for more information and helpful diagrams. 
 
 ## <a name="set-up-git-with-your-key">Set up Git with your key</a>
 
@@ -317,13 +315,13 @@ Date:   Mon Jul 9 18:42:56 2018 -0700
     Signed-off-by: Pierre Villard <pierre.villard.fr@gmail.com>
 ```
 
-See [git-sign-tag-instructs], [github-help-gpg], and [git-gpg] for more on setting this up. 
+See [git-sign-tag-instructs], [github-help-gpg], and [git-gpg] for more information on setting this up. 
 
 ## <a name="verifying-a-signature">Verifying a signature</a>
 
 When viewing commits by other authors, each may have a signature. The validity of the signature depends on your trust of the signer's key. 
 
-*Note: sometimes, the __author__ and __signer__ of a commit are different, especially in NiFi's RTC context.* The *author* is who wrote the code/content in the change, while the *signer* is the *committer* who actually merged the code to the `master` branch. 
+*NOTE: sometimes, the __author__ and __signer__ of a commit are different, especially in NiFi's RTC context.* The *author* is who wrote the code/content in the change, while the *signer* is the *committer* who actually merged the code to the `master` branch. 
 
 For example, I have imported and trust Matt's key but do not trust Bryan's key. Here are two commits, both *authored* by Matt, but one (`06e8f88`) he committed himself (thus also *signed* by his key), and one (`26ea785`) that Bryan commited for him (and *signed* with Bryan's key). 
 
@@ -411,7 +409,7 @@ Date:   Tue Jun 5 12:47:36 2018 -0400
     Signed-off-by: Bryan Bende <bbende@apache.org>
 ```
 
-See [GitHub Blog: GPG Signature Verification][github-gpg-signing] for more on setting this up. 
+See [GitHub Blog: GPG Signature Verification][github-gpg-signing] for more information on setting this up. 
 
 ## <a name="set-up-github-with-your-key">Set up GitHub with your key</a>
 
@@ -452,7 +450,7 @@ kJ2nIoN1c4Kkv1+menhoU37JWcqDHrYWe3cZ0GRMQLp1Mqt8MbN7dLF7YcKN3yNA
 
 ## <a name="verifying-a-release-signature">Verifying a release signature</a>
 
-For an official Apache NiFi release, the source release archive (*nifi-${NIFI_VERSION}-source-release.zip*) will be accompanied by multiple checksum files and a GPG signature. The user who generated the GPG signature (the Release Manager) will have specified the user ID (name and email) used to sign it, and will have ensured their public key is present in the `KEYS` file listed in the vote email. Following the steps in the email, download the `KEYS` file and import it into your GPG keyring (it may report that no keys changed if you already had all of the published keys imported). Refer to [Importing another GPG key](#importing-another-gpg-key) for more details if necessary. 
+For an official Apache NiFi release, the source release archive (*nifi-${NIFI_VERSION}-source-release.zip*) will be accompanied by multiple checksum files and a GPG signature. The user who generated the GPG signature (the Release Manager) will have specified the user ID (name and email) used to sign it, and will have ensured their public key is present in the `KEYS` file listed in the vote email. Following the steps in the email, download the `KEYS` file and import it into your GPG keyring (it may report that no keys changed if you already had all of the published keys imported). Refer to [Import another GPG key](#import-another-gpg-key) for more details if necessary. 
 
 ```
 # Verifying a good signature
@@ -480,7 +478,7 @@ Primary key fingerprint: C09B A891 AED4 5B8C 2C23  1AFE 1FB6 6A91 F71B 6207
 gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 ```
 
-Refer to [Verifying a key](#verifying-a-key) for steps to verify the untrusted key if necessary. 
+Refer to [Verify a key](#verify-a-key) for steps to verify the untrusted key if necessary. 
 
 A bad (incorrect, modified, malicious) signature will have a result like:
 
