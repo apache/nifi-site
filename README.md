@@ -22,11 +22,10 @@ the web, and [npm][] package manager for node. npm is used to manage the
 node modules required for building this site. bower is used to manage the
 front end packages that the site will depend on.
 
-Both grunt and bower can be installed via npm once it is installed.
+Both grunt and bower can be installed simultanously via npm once it is installed.
 
 ```bash
-sudo npm install -g grunt-cli
-sudo npm install -g bower
+sudo npm install --global grunt-cli bower
 ```
 
 To download the front end packages required for this site run the following
