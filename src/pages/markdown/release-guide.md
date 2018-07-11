@@ -243,7 +243,7 @@ click on that you can inspect the various staged artifacts.
     - Download the sources.  Do they compile cleanly?  If the result is a build does it execute?
     - Validate the hashes match.
     - Validate that the sources contain no unexpected binaries.
-    - Validate the signature for the build and hashes. [Validating GPG signatures](https://nifi.apache.org/gpg.html).
+    - Validate the signature for the build and hashes. [Verifying a release signature](https://nifi.apache.org/gpg.html#verifying-a-release-signature).
     - Validate the LICENSE/NOTICE/Headers.  
     - Validate that the README is present and provides sufficient information to build and if necessary execute.
 
