@@ -46,8 +46,8 @@ Our aim is to instruct users on how to sign their commits, verify other's signat
 
  * **Asymmetric Cryptography** - a type of cryptography which relies on *key pairs* -- a *public* and *private* key which are mathematically-related such that no other component key matches. This cryptography offers the following actions: **encrypt**, **decrypt**, **sign**, and **verify**
  * **Cryptographic Signature** - a series of bytes which are the result of a signing operation such that only the possessor of a specific private key could have generated this signature. A valid signature indicates that the possessor of said key performed the operation (non-repudiable)
- * **GNU Privacy Guard (GnuPG or GPG)** - an open-source implementation of encryption software compatible with the OpenPGP standard specified by [RFC 4880][rfc4880]
- * **Pretty Good Privacy (PGP)** - an encryption program written by Phil Zimmermann to provide cryptographic protection (via confidentiality and integrity/authenticity) over data. It follows the OpenPGP standard as specified by [RFC 4880][rfc4880]
+ * **GNU Privacy Guard (GnuPG or GPG)** - an open-source implementation of encryption software compatible with the OpenPGP standard specified by [RFC 4880][rfc-4880]
+ * **Pretty Good Privacy (PGP)** - an encryption program written by Phil Zimmermann to provide cryptographic protection (via confidentiality and integrity/authenticity) over data. It follows the OpenPGP standard as specified by [RFC 4880][rfc-4880]
 
 ## <a name="variable-reference-substitutions">Variable Reference Substitutions</a>
 
