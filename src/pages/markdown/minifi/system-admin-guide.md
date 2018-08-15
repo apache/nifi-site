@@ -1,12 +1,27 @@
----
-title:     Apache NiFi MiNiFi System Administrator's Guide
----
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
 
 # MiNiFi System Administrator's Guide
 
-[Apache NiFi Team](mailto:dev@nifi.apache.org)
+[Apache NiFi Team](dev@nifi.apache.org>)
 
 [MiNiFi Homepage](https://nifi.apache.org/minifi/index.html)
+
+This documentation is for MiNiFi 0.6.0.
 
 # Automatic Warm-Redeploy
 
@@ -91,8 +106,13 @@ Option | Description
 ------ | -----------
 nifi.minifi.notifier.ingestors.pull.http.hostname | Hostname on which to pull configurations from
 nifi.minifi.notifier.ingestors.pull.http.port | Port on which to pull configurations from
+nifi.minifi.notifier.ingestors.pull.http.proxy.hostname | Proxy server hostname
+nifi.minifi.notifier.ingestors.pull.http.proxy.port | Proxy server port
+nifi.minifi.notifier.ingestors.pull.http.proxy.username | Proxy username
+nifi.minifi.notifier.ingestors.pull.http.proxy.password | Proxy password
 nifi.minifi.notifier.ingestors.pull.http.path | Path on which to pull configurations from
 nifi.minifi.notifier.ingestors.pull.http.period.ms | Period on which to pull configurations from, defaults to 5 minutes if not set.
+nifi.minifi.notifier.ingestors.pull.http.query | Querystring value for the URL
 nifi.minifi.notifier.ingestors.pull.http.use.etag | If the destination server is set up with cache control ability and utilizes an "ETag" header, then this should be set to true to utilize it. Very simply, the Ingestor remembers the "ETag" of the last successful pull (returned 200) then uses that "ETag" in a "If-None-Match" header on the next request.
 nifi.minifi.notifier.ingestors.pull.http.connect.timeout.ms | Sets the connect timeout for new connections. A value of 0 means no timeout, otherwise values must be a positive whole number in milliseconds.
 nifi.minifi.notifier.ingestors.pull.http.read.timeout.ms | Sets the read timeout for new connections. A value of 0 means no timeout, otherwise values must be a positive whole number in milliseconds.
@@ -111,12 +131,22 @@ In NiFi there is a lot of information, such as stats and bulletins, that is only
 
 ## FlowStatus Script Query
 
-From the minifi.sh script, you can manually query to get the current status of your  dataflow. The following is an example of a minifi.sh query you might run to view health, stats, and bulletins for the TailFile processor. This query returns information to your command-line.
+From the minifi.sh script, you can manually query to get the current status of your dataflow. The following is an example of a minifi.sh query you might run to view health, stats, and bulletins for the TailFile processor. This query returns information to your command-line.
 
 ```
 minifi.sh flowStatus processor:TailFile:health,stats,bulletins
 ```
 Currently the script only accepts one high level option at a time. Also any names of connections, remote process groups, or processors that contain " " (a space), ":", ";" or "," cause parsing errors when querying.
+
+**Note:** The examples in this documentation are provided for *nix based environments.  Windows support is also provided by by the `flowstatus-minifi.bat` file.  To perform one of the listed interactions, `minifi.sh flowStatus` would simply be replaced by `flowstatus-minifi.bat`.  For example, the sample query above in *nix environments,
+
+```
+minifi.sh flowStatus processor:TailFile:health,stats,bulletins`
+```
+would translate to Windows environments as,
+```    
+flowstatus-minifi.bat processor:TailFile:health,stats,bulletins
+```
 
 ## Periodic Status Reporters
 
@@ -182,7 +212,7 @@ This section outlines each option to query the MiNiFi instance for the FlowStatu
 
 ### Processors
 
-To query the processors use the "processor" flag followed by the processor ID to get (or "all") followed by one of the processor options. The processor options are below.
+To query the processors use the "processor" flag followed by the processor ID or name, to get (or "all") followed by one of the processor options. The processor options are below.  **Note:** In Windows environments, all `minifi.sh flowStatus` invocations should be replaced with `flowstatus-minifi.bat`.  See [FlowStatus Script Query](#flowstatus-script-query) for an illustration.
 
 Option | Description
 ------ | -----------
@@ -196,7 +226,7 @@ minifi.sh flowStatus processor:TailFile:health,stats,bulletins
 ```
 ### Connections
 
-To query the connections use the "connection" flag followed by the connection ID to get (or "all") followed by one of the connection options. The connection options are below.
+To query the connections use the "connection" flag followed by the connection ID or name, to get (or "all") followed by one of the connection options. The connection options are below.
 
 Option | Description
 ------ | -----------
@@ -210,16 +240,17 @@ minifi.sh flowStatus connection:TailToS2S:health,stats
 
 ### Remote Process Groups
 
-To query the remote process groups (RPG) use the "remoteProcessGroup" flag followed by the RPG ID to get (or "all") followed by one of the remote process group options. The remote process group options are below.
+To query the remote process groups (RPG) use the "remoteProcessGroup" flag followed by the RPG ID or name to get (or "all") followed by one of the remote process group options. The remote process group options are below.
 
 Option | Description
 ------ | -----------
 health | The connections's queued bytes and queued FlowFile count.
 bulletins | A list of all the current bulletins (if there are any).
-inputPorts | A list of every input port for this RPG and their status. Their status includes it's name, whether the target exit and whether it's currently running.
+inputPorts | A list of every input port for this RPG and their status. Their status includes its name, whether the target exists and whether it's currently running.
+outputPorts | A list of every output port for this RPG and their status. Their status includes its name, whether the target exists and whether it's currently running.
 stats | The current stats of the RPG. This includes the active threads, sent content size and count.
 
-An example query to get the health, bulletins, input ports and stats of all the RPGs is below.
+An example query to get the health, bulletins, input ports and stats of all the RPGS is below.
 
 ```
 minifi.sh flowStatus remoteprocessgroup:all:health,bulletins,inputports,stats
@@ -261,7 +292,7 @@ To query the status of the MiNiFi instance use the "instance" flag followed by o
 
 Option | Description
 ------ | -----------
-health | The provenance reporting state, active threads, whether or not it has bulletins and any validation errors.
+health | The instance reporting state, active threads, whether or not it has bulletins and any validation errors.
 bulletins | A list of all the current bulletins (if there are any).
 stats | The current stats of the instance. This including but not limited to bytes read/written and FlowFiles sent/transferred.
 
@@ -313,7 +344,7 @@ The config.yml in the _conf_ directory is the main configuration file for contro
 and follows the YAML format laid out [here](http://www.yaml.org/).
 
 Alternatively, the MiNiFi Toolkit Converter can aid in creating a config.yml from a generated template exported from a NiFi instance.  This
-tool can be downloaded from http://nifi.apache.org/minifi/download.html under the `MiNiFi Toolkit Binaries` section.  Information on the toolkit's usage is
+tool can be downloaded from https://nifi.apache.org/minifi/download.html under the `MiNiFi Toolkit Binaries` section.  Information on the toolkit's usage is
 available at https://nifi.apache.org/minifi/minifi-toolkit.html.
 
 **Note:** Values for periods of time and data sizes must include the unit of measure,
@@ -336,6 +367,8 @@ parses and upconverts to the current version without issue.
 ### Version 2 -> Version 3 changes
 1. Added support for Controller Services.
 2. Added support for Site-To-Site over proxy.
+3. Added support for overriding nifi.properties values
+4. Added support for Output Ports to Remote Process Groups
 
 ## Flow Controller
 
@@ -407,6 +440,7 @@ always sync                       | If set to _true_, any change to the reposito
 *Property*                        | *Description*
 --------------------------------  | -------------
 provenance rollover time          | The amount of time to wait before rolling over the latest data provenance information so that it is available to be accessed by components. The default value is 1 min.
+implementation                    | The implementation of `ProvenanceRepository` to use. The default value is `org.apache.nifi.provenance.MiNiFiPersistentProvenanceRepository`.
 
 ## Component Status Repository
 
@@ -583,17 +617,19 @@ proxy host         | The hostname of the proxy server
 proxy port         | The port to connect to on the proxy server
 proxy user         | The user name on the proxy server
 proxy password     | The password for the proxy server
+Input Ports        | The Input Ports for this Remote Process Group (See below)
+Output Ports       | The Output Ports for this Remote Process Group (See below)
 
 
-#### Input Ports Subsection
+#### Input/Output Ports Subsection
 
-When connecting via Site to Site, MiNiFi needs to know which input port to communicate to of the core NiFi instance. These properties designate and configure communication with that port.
+When connecting via Site to Site, MiNiFi needs to know which input or output port to communicate to of the core NiFi instance. These properties designate and configure communication with that port.
 
 *Property*           | *Description*
 -------------------- | -------------
-id                   | The id of the input port as it exists on the core NiFi instance. To get this information access the UI of the core instance, right the input port that is desired to be connect to and select "configure". The id of the port should under the "Id" section.
-name                 | The name of the input port as it exists on the core NiFi instance. To get this information access the UI of the core instance, right the input port that is desired to be connect to and select "configure". The id of the port should under the "Port name" section.
-comments:            | A comment about the Input Port. This is not used for any underlying implementation but solely for the users of this configuration and MiNiFi agent.
+id                   | The id of the port as it exists on the core NiFi instance. To get this information access the UI of the core instance, right click the port that is desired to be connect to and select "configure". The id of the port should under the "Id" section.
+name                 | The name of the port as it exists on the core NiFi instance. To get this information access the UI of the core instance, right click the port that is desired to be connect to and select "configure". The name of the port should under the "Port name" section.
+comments:            | A comment about the Port. This is not used for any underlying implementation but solely for the users of this configuration and MiNiFi agent.
 max concurrent tasks | The number of tasks that this port should be scheduled for at maximum.
 use compression      | Whether or not compression should be used when communicating with the port. This is a boolean value of either "true" or "false"
 
@@ -614,6 +650,31 @@ timeout              | How long MiNiFi should wait before timing out the connect
 batch size           | Specifies how many records to send in a single batch, at most. This should be significantly above the expected amount of records generated between scheduling. If it is not, then there is the potential for the Provenance reporting to lag behind event generation and never catch up.
 
 **Note:** In order to send via HTTPS, the "Security Properties" must be fully configured. A StandardSSLContextService will be made automatically with the ID "SSL-Context-Service" and used by the Provenance Reporting.
+
+## NiFi Properties Overrides
+
+This is a yaml map that contains values to be put into nifi.properties.  This will supercede any hardcoded or other schema values that are substituted into nifi.properties file.
+
+### Example NiFi Properties Overrides
+
+```yaml
+NiFi Properties Overrides:
+  nifi.flowfile.repository.directory: ./flowfile_repository_override
+  nifi.content.repository.directory.default: ./content_repository_override
+  nifi.database.directory: ./database_repository_override
+```
+
+# Running as a Windows Service
+
+MiNiFi can run as a Windows service. To do so, you must modify the `conf/bootstrap.conf` to set absolute paths for some properties. The properties are:
+
+* `lib.dir`  (e.g. `C:\\minifi-x.x.x\\lib`)
+* `conf.dir` (e.g. `C:\\minifi-x.x.x\\conf`)
+* `nifi.minifi.config` (e.g. `C:\\minifi-x.x.x\\conf\\config.yml`)
+
+You can now install the MiNiFi service by running the `install-service.bat` script. To remove the service run the `delete-service.bat` file. 
+
+The `minifi.exe` in MiNiFi `bin` directory is used to run MiNiFi Windows service. The bundled one is for 64 bit architecture and requires 64 bit JRE. If you have to use 32 bit JRE for some reason, you need to replace the `minifi.exe` file with the one for 32 bit to make MiNiFi service runs successfully. To do so, go to [Commons Daemon project download page](https://commons.apache.org/proper/commons-daemon/download_daemon.cgi), download the binary (e.g. commons-daemon-1.1.0-bin.zip), extract it and replace `bin/minifi.exe` by copying `commons-daemon-x.x.x-bin/prunsrv.exe` into MiNiFi `bin` directory as `minifi.exe` to overwrite the 64 bit exe with the 32 bit one.
 
 # Example Config File
 

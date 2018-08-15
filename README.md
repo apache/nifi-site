@@ -13,7 +13,7 @@
   limitations under the License.
 -->
 # About
-[Apache NiFi project] (http://nifi.apache.org).
+[Apache NiFi project](http://nifi.apache.org).
 
 ## Setting up Build Environment
 
