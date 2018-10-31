@@ -152,18 +152,18 @@ NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
 the NiFi wiki.
 1. Create a new branch off 'master' named after the JIRA ticket.
     ```bash
-    $ git checkout -b NIFI-${JIRA_TICKET}-RC${RC} ${BRANCH}
+    $ git checkout -b ${JIRA_TICKET}-RC${RC} ${BRANCH}
     ```
 1. Verify that Maven has sufficient heap space to perform the build tasks.  Some plugins and parts of the build
 consumes a surprisingly large amount of space.   
- - These settings have been shown to work for Java 8 for NiFi version 1.x and later.
-   ```bash
-    $ export MAVEN_OPTS="-Xms1024m -Xmx3076m"
-   ```
- - And these work for Java 7 for NiFi version 0.x.
-    ```
-    $ export MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"
-    ```
+    - These settings have been shown to work for Java 8 for NiFi version 1.x and later.
+        ```bash
+        $ export MAVEN_OPTS="-Xms1024m -Xmx3076m"
+        ```
+    - And these work for Java 7 for NiFi version 0.x.
+        ```
+        $ export MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"
+        ```
 1. Ensure your settings.xml has been updated to include a `signed_release` profile and a `<server>` entry for
 "repository.apache.org" as shown below. [Steps to configure and encrypt Maven passwords][sonatype-maven-password].
 There are  other ways to ensure your PGP key is available for signing as well.  
@@ -206,11 +206,13 @@ problems that must be addressed before proceeding.
 
 ### Step 3. Perform the release (RM)
 
-1. Now its time to have maven prepare the release with this command.
+1. Now its time to have maven prepare the release with this command.  
+_NOTE: `gpg` will be invoked during this step, which will need to prompt you for a password.  From the command line, use
+`export GPG_TTY=$(tty)` to allow `gpg` to prompt you._
     ```
     $ mvn --batch-mode release:prepare \
         -Psigned_release,include-grpc \
-        -DscmCommentPrefix="NIFI-${JIRA_TICKET}-RC${RC} " \
+        -DscmCommentPrefix="${JIRA_TICKET}-RC${RC} " \
         -Dtag="nifi-${NIFI_VERSION}-RC${RC}" \
         -DreleaseVersion="${NIFI_VERSION}" \
         -DdevelopmentVersion="${NEXT_VERSION}" \
@@ -248,10 +250,14 @@ click on that you can inspect the various staged artifacts.
 
 1. The validated artifacts all look good then push the branch to origin release branch to the ASF repository.
     ```
-    $ git push asf NIFI-${JIRA_TICKET}-RC${RC}
+    $ git push asf ${JIRA_TICKET}-RC${RC}
     ```
-    ___From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment NIFI-${JIRA_TICKET}-RC${RC} prepare release nifi-${NIFI_VERSION}-RC${RC}___
+    ___From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment ${JIRA_TICKET}-RC${RC} prepare release nifi-${NIFI_VERSION}-RC${RC}___
 
+1. Push the tag created by the release:prepare step to the ASF repository.
+    ```
+    git push asf nifi-${NIFI_VERSION}-RC${RC}
+    ```
 1. Create the signature and hashes for the source release and convenience binary files.
     1. ASCII armored GPG signatures (`--digest-algo=SHA512` select the SHA512 hash algorithm). [Configure GPG to always prefer stronger hashes](https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1).
         ```
@@ -433,20 +439,26 @@ After the vote is complete and the release is approved, these steps complete the
 
 1. Move convenience binaries and related artifacts from dist/dev to dist/release:  
     ```
-    $ svn move -m "NIFI-${JIRA_TICKET}" https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION} https://dist.apache.org/repos/dist/release/nifi/${NIFI_VERSION}
+    $ svn move -m "${JIRA_TICKET}" https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION} https://dist.apache.org/repos/dist/release/nifi/${NIFI_VERSION}
     ```
 1. In repository.apache.org go to the staging repository and select `release` and follow the instructions on the site.
 
 1. Merge the release branch into master.
     ```
     $ git checkout master
-    $ git merge --no-ff NIFI-${JIRA_TICKET}-RC${RC}
+    $ git merge --no-ff ${JIRA_TICKET}-RC${RC}
     $ git push asf master
     ```
 
 1. Update Docker version information to point to the next release.  For instance, if the next version applied by Maven is 1.3.0-SNAPSHOT, these values should be updated to 1.3.0. This currently consists of two files:
-  * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version], and
-  * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version].
+    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version], and
+    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version].
+    
+1. Commit and push the dockerhub module updates to the ASF repository:
+    ```
+    git commit -m "${JIRA_TICKET} Updated dockerhub module for next release"
+    git push asf master
+    ```
 
 1. Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave
 the current release and the previous one).  For the release just previous to this new one change the links to point to
@@ -466,14 +478,15 @@ in the archive location so no need to do anything else.
 
 1. Ensure the release artifacts are successfully mirrored to the archive, specifically https://archive.apache.org/dist/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-bin.tar.gz.  
 This convenience binary file is the basis for our [Docker build][docker-build] and is needed in place before the released tag is pushed to the repository.  If there were any 
-issues with the above listed file not being available, it may be necessary to reach out to the ASF Infra team to adjust file size limits to accommodate larger artifacts.
+issues with the above listed file not being available, it may be necessary to reach out to the ASF Infra team to adjust file size limits to accommodate larger artifacts.  
+_NOTE: The [Docker build][docker-build] is triggered by pushing the signed tag in the next step. The release artifacts must be present
+in the archive before continuing._
 
-NOTE: The [Docker build][docker-build] is triggered by pushing the signed tag in the next step. The release artifacts must be present
-in the archive before continuing.
-
-1. Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.
+1. Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.  
+_NOTE: `gpg` will be invoked during this step, which will need to prompt you for a password.  From the command line, use
+`export GPG_TTY=$(tty)` to allow `gpg` to prompt you._
    ```
-   $ git tag -s rel/nifi-${NIFI_VERSION} -m "${JIRA_TICKET} signed release tag for approved release of NiFi ${NIFI_VERSION}" ${RC_TAG_COMMIT_ID}
+   $ git tag -s rel/nifi-${NIFI_VERSION} -m "${JIRA_TICKET} Signed release tag for approved release of NiFi ${NIFI_VERSION}" ${RC_TAG_COMMIT_ID}
    ```
    For instructions on setting up to sign your tag see [here][git-sign-tag-instructs].      
 
