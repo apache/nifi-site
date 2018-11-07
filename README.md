@@ -48,7 +48,7 @@ Consequently, the site is using [sass][] and [compass][] for CSS pre-processing.
 This will also require ruby to be installed along with sass and compass. Please
 follow the appropriate steps for installing Ruby in your environment.
 
-Only Ruby is installed, both sass and compass can be installed via ruby gem with
+Once Ruby is installed, both sass and compass can be installed via ruby gem with
 the following command.
 
 ```bash
