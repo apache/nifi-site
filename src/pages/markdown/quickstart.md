@@ -6,9 +6,9 @@ title:     Apache NiFi Development Quickstart
 
 ## Source Code
 
-Apache NiFi source code is version controlled using [Git][git] version control ([browse][gitbrowse]|[checkout][gitrepo]) and mirrored to [Github][githubrepo].
-<br />The NiFi website source code is available ([browse][gitbrowsenifisite]|[checkout][gitreponifisite]).
-<br />The NiFi Nar maven plugin source code is available ([browse][gitbrowsenifimaven]|[checkout][gitreponifimaven]).
+Apache NiFi source code is version controlled using [Git][git] version control ([browse][gitbrowse]|[checkout][gitrepo]) and mirrored to [GitHub][githubrepo].
+<br />The NiFi website source code is available ([browse][gitbrowsenifisite]|[checkout][gitreponifisite]) and mirrored to [GitHub][githubreposite].
+<br />The NiFi NAR maven plugin source code is available ([browse][gitbrowsenifimaven]|[checkout][gitreponifimaven]) and mirrored to [GitHub][githubrepoplugin].
 
 ## Issue Tracking
 
@@ -176,4 +176,6 @@ is ready for use:
 [gitrepo]: https://git-wip-us.apache.org/repos/asf/nifi.git
 [gitreponifisite]: https://git-wip-us.apache.org/repos/asf/nifi-site.git
 [gitreponifimaven]: https://git-wip-us.apache.org/repos/asf/nifi-maven.git
-[githubrepo]: https://github.com/apache/nifihttps://git-wip-us.apache.org/repos/asf/nifi-maven.git
+[githubrepo]: https://github.com/apache/nifi
+[githubreposite]: https://github.com/apache/nifi-site
+[githubrepoplugin]: https://github.com/apache/nifi-maven
