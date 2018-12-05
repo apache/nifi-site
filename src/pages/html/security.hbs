@@ -47,6 +47,155 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
+        <h2><a id="1.8.0" href="#1.8.0">Fixed in Apache NiFi 1.8.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h3><a id="1.8.0-vulnerabilities" href="#1.8.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17192" href="#CVE-2018-17192"><strong>CVE-2018-17192</strong></a>: Apache NiFi clickjacking vulnerability</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: The <code>X-Frame-Options</code> headers were applied inconsistently on some HTTP responses, resulting in duplicate or missing security headers. Some browsers would interpret these results incorrectly, allowing clickjacking attacks. </p>
+        <p>Mitigation: The fix to consistently apply the security headers was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Suchithra V N. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17192" target="_blank">Mitre Database: CVE-2018-17192</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5258" target="_blank">NIFI-5258</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2759" target="_blank">PR 2759</a>, <a href="https://github.com/apache/nifi/pull/2791" target="_blank">PR 2791</a>, <a href="https://github.com/apache/nifi/pull/2812" target="_blank">PR 2812</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17193" href="#CVE-2018-17193"><strong>CVE-2018-17193</strong></a>: Apache NiFi reflected XSS attack in <code>X-ProxyContextPath</code></p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: The <code>message-page.jsp</code> error page used the value of the HTTP request header <code>X-ProxyContextPath</code> without sanitization, resulting in a reflected XSS attack. </p>
+        <p>Mitigation: The fix to correctly parse and sanitize the request attribute value was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Dan Fike. Additional assistance from Patrick White. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17193" target="_blank">Mitre Database: CVE-2018-17193</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5442" target="_blank">NIFI-5442</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2908" target="_blank">PR 2908</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17194" href="#CVE-2018-17194"><strong>CVE-2018-17194</strong></a>: Apache NiFi Denial of service via <code>DELETE</code> cluster request replication</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: When a client request to a cluster node was replicated to other nodes in the cluster for verification, the <code>Content-Length</code> was forwarded. On a <code>DELETE</code> request, the body was ignored, but if the initial request had a <code>Content-Length</code> value other than 0, the receiving nodes would wait for the body and eventually timeout. </p>
+        <p>Mitigation: The fix to check <code>DELETE</code> requests and overwrite non-zero <code>Content-Length</code> header values was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole and Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17194" target="_blank">Mitre Database: CVE-2018-17194</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5628" target="_blank">NIFI-5628</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3035" target="_blank">PR 3035</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17195" href="#CVE-2018-17195"><strong>CVE-2018-17195</strong></a>: Apache NiFi CSRF vulnerability in template upload API</p>
+        <p>Severity: <strong>Severe</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: The template upload API endpoint accepted requests from different domain when sent in conjunction with ARP spoofing + man in the middle (MiTM) attack, resulting in a CSRF attack. The required attack vector is complex, requiring a scenario with client certificate authentication, same subnet access, and injecting malicious code into an unprotected (plaintext HTTP) website which the targeted user later visits, but the possible damage warranted a <strong>Severe</strong> severity level. </p>
+        <p>Mitigation: The fix to apply Cross-Origin Resource Sharing (CORS) policy request filtering was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17195" target="_blank">Mitre Database: CVE-2018-17195</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5595" target="_blank">NIFI-5595</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3024" target="_blank">PR 3024</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h3><a id="1.8.0-dependency-vulnerabilities" href="#1.8.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2014-0193" href="#CVE-2014-0193"><strong>CVE-2014-0193</strong></a>: Apache NiFi Denial of service because of netty vulnerability</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the netty library could cause denial of service. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2014-0193" target="_blank">NIST NVD CVE-2014-0193</a> or <a href="https://netty.io/news/2014/04/30/release-day.html" target="_blank">netty release announcement</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the netty library to 3.7.1.Final was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Nathan Gough. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0193" target="_blank">Mitre Database: CVE-2014-0193</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5665" target="_blank">NIFI-5665</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3067" target="_blank">PR 3067</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<!-- Informational -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h3><a id="1.8.0-informational" href="#1.8.0-informational">Informational</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="NIFI-2018-006" href="#NIFI-2018-006"><strong>NIFI-2018-006</strong></a>: Apache NiFi Suppression of stack trace when malicious XSS query is submitted</p>
+        <p>Severity: <strong>Informational</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.0</li>
+        </ul>
+        </p>
+        <p>Description: A reporter submitted a (false positive) claim of a reflected XSS attack. See the <a href="#CVE-2016-8748">CVE-2016-8748 announcement</a> for more information. While the XSS attack was not valid, the resulting stack trace contained unnecessary information. </p>
+        <p>Mitigation: The fix to suppress the stacktrace was applied on the Apache NiFi 1.7.1 and 1.8.0 releases. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Prashanth V. </p>
+        <p>CVE Link: N/A</p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5374" target="_blank">NIFI-5374</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2840" target="_blank">PR 2840</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="NIFI-2018-014" href="#NIFI-2018-014"><strong>NIFI-2018-014</strong></a>: Apache NiFi addition of Content Security Policy (CSP) frame-ancestor HTTP response header</p>
+        <p>Severity: <strong>Informational</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: Following best practice recommendations, the <code>frame-ancestors</code> CSP response header is provided as well as <code>X-Frame-Options</code> for increased compatibility across browsers. </p>
+        <p>Mitigation: The addition of these headers was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Nathan Gough and Andy LoPresto. </p>
+        <p>CVE Link: N/A</p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5366" target="_blank">NIFI-5366</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2989" target="_blank">PR 2989</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns features">
         <h2><a id="1.7.0" href="#1.7.0">Fixed in Apache NiFi 1.7.0</a></h2>
     </div>
 </div>
