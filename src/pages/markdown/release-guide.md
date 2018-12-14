@@ -130,8 +130,8 @@ Apache NiFi developer community.
 NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
     ```
     $ git remote -v
-    asf	https://git-wip-us.apache.org/repos/asf/nifi.git (fetch)
-    asf	https://git-wip-us.apache.org/repos/asf/nifi.git (push)
+    asf	https://gitbox-us.apache.org/repos/asf/nifi.git (fetch)
+    asf	https://gitbox-us.apache.org/repos/asf/nifi.git (push)
     origin	https://github.com/${RM_USERID}/nifi.git (fetch)
     origin	https://github.com/${RM_USERID}/nifi.git (push)
     ```
@@ -323,7 +323,7 @@ and more positive than negative binding votes._
 
     The Git tag is nifi-${NIFI_VERSION}-RC${RC}
     The Git commit ID is ${RC_TAG_COMMIT_ID}
-    https://git-wip-us.apache.org/repos/asf?p=nifi.git;a=commit;h=${RC_TAG_COMMIT_ID}
+    https://gitbox-us.apache.org/repos/asf?p=nifi.git;a=commit;h=${RC_TAG_COMMIT_ID}
 
     Checksums of nifi-x.y.z-source-release.zip:
     SHA256: <64-CHAR-SHA256SUM-HASH>

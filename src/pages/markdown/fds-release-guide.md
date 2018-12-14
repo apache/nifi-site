@@ -116,8 +116,8 @@ Apache NiFi Flow Design System developer community.
 NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
     ```
     $ git remote -v
-    asf	https://git-wip-us.apache.org/repos/asf/nifi-fds.git (fetch)
-    asf	https://git-wip-us.apache.org/repos/asf/nifi-fds.git (push)
+    asf	https://gitbox-us.apache.org/repos/asf/nifi-fds.git (fetch)
+    asf	https://gitbox-us.apache.org/repos/asf/nifi-fds.git (push)
     origin	https://github.com/${RM_USERID}/nifi-fds.git (fetch)
     origin	https://github.com/${RM_USERID}/nifi-fds.git (push)
     ```
@@ -225,7 +225,7 @@ and more positive than negative binding votes._
 
     The Git tag is nifi-${NIFI_FDS_VERSION}-RC${RC}
     The Git commit ID is ${RC_TAG_COMMIT_ID}
-    https://git-wip-us.apache.org/repos/asf?p=nifi-fds.git;a=commit;h=${RC_TAG_COMMIT_ID}
+    https://gitbox-us.apache.org/repos/asf?p=nifi-fds.git;a=commit;h=${RC_TAG_COMMIT_ID}
 
     Checksums of nifi-fds-x.y.z-source-release.zip:
     SHA1: <40-BYTE-SHA1SUM-HASH>
