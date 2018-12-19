@@ -119,7 +119,7 @@ title: Apache NiFi Security Reports
             <li>Apache NiFi 1.0.0 - 1.7.1</li>
         </ul>
         </p>
-        <p>Description: The template upload API endpoint accepted requests from different domain when sent in conjunction with ARP spoofing + man in the middle (MiTM) attack, resulting in a CSRF attack. The required attack vector is complex, requiring a scenario with client certificate authentication, same subnet access, and injecting malicious code into an unprotected (plaintext HTTP) website which the targeted user later visits, but the possible damage warranted a <strong>Severe</strong> severity level. </p>
+        <p>Description: The template upload API endpoint accepted requests from different domain when sent in conjunction with ARP spoofing + meddler in the middle (MITM) attack, resulting in a CSRF attack. The required attack vector is complex, requiring a scenario with client certificate authentication, same subnet access, and injecting malicious code into an unprotected (plaintext HTTP) website which the targeted user later visits, but the possible damage warranted a <strong>Severe</strong> severity level. </p>
         <p>Mitigation: The fix to apply Cross-Origin Resource Sharing (CORS) policy request filtering was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
         <p>Credit: This issue was discovered by Mike Cole. </p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17195" target="_blank">Mitre Database: CVE-2018-17195</a></p>
@@ -494,9 +494,8 @@ title: Apache NiFi Security Reports
         </p>
         <p>Description: In a cluster environment, if an anonymous user request is replicated to another node, the originating node identity is used rather than the “anonymous” user. </p>
         <p>Mitigation: A fix has been provided (removing the negative check for anonymous user before building the proxy chain and throwing an exception, and evaluating each user in the proxy chain
-            iteration and comparing against a static constant anonymous user). This fix was applied in NIFI-3487 and released in Apache NiFi 0.7.2 and 1.1.2. 1.x users running a clustered environment
-            should upgrade to 1.1.2. 0.x users running a clustered environment should upgrade to 0.7.2. Additional migration guidance can be found <a
-                    href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
+        iteration and comparing against a static constant anonymous user). This fix was applied in NIFI-3487 and released in Apache NiFi 0.7.2 and 1.1.2. 1.x users running a clustered environment
+        should upgrade to 1.1.2. 0.x users running a clustered environment should upgrade to 0.7.2. Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
         <p>Credit: This issue was discovered by Leonardo Dias in conjunction with Matt Gilman.</p>
         <p>Released: February 20, 2017</p>
     </div>
