@@ -203,7 +203,9 @@ problems that must be addressed before proceeding.
     ```
     $ mvn install -Pcontrib-check,include-grpc
     ```
-
+1. Verify and update if necessary to ensure Docker version information points to the next release version.  For instance, if version being released is 1.9.0, these values should be 1.9.0. This currently consists of two files:
+    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version], and
+    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version].
 ### Step 3. Perform the release (RM)
 
 1. Now its time to have maven prepare the release with this command.  
@@ -462,9 +464,9 @@ After the vote is complete and the release is approved, these steps complete the
 
 1. Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave
 the current release and the previous one).  For the release just previous to this new one change the links to point to
-the archive location.  See current page as an example of the needed URL changes.  In addition to updating the download
-page as described delete artifacts other than the current/new release from the dist/nifi SVN storage.  They are already
-in the archive location so no need to do anything else.
+the archive location.  See current page as an example of the needed URL changes.
+
+1. Remove artifacts other than the current/new release from the dist/SVN storage https://dist.apache.org/repos/dist/release/nifi/ Confirm the artifacts you deleted are present in apache archive where ASF keeps all releases forever http://archive.apache.org/dist/nifi/
 
 1. Update the [Migration Guide][nifi-migration-guide] on the Wiki.
 
@@ -477,7 +479,7 @@ in the archive location so no need to do anything else.
         1. Checkout the existing Subversion repository containing the docs by running `svn co https://svn.apache.org/repos/asf/nifi/site/trunk/docs svn-docs`
         1. Replace the `nifi` directory (site JS assets, images, etc.) by running `rsync -av ${NIFI_VERSION}-docs/nifi/ svn-docs/nifi/`
         1. Replace the `nifi-docs/...` directories (guides, API docs, JS/CSS assets, images, etc. but _excluding_ `component` docs) by running `rsync -av --delete --exclude='components' ${NIFI_VERSION}-docs/nifi-docs/ svn-docs/nifi-docs/` (the trailing slashes are important)
-        1. Merge the component documentation by running `rsync -av ${NIFI_VERSION}/nifi-docs/components/ svn-docs/nifi-docs/components/`
+        1. Merge the component documentation by running `rsync -av ${NIFI_VERSION}-docs/nifi-docs/components/ svn-docs/nifi-docs/components/`
         1. (Optional) Check the status by running `svn st svn-docs`
         1. Add the new files to version control by running `cd svn-docs && svn add . --force`
         1. Commit the changes by running `svn ci -m "Added ${NIFI_VERSION} docs to NiFi site."`
