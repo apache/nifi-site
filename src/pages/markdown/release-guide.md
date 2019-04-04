@@ -377,7 +377,7 @@ and more positive than negative binding votes._
     wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha512
 
     # Verify the signature
-    gpg --verify nifi-${NIFI_VERSION}-source-release.zip.asc
+    gpg --verify -v nifi-${NIFI_VERSION}-source-release.zip.asc
 
     # Verify the hashes (sha256, sha512) match the source and what was provided in the vote email thread
     shasum -a 256 nifi-${NIFI_VERSION}-source-release.zip
