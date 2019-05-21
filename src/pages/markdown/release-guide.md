@@ -532,8 +532,7 @@ _NOTE: `gpg` will be invoked during this step, which will need to prompt you for
     The release artifacts can be downloaded from here:
     https://nifi.apache.org/download.html
 
-    Maven artifacts have been made available here:
-    https://repository.apache.org/content/repositories/releases/org/apache/nifi/
+    Maven artifacts have been made available and mirrored as per normal ASF artifact processes.
 
     Issues closed/resolved for this list can be found here:
     https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316020&version=12329373
