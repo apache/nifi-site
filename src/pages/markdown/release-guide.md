@@ -38,8 +38,7 @@ Our aim is to produce an official Apache release from an existing release branch
  * **Community** - the [community][apache-glossary-community] of people with an interest
  in the improvement and advancement of Apache NiFi, including end-users, developers, evangelists, and advisers.
  * **PMC** - within the Apache NiFi community, members of the [PMC][apache-glossary-pmc] oversee the ongoing project.
- * **Committer** - with the Apache NiFi community, [committers][apache-glossary-committer]
- have gain the privilege to commit changes to the Apache NiFi codebase.
+ * **Committer** - within the Apache NiFi community, [committers][apache-glossary-committer] have gained the privilege to commit changes to the Apache NiFi codebase.
 
 ## High level flow of a release
 
@@ -48,7 +47,7 @@ Our aim is to produce an official Apache release from an existing release branch
   - A member of the community suggests a release and initiates a discussion.
   - Someone volunteers to perform the Release Manager (RM) role for the release.  (This can be a committer but Apache
   guides indicate a preference for a PMC member.)
-  - The RM validate the proposed release and stages the source code, Maven artifacts, and distributable files for a
+  - The RM validates the proposed release and stages the source code, Maven artifacts, and distributable files for a
   Release Candidate (RC).
   - The RM initiates a vote on the RC by the NiFi community.
   - If the NiFi community rejects the RC, the issues noted are resolved and another RC is generated.
