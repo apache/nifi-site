@@ -39,14 +39,14 @@ To check out the code:
 git clone https://gitbox.apache.org/repos/asf/nifi.git
 ```
 <br/>
-Then checkout the 'master' branch (which should be the default)
+Then checkout the `master` branch (which should be the default)
 
 ```
 git checkout master
 ```
 
 <br/>
-The master branch currently represents the next major release line (1.x). Substantial work here is underway to improve the NiFi's core framework and UI. If your interested in building the 0.x baseline which is still actively released to include new components and bug fixes please checkout the 0.x branch.
+The `master` branch currently represents the next major release line (1.x). Substantial work here is underway to improve the NiFi's core framework and UI. If you are interested in building the 0.x baseline to include new components and bug fixes please checkout the 0.x branch.
 <br/>
 
 ```
@@ -54,30 +54,30 @@ git checkout -b 0.x origin/0.x
 ```
 
 <br/>
-This will checkout the 0.x branch locally and set it to track the 0.x branch in the remote named origin (the default name).
+This will checkout the 0.x branch locally and set it to track the 0.x branch in the remote named `origin` (the default name).
 <br/>
 
 ### Linux Operating System Configuration
 
-_NOTE_: If you are building on Linux, consider these best practices. Typical Linux defaults are not necessarily well tuned for the needs of an IO intensive application like NiFi.
+**NOTE:** If you are building on Linux, consider these best practices. Typical Linux defaults are not necessarily well tuned for the needs of an IO intensive application like NiFi.
 For all of these areas, your distribution's requirements may vary.  Use these sections as advice, but consult your distribution-specific documentation for how best to achieve these recommendations.
 
 
 #### Maximum File Handles
 
 NiFi will at any one time potentially have a very large number of file handles open.  Increase the limits by
-editing '/etc/security/limits.conf' to add something like
+editing _/etc/security/limits.conf_ to add something like:
 
     *  hard  nofile  50000
     *  soft  nofile  50000
 
 #### Maximum Forked Processes
 
-NiFi may be configured to generate a significant number of threads.  To increase the allowable number edit '/etc/security/limits.conf'
+NiFi may be configured to generate a significant number of threads.  Increase the allowable number by editing _/etc/security/limits.conf_ to add something like:
     *  hard  nproc  10000
     *  soft  nproc  10000
 
-And your distribution may require an edit to /etc/security/limits.d/90-nproc.conf by adding
+Your distribution may require an edit to _/etc/security/limits.d/90-nproc.conf_ by adding:
     *  soft  nproc  10000
 
 #### Increase the number of TCP socket ports available
@@ -94,15 +94,15 @@ it but to adjust do something like
 
 #### Tell Linux you never want NiFi to swap
 Swapping is fantastic for some applications.  It isn't good for something like
-NiFi that always wants to be running.  To tell Linux you'd like swapping off you
-can edit '/etc/sysctl.conf' to add the following line
+NiFi that always wants to be running.  To tell Linux you'd like swapping off, you
+can edit _/etc/sysctl.conf_ to add the following line
 
     vm.swappiness = 0
 
 #### Disable partition atime
-For the partitions handling the various NiFi repos turn off things like 'atime'.
-Doing so can cause a surprising bump in throughput.  Edit the '/etc/fstab' file
-and for the partition(s) of interest add the 'noatime' option.
+For the partitions handling the various NiFi repos, turn off things like `atime`.
+Doing so can cause a surprising bump in throughput.  Edit the _/etc/fstab_ file
+and for the partition(s) of interest add the `noatime` option.
 
 #### Additional guidance
 Additional information on system administration and settings can be located in our [Administrator's Guide][adminguide].
@@ -114,36 +114,37 @@ Additional information on system administration and settings can be located in o
 3. You need a recent git client for the 1.x NiFi line.
 4. Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
     - These settings have worked well `MAVEN_OPTS="-Xms1024m -Xmx3076m -XX:MaxPermSize=256m"`
-5. Build the entire code base.  In the root dir of the source tree run `mvn -T C2.0 clean install -Pinclude-grpc`
+5. Build the entire code base.  In the `root` dir of the source tree run `mvn -T C2.0 clean install -Pinclude-grpc`
    You can tweak the maven build settings as you like but the previous command will execute with 2 threads per core.
-   You can omit the '-Pinclude-grpc' if you're not on a platform that it supports.
+   You can omit the `-Pinclude-grpc` if you're not on a platform that it supports.
+   Include `-DskipTests` to compile tests, but skip running them.
 
 Now you should have a fully functioning build off the latest codebase.
 
-_NOTE_:  During development it is not necessary to build the entire code base. Typically, in case of a NAR bundle change you can build only the particular bundle followed by running `mvn -T C2.0 clean install -Ddir-only` in `nifi-assembly`.
+**NOTE:**  During development it is not necessary to build the entire code base. Typically, in case of a NAR bundle change you can build only the particular bundle followed by running `mvn -T C2.0 clean install -Ddir-only` in `nifi-assembly`.
 
 ## Running the application
 
 #### ** WARNING **
 
-Without any configuration, the application will run on port 8080 and does not require any credentials to modify
+Without any configuration, the application will run on port `8080` and does not require any credentials to modify
 the flow. This means of running Apache NiFi should be used only for development/testing and in an environment where only
-connections from trusted computers and users can connect to port 8080. Using iptables to allow only localhost connections
-to 8080 is a good start, but on systems with multiple (potentially untrusted) users, also not a sufficient protection.
+connections from trusted computers and users can connect to port `8080`. Using iptables to allow only localhost connections
+to `8080` is a good start, but on systems with multiple (potentially untrusted) users, also not a sufficient protection.
 
 #### Decompress and launch
 
-Running the above build will create a tar.gz (and zip) file in `./nifi-assembly/target`. This tar.gz should
-contain the full application. Decompressing the tar.gz should make a directory for you containing several other
+Running the above build will create a _tar.gz_ (and _zip_) file in `./nifi-assembly/target`. This _tar.gz_ should
+contain the full application. Decompressing the _tar.gz_ should make a directory for you containing several other
 directories. `conf` contains application configuration, `bin` contains scripts
-for launching the application. On linux and OSX, NiFi can be run using `bin/nifi.sh <command>` where
+for launching the application. On Linux and OSX, NiFi can be run using `bin/nifi.sh <command>` where
 `<command>` is one of:
 
-+ start: starts NiFi in the background
-+ stop: stops NiFi that is running in the background
-+ status: provides the current status of NiFi
-+ run: runs NiFi in the foreground and waits to receive a Ctrl-C, which then shuts down NiFi.
-+ install: (available in Linux only, not OSX): installs NiFi as a service that can then be controlled
++ `start`: starts NiFi in the background
++ `stop`: stops NiFi that is running in the background
++ `status`: provides the current status of NiFi
++ `run`: runs NiFi in the foreground and waits to receive a Ctrl-C, which then shuts down NiFi.
++ `install`: (available in Linux only, not OSX): installs NiFi as a service that can then be controlled
 via `service nifi start`, `service nifi stop`, `service nifi status`.
 
 
@@ -153,7 +154,7 @@ For Windows users, the following scripts exist in the `bin` directory:
 + `status-nifi.bat`: provides the current status of NiFi
 
 The configuration that is to be used when launching NiFi, such as Java heap size, the user
-to run as, which Java command to use, etc. are configurable via the `conf/bootstrap.conf` file.
+to run as, which Java command to use, etc. are configurable via the _conf/bootstrap.conf_ file.
 
 The entire concept of how the application will integrate to a given OS and run as an
 enduring service is something we're working hard on and would appreciate ideas for.  The user experience needs to
@@ -161,7 +162,7 @@ be excellent.
 
 With the default settings you can point a web browser at `http://localhost:8080/nifi/`
 
-Logging is configured by default to log to `./logs/nifi-app.log`. The following log message should indicate the web UI
+Logging is configured by default to log to _./logs/nifi-app.log_. The following log message should indicate the web UI
 is ready for use:
 
     2014-12-09 00:42:03,540 INFO [main] org.apache.nifi.web.server.JettyServer NiFi has started. The UI is available at the following URLs:
