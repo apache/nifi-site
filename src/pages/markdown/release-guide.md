@@ -97,15 +97,15 @@ when evaluating a release for a vote.
     - Does the overall LICENSE and NOTICE appear correct?
     - Do all licenses fit within the ASF approved licenses?
     - Here is an example path to a sources artifact that has been prepared but not released:  
-      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip`
+      `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip`
   - Is there a README available that explains how to build the application and to execute it?
     - Look in the *-sources.zip artifact root for the readme.
   - Are the signatures and hashes correct for the source release?
     - Validate the hashes of the sources artifact do in fact match:
-      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha256`
-      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha512`
+      `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha256`
+      `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha512`
     - Validate the signature of the source artifact.  Here is an example path:
-      `https://repository.apache.org/content/repositories/${STAGING_REPO_ID}/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc`
+      `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc`
     - Need a quick reminder on how to [verify a signature][apache-signature-verify]?
   - Do all sources have necessary headers?
     - Unzip the sources file into a directory and execute `mvn install -Pcontrib-check,include-grpc`
@@ -242,7 +242,9 @@ login with your Apache committer credentials and you should see the newly create
 click on that you can inspect the various staged artifacts.
 
 1. Validate that all the various aspects of the staged artifacts appear correct
-    - Download the sources.  Do they compile cleanly?  If the result is a build does it execute?
+    - Download the sources and signature at the following URL. Do they compile cleanly?  If the result is a build does it execute?  We download the sources and signature from the nexus artifacts so that these sources and signature match what we put in dist and thus all signatures and such match.  If you pull the sources from your local build it will differ and can create confusion during RC validation.  These are the first two primary artifacts you need for the voting (the sources and the signature).  You'll gather other artifacts and signatures and generate hashes below.
+       `wget https://repository.apache.org/service/local/repositories/orgapachenifi-nnnn/content/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip`
+       `wget https://repository.apache.org/service/local/repositories/orgapachenifi-nnnn/content/org/apache/nifi/nifi/${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc`
     - Validate the hashes match.
     - Validate that the sources contain no unexpected binaries.
     - Validate the signature for the build and hashes. [Verifying a release signature](https://nifi.apache.org/gpg.html#verifying-a-release-signature).
@@ -259,10 +261,9 @@ click on that you can inspect the various staged artifacts.
     ```
     git push asf nifi-${NIFI_VERSION}-RC${RC}
     ```
-1. Create the signature and hashes for the source release and convenience binary files.
+1. Create the signature and hashes for the source release and convenience binary files.  You take the source release and signature from steps above.  You grab the other conveniece binaries from your local build directories.
     1. ASCII armored GPG signatures (`--digest-algo=SHA512` select the SHA512 hash algorithm). [Configure GPG to always prefer stronger hashes](https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1).
         ```
-        $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-source-release.zip  # produces nifi-${NIFI_VERSION}-source-release.zip.asc
         $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.tar.gz          # produces nifi-${NIFI_VERSION}-bin.tar.gz.asc
         $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.zip             # produces nifi-${NIFI_VERSION}-bin.zip.asc
         $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.zip     # produces nifi-toolkit-${NIFI_VERSION}-bin.zip.asc
@@ -286,7 +287,7 @@ click on that you can inspect the various staged artifacts.
         ```
 
 1. For reviewing of the release candidate, commit the source release and convenience binaries files along with their
-hashes and signatures to `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}`.
+hashes and signatures to `https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}`. There should be in total 20 files (5 primary artifacts, 5 signatures, 5 sha256, 5 sha512).
 
 ### Step 4. Error recovery (RM)
 
@@ -321,6 +322,9 @@ and more positive than negative binding votes._
 
     The source zip, including signatures, digests, etc. can be found at:
     https://repository.apache.org/content/repositories/orgapachenifi-nnnn
+
+    The source being voted upon and the convenience binaries can be found at:
+    https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/
 
     The Git tag is nifi-${NIFI_VERSION}-RC${RC}
     The Git commit ID is ${RC_TAG_COMMIT_ID}
