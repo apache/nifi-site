@@ -326,6 +326,9 @@ and more positive than negative binding votes._
     The source being voted upon and the convenience binaries can be found at:
     https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/
 
+    A helpful reminder on how the release candidate verification process works:
+    https://cwiki.apache.org/confluence/display/NIFI/How+to+help+verify+an+Apache+NiFi+release+candidate
+
     The Git tag is nifi-${NIFI_VERSION}-RC${RC}
     The Git commit ID is ${RC_TAG_COMMIT_ID}
     https://gitbox.apache.org/repos/asf?p=nifi.git;a=commit;h=${RC_TAG_COMMIT_ID}
@@ -354,60 +357,6 @@ and more positive than negative binding votes._
     [ ] +0 no opinion
     [ ] -1 Do not release this package because...
     ```
-
-1. RM sends the following helper email to the NiFi Developers Mailing List.
-    - TO: `dev@nifi.apache.org`
-    - FROM: `${RM_USERID}@apache.org`
-    - SUBJECT: `Apache NiFi ${NIFI_VERSION} RC${RC} Release Helper Guide`
-    ```
-    Hello Apache NiFi community,
-
-    Please find the associated guidance to help those interested in validating/verifying the release so they can vote.
-
-    # Download latest KEYS file:
-    https://dist.apache.org/repos/dist/dev/nifi/KEYS
-
-    # Import keys file:
-    gpg --import KEYS
-
-    # [optional] Clear out local maven artifact repository
-
-    # Pull down nifi-${NIFI_VERSION} source release artifacts for review:
-
-    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip
-    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.asc
-    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha256
-    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION}/nifi-${NIFI_VERSION}-source-release.zip.sha512
-
-    # Verify the signature
-    gpg --verify -v nifi-${NIFI_VERSION}-source-release.zip.asc
-
-    # Verify the hashes (sha256, sha512) match the source and what was provided in the vote email thread
-    shasum -a 256 nifi-${NIFI_VERSION}-source-release.zip
-    shasum -a 512 nifi-${NIFI_VERSION}-source-release.zip
-
-    # Unzip nifi-${NIFI_VERSION}-source-release.zip
-
-    # Verify the build works including release audit tool (RAT) checks
-    cd nifi-${NIFI_VERSION}
-    mvn clean install -Pcontrib-check,include-grpc
-
-    # Verify the contents contain a good README, NOTICE, and LICENSE.
-
-    # Verify the git commit ID is correct
-
-    # Verify the RC was branched off the correct git commit ID
-
-    # Look at the resulting convenience binary as found in nifi-assembly/target
-
-    # Make sure the README, NOTICE, and LICENSE are present and correct
-
-    # Run the resulting convenience binary and make sure it works as expected
-
-    # Send a response to the vote thread indicating a +1, 0, -1 based on your findings.
-
-    Thank you for your time and effort to validate the release!
-    ```    
 
 1. Developers in the community review the release candidate and reply to the vote email with their vote.
 
