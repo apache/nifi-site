@@ -397,7 +397,7 @@ After the vote is complete and the release is approved, these steps complete the
     ```
 1. In repository.apache.org go to the staging repository and select `release` and follow the instructions on the site.
 
-1. Merge the release branch into master.
+1. Merge the release branch into master. (this will result in a merge commit)
     ```
     $ git checkout master
     $ git merge --no-ff ${JIRA_TICKET}-RC${RC}
