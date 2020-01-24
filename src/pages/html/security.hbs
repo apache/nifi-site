@@ -62,10 +62,10 @@ title: Apache NiFi Security Reports
         <p>Severity: <strong>Moderate</strong></p>
         <p>Versions Affected:</p>
         <ul>
-            <li>Apache NiFi 1.10.0 - 1.10.0</li>
+            <li>Apache NiFi 1.10.0</li>
         </ul>
         </p>
-        <p>Description: The sensitive parameter parser would log parsed values for debugging purposes. If the parameter was sensitive, it would be logged in plaintext. </p>
+        <p>Description: The sensitive parameter parser would log parsed values for debugging purposes. This would expose literal values entered in a sensitive property when no parameter was present. </p>
         <p>Mitigation: Removed debug logging from the class. Users running the 1.10.0 release should upgrade to the latest release. </p>
         <p>Credit: This issue was discovered by Andy LoPresto. </p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1928" target="_blank">Mitre Database: CVE-2020-1928</a></p>
@@ -85,7 +85,7 @@ title: Apache NiFi Security Reports
         </p>
         <p>Description: Malicious scripts could be injected to the UI through action by an unaware authenticated user in Firefox. Did not appear to occur in other browsers.</p>
         <p>Mitigation: Sanitization of the error response ensures the XSS would not be executed. Users running a prior 1.x release should upgrade to the latest release. </p>
-        <p>Credit: This issue was discovered by Jakub Palaczynski. </p>
+        <p>Credit: This issue was discovered by Jakub Palaczynski (ING Tech Poland). </p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1933" target="_blank">Mitre Database: CVE-2020-1933</a></p>
         <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7023" target="_blank">NIFI-7023</a></p>
         <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3991" target="_blank">PR 3991</a></p>
