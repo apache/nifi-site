@@ -88,14 +88,14 @@ title: Apache NiFi Security Reports
 </div>
 <div class="row" style="background-color: aliceblue">
     <div class="large-12 columns">
-        <p><a id="CVE-2020-1928" href="#CVE-2020-1928"><strong>CVE-2020-1928</strong></a>: Apache NiFi information disclosure by debug logging</p>
+        <p><a id="CVE-2020-1928" href="#CVE-2020-1928"><strong>CVE-2020-1928</strong></a>: Apache NiFi information disclosure in logs</p>
         <p>Severity: <strong>Moderate</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.10.0</li>
         </ul>
         </p>
-        <p>Description: The sensitive parameter parser would log parsed values for debugging purposes. This would expose literal values entered in a sensitive property when no parameter was present. </p>
+        <p>Description: The sensitive parameter parser would log parsed property descriptor values for debugging purposes. This would expose literal values entered in a sensitive property when no parameter was present. </p>
         <p>Mitigation: Removed debug logging from the class. Users running the 1.10.0 release should upgrade to the latest release. </p>
         <p>Credit: This issue was discovered by Andy LoPresto. </p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1928" target="_blank">Mitre Database: CVE-2020-1928</a></p>
@@ -107,7 +107,7 @@ title: Apache NiFi Security Reports
 <div class="row">
     <div class="large-12 columns">
         <p><a id="CVE-2020-1933" href="#CVE-2020-1933"><strong>CVE-2020-1933</strong></a>: Apache NiFi XSS attack</p>
-        <p>Severity: <strong>High</strong></p>
+        <p>Severity: <strong>Important</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.0.0 - 1.10.0</li>
@@ -128,10 +128,10 @@ title: Apache NiFi Security Reports
         <h2><a id="1.11.0-dependency-vulnerabilities" href="#1.11.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
     </div>
 </div>
-<div class="row">
+<div class="row" style="background-color: aliceblue">
     <div class="large-12 columns">
         <p><a id="CVE-2019-10768" href="#CVE-2019-10768"><strong>CVE-2019-10768</strong></a>: Apache NiFi's AngularJS usage</p>
-        <p>Severity: <strong>High</strong></p>
+        <p>Severity: <strong>Important</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.8.0 - 1.10.0</li>
@@ -221,7 +221,7 @@ title: Apache NiFi Security Reports
 <div class="row">
     <div class="large-12 columns">
         <p><a id="CVE-2017-5637" href="#CVE-2017-5637"><strong>CVE-2017-5637, CVE-2016-5017, CVE-2018-8012</strong></a>: Apache NiFi's Zookeeper usage</p>
-        <p>Severity: <strong>High</strong></p>
+        <p>Severity: <strong>Important</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.0.0 - 1.9.2</li>
@@ -369,13 +369,13 @@ title: Apache NiFi Security Reports
 <div class="row">
     <div class="large-12 columns">
         <p><a id="CVE-2018-17195" href="#CVE-2018-17195"><strong>CVE-2018-17195</strong></a>: Apache NiFi CSRF vulnerability in template upload API</p>
-        <p>Severity: <strong>Severe</strong></p>
+        <p>Severity: <strong>Critical</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.0.0 - 1.7.1</li>
         </ul>
         </p>
-        <p>Description: The template upload API endpoint accepted requests from different domain when sent in conjunction with ARP spoofing + meddler in the middle (MITM) attack, resulting in a CSRF attack. The required attack vector is complex, requiring a scenario with client certificate authentication, same subnet access, and injecting malicious code into an unprotected (plaintext HTTP) website which the targeted user later visits, but the possible damage warranted a <strong>Severe</strong> severity level. </p>
+        <p>Description: The template upload API endpoint accepted requests from different domain when sent in conjunction with ARP spoofing + meddler in the middle (MITM) attack, resulting in a CSRF attack. The required attack vector is complex, requiring a scenario with client certificate authentication, same subnet access, and injecting malicious code into an unprotected (plaintext HTTP) website which the targeted user later visits, but the possible damage warranted a <strong>Critical</strong> severity level. </p>
         <p>Mitigation: The fix to apply Cross-Origin Resource Sharing (CORS) policy request filtering was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
         <p>Credit: This issue was discovered by Mike Cole. </p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17195" target="_blank">Mitre Database: CVE-2018-17195</a></p>
@@ -495,7 +495,7 @@ title: Apache NiFi Security Reports
 <div class="row" style="background-color: aliceblue">
     <div class="large-12 columns">
         <p><a id="CVE-2018-7489" href="#CVE-2018-7489"><strong>CVE-2018-7489</strong></a>, <a id="CVE-2017-7525" href="#CVE-2017-7525"><strong>CVE-2017-7525</strong></a>, and <a id="CVE-2017-15095" href="#CVE-2017-15095"><strong>CVE-2017-15095</strong></a>: Apache NiFi dependency vulnerability in FasterXML Jackson</p>
-        <p>Severity: <strong>Severe</strong></p>
+        <p>Severity: <strong>Critical</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 0.1.0 - 1.6.0</li>
@@ -587,7 +587,7 @@ title: Apache NiFi Security Reports
 <div class="row">
     <div class="large-12 columns">
         <p><a id="CVE-2017-8028" href="#CVE-2017-8028"><strong>CVE-2017-8028</strong></a>: Apache NiFi LDAP TLS issue because of Spring Security LDAP vulnerability</p>
-        <p>Severity: <strong>Severe</strong></p>
+        <p>Severity: <strong>Critical</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 0.1.0 - 1.5.0</li>
