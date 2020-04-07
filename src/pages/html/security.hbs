@@ -45,6 +45,35 @@ title: Apache NiFi Security Reports
     </div>
 </div>
 <div class="medium-space"></div>
+ <div class="row">
+         <div class="large-12 columns features">
+             <h2><a id="1.11.4" href="#1.11.4">Fixed in Apache NiFi 1.11.4</a></h2>
+         </div>
+ </div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.4-dependency-vulnerabilities" href="#1.11.4-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-5398" href="#CVE-2020-5398"><strong>CVE-2020-5398</strong></a>: Apache NiFi's spring-data-redis usage</p>
+        <p>Severity: <strong>High</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The org.springframework.data:spring-data-redis dependency in the nifi-redis-bundle had a vulnerable transitive dependency. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-5398" target="_blank">NIST NVD CVE-2020-5398</a> for more information. </p>
+        <p>Mitigation: spring-data-redis was upgraded from 2.1.0.RELEASE to 2.1.16.RELEASE for the Apache NiFi 1.11.4 release. It is unlikely that NiFi's usage of this dependency could be exploited as described by the CVE, however we consider it prudent for users running a prior 1.x release to upgrade to the 1.11.4 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5398" target="_blank">Mitre Database: CVE-2020-5398</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7267" target="_blank">NIFI-7267</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4150" target="_blank">PR 4150</a></p>
+        <p>Released: March 22, 2020</p>
+    </div>
+</div>
+<div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
         <h2><a id="1.11.1" href="#1.11.1">Fixed in Apache NiFi 1.11.1</a></h2>
