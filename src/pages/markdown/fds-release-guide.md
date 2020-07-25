@@ -65,7 +65,7 @@ those variable values have been written like Bash variable references.  When a t
     <pre>
     Reference            Example value       Description
     =========            ==============      ===========
-    ${BRANCH}            master              the development branch on which the release is based.
+    ${BRANCH}            main                the development branch on which the release is based.
     ${NIFI_FDS_VERSION}  0.1.0               the version currently in development on the release branch.
     ${NEXT_VERSION}      0.2.0-SNAPSHOT      the future version for development on the release branch.
     ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
@@ -79,7 +79,7 @@ those variable values have been written like Bash variable references.  When a t
     _To be practical but avoid confusion with future release details, these example values reflect the previous release
 NiFi Flow Design System 0.1.0 RC2 release details._
 
-NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g master
+NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g main
 or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
 support/nifi-fds-1.1.x or support/nifi-fds-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
 branch may need to be created.
@@ -136,7 +136,7 @@ NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
 1. Create the next version in JIRA, if it doesn't already exist, so work can continue towards that release.
 1. Create meaningful release notes for this version if not already created.  [Enter them here][nifi-release-notes] on
 the NiFi wiki.
-1. Create a new branch off 'master' named after the JIRA ticket.
+1. Create a new branch off 'main' named after the JIRA ticket.
     ```bash
     $ git checkout -b NIFI-FDS-${JIRA_TICKET}-RC${RC} ${BRANCH}
     ```
@@ -343,11 +343,11 @@ After the vote is complete and the release is approved, these steps complete the
     ```
     $ svn move -m "NIFI-FDS-${JIRA_TICKET}" https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
     ```
-1. Merge the release branch into master.
+1. Merge the release branch into main.
     ```
-    $ git checkout master
+    $ git checkout main
     $ git merge --no-ff NIFI-FDS-${JIRA_TICKET}-RC${RC}
-    $ git push asf master
+    $ git push asf main
     ```
 
 1. Publish to the npm registry

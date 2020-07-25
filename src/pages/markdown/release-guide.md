@@ -65,7 +65,7 @@ those variable values have been written like Bash variable references.  When a t
     <pre>
     Reference            Example value       Description
     =========            ==============      ===========
-    ${BRANCH}            master              the development branch on which the release is based.
+    ${BRANCH}            main                the development branch on which the release is based.
     ${NIFI_VERSION}      0.7.0               the version currently in development on the release branch.
     ${NEXT_VERSION}      0.8.0-SNAPSHOT      the future version for development on the release branch.
     ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
@@ -80,7 +80,7 @@ those variable values have been written like Bash variable references.  When a t
     _To be practical but avoid confusion with future release details, these example values reflect the previous release
 NiFi 0.7.0 RC2 release details._
 
-NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g master
+NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g main
 or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
 support/nifi-1.1.x or support/nifi-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
 branch may need to be created.
@@ -149,7 +149,7 @@ NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
 1. Create the next version in JIRA, if it doesn't already exist, so work can continue towards that release.
 1. Create meaningful release notes for this version if not already created.  [Enter them here][nifi-release-notes] on
 the NiFi wiki.
-1. Create a new branch off 'master' named after the JIRA ticket.
+1. Create a new branch off 'main' named after the JIRA ticket.
     ```bash
     $ git checkout -b ${JIRA_TICKET}-RC${RC} ${BRANCH}
     ```
@@ -397,11 +397,11 @@ After the vote is complete and the release is approved, these steps complete the
     ```
 1. In repository.apache.org go to the staging repository and select `release` and follow the instructions on the site.
 
-1. Merge the release branch into master. (this will result in a merge commit)
+1. Merge the release branch into main. (this will result in a merge commit)
     ```
-    $ git checkout master
+    $ git checkout main
     $ git merge --no-ff ${JIRA_TICKET}-RC${RC}
-    $ git push asf master
+    $ git push asf main
     ```
 
 1. Update Docker version information to point to the next release.  For instance, if the next version applied by Maven is 1.3.0-SNAPSHOT, these values should be updated to 1.3.0. This currently consists of two files:
@@ -411,7 +411,7 @@ After the vote is complete and the release is approved, these steps complete the
 1. Commit and push the dockerhub module updates to the ASF repository:
     ```
     git commit -m "${JIRA_TICKET} Updated dockerhub module for next release"
-    git push asf master
+    git push asf main
     ```
 
 1. Update the NiFi website to point to the new download(s).  Remove older release artifacts from download page (leave
@@ -520,8 +520,8 @@ _NOTE: `gpg` will be invoked during this step, which will need to prompt you for
 [git-sign-tag-instructs]: http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html
 [sonatype-maven-password]: http://blog.sonatype.com/2009/10/maven-tips-and-tricks-encrypting-passwords
 
-[dockerhub-version]: https://github.com/apache/nifi/blob/master/nifi-docker/dockerhub/Dockerfile#L24
-[dockerimage-version]: https://github.com/apache/nifi/blob/master/nifi-docker/dockerhub/DockerImage.txt#L16
+[dockerhub-version]: https://github.com/apache/nifi/blob/main/nifi-docker/dockerhub/Dockerfile#L24
+[dockerimage-version]: https://github.com/apache/nifi/blob/main/nifi-docker/dockerhub/DockerImage.txt#L16
 [docker-build]: https://hub.docker.com/r/apache/nifi
 [docker-build-status]: https://hub.docker.com/r/apache/nifi/builds/
 

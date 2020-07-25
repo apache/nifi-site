@@ -39,14 +39,14 @@ To check out the code:
 git clone https://gitbox.apache.org/repos/asf/nifi.git
 ```
 <br/>
-Then checkout the `master` branch (which should be the default)
+Then checkout the `main` branch (which should be the default)
 
 ```
-git checkout master
+git checkout main
 ```
 
 <br/>
-The `master` branch currently represents the next major release line (1.x). Substantial work here is underway to improve the NiFi's core framework and UI. If you are interested in building the 0.x baseline to include new components and bug fixes please checkout the 0.x branch.
+The `main` branch currently represents the next major release line (1.x). Substantial work here is underway to improve the NiFi's core framework and UI. If you are interested in building the 0.x baseline to include new components and bug fixes please checkout the 0.x branch.
 <br/>
 
 ```
