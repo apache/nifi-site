@@ -202,9 +202,10 @@ problems that must be addressed before proceeding.
     ```
     $ mvn install -Pcontrib-check,include-grpc
     ```
-1. Verify and update if necessary to ensure Docker version information points to the next release version.  For instance, if version being released is 1.9.0, these values should be 1.9.0. This currently consists of two files:
-    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version], and
-    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version].
+1. Verify and update if necessary to ensure Docker version information points to the next release version.  For instance, if version being released is 1.9.0, these values should be 1.9.0. This currently consists of three files:
+    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version],
+    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version] and
+    * [nifi-docker/docker-compose/docker-compose.yml, Line 25][dockercompose-version].
 ### Step 3. Perform the release (RM)
 
 1. Now its time to have maven prepare the release with this command.  
@@ -404,9 +405,10 @@ After the vote is complete and the release is approved, these steps complete the
     $ git push asf main
     ```
 
-1. Update Docker version information to point to the next release.  For instance, if the next version applied by Maven is 1.3.0-SNAPSHOT, these values should be updated to 1.3.0. This currently consists of two files:
-    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version], and
-    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version].
+1. Update Docker version information to point to the next release.  For instance, if the next version applied by Maven is 1.3.0-SNAPSHOT, these values should be updated to 1.3.0. This currently consists of three files:
+    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version],
+    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version] and
+    * [nifi-docker/docker-compose/docker-compose.yml, Line 25][dockercompose-version].
     
 1. Commit and push the dockerhub module updates to the ASF repository:
     ```
@@ -522,6 +524,7 @@ _NOTE: `gpg` will be invoked during this step, which will need to prompt you for
 
 [dockerhub-version]: https://github.com/apache/nifi/blob/main/nifi-docker/dockerhub/Dockerfile#L24
 [dockerimage-version]: https://github.com/apache/nifi/blob/main/nifi-docker/dockerhub/DockerImage.txt#L16
+[dockercompose-version]: https://github.com/apache/nifi/blob/main/nifi-docker/docker-compose/docker-compose.yml#L25
 [docker-build]: https://hub.docker.com/r/apache/nifi
 [docker-build-status]: https://hub.docker.com/r/apache/nifi/builds/
 
