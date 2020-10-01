@@ -92,7 +92,7 @@ title: Apache NiFi Security Reports
         </p>
         <p>Description: The NiFi download token (one-time password) mechanism used a fixed cache size and did not authenticate a request to create a download token, only when attempting to use the token to access the content. An unauthenticated user could repeatedly request download tokens, preventing legitimate users from requesting download tokens. </p>
         <p>Mitigation: Disabled anonymous authentication, implemented a multi-indexed cache, and limited token creation requests to one concurrent request per user. Users running any previous NiFi release should upgrade to the latest release. </p>
-        <p>Credit: This issue was discovered by an anonymous community member. </p>
+        <p>Credit: This issue was discovered by Dennis Detering (IT Security Consultant at Spike Reply). </p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-9487" target="_blank">Mitre Database: CVE-2020-9487</a></p>
         <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7385" target="_blank">NIFI-7385</a></p>
         <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4271" target="_blank">PR 4271</a></p>
