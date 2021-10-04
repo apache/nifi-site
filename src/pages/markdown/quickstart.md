@@ -125,13 +125,6 @@ Now you should have a fully functioning build off the latest codebase.
 
 ## Running the application
 
-#### ** WARNING **
-
-Without any configuration, the application will run on port `8080` and does not require any credentials to modify
-the flow. This means of running Apache NiFi should be used only for development/testing and in an environment where only
-connections from trusted computers and users can connect to port `8080`. Using iptables to allow only localhost connections
-to `8080` is a good start, but on systems with multiple (potentially untrusted) users, also not a sufficient protection.
-
 #### Decompress and launch
 
 Running the above build will create a _tar.gz_ (and _zip_) file in `./nifi-assembly/target`. This _tar.gz_ should
@@ -160,7 +153,13 @@ The entire concept of how the application will integrate to a given OS and run a
 enduring service is something we're working hard on and would appreciate ideas for.  The user experience needs to
 be excellent.
 
-With the default settings you can point a web browser at `http://localhost:8080/nifi/`
+With the default settings you can point a web browser at `https://127.0.0.1:8443/nifi`
+
+The default installation generates a random username and password, writing the generated values to the application log. The application log is located in `logs/nifi-app.log` under the installation directory. The log file will contain lines with `Generated Username [USERNAME]` and `Generated Password [PASSWORD]` indicating the credentials needed for access. Search the application log for those lines and record the generated values in a secure location.
+
+The following command can be used to change the username and password:
+
+    $ ./bin/nifi.sh set-single-user-credentials <username> <password>
 
 Logging is configured by default to log to _./logs/nifi-app.log_. The following log message should indicate the web UI
 is ready for use:
