@@ -51,6 +51,67 @@ title: Apache NiFi Security Reports
         <p>Thank you for helping keep Apache NiFi and our users safe!</p>
     </div>
 </div>
+
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.15.1" href="#1.15.1">Fixed in Apache NiFi 1.15.1</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.15.1-vulnerabilities" href="#1.15.1-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2021-44145" href="#CVE-2021-44145"><strong>CVE-2021-44145</strong></a>: Apache NiFi information disclosure by XXE in TransformXML</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.15.0</li>
+        </ul>
+        </p>
+        <p>Description: In the TransformXML processor, an authenticated user could configure an XSLT file which, if it included malicious external entity calls, may reveal sensitive information.</p>
+        <p>Mitigation: The <code>'Secure processing'</code> property will now apply to the configured XSLT file as well as flow files being transformed. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by DangKhai at Viettel Cyber Security.</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44145" target="_blank">Mitre Database: CVE-2021-44145</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9399" target="_blank">NIFI-9399</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/5542" target="_blank">PR 5542</a></p>
+        <p>Released: December 15, 2021</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.15.1-dependency-vulnerabilities" href="#1.15.1-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2021-44228" href="#CVE-2021-44228"><strong>CVE-2021-44228</strong></a>: Apache NiFi's use of log4j</p>
+        <p>Severity: <strong>None</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.15.0</li>
+        </ul>
+        </p>
+        <p>Description: For posterity we will note here that Apache NiFi uses SLF4J for logging with Logback as the runtime
+            implementation since the project's inception. One of our PMC members has written an analysis of NiFi's vulnerability (or lack thereof) here: <a href="https://exceptionfactory.com/posts/2021/12/14/evaluating-log4shell-and-apache-nifi">https://exceptionfactory.com/posts/2021/12/14/evaluating-log4shell-and-apache-nifi</a>. For more information on the log4j vulnerability, see <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44228" target="_blank">NIST NVD CVE-2021-44228</a>. </p>
+        <p>Mitigation: We have taken measures to ensure that any potential instances of log4j brought in by dependencies are overriden to log4j 2.16.0.</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228" target="_blank">Mitre Database: CVE-2021-44228</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9474" target="_blank">NIFI-9474</a>
+            <br>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9482" target="_blank">NIFI-9482</a></p>
+        <p>
+        NiFi PR: <a href="https://github.com/apache/nifi/pull/5592" target="_blank">PR 5592</a>
+        <br>NiFi PR: <a href="https://github.com/apache/nifi/pull/5595" target="_blank">PR 5595</a>
+        <br>NiFi PR: <a href="https://github.com/apache/nifi/pull/5598" target="_blank">PR 5598</a>
+        <br>NiFi PR: <a href="https://github.com/apache/nifi/pull/5600" target="_blank">PR 5600</a>
+        </p>
+        <p>Released: December 15, 2021</p>
+    </div>
+</div>
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
@@ -97,9 +158,6 @@ title: Apache NiFi Security Reports
         <p>Released: February 16, 2021</p>
     </div>
 </div>
-
-
-
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
