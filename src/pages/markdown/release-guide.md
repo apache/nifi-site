@@ -202,10 +202,8 @@ problems that must be addressed before proceeding.
     ```
     $ mvn install -Pcontrib-check,include-grpc
     ```
-1. Verify and update if necessary to ensure Docker version information points to the next release version.  For instance, if version being released is 1.9.0, these values should be 1.9.0. This currently consists of three files:
-    * [nifi-docker/dockerhub/Dockerfile, Line 25][dockerhub-version],
-    * [nifi-docker/dockerhub/DockerImage.txt, Line 16][dockerimage-version] and
-    * [nifi-docker/docker-compose/docker-compose.yml, Line 25][dockercompose-version].
+1. Verify and update if necessary to ensure Docker version information points to the next release version.  For instance, set correct release versions in various Dockerfile files found in the codebase.  There are approximately 5 to update as of version 1.16.
+
 ### Step 3. Perform the release (RM)
 
 1. Now its time to have maven prepare the release with this command.  
