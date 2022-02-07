@@ -202,9 +202,9 @@ running at [http://localhost:8080](http://localhost:8080).
     1. Copy the zipped source release and its corresponding signatures and hashes into the new directory.
     1. Add the commit.
         ```
-        $ svn add ./nifi-fds-2.0.0/*
+        $ svn add ./nifi-fds-${NIFI_FDS_VERSION}/*
         ```
-    1. Stage the artifacts by commiting to svn.
+    1. Stage the artifacts by committing to svn.
         ```
         $ svn commit -m 'Staging artifacts for nifi-fds-${NIFI_FDS_VERSION}'
         ```
