@@ -70,7 +70,7 @@ those variable values have been written like Bash variable references.  When a t
     ${NEXT_VERSION}      0.2.0-SNAPSHOT      the future version for development on the release branch.
     ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
     ${RC}                2                   the Release Candidate index start at 1 for the first release candidate.
-    ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the Maven release process.
+    ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the release process.
     ${RM_USERID}         johndoe             the Apache account ID of Release Manager.
     ${RELEASE_TAG}       rel/nifi-0.7.0      the Git repository tag for the source code as released.
     ${VOTE_THREAD_URL}   [0.1.0 vote thread][010-rc3-vote]   the URL for the Apache Pony Mail archive of the release vote thread.
@@ -138,7 +138,7 @@ NiFi source and an "ASF" remote pointing to the Apache Git Repository for NiFi.
 the NiFi wiki.
 1. Create a new branch off 'main' named after the JIRA ticket.
     ```bash
-    $ git checkout -b NIFI-FDS-${JIRA_TICKET}-RC${RC} ${BRANCH}
+    $ git checkout -b NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} ${BRANCH}
     ```
 1. Ensure the the full application builds and all tests work by executing a build.
     ```
@@ -147,22 +147,27 @@ the NiFi wiki.
 1. Startup and test the demo application from the target source folder.  After a few seconds, NiFi FDS should be up and
 running at [http://localhost:8080](http://localhost:8080).
     ```
-    $ cd target/
+    $ cd target/frontend-working-directory
     $ npm start
     ```
 1. Evaluate and ensure the appropriate license headers are present on all source files.
 1. Ensure LICENSE and NOTICE files are complete and accurate. (Developers should always be keeping these up to date as
     they go along adding source and modifying dependencies to keep this burden manageable.)
+1. Verify that no vulnerabilities exist in any javascript module dependencies (requires npm 6+).
+    ```
+    $ npm audit
+    ```
 
 ### Step 3. Perform the release (RM)
 
 1. Now its time to prepare the release. Manually update the version number in 
-* root package.json
-* root package-lock.json
-* src/platform/core/package.json
+    * root package.json
+    * root package-lock.json
+    * src/platform/core/package.json
+
 1. Zip up the source.
     ```
-    $ git archive --format zip --prefix=nifi-fds-${NIFI_FDS_VERSION}/ NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC}
+    $ git archive --format=zip --prefix=nifi-fds-${NIFI_FDS_VERSION}/ NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} > nifi-fds-0.2.0-source-release.zip
     ```
 1. Create the tag.
     ```
@@ -170,18 +175,14 @@ running at [http://localhost:8080](http://localhost:8080).
     ```
 1. Push the release branch to the ASF repository.
     ```
-    $ git push asf NIFI-FDS-${JIRA_TICKET}-RC${RC} --tags
+    $ git push asf NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} --tags
     ```
-    ___From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment NIFI-FDS-${JIRA_TICKET}-RC${RC} prepare release nifi-fds-${NIFI_FDS_VERSION}-RC${RC}___
+    ___From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} prepare release nifi-fds-${NIFI_FDS_VERSION}-RC${RC}___
 
-1. Create the signature and hashes for the source release and convenience binary files.
+1. Create the signature and hashes for the source release.
     1. ASCII armored GPG signatures (`--digest-algo=SHA512` select the SHA512 hash algorithm). [Configure GPG to always prefer stronger hashes](https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1).
         ```
         $ gpg -a -b --digest-algo=SHA512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip  # produces nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
-        ```
-    1. Generate SHA1 hash summaries.
-        ```
-        $ shasum -a 1 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha1
         ```
     1. Generate SHA256 hash summaries.
         ```
@@ -192,7 +193,21 @@ running at [http://localhost:8080](http://localhost:8080).
         $ shasum -a 512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d" " -f1 >  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
         ```
 
-1. Commit the source release along with their hashes and signatures to `https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}`.
+1. Commit the source release along with their hashes and signatures to `https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}`.
+    1. Checkout the Apache dist dev svn repo locally using your Apache credentials
+        ```
+        $ svn checkout https://dist.apache.org/repos/dist/dev/nifi
+        ```
+    1. Create the directory for nifi-fds-${NIFI_FDS_VERSION}.
+    1. Copy the zipped source release and its corresponding signatures and hashes into the new directory.
+    1. Add the commit.
+        ```
+        $ svn add ./nifi-fds-2.0.0/*
+        ```
+    1. Stage the artifacts by commiting to svn.
+        ```
+        $ svn commit -m 'Staging artifacts for nifi-fds-${NIFI_FDS_VERSION}'
+        ```
 
 ### Step 4. Error recovery (RM)
 
@@ -221,7 +236,7 @@ and more positive than negative binding votes._
     I am pleased to be calling this vote for the source release of Apache NiFi Flow Design System nifi-fds-${NIFI_FDS_VERSION}.
 
     The source zip, including signatures, etc. can be found at:
-    https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
+    https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
 
     The Git tag is nifi-${NIFI_FDS_VERSION}-RC${RC}
     The Git commit ID is ${RC_TAG_COMMIT_ID}
@@ -269,11 +284,11 @@ and more positive than negative binding votes._
     gpg --import KEYS
 
     # Pull down nifi-fds-${NIFI_FDS_VERSION} source release artifacts for review:
-    wget https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
-    wget https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
-    wget https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha1
-    wget https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha256
-    wget https://dist.apache.org/repos/dist/dev/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
+    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
+    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
+    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha1
+    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha256
+    wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
 
     # Verify the signature
     gpg --verify nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
@@ -285,7 +300,7 @@ and more positive than negative binding votes._
    
     # Unzip nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
    
-    # Verify the build works (npm version >= 5.6.0)
+    # Verify the build works
     cd nifi-fds-${NIFI_FDS_VERSION}
     npm run clean:install
    
@@ -296,8 +311,8 @@ and more positive than negative binding votes._
     # Verify the RC was branched off the correct git commit ID
    
     # Run the demo-app and make sure it works as expected
-    cd target
-    npm start
+    cd target/frontend-working-directory
+    npm run watch
    
     # Make sure the README, NOTICE, and LICENSE are present and correct 
     cd node_modules/@nifi-fds/core
@@ -339,51 +354,93 @@ After the vote is complete and the release is approved, these steps complete the
 
 [comment]: <> (some of these steps need further detail and/or examples)
 
-1. Move convenience binaries and related artifacts from dist/dev to dist/release:  
+1. Move the source code and related artifacts from dist/dev to dist/release:  
     ```
-    $ svn move -m "NIFI-FDS-${JIRA_TICKET}" https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
+    $ svn move -m "NIFI-FDS-${NIFI_FDS_VERSION}" https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
+    ```
+1. Manually update the version number to the next snapshot
+    ```bash
+    $ git checkout NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC}
+    ```
+    update the version number to the next `${NIFI_FDS_VERSION}-SNAPSHOT` in
+      * root package.json
+      * root package-lock.json
+      * src/platform/core/package.json  
+    ```bash
+    $ git add -A .
+    $ git commit -m 'NIFI-FDS-${NIFI_FDS_VERSION} finalize RC${RC}'
     ```
 1. Merge the release branch into main.
     ```
     $ git checkout main
-    $ git merge --no-ff NIFI-FDS-${JIRA_TICKET}-RC${RC}
+    $ git merge --no-ff NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC}
     $ git push asf main
     ```
-
 1. Publish to the npm registry
     ```
-    $ npm run publish
+    $ cd nifi-fds/target/frontend-working-directory/platform/core
+    $ cp -f ../../README.md ./README.md
+    $ npm login
+    $ npm publish
     ```
-    
 1. Deploy the gh-pages demo
+
+    First, switch to gh-pages branch:
+
     ```
-    # switch to gh-pages branch
     $   git remote update
     $   git checkout gh-pages
     $   git reset --hard asf/gh-pages
-      
-    # simulate npm install of @nifi-fds/core
-    $   rm -rf ./node_modules/
-    $   mv ./target/node_modules/ ./
-    $   rm -rf ./demo-app/
-    $   mv ./target/demo-app/ ./
-      
-    # update base href for github.io page
-    $   cp -f ./target/gh-pages.index.html ./index.html
-    $   cp -f ./target/README.md ./README.md
-    $   git add -A .
-    $   git commit -m 'gh-pages update'
-    $   git push asf gh-pages:gh-pages
+    ``` 
+    
+    Next, simulate npm install of @nifi-fds/core:
 
+    ```
+    $   rm -rf ./node_modules/
+    $   mv ./target/frontend-working-directory/node_modules/ ./
+    $   rm -rf ./webapp/
+    $   mv ./target/frontend-working-directory/webapp/ ./
+    ```
+    
+    Next, update the bundles, index.html, and README for the github.io page:
+    
+    ```  
+    $   cp ./target/frontend-working-directory/fds-demo.* .
+    $   cp -f ./target/frontend-working-directory/index.html ./index.html
+    $   cp -f ./target/frontend-working-directory/README.md ./README.md
+    ```
+    
+    Next, start the demo:
+    
+    ```  
+    $   ./node_modules/http-server/bin/http-server
+    ```
+    
+    Now, test that the demo application runs with the latest updates by visiting http://127.0.0.1:8080.
+    
+    Next, edit the index.html and change the base href to `<base href="/nifi-fds/">`:
+    
+    ```  
+    $   nano ./index.html
+    ```
+    
+    and change the base href to `<base href="/nifi-fds/">`.
+        
+    Finally, commit and push the changes:
+    
+    ```
+    $   git add -A .
+    $   git commit -m 'NIFI-FDS-${NIFI_FDS_VERSION} gh-pages update demo application to run NiFi FDS ${NIFI_FDS_VERSION}'
+    $   git push asf gh-pages:gh-pages
     ```
 
 1. Update the NiFi Web Page to indicate NEWS of the release as appropriate
 
-1. In JIRA mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console.
+1. In JIRA resolve the NIFI-FDS-${JIRA_TICKET} and then mark the release version as 'Released' and 'Archived' through 'version' management in the 'administration' console. Then create a new version name for the next NiFi FDS release.
 
 1. Create a proper signed tag of the released codebase based on the RC Tag created during the release process.
    ```
-   $ git tag -s rel/nifi-fds-${NIFI_FDS_VERSION} -m "${JIRA_TICKET} signed release tag for approved release of NiFi Flow Design System ${NIFI_FDS_VERSION}" ${RC_TAG_COMMIT_ID}
+   $ git tag -s rel/nifi-fds-${NIFI_FDS_VERSION} -m "NIFI-FDS-${JIRA_TICKET} signed release tag for approved release of NiFi Flow Design System ${NIFI_FDS_VERSION}" ${RC_TAG_COMMIT_ID}
    ```
    For instructions on setting up to sign your tag see [here][git-sign-tag-instructs].      
 
@@ -409,11 +466,11 @@ After the vote is complete and the release is approved, these steps complete the
 
     Apache NiFi Flow Design System is an atomic reusable platform for providing a consistent set of UI/UX components for open source friendly web applications to consume.
 
-    More details on Apache NiFi can be found here:
+    More details on Apache NiFi FLow Design System can be found here:
     https://nifi.apache.org/fds.html
 
     Issues closed/resolved for this list can be found here:
-    https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316020&version=12329373
+    https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=${NIFI_FDS_PROJECT_ID}&version=${NIFI_FDS_VERSION_ID}
 
     Release note highlights can be found here:
     https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version${NIFI_FDS_VERSION}
