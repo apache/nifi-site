@@ -362,7 +362,7 @@ After the vote is complete and the release is approved, these steps complete the
     ```bash
     $ git checkout NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC}
     ```
-    update the version number to the next `${NIFI_FDS_VERSION}-SNAPSHOT` in
+    Update the version number to the next `${NIFI_FDS_VERSION}-SNAPSHOT` in
       * root package.json
       * root package-lock.json
       * src/platform/core/package.json  
