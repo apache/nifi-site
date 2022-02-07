@@ -160,7 +160,7 @@ running at [http://localhost:8080](http://localhost:8080).
 
 ### Step 3. Perform the release (RM)
 
-1. Now its time to prepare the release. Manually update the version number in 
+1. Now it's time to prepare the release. Manually update the version number in 
     * root package.json
     * root package-lock.json
     * src/platform/core/package.json
