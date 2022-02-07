@@ -466,7 +466,7 @@ After the vote is complete and the release is approved, these steps complete the
 
     Apache NiFi Flow Design System is an atomic reusable platform for providing a consistent set of UI/UX components for open source friendly web applications to consume.
 
-    More details on Apache NiFi FLow Design System can be found here:
+    More details on Apache NiFi Flow Design System can be found here:
     https://nifi.apache.org/fds.html
 
     Issues closed/resolved for this list can be found here:
