@@ -68,13 +68,14 @@ title: Apache NiFi Security Reports
 <div class="row" style="background-color: aliceblue">
     <div class="large-12 columns">
         <p><a id="CVE-2022-26850" href="#CVE-2022-26850"><strong>CVE-2022-26850</strong></a>: Apache NiFi insufficiently protected credentials</p>
-        <p>Severity: <strong>Medium</strong></p>
+        <p>Severity: <strong>Low</strong></p>
         <p>Versions Affected:</p>
         <ul>
             <li>Apache NiFi 1.14.0 - 1.15.3</li>
         </ul>
         </p>
-        <p>Description: When creating or updating credentials for single-user access, NiFi wrote a copy of the Login Identity Providers configuration to the operating system temporary directory. On most platforms, the operating system temporary directory has global read permissions. NiFi immediately moved the temporary file to the final configuration directory, which significantly limited the window of opportunity for access.</p>
+        <p>Description: When creating or updating credentials for single-user access, NiFi wrote a copy of the Login Identity Providers configuration to the operating system temporary directory. <b>The Login Identity Providers configuration file contains the username and a bcrypt hash of the configured password</b>. On most platforms, the operating system temporary directory has global read permissions. NiFi immediately moved the temporary file to the final configuration directory, which significantly limited the window of opportunity for access.</p>
+            <p>Bcrypt is a password-hashing algorithm that incorporates a random salt and a specified cost factor, designed to maintain resistance to brute-force attacks. Use of the bcrypt algorithm minimizes the impact of disclosing the single-user credentials stored in Login Identity Providers.</p>
         <p>Mitigation: NiFi 1.16.0 includes updates to replace the Login Identity Providers configuration without writing a file to the operating system temporary directory.</p>
         <p>Credit: This issue was discovered by Jonathan Leitschuh (https://twitter.com/jlleitschuh). Report available here: <a href="https://github.com/JLLeitschuh/security-research/security/advisories/GHSA-rvp4-r3g6-8hxq" target="_blank">JLLeitschuh Github</a></p>
         <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-26850" target="_blank">Mitre Database: CVE-2022-26850</a></p>
