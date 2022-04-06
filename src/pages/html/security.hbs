@@ -56,6 +56,58 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
+        <h2><a id="1.16.0" href="#1.16.0">Fixed in Apache NiFi 1.16.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.16.0-vulnerabilities" href="#1.16.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2022-26850" href="#CVE-2022-26850"><strong>CVE-2022-26850</strong></a>: Apache NiFi insufficiently protected credentials</p>
+        <p>Severity: <strong>Medium</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.14.0 - 1.15.1</li>
+        </ul>
+        </p>
+        <p>Description: When creating or updating credentials for single-user access, NiFi wrote a copy of the Login Identity Providers configuration to the operating system temporary directory. On most platforms, the operating system temporary directory has global read permissions. NiFi immediately moved the temporary file to the final configuration directory, which significantly limited the window of opportunity for access.</p>
+        <p>Mitigation: NiFi 1.16.0 includes updates to replace the Login Identity Providers configuration without writing a file to the operating system temporary directory.</p>
+        <p>Credit: This issue was discovered by Jonathan Leitschuh (https://twitter.com/jlleitschuh).</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-26850" target="_blank">Mitre Database: CVE-2022-26850</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9785" target="_blank">NIFI-9785</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/5856" target="_blank">PR 5856</a></p>
+        <p>Released: March 27, 2022</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.16.0-dependency-vulnerabilities" href="#1.16.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2021-42392" href="#CVE-2021-42392"><strong>CVE-2021-42392</strong></a>: Apache NiFi's use of H2 database</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.1 - 1.15.3</li>
+        </ul>
+        </p>
+        <p>Description: Apache NiFi uses H2 database for storing various NiFi runtime details. H2 database had a critical vulnerability similar to Log4Shell which potentially allows JNDI remote codebase loading. In NiFi, by default, console access to the database is restricted to local machine access only and remote access is disabled which limited the severity of this vulnerability. More detailed information on the H2 vulnerability can be found in <a href="https://thesecmaster.com/how-to-fix-cve-2021-42392-a-critical-unauthenticated-rce-in-h2-database-console/">this blog post.</a></p>
+        <p>Mitigation: We have upgraded the H2 version that NiFi uses from 1.4.199 to 2.1.210. The vulnerability is also mitigated with more recent versions of Java (6u211 , 7u201, 8u191, 11.0.1 onwards). </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-42392" target="_blank">Mitre Database: CVE-2021-42392</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9585" target="_blank">NIFI-9585</a></p>
+        <p>Released: March 27, 2022</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
         <h2><a id="1.15.1" href="#1.15.1">Fixed in Apache NiFi 1.15.1</a></h2>
     </div>
 </div>
