@@ -1,0 +1,1145 @@
+---
+title: Apache NiFi Security Reports
+---
+
+<div class="large-space"></div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>NiFi Security Vulnerability Disclosure</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p>Apache NiFi welcomes the responsible reporting of security vulnerabilities. The NiFi team believes that working with skilled security researchers across the globe is crucial in identifying
+            weaknesses in any technology. If you believe you've found a security issue in our product or service, we encourage you to notify us. We will work with you to resolve the issue
+            promptly.</p>
+        <h3>Disclosure Policy</h3>
+        <ul>
+            <li>Let us know as soon as possible upon discovery of a potential security issue, and we'll make every effort to quickly resolve the issue.</li>
+            <li>Provide us a reasonable amount of time to resolve the issue before any disclosure to the public or a third-party.</li>
+            <li>Make a good faith effort to avoid privacy violations, destruction of data, and interruption or degradation of our service. Only interact with accounts you own or with explicit permission of the account holder.</li>
+            <li>Please read the <a href="https://www.apache.org/security/committers.html" target="_blank">Apache Project Security for Committers policy</a> to understand the restrictions around disclosure of security issues in the Apache open source community. 
+            <br/><br/>
+            Specifically, please <strong><em>do not</em></strong>: 
+                <ul style="list-style-type:none;">
+                    <li>⛔️ Open a Jira disclosing a security vulnerability to the public</li>
+                    <li>⛔️ Send a message to the dev@nifi.apache.org or users@nifi.apache.org mailing lists disclosing a security vulnerability to the public</li>
+                    <li>⛔️ Send a message to the Apache NiFi Slack instance disclosing a security vulnerability to the public</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>Exclusions</h3>
+        <p>While researching, we'd like to ask you to refrain from:</p>
+        <ul>
+            <li>Denial of service</li>
+            <li>Spamming</li>
+            <li>Social engineering (including phishing) of Apache NiFi staff or contractors</li>
+            <li>Any physical attempts against Apache NiFi property or data centers</li>
+        </ul>
+        <h3>Reporting Methods</h3>
+        <p>NiFi accepts reports in multiple ways:</p>
+        <ul>
+           <li>NiFi Security Mailing List: <a href="mailto:security@nifi.apache.org">security@nifi.apache.org</a>.
+               Members of the <a href="people.html">Project Management Committee</a> monitor this private mailing list and respond to disclosures.
+           </li>
+            </li>
+            <li>NiFi has a <a href="https://hackerone.com/apachenifi" target="_blank">HackerOne</a> project page. HackerOne provides a triaged process for researchers and organizations to
+                collaboratively report and resolve security vulnerabilities.
+            </li>
+        </ul>
+        <p>Thank you for helping keep Apache NiFi and our users safe!</p>
+    </div>
+</div>
+
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.15.1" href="#1.15.1">Fixed in Apache NiFi 1.15.1</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.15.1-vulnerabilities" href="#1.15.1-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2021-44145" href="#CVE-2021-44145"><strong>CVE-2021-44145</strong></a>: Apache NiFi information disclosure by XXE in TransformXML</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.15.0</li>
+        </ul>
+        </p>
+        <p>Description: In the TransformXML processor, an authenticated user could configure an XSLT file which, if it included malicious external entity calls, may reveal sensitive information.</p>
+        <p>Mitigation: The <code>'Secure processing'</code> property will now apply to the configured XSLT file as well as flow files being transformed. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by DangKhai at Viettel Cyber Security.</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44145" target="_blank">Mitre Database: CVE-2021-44145</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9399" target="_blank">NIFI-9399</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/5542" target="_blank">PR 5542</a></p>
+        <p>Released: December 15, 2021</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.15.1-dependency-vulnerabilities" href="#1.15.1-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2021-44228" href="#CVE-2021-44228"><strong>CVE-2021-44228</strong></a>: Apache NiFi's use of log4j</p>
+        <p>Severity: <strong>None</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.15.0</li>
+        </ul>
+        </p>
+        <p>Description: For posterity we will note here that Apache NiFi uses SLF4J for logging with Logback as the runtime
+            implementation since the project's inception. One of our PMC members has written an analysis of NiFi's vulnerability (or lack thereof) here: <a href="https://exceptionfactory.com/posts/2021/12/14/evaluating-log4shell-and-apache-nifi">https://exceptionfactory.com/posts/2021/12/14/evaluating-log4shell-and-apache-nifi</a>. For more information on the log4j vulnerability, see <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44228" target="_blank">NIST NVD CVE-2021-44228</a>. </p>
+        <p>Mitigation: We have taken measures to ensure that any potential instances of log4j brought in by dependencies are overriden to log4j 2.16.0.</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228" target="_blank">Mitre Database: CVE-2021-44228</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9474" target="_blank">NIFI-9474</a>
+            <br>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9482" target="_blank">NIFI-9482</a></p>
+        <p>
+        NiFi PR: <a href="https://github.com/apache/nifi/pull/5592" target="_blank">PR 5592</a>
+        <br>NiFi PR: <a href="https://github.com/apache/nifi/pull/5595" target="_blank">PR 5595</a>
+        <br>NiFi PR: <a href="https://github.com/apache/nifi/pull/5598" target="_blank">PR 5598</a>
+        <br>NiFi PR: <a href="https://github.com/apache/nifi/pull/5600" target="_blank">PR 5600</a>
+        </p>
+        <p>Released: December 15, 2021</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.13.0" href="#1.13.0">Fixed in Apache NiFi 1.13.0</a></h2>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.13.0-dependency-vulnerabilities" href="#1.13.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-27218" href="#CVE-2020-27218"><strong>CVE-2020-27218</strong></a>: Apache NiFi's use of Jetty server</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.2.0 - 1.12.1</li>
+        </ul>
+        </p>
+        <p>Description: The Jetty server dependency had a HTTP Request Smuggling vulnerability. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27218" target="_blank">NIST NVD CVE-2020-27218</a> for more information. </p>
+        <p>Mitigation: Jetty server was upgraded from 9.4.26.v20200117 to 9.4.35.v20201120 for the Apache NiFi 1.13.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-27218" target="_blank">Mitre Database: CVE-2020-27218</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-8098" target="_blank">NIFI-8098</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4731" target="_blank">PR 4731</a></p>
+        <p>Released: February 16, 2021</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2021-20190" href="#CVE-2021-20190"><strong>CVE-2021-20190</strong></a>: Apache NiFi's jackson-databind usage</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache 1.7.0 - 1.12.1</li>
+        </ul>
+        </p>
+        <p>Description: The com.fasterxml.jackson.core:jackson-databind dependency had various serialization vulnerabilities. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-20190" target="_blank">NIST NVD CVE-2021-20190</a> for more information. </p>
+        <p>Mitigation: jackson-databind was upgraded from 2.9.10.5 to 2.9.10.8 for the Apache NiFi 1.13.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-20190" target="_blank">Mitre Database: CVE-2021-20190</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-8166" target="_blank">NIFI-8166</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4777" target="_blank">PR 4777</a></p>
+        <p>Released: February 16, 2021</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.12.0" href="#1.12.0">Fixed in Apache NiFi 1.12.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.12.0-vulnerabilities" href="#1.12.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-9486" href="#CVE-2020-9486"><strong>CVE-2020-9486</strong></a>: Apache NiFi information disclosure in logs</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.10.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The NiFi stateless execution engine produced log output which included sensitive property values. When a flow was triggered, the flow definition configuration JSON was printed, potentially containing sensitive values in plaintext. </p>
+        <p>Mitigation: Implemented Argon2 secure hashing to provide a deterministic loggable value which does not reveal the sensitive value. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Andy LoPresto and Pierre Villard. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-9486" target="_blank">Mitre Database: CVE-2020-9486</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7377" target="_blank">NIFI-7377</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4222" target="_blank">PR 4222</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-9487" href="#CVE-2020-9487"><strong>CVE-2020-9487</strong></a>: Apache NiFi denial of service</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The NiFi download token (one-time password) mechanism used a fixed cache size and did not authenticate a request to create a download token, only when attempting to use the token to access the content. An unauthenticated user could repeatedly request download tokens, preventing legitimate users from requesting download tokens. </p>
+        <p>Mitigation: Disabled anonymous authentication, implemented a multi-indexed cache, and limited token creation requests to one concurrent request per user. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Dennis Detering (IT Security Consultant at Spike Reply). </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-9487" target="_blank">Mitre Database: CVE-2020-9487</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7385" target="_blank">NIFI-7385</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4271" target="_blank">PR 4271</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-9491" href="#CVE-2020-9491"><strong>CVE-2020-9491</strong></a>: Apache NiFi use of weak TLS protocols</p>
+        <p>Severity: <strong>Critical</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.2.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The NiFi UI and API were protected by mandating TLS v1.2, as well as listening connections established by processors like <code>ListenHTTP</code>, <code>HandleHttpRequest</code>, etc. However intracluster communication such as cluster request replication, Site-to-Site, and load balanced queues continued to support TLS v1.0 or v1.1. </p>
+        <p>Mitigation: Refactored disparate internal SSL and TLS code, reducing exposure for extension and framework developers to low-level primitives. Added support for TLS v1.3 on supporting JVMs. Restricted all incoming TLS communications to TLS v1.2+. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Juan Carlos Sequeiros and Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-9491" target="_blank">Mitre Database: CVE-2020-9491</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7407" target="_blank">NIFI-7407</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4263" target="_blank">PR 4263</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-13940" href="#CVE-2020-13940"><strong>CVE-2020-13940</strong></a>: Apache NiFi information disclosure by XXE</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The notification service manager and various policy authorizer and user group provider objects allowed trusted administrators to inadvertently configure a potentially malicious XML file. The XML file has the ability to make external calls to services (via XXE). </p>
+        <p>Mitigation: An XML validator was introduced to prevent malicious code from being parsed and executed. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Matt Burgess and Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-13940" target="_blank">Mitre Database: CVE-2020-13940</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7680" target="_blank">NIFI-7680</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4436" target="_blank">PR 4436</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.12.0-dependency-vulnerabilities" href="#1.12.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-9658" href="#CVE-2019-9658"><strong>CVE-2019-9658</strong></a>: Apache NiFi's checkstyle usage</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The com.puppycrawl.tools:checkstyle dependency had a XXE vulnerability. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-9658" target="_blank">NIST NVD CVE-2019-9658</a> for more information. </p>
+        <p>Mitigation: checkstyle was upgraded from 8.28 to 8.29 for the Apache NiFi 1.12.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-9658" target="_blank">Mitre Database: CVE-2019-9658</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7108" target="_blank">NIFI-7108</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4041" target="_blank">PR 4041</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-12086" href="#CVE-2019-12086"><strong>CVE-2019-12086</strong></a>: Apache NiFi's jackson-databind usage</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The com.fasterxml.jackson.core:jackson-databind dependency had a polymorphic typing vulnerability which exposed some MySQL server access to an attacker. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086" target="_blank">NIST NVD CVE-2019-12086</a> for more information. </p>
+        <p>Mitigation: jackson-databind was upgraded from 2.9.10.1 to 2.9.10.5 for the Apache NiFi 1.12.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12086" target="_blank">Mitre Database: CVE-2019-12086</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7542" target="_blank">NIFI-7542</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4362" target="_blank">PR 4362</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-7676" href="#CVE-2020-7676"><strong>CVE-2020-7676</strong></a>: Apache NiFi's angular.js usage</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The angular.js dependency had an XSS vulnerability. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-7676" target="_blank">NIST NVD CVE-2020-7676-9658</a> for more information. </p>
+        <p>Mitigation: angular.js was upgraded from 1.7.9 to 1.8.0 for the Apache NiFi 1.12.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-7676" target="_blank">Mitre Database: CVE-2020-7676</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7577" target="_blank">NIFI-7577</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4357" target="_blank">PR 4357</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-11023" href="#CVE-2020-11023"><strong>CVE-2020-11023</strong></a>: Apache NiFi's jquery usage</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.11.4</li>
+        </ul>
+        </p>
+        <p>Description: The jquery dependency had an XSS vulnerability. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-11023" target="_blank">NIST NVD CVE-2020-11023</a> for more information. </p>
+        <p>Mitigation: jquery was upgraded from 3.4.1 to 3.5.1 for the Apache NiFi 1.12.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-11023" target="_blank">Mitre Database: CVE-2020-11023</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7423" target="_blank">NIFI-7423</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4258" target="_blank">PR 4258</a></p>
+        <p>Released: August 18, 2020</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+ <div class="row">
+         <div class="large-12 columns features">
+             <h2><a id="1.11.4" href="#1.11.4">Fixed in Apache NiFi 1.11.4</a></h2>
+         </div>
+ </div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.4-dependency-vulnerabilities" href="#1.11.4-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-5398" href="#CVE-2020-5398"><strong>CVE-2020-5398</strong></a>: Apache NiFi's spring-data-redis usage</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.11.3</li>
+        </ul>
+        </p>
+        <p>Description: The org.springframework.data:spring-data-redis dependency in the nifi-redis-bundle had a vulnerable transitive dependency. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-5398" target="_blank">NIST NVD CVE-2020-5398</a> for more information. </p>
+        <p>Mitigation: spring-data-redis was upgraded from 2.1.0.RELEASE to 2.1.16.RELEASE for the Apache NiFi 1.11.4 release. It is unlikely that NiFi's usage of this dependency could be exploited as described by the CVE, however we consider it prudent for users running a prior 1.x release to upgrade to the 1.11.4 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-5398" target="_blank">Mitre Database: CVE-2020-5398</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7267" target="_blank">NIFI-7267</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4150" target="_blank">PR 4150</a></p>
+        <p>Released: March 22, 2020</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.1" href="#1.11.1">Fixed in Apache NiFi 1.11.1</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.1-vulnerabilities" href="#1.11.1-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-1942" href="#CVE-2020-1942"><strong>CVE-2020-1942</strong></a>: Apache NiFi information disclosure in logs</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.1 - 1.11.0</li>
+        </ul>
+        </p>
+        <p>Description: The flow fingerprint factory generated flow fingerprints which included sensitive property descriptor values. In the event a node attempted to join a cluster and the cluster flow was not inheritable, the flow fingerprint of both the cluster and local flow was printed, potentially containing sensitive values in plaintext. </p>
+        <p>Mitigation: Implemented Argon2 secure hashing to provide a deterministic loggable value which does not reveal the sensitive value. Users running any previous NiFi release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1942" target="_blank">Mitre Database: CVE-2020-1942</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7079" target="_blank">NIFI-7079</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/4028" target="_blank">PR 4208</a></p>
+        <p>Released: February 4, 2020</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.0" href="#1.11.0">Fixed in Apache NiFi 1.11.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.0-vulnerabilities" href="#1.11.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-1928" href="#CVE-2020-1928"><strong>CVE-2020-1928</strong></a>: Apache NiFi information disclosure in logs</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.10.0</li>
+        </ul>
+        </p>
+        <p>Description: The sensitive parameter parser would log parsed property descriptor values for debugging purposes. This would expose literal values entered in a sensitive property when no parameter was present. </p>
+        <p>Mitigation: Removed debug logging from the class. Users running the 1.10.0 release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1928" target="_blank">Mitre Database: CVE-2020-1928</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6948" target="_blank">NIFI-6948</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3935" target="_blank">PR 3935</a></p>
+        <p>Released: January 22, 2020</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-1933" href="#CVE-2020-1933"><strong>CVE-2020-1933</strong></a>: Apache NiFi XSS attack</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.10.0</li>
+        </ul>
+        </p>
+        <p>Description: Malicious scripts could be injected to the UI through action by an unaware authenticated user in Firefox. Did not appear to occur in other browsers.</p>
+        <p>Mitigation: Sanitization of the error response ensures the XSS would not be executed. Users running a prior 1.x release should upgrade to the latest release. </p>
+        <p>Credit: This issue was discovered by Jakub Palaczynski (ING Tech Poland). </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-1933" target="_blank">Mitre Database: CVE-2020-1933</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-7023" target="_blank">NIFI-7023</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3991" target="_blank">PR 3991</a></p>
+        <p>Released: January 22, 2020</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.11.0-dependency-vulnerabilities" href="#1.11.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-10768" href="#CVE-2019-10768"><strong>CVE-2019-10768</strong></a>: Apache NiFi's AngularJS usage</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.10.0</li>
+        </ul>
+        </p>
+        <p>Description: An Object.prototype pollution vulnerability existed within the AngularJS dependency used by NiFi. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10768" target="_blank">NIST NVD CVE-2019-10768</a> for more information. </p>
+        <p>Mitigation: AngularJS was upgraded from 1.7.2 to 1.7.9 for the Apache NiFi 1.11.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was identified by Pierre Villard. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10768" target="_blank">Mitre Database: CVE-2019-10768</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6893" target="_blank">NIFI-6893</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3899" target="_blank">PR 3899</a></p>
+        <p>Released: January 22, 2020</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.10.0" href="#1.10.0">Fixed in Apache NiFi 1.10.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.10.0-vulnerabilities" href="#1.10.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-10080" href="#CVE-2019-10080"><strong>CVE-2019-10080</strong></a>: Apache NiFi information disclosure by XXE</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.3.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: The XMLFileLookupService allowed trusted users to inadvertently configure a potentially malicious XML file. The XML file has the ability to make external calls to services (via XXE) and reveal information such as the versions of Java, Jersey, and Apache that the NiFI instance uses. </p>
+        <p>Mitigation: A validator to ensure the XML file is not malicious was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by RunningSnail. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10080" target="_blank">Mitre Database: CVE-2019-10080</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6301" target="_blank">NIFI-6301</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3507" target="_blank">PR 3507</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-12421" href="#CVE-2019-12421"><strong>CVE-2019-12421</strong></a>: Apache NiFi user log out issue</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: If NiFi uses an authentication mechanism other than PKI, when the user clicks Log Out, NiFi invalidates the authentication token on the client side but not on the server side. This permits the user's client-side token to be used for up to 12 hours after logging out to make API requests to NiFi. </p>
+        <p>Mitigation: The fix to invalidate the server-side authentication token immediately after the user clicks 'Log Out' was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Abdu Sahin. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12421" target="_blank">Mitre Database: CVE-2019-12421</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6085" target="_blank">NIFI-6085</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3362" target="_blank">PR 3362</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-10083" href="#CVE-2019-10083"><strong>CVE-2019-10083</strong></a>: Apache NiFi process group information disclosure</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.3.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: When updating a Process Group via the API, the response to the request includes all of its contents (at the top most level, not recursively). The response included details about processors and controller services which the user may not have had read access to. </p>
+        <p>Mitigation: Requests to update or remove the process group will no longer return the contents of the process group in the response in Apache NiFi 1.10.0. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mark Payne. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10083" target="_blank">Mitre Database: CVE-2019-100833</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6302" target="_blank">NIFI-6302</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3477" target="_blank">PR 3477</a>, <a href="https://github.com/apache/nifi/pull/3487" target="_blank">PR 3487</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.10.0-dependency-vulnerabilities" href="#1.10.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-5637" href="#CVE-2017-5637"><strong>CVE-2017-5637, CVE-2016-5017, CVE-2018-8012</strong></a>: Apache NiFi's Zookeeper usage</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: Various vulnerabilities existed within the Zookeeper dependency used by NiFi. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-8012" target="_blank">NIST NVD CVE-2018-8012</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-5637" target="_blank">NIST NVD CVE-2017-5637</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-5017" target="_blank">NIST NVD CVE-2016-5017</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the Zookeeper dependency from 3.4.6 to 3.5.5 was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was identified by Nathan Gough. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-8012" target="_blank">Mitre Database: CVE-2018-8012</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-5637" target="_blank">Mitre Database: CVE-2017-5637</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-5017" target="_blank">Mitre Database: CVE-2016-5017</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6578" target="_blank">NIFI-6578</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3715" target="_blank">PR 3715</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+    <div class="large-12 columns" style="background-color: aliceblue">
+        <p><a id="CVE-2019-0193" href="#CVE-2019-0193"><strong>CVE-2019-0193, CVE-2019-0192, CVE-2017-3164</strong></a>: Apache NiFi's Solr usage</p>
+        <p>Severity: <strong>Critical</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: Various vulnerabilities existed within the Solr dependency used by NiFi. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-0193" target="_blank">NIST NVD CVE-2019-0193</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-0192" target="_blank">NIST NVD CVE-2019-0192</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-3164" target="_blank">NIST NVD CVE-2017-3164</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the Solr dependency from 6.2.0 to 6.6.6 was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was identified by Nathan Gough. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-0193" target="_blank">Mitre Database: CVE-2019-0193</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-0192" target="_blank">Mitre Database: CVE-2019-0192</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-3164" target="_blank">Mitre Database: CVE-2017-3164</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6516" target="_blank">NIFI-6516</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3629" target="_blank">PR 3629</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-16335" href="#CVE-2019-16335"><strong>CVE-2019-16335, CVE-2019-14540, CVE-2019-14439, CVE-2019-12814, CVE-2019-12384, CVE-2019-12086, CVE-2018-1000873, CVE-2018-19362, CVE-2018-19361, CVE-2018-19360</strong></a>: Apache NiFi's Jackson Core Databind usage</p>
+        <p>Severity: <strong>Medium</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: Various vulnerabilities existed within the Jackson Core: Databind dependency used by NiFi. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16335" target="_blank">NIST NVD CVE-2019-16335</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540" target="_blank">NIST NVD CVE-2019-14540</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14439" target="_blank">NIST NVD CVE-2019-14439</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12814" target="_blank">NIST NVD CVE-2019-12814</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12384" target="_blank">NIST NVD CVE-2019-12384</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086" target="_blank">NIST NVD CVE-2019-12086</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000873" target="_blank">NIST NVD CVE-2018-1000873</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-19362" target="_blank">NIST NVD CVE-2018-19362</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-19361" target="_blank">NIST NVD CVE-2018-19361</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-19360" target="_blank">NIST NVD CVE-2018-19360</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the jackson-databind dependency from 2.9.7 to 2.9.10 was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was identified by Pierre Villard and Nathan Gough. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16335" target="_blank">Mitre Database: CVE-2019-16335</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-14540" target="_blank">Mitre Database: CVE-2019-14540</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-14439" target="_blank">Mitre Database: CVE-2019-14439</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12814" target="_blank">Mitre Database: CVE-2019-12814</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12384" target="_blank">Mitre Database: CVE-2019-12384</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12086" target="_blank">Mitre Database: CVE-2019-12086</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1000873" target="_blank">Mitre Database: CVE-2018-1000873</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-19362" target="_blank">Mitre Database: CVE-2018-19362</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-19361" target="_blank">Mitre Database: CVE-2018-19361</a>, <a ref="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-19360" target="_blank">Mitre Database: CVE-2018-19360</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6709" target="_blank">NIFI-6709</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3765" target="_blank">PR 3765</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+    <div class="large-12 columns" style="background-color: aliceblue">
+        <p><a id="CVE-2019-10247" href="#CVE-2019-10247"><strong>CVE-2019-10247, CVE-2019-10246</strong></a>: Apache NiFi's Jetty usage</p>
+        <p>Severity: <strong>Medium</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: Various vulnerabilities existed within the Jetty dependency used by NiFi. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10247" target="_blank">NIST NVD CVE-2019-10247</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10246" target="_blank">NIST NVD CVE-2019-10246</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the Jetty dependency from 9.4.11.v20180605 to 9.4.19.v20190610 was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was identified by Jeff Storck and Nathan Gough. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10247" target="_blank">Mitre Database: CVE-2019-10247</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10246" target="_blank">Mitre Database: CVE-2019-10246</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6330" target="_blank">NIFI-6330</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3534" target="_blank">PR 3534</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-11358" href="#CVE-2019-11358"><strong>CVE-2019-11358</strong></a>: Apache NiFi's JQuery usage</p>
+        <p>Severity: <strong>Medium</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.6.0 - 1.9.2</li>
+        </ul>
+        </p>
+        <p>Description: Various vulnerabilities existed within the JQuery dependency used by NiFi. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-11358" target="_blank">NIST NVD CVE-2019-11358</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the JQuery dependency from 3.1.1 to 3.4.1 was applied on the Apache NiFi 1.10.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was identified by Matt Gilman and Rob Fellows. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-11358" target="_blank">Mitre Database: CVE-2019-11358</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-6316" target="_blank">NIFI-6316</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3489" target="_blank">PR 3489</a></p>
+        <p>Released: November 4, 2019</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.8.0" href="#1.8.0">Fixed in Apache NiFi 1.8.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.8.0-vulnerabilities" href="#1.8.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17192" href="#CVE-2018-17192"><strong>CVE-2018-17192</strong></a>: Apache NiFi clickjacking vulnerability</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: The <code>X-Frame-Options</code> headers were applied inconsistently on some HTTP responses, resulting in duplicate or missing security headers. Some browsers would interpret these results incorrectly, allowing clickjacking attacks. </p>
+        <p>Mitigation: The fix to consistently apply the security headers was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Suchithra V N. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17192" target="_blank">Mitre Database: CVE-2018-17192</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5258" target="_blank">NIFI-5258</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2759" target="_blank">PR 2759</a>, <a href="https://github.com/apache/nifi/pull/2791" target="_blank">PR 2791</a>, <a href="https://github.com/apache/nifi/pull/2812" target="_blank">PR 2812</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17193" href="#CVE-2018-17193"><strong>CVE-2018-17193</strong></a>: Apache NiFi reflected XSS attack in <code>X-ProxyContextPath</code></p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: The <code>message-page.jsp</code> error page used the value of the HTTP request header <code>X-ProxyContextPath</code> without sanitization, resulting in a reflected XSS attack. </p>
+        <p>Mitigation: The fix to correctly parse and sanitize the request attribute value was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Dan Fike. Additional assistance from Patrick White. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17193" target="_blank">Mitre Database: CVE-2018-17193</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5442" target="_blank">NIFI-5442</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2908" target="_blank">PR 2908</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17194" href="#CVE-2018-17194"><strong>CVE-2018-17194</strong></a>: Apache NiFi Denial of service via <code>DELETE</code> cluster request replication</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: When a client request to a cluster node was replicated to other nodes in the cluster for verification, the <code>Content-Length</code> was forwarded. On a <code>DELETE</code> request, the body was ignored, but if the initial request had a <code>Content-Length</code> value other than 0, the receiving nodes would wait for the body and eventually timeout. </p>
+        <p>Mitigation: The fix to check <code>DELETE</code> requests and overwrite non-zero <code>Content-Length</code> header values was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole and Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17194" target="_blank">Mitre Database: CVE-2018-17194</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5628" target="_blank">NIFI-5628</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3035" target="_blank">PR 3035</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-17195" href="#CVE-2018-17195"><strong>CVE-2018-17195</strong></a>: Apache NiFi CSRF vulnerability in template upload API</p>
+        <p>Severity: <strong>Critical</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: The template upload API endpoint accepted requests from different domain when sent in conjunction with ARP spoofing + meddler in the middle (MITM) attack, resulting in a CSRF attack. The required attack vector is complex, requiring a scenario with client certificate authentication, same subnet access, and injecting malicious code into an unprotected (plaintext HTTP) website which the targeted user later visits, but the possible damage warranted a <strong>Critical</strong> severity level. </p>
+        <p>Mitigation: The fix to apply Cross-Origin Resource Sharing (CORS) policy request filtering was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17195" target="_blank">Mitre Database: CVE-2018-17195</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5595" target="_blank">NIFI-5595</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3024" target="_blank">PR 3024</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.8.0-dependency-vulnerabilities" href="#1.8.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2014-0193" href="#CVE-2014-0193"><strong>CVE-2014-0193</strong></a>: Apache NiFi Denial of service because of netty vulnerability</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the netty library could cause denial of service. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2014-0193" target="_blank">NIST NVD CVE-2014-0193</a> or <a href="https://netty.io/news/2014/04/30/release-day.html" target="_blank">netty release announcement</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the netty library to 3.7.1.Final was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Nathan Gough. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0193" target="_blank">Mitre Database: CVE-2014-0193</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5665" target="_blank">NIFI-5665</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/3067" target="_blank">PR 3067</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<!-- Informational -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.8.0-informational" href="#1.8.0-informational">Informational</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="NIFI-2018-006" href="#NIFI-2018-006"><strong>NIFI-2018-006</strong></a>: Apache NiFi Suppression of stack trace when malicious XSS query is submitted</p>
+        <p>Severity: <strong>Informational</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.0</li>
+        </ul>
+        </p>
+        <p>Description: A reporter submitted a (false positive) claim of a reflected XSS attack. See the <a href="#CVE-2016-8748">CVE-2016-8748 announcement</a> for more information. While the XSS attack was not valid, the resulting stack trace contained unnecessary information. </p>
+        <p>Mitigation: The fix to suppress the stacktrace was applied on the Apache NiFi 1.7.1 and 1.8.0 releases. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Prashanth V. </p>
+        <p>CVE Link: N/A</p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5374" target="_blank">NIFI-5374</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2840" target="_blank">PR 2840</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="NIFI-2018-014" href="#NIFI-2018-014"><strong>NIFI-2018-014</strong></a>: Apache NiFi addition of Content Security Policy (CSP) frame-ancestor HTTP response header</p>
+        <p>Severity: <strong>Informational</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.7.1</li>
+        </ul>
+        </p>
+        <p>Description: Following best practice recommendations, the <code>frame-ancestors</code> CSP response header is provided as well as <code>X-Frame-Options</code> for increased compatibility across browsers. </p>
+        <p>Mitigation: The addition of these headers was applied on the Apache NiFi 1.8.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Nathan Gough and Andy LoPresto. </p>
+        <p>CVE Link: N/A</p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5366" target="_blank">NIFI-5366</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2989" target="_blank">PR 2989</a></p>
+        <p>Released: October 26, 2018</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.7.0" href="#1.7.0">Fixed in Apache NiFi 1.7.0</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-1324" href="#CVE-2018-1324"><strong>CVE-2018-1324</strong></a>: Apache NiFi Denial of service issue because of commons-compress vulnerability</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the commons-compress library could cause denial of service. See <a href="https://commons.apache.org/proper/commons-compress/security-reports.html" target="_blank">commons-compress CVE-2018-1324 announcement</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the commons-compress library to 1.16.1 was applied on the Apache NiFi 1.7.0 release. Users running a prior 1.x release should upgrade to the appropriate release. <strong>This was <a href="#CVE-2018-1324-160">previously incorrectly reported</a> as being fixed in Apache NiFi 1.6.0</strong></p>
+        <p>Credit: This issue was discovered by Joe Witt. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1324" target="_blank">Mitre Database: CVE-2018-1324</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5108" target="_blank">NIFI-5108</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2651" target="_blank">PR 2651</a></p>
+        <p>Released: June 25, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2016-1000031" href="#CVE-2016-1000031"><strong>CVE-2016-1000031</strong></a>: Apache NiFi dependency vulnerability in commons-fileupload</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the commons-fileupload library could cause remote code execution (RCE). See <a href="https://www.tenable.com/security/research/tra-2016-30" target="_blank">Tenable Research Advisory TRA-2016-30</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the commons-fileupload library to 1.3.3 was applied on the Apache NiFi 1.7.0 release. Users running a prior 1.x release should upgrade to the appropriate release. <em>Apache Commons project <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1000031" target="_blank">contests validity of this vulnerability</a> and proposes this is the responsibility of the consuming application. </em></p>
+        <p>Credit: This issue was discovered by Matt Gilman. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-1000031" target="_blank">Mitre Database: CVE-2016-1000031</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5124" target="_blank">NIFI-5124</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2662" target="_blank">PR 2662</a></p>
+        <p>Released: June 25, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-7489" href="#CVE-2018-7489"><strong>CVE-2018-7489</strong></a>, <a id="CVE-2017-7525" href="#CVE-2017-7525"><strong>CVE-2017-7525</strong></a>, and <a id="CVE-2017-15095" href="#CVE-2017-15095"><strong>CVE-2017-15095</strong></a>: Apache NiFi dependency vulnerability in FasterXML Jackson</p>
+        <p>Severity: <strong>Critical</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the FasterXML Jackson XML parsing library could allow unauthenticated remote code execution (RCE). See <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-7489" target="_blank">NVD CVE-2018-7489</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the jackson-databind library to 2.9.5 was applied on the Apache NiFi 1.7.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Sivaprasanna Sethuraman. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-7489" target="_blank">Mitre Database: CVE-2018-7489</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-7525" target="_blank">Mitre Database: CVE-2017-7525</a>, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15095" target="_blank">Mitre Database: CVE-2017-15095</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5286" target="_blank">NIFI-5286</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2775" target="_blank">PR 2775</a></p>
+        <p>Released: June 25, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="angular:20171018" href="#angular:20171018"><strong>angular:20171018</strong></a> and <a id="angular:20180202" href="#angular:20180202"><strong>angular:20180202</strong></a>: Apache NiFi dependency XSS vulnerability in AngularJS</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the AngularJS library could allow XSS. See <a href="https://snyk.io/vuln/npm:angular:20171018" target="_blank">Snyk npm:angular:20171018</a> and <a href="https://snyk.io/vuln/npm:angular:20180202" target="_blank">Snyk npm:angular:20180202</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the commons-compress library to 1.7.0 was applied on the Apache NiFi 1.7.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Prashanth V. </p>
+        <p>CVE Link: N/A</p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5215" target="_blank">NIFI-5215</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2721" target="_blank">PR 2721</a></p>
+        <p>Released: June 25, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="NIFI-2018-009" href="#NIFI-2018-009"><strong>NIFI-2018-009</strong></a>: Apache NiFi proactive escaping of batch ingest JSON to Elasticsearch to prevent injection attack</p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.6.0</li>
+        </ul>
+        </p>
+        <p>Description: While no published attack exists, NiFi strengthened the security around the batch processing Elasticsearch ingest feature to prevent injection attacks. </p>
+        <p>Mitigation: The improved content escaping was applied on the Apache NiFi 1.7.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Jonathan Logan. </p>
+        <p>CVE Link: N/A</p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-5266" target="_blank">NIFI-5266</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/2760" target="_blank">PR 2760</a></p>
+        <p>Released: June 25, 2018</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.6.0" href="#1.6.0">Fixed in Apache NiFi 1.6.0</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-1309" href="#CVE-2018-1309"><strong>CVE-2018-1309</strong></a>: Apache NiFi XML External Entity issue in SplitXML processor</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.5.0</li>
+        </ul>
+        </p>
+        <p>Description: Malicious XML content could cause information disclosure or remote code execution. </p>
+        <p>Mitigation: The fix to disable external general entity parsing and disallow doctype declarations was applied on the Apache NiFi 1.6.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by 圆珠笔. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1309" target="_blank">Mitre Database: CVE-2018-1309</a></p>
+        <p>Released: April 8, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-1310" href="#CVE-2018-1310"><strong>CVE-2018-1310</strong></a>: Apache NiFi JMS Deserialization issue because of ActiveMQ client vulnerability</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.5.0</li>
+        </ul>
+        </p>
+        <p>Description: Malicious JMS content could cause denial of service. See <a href="http://activemq.apache.org/security-advisories.data/CVE-2015-5254-announcement.txt" target="_blank">ActiveMQ CVE-2015-5254 announcement</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the activemq-client library to 5.15.3 was applied on the Apache NiFi 1.6.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by 圆珠笔. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1310" target="_blank">Mitre Database: CVE-2018-1310</a></p>
+        <p>Released: April 8, 2018</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-8028" href="#CVE-2017-8028"><strong>CVE-2017-8028</strong></a>: Apache NiFi LDAP TLS issue because of Spring Security LDAP vulnerability</p>
+        <p>Severity: <strong>Critical</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.5.0</li>
+        </ul>
+        </p>
+        <p>Description: Spring Security LDAP library was not enforcing credential authentication after TLS handshake negotiation. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-8028" target="_blank">NVD CVE-2017-8028 disclosure</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the spring-ldap library to 2.3.2.RELEASE+ was applied on the Apache NiFi 1.6.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Matthew Elder. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-8028" target="_blank">Mitre Database: CVE-2017-8028</a></p>
+        <p>Released: April 8, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-1324-160" href="#CVE-2018-1324-160"><strong><strike>CVE-2018-1324</strike></strong></a>: <strike>Apache NiFi Denial of service issue because of commons-compress vulnerability</strike> -- <em>This issue was <a href="#CVE-2018-1324">resolved in Apache NiFi 1.7.0</a></em></p>
+        <p>Severity: <strong>Low</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li><strike>Apache NiFi 0.1.0 - 1.5.0</strike></li>
+        </ul>
+        </p>
+        <p>Description: A vulnerability in the commons-compress library could cause denial of service. See <a href="https://commons.apache.org/proper/commons-compress/security-reports.html" target="_blank">commons-compress CVE-2018-1324 announcement</a> for more information. </p>
+        <p>Mitigation: The fix to upgrade the commons-compress library to 1.16.1 was applied on the Apache NiFi 1.6.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Joe Witt. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1324" target="_blank">Mitre Database: CVE-2018-1324</a></p>
+        <p><strike>Released: April 8, 2018</strike></p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.5.0" href="#1.5.0">Fixed in Apache NiFi 1.5.0</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-12632" href="#CVE-2017-12632"><strong>CVE-2017-12632</strong></a>: Apache NiFi host header poisoning issue</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.1.0 - 1.4.0</li>
+        </ul>
+        </p>
+        <p>Description: A malicious host header in an incoming HTTP request could cause NiFi to load resources from an external server. </p>
+        <p>Mitigation: The fix to sanitize host headers and compare to a controlled whitelist was applied on the Apache NiFi 1.5.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-12632" target="_blank">Mitre Database: CVE-2017-12632</a></p>
+        <p>Released: January 12, 2018</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-15697" href="#CVE-2017-15697"><strong>CVE-2017-15697</strong></a>: Apache NiFi XSS issue in context path handling</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.4.0</li>
+        </ul>
+        </p>
+        <p>Description: A malicious <code>X-ProxyContextPath</code> or <code>X-Forwarded-Context</code> header containing external resources or embedded code could cause remote code execution. </p>
+        <p>Mitigation: The fix to properly handle these headers was applied on the Apache NiFi 1.5.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Andy LoPresto. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15697" target="_blank">Mitre Database: CVE-2017-15697</a></p>
+        <p>Released: January 12, 2018</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.4.0" href="#1.4.0">Fixed in Apache NiFi 1.4.0</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-12623" href="#CVE-2017-12623"><b>CVE-2017-12623</b></a>: Apache NiFi XXE issue in template XML upload</p>
+        <p>Severity: <del><b>Moderate</b></del> <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.3.0</li>
+        </ul>
+        </p>
+        <p>Description: <del>An authorized user</del> Any authenticated user (valid client certificate but without ACL permissions) could upload a template which contained malicious code and accessed sensitive files via an XML External Entity (XXE) attack. </p>
+        <p>Mitigation: The fix to properly handle XML External Entities was applied on the Apache NiFi 1.4.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Paweł Gocyla and further information was provided by Mike Cole. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-12623" target="_blank">Mitre Database: CVE-2017-12623</a></p>
+        <p>Released: October 2, 2017 (Updated January 23, 2018)</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-15703" href="#CVE-2017-15703"><b>CVE-2017-15703</b></a>: Apache NiFi Java deserialization issue in template XML upload</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0 - 1.3.0</li>
+        </ul>
+        </p>
+        <p>Description: Any authenticated user (valid client certificate but without ACL permissions) could upload a template which contained malicious code and caused a denial of service via Java deserialization attack. </p>
+        <p>Mitigation: The fix to properly handle Java deserialization was applied on the Apache NiFi 1.4.0 release. Users running a prior 1.x release should upgrade to the appropriate release. </p>
+        <p>Credit: This issue was discovered by Mike Cole. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-15703" target="_blank">Mitre Database: CVE-2017-15703</a></p>
+        <p>Released: October 2, 2017 (Updated January 25, 2018)</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Fixed in Apache NiFi <a id="0.7.4" href="#0.7.4">0.7.4</a> and <a id="1.3.0" href="#1.3.0">1.3.0</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-7665" href="#CVE-2017-7665"><b>CVE-2017-7665</b></a>: Apache NiFi XSS issue on certain user input components</p>
+        <p>Severity: <b>Important</b></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.1 - 0.7.3</li>
+            <li>Apache NiFi 1.0.0 - 1.2.0</li>
+        </ul>
+        </p>
+        <p>Description: There are certain user input components in the Apache NiFi UI which had been guarding for some forms of XSS issues but were insufficient. </p>
+        <p>Mitigation: The fix for more complete user input sanitization will be applied on Apache NiFi 0.7.4 and Apache NiFi 1.3.0 releases. Users running a prior 0.x or 1.x release should upgrade to
+            the appropriate release. </p>
+        <p>Credit: This issue was discovered by Matt Gilman.</p>
+        <p>Released: May 8, 2017 (1.2.0); May 17, 2017 (0.7.3)</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-7667" href="#CVE-2017-7667"><b>CVE-2017-7667</b></a>: Apache NiFi XFS issue due to insufficient response headers</p>
+        <p>Severity: <b>Important</b></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.1 - 0.7.3</li>
+            <li>Apache NiFi 1.0.0 - 1.2.0</li>
+        </ul>
+        </p>
+        <p>Description: Apache NiFi needs to establish the response header telling browsers to only allow framing with the same origin. </p>
+        <p>Mitigation: The fix to set this response header will be applied on Apache NiFi 0.7.4 and Apache NiFi 1.3.0 releases. Users running a prior 0.x or 1.x release should upgrade to the
+            appropriate release. </p>
+        <p>Credit: This issue was discovered by Matt Gilman.</p>
+        <p>Released: May 8, 2017 (1.2.0); May 17, 2017 (0.7.3)</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Fixed in Apache NiFi <a id="0.7.2" href="#0.7.2">0.7.2</a> and <a id="1.1.2" href="#1.1.2">1.1.2</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-5635" href="#CVE-2017-5635"><b>CVE-2017-5635</b></a>: Apache NiFi Unauthorized Data Access In Cluster Environment</p>
+        <p>Severity: <b>Important</b></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.7.0</li>
+            <li>Apache NiFi 0.7.1</li>
+            <li>Apache NiFi 1.1.0</li>
+            <li>Apache NiFi 1.1.1</li>
+        </ul>
+        </p>
+        <p>Description: In a cluster environment, if an anonymous user request is replicated to another node, the originating node identity is used rather than the “anonymous” user. </p>
+        <p>Mitigation: A fix has been provided (removing the negative check for anonymous user before building the proxy chain and throwing an exception, and evaluating each user in the proxy chain
+        iteration and comparing against a static constant anonymous user). This fix was applied in NIFI-3487 and released in Apache NiFi 0.7.2 and 1.1.2. 1.x users running a clustered environment
+        should upgrade to 1.1.2. 0.x users running a clustered environment should upgrade to 0.7.2. Additional migration guidance can be found <a href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
+        <p>Credit: This issue was discovered by Leonardo Dias in conjunction with Matt Gilman.</p>
+        <p>Released: February 20, 2017</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2017-5636" href="#CVE-2017-5636"><b>CVE-2017-5636</b></a>: Apache NiFi User Impersonation In Cluster Environment</p>
+        <p>Severity: <b>Moderate</b></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.7.0</li>
+            <li>Apache NiFi 0.7.1</li>
+            <li>Apache NiFi 1.1.0</li>
+            <li>Apache NiFi 1.1.1</li>
+        </ul>
+        </p>
+        <p>Description: In a cluster environment, the proxy chain serialization/deserialization is vulnerable to an injection attack where a carefully crafted username could impersonate another user
+            and gain their permissions on a replicated request to another node. </p>
+        <p>Mitigation: A fix has been provided (modification of the tokenization code and sanitization of user-provided input). This fix was applied in NIFI-3487 and released in Apache NiFi 0.7.2 and
+            1.1.2. 1.x users running a clustered environment should upgrade to 1.1.2. 0.x users running a clustered environment should upgrade to 0.7.2. Additional migration guidance can be found <a
+                    href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
+        <p>Credit: This issue was discovered by Andy LoPresto.</p>
+        <p>Released: February 20, 2017</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Fixed in Apache NiFi <a id="1.0.1" href="#1.0.1">1.0.1</a> and <a id="1.1.1" href="#1.1.1">1.1.1</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2016-8748" href="#CVE-2016-8748"><b>CVE-2016-8748</b></a>: Apache NiFi XSS vulnerability in connection details dialogue</p>
+        <p>Severity: <b>Moderate</b></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.0.0</li>
+            <li>Apache NiFi 1.1.0</li>
+        </ul>
+        </p>
+        <p>Description: There is a cross-site scripting vulnerability in connection details dialog when accessed by an authorized user. The user supplied text was not being properly handled when added
+            to the DOM.</p>
+        <p>Mitigation: 1.0.0 users should upgrade to 1.0.1 or 1.1.1. 1.1.0 users should upgrade to 1.1.1. Additional migration guidance can be found <a
+                href="https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance">here</a>. </p>
+        <p>Credit: This issue was discovered by Matt Gilman of the Apache NiFi PMC during a code review.</p>
+        <p>Released: December 19, 2016 (1.0.1); December 22, 2016 (1.1.1)</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Severity Levels</h2>
+    </div>
+</div>
+<div class="row">
+    <p class="description">The following lists the severity levels and criteria followed. It closely aligns to and borrows from Apache HTTP Server Project <a
+            href="https://httpd.apache.org/security/impact_levels.html">guidance.</a></p>
+    <div class="large-12 columns">
+        <table>
+            <tr>
+                <td>Critical</td>
+                <td>A vulnerability rated with a critical impact is one which could be potentially exploited by a remote attacker to get NiFi to execute arbitrary code either as the user the server is
+                    running as or root. These are the sorts of vulnerabilities that could be exploited automatically by worms.
+                </td>
+            </tr>
+            <tr>
+                <td>Important</td>
+                <td>A vulnerability rated as Important impact is one which could result in the compromise of data or availability of the server. For Apache NiFi this includes issues that allow an easy
+                    remote denial of service or access to files that should be otherwise prevented by limits or authentication.
+                </td>
+            </tr>
+            <tr>
+                <td>Moderate</td>
+                <td>A vulnerability is likely to be rated as Moderate if there is significant mitigation to make the issue less of an impact. This might be done because the flaw does not affect likely
+                    configurations, or it is a configuration that isn't widely used, or where a remote user must be authenticated in order to exploit the issue.
+                </td>
+            </tr>
+            <tr>
+                <td>Low</td>
+                <td>All other security flaws are classed as a Low impact. This rating is used for issues that are believed to be extremely hard to exploit, or where an exploit gives minimal
+                    consequences.
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

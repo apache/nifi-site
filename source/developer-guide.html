@@ -1,0 +1,7 @@
+---
+title: Apache NiFi Developer Guide
+---
+
+<div class="external-guide">
+    <iframe src="docs/nifi-docs/html/developer-guide.html"></iframe>
+</div>
