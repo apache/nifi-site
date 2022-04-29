@@ -52,7 +52,74 @@ title: Apache NiFi Security Reports
         <p>Thank you for helping keep Apache NiFi and our users safe!</p>
     </div>
 </div>
-
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.16.1" href="#1.16.1">Fixed in Apache NiFi 1.16.1</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.16.1-vulnerabilities" href="#1.16.1-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2022-29265" href="#CVE-2022-29265"><strong>CVE-2022-29265</strong></a>: Apache NiFi Improper Restriction of XML External Entity References in Multiple Components</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.1 - 1.16.0</li>
+        </ul>
+        </p>
+        <p>Description: Multiple components in Apache NiFi 0.0.1 to 1.16.0 do not restrict XML External Entity references in the default configuration.
+            The Standard Content Viewer service attempts to resolve XML External Entity references when viewing formatted XML files.
+            The following Processors attempt to resolve XML External Entity references when configured with default property values:</p>
+        <p>
+        <ul>
+            <li>EvaluateXPath</li>
+            <li>EvaluateXQuery</li>
+            <li>ValidateXml</li>
+        </ul>
+        </p>
+        <p>
+            Apache NiFi flow configurations that include these Processors are vulnerable to malicious XML documents that contain Document Type Declarations with XML External Entity references.
+        </p>
+        <p>Mitigation: Upgrading to NiFi 1.16.1 disables Document Type Declarations in the default configuration for these processors, and disallows XML External Entity resolution in standard services.</p>
+        <p>Credit: This issue was discovered by David Handermann (exceptionfactory.com)</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-29265" target="_blank">Mitre Database CVE-2022-29265</a></p>
+        <p>
+            NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9901" target="_blank">NIFI-9901</a>, <a href="https://issues.apache.org/jira/browse/NIFI-9943" target="_blank">NIFI-9943</a>
+        </p>
+        <p>
+            NiFi PR: <a href="https://github.com/apache/nifi/pull/5962" target="_blank">PR 5962</a>, <a href="https://github.com/apache/nifi/pull/5986" target="_blank">PR 5986</a>, <a href="https://github.com/apache/nifi/pull/5994" target="_blank">PR 5994</a>
+        </p>
+        <p>Released: April 29, 2022</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.16.1-dependency-vulnerabilities" href="#1.16.1-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-36518" href="#CVE-2020-36518"><strong>CVE-2020-36518</strong></a>: Apache NiFi's use of jackson-databind</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.1 - 1.16.0</li>
+        </ul>
+        </p>
+        <p>Description: The vulnerable jackson-databind dependency allows a Java stack overflow exception and denial of service via a large depth of nested objects.</p>
+        <p>Mitigation: We have upgraded the jackson-databind version that NiFi uses from 2.13.2 to 2.13.2.20220328.</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36518" target="_blank">Mitre Database CVE-2020-36518</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-9952" target="_blank">NIFI-9952</a></p>
+        <p>Released: April 29, 2022</p>
+    </div>
+</div>
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
