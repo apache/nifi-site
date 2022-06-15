@@ -55,6 +55,38 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
+        <h2><a id="1.16.3" href="#1.16.3">Fixed in Apache NiFi 1.16.3</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.16.3-vulnerabilities" href="#1.16.3-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2022-33140" href="#CVE-2022-33140"><strong>CVE-2022-33140</strong></a>: Improper Neutralization of Command Elements in Shell User Group Provider</p>
+        <p>Severity: <strong>High</strong></p>
+        <p>Products Affected: Apache NiFi, Apache NiFi Registry</p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>This issue affects Apache NiFi 1.10.0 to 1.16.2 on Linux and macOS. This issue also affects Apache NiFi Registry 0.6.0 to 1.16.2 on Linux and macOS.</li>
+        </ul>
+        </p>
+        <p>Description: The optional ShellUserGroupProvider in Apache NiFi 1.10.0 to 1.16.2 and Apache NiFi Registry 0.6.0 to 1.16.2 does not neutralize arguments for group resolution commands, allowing injection of operating system commands on Linux and macOS platforms.</p>
+        <p>The ShellUserGroupProvider is not included in the default configuration. Command injection requires ShellUserGroupProvider to be one of the enabled User Group Providers in the Authorizers configuration. Command injection also requires an authenticated user with elevated privileges. Apache NiFi requires an authenticated user with authorization to modify access policies to execute the command. Apache NiFi Registry requires an authenticated user with authorization to read user groups to execute the command.</p>
+        <p>Mitigation: Upgrading to NiFi 1.16.1 disables Document Type Declarations in the default configuration for these processors, and disallows XML External Entity resolution in standard services.</p>
+        <p>Credit: This issue was discovered by an anonymous reporter</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-33140" target="_blank">Mitre Database CVE-2022-33140</a></p>
+        <p>NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-10114" target="_blank">NIFI-10114</a></p>
+        <p>NiFi PR: <a href="https://github.com/apache/nifi/pull/6122" target="_blank">PR 6122</a></p>
+        <p>Released: June 15, 2022</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
         <h2><a id="1.16.1" href="#1.16.1">Fixed in Apache NiFi 1.16.1</a></h2>
     </div>
 </div>
