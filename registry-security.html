@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <title>Apache NiFi Registry Security Reports</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
+        <link rel="stylesheet" href="https://nifi.apache.org/stylesheets/app.min.75554bd25a8538597f97b30b2a1f63992cbf4c804aa7ef275c2983d4a8bb821e.css">
+        <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
+        <script src="/assets/js/modernizr.js"></script>
+        <script src="/assets/js/webfontloader.js"></script>
+    </head>
+    <body>
+         
+            <div class="sticky contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1>
+                    <a href="index.html">
+                        <img id="logo-top-bar" src="/assets/images/nifi-drop-white.svg" alt="Apache NiFi"/>
+                    </a>
+                </h1>
+            </li>
+            
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            
+            <ul class="right">
+                <li class="has-dropdown">
+                    <a href="#">Project</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="https://blogs.apache.org/nifi/"><i class="fa fa-external-link external-link"></i>Apache NiFi Blog</a></li>
+                        <li><a href="https://www.apache.org/licenses/LICENSE-2.0"><i class="fa fa-external-link external-link"></i>License</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Documentation</a>
+                    <ul class="dropdown">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="docs.html">NiFi Docs</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI"><i class="fa fa-external-link external-link"></i>Wiki</a></li>
+                        <li><a href="security.html">NiFi Security Reports</a></li>
+                        <li><a href="registry-security.html">NiFi Registry Security Reports</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Downloads</a>
+                    <ul class="dropdown">
+                        <li><a href="download.html">Download NiFi</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes"><i class="fa fa-external-link external-link"></i>Release Notes</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Community</a>
+                    <ul class="dropdown">
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide"><i class="fa fa-external-link external-link"></i>Contributor Guide</a></li>
+                        <li><a href="mailing_lists.html">Mailing Lists &amp; Chat</a></li>
+                        <li><a href="people.html">People</a></li>
+                        <li><a href="powered-by-nifi.html">Powered by NiFi</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Development</a>
+                    <ul class="dropdown">
+                        <li><a href="quickstart.html">Quickstart</a></li>
+                        <li><a href="release-guide.html">Release Guide</a></li>
+                        <li><a href="gpg.html">GPG Guide</a></li>
+                        <li><a href="fds-release-guide.html">FDS Release Guide</a></li>
+                        <li><a href="licensing-guide.html">Licensing Guide</a></li>
+                        <li><a href="developer-guide.html">Developer Guide</a></li>
+                        <li><a href="https://gitbox.apache.org/repos/asf/nifi.git"><i class="fa fa-external-link external-link"></i>Source</a></li>
+                        <li><a href="https://issues.apache.org/jira/browse/NIFI"><i class="fa fa-external-link external-link"></i>Issues</a></li>
+                        <li><a href="https://github.com/apache/nifi"><i class="fa fa-external-link external-link"></i>GitHub</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">ASF Links</a>
+                    <ul class="dropdown">
+                        <li><a href="https://www.apache.org"><i class="fa fa-external-link external-link"></i>Apache Software Foundation</a></li>
+                        <li><a href="https://www.apache.org/foundation/sponsorship.html"><i class="fa fa-external-link external-link"></i>Sponsorship</a></li>
+                        <li><a href="https://www.apache.org/security/"><i class="fa fa-external-link external-link"></i>Security</a></li>
+                        <li><a href="https://www.apache.org/foundation/thanks.html"><i class="fa fa-external-link external-link"></i>Thanks</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Subprojects</a>
+                    <ul class="dropdown">
+                        <li><a href="minifi/index.html">MiNiFi</a></li>
+                        <li><a href="registry.html">Registry</a></li>
+                        <li><a href="fds.html">FDS</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </nav>
+</div>
+ 
+        
+    <div class="container" >
+      <div class="row">
+        <div class="col-md-12">
+            
+	
+<div class="large-space"></div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>NiFi Registry Security Vulnerability Disclosure</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p>Apache NiFi Registry welcomes the responsible reporting of security vulnerabilities. The NiFi Registry team believes that working with skilled security researchers across the globe is crucial in identifying
+            weaknesses in any technology. If you believe you've found a security issue in our product or service, we encourage you to notify us. We will work with you to resolve the issue
+            promptly.</p>
+        <h3>Disclosure Policy</h3>
+        <ul>
+            <li>Let us know as soon as possible upon discovery of a potential security issue, and we'll make every effort to quickly resolve the issue.</li>
+            <li>Provide us a reasonable amount of time to resolve the issue before any disclosure to the public or a third-party.</li>
+            <li>Make a good faith effort to avoid privacy violations, destruction of data, and interruption or degradation of our service. Only interact with accounts you own or with explicit
+                permission of the account holder.
+            </li>
+        </ul>
+        <h3>Exclusions</h3>
+        <p>While researching, we'd like to ask you to refrain from:</p>
+        <ul>
+            <li>Denial of service</li>
+            <li>Spamming</li>
+            <li>Social engineering (including phishing) of Apache NiFi and NiFi Registry staff or contractors</li>
+            <li>Any physical attempts against Apache NiFi or NiFi Registry property or data centers</li>
+        </ul>
+        <h3>Reporting Methods</h3>
+        <p>NiFi Registry receives vulnerability reports through the Apache NiFi team via the following means:</p>
+        <ul>
+            <li>NiFi Security Mailing List: <a href="mailto:security@nifi.apache.org">security@nifi.apache.org</a>.
+            Members of the <a href="people.html">Project Management Committee</a> monitor this private mailing list and respond to disclosures.
+            </li>
+        </ul>
+        <p>Thank you for helping keep Apache NiFi Registry and our users safe!</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="0.6.0" href="#0.6.0">Fixed in Apache NiFi Registry 0.6.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="0.6.0-vulnerabilities" href="#0.6.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2020-9482" href="#CVE-2020-9482"><strong>CVE-2020-9482</strong></a>: Apache NiFi Registry user log out issue</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi Registry 0.1.0 - 0.5.0</li>
+        </ul>
+        </p>
+        <p>Description: If NiFi Registry uses an authentication mechanism other than PKI, when the user clicks Log Out, NiFi Registry invalidates the authentication token on the client side but not on the server side. This permits the user's client-side token to be used for up to 12 hours after logging out to make API requests to NiFi Registry. </p>
+        <p>Mitigation: The fix to invalidate the server-side authentication token immediately after the user clicks 'Log Out' was applied in the Apache NiFi Registry 0.6.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-9482" target="_blank">Mitre Database: CVE-2020-9482</a></p>
+        <p>NiFi Registry Jira: <a href="https://issues.apache.org/jira/browse/NIFIREG-361" target="_blank">NIFIREG-361</a></p>
+        <p>NiFi Registry PR: <a href="https://github.com/apache/nifi-registry/pull/259" target="_blank">PR 259</a></p>
+        <p>Released: April 7, 2020</p>
+    </div>
+</div>
+<!-- Dependency Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="0.6.0-dependency-vulnerabilities" href="#0.6.0-dependency-vulnerabilities">Dependency Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-14540" href="#CVE-2019-14540"><strong>CVE-2019-14540</strong></a>: Apache NiFi Registry's jackson-databind usage</p>
+        <p>Severity: <strong>Critical</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi Registry 0.5.0 - 0.5.0</li>
+        </ul>
+        </p>
+        <p>Description: The com.fasterxml.jackson.core:jackson-databind dependency in the nifi-registry-framework was vulnerable. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540" target="_blank">NIST NVD CVE-2019-14540</a> for more information. </p>
+        <p>Mitigation: jackson-databind was upgraded from 2.9.9.1 to 2.10.3 for the Apache NiFi Registry 0.6.0 release. It is unlikely that NiFi Registry's usage of this dependency could be exploited as described by the CVE, however we consider it prudent for users running a prior 0.x release to upgrade to the 0.6.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-14540" target="_blank">Mitre Database: CVE-2019-14540</a></p>
+        <p>NiFi Registry Jira: <a href="https://issues.apache.org/jira/browse/NIFIREG-376" target="_blank">NIFIREG-376</a></p>
+        <p>NiFi Registry PR: <a href="https://github.com/apache/nifi-registry/pull/271" target="_blank">PR 271</a></p>
+        <p>Released: April 7, 2020</p>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        <p><a id="CVE-2019-10782" href="#CVE-2019-10782"><strong>CVE-2019-10782</strong></a>: Apache NiFi's Registry's checkstyle usage</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi Registry 0.1.0 - 0.5.0</li>
+        </ul>
+        </p>
+        <p>Description: The com.puppycrawl.tools:checkstyle dependency was vulnerable. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10782" target="_blank">NIST NVD CVE-2019-10782</a> for more information. </p>
+        <p>Mitigation: The checkstyle dependency was upgraded from 8.21 to 8.31 for the Apache NiFi Registry 0.6.0 release. It is unlikely that NiFi Registry's usage of this dependency could be exploited as described by the CVE, however we consider it prudent for users running a prior 0.x release to upgrade to the 0.6.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-10782" target="_blank">Mitre Database: CVE-2019-10782</a></p>
+        <p>NiFi Registry Jira: <a href="https://issues.apache.org/jira/browse/NIFIREG-364" target="_blank">NIFIREG-364</a></p>
+        <p>NiFi Registry PR: <a href="https://github.com/apache/nifi-registry/pull/270" target="_blank">PR 270</a></p>
+        <p>Released: April 7, 2020</p>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2018-10054" href="#CCVE-2018-10054"><strong>CVE-2018-10054</strong></a>: Apache NiFi's Registry h2 database usage</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi Registry 0.5.0 - 0.5.0</li>
+        </ul>
+        </p>
+        <p>Description: The com.h2database:h2 dependency in the nifi-registry-framework module was vulnerable. See <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10054" target="_blank">NIST NVD CVE-2018-10054</a> for more information. </p>
+        <p>Mitigation: The h2 database dependency was upgraded from 1.4.197 to 1.4.199 for the Apache NiFi Registry 0.6.0 release. It is unlikely that NiFi Registry's usage of this dependency could be exploited as described by the CVE, however we consider it prudent for users running a prior 0.x release to upgrade to the 0.6.0 release. </p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-10054" target="_blank">Mitre Database: CVE-2018-10054</a></p>
+        <p>NiFi Registry Jira: <a href="https://issues.apache.org/jira/browse/NIFIREG-372" target="_blank">NIFIREG-372</a></p>
+        <p>NiFi Registry PR: <a href="https://github.com/apache/nifi-registry/pull/267" target="_blank">PR 267</a></p>
+        <p>Released: April 7, 2020</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
+        <h2>Severity Levels</h2>
+    </div>
+</div>
+<div class="row">
+    <p class="description">The following lists the severity levels and criteria followed. It closely aligns to and borrows from Apache HTTP Server Project <a
+            href="https://httpd.apache.org/security/impact_levels.html">guidance.</a></p>
+    <div class="large-12 columns">
+        <table>
+            <tr>
+                <td>Critical</td>
+                <td>A vulnerability rated with a critical impact is one which could be potentially exploited by a remote attacker to get NiFi Registry to execute arbitrary code either as the user the server is
+                    running as or root. These are the sorts of vulnerabilities that could be exploited automatically by worms.
+                </td>
+            </tr>
+            <tr>
+                <td>Important</td>
+                <td>A vulnerability rated as Important impact is one which could result in the compromise of data or availability of the server. For Apache NiFi Registry this includes issues that allow an easy
+                    remote denial of service or access to files that should be otherwise prevented by limits or authentication.
+                </td>
+            </tr>
+            <tr>
+                <td>Moderate</td>
+                <td>A vulnerability is likely to be rated as Moderate if there is significant mitigation to make the issue less of an impact. This might be done because the flaw does not affect likely
+                    configurations, or it is a configuration that isn't widely used, or where a remote user must be authenticated in order to exploit the issue.
+                </td>
+            </tr>
+            <tr>
+                <td>Low</td>
+                <td>All other security flaws are classed as a Low impact. This rating is used for issues that are believed to be extremely hard to exploit, or where an exploit gives minimal
+                    consequences.
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+        <div class="row">
+    <div class="large-12 columns footer">
+        <a href="https://www.apache.org">
+            <img id="asf-logo" alt="Apache Software Foundation" src="/assets/images/asf_logo.png" width="200" style="margin:0px 10px" />
+        </a>
+        <a  href="https://www.apache.org/events/current-event.html">
+            <img src="https://www.apache.org/events/current-event-234x60.png" style="margin:0px 10px" />
+        </a>
+        <div id="copyright">
+            <p>Copyright &#169; 2022 The Apache Software Foundation, Licensed under the <a
+                    href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.<br/>Apache, the
+                Apache feather logo, NiFi, Apache NiFi and the project logo are trademarks of The Apache Software
+                Foundation.</p>
+        </div>
+    </div>
+</div>
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/foundation.js"></script>
+        <script src="/assets/js/app.js"></script>
+    </body>
+</html>

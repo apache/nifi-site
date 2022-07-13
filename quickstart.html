@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <title>Apache NiFi Development Quickstart</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
+        <link rel="stylesheet" href="https://nifi.apache.org/stylesheets/app.min.75554bd25a8538597f97b30b2a1f63992cbf4c804aa7ef275c2983d4a8bb821e.css">
+        <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
+        <script src="/assets/js/modernizr.js"></script>
+        <script src="/assets/js/webfontloader.js"></script>
+    </head>
+    <body>
+         
+            <div class="sticky contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1>
+                    <a href="index.html">
+                        <img id="logo-top-bar" src="/assets/images/nifi-drop-white.svg" alt="Apache NiFi"/>
+                    </a>
+                </h1>
+            </li>
+            
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            
+            <ul class="right">
+                <li class="has-dropdown">
+                    <a href="#">Project</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="https://blogs.apache.org/nifi/"><i class="fa fa-external-link external-link"></i>Apache NiFi Blog</a></li>
+                        <li><a href="https://www.apache.org/licenses/LICENSE-2.0"><i class="fa fa-external-link external-link"></i>License</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Documentation</a>
+                    <ul class="dropdown">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="docs.html">NiFi Docs</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI"><i class="fa fa-external-link external-link"></i>Wiki</a></li>
+                        <li><a href="security.html">NiFi Security Reports</a></li>
+                        <li><a href="registry-security.html">NiFi Registry Security Reports</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Downloads</a>
+                    <ul class="dropdown">
+                        <li><a href="download.html">Download NiFi</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes"><i class="fa fa-external-link external-link"></i>Release Notes</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Community</a>
+                    <ul class="dropdown">
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide"><i class="fa fa-external-link external-link"></i>Contributor Guide</a></li>
+                        <li><a href="mailing_lists.html">Mailing Lists &amp; Chat</a></li>
+                        <li><a href="people.html">People</a></li>
+                        <li><a href="powered-by-nifi.html">Powered by NiFi</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Development</a>
+                    <ul class="dropdown">
+                        <li><a href="quickstart.html">Quickstart</a></li>
+                        <li><a href="release-guide.html">Release Guide</a></li>
+                        <li><a href="gpg.html">GPG Guide</a></li>
+                        <li><a href="fds-release-guide.html">FDS Release Guide</a></li>
+                        <li><a href="licensing-guide.html">Licensing Guide</a></li>
+                        <li><a href="developer-guide.html">Developer Guide</a></li>
+                        <li><a href="https://gitbox.apache.org/repos/asf/nifi.git"><i class="fa fa-external-link external-link"></i>Source</a></li>
+                        <li><a href="https://issues.apache.org/jira/browse/NIFI"><i class="fa fa-external-link external-link"></i>Issues</a></li>
+                        <li><a href="https://github.com/apache/nifi"><i class="fa fa-external-link external-link"></i>GitHub</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">ASF Links</a>
+                    <ul class="dropdown">
+                        <li><a href="https://www.apache.org"><i class="fa fa-external-link external-link"></i>Apache Software Foundation</a></li>
+                        <li><a href="https://www.apache.org/foundation/sponsorship.html"><i class="fa fa-external-link external-link"></i>Sponsorship</a></li>
+                        <li><a href="https://www.apache.org/security/"><i class="fa fa-external-link external-link"></i>Security</a></li>
+                        <li><a href="https://www.apache.org/foundation/thanks.html"><i class="fa fa-external-link external-link"></i>Thanks</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Subprojects</a>
+                    <ul class="dropdown">
+                        <li><a href="minifi/index.html">MiNiFi</a></li>
+                        <li><a href="registry.html">Registry</a></li>
+                        <li><a href="fds.html">FDS</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </nav>
+</div>
+ 
+        
+    <div class="container" >
+      <div class="row">
+        <div class="col-md-12">
+            
+	<h1 id="apache-nifi-development-quickstart">Apache NiFi Development Quickstart</h1>
+<h2 id="source-code">Source Code</h2>
+<p>Apache NiFi source code is version controlled using <a href="https://git-scm.com/">Git</a> version control (<a href="https://gitbox.apache.org/repos/asf?p=nifi.git;a=summary">browse</a>|<a href="https://gitbox.apache.org/repos/asf/nifi.git">checkout</a>) and mirrored to <a href="https://github.com/apache/nifi">GitHub</a>.
+<br />The NiFi website source code is available (<a href="https://gitbox.apache.org/repos/asf?p=nifi-site.git;a=summary">browse</a>|<a href="https://gitbox.apache.org/repos/asf/nifi-site.git">checkout</a>) and mirrored to <a href="https://github.com/apache/nifi-site">GitHub</a>.
+<br />The NiFi NAR maven plugin source code is available (<a href="https://gitbox.apache.org/repos/asf?p=nifi-maven.git;a=summary">browse</a>|<a href="https://gitbox.apache.org/repos/asf/nifi-maven.git">checkout</a>) and mirrored to <a href="https://github.com/apache/nifi-maven">GitHub</a>.</p>
+<h2 id="issue-tracking">Issue Tracking</h2>
+<p>Track issues on the &ldquo;NIFI&rdquo; Project on the Apache JIRA (<a href="https://issues.apache.org/jira/browse/NIFI">browse</a>).</p>
+<h2 id="building">Building</h2>
+<h4 id="configure-your-git-client">Configure your git client</h4>
+<p>We recommend running the following git config commands in order to ensure
+that git checks out the repository in a consistent manner. These changes
+are particularly important if running on Windows, as the git client has
+trouble with long filenames otherwise. Additionally, in Windows, the
+default behavior of the git client, when installed, is to set the
+<code>core.autocrlf</code> configuration option to <code>true</code>, which can cause some of
+the unit tests to fail.</p>
+<pre tabindex="0"><code>git config --global core.longpaths true
+git config --global core.autocrlf false
+</code></pre><h4 id="checking-out-from-git">Checking out from Git</h4>
+<p>To check out the code:</p>
+<pre tabindex="0"><code>git clone https://gitbox.apache.org/repos/asf/nifi.git
+</code></pre><br/>
+Then checkout the `main` branch (which should be the default)
+<pre tabindex="0"><code>git checkout main
+</code></pre><br/>
+The `main` branch currently represents the next major release line (1.x). Substantial work here is underway to improve the NiFi's core framework and UI. If you are interested in building the 0.x baseline to include new components and bug fixes please checkout the 0.x branch.
+<br/>
+<pre tabindex="0"><code>git checkout -b 0.x origin/0.x
+</code></pre><br/>
+This will checkout the 0.x branch locally and set it to track the 0.x branch in the remote named `origin` (the default name).
+<br/>
+<h3 id="linux-operating-system-configuration">Linux Operating System Configuration</h3>
+<p><strong>NOTE:</strong> If you are building on Linux, consider these best practices. Typical Linux defaults are not necessarily well tuned for the needs of an IO intensive application like NiFi.
+For all of these areas, your distribution&rsquo;s requirements may vary.  Use these sections as advice, but consult your distribution-specific documentation for how best to achieve these recommendations.</p>
+<h4 id="maximum-file-handles">Maximum File Handles</h4>
+<p>NiFi will at any one time potentially have a very large number of file handles open.  Increase the limits by
+editing <em>/etc/security/limits.conf</em> to add something like:</p>
+<pre><code>*  hard  nofile  50000
+*  soft  nofile  50000
+</code></pre>
+<h4 id="maximum-forked-processes">Maximum Forked Processes</h4>
+<p>NiFi may be configured to generate a significant number of threads.  Increase the allowable number by editing <em>/etc/security/limits.conf</em> to add something like:
+*  hard  nproc  10000
+*  soft  nproc  10000</p>
+<p>Your distribution may require an edit to <em>/etc/security/limits.d/90-nproc.conf</em> by adding:
+*  soft  nproc  10000</p>
+<h4 id="increase-the-number-of-tcp-socket-ports-available">Increase the number of TCP socket ports available</h4>
+<p>This is particularly important if your flow will be setting up and tearing down a large number of sockets in small period of time.</p>
+<pre><code>sudo sysctl -w net.ipv4.ip_local_port_range=&quot;10000 65000&quot;
+</code></pre>
+<h4 id="set-how-long-sockets-stay-in-a-timed_wait-state-when-closed">Set how long sockets stay in a TIMED_WAIT state when closed</h4>
+<p>You don&rsquo;t want your sockets to sit and linger too long given that you want to be able to quickly setup and teardown new sockets.  It is a good idea to read more about
+it but to adjust do something like</p>
+<pre><code>sudo sysctl -w net.ipv4.netfilter.ip_conntrack_tcp_timeout_time_wait=&quot;1&quot;
+</code></pre>
+<h4 id="tell-linux-you-never-want-nifi-to-swap">Tell Linux you never want NiFi to swap</h4>
+<p>Swapping is fantastic for some applications.  It isn&rsquo;t good for something like
+NiFi that always wants to be running.  To tell Linux you&rsquo;d like swapping off, you
+can edit <em>/etc/sysctl.conf</em> to add the following line</p>
+<pre><code>vm.swappiness = 0
+</code></pre>
+<h4 id="disable-partition-atime">Disable partition atime</h4>
+<p>For the partitions handling the various NiFi repos, turn off things like <code>atime</code>.
+Doing so can cause a surprising bump in throughput.  Edit the <em>/etc/fstab</em> file
+and for the partition(s) of interest add the <code>noatime</code> option.</p>
+<h4 id="additional-guidance">Additional guidance</h4>
+<p>Additional information on system administration and settings can be located in our <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html">Administrator&rsquo;s Guide</a>.</p>
+<h3 id="build-steps">Build steps</h3>
+<ol>
+<li>You need a recent Java 8 (or newer) JDK for the 1.x NiFi line. Older Java 8 (such as 1.8.0_31) is known to fail with some unit tests, ensure to use the most recent version.  The 0.x line works on Java 7 or newer.</li>
+<li>You need Apache <a href="https://maven.apache.org/">Maven 3.1.0</a> or newer.</li>
+<li>You need a recent git client for the 1.x NiFi line.</li>
+<li>Ensure your MAVEN_OPTS provides sufficient memory.  Some build steps are fairly memory intensive
+<ul>
+<li>These settings have worked well <code>MAVEN_OPTS=&quot;-Xms1024m -Xmx3076m -XX:MaxPermSize=256m&quot;</code></li>
+</ul>
+</li>
+<li>Build the entire code base.  In the <code>root</code> dir of the source tree run <code>mvn -T C2.0 clean install -Pinclude-grpc</code>
+You can tweak the maven build settings as you like but the previous command will execute with 2 threads per core.
+You can omit the <code>-Pinclude-grpc</code> if you&rsquo;re not on a platform that it supports.
+Include <code>-DskipTests</code> to compile tests, but skip running them.</li>
+</ol>
+<p>Now you should have a fully functioning build off the latest codebase.</p>
+<p><strong>NOTE:</strong>  During development it is not necessary to build the entire code base. Typically, in case of a NAR bundle change you can build only the particular bundle followed by running <code>mvn -T C2.0 clean install -Ddir-only</code> in <code>nifi-assembly</code>.</p>
+<h2 id="running-the-application">Running the application</h2>
+<h4 id="decompress-and-launch">Decompress and launch</h4>
+<p>Running the above build will create a <em>tar.gz</em> (and <em>zip</em>) file in <code>./nifi-assembly/target</code>. This <em>tar.gz</em> should
+contain the full application. Decompressing the <em>tar.gz</em> should make a directory for you containing several other
+directories. <code>conf</code> contains application configuration, <code>bin</code> contains scripts
+for launching the application. On Linux and OSX, NiFi can be run using <code>bin/nifi.sh &lt;command&gt;</code> where
+<code>&lt;command&gt;</code> is one of:</p>
+<ul>
+<li><code>start</code>: starts NiFi in the background</li>
+<li><code>stop</code>: stops NiFi that is running in the background</li>
+<li><code>status</code>: provides the current status of NiFi</li>
+<li><code>run</code>: runs NiFi in the foreground and waits to receive a Ctrl-C, which then shuts down NiFi.</li>
+<li><code>install</code>: (available in Linux only, not OSX): installs NiFi as a service that can then be controlled
+via <code>service nifi start</code>, <code>service nifi stop</code>, <code>service nifi status</code>.</li>
+</ul>
+<p>For Windows users, the following scripts exist in the <code>bin</code> directory:</p>
+<ul>
+<li><code>run-nifi.bat</code>: runs NiFi in the foreground and waits to receive a Ctrl-C, which then shuts down NiFi</li>
+<li><code>status-nifi.bat</code>: provides the current status of NiFi</li>
+</ul>
+<p>The configuration that is to be used when launching NiFi, such as Java heap size, the user
+to run as, which Java command to use, etc. are configurable via the <em>conf/bootstrap.conf</em> file.</p>
+<p>The entire concept of how the application will integrate to a given OS and run as an
+enduring service is something we&rsquo;re working hard on and would appreciate ideas for.  The user experience needs to
+be excellent.</p>
+<p>With the default settings you can point a web browser at <code>https://127.0.0.1:8443/nifi</code></p>
+<p>The default installation generates a random username and password, writing the generated values to the application log. The application log is located in <code>logs/nifi-app.log</code> under the installation directory. The log file will contain lines with <code>Generated Username [USERNAME]</code> and <code>Generated Password [PASSWORD]</code> indicating the credentials needed for access. Search the application log for those lines and record the generated values in a secure location.</p>
+<p>The following command can be used to change the username and password:</p>
+<pre><code>$ ./bin/nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;
+</code></pre>
+<p>Logging is configured by default to log to <em>./logs/nifi-app.log</em>. The following log message should indicate the web UI
+is ready for use:</p>
+<pre><code>2014-12-09 00:42:03,540 INFO [main] org.apache.nifi.web.server.JettyServer NiFi has started. The UI is available at the following URLs:
+</code></pre>
+
+
+        </div>
+      </div>
+    </div>
+        <div class="row">
+    <div class="large-12 columns footer">
+        <a href="https://www.apache.org">
+            <img id="asf-logo" alt="Apache Software Foundation" src="/assets/images/asf_logo.png" width="200" style="margin:0px 10px" />
+        </a>
+        <a  href="https://www.apache.org/events/current-event.html">
+            <img src="https://www.apache.org/events/current-event-234x60.png" style="margin:0px 10px" />
+        </a>
+        <div id="copyright">
+            <p>Copyright &#169; 2022 The Apache Software Foundation, Licensed under the <a
+                    href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.<br/>Apache, the
+                Apache feather logo, NiFi, Apache NiFi and the project logo are trademarks of The Apache Software
+                Foundation.</p>
+        </div>
+    </div>
+</div>
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/foundation.js"></script>
+        <script src="/assets/js/app.js"></script>
+    </body>
+</html>

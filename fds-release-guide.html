@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <title>Apache NiFi Flow Design System Release Guidelines</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
+        <link rel="stylesheet" href="https://nifi.apache.org/stylesheets/app.min.75554bd25a8538597f97b30b2a1f63992cbf4c804aa7ef275c2983d4a8bb821e.css">
+        <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
+        <script src="/assets/js/modernizr.js"></script>
+        <script src="/assets/js/webfontloader.js"></script>
+    </head>
+    <body>
+         
+            <div class="sticky contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1>
+                    <a href="index.html">
+                        <img id="logo-top-bar" src="/assets/images/nifi-drop-white.svg" alt="Apache NiFi"/>
+                    </a>
+                </h1>
+            </li>
+            
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            
+            <ul class="right">
+                <li class="has-dropdown">
+                    <a href="#">Project</a>
+                    <ul class="dropdown">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="https://blogs.apache.org/nifi/"><i class="fa fa-external-link external-link"></i>Apache NiFi Blog</a></li>
+                        <li><a href="https://www.apache.org/licenses/LICENSE-2.0"><i class="fa fa-external-link external-link"></i>License</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Documentation</a>
+                    <ul class="dropdown">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="videos.html">Videos</a></li>
+                        <li><a href="docs.html">NiFi Docs</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI"><i class="fa fa-external-link external-link"></i>Wiki</a></li>
+                        <li><a href="security.html">NiFi Security Reports</a></li>
+                        <li><a href="registry-security.html">NiFi Registry Security Reports</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Downloads</a>
+                    <ul class="dropdown">
+                        <li><a href="download.html">Download NiFi</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes"><i class="fa fa-external-link external-link"></i>Release Notes</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Community</a>
+                    <ul class="dropdown">
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide"><i class="fa fa-external-link external-link"></i>Contributor Guide</a></li>
+                        <li><a href="mailing_lists.html">Mailing Lists &amp; Chat</a></li>
+                        <li><a href="people.html">People</a></li>
+                        <li><a href="powered-by-nifi.html">Powered by NiFi</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Development</a>
+                    <ul class="dropdown">
+                        <li><a href="quickstart.html">Quickstart</a></li>
+                        <li><a href="release-guide.html">Release Guide</a></li>
+                        <li><a href="gpg.html">GPG Guide</a></li>
+                        <li><a href="fds-release-guide.html">FDS Release Guide</a></li>
+                        <li><a href="licensing-guide.html">Licensing Guide</a></li>
+                        <li><a href="developer-guide.html">Developer Guide</a></li>
+                        <li><a href="https://gitbox.apache.org/repos/asf/nifi.git"><i class="fa fa-external-link external-link"></i>Source</a></li>
+                        <li><a href="https://issues.apache.org/jira/browse/NIFI"><i class="fa fa-external-link external-link"></i>Issues</a></li>
+                        <li><a href="https://github.com/apache/nifi"><i class="fa fa-external-link external-link"></i>GitHub</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">ASF Links</a>
+                    <ul class="dropdown">
+                        <li><a href="https://www.apache.org"><i class="fa fa-external-link external-link"></i>Apache Software Foundation</a></li>
+                        <li><a href="https://www.apache.org/foundation/sponsorship.html"><i class="fa fa-external-link external-link"></i>Sponsorship</a></li>
+                        <li><a href="https://www.apache.org/security/"><i class="fa fa-external-link external-link"></i>Security</a></li>
+                        <li><a href="https://www.apache.org/foundation/thanks.html"><i class="fa fa-external-link external-link"></i>Thanks</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Subprojects</a>
+                    <ul class="dropdown">
+                        <li><a href="minifi/index.html">MiNiFi</a></li>
+                        <li><a href="registry.html">Registry</a></li>
+                        <li><a href="fds.html">FDS</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </nav>
+</div>
+ 
+        
+    <div class="container" >
+      <div class="row">
+        <div class="col-md-12">
+            
+	<h1 id="apache-nifi-flow-design-system-release-guidelines">Apache NiFi Flow Design System Release Guidelines</h1>
+<p>The purpose of this document is to capture and describe the steps involved in producing
+an official release of Apache NiFi Flow Design System.  It is written specifically to someone acting in the
+capacity of a <a href="https://www.apache.org/dev/release-publishing.html#release_manager">Release Manager</a> (RM).</p>
+<h2 id="the-objective">The objective</h2>
+<p>Our aim is to produce an official Apache release from an existing release branch.</p>
+<h2 id="background-material">Background Material</h2>
+<ul>
+<li>
+<p>These documents are necessary for all committers to be familiar with</p>
+<ul>
+<li><a href="https://apache.org/licenses/LICENSE-2.0">Apache License V2.0</a></li>
+<li><a href="https://www.apache.org/legal/resolved.html">Apache Legal License/Resolved</a></li>
+<li><a href="https://www.apache.org/dev/apply-license.html">Apache How-to Apply License</a></li>
+</ul>
+</li>
+<li>
+<p>These documents are necessary for someone acting as the RM</p>
+<ul>
+<li><a href="https://www.apache.org/licenses/exports/">Apache Encryption Software / ECCN Info</a></li>
+<li><a href="https://www.apache.org/dev/release.html">Apache Release Policy</a></li>
+<li><a href="https://www.apache.org/dev/release-publishing">Apache Release Guide</a></li>
+</ul>
+</li>
+<li>
+<p>These documents are helpful for general environmental setup to perform releases</p>
+<ul>
+<li><a href="https://www.apache.org/dev/openpgp.html">Apache PGP Info</a></li>
+<li><a href="http://www.apache.org/dev/release-signing.html">Apache Release Signing</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="terms">Terms</h2>
+<ul>
+<li><strong>Release Manager</strong> (RM) - the Apache NiFi PMC Member or Committer acting as <a href="https://www.apache.org/dev/release-publishing.html#release_manager">Release Manager</a>
+for a particular release of Apache NiFi.</li>
+<li><strong>Release Candidate</strong> (RC) - an iteration of the release process that is proposed for a vote by the Apache NiFi
+Community.</li>
+<li><strong>Community</strong> - the <a href="https://www.apache.org/foundation/glossary.html#Community">community</a> of people with an interest
+in the improvement and advancement of Apache NiFi, including end-users, developers, evangelists, and advisers.</li>
+<li><strong>PMC</strong> - within the Apache NiFi community, members of the <a href="https://www.apache.org/foundation/glossary.html#PMC">PMC</a> oversee the ongoing project.</li>
+<li><strong>Committer</strong> - with the Apache NiFi community, <a href="https://www.apache.org/foundation/glossary.html#Committer">committers</a>
+have gain the privilege to commit changes to the Apache NiFi codebase.</li>
+</ul>
+<h2 id="high-level-flow-of-a-release">High level flow of a release</h2>
+<ul>
+<li>The Apache NiFi community is constantly contributing to JIRA tickets assigned to the next release.</li>
+<li>At some point the number of tickets open/remaining for the next release begins to approach zero.</li>
+<li>A member of the community suggests a release and initiates a discussion.</li>
+<li>Someone volunteers to perform the Release Manager (RM) role for the release.  (This can be a committer but Apache
+guides indicate a preference for a PMC member.)</li>
+<li>The RM validate the proposed release and stages the source code for a
+Release Candidate (RC).</li>
+<li>The RM initiates a vote on the RC by the NiFi community.</li>
+<li>If the NiFi community rejects the RC, the issues noted are resolved and another RC is generated.</li>
+<li>If the NiFi community accepts the RC, the staged source code, artifacts, and distribution files are moved to the
+appropriately locations for public release.</li>
+</ul>
+<h2 id="variable-reference-substitutions">Variable reference substitutions</h2>
+<p>Throughout this guide, references must be made to names and values that will vary from release to release.  For clarity
+those variable values have been written like Bash variable references.  When a term like
+&ldquo;<code>/tmp/src/nifi-fds-${NIFI_FDS_VERSION}</code>&rdquo; is seen in an instruction or email template it should be replaced with
+&ldquo;<code>/tmp/src/nifi-fds-0.1.0</code>&rdquo; when working the release of &ldquo;Apache NiFi Flow Design System 0.1.0&rdquo;.</p>
+<ul>
+<li>
+<p>Substitutions used in tasks and email templates</p>
+ <pre>
+ Reference            Example value       Description
+ =========            ==============      ===========
+ ${BRANCH}            main                the development branch on which the release is based.
+ ${NIFI_FDS_VERSION}  0.1.0               the version currently in development on the release branch.
+ ${NEXT_VERSION}      0.2.0-SNAPSHOT      the future version for development on the release branch.
+ ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
+ ${RC}                2                   the Release Candidate index start at 1 for the first release candidate.
+ ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the release process.
+ ${RM_USERID}         johndoe             the Apache account ID of Release Manager.
+ ${RELEASE_TAG}       rel/nifi-0.7.0      the Git repository tag for the source code as released.
+ ${VOTE_THREAD_URL}   [0.1.0 vote thread][010-rc3-vote]   the URL for the Apache Pony Mail archive of the release vote thread.
+ </pre>
+<p><em>To be practical but avoid confusion with future release details, these example values reflect the previous release
+NiFi Flow Design System 0.1.0 RC2 release details.</em></p>
+</li>
+</ul>
+<p>NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g main
+or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
+support/nifi-fds-1.1.x or support/nifi-fds-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
+branch may need to be created.</p>
+<h2 id="what-to-validate-and-how-to-validate-a-release">What to validate and how to validate a release</h2>
+<p>The following is a list of the sorts of things that will be validated and are the basics to check when evaluating a release for a vote.</p>
+<ul>
+<li>Are the LICENSE and NOTICE files present in the source root and complete?
+<ul>
+<li>Specifically look in the <code>nifi-fds-${NIFI_FDS_VERSION}-sources-release.zip</code> artifact and ensure these files are present at the root of the archive.</li>
+</ul>
+</li>
+<li>Evaluate the sources and dependencies.
+<ul>
+<li>Does the overall LICENSE and NOTICE appear correct?</li>
+<li>Do all licenses fit within the ASF approved licenses?</li>
+</ul>
+</li>
+<li>Is there a README available that explains how to build the application and to execute it?
+<ul>
+<li>Look in the *-sources.zip artifact root for the readme.</li>
+</ul>
+</li>
+<li>Are the signatures and hashes correct for the source release?
+<ul>
+<li>Need a quick reminder on how to <a href="https://www.apache.org/dev/release-signing.html#verifying-signature">verify a signature</a>?</li>
+</ul>
+</li>
+<li>Do all sources have necessary headers?</li>
+<li>Are there no unexpected binary files in the release?
+<ul>
+<li>The only thing we&rsquo;d expect would be potentially test resources files.</li>
+</ul>
+</li>
+<li>Does the app (if appropriate) execute and function as expected?</li>
+</ul>
+<p>This list is reflected in the Release Vote and Release Helper Guide emails that are sent once the release has been
+staged in the Git and Nexus repositories.</p>
+<h2 id="the-release-process">The Release Process</h2>
+<p>The release process includes steps to be performed by the Release Manager as well as the
+Apache NiFi Flow Design System developer community.</p>
+<h3 id="step-1-configure-the-build-environment-rm-and-community">Step 1. Configure the build environment (RM and community)</h3>
+<ol>
+<li>Confirm that the local Git workspace is configured with an origin remote pointing to the RM&rsquo;s personal fork of the
+NiFi source and an &ldquo;ASF&rdquo; remote pointing to the Apache Git Repository for NiFi.
+<pre tabindex="0"><code>$ git remote -v
+asf	https://gitbox.apache.org/repos/asf/nifi-fds.git (fetch)
+asf	https://gitbox.apache.org/repos/asf/nifi-fds.git (push)
+origin	https://github.com/${RM_USERID}/nifi-fds.git (fetch)
+origin	https://github.com/${RM_USERID}/nifi-fds.git (push)
+</code></pre>Additional remotes will not cause a problem if these two are correct.  Other configurations are perfectly
+acceptable but the appropriate adjustments to the steps in this guide must be made by the release manager.</li>
+<li>Confirm that source code can be checked out for the branch being released.
+<pre tabindex="0"><code>git checkout ${BRANCH}
+</code></pre></li>
+<li>Confirm that the entire application builds correctly in the build environment.</li>
+</ol>
+<h3 id="step-2-prepare-and-stage-the-release-rm">Step 2. Prepare and stage the release (RM)</h3>
+<ol>
+<li>Create a JIRA ticket for the release tasks for version ${NIFI_FDS_VERSION}.<br>
+<em><strong>The resulting JIRA ticket number is referred to as ${JIRA_TICKET} in this guide.</strong></em></li>
+<li>Create the next version in JIRA, if it doesn&rsquo;t already exist, so work can continue towards that release.</li>
+<li>Create meaningful release notes for this version if not already created.  <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes">Enter them here</a> on
+the NiFi wiki.</li>
+<li>Create a new branch off &lsquo;main&rsquo; named after the JIRA ticket.
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout -b NIFI-FDS-<span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">NIFI_FDS_VERSION</span><span style="color:#b68;font-weight:bold">}</span>-RC<span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">RC</span><span style="color:#b68;font-weight:bold">}</span> <span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">BRANCH</span><span style="color:#b68;font-weight:bold">}</span>
+</span></span></code></pre></div></li>
+<li>Ensure the the full application builds and all tests work by executing a build.
+<pre tabindex="0"><code>$ npm run clean:install
+</code></pre></li>
+<li>Startup and test the demo application from the target source folder.  After a few seconds, NiFi FDS should be up and
+running at <a href="http://localhost:8080">http://localhost:8080</a>.
+<pre tabindex="0"><code>$ cd target/frontend-working-directory
+$ npm start
+</code></pre></li>
+<li>Evaluate and ensure the appropriate license headers are present on all source files.</li>
+<li>Ensure LICENSE and NOTICE files are complete and accurate. (Developers should always be keeping these up to date as
+they go along adding source and modifying dependencies to keep this burden manageable.)</li>
+<li>Verify that no vulnerabilities exist in any javascript module dependencies (requires npm 6+).
+<pre tabindex="0"><code>$ npm audit
+</code></pre></li>
+</ol>
+<h3 id="step-3-perform-the-release-rm">Step 3. Perform the release (RM)</h3>
+<ol>
+<li>
+<p>Now it&rsquo;s time to prepare the release. Manually update the version number in</p>
+<ul>
+<li>root package.json</li>
+<li>root package-lock.json</li>
+<li>src/platform/core/package.json</li>
+</ul>
+</li>
+<li>
+<p>Zip up the source.</p>
+<pre tabindex="0"><code>$ git archive --format=zip --prefix=nifi-fds-${NIFI_FDS_VERSION}/ NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} &gt; nifi-fds-0.2.0-source-release.zip
+</code></pre></li>
+<li>
+<p>Create the tag.</p>
+<pre tabindex="0"><code>$ git tag NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC}
+</code></pre></li>
+<li>
+<p>Push the release branch to the ASF repository.</p>
+<pre tabindex="0"><code>$ git push asf NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} --tags
+</code></pre><p><em><strong>From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC} prepare release nifi-fds-${NIFI_FDS_VERSION}-RC${RC}</strong></em></p>
+</li>
+<li>
+<p>Create the signature and hashes for the source release.</p>
+<ol>
+<li>ASCII armored GPG signatures (<code>--digest-algo=SHA512</code> select the SHA512 hash algorithm). <a href="https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1">Configure GPG to always prefer stronger hashes</a>.
+<pre tabindex="0"><code>$ gpg -a -b --digest-algo=SHA512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip  # produces nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
+</code></pre></li>
+<li>Generate SHA256 hash summaries.
+<pre tabindex="0"><code>$ shasum -a 256 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d&#34; &#34; -f1 &gt;  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha256
+</code></pre></li>
+<li>Generate SHA512 hash summaries.
+<pre tabindex="0"><code>$ shasum -a 512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d&#34; &#34; -f1 &gt;  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
+</code></pre></li>
+</ol>
+</li>
+<li>
+<p>Commit the source release along with their hashes and signatures to <code>https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}</code>.</p>
+<ol>
+<li>Checkout the Apache dist dev svn repo locally using your Apache credentials
+<pre tabindex="0"><code>$ svn checkout https://dist.apache.org/repos/dist/dev/nifi
+</code></pre></li>
+<li>Create the directory for nifi-fds-${NIFI_FDS_VERSION}.</li>
+<li>Copy the zipped source release and its corresponding signatures and hashes into the new directory.</li>
+<li>Add the commit.
+<pre tabindex="0"><code>$ svn add ./nifi-fds-${NIFI_FDS_VERSION}/*
+</code></pre></li>
+<li>Stage the artifacts by committing to svn.
+<pre tabindex="0"><code>$ svn commit -m &#39;Staging artifacts for nifi-fds-${NIFI_FDS_VERSION}&#39;
+</code></pre></li>
+</ol>
+</li>
+</ol>
+<h3 id="step-4-error-recovery-rm">Step 4. Error recovery (RM)</h3>
+<p>If anything isn&rsquo;t correct about the staged artifacts you can delete
+the local tag in git.  If you also delete the local branch then it is as if the release never happened.  Before doing that though try to figure out what went wrong so the Release
+Guide can be updated or corrected if necessary.</p>
+<h3 id="step-5-release-vote-rm-and-community">Step 5. Release Vote (RM and community)</h3>
+<p>After the release source is staged in the repositories it&rsquo;s time for the RM to send a release vote to the
+NiFi community.</p>
+<p>Once the release vote is called for, members of the NiFi FDS developer community have 72 hours to evaluate the RC and
+cast their vote by replying to the &ldquo;[VOTE] Release &hellip;&rdquo; email sent by the RM.</p>
+<p><em>NOTE:  The release vote is majority rule vote that must include at least 3 binding +1 votes Apache NiFi PMC members
+and more positive than negative binding votes.</em></p>
+<ol>
+<li>
+<p>RM sends a vote request email to the NiFi Developers Mailing List.</p>
+<ul>
+<li>TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: <code>${RM_USERID}@apache.org</code></li>
+<li>SUBJECT: <code>[VOTE] Release Apache NiFi Flow Design System ${NIFI_FDS_VERSION}</code></li>
+</ul>
+<pre tabindex="0"><code>Hello,
+
+I am pleased to be calling this vote for the source release of Apache NiFi Flow Design System nifi-fds-${NIFI_FDS_VERSION}.
+
+The source zip, including signatures, etc. can be found at:
+https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
+
+The Git tag is nifi-${NIFI_FDS_VERSION}-RC${RC}
+The Git commit ID is ${RC_TAG_COMMIT_ID}
+https://gitbox.apache.org/repos/asf?p=nifi-fds.git;a=commit;h=${RC_TAG_COMMIT_ID}
+
+Checksums of nifi-fds-x.y.z-source-release.zip:
+SHA1: &lt;40-BYTE-SHA1SUM-HASH&gt;
+SHA256: &lt;64-CHAR-SHA256SUM-HASH&gt;
+SHA512: &lt;128-CHAR-SHA512SUM-HASH&gt;
+
+Release artifacts are signed with the following key:
+https://people.apache.org/keys/committer/${RM_USERID}.asc
+
+KEYS file available here:
+https://dist.apache.org/repos/dist/release/nifi/KEYS
+
+8 issues were closed/resolved for this release:
+https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316020&amp;version=12329307
+
+Release note highlights can be found here:
+https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version${NIFI_FDS_VERSION}
+
+The vote will be open for 72 hours.
+Please download the release candidate and evaluate the necessary items including checking hashes, signatures, build
+from source, and test.  The please vote:
+
+[ ] +1 Release this package as nifi-fds-${NIFI_FDS_VERSION}
+[ ] +0 no opinion
+[ ] -1 Do not release this package because...
+</code></pre></li>
+<li>
+<p>RM sends the following helper email to the NiFi Developers Mailing List.</p>
+<ul>
+<li>TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: <code>${RM_USERID}@apache.org</code></li>
+<li>SUBJECT: <code>Apache NiFi ${NIFI_FDS_VERSION} RC${RC} Release Helper Guide</code></li>
+</ul>
+<pre tabindex="0"><code>Hello Apache NiFi community,
+
+Please find the associated guidance to help those interested in validating/verifying the release so they can vote.
+
+# Download latest KEYS file:
+https://dist.apache.org/repos/dist/dev/nifi/KEYS
+
+# Import keys file:
+gpg --import KEYS
+
+# Pull down nifi-fds-${NIFI_FDS_VERSION} source release artifacts for review:
+wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
+wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
+wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha1
+wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha256
+wget https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}/nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
+
+# Verify the signature
+gpg --verify nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
+
+# Verify the hashes (sha1, sha256, sha512) match the source and what was provided in the vote email thread
+sha1sum nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
+sha256sum nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
+sha512sum nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
+
+# Unzip nifi-fds-${NIFI_FDS_VERSION}-source-release.zip
+
+# Verify the build works
+cd nifi-fds-${NIFI_FDS_VERSION}
+npm run clean:install
+
+# Verify the contents contain a good README, NOTICE, and LICENSE.
+
+# Verify the git commit ID is correct
+
+# Verify the RC was branched off the correct git commit ID
+
+# Run the demo-app and make sure it works as expected
+cd target/frontend-working-directory
+npm run watch
+
+# Make sure the README, NOTICE, and LICENSE are present and correct 
+cd node_modules/@nifi-fds/core
+
+# Send a response to the vote thread indicating a +1, 0, -1 based on your findings.
+
+Thank you for your time and effort to validate the release!
+</code></pre></li>
+<li>
+<p>Developers in the community review the release candidate and reply to the vote email with their vote.</p>
+</li>
+<li>
+<p>After 72 hours if</p>
+<ul>
+<li>at least 3 binding (PMC members) cast +1 votes, and</li>
+<li>the positive binding votes out number any negative binding votes</li>
+</ul>
+<p>the vote passes and the release candidate is officially released. If the vote does not pass, corrections are made
+on the release branch and a new release candidate is put forward for a new vote.</p>
+</li>
+<li>
+<p>RM sends vote result email.</p>
+<ul>
+<li>TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: <code>${RM_USERID}@apache.org</code></li>
+<li>SUBJECT: <code>[RESULT][VOTE] Release Apache NiFi Flow Design System ${NIFI_FDS_VERSION}</code></li>
+</ul>
+<pre tabindex="0"><code>Apache NiFi Community,
+
+I am pleased to announce that the ${NIFI_FDS_VERSION} release of Apache NiFi Flow Design System passes with
+    X +1 (binding) votes
+    Y +1 (non-binding) votes
+    0 0 votes
+    0 -1 votes
+
+Thanks to all who helped make this release possible.
+
+Here is the PMC vote thread: ${VOTE_THREAD_URL}
+</code></pre></li>
+</ol>
+<h3 id="step-6-finalize-the-release">Step 6. Finalize the Release</h3>
+<p>After the vote is complete and the release is approved, these steps complete the release process.</p>
+<ol>
+<li>
+<p>Move the source code and related artifacts from dist/dev to dist/release:</p>
+<pre tabindex="0"><code>$ svn move -m &#34;NIFI-FDS-${NIFI_FDS_VERSION}&#34; https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
+</code></pre></li>
+<li>
+<p>Manually update the version number to the next snapshot</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout NIFI-FDS-<span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">NIFI_FDS_VERSION</span><span style="color:#b68;font-weight:bold">}</span>-RC<span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">RC</span><span style="color:#b68;font-weight:bold">}</span>
+</span></span></code></pre></div><p>Update the version number to the next <code>${NIFI_FDS_VERSION}-SNAPSHOT</code> in</p>
+<ul>
+<li>root package.json</li>
+<li>root package-lock.json</li>
+<li>src/platform/core/package.json</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git add -A .
+</span></span><span style="display:flex;"><span>$ git commit -m <span style="color:#b44">&#39;NIFI-FDS-${NIFI_FDS_VERSION} finalize RC${RC}&#39;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Merge the release branch into main.</p>
+<pre tabindex="0"><code>$ git checkout main
+$ git merge --no-ff NIFI-FDS-${NIFI_FDS_VERSION}-RC${RC}
+$ git push asf main
+</code></pre></li>
+<li>
+<p>Publish to the npm registry</p>
+<pre tabindex="0"><code>$ cd nifi-fds/target/frontend-working-directory/platform/core
+$ cp -f ../../README.md ./README.md
+$ npm login
+$ npm publish
+</code></pre></li>
+<li>
+<p>Deploy the gh-pages demo</p>
+<p>First, switch to gh-pages branch:</p>
+<pre tabindex="0"><code>$   git remote update
+$   git checkout gh-pages
+$   git reset --hard asf/gh-pages
+</code></pre><p>Next, simulate npm install of @nifi-fds/core:</p>
+<pre tabindex="0"><code>$   rm -rf ./node_modules/
+$   mv ./target/frontend-working-directory/node_modules/ ./
+$   rm -rf ./webapp/
+$   mv ./target/frontend-working-directory/webapp/ ./
+</code></pre><p>Next, update the bundles, index.html, and README for the github.io page:</p>
+<pre tabindex="0"><code>$   cp ./target/frontend-working-directory/fds-demo.* .
+$   cp -f ./target/frontend-working-directory/index.html ./index.html
+$   cp -f ./target/frontend-working-directory/README.md ./README.md
+</code></pre><p>Next, start the demo:</p>
+<pre tabindex="0"><code>$   ./node_modules/http-server/bin/http-server
+</code></pre><p>Now, test that the demo application runs with the latest updates by visiting http://127.0.0.1:8080.</p>
+<p>Next, edit the index.html and change the base href to <code>&lt;base href=&quot;/nifi-fds/&quot;&gt;</code>:</p>
+<pre tabindex="0"><code>$   nano ./index.html
+</code></pre><p>and change the base href to <code>&lt;base href=&quot;/nifi-fds/&quot;&gt;</code>.</p>
+<p>Finally, commit and push the changes:</p>
+<pre tabindex="0"><code>$   git add -A .
+$   git commit -m &#39;NIFI-FDS-${NIFI_FDS_VERSION} gh-pages update demo application to run NiFi FDS ${NIFI_FDS_VERSION}&#39;
+$   git push asf gh-pages:gh-pages
+</code></pre></li>
+<li>
+<p>Update the NiFi Web Page to indicate NEWS of the release as appropriate</p>
+</li>
+<li>
+<p>In JIRA resolve the NIFI-FDS-${JIRA_TICKET} and then mark the release version as &lsquo;Released&rsquo; and &lsquo;Archived&rsquo; through &lsquo;version&rsquo; management in the &lsquo;administration&rsquo; console. Then create a new version name for the next NiFi FDS release.</p>
+</li>
+<li>
+<p>Create a proper signed tag of the released codebase based on the RC Tag created during the release process.</p>
+<pre tabindex="0"><code>$ git tag -s rel/nifi-fds-${NIFI_FDS_VERSION} -m &#34;NIFI-FDS-${JIRA_TICKET} signed release tag for approved release of NiFi Flow Design System ${NIFI_FDS_VERSION}&#34; ${RC_TAG_COMMIT_ID}
+</code></pre><p>For instructions on setting up to sign your tag see <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">here</a>.</p>
+</li>
+<li>
+<p>Push the release tag to the official ASF repository.</p>
+<pre tabindex="0"><code>$ git push asf rel/nifi-fds-${NIFI_FDS_VERSION}
+</code></pre></li>
+<li>
+<p>Update the release notes with the final date of the release.</p>
+</li>
+<li>
+<p>After the release has been complete for 24 hours send the release announcement.</p>
+</li>
+</ol>
+<ul>
+<li>See <a href="https://www.apache.org/dev/release.html#release-announcements">here</a> for an understanding of why you need to wait 24 hours</li>
+<li>The announcement should addressed as follows.
+<ul>
+<li>TO: <code>announce@apache.org</code>, <code>dev@nifi.apache.org</code></li>
+<li>REPLY-TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: ${RM_<a href="mailto:USERID%7D@apache.org">USERID}@apache.org</a></li>
+</ul>
+</li>
+<li>The subject should include <code>[ANNOUNCE] Apache NiFi Flow Design System x.y.z release</code>.</li>
+<li>The text should be based on the template included below.
+<pre tabindex="0"><code>Hello
+
+The Apache NiFi team would like to announce the release of Apache NiFi Flow Design System ${NIFI_FDS_VERSION}.
+
+Apache NiFi Flow Design System is an atomic reusable platform for providing a consistent set of UI/UX components for open source friendly web applications to consume.
+
+More details on Apache NiFi Flow Design System can be found here:
+https://nifi.apache.org/fds.html
+
+Issues closed/resolved for this list can be found here:
+https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=${NIFI_FDS_PROJECT_ID}&amp;version=${NIFI_FDS_VERSION_ID}
+
+Release note highlights can be found here:
+https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version${NIFI_FDS_VERSION}
+
+Thank you
+The Apache NiFi team
+</code></pre></li>
+</ul>
+
+
+        </div>
+      </div>
+    </div>
+        <div class="row">
+    <div class="large-12 columns footer">
+        <a href="https://www.apache.org">
+            <img id="asf-logo" alt="Apache Software Foundation" src="/assets/images/asf_logo.png" width="200" style="margin:0px 10px" />
+        </a>
+        <a  href="https://www.apache.org/events/current-event.html">
+            <img src="https://www.apache.org/events/current-event-234x60.png" style="margin:0px 10px" />
+        </a>
+        <div id="copyright">
+            <p>Copyright &#169; 2022 The Apache Software Foundation, Licensed under the <a
+                    href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.<br/>Apache, the
+                Apache feather logo, NiFi, Apache NiFi and the project logo are trademarks of The Apache Software
+                Foundation.</p>
+        </div>
+    </div>
+</div>
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/foundation.js"></script>
+        <script src="/assets/js/app.js"></script>
+    </body>
+</html>
