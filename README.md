@@ -16,18 +16,22 @@
 -->
 # Apache NiFi Website
 
-This is the proposed source code for the new Hugo version of the NiFi website [Apache NiFi](https://nifi.apache.org/), hosted at:
+The Apache NiFi website uses [Hugo](https://gohugo.io) to build static HTML and related resources.
 
-    https://nifi.apache.org/
+## Environment Configuration
 
-This initial repo is the minimal amount of changes necessary to deploy the current repo [apache/nifi-site](https://github.com/apache/nifi-site) in the [Hugo Framework](https://gohugo.io).
+- [Install Hugo](https://gohugo.io/getting-started/installing)
+- Clone repository
+  - `git clone https://github.com/apache/nifi-site.git`
 
-## Instructions
-- Setup your environment (python,homebrew,hugo)
-    `brew install hugo`
-- Clone repo
-    `git clone <this repo>`
-- run hugo server
-    `hugo server`
-- view website
-    http://127.0.0.1:1313/
+## Preview
+
+- Start Hugo Server
+  - `hugo server`
+- Open Browser Preview
+  - http://localhost:1313/
+
+## Build
+
+- Run Hugo Build
+  - `hugo`
