@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
-        <link rel="stylesheet" href="/stylesheets/app.min.75554bd25a8538597f97b30b2a1f63992cbf4c804aa7ef275c2983d4a8bb821e.css">
+        <link rel="stylesheet" href="/stylesheets/app.min.92da7048339401bf53463b01188254399d9c8a2138949712827fee24e79c12e4.css">
         <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
         <script src="/assets/js/modernizr.js"></script>
         <script src="/assets/js/webfontloader.js"></script>
@@ -94,10 +94,7 @@
     </nav>
 </div> 
         
-    <div class="container" >
-      <div class="row">
-        <div class="col-md-12">
-            
+        
 	<p><a href="dev@nifi.apache.org%3E">Apache NiFi Team</a></p>
 <p><a href="http://nifi.apache.org">NiFi Homepage</a></p>
 <h1 id="overview">Overview</h1>
@@ -132,27 +129,27 @@
 <li>Navigate to the MiNiFi installation directory.</li>
 <li>Enter:</li>
 </ol>
-<pre tabindex="0"><code>bin/minifi.sh install
+<pre><code>bin/minifi.sh install
 </code></pre><p><strong>Note:</strong> You can also specify a custom name for your MiNiFi installation, by specifying that name during your install command. For example, to install MiNiFi as a service and named dataflow, enter:</p>
-<pre tabindex="0"><code>bin/minifi.sh install dataflow
+<pre><code>bin/minifi.sh install dataflow
 </code></pre><p>Once you have downloaded and installed MiNiFi, you need to start MiNiFi. You can start NiFi in the foreground, background, or as a service.</p>
 <p>To launch MiNiFi in the foreground:</p>
 <ol>
 <li>From a terminal window, navigate to the MiNiFi installation directory.</li>
 <li>Enter:</li>
 </ol>
-<pre tabindex="0"><code>bin/minifi.sh run
+<pre><code>bin/minifi.sh run
 </code></pre><p>To launch MiNiFi in the background:</p>
 <ol>
 <li>From a terminal window, navigate to the MiNiFi installation directory.</li>
 <li>Enter:</li>
 </ol>
-<pre tabindex="0"><code>bin/minifi.sh start
+<pre><code>bin/minifi.sh start
 </code></pre><p>To launch MiNiFi as a service:</p>
 <ol>
 <li>From a terminal window, enter:</li>
 </ol>
-<pre tabindex="0"><code>sudo service minifi start
+<pre><code>sudo service minifi start
 </code></pre><h2 id="for-windows-users">For Windows Users</h2>
 <p>For Windows users, navigate to the folder where MiNiFi was installed. Navigate to the <code>/bin</code> subdirectory and double-click the <em>run-minifi.bat</em> file.</p>
 <p>This launches MiNiFi and leaves it running in the foreground. To shut down NiFi, select the window that was launched and hold the Ctrl key while pressing C.</p>
@@ -167,7 +164,7 @@
 <li>Download your template as an .xml file. For more information on working with templates, see the <a href="https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#templates">Templates</a> section in the <em>User Guide</em>.</li>
 <li>From the MiNiFi Toolkit, run the following command to turn your .xml file into a .yml file:</li>
 </ol>
-<pre tabindex="0"><code>config.sh transform input_file output_file
+<pre><code>config.sh transform input_file output_file
 </code></pre><ol start="6">
 <li>Move your new .yml file to <code>minifi/conf</code>.</li>
 <li>Rename your .yml file <em>config.yml</em>.</li>
@@ -282,7 +279,7 @@
 <li>Move it to <code>minifi/conf</code> and rename <em>config.yml</em>.</li>
 <li>Manually modify the Security Properties section of <em>config.yml</em>. For example:</li>
 </ol>
-<pre tabindex="0"><code>Security Properties:
+<pre><code>Security Properties:
 keystore:  
 keystore type:
 keystore password:
@@ -353,9 +350,9 @@ provider: BC
 </li>
 </ul>
 <p>For example, this query gets the health, stats, and bulletins for the TailFile processor:</p>
-<pre tabindex="0"><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
+<pre><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
 </code></pre><p><strong>Note:</strong> Currently, the script only accepts one high level option at a time.</p>
-<p><strong>Note:</strong> Any connections, remote process groups or processors names that contain &ldquo;:&rdquo;, &ldquo;;&rdquo; or &ldquo;,&rdquo; will cause parsing errors when querying.</p>
+<p><strong>Note:</strong> Any connections, remote process groups or processors names that contain &ldquo;:&quot;, &ldquo;;&rdquo; or &ldquo;,&rdquo; will cause parsing errors when querying.</p>
 <p>For details on the <code>flowStatus</code> option, see the &ldquo;FlowStatus Query Option&rdquo; section of the <a href="http://nifi.apache.org/minifi/system-admin-guide.html">Administration Guide</a>.</p>
 <h2 id="loading-a-new-dataflow">Loading a New Dataflow</h2>
 <p>You can load a new dataflow for a MiNiFi instance to run:</p>
@@ -371,17 +368,14 @@ provider: BC
 <li>From a terminal window, navigate to the MiNiFi installation directory.</li>
 <li>Enter:</li>
 </ol>
-<pre tabindex="0"><code>bin/minifi.sh stop
+<pre><code>bin/minifi.sh stop
 </code></pre><p>Stopping MiNiFi as a service:</p>
 <ol>
 <li>From a terminal window, enter:</li>
 </ol>
-<pre tabindex="0"><code>sudo service minifi stop
+<pre><code>sudo service minifi stop
 </code></pre>
 
-        </div>
-      </div>
-    </div>
         <div class="row">
     <div class="large-12 columns footer">
         <a href="https://www.apache.org">
