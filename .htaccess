@@ -14,5 +14,5 @@ RewriteCond     %{HTTPS} !=on
 RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 
 # Redirect component documentation to latest version
-RewriteCond %{REQUEST_URI} !^/docs/nifi-docs/components/org\.apache\.nifi/[^/+]/1.16.3
+RewriteCond %{REQUEST_URI} !^/docs/nifi-docs/components/org\.apache\.nifi/[^/+]/1.16.3.*$
 RewriteRule "^/docs/nifi-docs/components/org\.apache\.nifi/(\d[^/]+)/[^/]+/(.*)" "https://%{HTTP_HOST}/docs/nifi-docs/components/org.apache.nifi/$1/1.16.3/$2" [L]
