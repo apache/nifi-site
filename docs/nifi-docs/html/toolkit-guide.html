@@ -1,0 +1,3349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="author" content="Apache NiFi Team">
+<title>Apache NiFi Toolkit Guide</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Copyright (C) 2012-2015 Dan Allen, Ryan Waldron and the Asciidoctor Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. */
+/* Remove the comments around the @import statement below when using this as a custom stylesheet */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+#map_canvas img,#map_canvas embed,#map_canvas object,.map_canvas img,.map_canvas embed,.map_canvas object{max-width:none!important}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+.antialiased,body{-webkit-font-smoothing:antialiased}
+img{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9);padding-right: 1px;}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite:before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media only screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7;font-weight:bold}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
+.clearfix:after,.float-group:after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{display:inline-block;color:rgba(0,0,0,.8);font-size:.75em;line-height:1.4;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:-.15em .15em 0 .15em;padding:.2em .6em .2em .5em;vertical-align:middle;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
+b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
+b.button:before{content:"[";padding:0 3px 0 2px}
+b.button:after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header:before,#header:after,#content:before,#content:after,#footnotes:before,#footnotes:after,#footer:before,#footer:after{content:" ";display:table}
+#header:after,#content:after,#footnotes:after,#footer:after{clear:both}
+#content{margin-top:1.25em}
+#content:before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span:before{content:"\00a0\2013\00a0"}
+#header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark:before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber:after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.sect1{padding-bottom:.625em}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
+.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]:before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]:before{display:block}
+.listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote:before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote:before{display:none}
+.verseblock{margin:0 1em 1.25em 1em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.05em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 0 1.25em 0;display:block}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
+.quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
+table.spread{width:100%}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot{border-width:1px 0}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
+ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
+ul.inline>li>*{display:block}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1{padding-right:.75em;font-weight:bold}
+td.hdlist1,td.hdlist2{vertical-align:top}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:last-of-type{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none}
+span.footnote,span.footnoteref{vertical-align:super;font-size:.875em}
+span.footnote a,span.footnoteref a{text-decoration:none}
+span.footnote a:active,span.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
+#footnotes .footnote{padding:0 .375em;line-height:1.3;font-size:.875em;margin-left:1.2em;text-indent:-1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]:after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+h1,h2{letter-spacing:-.01em}
+dt,th.tableblock,td.content{text-rendering:optimizeLegibility}
+p,td.content{letter-spacing:-.01em}
+p strong,td.content strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@media print{@page{margin:1.25cm .75cm}
+*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]:after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img{page-break-inside:avoid}
+thead{display:table-header-group}
+img{max-width:100%!important}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+.sect1{padding-bottom:0!important}
+.sect1+.sect1{border:0!important}
+#header>h1:first-child{margin-top:1.25rem}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em 0}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span:before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]:before{display:block}
+#footer{background:none!important;padding:0 .9375em}
+#footer-text{color:rgba(0,0,0,.6)!important;font-size:.9em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Apache NiFi Toolkit Guide</h1>
+<div class="details">
+<span id="author" class="author">Apache NiFi Team</span><br>
+<span id="email" class="email"><a href="mailto:dev@nifi.apache.org">dev@nifi.apache.org</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="toolkit-guide.html#overview">Overview</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#prerequisites-for-running-in-a-secure-environment">Prerequisites for Running in a Secure Environment</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#nifi_CLI">NiFi CLI</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage">Usage</a></li>
+<li><a href="toolkit-guide.html#propertyargument-handling">Property/Argument Handling</a></li>
+<li><a href="toolkit-guide.html#security-configuration">Security Configuration</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#example-secure-nifi-registry-without-proxied-entity">Example - Secure NiFi Registry without Proxied-Entity</a></li>
+<li><a href="toolkit-guide.html#example-secure-nifi-registry-with-proxied-entity">Example - Secure NiFi Registry with Proxied-Entity</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#interactive-usage">Interactive Usage</a></li>
+<li><a href="toolkit-guide.html#output">Output</a></li>
+<li><a href="toolkit-guide.html#back-referencing">Back-Referencing</a></li>
+<li><a href="toolkit-guide.html#adding-commands">Adding Commands</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#encrypt_config_tool">Encrypt-Config Tool</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-2">Usage</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#nifi">NiFi</a></li>
+<li><a href="toolkit-guide.html#nifi-registry">NiFi Registry</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#protection-schemes">Protection Schemes</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#AES_GCM">AES_GCM</a></li>
+<li><a href="toolkit-guide.html#HASHICORP_VAULT_TRANSIT">HASHICORP_VAULT_TRANSIT</a></li>
+<li><a href="toolkit-guide.html#HASHICORP_VAULT_KV">HASHICORP_VAULT_KV</a></li>
+<li><a href="toolkit-guide.html#AWS_KMS">AWS_KMS</a></li>
+<li><a href="toolkit-guide.html#AWS_SECRETSMANAGER">AWS_SECRETSMANAGER</a></li>
+<li><a href="toolkit-guide.html#microsoft-azure-key-vault-sensitive-property-providers">Microsoft Azure Key Vault Sensitive Property Providers</a></li>
+<li><a href="toolkit-guide.html#GCP_KMS">GCP_KMS</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#examples">Examples</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#nifi-2">NiFi</a></li>
+<li><a href="toolkit-guide.html#nifi-registry-2">NiFi Registry</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#sensitive-property-key-migration">Sensitive Property Key Migration</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#file-manager">File Manager</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-3">Usage</a></li>
+<li><a href="toolkit-guide.html#expected-behavior">Expected Behavior</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#backup">Backup</a></li>
+<li><a href="toolkit-guide.html#install">Install</a></li>
+<li><a href="toolkit-guide.html#restore">Restore</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#flow-analyzer">Flow Analyzer</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-4">Usage</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#node-manager">Node Manager</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-5">Usage</a></li>
+<li><a href="toolkit-guide.html#expected-behavior-2">Expected Behavior</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#status">Status</a></li>
+<li><a href="toolkit-guide.html#disconnect">Disconnect</a></li>
+<li><a href="toolkit-guide.html#connect">Connect</a></li>
+<li><a href="toolkit-guide.html#remove">Remove</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#notify">Notify</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-6">Usage</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#s2s">S2S</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-7">Usage</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#tls_toolkit">TLS Toolkit</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#wildcard_certificates">Wildcard Certificates</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#potential-issues-with-wildcard-certificates">Potential issues with wildcard certificates</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#tls_operation_modes">Operation Modes</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#standalone">Standalone</a></li>
+<li><a href="toolkit-guide.html#clientserver">Client/Server</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#tls_intermediate_ca">Using An Existing Intermediate Certificate Authority (CA)</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#nifi-cert-pem">nifi-cert.pem</a></li>
+<li><a href="toolkit-guide.html#nifi-key-key">nifi-key.key</a></li>
+<li><a href="toolkit-guide.html#tls_external-signed_ca">Signing with Externally-signed CA Certificates</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#additional_certificate_commands">Additional Certificate Commands</a></li>
+</ul>
+</li>
+<li><a href="toolkit-guide.html#zookeeper_migrator">ZooKeeper Migrator</a>
+<ul class="sectlevel2">
+<li><a href="toolkit-guide.html#usage-11">Usage</a></li>
+<li><a href="toolkit-guide.html#migrating-between-source-and-destination-zookeepers">Migrating Between Source and Destination ZooKeepers</a>
+<ul class="sectlevel3">
+<li><a href="toolkit-guide.html#zookeeper-migration-steps">ZooKeeper Migration Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="overview"><a class="anchor" href="toolkit-guide.html#overview"></a>Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The NiFi Toolkit contains several command line utilities to setup and support NiFi in standalone and clustered environments.  The utilities include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CLI&#8201;&#8212;&#8201;The <code>cli</code> tool enables administrators to interact with NiFi and NiFi Registry instances to automate tasks such as deploying versioned flows and managing process groups and cluster nodes.</p>
+</li>
+<li>
+<p>Encrypt Config&#8201;&#8212;&#8201;The <code>encrypt-config</code> tool encrypts the sensitive keys in the <em>nifi.properties</em> file to facilitate the setup of a secure NiFi instance.</p>
+</li>
+<li>
+<p>File Manager&#8201;&#8212;&#8201;The <code>file-manager</code> tool enables administrators to backup, install or restore a NiFi installation from backup.</p>
+</li>
+<li>
+<p>Flow Analyzer&#8201;&#8212;&#8201;The <code>flow-analyzer</code> tool produces a report that helps administrators understand the max amount of data which can be stored in backpressure for a given flow.</p>
+</li>
+<li>
+<p>Node Manager&#8201;&#8212;&#8201;The <code>node-manager</code> tool enables administrators to perform status checks on nodes as well as the ability to connect, disconnect, or remove nodes from the cluster.</p>
+</li>
+<li>
+<p>Notify&#8201;&#8212;&#8201;The <code>notify</code> tool enables administrators to send bulletins to the NiFi UI.</p>
+</li>
+<li>
+<p>S2S&#8201;&#8212;&#8201;The <code>s2s</code> tool enables administrators to send data into or out of NiFi flows over site-to-site.</p>
+</li>
+<li>
+<p>TLS Toolkit&#8201;&#8212;&#8201;The <code>tls-toolkit</code> utility generates the required keystores, truststore, and relevant configuration files to facilitate the setup of a secure NiFi instance.</p>
+</li>
+<li>
+<p>ZooKeeper Migrator&#8201;&#8212;&#8201;The <code>zk-migrator</code> tool enables administrators to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>move ZooKeeper information from one ZooKeeper cluster to another</p>
+</li>
+<li>
+<p>migrate ZooKeeper node ownership</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The utilities are executed with scripts found in the <code>bin</code> folder of your NiFi Toolkit installation.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The NiFi Toolkit is downloaded separately from NiFi (see the <a href="https://nifi.apache.org/download.html" target="_blank" rel="noopener">Apache NiFi Downloads</a> page).
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="prerequisites-for-running-in-a-secure-environment"><a class="anchor" href="toolkit-guide.html#prerequisites-for-running-in-a-secure-environment"></a>Prerequisites for Running in a Secure Environment</h3>
+<div class="paragraph">
+<p>For secured nodes and clusters, two policies should be configured in advance:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access the controller – A user that will have access to these utilities should be authorized in NiFi by creating an “access the controller” policy (<code>/controller</code>) with both view and modify rights</p>
+</li>
+<li>
+<p>Proxy user request – If not previously set, node’s identity (the DN value of the node’s certificate) should be authorized to proxy requests on behalf of a user</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When executing either the Notify or Node Manager tools in a secured environment the <code>proxyDN</code> flag option should be used in order to properly identify the user that was authorized to execute these commands. In non-secure environments, or if running the status operation on the Node Manager tool, the flag is ignored.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="nifi_CLI"><a class="anchor" href="toolkit-guide.html#nifi_CLI"></a>NiFi CLI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tool offers a CLI focused on interacting with NiFi and NiFi Registry in order to automate tasks, such as deploying flows from a NIFi Registy to a NiFi instance or managing process groups and cluster nodes.</p>
+</div>
+<div class="sect2">
+<h3 id="usage"><a class="anchor" href="toolkit-guide.html#usage"></a>Usage</h3>
+<div class="paragraph">
+<p>The CLI toolkit can be executed in standalone mode to execute a single command, or interactive mode to enter an interactive shell.</p>
+</div>
+<div class="paragraph">
+<p>To execute a single command:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh &lt;command&gt; &lt;args&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To launch the interactive shell:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available commands:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>demo quick-import
+nifi current-user
+nifi cluster-summary
+nifi connect-node
+nifi delete-node
+nifi disconnect-node
+nifi get-root-id
+nifi get-node
+nifi get-nodes
+nifi offload-node
+nifi list-reg-clients
+nifi create-reg-client
+nifi update-reg-client
+nifi get-reg-client-id
+nifi pg-import
+nifi pg-start
+nifi pg-stop
+nifi pg-get-vars
+nifi pg-set-var
+nifi pg-get-version
+nifi pg-change-version
+nifi pg-get-all-versions
+nifi pg-list
+nifi pg-status
+nifi pg-get-services
+nifi pg-enable-services
+nifi pg-disable-services
+nifi pg-create-service
+nifi create-user
+nifi list-users
+nifi create-user-group
+nifi list-user-groups
+nifi update-user-group
+nifi get-policy
+nifi update-policy
+nifi create-service
+nifi get-services
+nifi get-service
+nifi disable-services
+nifi enable-services
+nifi get-reporting-task
+nifi get-reporting-tasks
+nifi create-reporting-task
+nifi set-param
+nifi delete-param
+nifi list-param-contexts
+nifi get-param-context
+nifi create-param-context
+nifi delete-param-context
+nifi merge-param-context
+nifi import-param-context
+nifi pg-get-param-context
+nifi pg-set-param-context
+nifi list-templates
+nifi download-template
+nifi upload-template
+nifi start-reporting-tasks
+nifi stop-reporting-tasks
+registry current-user
+registry list-buckets
+registry create-bucket
+registry delete-bucket
+registry list-flows
+registry create-flow
+registry delete-flow
+registry list-flow-versions
+registry export-flow-version
+registry import-flow-version
+registry sync-flow-versions
+registry transfer-flow-version
+registry diff-flow-versions
+registry upload-bundle
+registry upload-bundles
+registry list-bundle-groups
+registry list-bundle-artifacts
+registry list-bundle-versions
+registry download-bundle
+registry get-bundle-checksum
+registry list-extension-tags
+registry list-extensions
+registry list-users
+registry create-user
+registry update-user
+registry list-user-groups
+registry create-user-group
+registry update-user-group
+registry get-policy
+registry update-policy
+registry update-bucket-policy
+session keys
+session show
+session get
+session set
+session remove
+session clear
+exit
+help</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To display extensive help for a specific command:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh &lt;command&gt; -h</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="propertyargument-handling"><a class="anchor" href="toolkit-guide.html#propertyargument-handling"></a>Property/Argument Handling</h3>
+<div class="paragraph">
+<p>Most commands will require specifying a baseUrl for the NiFi or NiFi Registry instance.</p>
+</div>
+<div class="paragraph">
+<p>An example command to list the buckets in a NiFi Registry instance would be the following:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry list-buckets -u http://localhost:18080</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to avoid specifying the URL (and possibly other optional arguments for TLS) on every command, you can define a properties file containing the repetitive arguments.</p>
+</div>
+<div class="paragraph">
+<p>An example properties file for a local NiFi Registry instance would look like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code> baseUrl=http://localhost:18080
+ keystore=
+ keystoreType=
+ keystorePasswd=
+ keyPasswd=
+ truststore=
+ truststoreType=
+ truststorePasswd=
+ proxiedEntity=</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This properties file can then be used on a command by specifying <code>-p</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry list-buckets -p /path/to/local-nifi-registry.properties</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You could then maintain a properties file for each environment you plan to interact with, such as Dev, QA, and Prod.</p>
+</div>
+<div class="paragraph">
+<p>In addition to specifying a properties file on each command, you can setup a default properties file to be used in the event that no properties file is specified.</p>
+</div>
+<div class="paragraph">
+<p>The default properties file is specified using the <code>session</code> concept, which persists to the users home directory in a file called <em>.nifi-cli.config</em>.</p>
+</div>
+<div class="paragraph">
+<p>An example of setting the default property files for NiFi would be the following:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh session set nifi.props /path/to/local-nifi.properties</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An example for NiFi Registry would be the following:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh session set nifi.reg.props /path/to/local-nifi-registry.properties</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will write the above properties into the <em>.nifi-cli.config</em> in the user&#8217;s home directory and will allow commands to be executed without specifying a URL or properties file:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry list-buckets</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will now use the <code>baseUrl</code> from <em>local-nifi-registry.properties</em>.</p>
+</div>
+<div class="paragraph">
+<p>The order of resolving an argument is the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A direct argument overrides anything in a properties file or session</p>
+</li>
+<li>
+<p>A properties file argument (<code>-p</code>) overrides the session</p>
+</li>
+<li>
+<p>The session is used when nothing else is specified</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="security-configuration"><a class="anchor" href="toolkit-guide.html#security-configuration"></a>Security Configuration</h3>
+<div class="paragraph">
+<p>If NiFi and NiFi Registry are secured, then commands executed from the CLI will need to make a TLS connection and authenticate as a user with permissions to perform the desired action.</p>
+</div>
+<div class="paragraph">
+<p>Currently the CLI supports authenticating with a client certificate and an optional proxied-entity. A common scenario would be running the CLI from one of the nodes where NiFi or NiFi Registry is installed, which allows the CLI to use the same keystore and truststore as the NiFi/NiFi Registry instance.</p>
+</div>
+<div class="paragraph">
+<p>The security configuration can be specified per-command, or in one of the properties files described in the previous section.</p>
+</div>
+<div class="paragraph">
+<p>The examples below are for NiFi Registry, but the same concept applies for NiFi commands.</p>
+</div>
+<div class="sect3">
+<h4 id="example-secure-nifi-registry-without-proxied-entity"><a class="anchor" href="toolkit-guide.html#example-secure-nifi-registry-without-proxied-entity"></a>Example - Secure NiFi Registry without Proxied-Entity</h4>
+<div class="paragraph">
+<p>Assuming we have a keystore containing the certificate for "CN=user1, OU=NIFI", an example properties file would be the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code> baseUrl=https://localhost:18443
+ keystore=/path/to/keystore.jks
+ keystoreType=JKS
+ keystorePasswd=changeme
+ keyPasswd=changeme
+ truststore=/path/to/truststore.jks
+ truststoreType=JKS
+ truststorePasswd=changeme</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, commands will be executed as "CN=user1, OU=NIFI". This user would need to be a user in NiFi Registry, and commands accessing buckets would be restricted to buckets this user has access to.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="example-secure-nifi-registry-with-proxied-entity"><a class="anchor" href="toolkit-guide.html#example-secure-nifi-registry-with-proxied-entity"></a>Example - Secure NiFi Registry with Proxied-Entity</h4>
+<div class="paragraph">
+<p>Assuming we have access to the keystore of NiFi Registry itself, and that NiFi Registry is also configured to allow Kerberos or LDAP authentication, an example properties file would be the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code> baseUrl=https://localhost:18443
+ keystore=/path/to/keystore.jks
+ keystoreType=JKS
+ keystorePasswd=changeme
+ keyPasswd=changeme
+ truststore=/path/to/truststore.jks
+ truststoreType=JKS
+ truststorePasswd=changeme
+ proxiedEntity=user1@NIFI.COM</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, the certificate in <em>keystore.jks</em> would be for the NiFi Registry server, for example "CN=localhost, OU=NIFI". This identity would need to be defined as a user in NiFi Registry and given permissions to 'Proxy'.</p>
+</div>
+<div class="paragraph">
+<p>"CN=localhost, OU=NIFI" would be proxying commands to be executed as <a href="mailto:user1@NIFI.COM">user1@NIFI.COM</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="interactive-usage"><a class="anchor" href="toolkit-guide.html#interactive-usage"></a>Interactive Usage</h3>
+<div class="paragraph">
+<p>In interactive mode the tab key can be used to perform auto-completion.</p>
+</div>
+<div class="paragraph">
+<p>For example, typing tab at an empty prompt should display possible commands for the first argument:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt;
+demo       exit       help       nifi       registry   session</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typing "nifi " and then a tab will show the sub-commands for NiFi:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; nifi
+cluster-summary         enable-services         list-templates          pg-list
+connect-node            export-param-context    list-user-groups        pg-set-param-context
+create-param-context    get-node                list-users              pg-set-var
+create-reg-client       get-nodes               merge-param-context     pg-start
+create-reporting-task   get-param-context       offload-node            pg-status
+create-service          get-policy              pg-change-version       pg-stop
+create-user             get-reg-client-id       pg-create-service       set-param
+create-user-group       get-reporting-task      pg-disable-services     start-reporting-tasks
+current-user            get-reporting-tasks     pg-enable-services      stop-reporting-tasks
+delete-node             get-root-id             pg-get-all-versions     update-policy
+delete-param            get-service             pg-get-param-context    update-reg-client
+delete-param-context    get-services            pg-get-services         update-user-group
+disable-services        import-param-context    pg-get-vars             upload-template
+disconnect-node         list-param-contexts     pg-get-version
+download-template       list-reg-clients        pg-import</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Arguments that represent a path to a file, such as <code>-p</code> or when setting a properties file in the session, will auto-complete the path being typed:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; session set nifi.props /tmp/
+dir1/   dir2/   dir3/</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="output"><a class="anchor" href="toolkit-guide.html#output"></a>Output</h3>
+<div class="paragraph">
+<p>Most commands support the ability to specify an <code>--outputType</code> argument, or <code>-ot</code> for short.</p>
+</div>
+<div class="paragraph">
+<p>Currently the output type may be simple or json.</p>
+</div>
+<div class="paragraph">
+<p>The default output type in interactive mode is simple, and the default output type in standalone mode is json.</p>
+</div>
+<div class="paragraph">
+<p>Example of simple output for <code>list-buckets</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; registry list-buckets -ot simple
+My Bucket - 3c7b7467-0012-4d8f-a918-6aa42b6b9d39</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example of json output for <code>list-buckets</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; registry list-buckets -ot json
+[ {
+  "identifier" : "3c7b7467-0012-4d8f-a918-6aa42b6b9d39",
+  "name" : "My Bucket",
+  "createdTimestamp" : 1516718733854,
+  "permissions" : {
+    "canRead" : true,
+    "canWrite" : true,
+    "canDelete" : true
+  },
+  "link" : {
+    "params" : {
+      "rel" : "self"
+    },
+    "href" : "buckets/3c7b7467-0012-4d8f-a918-6aa42b6b9d39"
+  }
+} ]</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="back-referencing"><a class="anchor" href="toolkit-guide.html#back-referencing"></a>Back-Referencing</h3>
+<div class="paragraph">
+<p>When using the interactive CLI, a common scenario will be using an id from a previous result as the input to the next command. Back-referencing provides a shortcut for referencing a result from the previous command via a positional reference.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Not every command produces back-references. To determine if a command supports back-referencing, check the usage.
+</td>
+</tr>
+</table>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; registry list-buckets help
+Lists the buckets that the current user has access to.
+PRODUCES BACK-REFERENCES</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A common scenario for utilizing back-references would be the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User starts by exploring the available buckets in a registry instance</p>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; registry list-buckets
+#   Name           Id                                     Description
+-   ------------   ------------------------------------   -----------
+1   My Bucket      3c7b7467-0012-4d8f-a918-6aa42b6b9d39   (empty)
+2   Other Bucket   175fb557-43a2-4abb-871f-81a354f47bc2   (empty)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>User then views the flows in one of the buckets using a back-reference to the bucket id from the previous result in position 1</p>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; registry list-flows -b &amp;1
+Using a positional back-reference for 'My Bucket'
+#   Name      Id                                     Description
+-   -------   ------------------------------------   ----------------
+1   My Flow   06acb207-d2f1-447f-85ed-9b8672fe6d30   This is my flow.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>User then views the version of the flow using a back-reference to the flow id from the previous result in position 1</p>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; registry list-flow-versions -f &amp;1
+Using a positional back-reference for 'My Flow'
+Ver   Date                         Author                     Message
+---   --------------------------   ------------------------   -------------------------------------
+1     Tue, Jan 23 2018 09:48 EST   anonymous                  This is the first version of my flow.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>User deploys version 1 of the flow using back-references to the bucket and flow id from step 2</p>
+<div class="literalblock">
+<div class="content">
+<pre>#&gt; nifi pg-import -b &amp;1 -f &amp;1 -fv 1
+Using a positional back-reference for 'My Bucket'
+Using a positional back-reference for 'My Flow'
+9bd157d4-0161-1000-b946-c1f9b1832efd</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The reason step 4 was able to reference the results from step 2, is because the <code>list-flow-versions</code> command in step 3 does not produce back-references, so the results from step 2 are still available.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-commands"><a class="anchor" href="toolkit-guide.html#adding-commands"></a>Adding Commands</h3>
+<div class="paragraph">
+<p>To add a NiFi command, create a new class that extends <code>AbstractNiFiCommand</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>public class MyCommand extends AbstractNiFiCommand {
+
+  public MyCommand() {
+      super("my-command");
+  }
+
+  @Override
+  protected void doExecute(NiFiClient client, Properties properties)
+          throws NiFiClientException, IOException, MissingOptionException, CommandException {
+      // TODO implement
+  }
+
+  @Override
+  public String getDescription() {
+      return "This is my new command";
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add the new command to <code>NiFiCommandGroup</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>commands.add(new MyCommand());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add a NiFi Registry command, perform the same steps, but extend from <code>AbstractNiFiRegistryCommand</code>, and add the command to <code>NiFiRegistryCommandGroup</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="encrypt_config_tool"><a class="anchor" href="toolkit-guide.html#encrypt_config_tool"></a>Encrypt-Config Tool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>encrypt-config</code> command line tool (invoked as <code>./bin/encrypt-config.sh</code> or <code>bin\encrypt-config.bat</code>) reads from a <em>nifi.properties</em> file with plaintext sensitive configuration values, prompts for a root password or raw hexadecimal key, and encrypts each value. It replaces the plain values with the protected value in the same file, or writes to a new <em>nifi.properties</em> file if specified.</p>
+</div>
+<div class="paragraph">
+<p>The default encryption algorithm utilized is AES/GCM 128/256-bit. 128-bit is used if the JCE Unlimited Strength Cryptographic Jurisdiction Policy files are not installed, and 256-bit is used if they are installed.</p>
+</div>
+<div class="sect2">
+<h3 id="usage-2"><a class="anchor" href="toolkit-guide.html#usage-2"></a>Usage</h3>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/encrypt-config.sh -h</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nifi"><a class="anchor" href="toolkit-guide.html#nifi"></a>NiFi</h4>
+<div class="paragraph">
+<p>The following are available options when targeting NiFi:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-h</code>,<code>--help</code>                                 Show usage information (this message)</p>
+</li>
+<li>
+<p><code>-v</code>,<code>--verbose</code>                              Sets verbose mode (default false)</p>
+</li>
+<li>
+<p><code>-n</code>,<code>--niFiProperties &lt;file&gt;</code>                The <em>nifi.properties</em> file containing unprotected config values (will be overwritten unless <code>-o</code> is specified)</p>
+</li>
+<li>
+<p><code>-o</code>,<code>--outputNiFiProperties &lt;file&gt;</code>          The destination <em>nifi.properties</em> file containing protected config values (will not modify input <em>nifi.properties</em>)</p>
+</li>
+<li>
+<p><code>-l</code>,<code>--loginIdentityProviders &lt;file&gt;</code>        The <em>login-identity-providers.xml</em> file containing unprotected config values (will be overwritten unless <code>-i</code> is specified)</p>
+</li>
+<li>
+<p><code>-i</code>,<code>--outputLoginIdentityProviders &lt;file&gt;</code>  The destination <em>login-identity-providers.xml</em> file containing protected config values (will not modify input <em>login-identity-providers.xml</em>)</p>
+</li>
+<li>
+<p><code>-a</code>,<code>--authorizers &lt;file&gt;</code>                   The <em>authorizers.xml</em> file containing unprotected config values (will be overwritten unless <code>-u</code> is specified)</p>
+</li>
+<li>
+<p><code>-u</code>,<code>--outputAuthorizers &lt;file&gt;</code>             The destination <em>authorizers.xml</em> file containing protected config values (will not modify input <em>authorizers.xml</em>)</p>
+</li>
+<li>
+<p><code>-f</code>,<code>--flowXml &lt;file&gt;</code>                       The <em>flow.xml.gz</em> file currently protected with old password (will be overwritten unless <code>-g</code> is specified)</p>
+</li>
+<li>
+<p><code>-g</code>,<code>--outputFlowXml &lt;file&gt;</code>                 The destination <em>flow.xml.gz</em> file containing protected config values (will not modify input <em>flow.xml.gz</em>)</p>
+</li>
+<li>
+<p><code>-b</code>,<code>--bootstrapConf &lt;file&gt;</code>                 The bootstrap.conf file to persist root key and to optionally provide any configuration for the protection scheme.</p>
+</li>
+<li>
+<p><code>-S</code>,<code>--protectionScheme &lt;protectionScheme&gt;</code>  Selects the protection scheme for encrypted properties.  Valid values are: [<a href="toolkit-guide.html#AES_GCM">AES_GCM</a>, <a href="toolkit-guide.html#HASHICORP_VAULT_TRANSIT">HASHICORP_VAULT_TRANSIT</a>, <a href="toolkit-guide.html#HASHICORP_VAULT_KV">HASHICORP_VAULT_KV</a>, <a href="toolkit-guide.html#AWS_KMS">AWS_KMS</a>, <a href="toolkit-guide.html#AWS_SECRETSMANAGER">AWS_SECRETSMANAGER</a>, <a href="toolkit-guide.html#AZURE_KEYVAULT_KEY">AZURE_KEYVAULT_KEY</a>, <a href="toolkit-guide.html#AZURE_KEYVAULT_SECRET">AZURE_KEYVAULT_SECRET</a>, <a href="toolkit-guide.html#GCP_KMS">GCP_KMS</a>] (default is AES_GCM)</p>
+</li>
+<li>
+<p><code>-k</code>,<code>--key &lt;keyhex&gt;</code>                         The raw hexadecimal key to use to encrypt the sensitive properties</p>
+</li>
+<li>
+<p><code>-e</code>,<code>--oldKey &lt;keyhex&gt;</code>                      The old raw hexadecimal key to use during key migration</p>
+</li>
+<li>
+<p><code>-H</code>,<code>--oldProtectionScheme &lt;protectionScheme&gt;</code> The old protection scheme to use during encryption migration (see --protectionScheme for possible values).  Default is AES_GCM</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--password &lt;password&gt;</code>                  The password from which to derive the key to use to encrypt the sensitive properties</p>
+</li>
+<li>
+<p><code>-w</code>,<code>--oldPassword &lt;password&gt;</code>            The old password from which to derive the key during migration</p>
+</li>
+<li>
+<p><code>-r</code>,<code>--useRawKey</code>                            If provided, the secure console will prompt for the raw key value in hexadecimal form</p>
+</li>
+<li>
+<p><code>-m</code>,<code>--migrate</code>                              If provided, the <em>nifi.properties</em> and/or <em>login-identity-providers.xml</em> sensitive properties will be re-encrypted with the new scheme</p>
+</li>
+<li>
+<p><code>-x</code>,<code>--encryptFlowXmlOnly</code>                   If provided, the properties in <em>flow.xml.gz</em> will be re-encrypted with a new key but the <em>nifi.properties</em> and/or <em>login-identity-providers.xml</em> files will not be modified</p>
+</li>
+<li>
+<p><code>-s</code>,<code>--propsKey &lt;password|keyhex&gt;</code>           The password or key to use to encrypt the sensitive processor properties in <em>flow.xml.gz</em></p>
+</li>
+<li>
+<p><code>-A</code>,<code>--newFlowAlgorithm &lt;algorithm&gt;</code>         The algorithm to use to encrypt the sensitive processor properties in <em>flow.xml.gz</em></p>
+</li>
+<li>
+<p><code>-P</code>,<code>--newFlowProvider &lt;algorithm&gt;</code>          The security provider to use to encrypt the sensitive processor properties in <em>flow.xml.gz</em></p>
+</li>
+<li>
+<p><code>-c</code>,<code>--translateCli</code>                         Translates the <em>nifi.properties</em> file to a format suitable for the NiFi CLI tool</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nifi-registry"><a class="anchor" href="toolkit-guide.html#nifi-registry"></a>NiFi Registry</h4>
+<div class="paragraph">
+<p>The following are available options when targeting NiFi Registry using the <code>--nifiRegistry</code> flag:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-h</code>,<code>--help</code>                                 Show usage information (this message)</p>
+</li>
+<li>
+<p><code>-v</code>,<code>--verbose</code>                              Sets verbose mode (default false)</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--password &lt;password&gt;</code>                  Protect the files using a password-derived key. If an argument is not provided to this flag, interactive mode will be triggered to prompt the user to enter the password.</p>
+</li>
+<li>
+<p><code>-k</code>,<code>--key &lt;keyhex&gt;</code>                         Protect the files using a raw hexadecimal key. If an argument is not provided to this flag, interactive mode will be triggered to prompt the user to enter the key.</p>
+</li>
+<li>
+<p><code>-S</code>,<code>--protectionScheme &lt;protectionScheme&gt;</code>  Selects the protection scheme for encrypted properties.  Valid values are: [<a href="toolkit-guide.html#AES_GCM">AES_GCM</a>, <a href="toolkit-guide.html#HASHICORP_VAULT_TRANSIT">HASHICORP_VAULT_TRANSIT</a>, <a href="toolkit-guide.html#HASHICORP_VAULT_KV">HASHICORP_VAULT_KV</a>, <a href="toolkit-guide.html#AWS_KMS">AWS_KMS</a>, <a href="toolkit-guide.html#AWS_SECRETSMANAGER">AWS_SECRETSMANAGER</a>, <a href="toolkit-guide.html#AZURE_KEYVAULT_KEY">AZURE_KEYVAULT_KEY</a>, <a href="toolkit-guide.html#AZURE_KEYVAULT_SECRET">AZURE_KEYVAULT_SECRET</a>, <a href="toolkit-guide.html#GCP_KMS">GCP_KMS</a>]  (default is AES_GCM)</p>
+</li>
+<li>
+<p><code>--oldPassword &lt;password&gt;</code>                    If the input files are already protected using a password-derived key, this specifies the old password so that the files can be unprotected before re-protecting.</p>
+</li>
+<li>
+<p><code>--oldKey &lt;keyhex&gt;</code>                           If the input files are already protected using a key, this specifies the raw hexadecimal key so that the files can be unprotected before re-protecting.</p>
+</li>
+<li>
+<p><code>-H</code>,`--oldProtectionScheme &lt;protectionScheme&gt;`The old protection scheme to use during encryption migration (see --protectionScheme for possible values).  Default is AES_GCM.</p>
+</li>
+<li>
+<p><code>-b</code>,<code>--bootstrapConf &lt;file&gt;</code>                 The <em>bootstrap.conf</em> file containing no root key or an existing root key, and any other protection scheme configuration properties. If a new password or key is specified (using -p or -k) and no output <em>bootstrap.conf</em> file is specified, then this file will be overwritten to persist the new master key.</p>
+</li>
+<li>
+<p><code>-B</code>,<code>--outputBootstrapConf &lt;file&gt;</code>           The destination <em>bootstrap.conf</em> file to persist root key. If specified, the input <em>bootstrap.conf</em> will not be modified.</p>
+</li>
+<li>
+<p><code>-r</code>,<code>--nifiRegistryProperties &lt;file&gt;</code>        The <em>nifi-registry.properties</em> file containing unprotected config values, overwritten if no output file specified.</p>
+</li>
+<li>
+<p><code>-R</code>,<code>--outputNifiRegistryProperties &lt;file&gt;</code>  The destination <em>nifi-registry.properties</em> file containing protected config values.</p>
+</li>
+<li>
+<p><code>-a</code>,<code>--authorizersXml &lt;file&gt;</code>                The <em>authorizers.xml</em> file containing unprotected config values, overwritten if no output file specified.</p>
+</li>
+<li>
+<p><code>-A</code>,<code>--outputAuthorizersXml &lt;file&gt;</code>          The destination <em>authorizers.xml</em> file containing protected config values.</p>
+</li>
+<li>
+<p><code>-i</code>,<code>--identityProvidersXml &lt;file&gt;</code>          The <em>identity-providers.xml</em> file containing unprotected config values, overwritten if no output file specified.</p>
+</li>
+<li>
+<p><code>-I</code>,<code>--outputIdentityProvidersXml &lt;file&gt;</code>    The destination <em>identity-providers.xml</em> file containing protected config values.</p>
+</li>
+<li>
+<p><code>--decrypt</code>                                    Can be used with <code>-r</code> to decrypt a previously encrypted NiFi Registry Properties file. Decrypted content is printed to STDOUT.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="protection-schemes"><a class="anchor" href="toolkit-guide.html#protection-schemes"></a>Protection Schemes</h3>
+<div class="paragraph">
+<p>The protection scheme can be selected during encryption using the <code>--protectionScheme</code> flag.  During migration, the former protection scheme is specified using the <code>--oldProtectionScheme</code> flag.  This distinction allows a set of protected configuration files to be migrated not only to a new key, but to a completely different protection scheme.</p>
+</div>
+<div class="sect3">
+<h4 id="AES_GCM"><a class="anchor" href="toolkit-guide.html#AES_GCM"></a>AES_GCM</h4>
+<div class="paragraph">
+<p>The default protection scheme, <code>AES-G/CM</code> simply encrypts sensitive properties and marks their protection as either <code>aes/gcm/256</code> or <code>aes/gcm/256</code> as appropriate.  This protection is all done within NiFi itself.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="HASHICORP_VAULT_TRANSIT"><a class="anchor" href="toolkit-guide.html#HASHICORP_VAULT_TRANSIT"></a>HASHICORP_VAULT_TRANSIT</h4>
+<div class="paragraph">
+<p>This protection scheme uses <a href="https://www.vaultproject.io/docs/secrets/transit">HashiCorp Vault Transit Secrets Engine</a> to outsource encryption to a configured Vault server. All HashiCorp Vault configuration is stored in the <code>bootstrap-hashicorp-vault.conf</code> file, as referenced in the <code>bootstrap.conf</code> of a NiFi or NiFi Registry instance.  Therefore, when using the HASHICORP_VAULT_TRANSIT protection scheme, the <code>nifi(.registry)?.bootstrap.protection.hashicorp.vault.conf</code> property in the <code>bootstrap.conf</code> specified using the <code>-b</code> flag must be available to the Encrypt Configuration Tool and must be configured as described in the <a href="administration-guide.html#hashicorp-vault-providers">HashiCorp Vault providers</a> section in the <a href="administration-guide.html">NiFi Administration Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="HASHICORP_VAULT_KV"><a class="anchor" href="toolkit-guide.html#HASHICORP_VAULT_KV"></a>HASHICORP_VAULT_KV</h4>
+<div class="paragraph">
+<p>This protection scheme uses <a href="https://www.vaultproject.io/docs/secrets/kv/kv-v1">HashiCorp Vault Key Value Secrets Engine Version 1</a> to store sensitive values as Vault Secrets. All HashiCorp Vault configuration is stored in the <code>bootstrap-hashicorp-vault.conf</code> file, as referenced in the <code>bootstrap.conf</code> of a NiFi or NiFi Registry instance.  Therefore, when using the HASHICORP_VAULT_KV protection scheme, the <code>nifi(.registry)?.bootstrap.protection.hashicorp.vault.conf</code> property in the <code>bootstrap.conf</code> specified using the <code>-b</code> flag must be available to the Encrypt Configuration Tool and must be configured as described in the <a href="administration-guide.html#hashicorp-vault-providers">HashiCorp Vault providers</a> section in the <a href="administration-guide.html">NiFi Administration Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="AWS_KMS"><a class="anchor" href="toolkit-guide.html#AWS_KMS"></a>AWS_KMS</h4>
+<div class="paragraph">
+<p>This protection scheme uses <a href="https://aws.amazon.com/kms/">AWS Key Management</a> Service for encryption and decryption. AWS KMS configuration properties can be stored in the <code>bootstrap-aws.conf</code> file, as referenced in the <code>bootstrap.conf</code> of NiFi or NiFi Registry. If the configuration properties are not specified in <code>bootstrap-aws.conf</code>, then the provider will attempt to use the AWS default credentials provider, which checks standard environment variables and system properties.  Therefore, when using the AWS_KMS protection scheme, the <code>nifi(.registry)?.bootstrap.protection.aws.conf</code> property in the <code>bootstrap.conf</code> specified using the <code>-b</code> flag must be available to the Encrypt Configuration Tool and must be configured as described in the <a href="administration-guide.html#aws-kms-provider">AWS KMS provider</a> section in the <a href="administration-guide.html">NiFi Administration Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="AWS_SECRETSMANAGER"><a class="anchor" href="toolkit-guide.html#AWS_SECRETSMANAGER"></a>AWS_SECRETSMANAGER</h4>
+<div class="paragraph">
+<p>This protection scheme uses <a href="https://aws.amazon.com/secrets-manager/">AWS Secrets Manager</a> Service to store sensitive values as AWS Secrets. AWS Secrets Manager configuration properties can be stored in the <code>bootstrap-aws.conf</code> file, as referenced in the <code>bootstrap.conf</code> of NiFi or NiFi Registry. If the configuration properties are not specified in <code>bootstrap-aws.conf</code>, then the provider will attempt to use the AWS default credentials provider, which checks standard environment variables and system properties.  Therefore, when using the AWS_SECRETS_MANAGER protection scheme, the <code>nifi(.registry)?.bootstrap.protection.aws.conf</code> property in the <code>bootstrap.conf</code> specified using the <code>-b</code> flag must be available to the Encrypt Configuration Tool and must be configured as described in the <a href="administration-guide.html#aws-secrets-manager-provider">AWS Secrets Manager provider</a> section in the <a href="administration-guide.html">NiFi Administration Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="microsoft-azure-key-vault-sensitive-property-providers"><a class="anchor" href="toolkit-guide.html#microsoft-azure-key-vault-sensitive-property-providers"></a>Microsoft Azure Key Vault Sensitive Property Providers</h4>
+<div class="paragraph">
+<p>Azure Key Vault configuration properties can be stored in the <code>bootstrap-azure.conf</code> file, as referenced in the
+<code>bootstrap.conf</code> of NiFi or NiFi Registry.</p>
+</div>
+<div class="paragraph">
+<p>Azure Key Vault providers will use the
+<a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.defaultazurecredential">DefaultAzureCredential</a>
+for authentication.
+The <a href="https://docs.microsoft.com/en-us/java/api/overview/azure/identity-readme#key-concepts">Azure Identity</a> client library
+describes the process for credentials resolution, which leverages environment variables, system properties, and falls
+back to
+<a href="https://docs.microsoft.com/en-us/java/api/overview/azure/identity-readme#managed-identity-support">Managed Identity</a>
+authentication.</p>
+</div>
+<div class="paragraph">
+<p>When using Azure Key Vault providers, <code>bootstrap.conf</code> must contain the
+<code>nifi.bootstrap.protection.azure.keyvault.conf</code> property. The <code>bootstrap.conf</code> file location must be specified using the
+<code>-b</code> argument when running the Encrypt Config Tool.</p>
+</div>
+<div class="sect4">
+<h5 id="AZURE_KEYVAULT_KEY"><a class="anchor" href="toolkit-guide.html#AZURE_KEYVAULT_KEY"></a>AZURE_KEYVAULT_KEY</h5>
+<div class="paragraph">
+<p>This protection scheme uses keys managed by
+<a href="https://docs.microsoft.com/en-us/azure/key-vault/keys/about-keys">Azure Key Vault Keys</a> for encryption and decryption.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="administration-guide.html#azure-key-vault-key-provider">Azure Key Vault Key Provider</a> in the NiFi System
+Administrator&#8217;s Guide for required properties.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="AZURE_KEYVAULT_SECRET"><a class="anchor" href="toolkit-guide.html#AZURE_KEYVAULT_SECRET"></a>AZURE_KEYVAULT_SECRET</h5>
+<div class="paragraph">
+<p>This protection scheme uses secrets managed by
+<a href="https://docs.microsoft.com/en-us/azure/key-vault/secrets/about-secrets">Azure Key Vault Secrets</a> for storing and
+retrieving sensitive property values.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="administration-guide.html#azure-key-vault-secret-provider">Azure Key Vault Secret Provider</a> in the NiFi System
+Administrator&#8217;s Guide for required properties.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="GCP_KMS"><a class="anchor" href="toolkit-guide.html#GCP_KMS"></a>GCP_KMS</h4>
+<div class="paragraph">
+<p>This protection scheme uses Google Cloud Key Management Service (<a href="https://cloud.google.com/security-key-management">Google Cloud Key Management Service</a>) for encryption and decryption. Google Cloud KMS configuration properties are to be stored in the <code>bootstrap-gcp.conf</code> file, as referenced in the <code>bootstrap.conf</code> of NiFi or NiFi Registry. Credentials must be configured as per the following documentation: <a href="https://cloud.google.com/kms/docs/reference/libraries">Google Cloud KMS documentation</a>. Therefore, when using the GCP_KMS protection scheme, the <code>nifi(.registry)?.bootstrap.protection.gcp.kms.conf</code> property in the <code>bootstrap.conf</code> specified using the <code>-b</code> flag must be available to the Encrypt Configuration Tool and must be configured as described in the <a href="administration-guide.html#_google_cloud_kms_provider">Google Cloud KMS provider</a> section in the <a href="administration-guide.html">NiFi Administration Guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="examples"><a class="anchor" href="toolkit-guide.html#examples"></a>Examples</h3>
+<div class="sect3">
+<h4 id="nifi-2"><a class="anchor" href="toolkit-guide.html#nifi-2"></a>NiFi</h4>
+<div class="paragraph">
+<p>As an example of how the tool works, assume that you have installed the tool on a machine supporting 256-bit encryption and with the following existing values in the <em>nifi.properties</em> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># security properties #
+nifi.sensitive.props.key=thisIsABadSensitiveKeyPassword
+nifi.sensitive.props.algorithm=NIFI_PBKDF2_AES_GCM_256
+nifi.sensitive.props.additional.keys=
+
+nifi.security.keystore=/path/to/keystore.jks
+nifi.security.keystoreType=JKS
+nifi.security.keystorePasswd=thisIsABadKeystorePassword
+nifi.security.keyPasswd=thisIsABadKeyPassword
+nifi.security.truststore=
+nifi.security.truststoreType=
+nifi.security.truststorePasswd=</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enter the following arguments when using the tool:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>encrypt-config.sh \
+-b bootstrap.conf \
+-k 0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210 \
+-n nifi.properties</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a result, the <em>nifi.properties</em> file is overwritten with protected properties and sibling encryption identifiers (<code>aes/gcm/256</code>, the currently supported algorithm):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># security properties #
+nifi.sensitive.props.key=n2z+tTTbHuZ4V4V2||uWhdasyDXD4ZG2lMAes/vqh6u4vaz4xgL4aEbF4Y/dXevqk3ulRcOwf1vc4RDQ==
+nifi.sensitive.props.key.protected=aes/gcm/256
+nifi.sensitive.props.algorithm=NIFI_PBKDF2_AES_GCM_256
+nifi.sensitive.props.additional.keys=
+
+nifi.security.keystore=/path/to/keystore.jks
+nifi.security.keystoreType=JKS
+nifi.security.keystorePasswd=oBjT92hIGRElIGOh||MZ6uYuWNBrOA6usq/Jt3DaD2e4otNirZDytac/w/KFe0HOkrJR03vcbo
+nifi.security.keystorePasswd.protected=aes/gcm/256
+nifi.security.keyPasswd=ac/BaE35SL/esLiJ||+ULRvRLYdIDA2VqpE0eQXDEMjaLBMG2kbKOdOwBk/hGebDKlVg==
+nifi.security.keyPasswd.protected=aes/gcm/256
+nifi.security.truststore=
+nifi.security.truststoreType=
+nifi.security.truststorePasswd=</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, the <em>bootstrap.conf</em> file is updated with the encryption key as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># Root key in hexadecimal format for encrypted sensitive configuration values
+nifi.bootstrap.sensitive.key=0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sensitive configuration values are encrypted by the tool by default, however you can encrypt any additional properties, if desired.  To encrypt additional properties, specify them as comma-separated values in the <code>nifi.sensitive.props.additional.keys</code> property.</p>
+</div>
+<div class="paragraph">
+<p>If the <em>nifi.properties</em> file already has valid protected values, those property values are not modified by the tool.</p>
+</div>
+<div class="paragraph">
+<p>When applied to <em>login-identity-providers.xml</em> and <em>authorizers.xml</em>, the property elements are updated with an <code>encryption</code> attribute:</p>
+</div>
+<div class="paragraph">
+<p>Example of protected <em>login-identity-providers.xml</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>   &lt;!-- LDAP Provider --&gt;
+   &lt;provider&gt;
+       &lt;identifier&gt;ldap-provider&lt;/identifier&gt;
+       &lt;class&gt;org.apache.nifi.ldap.LdapProvider&lt;/class&gt;
+       &lt;property name="Authentication Strategy"&gt;START_TLS&lt;/property&gt;
+       &lt;property name="Manager DN"&gt;someuser&lt;/property&gt;
+       &lt;property name="Manager Password" encryption="aes/gcm/128"&gt;q4r7WIgN0MaxdAKM||SGgdCTPGSFEcuH4RraMYEdeyVbOx93abdWTVSWvh1w+klA&lt;/property&gt;
+       &lt;property name="TLS - Keystore"&gt;&lt;/property&gt;
+       &lt;property name="TLS - Keystore Password" encryption="aes/gcm/128"&gt;Uah59TWX+Ru5GY5p||B44RT/LJtC08QWA5ehQf01JxIpf0qSJUzug25UwkF5a50g&lt;/property&gt;
+       &lt;property name="TLS - Keystore Type"&gt;&lt;/property&gt;
+       ...
+   &lt;/provider&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example of protected <em>authorizers.xml</em>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>   &lt;!-- LDAP User Group Provider --&gt;
+   &lt;userGroupProvider&gt;
+       &lt;identifier&gt;ldap-user-group-provider&lt;/identifier&gt;
+       &lt;class&gt;org.apache.nifi.ldap.tenants.LdapUserGroupProvider&lt;/class&gt;
+       &lt;property name="Authentication Strategy"&gt;START_TLS&lt;/property&gt;
+       &lt;property name="Manager DN"&gt;someuser&lt;/property&gt;
+       &lt;property name="Manager Password" encryption="aes/gcm/128"&gt;q4r7WIgN0MaxdAKM||SGgdCTPGSFEcuH4RraMYEdeyVbOx93abdWTVSWvh1w+klA&lt;/property&gt;
+       &lt;property name="TLS - Keystore"&gt;&lt;/property&gt;
+       &lt;property name="TLS - Keystore Password" encryption="aes/gcm/128"&gt;Uah59TWX+Ru5GY5p||B44RT/LJtC08QWA5ehQf01JxIpf0qSJUzug25UwkF5a50g&lt;/property&gt;
+       &lt;property name="TLS - Keystore Type"&gt;&lt;/property&gt;
+       ...
+   &lt;/userGroupProvider&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nifi-registry-2"><a class="anchor" href="toolkit-guide.html#nifi-registry-2"></a>NiFi Registry</h4>
+<div class="paragraph">
+<p>As an example of how the tool works, assume that you have installed the tool on a machine supporting 256-bit encryption and with the following existing values in the <em>nifi-registry.properties</em> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># security properties #
+nifi.registry.security.keystore=/path/to/keystore.jks
+nifi.registry.security.keystoreType=JKS
+nifi.registry.security.keystorePasswd=thisIsABadKeystorePassword
+nifi.registry.security.keyPasswd=thisIsABadKeyPassword
+nifi.registry.security.truststore=
+nifi.registry.security.truststoreType=
+nifi.registry.security.truststorePasswd=</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enter the following arguments when using the tool:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./bin/encrypt-config.sh --nifiRegistry \
+-b bootstrap.conf \
+-k 0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210 \
+-r nifi-registry.properties</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As a result, the <em>nifi-registry.properties</em> file is overwritten with protected properties and sibling encryption identifiers (<code>aes/gcm/256</code>, the currently supported algorithm):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># security properties #
+nifi.registry.security.keystore=/path/to/keystore.jks
+nifi.registry.security.keystoreType=JKS
+nifi.registry.security.keystorePasswd=oBjT92hIGRElIGOh||MZ6uYuWNBrOA6usq/Jt3DaD2e4otNirZDytac/w/KFe0HOkrJR03vcbo
+nifi.registry.security.keystorePasswd.protected=aes/gcm/256
+nifi.registry.security.keyPasswd=ac/BaE35SL/esLiJ||+ULRvRLYdIDA2VqpE0eQXDEMjaLBMG2kbKOdOwBk/hGebDKlVg==
+nifi.registry.security.keyPasswd.protected=aes/gcm/256
+nifi.registry.security.truststore=
+nifi.registry.security.truststoreType=
+nifi.registry.security.truststorePasswd=</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When applied to <em>identity-providers.xml</em> or <em>authorizers.xml</em>, the property elements are updated with an <code>encryption</code> attribute. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;!-- LDAP Provider --&gt;
+&lt;provider&gt;
+   &lt;identifier&gt;ldap-provider&lt;/identifier&gt;
+   &lt;class&gt;org.apache.nifi.registry.security.ldap.LdapProvider&lt;/class&gt;
+   &lt;property name="Authentication Strategy"&gt;START_TLS&lt;/property&gt;
+   &lt;property name="Manager DN"&gt;someuser&lt;/property&gt;
+   &lt;property name="Manager Password" encryption="aes/gcm/128"&gt;q4r7WIgN0MaxdAKM||SGgdCTPGSFEcuH4RraMYEdeyVbOx93abdWTVSWvh1w+klA&lt;/property&gt;
+   &lt;property name="TLS - Keystore"&gt;/path/to/keystore.jks&lt;/property&gt;
+   &lt;property name="TLS - Keystore Password" encryption="aes/gcm/128"&gt;Uah59TWX+Ru5GY5p||B44RT/LJtC08QWA5ehQf01JxIpf0qSJUzug25UwkF5a50g&lt;/property&gt;
+   &lt;property name="TLS - Keystore Type"&gt;JKS&lt;/property&gt;
+   ...
+&lt;/provider&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, the <em>bootstrap.conf</em> file is updated with the encryption key as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Root key in hexadecimal format for encrypted sensitive configuration values
+nifi.registry.bootstrap.sensitive.key=0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sensitive configuration values are encrypted by the tool by default, however you can encrypt any additional properties, if desired.
+To encrypt additional properties, specify them as comma-separated values in the <code>nifi.registry.sensitive.props.additional.keys</code> property.</p>
+</div>
+<div class="paragraph">
+<p>If the <em>nifi-registry.properties</em> file already has valid protected values and you wish to protect additional values using the
+same root key already present in your <em>bootstrap.conf</em>, then run the tool without specifying a new key:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># bootstrap.conf already contains root key property
+# nifi-registy.properties has been updated for nifi.registry.sensitive.props.additional.keys=...
+
+./bin/encrypt-config.sh --nifiRegistry -b bootstrap.conf -r nifi-registry.properties</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sensitive-property-key-migration"><a class="anchor" href="toolkit-guide.html#sensitive-property-key-migration"></a>Sensitive Property Key Migration</h3>
+<div class="paragraph">
+<p>In order to change the key used to encrypt the sensitive values, provide the new key or password using the <code>-k</code> or <code>-p</code> flags as usual,
+and provide the existing key or password using <code>--old-key</code> or <code>--old-password</code> respectively. This will allow the toolkit to decrypt the
+existing values and re-encrypt them, and update <em>bootstrap.conf</em> with the new key. Only one of the key or password needs to be specified
+for each phase (old vs. new), and any combination is sufficient:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>old key &#8594; new key</p>
+</li>
+<li>
+<p>old key &#8594; new password</p>
+</li>
+<li>
+<p>old password &#8594; new key</p>
+</li>
+<li>
+<p>old password &#8594; new password</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In order to change the protection scheme (e.g., migrating from AES encryption to Vault encryption), specify the <code>--protectionScheme</code>
+and <code>--oldProtectionScheme</code> in the migration command.</p>
+</div>
+<div class="paragraph">
+<p>The following is an example of the commands for protection scheme migration from AES_GCM to AWS_KMS then back. Execute these commands at the <code>nifi</code> directory with the <code>nifi-toolkit</code> directory as a sibling directory. In addition, make sure to update <code>bootstrap-aws.conf</code> with your AWS KMS Key ARN/ID and have your credentials and region configured.</p>
+</div>
+<div class="paragraph">
+<p>This command encrypts nifi.properties with the AES_GCM protection scheme</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./../nifi-toolkit-*-SNAPSHOT/bin/encrypt-config.sh \
+-b conf/bootstrap.conf \
+-n conf/nifi.properties \
+-k 0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210 \
+-v</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command migrates nifi.properties from using AES_GCM to using AWS_KMS protection scheme</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./../nifi-toolkit-*-SNAPSHOT/bin/encrypt-config.sh \
+-b conf/bootstrap.conf \
+-n conf/nifi.properties \
+-S AWS_KMS \
+-H AES_GCM \
+-e 0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210 \
+-m \
+-v</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command migrates nifi.properties back from AWS_KMS to AES_GCM protection scheme</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./../nifi-toolkit-*-SNAPSHOT/bin/encrypt-config.sh \
+-b conf/bootstrap.conf \
+-n conf/nifi.properties \
+-S AES_GCM \
+-k 0123456789ABCDEFFEDCBA98765432100123456789ABCDEFFEDCBA9876543210 \
+-H AWS_KMS \
+-m \
+-v</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="file-manager"><a class="anchor" href="toolkit-guide.html#file-manager"></a>File Manager</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The File Manager utility (invoked as <code>./bin/file-manager.sh</code> or <code>bin\file-manager.bat</code>) allows system administrators to take a backup of an existing NiFi installation, install a new version of NiFi in a designated location (while migrating any previous configuration settings) or restore an installation from a previous backup. File Manager supports NiFi version 1.0.0 and higher.</p>
+</div>
+<div class="sect2">
+<h3 id="usage-3"><a class="anchor" href="toolkit-guide.html#usage-3"></a>Usage</h3>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/file-manager.sh -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-b</code>,<code>--backupDir &lt;arg&gt;</code>          Backup NiFi Directory (used with backup or restore operation)</p>
+</li>
+<li>
+<p><code>-c</code>,<code>--nifiCurrentDir &lt;arg&gt;</code>     Current NiFi Installation Directory (used optionally with install or restore operation)</p>
+</li>
+<li>
+<p><code>-d</code>,<code>--nifiInstallDir &lt;arg&gt;</code>     NiFi Installation Directory (used with install or restore operation)</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                     Print help info (optional)</p>
+</li>
+<li>
+<p><code>-i</code>,<code>--installFile &lt;arg&gt;</code>        NiFi Install File (used with install operation)</p>
+</li>
+<li>
+<p><code>-m</code>,<code>--moveRepositories</code>         Allow repositories to be moved to new/restored nifi directory from existing installation, if available (used optionally with install or restore operation)</p>
+</li>
+<li>
+<p><code>-o</code>,<code>--operation &lt;arg&gt;</code>          File operation (install | backup | restore)</p>
+</li>
+<li>
+<p><code>-r</code>,<code>--nifiRollbackDir &lt;arg&gt;</code>    NiFi Installation Directory (used with install or restore operation)</p>
+</li>
+<li>
+<p><code>-t</code>,<code>--bootstrapConf &lt;arg&gt;</code>      Current NiFi Bootstrap Configuration File (used optionally)</p>
+</li>
+<li>
+<p><code>-v</code>,<code>--verbose</code>                  Verbose messaging (optional)</p>
+</li>
+<li>
+<p><code>-x</code>,<code>--overwriteConfigs</code>         Overwrite existing configuration directory with upgrade changes (used optionally with install or restore operation)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example usage on Linux:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># backup NiFi installation
+# option -t may be provided to ensure backup of external boostrap.conf file
+./file-manager.sh
+-o backup
+–b /tmp/nifi_bak
+–c /usr/nifi_old
+-v</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># install NiFi using compressed tar file into /usr/nifi directory (should install as /usr/nifi/nifi-1.3.0).
+# migrate existing configurations with location determined by external bootstrap.conf and move over repositories from nifi_old
+# options -t and -c should both be provided if migration of configurations, state and repositories are required
+./file-manager.sh
+-o install
+–i nifi-1.3.0.tar.gz
+–d /usr/nifi
+–c /usr/nifi/nifi_old
+-t /usr/nifi/old_conf/bootstrap.conf
+-v
+-m</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># restore NiFi installation from backup directory and move back repositories
+# option -t may be provided to ensure bootstrap.conf is restored to the file path provided, otherwise it is placed in the
+# default directory under the rollback path (e.g. /usr/nifi_old/conf)
+./file-manager.sh
+-o restore
+–b /tmp/nifi_bak
+–r /usr/nifi_old
+–c /usr/nifi
+-m
+-v</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expected-behavior"><a class="anchor" href="toolkit-guide.html#expected-behavior"></a>Expected Behavior</h3>
+<div class="sect3">
+<h4 id="backup"><a class="anchor" href="toolkit-guide.html#backup"></a>Backup</h4>
+<div class="paragraph">
+<p>During the backup operation a backup directory is created in a designated location for an existing NiFi installation. Backups will capture all critical files (including any internal or external configurations, libraries, scripts and documents) however it excludes backing up repositories and logs due to potential size. If configuration/library files are external from the existing installation folder the backup operation will capture those as well.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="install"><a class="anchor" href="toolkit-guide.html#install"></a>Install</h4>
+<div class="paragraph">
+<p>During the install operation File Manager will perform installation using the designated NiFi binary file (either tar.gz or zip file) to create a new installation or migrate an existing nifi installation to a new one.  Installation can optionally move repositories (if located within the configuration folder of the current installation) to the new installation as well as migrate configuration files to the newer installation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="restore"><a class="anchor" href="toolkit-guide.html#restore"></a>Restore</h4>
+<div class="paragraph">
+<p>The restore operation allows an existing installation to revert back to a previous installation.  Using an existing backup directory (created from the backup operation) the FileManager utility will restore libraries, scripts and documents as well as revert to previous configurations.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If repositories were changed due to the installation of a newer version of NiFi these may no longer be compatible during restore.  In that scenario exclude the <code>-m</code> option to ensure new repositories will be created or, if repositories live outside of the NiFi directory, remove them so they can be recreated on startup after restore.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="flow-analyzer"><a class="anchor" href="toolkit-guide.html#flow-analyzer"></a>Flow Analyzer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>flow-analyzer</code> tool (invoked as <code>./bin/flow-analyzer.sh</code> or <code>bin\flow-analyzer.bat</code>) analyzes the <em>flow.xml.gz</em> file and reports:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Total Bytes Utilized by the System</p>
+</li>
+<li>
+<p>Min/Max Back Pressure Size</p>
+</li>
+<li>
+<p>Average Back Pressure Size</p>
+</li>
+<li>
+<p>Min/Max Flowfile Queue Size</p>
+</li>
+<li>
+<p>Average Flowfile Queue Size</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="usage-4"><a class="anchor" href="toolkit-guide.html#usage-4"></a>Usage</h3>
+<div class="paragraph">
+<p>To execute the <code>flow-analyzer</code> tool:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>flow-analyzer.sh &lt;path to flow.xml.gz&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ ./flow-analyzer.sh /Users/nifiuser/nifi-1.8.0/conf/flow.xml.gz
+Using flow=/Users/nifiuser/nifi-1.8.0/conf/flow.xml.gz
+Total Bytes Utilized by System=1518 GB
+Max Back Pressure Size=1 GB
+Min Back Pressure Size=1 GB
+Average Back Pressure Size=2.504950495 GB
+Max Flowfile Queue Size=10000
+Min Flowfile Queue Size=10000
+Avg Flowfile Queue Size=10000.000000000</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="node-manager"><a class="anchor" href="toolkit-guide.html#node-manager"></a>Node Manager</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Node manager (invoked as <code>./bin/node-manager.sh</code> or <code>bin\node-manager.bat</code>) supports connecting, disconnecting and removing a node when in a cluster (an error message displays if the node is not part of a cluster) as well as obtaining the status of a node.  When nodes are disconnected from a cluster and need to be connected or removed, a list of urls of connected nodes should be provided to send the required command to the active cluster.  Node Manager supports NiFi version 1.0.0 and higher.</p>
+</div>
+<div class="sect2">
+<h3 id="usage-5"><a class="anchor" href="toolkit-guide.html#usage-5"></a>Usage</h3>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/node-manager.sh -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-b</code>,<code>--bootstrapConf &lt;arg&gt;</code>     Existing Bootstrap Configuration file (required)</p>
+</li>
+<li>
+<p><code>-d</code>,<code>--nifiInstallDir &lt;arg&gt;</code>    NiFi Root Folder (required)</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                    Help Text (optional)</p>
+</li>
+<li>
+<p><code>-o</code>, <code>--operation &lt;arg&gt;</code>        Operations supported: status, connect (cluster), disconnect (cluster), remove (cluster)</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--proxyDN &lt;arg&gt;</code>           Proxy or User DN (required for secured nodes doing connect, disconnect and remove operations)</p>
+</li>
+<li>
+<p><code>-u</code>,<code>--clusterUrls &lt;arg&gt;</code>       Comma delimited list of active urls for cluster (optional). Not required for disconnecting a node yet will be needed when connecting or removing from a cluster</p>
+</li>
+<li>
+<p><code>-v</code>,<code>--verbose</code>                 Verbose messaging (optional)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To connect, disconnect, or remove a node from a cluster:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>node-manager.sh -d {$NIFI_HOME} –b { nifi bootstrap file path}
+-o {remove|disconnect|connect|status} [-u {url list}] [-p {proxy name}] [-v]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example usage on Linux:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre># disconnect without cluster url list
+./node-manager.sh
+-d /usr/nifi/nifi_current
+-b /usr/nifi/nifi_current/conf/bootstrap.conf
+-o disconnect
+–p ydavis@nifi
+-v</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#with url list
+./node-manager.sh
+-d /usr/nifi/nifi_current
+-b /usr/nifi/nifi_current/conf/bootstrap.conf
+-o connect
+-u 'http://nifi-server-1:8080,http://nifi-server-2:8080'
+-v</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example usage on Windows:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>node-manager.bat
+-d "C:\\Program Files\\nifi\\nifi-1.2.0-SNAPSHOT"
+-b "C:\\Program Files\\nifi\\nifi-1.2.0-SNAPSHOT\\conf\\bootstrap.conf"
+-o disconnect
+–v</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expected-behavior-2"><a class="anchor" href="toolkit-guide.html#expected-behavior-2"></a>Expected Behavior</h3>
+<div class="sect3">
+<h4 id="status"><a class="anchor" href="toolkit-guide.html#status"></a>Status</h4>
+<div class="paragraph">
+<p>To obtain information on UI availability of a node, the status operation can be used to determine if the node is running. If the <code>–u (clusterUrls)</code> option is not provided the current node url is checked otherwise the urls provided will be checked.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="disconnect"><a class="anchor" href="toolkit-guide.html#disconnect"></a>Disconnect</h4>
+<div class="paragraph">
+<p>When a node is disconnected from the cluster, the node itself should appear as disconnected and the cluster should have a bulletin indicating the disconnect request was received. The cluster should also show <em>n-1/n</em> nodes available in the cluster. For example, if 1 node is disconnected from a 3-node cluster, then "2 of 3" nodes should show on the remaining nodes in the cluster.  Changes to the flow should not be allowed on the cluster with a disconnected node.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="connect"><a class="anchor" href="toolkit-guide.html#connect"></a>Connect</h4>
+<div class="paragraph">
+<p>When the connect command is executed to reconnect a node to a cluster, upon completion the node itself should show that it has rejoined the cluster by showing <em>n/n</em> nodes. Previously it would have shown Disconnected. Other nodes in the cluster should receive a bulletin of the connect request and also show <em>n/n</em> nodes allowing for changes to be allowed to the flow.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="remove"><a class="anchor" href="toolkit-guide.html#remove"></a>Remove</h4>
+<div class="paragraph">
+<p>When the remove command is executed the node should show as disconnected from a cluster.  The nodes remaining in the cluster should show <em>n-1/n-1</em> nodes. For example, if 1 node is removed from a 3-node cluster, then the remaining 2 nodes should show "2 of 2" nodes.  The cluster should allow a flow to be adjusted.  The removed node can rejoin the cluster if restarted and the flow for the cluster has not changed. If the flow was changed, the flow template of the removed node should be deleted before restarting the node to allow it to obtain the cluster flow (otherwise an uninheritable flow file exception may occur).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notify"><a class="anchor" href="toolkit-guide.html#notify"></a>Notify</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Notify (invoked as <code>./bin/notify.sh</code> or <code>bin\notify.bat</code>) allows administrators to send messages as bulletins to NiFi.  Notify is supported on NiFi version 1.2.0 and higher.</p>
+</div>
+<div class="sect2">
+<h3 id="usage-6"><a class="anchor" href="toolkit-guide.html#usage-6"></a>Usage</h3>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/notify.sh -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-b</code>,<code>--bootstrapConf &lt;arg&gt;</code>      Existing Bootstrap Configuration file (required)</p>
+</li>
+<li>
+<p><code>-d</code>,<code>--nifiInstallDir &lt;arg&gt;</code>     NiFi Root Folder (required)</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                     Help Text (optional)</p>
+</li>
+<li>
+<p><code>-l</code>,<code>--level &lt;arg&gt;</code>              Status level of bulletin – <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></p>
+</li>
+<li>
+<p><code>-m</code>,<code>--message &lt;arg&gt;</code>            Bulletin message (required)</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--proxyDN &lt;arg&gt;</code>            Proxy or User DN (required for secured nodes)</p>
+</li>
+<li>
+<p><code>-v</code>,<code>--verbose</code>                  Verbose messaging (optional)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To send notifications:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>notify.sh -d {$NIFI_HOME} –b {nifi bootstrap file path} -m {message} [-l {level}] [-v]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example usage on Linux:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./notify.sh -d /usr/nifi/nifi_current -b /usr/nifi/nifi_current/conf/bootstrap.conf -m "Test Message Server 1" -l "WARN" –p “ydavis@nifi” -v</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example usage on Windows:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>notify.bat -v -d "C:\\Program Files\\nifi\\nifi-1.2.0-SNAPSHOT" -b "C:\\Program Files\\nifi\\nifi-1.2.0-SNAPSHOT\\conf\\bootstrap.conf" -m "Test Message Server 1" -v</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Executing the above command line should result in a bulletin appearing in NiFi:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/nifi-notifications.png" alt="NiFi Notifications">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="s2s"><a class="anchor" href="toolkit-guide.html#s2s"></a>S2S</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>S2S is a command line tool (invoked as <code>./bin/s2s.sh</code> or <code>bin\s2s.bat</code>) that can either read a list of DataPackets from stdin to send over site-to-site or write the received DataPackets to stdout.</p>
+</div>
+<div class="sect2">
+<h3 id="usage-7"><a class="anchor" href="toolkit-guide.html#usage-7"></a>Usage</h3>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/s2s.sh -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--batchCount &lt;arg&gt;</code>             Number of flow files in a batch</p>
+</li>
+<li>
+<p><code>--batchDuration &lt;arg&gt;</code>          Duration of a batch</p>
+</li>
+<li>
+<p><code>--batchSize &lt;arg&gt;</code>              Size of flow files in a batch</p>
+</li>
+<li>
+<p><code>-c</code>,<code>--compression</code>             Use compression</p>
+</li>
+<li>
+<p><code>-d</code>,<code>--direction</code>               Direction (valid directions: <code>SEND</code>, <code>RECEIVE</code>) (default: <code>SEND</code>)</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                    Help Text (optional)</p>
+</li>
+<li>
+<p><code>-i</code>,<code>--portIdentifier &lt;arg&gt;</code>    Port id</p>
+</li>
+<li>
+<p><code>--keystore &lt;arg&gt;</code>               Keystore</p>
+</li>
+<li>
+<p><code>--keyStorePassword &lt;arg&gt;</code>       Keystore password</p>
+</li>
+<li>
+<p><code>--keyStoreType &lt;arg&gt;</code>           Keystore type (default: <code>JKS</code>)</p>
+</li>
+<li>
+<p><code>-n</code>,<code>--portName</code>                Port name</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--transportProtocol</code>       Site to site transport protocol (default: <code>RAW</code>)</p>
+</li>
+<li>
+<p><code>--peerPersistenceFile &lt;arg&gt;</code>    File to write peer information to so it can be recovered on restart</p>
+</li>
+<li>
+<p><code>--penalization &lt;arg&gt;</code>           Penalization period</p>
+</li>
+<li>
+<p><code>--proxyHost &lt;arg&gt;</code>              Proxy hostname</p>
+</li>
+<li>
+<p><code>--proxyPassword &lt;arg&gt;</code>          Proxy password</p>
+</li>
+<li>
+<p><code>--proxyPort &lt;arg&gt;</code>              Proxy port</p>
+</li>
+<li>
+<p><code>--proxyUsername &lt;arg&gt;</code>          Proxy username</p>
+</li>
+<li>
+<p><code>--timeout &lt;arg&gt;</code>                Timeout</p>
+</li>
+<li>
+<p><code>--trustStore &lt;arg&gt;</code>             Truststore</p>
+</li>
+<li>
+<p><code>--trustStorePassword &lt;arg&gt;</code>     Truststore password</p>
+</li>
+<li>
+<p><code>--trustStoreType &lt;arg&gt;</code>         Truststore type (default: <code>JKS</code>)</p>
+</li>
+<li>
+<p><code>-u,--url &lt;arg&gt;</code>                 NiFI URL to connect to (default: <code><a href="http://localhost:8080/nifi" class="bare">http://localhost:8080/nifi</a></code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The s2s cli input/output format is a JSON list of DataPackets.  They can have the following formats:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[{"attributes":{"key":"value"},"data":"aGVsbG8gbmlmaQ=="}]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where data is the base64 encoded value of the FlowFile content (always used for received data) or:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[{"attributes":{"key":"value"},"dataFile":"/Users/pvillard/Documents/GitHub/nifi/nifi-toolkit/nifi-toolkit-assembly/target/nifi-toolkit-1.9.0-SNAPSHOT-bin/nifi-toolkit-1.9.0-SNAPSHOT/bin/EXAMPLE"}]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where dataFile is a file to read the FlowFile content from.</p>
+</div>
+<div class="paragraph">
+<p>Example usage to send a FlowFile with the contents of "hey nifi" to a local unsecured NiFi over http with an input port named "input":</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>echo '[{"data":"aGV5IG5pZmk="}]' | bin/s2s.sh -n input -p http</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tls_toolkit"><a class="anchor" href="toolkit-guide.html#tls_toolkit"></a>TLS Toolkit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to facilitate the secure setup of NiFi, you can use the <code>tls-toolkit</code> command line utility to automatically generate the required keystores, truststore, and relevant configuration files. This is especially useful for securing multiple NiFi nodes, which can be a tedious and error-prone process.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Please note that there are new requirements for trusted certificates in macOS 10.15. Details can be found <a href="https://support.apple.com/en-us/HT210176" target="_blank" rel="noopener">here</a>, but of particular importance is that all TLS server certificates issued after July 1, 2019 must have a validity period of 825 days or less.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="wildcard_certificates"><a class="anchor" href="toolkit-guide.html#wildcard_certificates"></a>Wildcard Certificates</h3>
+<div class="paragraph">
+<p>Wildcard certificates (i.e. two nodes <code>node1.nifi.apache.org</code> and <code>node2.nifi.apache.org</code> being assigned the same certificate with a CN or SAN entry of <code>*.nifi.apache.org</code>) are <strong>not officially supported</strong> and <strong>not recommended</strong>. There are numerous disadvantages to using wildcard certificates, and a cluster working with wildcard certificates has occurred in previous versions out of lucky accidents, not intentional support. Wildcard SAN entries are acceptable <strong>if</strong> each cert maintains an additional unique SAN entry and CN entry.</p>
+</div>
+<div class="sect3">
+<h4 id="potential-issues-with-wildcard-certificates"><a class="anchor" href="toolkit-guide.html#potential-issues-with-wildcard-certificates"></a>Potential issues with wildcard certificates</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>In many places throughout the codebase, cluster communications use certificate identities many times to identify a node, and if the certificate simply presents a wildcard DN, that doesn’t resolve to a specific node</p>
+</li>
+<li>
+<p>Admins may need to provide a custom node identity in <em>authorizers.xml</em> for <code>*.nifi.apache.org</code> because all proxy actions only resolve to the cert DN (see the <a href="administration-guide.html#user_authentication">User Authentication</a> section in the System Administrator&#8217;s Guide for more information).</p>
+</li>
+<li>
+<p>Admins have no traceability into which node performed an action because they all resolve to the same DN</p>
+</li>
+<li>
+<p>Admins running multiple instances on the same machine using different ports to identify them can accidentally put <code>node1</code> hostname with <code>node2</code> port, and the address will resolve fine because it’s using the same certificate, but the host header handler will block it because the <code>node1</code> hostname is (correctly) not listed as an acceptable host for <code>node2</code> instance</p>
+</li>
+<li>
+<p>If the wildcard certificate is compromised, all nodes are compromised</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+JKS keystores and truststores are recommended for NiFi.  This tool allows the specification of other keystore types on the command line but will ignore a type of PKCS12 for use as the truststore because that format has some compatibility issues between BouncyCastle and Oracle implementations.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tls_operation_modes"><a class="anchor" href="toolkit-guide.html#tls_operation_modes"></a>Operation Modes</h3>
+<div class="paragraph">
+<p>The <code>tls-toolkit</code> command line tool has two primary modes of operation:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Standalone&#8201;&#8212;&#8201;generates the certificate authority, keystores, truststores, and <em>nifi.properties</em> files in one command.</p>
+</li>
+<li>
+<p>Client/Server&#8201;&#8212;&#8201;uses a Certificate Authority Server that accepts Certificate Signing Requests from clients, signs them, and sends the resulting certificates back.  Both client and server validate the other’s identity through a shared secret.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="standalone"><a class="anchor" href="toolkit-guide.html#standalone"></a>Standalone</h4>
+<div class="paragraph">
+<p>Standalone mode is invoked by running <code>./bin/tls-toolkit.sh standalone</code> or <code>bin\tls-toolkit.sh standalone</code>.</p>
+</div>
+<div class="sect4">
+<h5 id="usage-8"><a class="anchor" href="toolkit-guide.html#usage-8"></a>Usage</h5>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/tls-toolkit.sh standalone -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-a</code>,<code>--keyAlgorithm &lt;arg&gt;</code>                   Algorithm to use for generated keys (default: <code>RSA</code>)</p>
+</li>
+<li>
+<p><code>--additionalCACertificate &lt;arg&gt;</code>             Path to additional CA certificate (used to sign toolkit CA certificate) in PEM format if necessary</p>
+</li>
+<li>
+<p><code>-B</code>,<code>--clientCertPassword &lt;arg&gt;</code>             Password for client certificate. Must either be one value or one for each client DN (auto-generate if not specified)</p>
+</li>
+<li>
+<p><code>-c</code>,<code>--certificateAuthorityHostname &lt;arg&gt;</code>   Hostname of NiFi Certificate Authority (default: <code>localhost</code>)</p>
+</li>
+<li>
+<p><code>-C</code>,<code>--clientCertDn &lt;arg&gt;</code>                   Generate client certificate suitable for use in browser with specified DN (Can be specified multiple times)</p>
+</li>
+<li>
+<p><code>-d</code>,<code>--days &lt;arg&gt;</code>                           Number of days issued certificate should be valid for (default: <code>825</code>)</p>
+</li>
+<li>
+<p><code>-f</code>,<code>--nifiPropertiesFile &lt;arg&gt;</code>             Base <em>nifi.properties</em> file to update (Embedded file identical to the one in a default NiFi install will be used if not specified)</p>
+</li>
+<li>
+<p><code>-g</code>,<code>--differentKeyAndKeystorePasswords</code>     Use different generated password for the key and the keystore</p>
+</li>
+<li>
+<p><code>-G</code>,<code>--globalPortSequence &lt;arg&gt;</code>             Use sequential ports that are calculated for all hosts according to the provided hostname expressions (Can be specified multiple times, MUST BE SAME FROM RUN TO RUN)</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                                 Print help and exit</p>
+</li>
+<li>
+<p><code>-k</code>,<code>--keySize &lt;arg&gt;</code>                        Number of bits for generated keys (default: <code>2048</code>)</p>
+</li>
+<li>
+<p><code>-K</code>,<code>--keyPassword &lt;arg&gt;</code>                    Key password to use. Must either be one value or one for each host (auto-generate if not specified)</p>
+</li>
+<li>
+<p><code>-n</code>,<code>--hostnames &lt;arg&gt;</code>                      Comma separated list of hostnames</p>
+</li>
+<li>
+<p><code>--nifiDnPrefix &lt;arg&gt;</code>                        String to prepend to hostname(s) when determining DN (default: <code>CN=</code>)</p>
+</li>
+<li>
+<p><code>--nifiDnSuffix &lt;arg&gt;</code>                        String to append to hostname(s) when determining DN (default: <code>, OU=NIFI</code>)</p>
+</li>
+<li>
+<p><code>-o</code>,<code>--outputDirectory &lt;arg&gt;</code>                The directory to output keystores, truststore, config files (default: <code>../bin</code>)</p>
+</li>
+<li>
+<p><code>-O</code>,<code>--isOverwrite</code>                          Overwrite existing host output</p>
+</li>
+<li>
+<p><code>-P</code>,<code>--trustStorePassword &lt;arg&gt;</code>             Keystore password to use. Must either be one value or one for each host (auto-generate if not specified)</p>
+</li>
+<li>
+<p><code>-s</code>,<code>--signingAlgorithm &lt;arg&gt;</code>               Algorithm to use for signing certificates (default: <code>SHA256WITHRSA</code>)</p>
+</li>
+<li>
+<p><code>-S</code>,<code>--keyStorePassword &lt;arg&gt;</code>               Keystore password to use. Must either be one value or one for each host (auto-generate if not specified)</p>
+</li>
+<li>
+<p><code>--subjectAlternativeNames &lt;arg&gt;</code>             Comma-separated list of domains to use as Subject Alternative Names in the certificate</p>
+</li>
+<li>
+<p><code>-T</code>,<code>--keyStoreType &lt;arg&gt;</code>                   The type of keystores to generate (default: <code>jks</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>"Hostname" and "Subject Alternative Name" Patterns:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Square brackets can be used in order to easily specify a range of hostnames or subject alternative names. Example: <code>[01-20]</code></p>
+</li>
+<li>
+<p>Parentheses can be used in order to specify that more than one NiFi instance will run on the given host(s). Example: <code>(5)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Create 4 sets of keystore, truststore, <em>nifi.properties</em> for localhost along with a client certificate with the given DN:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bin/tls-toolkit.sh standalone -n 'localhost(4)' -C 'CN=username,OU=NIFI'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create keystore, truststore, <em>nifi.properties</em> for 10 NiFi hostnames in each of 4 subdomains:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bin/tls-toolkit.sh standalone -n 'nifi[01-10].subdomain[1-4].domain'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create 2 sets of keystore, truststore, <em>nifi.properties</em> for 10 NiFi hostnames in each of 4 subdomains along with a client certificate with the given DN:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bin/tls-toolkit.sh standalone -n 'nifi[01-10].subdomain[1-4].domain(2)' -C 'CN=username,OU=NIFI'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same command with a range of subject alternate names:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bin/tls-toolkit.sh standalone -n 'nifi[01-10].subdomain[1-4].domain(2)' -C 'CN=username,OU=NIFI' --subjectAlternativeNames 'nifi[21-30].other[2-5].example.com(2)'</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clientserver"><a class="anchor" href="toolkit-guide.html#clientserver"></a>Client/Server</h4>
+<div class="paragraph">
+<p>Client/Server mode relies on a long-running Certificate Authority (CA) to issue certificates. The CA can be stopped when you’re not bringing nodes online.</p>
+</div>
+<div class="sect4">
+<h5 id="server"><a class="anchor" href="toolkit-guide.html#server"></a>Server</h5>
+<div class="paragraph">
+<p>CA server mode is invoked by running <code>./bin/tls-toolkit.sh server</code> or <code>bin\tls-toolkit.sh server</code>.</p>
+</div>
+<div class="sect5">
+<h6 id="usage-9"><a class="anchor" href="toolkit-guide.html#usage-9"></a>Usage</h6>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/tls-toolkit.sh server -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-a</code>,<code>--keyAlgorithm &lt;arg&gt;</code>                   Algorithm to use for generated keys (default: <code>RSA</code>)</p>
+</li>
+<li>
+<p><code>--configJsonIn &lt;arg&gt;</code>                        The place to read configuration info from (defaults to the value of configJson), implies useConfigJson if set (default: <code>configJson</code> value)</p>
+</li>
+<li>
+<p><code>-d</code>,<code>--days &lt;arg&gt;</code>                           Number of days issued certificate should be valid for (default: <code>825</code>)</p>
+</li>
+<li>
+<p><code>-D</code>,<code>--dn &lt;arg&gt;</code>                             The dn to use for the CA certificate (default: <code>CN=YOUR_CA_HOSTNAME,OU=NIFI</code>)</p>
+</li>
+<li>
+<p><code>-f</code>,<code>--configJson &lt;arg&gt;</code>                     The place to write configuration info (default: <code>config.json</code>)</p>
+</li>
+<li>
+<p><code>-F</code>,<code>--useConfigJson</code>                        Flag specifying that all configuration is read from <code>configJson</code> to facilitate automated use (otherwise <code>configJson</code> will only be written to)</p>
+</li>
+<li>
+<p><code>-g</code>,<code>--differentKeyAndKeystorePasswords</code>     Use different generated password for the key and the keystore</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                                 Print help and exit</p>
+</li>
+<li>
+<p><code>-k</code>,<code>--keySize &lt;arg&gt;</code>                        Number of bits for generated keys (default: <code>2048</code>)</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--PORT &lt;arg&gt;</code>                           The port for the Certificate Authority to listen on (default: <code>9443</code>)</p>
+</li>
+<li>
+<p><code>-s</code>,<code>--signingAlgorithm &lt;arg&gt;</code>               Algorithm to use for signing certificates (default: <code>SHA256WITHRSA</code>)</p>
+</li>
+<li>
+<p><code>-T</code>,<code>--keyStoreType &lt;arg&gt;</code>                   The type of keystores to generate (default: <code>jks</code>)</p>
+</li>
+<li>
+<p><code>-t</code>,<code>--token &lt;arg&gt;</code>                          The token to use to prevent MITM (required and must be same as one used by clients)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="client"><a class="anchor" href="toolkit-guide.html#client"></a>Client</h5>
+<div class="paragraph">
+<p>The client can be used to request new Certificates from the CA. The client utility generates a keypair and Certificate Signing Request (CSR) and sends the CSR to the Certificate Authority. CA client mode is invoked by running <code>./bin/tls-toolkit.sh client</code> or <code>bin\tls-toolkit.sh client</code>.</p>
+</div>
+<div class="sect5">
+<h6 id="usage-10"><a class="anchor" href="toolkit-guide.html#usage-10"></a>Usage</h6>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/tls-toolkit.sh client -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-a</code>,<code>--keyAlgorithm &lt;arg&gt;</code>                   Algorithm to use for generated keys (default: <code>RSA</code>)</p>
+</li>
+<li>
+<p><code>-c</code>,<code>--certificateAuthorityHostname &lt;arg&gt;</code>   Hostname of NiFi Certificate Authority (default: <code>localhost</code>)</p>
+</li>
+<li>
+<p><code>-C</code>,<code>--certificateDirectory &lt;arg&gt;</code>           The directory to write the CA certificate (default: <code>.</code>)</p>
+</li>
+<li>
+<p><code>--configJsonIn &lt;arg&gt;</code>                        The place to read configuration info from, implies <code>useConfigJson</code> if set (default: <code>configJson</code> value)</p>
+</li>
+<li>
+<p><code>-D</code>,<code>--dn &lt;arg&gt;</code>                             The DN to use for the client certificate (default: <code>CN=&lt;localhost name&gt;,OU=NIFI</code>) (this is auto-populated by the tool)</p>
+</li>
+<li>
+<p><code>-f</code>,<code>--configJson &lt;arg&gt;</code>                     The place to write configuration info (default: <code>config.json</code>)</p>
+</li>
+<li>
+<p><code>-F</code>,<code>--useConfigJson</code>                        Flag specifying that all configuration is read from <code>configJson</code> to facilitate automated use (otherwise <code>configJson</code> will only be written to)</p>
+</li>
+<li>
+<p><code>-g</code>,<code>--differentKeyAndKeystorePasswords</code>     Use different generated password for the key and the keystore</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                                 Print help and exit</p>
+</li>
+<li>
+<p><code>-k</code>,<code>--keySize &lt;arg&gt;</code>                        Number of bits for generated keys (default: <code>2048</code>)</p>
+</li>
+<li>
+<p><code>-p</code>,<code>--PORT &lt;arg&gt;</code>                           The port to use to communicate with the Certificate Authority (default: <code>9443</code>)</p>
+</li>
+<li>
+<p><code>--subjectAlternativeNames &lt;arg&gt;</code>             Comma-separated list of domains to use as Subject Alternative Names in the certificate</p>
+</li>
+<li>
+<p><code>-T</code>,<code>--keyStoreType &lt;arg&gt;</code>                   The type of keystores to generate (default: <code>jks</code>)</p>
+</li>
+<li>
+<p><code>-t</code>,<code>--token &lt;arg&gt;</code>                          The token to use to prevent MITM (required and must be same as one used by CA)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After running the client you will have the CA’s certificate, a keystore, a truststore, and a <code>config.json</code> with information about them as well as their passwords.</p>
+</div>
+<div class="paragraph">
+<p>For a client certificate that can be easily imported into the browser, specify: <code>-T PKCS12</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tls_intermediate_ca"><a class="anchor" href="toolkit-guide.html#tls_intermediate_ca"></a>Using An Existing Intermediate Certificate Authority (CA)</h3>
+<div class="paragraph">
+<p>In some enterprise scenarios, a security/IT team may provide a signing certificate that has already been signed by the organization&#8217;s certificate authority (CA). This <strong>intermediate CA</strong> can be used to sign the <strong>node</strong> (sometimes referred to as <strong>leaf</strong>) certificates that will be installed on each NiFi node, or the <strong>client certificates</strong> used to identify users. In order to inject the existing signing certificate into the toolkit process, follow these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Generate or obtain the signed intermediate CA keys in the following format (see additional commands below):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Public certificate in PEM format: <code>nifi-cert.pem</code></p>
+</li>
+<li>
+<p>Private key in PEM format: <code>nifi-key.key</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Place the files in the <strong>toolkit working directory</strong>. This is the directory where the tool is configured to output the signed certificates. <strong>This is not necessarily the directory where the binary is located or invoked</strong>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example, given the following scenario, the toolkit command can be run from its location as long as the output directory <code>-o</code> is <code>../hardcoded/</code>, and the existing <code>nifi-cert.pem</code> and <code>nifi-key.key</code> will be used.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. <code>$ ./toolkit/bin/tls-toolkit.sh standalone -o ./hardcoded/ -n 'node4.nifi.apache.org' -P thisIsABadPassword -S thisIsABadPassword -O</code> will result in a new directory at <code>./hardcoded/node4.nifi.apache.org</code> with a keystore and truststore containing a certificate signed by <code>./hardcoded/nifi-key.key</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the <code>-o</code> argument is not provided, the default working directory (<code>.</code>) must contain <code>nifi-cert.pem</code> and <code>nifi-key.key</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. <code>$ cd ./hardcoded/ &amp;&amp; ../toolkit/bin/tls-toolkit.sh standalone -n 'node5.nifi.apache.org' -P thisIsABadPassword -S thisIsABadPassword -O</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># Example directory structure *before* commands above are run
+
+🔓 0s @ 18:07:58 $ tree -L 2
+.
+├── hardcoded
+│   ├── CN=myusername.hardcoded_OU=NiFi.p12
+│   ├── CN=myusername.hardcoded_OU=NiFi.password
+│   ├── nifi-cert.pem
+│   ├── nifi-key.key
+│   ├── node1.nifi.apache.org
+│   ├── node2.nifi.apache.org
+│   └── node3.nifi.apache.org
+└── toolkit
+    ├── LICENSE
+    ├── NOTICE
+    ├── README
+    ├── bin
+    ├── conf
+    ├── docs
+    └── lib</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>nifi-cert.pem</code> and <code>nifi-key.key</code> files should be ASCII-armored (Base64-encoded ASCII) files containing the CA public certificate and private key respectively. Here are sample files of each to show the expected format:</p>
+</div>
+<div class="sect3">
+<h4 id="nifi-cert-pem"><a class="anchor" href="toolkit-guide.html#nifi-cert-pem"></a>nifi-cert.pem</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># The first command shows the actual content of the encoded file, and the second parses it and shows the internal values
+
+.../certs $ more nifi-cert.pem
+-----BEGIN CERTIFICATE-----
+MIIDZTCCAk2gAwIBAgIKAWTeM3kDAAAAADANBgkqhkiG9w0BAQsFADAxMQ0wCwYD
+VQQLDAROSUZJMSAwHgYDVQQDDBduaWZpLWNhLm5pZmkuYXBhY2hlLm9yZzAeFw0x
+ODA3MjgwMDA0MzJaFw0yMTA3MjcwMDA0MzJaMDExDTALBgNVBAsMBE5JRkkxIDAe
+BgNVBAMMF25pZmktY2EubmlmaS5hcGFjaGUub3JnMIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEAqkVrrC+AkFbjnCpupSy84tTFDsRVUIWYj/k2pVwC145M
+3bpr0pRCzLuzovAjFCmT5L+isTvNjhionsqif07Ebd/M2psYE/Rih2MULsX6KgRe
+1nRUiBeKF08hlmSBMGDFPj39yDzE/V9edxV/KGjRqVgw/Qy0vwaS5uWdXnLDhzoV
+4/Mz7lGmYoMasZ1uexlH93jjBl1+EFL2Xoa06oLbEojJ9TKaWhpG8ietEedf7WM0
+zqBEz2kHo9ddFk9yxiCkT4SUKnDWkhwc/o6us1vEXoSw+tmufHY/A3gVihjWPIGz
+qyLFl9JuN7CyJepkVVqTdskBG7S85G/kBlizUj5jOwIDAQABo38wfTAOBgNVHQ8B
+Af8EBAMCAf4wDAYDVR0TBAUwAwEB/zAdBgNVHQ4EFgQUKiWBKbMMQ1zUabD4gI7L
+VOWOcy0wHwYDVR0jBBgwFoAUKiWBKbMMQ1zUabD4gI7LVOWOcy0wHQYDVR0lBBYw
+FAYIKwYBBQUHAwIGCCsGAQUFBwMBMA0GCSqGSIb3DQEBCwUAA4IBAQAxfHFIZLOw
+mwIqnSI/ir8f/uzDMq06APHGdhdeIKV0HR74BtK95KFg42zeXxAEFeic98PC/FPV
+tKpm2WUa1slMB+oP27cRx5Znr2+pktaqnM7f2JgMeJ8bduNH3RUkr9jwgkcJRwyC
+I4fwHC9k18aizNdOf2q2UgQXxNXaLYPe17deuNVwwrflMgeFfVrwbT2uPJTMRi1D
+FQyc6haF4vsOSSRzE6OyDoc+/1PpyPW75OeSXeVCbc3AEAvRuTZMBQvBQUqVM51e
+MDG+K3rCeieSBPOnGNrEC/PiA/CvaMXBEog+xPAw1SgYfuCz4rlM3BdRa54z3+oO
+lc8xbzd7w8Q3
+-----END CERTIFICATE-----
+.../certs $ openssl x509 -in nifi-cert.pem -text -noout
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            01:64:de:33:79:03:00:00:00:00
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: OU=NIFI, CN=nifi-ca.nifi.apache.org
+        Validity
+            Not Before: Jul 28 00:04:32 2018 GMT
+            Not After : Jul 27 00:04:32 2021 GMT
+        Subject: OU=NIFI, CN=nifi-ca.nifi.apache.org
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:aa:45:6b:ac:2f:80:90:56:e3:9c:2a:6e:a5:2c:
+                    bc:e2:d4:c5:0e:c4:55:50:85:98:8f:f9:36:a5:5c:
+                    02:d7:8e:4c:dd:ba:6b:d2:94:42:cc:bb:b3:a2:f0:
+                    23:14:29:93:e4:bf:a2:b1:3b:cd:8e:18:a8:9e:ca:
+                    a2:7f:4e:c4:6d:df:cc:da:9b:18:13:f4:62:87:63:
+                    14:2e:c5:fa:2a:04:5e:d6:74:54:88:17:8a:17:4f:
+                    21:96:64:81:30:60:c5:3e:3d:fd:c8:3c:c4:fd:5f:
+                    5e:77:15:7f:28:68:d1:a9:58:30:fd:0c:b4:bf:06:
+                    92:e6:e5:9d:5e:72:c3:87:3a:15:e3:f3:33:ee:51:
+                    a6:62:83:1a:b1:9d:6e:7b:19:47:f7:78:e3:06:5d:
+                    7e:10:52:f6:5e:86:b4:ea:82:db:12:88:c9:f5:32:
+                    9a:5a:1a:46:f2:27:ad:11:e7:5f:ed:63:34:ce:a0:
+                    44:cf:69:07:a3:d7:5d:16:4f:72:c6:20:a4:4f:84:
+                    94:2a:70:d6:92:1c:1c:fe:8e:ae:b3:5b:c4:5e:84:
+                    b0:fa:d9:ae:7c:76:3f:03:78:15:8a:18:d6:3c:81:
+                    b3:ab:22:c5:97:d2:6e:37:b0:b2:25:ea:64:55:5a:
+                    93:76:c9:01:1b:b4:bc:e4:6f:e4:06:58:b3:52:3e:
+                    63:3b
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Non Repudiation, Key Encipherment, Data Encipherment, Key Agreement, Certificate Sign, CRL Sign
+            X509v3 Basic Constraints:
+                CA:TRUE
+            X509v3 Subject Key Identifier:
+                2A:25:81:29:B3:0C:43:5C:D4:69:B0:F8:80:8E:CB:54:E5:8E:73:2D
+            X509v3 Authority Key Identifier:
+                keyid:2A:25:81:29:B3:0C:43:5C:D4:69:B0:F8:80:8E:CB:54:E5:8E:73:2D
+
+            X509v3 Extended Key Usage:
+                TLS Web Client Authentication, TLS Web Server Authentication
+    Signature Algorithm: sha256WithRSAEncryption
+         31:7c:71:48:64:b3:b0:9b:02:2a:9d:22:3f:8a:bf:1f:fe:ec:
+         c3:32:ad:3a:00:f1:c6:76:17:5e:20:a5:74:1d:1e:f8:06:d2:
+         bd:e4:a1:60:e3:6c:de:5f:10:04:15:e8:9c:f7:c3:c2:fc:53:
+         d5:b4:aa:66:d9:65:1a:d6:c9:4c:07:ea:0f:db:b7:11:c7:96:
+         67:af:6f:a9:92:d6:aa:9c:ce:df:d8:98:0c:78:9f:1b:76:e3:
+         47:dd:15:24:af:d8:f0:82:47:09:47:0c:82:23:87:f0:1c:2f:
+         64:d7:c6:a2:cc:d7:4e:7f:6a:b6:52:04:17:c4:d5:da:2d:83:
+         de:d7:b7:5e:b8:d5:70:c2:b7:e5:32:07:85:7d:5a:f0:6d:3d:
+         ae:3c:94:cc:46:2d:43:15:0c:9c:ea:16:85:e2:fb:0e:49:24:
+         73:13:a3:b2:0e:87:3e:ff:53:e9:c8:f5:bb:e4:e7:92:5d:e5:
+         42:6d:cd:c0:10:0b:d1:b9:36:4c:05:0b:c1:41:4a:95:33:9d:
+         5e:30:31:be:2b:7a:c2:7a:27:92:04:f3:a7:18:da:c4:0b:f3:
+         e2:03:f0:af:68:c5:c1:12:88:3e:c4:f0:30:d5:28:18:7e:e0:
+         b3:e2:b9:4c:dc:17:51:6b:9e:33:df:ea:0e:95:cf:31:6f:37:
+         7b:c3:c4:37</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="nifi-key-key"><a class="anchor" href="toolkit-guide.html#nifi-key-key"></a>nifi-key.key</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># The first command shows the actual content of the encoded file, and the second parses it and shows the internal values
+
+.../certs $ more nifi-key.key
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAqkVrrC+AkFbjnCpupSy84tTFDsRVUIWYj/k2pVwC145M3bpr
+0pRCzLuzovAjFCmT5L+isTvNjhionsqif07Ebd/M2psYE/Rih2MULsX6KgRe1nRU
+iBeKF08hlmSBMGDFPj39yDzE/V9edxV/KGjRqVgw/Qy0vwaS5uWdXnLDhzoV4/Mz
+7lGmYoMasZ1uexlH93jjBl1+EFL2Xoa06oLbEojJ9TKaWhpG8ietEedf7WM0zqBE
+z2kHo9ddFk9yxiCkT4SUKnDWkhwc/o6us1vEXoSw+tmufHY/A3gVihjWPIGzqyLF
+l9JuN7CyJepkVVqTdskBG7S85G/kBlizUj5jOwIDAQABAoIBAAdWRnV89oVBuT0Z
+dvsXGmyLzpH8U9DMcO6DRp+Jf3XaY+WKCutgCCDaVbtHrbtIr17EAzav5QOifGGb
+SbVCp6Q0aJdi5360oSpEUrJRRZ5Z4dxL1vimSwUGG+RnIEn9YYJ1GWJve+2PFnr7
+KieLnL03V6UPzxoMJnhcnJNdTp+dBwzSazVQwye2csSJlVMk49t2lxBwce7ohuh+
+9fL7G3HU5S9d08QT1brknMHahcw1SYyJd0KSjRJCB6wAxnAZmJYJ1jQCI8YICq0j
+RX2rhxEXuEMXQcaiFQXzCrmQEXreKUISDvNeu/h7YU9UvJWPZSFGnEGgnMP2XvQm
+EjK3rQECgYEA5+OkpLsiLNMHGzj72PiBkq82sTLQJ2+8udYp6PheOGkhjjXoBse5
+YynyHlQt6CnVpJQ33mQUkJ+3ils0SMFtmI3rz3udzleek1so2L2J3+CI4kt7fFCb
+FFbVXv+dLNrm+tOw68J48asyad8kEnHYq9Us+/3MLDmFJYTthkgzCpECgYEAu/ml
+lQaWaZAQcQ8UuVeasxMYoN8zMmzfrkxc8AfNwKxF9nc44ywo4nJr+u/UVRGYpRgM
+rdll5vz0Iq68qk03spaW7vDJn8hJQhkReQw1it9Fp/51r9MHzGTVarORJGa2oZ0g
+iNe8LNizD3bQ19hEvju9mn0x9Q62Q7dapVpffwsCgYEAtC1TPpQQ59dIjERom5vr
+wffWfTTIO/w8HgFkKxrgyuAVLJSCJtKFH6H1+M7bpKrsz6ZDCs+kkwMm76ASLf3t
+lD2h3mNkqHG4SzLnuBD90jB666pO1rci6FjYDap7i+DC3F4j9+vxYYXt9Aln09UV
+z94hx+LaA/rlk9OHY3EyB6ECgYBA/cCtNNjeaKv2mxM8PbjD/289d85YueHgfpCH
+gPs3iZiq7W+iw8ri+FKzMSaFvw66zgTcOtULtxulviqG6ym9umk29dOQRgxmKQqs
+gnckq6uGuOjxwJHqrlZHjQw6vLSaThxIk+aAzu+iAh+U8TZbW4ZjmrOiGdMUuJlD
+oGpyHwKBgQCRjfqQjRelYVtU7j6BD9BDbCfmipwaRNP0CuAGOVtS+UnJuaIhsXFQ
+QGEBuOnfFijIvb7YcXRL4plRYPMvDqYRNObuI6A+1xNtr000nxa/HUfzKVeI9Tsn
+9AKMWnXS8ZcfStsVf3oDFffXYRqCaWeuhpMmg9TwdXoAuwfpE5GCmw==
+-----END RSA PRIVATE KEY-----
+.../certs $ openssl rsa -in nifi-key.key -text -noout
+Private-Key: (2048 bit)
+modulus:
+    00:aa:45:6b:ac:2f:80:90:56:e3:9c:2a:6e:a5:2c:
+    bc:e2:d4:c5:0e:c4:55:50:85:98:8f:f9:36:a5:5c:
+    02:d7:8e:4c:dd:ba:6b:d2:94:42:cc:bb:b3:a2:f0:
+    23:14:29:93:e4:bf:a2:b1:3b:cd:8e:18:a8:9e:ca:
+    a2:7f:4e:c4:6d:df:cc:da:9b:18:13:f4:62:87:63:
+    14:2e:c5:fa:2a:04:5e:d6:74:54:88:17:8a:17:4f:
+    21:96:64:81:30:60:c5:3e:3d:fd:c8:3c:c4:fd:5f:
+    5e:77:15:7f:28:68:d1:a9:58:30:fd:0c:b4:bf:06:
+    92:e6:e5:9d:5e:72:c3:87:3a:15:e3:f3:33:ee:51:
+    a6:62:83:1a:b1:9d:6e:7b:19:47:f7:78:e3:06:5d:
+    7e:10:52:f6:5e:86:b4:ea:82:db:12:88:c9:f5:32:
+    9a:5a:1a:46:f2:27:ad:11:e7:5f:ed:63:34:ce:a0:
+    44:cf:69:07:a3:d7:5d:16:4f:72:c6:20:a4:4f:84:
+    94:2a:70:d6:92:1c:1c:fe:8e:ae:b3:5b:c4:5e:84:
+    b0:fa:d9:ae:7c:76:3f:03:78:15:8a:18:d6:3c:81:
+    b3:ab:22:c5:97:d2:6e:37:b0:b2:25:ea:64:55:5a:
+    93:76:c9:01:1b:b4:bc:e4:6f:e4:06:58:b3:52:3e:
+    63:3b
+publicExponent: 65537 (0x10001)
+privateExponent:
+    07:56:46:75:7c:f6:85:41:b9:3d:19:76:fb:17:1a:
+    6c:8b:ce:91:fc:53:d0:cc:70:ee:83:46:9f:89:7f:
+    75:da:63:e5:8a:0a:eb:60:08:20:da:55:bb:47:ad:
+    bb:48:af:5e:c4:03:36:af:e5:03:a2:7c:61:9b:49:
+    b5:42:a7:a4:34:68:97:62:e7:7e:b4:a1:2a:44:52:
+    b2:51:45:9e:59:e1:dc:4b:d6:f8:a6:4b:05:06:1b:
+    e4:67:20:49:fd:61:82:75:19:62:6f:7b:ed:8f:16:
+    7a:fb:2a:27:8b:9c:bd:37:57:a5:0f:cf:1a:0c:26:
+    78:5c:9c:93:5d:4e:9f:9d:07:0c:d2:6b:35:50:c3:
+    27:b6:72:c4:89:95:53:24:e3:db:76:97:10:70:71:
+    ee:e8:86:e8:7e:f5:f2:fb:1b:71:d4:e5:2f:5d:d3:
+    c4:13:d5:ba:e4:9c:c1:da:85:cc:35:49:8c:89:77:
+    42:92:8d:12:42:07:ac:00:c6:70:19:98:96:09:d6:
+    34:02:23:c6:08:0a:ad:23:45:7d:ab:87:11:17:b8:
+    43:17:41:c6:a2:15:05:f3:0a:b9:90:11:7a:de:29:
+    42:12:0e:f3:5e:bb:f8:7b:61:4f:54:bc:95:8f:65:
+    21:46:9c:41:a0:9c:c3:f6:5e:f4:26:12:32:b7:ad:
+    01
+prime1:
+    00:e7:e3:a4:a4:bb:22:2c:d3:07:1b:38:fb:d8:f8:
+    81:92:af:36:b1:32:d0:27:6f:bc:b9:d6:29:e8:f8:
+    5e:38:69:21:8e:35:e8:06:c7:b9:63:29:f2:1e:54:
+    2d:e8:29:d5:a4:94:37:de:64:14:90:9f:b7:8a:5b:
+    34:48:c1:6d:98:8d:eb:cf:7b:9d:ce:57:9e:93:5b:
+    28:d8:bd:89:df:e0:88:e2:4b:7b:7c:50:9b:14:56:
+    d5:5e:ff:9d:2c:da:e6:fa:d3:b0:eb:c2:78:f1:ab:
+    32:69:df:24:12:71:d8:ab:d5:2c:fb:fd:cc:2c:39:
+    85:25:84:ed:86:48:33:0a:91
+prime2:
+    00:bb:f9:a5:95:06:96:69:90:10:71:0f:14:b9:57:
+    9a:b3:13:18:a0:df:33:32:6c:df:ae:4c:5c:f0:07:
+    cd:c0:ac:45:f6:77:38:e3:2c:28:e2:72:6b:fa:ef:
+    d4:55:11:98:a5:18:0c:ad:d9:65:e6:fc:f4:22:ae:
+    bc:aa:4d:37:b2:96:96:ee:f0:c9:9f:c8:49:42:19:
+    11:79:0c:35:8a:df:45:a7:fe:75:af:d3:07:cc:64:
+    d5:6a:b3:91:24:66:b6:a1:9d:20:88:d7:bc:2c:d8:
+    b3:0f:76:d0:d7:d8:44:be:3b:bd:9a:7d:31:f5:0e:
+    b6:43:b7:5a:a5:5a:5f:7f:0b
+exponent1:
+    00:b4:2d:53:3e:94:10:e7:d7:48:8c:44:68:9b:9b:
+    eb:c1:f7:d6:7d:34:c8:3b:fc:3c:1e:01:64:2b:1a:
+    e0:ca:e0:15:2c:94:82:26:d2:85:1f:a1:f5:f8:ce:
+    db:a4:aa:ec:cf:a6:43:0a:cf:a4:93:03:26:ef:a0:
+    12:2d:fd:ed:94:3d:a1:de:63:64:a8:71:b8:4b:32:
+    e7:b8:10:fd:d2:30:7a:eb:aa:4e:d6:b7:22:e8:58:
+    d8:0d:aa:7b:8b:e0:c2:dc:5e:23:f7:eb:f1:61:85:
+    ed:f4:09:67:d3:d5:15:cf:de:21:c7:e2:da:03:fa:
+    e5:93:d3:87:63:71:32:07:a1
+exponent2:
+    40:fd:c0:ad:34:d8:de:68:ab:f6:9b:13:3c:3d:b8:
+    c3:ff:6f:3d:77:ce:58:b9:e1:e0:7e:90:87:80:fb:
+    37:89:98:aa:ed:6f:a2:c3:ca:e2:f8:52:b3:31:26:
+    85:bf:0e:ba:ce:04:dc:3a:d5:0b:b7:1b:a5:be:2a:
+    86:eb:29:bd:ba:69:36:f5:d3:90:46:0c:66:29:0a:
+    ac:82:77:24:ab:ab:86:b8:e8:f1:c0:91:ea:ae:56:
+    47:8d:0c:3a:bc:b4:9a:4e:1c:48:93:e6:80:ce:ef:
+    a2:02:1f:94:f1:36:5b:5b:86:63:9a:b3:a2:19:d3:
+    14:b8:99:43:a0:6a:72:1f
+coefficient:
+    00:91:8d:fa:90:8d:17:a5:61:5b:54:ee:3e:81:0f:
+    d0:43:6c:27:e6:8a:9c:1a:44:d3:f4:0a:e0:06:39:
+    5b:52:f9:49:c9:b9:a2:21:b1:71:50:40:61:01:b8:
+    e9:df:16:28:c8:bd:be:d8:71:74:4b:e2:99:51:60:
+    f3:2f:0e:a6:11:34:e6:ee:23:a0:3e:d7:13:6d:af:
+    4d:34:9f:16:bf:1d:47:f3:29:57:88:f5:3b:27:f4:
+    02:8c:5a:75:d2:f1:97:1f:4a:db:15:7f:7a:03:15:
+    f7:d7:61:1a:82:69:67:ae:86:93:26:83:d4:f0:75:
+    7a:00:bb:07:e9:13:91:82:9b</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="tls_external-signed_ca"><a class="anchor" href="toolkit-guide.html#tls_external-signed_ca"></a>Signing with Externally-signed CA Certificates</h4>
+<div class="paragraph">
+<p>To sign generated certificates with a certificate authority (CA) generated outside of the TLS Toolkit, ensure the necessary files are in the right format and location (see <a href="toolkit-guide.html#additional_certificate_commands">Additional Certificate Commands</a>). For example, an organization <strong>Large Organization</strong> has an internal CA (<code>CN=ca.large.org, OU=Certificate Authority</code>). This <strong>root CA</strong> is offline and only used to sign other internal CAs. The Large IT team generates an <strong>intermediate CA</strong> (<code>CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority</code>) to be used to sign all NiFi node certificates (<code>CN=node1.nifi.large.org, OU=NiFi</code>, <code>CN=node2.nifi.large.org, OU=NiFi</code>, etc.).</p>
+</div>
+<div class="paragraph">
+<p>To use the toolkit to generate these certificates and sign them using the <strong>intermediate CA</strong>, ensure that the following files are present (see <a href="toolkit-guide.html#additional_certificate_commands">Additional Certificate Commands</a>):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>nifi-cert.pem</code>&#8201;&#8212;&#8201;the public certificate of the <strong>intermediate CA</strong> in PEM format</p>
+</li>
+<li>
+<p><code>nifi-key.key</code>&#8201;&#8212;&#8201;the Base64-encoded private key of the <strong>intermediate CA</strong> in PKCS #1 PEM format</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <strong>intermediate CA</strong> was the <strong>root CA</strong>, it would be <strong>self-signed</strong>&#8201;&#8212;&#8201;the signature over the certificate would be issued from the same key. In that case (the same as a toolkit-generated CA), no additional arguments are necessary. However, because the <strong>intermediate CA</strong> is signed by the <strong>root CA</strong>, the public certificate of the <strong>root CA</strong> needs to be provided as well to validate the signature. The <code>--additionalCACertificate</code> parameter is used to specify the path to the signing public certificate. The value should be the absolute path to the <strong>root CA</strong> public certificate.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Generate cert signed by intermediate CA (which is signed by root CA) -- WILL FAIL
+
+$ ./bin/tls-toolkit.sh standalone -n 'node1.nifi.apache.org' \
+-P passwordpassword \
+-S passwordpassword \
+-o /opt/certs/externalCA \
+-O
+
+2018/08/02 18:48:11 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine: No nifiPropertiesFile specified, using embedded one.
+2018/08/02 18:48:12 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Running standalone certificate generation with output directory /opt/certs/externalCA
+2018/08/02 18:48:12 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Verifying the certificate signature for CN=nifi_ca.large.org, OU=Certificate Authority
+2018/08/02 18:48:12 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Attempting to verify certificate CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority signature with CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority
+2018/08/02 18:48:12 WARN [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Certificate CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority not signed by CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority [certificate does not verify with supplied key]
+Error generating TLS configuration. (The signing certificate was not signed by any known certificates)
+
+# Provide additional CA certificate path for signature verification of intermediate CA
+
+$ ./bin/tls-toolkit.sh standalone -n 'node1.nifi.apache.org' \
+-P passwordpassword \
+-S passwordpassword \
+-o /opt/certs/externalCA \
+--additionalCACertificate /opt/certs/externalCA/root.pem \
+-O
+
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine: No nifiPropertiesFile specified, using embedded one.
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Running standalone certificate generation with output directory /opt/certs/externalCA
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Verifying the certificate signature for CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Attempting to verify certificate CN=nifi_ca.large.org, OU=NiFi, OU=Certificate Authority signature with CN=ca.large.org, OU=Certificate Authority
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Certificate was signed by CN=ca.large.org, OU=Certificate Authority
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Using existing CA certificate /opt/certs/externalCA/nifi-cert.pem and key /opt/certs/externalCA/nifi-key.key
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Writing new ssl configuration to /opt/certs/externalCA/node1.nifi.apache.org
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Successfully generated TLS configuration for node1.nifi.apache.org 1 in /opt/certs/externalCA/node1.nifi.apache.org
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: No clientCertDn specified, not generating any client certificates.
+2018/08/02 18:48:44 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: tls-toolkit standalone completed successfully</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="additional_certificate_commands"><a class="anchor" href="toolkit-guide.html#additional_certificate_commands"></a>Additional Certificate Commands</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To convert from DER encoded public certificate (<code>cert.der</code>) to PEM encoded (<code>cert.pem</code>):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If the DER file contains both the public certificate and private key, remove the private key with this command:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>perl -pe 'BEGIN{undef $/;} s|-----BEGIN PRIVATE KEY-----.*?-----END PRIVATE KEY-----|Removed private key|gs' cert.der &gt; cert.pem</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the DER file only contains the public certificate, use this command:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl x509 -inform der -in cert.der -out cert.pem</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>To convert from a PKCS12 keystore (<code>keystore.p12</code>) containing both the public certificate and private key into PEM encoded files (<code>$PASSWORD</code> is the keystore password):</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl pkcs12 -in keystore.p12 -nodes -clcerts -nokeys -out cert.pem  -password "pass:$PASSWORD"</code></p>
+</li>
+<li>
+<p><code>openssl pkcs12 -in keystore.p12 -nodes -nocerts -out key.key -password "pass:$PASSWORD"</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>To convert from a Java Keystore (<code>keystore.jks</code>) containing private key into PEM encoded files (<code>$P12_PASSWORD</code> is the PKCS12 keystore password, <code>$JKS_PASSWORD</code> is the Java keystore password you want to set, and <code>$ALIAS</code> can be any value&#8201;&#8212;&#8201;the NiFi default is <code>nifi-key</code>):</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.p12 -srcstoretype JKS -deststoretype PKCS12 -destkeypass "$P12_PASSWORD" -deststorepass "$P12_PASSWORD" -srcstorepass "$JKS_PASSWORD" -srcalias "$ALIAS" -destalias "$ALIAS"</code></p>
+</li>
+<li>
+<p>Follow the steps above to convert from <code>keystore.p12</code> to <code>cert.pem</code> and <code>key.key</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>To convert from PKCS #8 PEM format to PKCS #1 PEM format:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If the private key is provided in PKCS #8 format (the file begins with <code>-----BEGIN PRIVATE KEY-----</code> rather than <code>-----BEGIN RSA PRIVATE KEY-----</code>), the following command will convert it to PKCS #1 format, move the original to <code>nifi-key-pkcs8.key</code>, and rename the PKCS #1 version as <code>nifi-key.key</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl rsa -in nifi-key.key -out nifi-key-pkcs1.key &amp;&amp; mv nifi-key.key nifi-key-pkcs8.key &amp;&amp; mv nifi-key-pkcs1.key nifi-key.key</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>To combine a private key in PEM format (<code>private.key</code>) and public certificate in PEM format (<code>certificate.pem</code>) into PKCS12 keystore:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The following command will create the PKCS12 keystore (<code>keystore.p12</code>) from the two independent files. A Java keystore (JKS) cannot be formed directly from the PEM files:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl pkcs12 -export -out keystore.p12 -inkey private.key -in certificate.pem</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>To convert a PKCS12 keystore (<code>keystore.p12</code>) to JKS keystore (<code>keystore.jks</code>):</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The following command will create the JKS keystore (<code>keystore.jks</code>). The <code>-destalias</code> flag is optional, as NiFi does not currently read from a specific alias in the keystore. The user will be prompted for a keystore password, which must be set and have minimum 8 characters, and a key password, which can be the same as the keystore password or different:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keytool -importkeystore -srckeystore keystore.p12 -srcstoretype pkcs12 -destkeystore keystore.jks
+-deststoretype jks -destalias nifi-key</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="zookeeper_migrator"><a class="anchor" href="toolkit-guide.html#zookeeper_migrator"></a>ZooKeeper Migrator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use the <code>zk-migrator</code> tool to perform the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Moving ZooKeeper information from one ZooKeeper cluster to another</p>
+</li>
+<li>
+<p>Migrating ZooKeeper node ownership</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example, you may want to use the ZooKeeper Migrator when you are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrading from NiFi 0.x to NiFi 1.x in which embedded ZooKeepers are used</p>
+</li>
+<li>
+<p>Migrating from an embedded ZooKeeper in NiFi 0.x or 1.x to an external ZooKeeper</p>
+</li>
+<li>
+<p>Upgrading from NiFi 0.x with an external ZooKeeper to NiFi 1.x with the same external ZooKeeper</p>
+</li>
+<li>
+<p>Migrating from an external ZooKeeper to an embedded ZooKeeper in NiFi 1.x</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="usage-11"><a class="anchor" href="toolkit-guide.html#usage-11"></a>Usage</h3>
+<div class="paragraph">
+<p>The <code>zk-migrator</code> tool is invoked as <code>./bin/zk-migrator.sh</code> or <code>bin\zk-migrator.bat</code>.</p>
+</div>
+<div class="paragraph">
+<p>To show help:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/zk-migrator.sh -h</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following are available options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-a</code>,<code>--auth &lt;username:password&gt;</code>               Allows the specification of a username and password for authentication with ZooKeeper.  This option is mutually exclusive with the <code>-k</code>,<code>--krb-conf</code> option.</p>
+</li>
+<li>
+<p><code>-f</code>,<code>--file &lt;filename&gt;</code>                        The file used for ZooKeeper data serialized as JSON.  When used with the <code>-r</code>,<code>--receive</code> option, data read from ZooKeeper will be stored in the given filename.  When used with the <code>-s</code>,<code>--send</code> option, the data in the file will be sent to ZooKeeper.</p>
+</li>
+<li>
+<p><code>-h</code>,<code>--help</code>                                   Prints help, displays available parameters with descriptions</p>
+</li>
+<li>
+<p><code>--ignore-source</code>                               Allows the ZooKeeper Migrator to write to the ZooKeeper and path from which the data was obtained.</p>
+</li>
+<li>
+<p><code>-k</code>,<code>--krb-conf &lt;jaas-filename&gt;</code>               Allows the specification of a JAAS configuration file to allow authentication with a ZooKeeper configured to use Kerberos.  This option is mutually exclusive with the <code>-a</code>,<code>--auth</code> option.</p>
+</li>
+<li>
+<p><code>-r</code>,<code>--receive</code>                                Receives data from ZooKeeper and writes to the given filename (if the <code>-f</code>,<code>--file</code> option is provided) or standard output. The data received will contain the full path to each node read from ZooKeeper. This option is mutually exclusive with the <code>-s</code>,<code>--send</code> option.</p>
+</li>
+<li>
+<p><code>-s</code>,<code>--send</code>                                   Sends data to ZooKeeper that is read from the given filename (if the <code>-f</code>,<code>--file</code> option is provided) or standard input. The paths for each node in the data being sent to ZooKeeper are absolute paths, and will be stored in ZooKeeper under the <strong>path</strong> portion of the <code>-z</code>,<code>--zookeeper</code> argument.  Typically, the <strong>path</strong> portion of the argument can be omitted, which will store the nodes at their absolute paths. This option is mutually exclusive with the <code>-r</code>,<code>--receive</code> option.</p>
+</li>
+<li>
+<p><code>--use-existing-acl</code>                            Allows the ZooKeeper Migrator to write ACL values retrieved from the source ZooKeeper server to destination server. Default action will apply Open rights for unsecured destinations or Creator Only rights for secured destinations.</p>
+</li>
+<li>
+<p><code>-z</code>,<code>--zookeeper &lt;zookeeper-endpoint&gt;</code>         The ZooKeeper server(s) to use, specified by a connect string, comprised of one or more comma-separated host:port pairs followed by a path, in the format of <em>host:port[,host2:port&#8230;&#8203;,hostn:port]/znode/path</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="migrating-between-source-and-destination-zookeepers"><a class="anchor" href="toolkit-guide.html#migrating-between-source-and-destination-zookeepers"></a>Migrating Between Source and Destination ZooKeepers</h3>
+<div class="paragraph">
+<p>Before you begin, confirm that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You have installed the destination ZooKeeper cluster.</p>
+</li>
+<li>
+<p>You have installed and configured a NiFi cluster to use the destination ZooKeeper cluster.</p>
+</li>
+<li>
+<p>If you are migrating ZooKeepers due to upgrading NiFi from 0.x to 1.x,, you have already followed appropriate NiFi upgrade steps.</p>
+</li>
+<li>
+<p>You have configured Kerberos as needed.</p>
+</li>
+<li>
+<p>You have not started processing any dataflow (to avoid duplicate data processing).</p>
+</li>
+<li>
+<p>If one of the ZooKeeper clusters you are using is configured with Kerberos, you are running the ZooKeeper Migrator from a host that has access to NiFi’s ZooKeeper client jaas configuration file (see the  <a href="administration-guide.html#zk_kerberos_client">Kerberizing NiFi&#8217;s ZooKeeper Client</a> section in the System Administrator&#8217;s Guide for more information).</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="zookeeper-migration-steps"><a class="anchor" href="toolkit-guide.html#zookeeper-migration-steps"></a>ZooKeeper Migration Steps</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Collect the following information:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Required Information</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source ZooKeeper hostname (<strong>sourceHostname</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The hostname must be one of the hosts running in the ZooKeeper ensemble, which can be found in <em>&lt;NiFi installation dir&gt;/conf/zookeeper.properties</em>.  Any of the hostnames declared in the <code>server.N</code> properties can be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination ZooKeeper hostname (<strong>destinationHostname</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The hostname must be one of the hosts running in the ZooKeeper ensemble, which can be found in <em>&lt;NiFi installation dir&gt;/conf/zookeeper.properties</em>.  Any of the hostnames declared in the <code>server.N</code> properties can be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source ZooKeeper port (<strong>sourceClientPort</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This can be found in <em>&lt;NiFi installation dir&gt;/conf/zookeeper.properties</em>.  The port is specified in the <code>clientPort</code> property or at the end of the server string.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination ZooKeeper port (<strong>destinationClientPort</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This can be found in <em>&lt;NiFi installation dir&gt;/conf/zookeeper.properties</em>.  The port is specified in the <code>clientPort</code> property or at the end of the server string.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Export data path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determine the path that will store a json file containing the export of data from ZooKeeper.  It must be readable and writable by the user running the zk-migrator tool.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source ZooKeeper Authentication Information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This information is in <em>&lt;NiFi installation dir&gt;/conf/state-management.xml</em>. For NiFi 0.x, if Creator Only is specified in <em>state-management.xml</em>, you need to supply authentication information using the <code>-a,--auth</code> argument with the values from the Username and Password properties in <em>state-management.xml</em>. For NiFi 1.x, supply authentication information using the <code>-k,--krb-conf</code> argument.</p>
+<p class="tableblock">If the <em>state-management.xml</em> specifies Open, no authentication is required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination ZooKeeper Authentication Information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This information is in <em>&lt;NiFi installation dir&gt;/conf/state-management.xml</em>. For NiFi 0.x, if Creator Only is specified in <em>state-management.xml</em>, you need to supply authentication information using the <code>-a,--auth</code> argument with the values from the Username and Password properties in state-management.xml. For NiFi 1.x, supply authentication information using the <code>-k,--krb-conf</code> argument.</p>
+<p class="tableblock">If the <em>state-management.xml</em> specifies Open, no authentication is required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root path to which NiFi writes data in Source ZooKeeper (<strong>sourceRootPath</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This information can be found in <code>&lt;NiFi installation dir&gt;/conf/state-management.xml</code> under the Root Node property in the cluster-provider element. (default: <code>/nifi</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root path to which NiFi writes data in Destination ZooKeeper (<strong>destinationRootPath</strong>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This information can be found in <em>&lt;NiFi installation dir&gt;/conf/state-management.xml</em> under the Root Node property in the cluster-provider element.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As of NiFi 1.10.x, because of an upgrade to ZooKeeper 3.5.x, the migrator may have a permission error <code>"NoAuthException: KeeperErrorCode = NoAuth for /zookeeper/config"</code> when attempting to use <code>/</code> as the destination root path. This is because the <code>/zookeeper/config</code> znode has read-only permissions. Instead use a destination path of <code>/nifi/components</code> or similar.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Stop all processors in the NiFi flow.  If you are migrating between two NiFi installations, the flows on both must be stopped.</p>
+</li>
+<li>
+<p>Export the NiFi component data from the source ZooKeeper.  The following command reads from the specified ZooKeeper running on the given hostname:port, using the provided path to the data, and authenticates with ZooKeeper using the given username and password.  The data read from ZooKeeper is written to the file provided.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For NiFi 0.x</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For an open ZooKeeper:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -r -z sourceHostname:sourceClientPort/sourceRootPath/components -f /path/to/export/zk-source-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For a ZooKeeper using username:password for authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -r -z sourceHostname:sourceClientPort/sourceRootPath/components -a &lt;username:password&gt; -f /path/to/export/zk-source-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For NiFi 1.x</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For an open ZooKeeper:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -r -z sourceHostname:sourceClientPort/sourceRootPath/components -f /path/to/export/zk-source-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For a ZooKeeper using Kerberos for authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -r -z sourceHostname:sourceClientPort/sourceRootPath/components -k /path/to/jaasconfig/jaas-config.conf -f /path/to/export/zk-source-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>(Optional) If you have used the new NiFi installation to do any processing, you can also export its ZooKeeper data as a backup prior to performing the migration.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For an open ZooKeeper:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -r -z destinationHostname:destinationClientPort/destinationRootPath/components -f /path/to/export/zk-destination-backup-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For a ZooKeeper using Kerberos for authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -r -z destinationHostname:destinationClientPort/destinationRootPath/components -k /path/to/jaasconfig/jaas-config.conf -f /path/to/export/zk-destination-backup-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Migrate the ZooKeeper data to the destination ZooKeeper. If the source and destination ZooKeepers are the same, the <code>--ignore-source</code> option can be added to the following examples.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For an open ZooKeeper:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -s -z destinationHostname:destinationClientPort/destinationRootPath/components -f /path/to/export/zk-source-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For a ZooKeeper using Kerberos for authentication:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>zk-migrator.sh -s -z destinationHostname:destinationClientPort/destinationRootPath/components -k /path/to/jaasconfig/jaas-config.conf -f /path/to/export/zk-source-data.json</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Once the migration has completed successfully, start the processors in the NiFi flow.  Processing should continue from the point at which it was stopped when the NiFi flow was stopped.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2022-06-13 16:42:31 -0700
+</div>
+</div>
+</body>
+</html>
