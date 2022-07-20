@@ -1,16 +1,8 @@
-AddType  text/turtle             .ttl
-
-AddType  application/rdf+xml     .rdf
-AddType  application/ld+json     .jsonld
-AddType  application/n-triples   .nt
-AddType  application/owl+xml     .owl
-
-AddType  text/trig               .trig
-AddType  application/n-quads     .nq
-
 RewriteEngine on
-# Switch http to https
+
+# Redirect HTTP to HTTPS
 RewriteCond     %{HTTPS} !=on
 RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 
-#RewriteRule ^/docs/nifi-docs/components/org\.apache\.nifi/([^/+])/(!?:1.16.3)/(.*)$ /docs/nifi-docs/components/org.apache.nifi/$1/1.16.3/$2 [L, R]
+# Redirect component documentation to specified version
+RewriteRule ^docs/nifi-docs/components/org\.apache\.nifi/([^\/]+?)/[^\/]+?/(.*)$ docs/nifi-docs/components/org.apache.nifi/$1/1.16.3/$2 [L]
