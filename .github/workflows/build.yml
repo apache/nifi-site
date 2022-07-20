@@ -16,13 +16,13 @@ jobs:
       - name: Checkout Sources
         uses: actions/checkout@v3
       - name: Checkout Staging
-        if: $github.ref_name == 'main-staging'
+        if: github.ref_name == 'main-staging'
         uses: actions/checkout@v3
         with:
           ref: asf-staging
           path: ${{ env.PUBLISH_DIRECTORY }}
       - name: Checkout Production
-        if: $github.ref_name == 'main'
+        if: github.ref_name == 'main'
         uses: actions/checkout@v3
         with:
           ref: asf-site
