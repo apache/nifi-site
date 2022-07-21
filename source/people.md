@@ -30,7 +30,6 @@ or author documentation. Others are valuable as testers, submitting patches and 
 | joewitt | Joe Witt |
 | jpercivall | Joe Percivall |
 | jskora | Joe Skora |
-| jstorck | Jeff Storck |
 | jvwing | James Wing |
 | kevdoran | Kevin Doran |
 | markap14 | Mark Payne |
@@ -84,7 +83,7 @@ or author documentation. Others are valuable as testers, submitting patches and 
 
 | Apache Username | Name |
 | --------------- | ---- |
-| jstorck | Jeff Storck (PMC) |
+| jstorck | Jeff Storck |
 
 ### Emeritus Members
 
