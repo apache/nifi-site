@@ -1,0 +1,31 @@
+{{- $downloadVersion := (.Site.Params.currentProjectVersion) -}}
+{{- $primaryDownloadUrl := (.Site.Params.dynamicDownloadPathUrl) -}}
+{{- $secondaryDownloadUrl := (.Site.Params.downloadPathUrl) -}}
+
+{{- if eq (.Get "version") "previous" -}}
+  {{- $downloadVersion = (.Site.Params.previousProjectVersion) -}}
+  {{- $primaryDownloadUrl = (.Site.Params.archiveDownloadPathUrl) -}}
+  {{- $secondaryDownloadUrl = (.Site.Params.archiveDownloadPathUrl) -}}
+{{- end -}}
+
+{{- $project := "nifi" -}}
+{{- with .Get "project" -}}
+  {{- $project = . -}}
+{{- end -}}
+
+{{- $qualifier := "" -}}
+{{- with .Get "qualifier" -}}
+  {{- $qualifier = (print . "-") -}}
+{{- end -}}
+
+{{- $extension := "" -}}
+{{- with .Get "extension" -}}
+  {{- $extension = . -}}
+{{- end -}}
+
+{{- $downloadFilePath := (print $downloadVersion "/" $project "-" $qualifier $downloadVersion "-" $extension) -}}
+
+<a href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}">{{ .Get "label" }} {{ $downloadVersion }}</a>
+[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.asc">OpenPGP</a>]
+[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha256">SHA-256</a>]
+[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha512">SHA-512</a>]
