@@ -552,7 +552,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="expression-language-guide.html#dates">Date Manipulation</a>
 <ul class="sectlevel2">
 <li><a href="expression-language-guide.html#format">format</a></li>
+<li><a href="expression-language-guide.html#formatInstant">formatInstant</a></li>
 <li><a href="expression-language-guide.html#todate">toDate</a></li>
+<li><a href="expression-language-guide.html#toinstant">toInstant</a></li>
+<li><a href="expression-language-guide.html#tomicros">toMicros</a></li>
+<li><a href="expression-language-guide.html#tonanos">toNanos</a></li>
 <li><a href="expression-language-guide.html#now">now</a></li>
 </ul>
 </li>
@@ -3939,6 +3943,86 @@ In order to run the correct method, the parameter types must be correct. The Exp
 </table>
 </div>
 <div class="sect2 function">
+<h3 id="formatInstant"><a class="anchor" href="expression-language-guide.html#formatInstant"></a>formatInstant</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: [.description]#Formats an Instant, number or string according to the format specified by the argument.</p>
+</div>
+<div class="paragraph">
+<p>The first argument must be a String that is a valid Java DateTimeFormatter format.
+The second argument must be a String that is a valid time zone.
+The Subject is expected to be an Instant, String or Number that represents the number of milliseconds since Midnight GMT on January 1, 1970 or a String with one of the following</p>
+</div>
+<div class="paragraph">
+<p>DateTimeFormatter syntaxes:#</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>ISO_OFFSET</em> such as '2011-12-03T10:15:30+01:00'</p>
+</li>
+<li>
+<p><em>ISO_INSTANT</em> such as '2011-12-03T10:15:30Z'</p>
+</li>
+<li>
+<p><em>RFC_1123</em> such as 'Thu, 01 Dec 1994 16:00:00 GMT'</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Instant or Number or String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>format</em></span> : <span class="argDesc">The format to use in the Java DateTimeFormatter syntax</span></p>
+</li>
+<li>
+<p><span class="argName"><em>time zone</em></span> : <span class="argDesc">Optional argument that specifies the time zone to use (in the Java TimeZone syntax)</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the attribute "time" has the value "1647884009479", timeIsoOffset has the value "2022-12-03T10:15:30+01:00",
+timeIsoInstant has the value "2022-12-03T10:15:30Z" and "timeRFC1123" has the value "Thu, 01 Dec 2022 16:00:00 GMT",
+then the following Expressions will yield the following results:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. format Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${time:formatInstant("yyyy/MM/dd HH:mm:ss.SSS'Z'", "GMT")}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2022/03/21 17:33:29.479Z</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${timeIsoOffset:formatInstant("yyyy/MM/dd HH:mm:ss.SSS'Z'", "Asia/Tokyo")}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2022/12/03 18:15:30.000Z</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${timeIsoInstant:formatInstant("yyyy/MM/dd", "Asia/Tokyo")}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2022/12/03 19:15:30.000Z</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${timeRFC1123:formatInstant("yyyy/MM/dd HH:mm:ss.SSS'Z'", "GMT")}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2022/12/01 16:00:00.000Z</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
 <h3 id="todate"><a class="anchor" href="expression-language-guide.html#todate"></a>toDate</h3>
 <div class="paragraph">
 <p><strong>Description</strong>: <span class="description">Converts a String into a Date data type, based on the format specified by the argument. The argument
@@ -3977,6 +4061,84 @@ chaining together the two functions: <code>${date:toDate('MM-dd-yyyy'):format('y
 </div>
 </div>
 <div class="sect2 function">
+<h3 id="toinstant"><a class="anchor" href="expression-language-guide.html#toinstant"></a>toInstant</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Converts a String or Number into an Instant data type, based on the format specified by the argument. In case of
+String format nanosecond precision date parsing is supported. The argument
+must be a String that is a valid Java DateTimeFormatter syntax. The Subject is expected to be a String that is formatted
+according the argument or a number which represents the datetime in milliseconds. The datetime will be evaluated using the
+time zone specified in the second argument.</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">String or Number</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>format</em></span> : <span class="argDesc">The current format to use when parsing the Subject, in the Java DateTimeFormatter syntax.</span></p>
+</li>
+<li>
+<p><span class="argName"><em>time zone</em></span> : <span class="argDesc">Required argument that specifies the time zone to use when parsing the Subject, in the Java TimeZone syntax.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the attribute "time" has the value "2014/12/31 15:36:03.264Z" then the expression <code>${time:toInstant("yyyy/MM/dd HH:mm:ss.SSS&#8217;Z'", "GMT")}</code> will result in an Instant data type for
+15:36:03.264 GMT on December 31, 2014.</p>
+</div>
+<div class="paragraph">
+<p>Often, this function is used in conjunction with the <a href="expression-language-guide.html#formatInstant">formatInstant</a> function to change the format of a date/time. For example,
+if the attribute "dateTime" has the value "12-24-2014 12:06:59" and we want to change the format to "2014/12/24", we can do so by
+chaining together the two functions: <code>${dateTime:toInstant('MM-dd-yyyy HH:mm:ss', 'GMT'):formatInstant('yyyy/MM/dd', 'GMT')}</code>.</p>
+</div>
+</div>
+<div class="sect2 function">
+<h3 id="tomicros"><a class="anchor" href="expression-language-guide.html#tomicros"></a>toMicros</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Converts an Instant Subject into a Number with microsecond precision</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>: No arguments</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Number</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "dateTime" attribute has the value of "2022/03/18 10:22:27.678234567", then the Expression
+<code>${dateTime:toInstant('yyyy/MM/dd HH:mm:ss.SSSSSSSSS', 'America/New_York'):toMicros()}</code> converts the Instant value of
+the attribute to 1647613347678234 microseconds since epoch.</p>
+</div>
+</div>
+<div class="sect2 function">
+<h3 id="tonanos"><a class="anchor" href="expression-language-guide.html#tonanos"></a>toNanos</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Converts an Instant Subject into a Number with nanosecond precision</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>: No arguments</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Number</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "dateTime" attribute has the value of "2022/03/18 10:22:27.678234567", then the Expression
+<code>${dateTime:toInstant('yyyy/MM/dd HH:mm:ss.SSSSSSSSS', 'America/New_York'):toNanos()}</code> converts the Instant value of
+the attribute to 1647613347678234567 nanoseconds since epoch.</p>
+</div>
+</div>
+<div class="sect2 function">
 <h3 id="now"><a class="anchor" href="expression-language-guide.html#now"></a>now</h3>
 <div class="paragraph">
 <p><strong>Description</strong>: <span class="description">Returns the current date and time as a Date data type object.</span></p>
@@ -4003,7 +4165,7 @@ was run then it would output <code>1453843201123</code>. This method provides mi
 manipulate the value.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. now Examples</caption>
+<caption class="title">Table 28. now Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4318,7 +4480,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. anyAttribute Examples</caption>
+<caption class="title">Table 29. anyAttribute Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4368,7 +4530,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. allAttributes Example</caption>
+<caption class="title">Table 30. allAttributes Example</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4419,7 +4581,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. anyMatchingAttribute Example</caption>
+<caption class="title">Table 31. anyMatchingAttribute Example</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4467,7 +4629,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. anyMatchingAttributes Examples</caption>
+<caption class="title">Table 32. anyMatchingAttributes Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4524,7 +4686,7 @@ though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. anyDelineatedValue Examples</caption>
+<caption class="title">Table 33. anyDelineatedValue Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4577,7 +4739,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. allDelineatedValues Examples</caption>
+<caption class="title">Table 34. allDelineatedValues Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4634,7 +4796,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. join Examples</caption>
+<caption class="title">Table 35. join Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4677,7 +4839,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	and "number_list" contains "1,2,3,4,5" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. count Examples</caption>
+<caption class="title">Table 36. count Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4715,7 +4877,7 @@ an embedded Expression, though it does not have to be.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-13 16:42:31 -0700
+Last updated 2022-07-27 14:13:40 -0700
 </div>
 </div>
 </body>

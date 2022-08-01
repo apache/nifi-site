@@ -462,7 +462,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#ldap_login_identity_provider">Lightweight Directory Access Protocol (LDAP)</a></li>
 <li><a href="administration-guide.html#kerberos_login_identity_provider">Kerberos</a></li>
 <li><a href="administration-guide.html#openid_connect">OpenId Connect</a></li>
-<li><a href="administration-guide.html#saml">SAML</a></li>
+<li><a href="administration-guide.html#saml">SAML</a>
+<ul class="sectlevel3">
+<li><a href="administration-guide.html#saml-rest-resources">SAML REST Resources</a></li>
+</ul>
+</li>
 <li><a href="administration-guide.html#apache_knox">Apache Knox</a></li>
 <li><a href="administration-guide.html#json_web_token">JSON Web Tokens</a></li>
 </ul>
@@ -634,7 +638,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#content-repository">Content Repository</a></li>
 <li><a href="administration-guide.html#file-system-content-repository-properties">File System Content Repository Properties</a></li>
 <li><a href="administration-guide.html#encrypted-file-system-content-repository-properties">Encrypted File System Content Repository Properties</a></li>
-<li><a href="administration-guide.html#volatile-content-repository-properties">Volatile Content Repository Properties</a></li>
 <li><a href="administration-guide.html#provenance-repository">Provenance Repository</a></li>
 <li><a href="administration-guide.html#write-ahead-provenance-repository-properties">Write Ahead Provenance Repository Properties</a></li>
 <li><a href="administration-guide.html#encrypted-write-ahead-provenance-repository-properties">Encrypted Write Ahead Provenance Repository Properties</a></li>
@@ -664,6 +667,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#kerberos_properties">Kerberos Properties</a></li>
 <li><a href="administration-guide.html#analytics_properties">Analytics Properties</a></li>
 <li><a href="administration-guide.html#runtime_monitoring_properties">Runtime Monitoring Properties</a></li>
+<li><a href="administration-guide.html#performance_tracking_properties">Performance Tracking Properties</a></li>
 <li><a href="administration-guide.html#custom_properties">Custom Properties</a></li>
 <li><a href="administration-guide.html#nar_provider_properties">NAR Provider Properties</a>
 <ul class="sectlevel3">
@@ -696,12 +700,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#autoloading-processors">Autoloading Custom Processors</a></li>
 <li><a href="administration-guide.html#nar-providers">NAR Providers</a>
 <ul class="sectlevel3">
-<li><a href="administration-guide.html#hdfs-nar-provider-2">HDFS NAR Provider</a></li>
+<li><a href="administration-guide.html#hdfs-external-resource-provider">HDFS External Resource Provider</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="administration-guide.html#nifi-diagnostics">NiFi diagnostics</a>
+<li><a href="administration-guide.html#nifi_diagnostics">NiFi diagnostics</a>
 <ul class="sectlevel2">
 <li><a href="administration-guide.html#automatic-diagnostics-on-restart-and-shutdown">Automatic diagnostics on restart and shutdown</a></li>
 </ul>
@@ -1779,6 +1783,10 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 <div class="paragraph">
 <p>To enable authentication via SAML the following properties must be configured in <em>nifi.properties</em>.</p>
 </div>
+<div class="paragraph">
+<p>Configuring a Metadata URL and an Entity Identifier enables Apache NiFi to act as a SAML 2.0 Relying Party, allowing users
+to authenticate using an account managed through a SAML 2.0 Asserting Party.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1808,10 +1816,6 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 <td class="tableblock halign-left valign-top"><p class="tableblock">The name of a SAML assertion attribute containing group names the user belongs to. This property is optional, but if populated the groups will be passed along to the authorization process.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.metadata.signing.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables signing of the generated service provider metadata. The default value is <code>false</code>.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.request.signing.enabled</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Controls the value of <code>AuthnRequestsSigned</code> in the generated service provider metadata from <code>nifi-api/access/saml/metadata</code>. This indicates that the service provider (i.e. NiFi) should not sign authentication requests sent to the identity provider, but the requests may still need to be signed if the identity provider indicates <code>WantAuthnRequestSigned=true</code>. The default value is <code>false</code>.</p></td>
 </tr>
@@ -1824,14 +1828,6 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 <td class="tableblock halign-left valign-top"><p class="tableblock">The algorithm to use when signing SAML messages. Reference the <a href="https://git.shibboleth.net/view/?p=java-xmltooling.git;a=blob;f=src/main/java/org/opensaml/xml/signature/SignatureConstants.java">Open SAML Signature Constants</a> for a list of valid values. If not specified, a default of SHA-256 will be used. The default value is <code><a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" class="bare">http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</a></code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.signature.digest.algorithm</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The digest algorithm to use when signing SAML messages. Reference the <a href="https://git.shibboleth.net/view/?p=java-xmltooling.git;a=blob;f=src/main/java/org/opensaml/xml/signature/SignatureConstants.java">Open SAML Signature Constants</a> for a list of valid values. If not specified, a default of SHA-256 will be used. The default value is <code><a href="http://www.w3.org/2001/04/xmlenc#sha256" class="bare">http://www.w3.org/2001/04/xmlenc#sha256</a></code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.message.logging.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables logging of SAML messages for debugging purposes. The default value is <code>false</code>.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.authentication.expiration</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The expiration of the NiFi JWT that will be produced from a successful SAML authentication response. The default value is <code>12 hours</code>.</p></td>
 </tr>
@@ -1841,7 +1837,7 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.http.client.truststore.strategy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The truststore strategy when the IDP metadata URL begins with https. A value of <code>JDK</code> indicates to use the JDK&#8217;s default truststore. A value of`NIFI`indicates to use the truststore specified by <code>nifi.security.truststore</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The truststore strategy when the IDP metadata URL begins with https. A value of <code>JDK</code> indicates to use the JDK&#8217;s default truststore. A value of <code>NIFI</code> indicates to use the truststore specified by <code>nifi.security.truststore</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.saml.http.client.connect.timeout</code></p></td>
@@ -1853,6 +1849,46 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="saml-rest-resources"><a class="anchor" href="administration-guide.html#saml-rest-resources"></a>SAML REST Resources</h4>
+<div class="paragraph">
+<p>SAML authentication enables the following REST API resources for integration with a SAML 2.0 Asserting Party:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Resource Path</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/nifi-api/access/saml/local-logout/request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete SAML 2.0 Logout processing without communicating with the Asserting Party</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/nifi-api/access/saml/login/consumer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process SAML 2.0 Login Requests assertions using HTTP-POST or HTTP-REDIRECT binding</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/nifi-api/access/saml/metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retrieve SAML 2.0 entity descriptor metadata as XML</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/nifi-api/access/saml/single-logout/consumer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process SAML 2.0 Single Logout Request assertions using HTTP-POST or HTTP-REDIRECT binding. Requires Single Logout to be enabled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/nifi-api/access/saml/single-logout/request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Complete SAML 2.0 Single Logout processing initiating a request to the Asserting Party. Requires Single Logout to be enabled.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="apache_knox"><a class="anchor" href="administration-guide.html#apache_knox"></a>Apache Knox</h3>
@@ -4550,6 +4586,11 @@ empty. NiFi writes the generated value to <code>nifi.properties</code> and logs 
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vault.kv.version</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Key/Value Secrets Engine version: <code>1</code> for unversioned, and <code>2</code> for versioned.  This must match the versioned enabled in Vault.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>vault.connection.timeout</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The connection timeout of the Vault client</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>5 secs</code></p></td>
@@ -6828,6 +6869,12 @@ Providing three total locations, including  <code>nifi.nar.library.directory</co
 <td class="tableblock halign-left valign-top"><p class="tableblock">The documentation working directory. The default value is <code>./work/docs/components</code> and probably should be left as is.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.unpack.uber.jar</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set to <code>true</code>, when a nar file is unpacked, the inner jar files will be unpacked into a single jar file instead of individual jar files. This can result in NiFi taking
+longer to startup for the first time (about 1-2 minutes, typically) but can result in far fewer open file handles, which can be helpful in certain environments. The default value is <code>false</code>. This
+feature is considered experimental. Changing the value of this property may not take effect unless the working directory is also deleted.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.processor.scheduling.timeout</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Time to wait for a Processor&#8217;s life-cycle operation (<code>@OnScheduled</code> and <code>@OnUnscheduled</code>) to finish before other life-cycle operation (e.g., <strong>stop</strong>) could be invoked. The default value is <code>1 min</code>.</p></td>
 </tr>
@@ -7124,6 +7171,18 @@ Unlike the encrypted content and provenance repositories, the repository impleme
 </div>
 <div class="sect2">
 <h3 id="rocksdb-flowfile-repository"><a class="anchor" href="administration-guide.html#rocksdb-flowfile-repository"></a>RocksDB FlowFile Repository</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The <code>RocksDBFlowFileRepository</code> is deprecated in favor of the <code>WriteAheadFlowFileRepository</code>. It will be removed in future major versions of Apache NiFi. To use it in NiFi 1.x, you must download nifi-rocksdb-nar from the Apache Nexus Repository and place it in your NiFi lib directory.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>This implementation makes use of the RocksDB key-value store.  It uses periodic synchronization to ensure that no created or received data is lost (as long as <code>nifi.flowfile.repository.rocksdb.accept.data.loss</code> is set <code>false</code>).  In the event of a failure (e.g. power loss), <em>work</em> done on FlowFiles through the system (i.e. routing and transformation) may still be lost.  Specifically, the record of these actions may be lost, reverting the affected FlowFiles to a previous, valid state.  From there, they will resume their path through the flow as normal.  This guarantee comes at the expense of a delay on operations that add new data to the system.  This delay is configurable (as <code>nifi.flowfile.repository.rocksdb.sync.period</code>), and can be tuned to the individual system.</p>
 </div>
@@ -7359,7 +7418,7 @@ FlowFile Repository, if also on that disk, could become corrupt. To avoid this s
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.repository.implementation</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Content Repository implementation. The default value is <code>org.apache.nifi.controller.repository.FileSystemRepository</code> and should only be changed with caution. To store flowfile content in memory instead of on disk (at the risk of data loss in the event of power/machine failure), set this property to <code>org.apache.nifi.controller.repository.VolatileContentRepository</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Content Repository implementation. The default value is <code>org.apache.nifi.controller.repository.FileSystemRepository</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -7378,7 +7437,7 @@ FlowFile Repository, if also on that disk, could become corrupt. To avoid this s
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.repository.implementation</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Content Repository implementation. The default value is <code>org.apache.nifi.controller.repository.FileSystemRepository</code> and should only be changed with caution. To store flowfile content in memory instead of on disk (at the risk of data loss in the event of power/machine failure), set this property to <code>org.apache.nifi.controller.repository.VolatileContentRepository</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Content Repository implementation. The default value is <code>org.apache.nifi.controller.repository.FileSystemRepository</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.claim.max.appendable.size</code></p></td>
@@ -7491,29 +7550,6 @@ The following properties are deprecated in favor of <a href="administration-guid
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.repository.encryption.key.id.</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allows for additional keys to be specified for the <code>StaticKeyProvider</code>. For example, the line <code>nifi.content.repository.encryption.key.id.Key2=012&#8230;&#8203;210</code> would provide an available key <code>Key2</code>.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="volatile-content-repository-properties"><a class="anchor" href="administration-guide.html#volatile-content-repository-properties"></a>Volatile Content Repository Properties</h3>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Property</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.volatile.content.repository.max.size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Content Repository maximum size in memory. The default value is <code>100 MB</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.volatile.content.repository.block.size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Content Repository block size. The default value is <code>32 KB</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -8427,6 +8463,13 @@ For example, to provide two additional network interfaces, a user could also spe
 Providing three total network interfaces, including  <code>nifi.web.https.network.interface.default</code>.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.https.application.protocols</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The space-separated list of application protocols supported when running with HTTPS enabled.</p>
+<p class="tableblock">The default value is <code>http/1.1</code>.</p>
+<p class="tableblock">The value can be set to <code>h2 http/1.1</code> to support Application Layer Protocol Negotiation (ALPN) for HTTP/2 or HTTP/1.1 based on client capabilities.</p>
+<p class="tableblock">The value can be set to <code>h2</code> to require HTTP/2 and disable HTTP/1.1.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.jetty.working.directory</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The location of the Jetty working directory. The default value is <code>./work/jetty</code>.</p></td>
 </tr>
@@ -8969,6 +9012,40 @@ To enable it, both <code>nifi.monitor.long.running.task.schedule</code> and <cod
 </table>
 </div>
 <div class="sect2">
+<h3 id="performance_tracking_properties"><a class="anchor" href="administration-guide.html#performance_tracking_properties"></a>Performance Tracking Properties</h3>
+<div class="paragraph">
+<p>NiFi exposes a very significant number of metrics by default through the User Interface. However, there are sometimes additional metrics that may add in diagnosing bottlenecks
+and improving the performance of the NiFi dataflow.</p>
+</div>
+<div class="paragraph">
+<p>The <code>nifi.performance.tracking.percentage</code> property can be used to enable the tracking of additional metrics. Gathering these metrics, however, require system calls, which can be
+expensive on some systems. As a result, this property defaults to a value of <code>0</code>, indicating that the metrics should be captured 0% of the time. I.e., the feature is disabled by
+default. To enable this feature, set the value of this property to an integer value in the range of 0 to 100, inclusive. This represents what percentage of the time NiFi should
+gather these metrics.</p>
+</div>
+<div class="paragraph">
+<p>For example, if the value is set to 20, then NiFi will gather these metrics for each processor approximately 20% of the times that the Processor is run. The remainder of the time,
+it will use the values that it has already captured in order to extrapolate the metrics to additional runs.</p>
+</div>
+<div class="paragraph">
+<p>The metrics that are gathered include what percentage of the time the processor is utilizing the CPU (versus waiting for I/O to complete or blocking due to monitor/lock contention),
+what percentage of time the Processor spends reading from the Content Repository, writing to the Content Repository, blocked due to Garbage Collection, etc.</p>
+</div>
+<div class="paragraph">
+<p>So, continuing our example, if we set the value of the <code>nifi.performance.tracking.percentage</code> and a processor is triggered to run 1,000 times, then NiFi will measure how much CPU
+time was consumed over the 200 iterations during which it was measured (i.e., 20% of 1,000). Let&#8217;s say that this amounts to 500 milliseconds of CPU time. Additionally, let&#8217;s consider
+that the Processor took 5,000 milliseconds to complete those 200 invocations because most of the time was spent blocking on Socket I/O. From this, NiFi will calculate that the CPU
+is used approximately 10% of the time (500 / 5,000 * 100%). Now, let&#8217;s consider that in order to complete all 1,000 invocations the Processor took 35 seconds. NiFi will calculate,
+then, that the Processor has used approximately 3.5 seconds (or 3500 milliseconds) of CPU time.</p>
+</div>
+<div class="paragraph">
+<p>As a result, if we set the value of this property higher, up to a value of <code>100</code>, we will get more accurate results. However, it may be more expensive to monitor.</p>
+</div>
+<div class="paragraph">
+<p>In order to view these metrics, we can gather diagnostics by running the command <code>nifi.sh diagnostics &lt;filename&gt;</code> and inspecting the generated file. See <a href="administration-guide.html#nifi_diagnostics">NiFi diagnostics</a> for more information.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="custom_properties"><a class="anchor" href="administration-guide.html#custom_properties"></a>Custom Properties</h3>
 <div class="paragraph">
 <p>To configure custom properties for use with NiFi’s Expression Language:</p>
@@ -9023,7 +9100,34 @@ To enable it, both <code>nifi.monitor.long.running.task.schedule</code> and <cod
 <div class="sect2">
 <h3 id="nar_provider_properties"><a class="anchor" href="administration-guide.html#nar_provider_properties"></a>NAR Provider Properties</h3>
 <div class="paragraph">
-<p>These properties allow configuring one or more NAR providers. A NAR provider retrieves NARs from an external source and copies them to the directory specified by <code>nifi.nar.library.autoload.directory</code>.</p>
+<p>These properties are used for all the configured providers.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Property</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.poll.interval</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The interval between polls. The default value is <code>5 min</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.conflict.resolution</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the conflict resolution strategy to use. The default is <code>IGNORE</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.restrain.startup</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If true, the provider restrains NiFi from startup until the first successful resource fetch.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following properties allow configuring one or more NAR providers. A NAR provider retrieves NARs from an external source and copies them to the directory specified by <code>nifi.nar.library.autoload.directory</code>.</p>
 </div>
 <div class="paragraph">
 <p>Each NAR provider property follows the format <code>nifi.nar.library.provider.&lt;identifier&gt;.&lt;property-name&gt;</code> and each provider must have at least one property named <code>implementation</code>.</p>
@@ -9045,7 +9149,7 @@ To enable it, both <code>nifi.monitor.long.running.task.schedule</code> and <cod
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.provider.hdfs.implementation</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The fully qualified class name of the implementation class which is <code>org.apache.nifi.nar.hadoop.HDFSNarProvider</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The fully qualified class name of the implementation class which is <code>org.apache.nifi.flow.resource.hadoop.HDFSExternalResourceProvider</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.provider.hdfs.resources</code></p></td>
@@ -9641,27 +9745,62 @@ nifi.nar.library.directory.otherCustomLibs=./other-custom-nars/lib</pre>
 <div class="sect2">
 <h3 id="nar-providers"><a class="anchor" href="administration-guide.html#nar-providers"></a>NAR Providers</h3>
 <div class="paragraph">
-<p>NiFi supports fetching NAR files for the autoloading feature from external sources. This can be achieved by using NAR Providers. A NAR Provider serves as a connector between an external data store
-and NiFi.</p>
+<p>NiFi supports fetching NAR files for the autoloading feature from external sources. This can be achieved by using External Resource Providers.</p>
 </div>
 <div class="paragraph">
-<p>When configured, a NAR Provider polls the external source for available NAR files and offers them to the framework. The framework then fetches new NAR files and copies them to
+<p>An External Resource Provider serves as a connector between an external data source and NiFi.</p>
+</div>
+<div class="paragraph">
+<p>When configured, an External Resource Provider polls the external source for available NAR files and offers them to the framework. The framework then fetches new NAR files and copies them to
 the <code>nifi.nar.library.autoload.directory</code> for autoloading.</p>
 </div>
 <div class="paragraph">
-<p>NAR Provider can be configured by adding the <code>nifi.nar.library.provider.&lt;providerName&gt;.implementation</code> property with value containing the proper implementation class. Some implementations might need
+<p>By default, the polling will happen every 5 minutes. It is possible to change this frequency by specifying the property <code>nifi.nar.library.poll.interval</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default NAR files will be downloaded if no file with the same name exists in the folder defined by <code>nifi.nar.library.autoload.directory</code>. By setting the <code>nifi.nar.library.conflict.resolution</code> other conflict resolution strategies might be applied. Currently, the following strategies are supported:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IGNORE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Will not replace files: if a file exists in the directory with the same name, it will not be downloaded again.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REPLACE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Will replace a file in the target directory if there is an available file in the source but with newer modification date.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Until the first External Resource collection succeeds for every provider, the service prevents NiFi from finishing startup. In order to override this behaviour, the <code>nifi.nar.library.restrain.startup</code> needs to be declared.</p>
+</div>
+<div class="paragraph">
+<p>With value <code>true</code> the service prevents NiFi from starting up until the execution succeeds, with <code>false</code> it does not. The default value is <code>true</code> in case of the property is not set.</p>
+</div>
+<div class="paragraph">
+<p>An External Resource Provider can be configured by adding the <code>nifi.nar.library.provider.&lt;providerName&gt;.implementation</code> property with value containing the proper implementation class. Some implementations might need
 further properties. These are defined by the implementation and must be prefixed with <code>nifi.nar.library.provider.&lt;providerName&gt;.</code>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>&lt;providerName&gt;</code> is arbitrary and serves to correlate multiple properties together for a single provider. Multiple providers might be set, with different <code>&lt;providerName&gt;</code>. Currently NiFi supports HDFS based NAR provider.</p>
+<p>The <code>&lt;providerName&gt;</code> is arbitrary and serves to correlate multiple properties together for a single provider. Multiple providers might be set, with different <code>&lt;providerName&gt;</code>. Currently NiFi supports HDFS based providers.</p>
 </div>
 <div class="sect3">
-<h4 id="hdfs-nar-provider-2"><a class="anchor" href="administration-guide.html#hdfs-nar-provider-2"></a>HDFS NAR Provider</h4>
+<h4 id="hdfs-external-resource-provider"><a class="anchor" href="administration-guide.html#hdfs-external-resource-provider"></a>HDFS External Resource Provider</h4>
 <div class="paragraph">
-<p>This implementation is capable of downloading NAR files from an HDFS file system.</p>
+<p>This implementation is capable of downloading files from an HDFS file system.</p>
 </div>
 <div class="paragraph">
-<p>The value of the <code>nifi.nar.library.provider.&lt;providerName&gt;.implementation</code> must be <code>org.apache.nifi.nar.hadoop.HDFSNarProvider</code>. The following further properties are defined by the provider:</p>
+<p>The value of the <code>nifi.nar.library.provider.&lt;providerName&gt;.implementation</code> must be <code>org.apache.nifi.flow.resource.hadoop.HDFSExternalResourceProvider</code>.
+The following additional properties are defined by the provider:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -9706,24 +9845,36 @@ further properties. These are defined by the implementation and must be prefixed
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>nifi.nar.library.provider.hdfs1.implementation=org.apache.nifi.nar.hadoop.HDFSNarProvider
+<pre>nifi.nar.library.provider.hdfs1.implementation=org.apache.nifi.flow.resource.hadoop.HDFSExternalResourceProvider
 nifi.nar.library.provider.hdfs1.resources=/etc/hadoop/core-site.xml
 nifi.nar.library.provider.hdfs1.source.directory=/customNars</pre>
 </div>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>nifi.nar.library.provider.hdfs2.implementation=org.apache.nifi.nar.hadoop.HDFSNarProvider
+<pre>nifi.nar.library.provider.hdfs2.implementation=org.apache.nifi.flow.resource.hadoop.HDFSExternalResourceProvider
 nifi.nar.library.provider.hdfs2.resources=/etc/hadoop/core-site.xml
 nifi.nar.library.provider.hdfs2.source.directory=/other/dir/for/customNars</pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For backward compatibility reasons, <code>org.apache.nifi.nar.hadoop.HDFSNarProvider</code> is still an accepted implementation, but it is suggested to use 'org.apache.nifi.flow.resource.hadoop.HDFSExternalResourceProvider' instead.Features introduced with the External Resource Provider might not work with this implementation!
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="nifi-diagnostics"><a class="anchor" href="administration-guide.html#nifi-diagnostics"></a>NiFi diagnostics</h2>
+<h2 id="nifi_diagnostics"><a class="anchor" href="administration-guide.html#nifi_diagnostics"></a>NiFi diagnostics</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>It is possible to get diagnostics data from a NiFi node by executing the below command:</p>
@@ -9763,7 +9914,7 @@ nifi.diagnostics.on.shutdown.max.directory.size=10 MB</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-13 16:42:31 -0700
+Last updated 2022-07-27 14:13:40 -0700
 </div>
 </div>
 </body>

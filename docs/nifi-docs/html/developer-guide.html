@@ -1017,21 +1017,54 @@ instance of the <code>PropertyDescriptor.Builder</code> object,
 calling the appropriate methods on the builder, and finally calling
 the <code>build</code> method.</p>
 </div>
+<div class="sect4">
+<h5 id="dynamic-processor-properties"><a class="anchor" href="developer-guide.html#dynamic-processor-properties"></a>Dynamic Processor Properties</h5>
 <div class="paragraph">
-<p>While this method covers most of the use cases, it is sometimes
+<p>In addition to standard properties, it is sometimes
 desirable to allow users to configure
-additional properties whose name are not known. This can be achieved
-by overriding the
+additional properties whose names are not predefined.
+This can be achieved by overriding the
 <code>getSupportedDynamicPropertyDescriptor</code> method. This method takes a
 <code>String</code> as its only argument, which
 indicates the name of the property. The method returns a
 <code>PropertyDescriptor</code> object that can be used to validate
 both the name of the property, as well as the value. Any
 PropertyDescriptor that is returned from this method
-should be built setting the value of <code>isDynamic</code> to true in the
+should be built setting the value of <code>isDynamic</code> to <code>true</code> in the
 <code>PropertyDescriptor.Builder</code> class. The default
 behavior of AbstractProcessor is to not allow any dynamically created
 properties.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="sensitive-dynamic-properties"><a class="anchor" href="developer-guide.html#sensitive-dynamic-properties"></a>Sensitive Dynamic Properties</h5>
+<div class="paragraph">
+<p>The default implementation for dynamic properties does not treat the
+property values as sensitive. This approach is sufficient when configuring
+features such as FlowFile attributes or custom expressions, but it does
+not provide protection for values such as passwords or keys.</p>
+</div>
+<div class="paragraph">
+<p>NiFi 1.17.0 introduced framework support for sensitive dynamic properties
+through a new behavior annotation named <code>SupportsSensitiveDynamicProperties</code>.
+The annotation can be applied to a Processor, Controller Service, or
+Reporting Task that supports dynamic properties through the
+<code>getSupportedDynamicPropertyDescriptor</code> method. The annotation indicates
+that the component allows individual dynamic properties to be marked as
+sensitive for the purpose of persistence and framework processing.</p>
+</div>
+<div class="paragraph">
+<p>The <code>getSupportedDynamicPropertyDescriptor</code> must return a <code>PropertyDescriptor</code>
+with the <code>sensitive</code> field set to <code>false</code> to allow customization of sensitive
+status. Setting the <code>sensitive</code> field to <code>true</code> in this method forces all
+dynamic properties to be handled as sensitive. This approach allows sensitive
+status to be upgraded in supported components, but not downgraded.</p>
+</div>
+<div class="paragraph">
+<p>Secure handling of sensitive property values is the responsibility of the
+annotated class. Components that support sensitive dynamic properties must
+not log property values or provide property values as FlowFile attributes.</p>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -3473,7 +3506,7 @@ This is included by adding the following snippet to the NAR&#8217;s pom.xml:</p>
         &lt;plugin&gt;
             &lt;groupId&gt;org.apache.nifi&lt;/groupId&gt;
             &lt;artifactId&gt;nifi-nar-maven-plugin&lt;/artifactId&gt;
-            &lt;version&gt;1.1.0&lt;/version&gt;
+            &lt;version&gt;1.3.4&lt;/version&gt;
             &lt;extensions&gt;true&lt;/extensions&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -3864,7 +3897,7 @@ worry about bothering us. Just ping the mailing list again.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-13 16:42:30 -0700
+Last updated 2022-07-27 14:13:40 -0700
 </div>
 </div>
 </body>

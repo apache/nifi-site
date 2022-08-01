@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.16.3</title>
+        <title>NiFi Rest API-1.17.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -472,7 +472,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.16.3</div>
+            <div class="sub-title">NiFi Rest API 1.17.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -1697,591 +1697,6 @@
             
                 
 <div class="endpoints">
-    <span class="path hidden">/access/saml/local-logout</span>
-    
-    
-        <div class="endpoint get">
-            <div class="operation-handle">
-                <div class="method">GET</div>
-                <div class="path mono"></div>
-                <div class="summary">Local logout when SAML is enabled, does not communicate with the IDP.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
-    <span class="path hidden">/access/saml/login/consumer</span>
-    
-        <div class="endpoint post">
-            <div class="operation-handle">
-                <div class="method">POST</div>
-                <div class="path mono"></div>
-                <div class="summary">Processes the SSO response from the SAML identity provider for HTTP-POST binding.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">application/x-www-form-urlencoded</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-        <div class="endpoint get">
-            <div class="operation-handle">
-                <div class="method">GET</div>
-                <div class="path mono"></div>
-                <div class="summary">Processes the SSO response from the SAML identity provider for HTTP-REDIRECT binding.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
-    <span class="path hidden">/access/saml/login/exchange</span>
-    
-        <div class="endpoint post">
-            <div class="operation-handle">
-                <div class="method">POST</div>
-                <div class="path mono"></div>
-                <div class="summary">Retrieves a JWT following a successful login sequence using the configured SAML identity provider.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">text/plain</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>200</td>
-                <td>
-                    
-                        
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
-    <span class="path hidden">/access/saml/login/request</span>
-    
-    
-        <div class="endpoint get">
-            <div class="operation-handle">
-                <div class="method">GET</div>
-                <div class="path mono"></div>
-                <div class="summary">Initiates an SSO request to the configured SAML identity provider.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
-    <span class="path hidden">/access/saml/metadata</span>
-    
-    
-        <div class="endpoint get">
-            <div class="operation-handle">
-                <div class="method">GET</div>
-                <div class="path mono"></div>
-                <div class="summary">Retrieves the service provider metadata.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">application/samlmetadata+xml</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
-    <span class="path hidden">/access/saml/single-logout/consumer</span>
-    
-        <div class="endpoint post">
-            <div class="operation-handle">
-                <div class="method">POST</div>
-                <div class="path mono"></div>
-                <div class="summary">Processes a SingleLogout message from the configured SAML identity provider using the HTTP-POST binding.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-        <div class="endpoint get">
-            <div class="operation-handle">
-                <div class="method">GET</div>
-                <div class="path mono"></div>
-                <div class="summary">Processes a SingleLogout message from the configured SAML identity provider using the HTTP-REDIRECT binding.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
-    <span class="path hidden">/access/saml/single-logout/request</span>
-    
-    
-        <div class="endpoint get">
-            <div class="operation-handle">
-                <div class="method">GET</div>
-                <div class="path mono"></div>
-                <div class="summary">Initiates a logout request using the SingleLogout service of the configured SAML identity provider.</div>
-                <div class="clear"></div>
-            </div>
-            
-<div class="operation hidden">
-    
-    <div class="description">
-        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
-    </div>
-    
-    <div class="title">Request</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    
-    
-    
-    <div class="title">Response</div>
-    <div class="mediatypes details">
-        
-        <div class="mediatype"><div class="title">produces:</div><div class="mono">*/*</div><div class="clear"></div></div>
-        
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Status Code</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr>
-                <td>default</td>
-                <td>
-                    
-                        string
-                    
-                </td>
-                <td>successful operation</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="title">Authorization</div>
-    <div class="authorization details">
-        
-    </div>
-</div>
-        </div>
-    
-    
-    
-</div>
-            
-                
-<div class="endpoints">
     <span class="path hidden">/access/token</span>
     
         <div class="endpoint post">
@@ -2422,6 +1837,91 @@
 </div>
         </div>
     
+    
+    
+    
+</div>
+            
+                
+<div class="endpoints">
+    <span class="path hidden">/access/token/expiration</span>
+    
+    
+        <div class="endpoint get">
+            <div class="operation-handle">
+                <div class="method">GET</div>
+                <div class="path mono"></div>
+                <div class="summary">Get expiration for current Access Token</div>
+                <div class="clear"></div>
+            </div>
+            
+<div class="operation hidden">
+    
+    <div class="description">
+        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
+    </div>
+    
+    <div class="title">Request</div>
+    <div class="mediatypes details">
+        
+    </div>
+    
+    
+    
+    <div class="title">Response</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">produces:</div><div class="mono">application/json</div><div class="clear"></div></div>
+        
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>200</td>
+                <td>
+                    
+                        <a class="type-link" href="javascript:void(0);">AccessTokenExpirationEntity</a>
+                    
+                </td>
+                <td>Access Token Expiration found</td>
+            </tr>
+            
+            <tr>
+                <td>401</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Access Token not authorized</td>
+            </tr>
+            
+            <tr>
+                <td>409</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Access Token not resolved</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="title">Authorization</div>
+    <div class="authorization details">
+        
+    </div>
+</div>
+        </div>
     
     
     
@@ -4101,6 +3601,19 @@
                 
             
             <td>The property name to return the descriptor for.</td>
+        </tr>
+    
+        <tr>
+            <td>sensitive</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>boolean </td>
+                    
+                
+            
+            <td>Property Descriptor requested sensitive status</td>
         </tr>
     
     
@@ -22515,7 +22028,7 @@
                 <td>200</td>
                 <td>
                     
-                        <a class="type-link" href="javascript:void(0);">ProcessGroupEntity</a>
+                        <a class="type-link" href="javascript:void(0);">DropRequestEntity</a>
                     
                 </td>
                 <td>successful operation</td>
@@ -28379,6 +27892,19 @@
             <td>The property name.</td>
         </tr>
     
+        <tr>
+            <td>sensitive</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>boolean </td>
+                    
+                
+            
+            <td>Property Descriptor requested sensitive status</td>
+        </tr>
+    
     
         </tbody>
     </table>
@@ -33666,6 +33192,19 @@
                 
             
             <td>The property name.</td>
+        </tr>
+    
+        <tr>
+            <td>sensitive</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>boolean </td>
+                    
+                
+            
+            <td>Property Descriptor requested sensitive status</td>
         </tr>
     
     
@@ -40298,6 +39837,82 @@
 </div>
         
             
+<div id="AccessTokenExpirationDTO" class="type hidden">
+    <h3>AccessTokenExpirationDTO</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>expiration</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Token Expiration
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "expiration": "value"<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="AccessTokenExpirationEntity" class="type hidden">
+    <h3>AccessTokenExpirationEntity</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>accessTokenExpiration</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">AccessTokenExpirationDTO</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "accessTokenExpiration": <span class="nested collapsed"><span class="nested-id hidden">AccessTokenExpirationDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
 <div id="ActionDTO" class="type hidden">
     <h3>ActionDTO</h3>
     <div class="type-container">
@@ -42381,8 +41996,8 @@
                             
                         
                     </td>
-                    <td>required</td>
-                    <td>The group id of the bundle
+                    <td>optional</td>
+                    <td>The group of the bundle
                         
                         </td>
                 </tr>
@@ -42397,8 +42012,8 @@
                             
                         
                     </td>
-                    <td>required</td>
-                    <td>The artifact id of the bundle
+                    <td>optional</td>
+                    <td>The artifact of the bundle
                         
                         </td>
                 </tr>
@@ -42414,23 +42029,7 @@
                         
                     </td>
                     <td>optional</td>
-                    <td>The version of the bundle artifact
-                        
-                        </td>
-                </tr>
-            
-                <tr>
-                    <td>componentManifest</td>
-                    <td>
-                        
-                            
-                                <a class="type-link" href="javascript:void(0);">ComponentManifest</a>
-                            
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>The full specification of the bundle contents
+                    <td>The version of the bundle
                         
                         </td>
                 </tr>
@@ -42441,7 +42040,6 @@
     "group": "value"<span class="comma">,</span>
     "artifact": "value"<span class="comma">,</span>
     "version": "value"<span class="comma">,</span>
-    "componentManifest": <span class="nested collapsed"><span class="nested-id hidden">ComponentManifest</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -47601,6 +47199,22 @@
                 </tr>
             
                 <tr>
+                    <td>supportsSensitiveDynamicProperties</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether the controller service supports sensitive dynamic properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>properties</td>
                     <td>
                         
@@ -47628,6 +47242,22 @@
                     </td>
                     <td>optional</td>
                     <td>The descriptors for the controller service properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>sensitiveDynamicPropertyNames</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Set of sensitive dynamic property names
                         
                         </td>
                 </tr>
@@ -47713,6 +47343,22 @@
                 </tr>
             
                 <tr>
+                    <td>bulletinLevel</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The level at which the controller service will report bulletins.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>extensionMissing</td>
                     <td>
                         
@@ -47745,17 +47391,20 @@
     "restricted": true<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "multipleVersionsAvailable": true<span class="comma">,</span>
+    "supportsSensitiveDynamicProperties": true<span class="comma">,</span>
     "properties": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
     "descriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptorDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
+    "sensitiveDynamicPropertyNames": ["value"]<span class="comma">,</span>
     "customUiUrl": "value"<span class="comma">,</span>
     "annotationData": "value"<span class="comma">,</span>
     "referencingComponents": [<span class="nested collapsed"><span class="nested-id hidden">ControllerServiceReferencingComponentEntity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "validationErrors": ["value"]<span class="comma">,</span>
     "validationStatus": "value"<span class="comma">,</span>
+    "bulletinLevel": "value"<span class="comma">,</span>
     "extensionMissing": true<span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -47936,6 +47585,54 @@
                 </tr>
             
                 <tr>
+                    <td>restricted</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether or not the component has a general restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>restrictedExplanation</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>An optional description of the general restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>explicitRestrictions</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">Restriction</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Explicit restrictions that indicate a require permission to use the component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>propertyDescriptors</td>
                     <td>
                         
@@ -47980,6 +47677,9 @@
     "tags": ["value"]<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "deprecationReason": "value"<span class="comma">,</span>
+    "restricted": true<span class="comma">,</span>
+    "restrictedExplanation": "value"<span class="comma">,</span>
+    "explicitRestrictions": [<span class="nested collapsed"><span class="nested-id hidden">Restriction</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "propertyDescriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
@@ -61638,6 +61338,22 @@
                 </tr>
             
                 <tr>
+                    <td>sensitiveDynamicPropertyNames</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Set of sensitive dynamic property names
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>schedulingPeriod</td>
                     <td>
                         
@@ -61950,6 +61666,7 @@
     "descriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptorDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
+    "sensitiveDynamicPropertyNames": ["value"]<span class="comma">,</span>
     "schedulingPeriod": "value"<span class="comma">,</span>
     "schedulingStrategy": "value"<span class="comma">,</span>
     "executionNode": "value"<span class="comma">,</span>
@@ -62216,6 +61933,22 @@
                 </tr>
             
                 <tr>
+                    <td>supportsSensitiveDynamicProperties</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether the processor supports sensitive dynamic properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>persistsState</td>
                     <td>
                         
@@ -62394,6 +62127,7 @@
     "supportsParallelProcessing": true<span class="comma">,</span>
     "supportsEventDriven": true<span class="comma">,</span>
     "supportsBatching": true<span class="comma">,</span>
+    "supportsSensitiveDynamicProperties": true<span class="comma">,</span>
     "persistsState": true<span class="comma">,</span>
     "restricted": true<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
@@ -62578,6 +62312,54 @@
                     </td>
                     <td>optional</td>
                     <td>If this component has been deprecated, this optional field can be used to provide an explanation
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>restricted</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether or not the component has a general restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>restrictedExplanation</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>An optional description of the general restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>explicitRestrictions</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">Restriction</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Explicit restrictions that indicate a require permission to use the component
                         
                         </td>
                 </tr>
@@ -62899,6 +62681,9 @@
     "tags": ["value"]<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "deprecationReason": "value"<span class="comma">,</span>
+    "restricted": true<span class="comma">,</span>
+    "restrictedExplanation": "value"<span class="comma">,</span>
+    "explicitRestrictions": [<span class="nested collapsed"><span class="nested-id hidden">Restriction</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "propertyDescriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
@@ -63670,7 +63455,7 @@
                     </td>
                     <td>optional</td>
                     <td>The run status of the Processor.
-                         Allowable values: RUNNING, STOPPED, DISABLED
+                         Allowable values: RUNNING, STOPPED, DISABLED, RUN_ONCE
                         </td>
                 </tr>
             
@@ -69834,6 +69619,22 @@
                 </tr>
             
                 <tr>
+                    <td>supportsSensitiveDynamicProperties</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether the reporting task supports sensitive dynamic properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>schedulingPeriod</td>
                     <td>
                         
@@ -69909,6 +69710,22 @@
                     </td>
                     <td>optional</td>
                     <td>The descriptors for the reporting tasks properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>sensitiveDynamicPropertyNames</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Set of sensitive dynamic property names
                         
                         </td>
                 </tr>
@@ -70025,6 +69842,7 @@
     "restricted": true<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "multipleVersionsAvailable": true<span class="comma">,</span>
+    "supportsSensitiveDynamicProperties": true<span class="comma">,</span>
     "schedulingPeriod": "value"<span class="comma">,</span>
     "schedulingStrategy": "value"<span class="comma">,</span>
     "defaultSchedulingPeriod": <span class="open-object">&#123;
@@ -70036,6 +69854,7 @@
     "descriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptorDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
+    "sensitiveDynamicPropertyNames": ["value"]<span class="comma">,</span>
     "customUiUrl": "value"<span class="comma">,</span>
     "annotationData": "value"<span class="comma">,</span>
     "validationErrors": ["value"]<span class="comma">,</span>
@@ -70221,6 +70040,54 @@
                 </tr>
             
                 <tr>
+                    <td>restricted</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether or not the component has a general restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>restrictedExplanation</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>An optional description of the general restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>explicitRestrictions</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">Restriction</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Explicit restrictions that indicate a require permission to use the component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>propertyDescriptors</td>
                     <td>
                         
@@ -70313,6 +70180,9 @@
     "tags": ["value"]<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "deprecationReason": "value"<span class="comma">,</span>
+    "restricted": true<span class="comma">,</span>
+    "restrictedExplanation": "value"<span class="comma">,</span>
+    "explicitRestrictions": [<span class="nested collapsed"><span class="nested-id hidden">Restriction</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "propertyDescriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
@@ -71021,6 +70891,61 @@
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
     "resources": [<span class="nested collapsed"><span class="nested-id hidden">ResourceDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="Restriction" class="type hidden">
+    <h3>Restriction</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>requiredPermission</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The permission required for this restriction
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>explanation</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The explanation of this restriction
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "requiredPermission": "value"<span class="comma">,</span>
+    "explanation": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -77419,6 +77344,22 @@
                 </tr>
             
                 <tr>
+                    <td>bulletinLevel</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The level at which the controller service will report bulletins.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>componentType</td>
                     <td>
                         
@@ -77469,6 +77410,7 @@
     "controllerServiceApis": [<span class="nested collapsed"><span class="nested-id hidden">ControllerServiceAPI</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "annotationData": "value"<span class="comma">,</span>
     "scheduledState": "value"<span class="comma">,</span>
+    "bulletinLevel": "value"<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
