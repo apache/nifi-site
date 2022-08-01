@@ -24,7 +24,7 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
   - {{< download-links label="Apache NiFi Sources" extension=source-release.zip >}}
 - Binaries 
   - {{< download-links label="Apache NiFi Binary" extension=bin.zip >}} 
-  - {{< download-links label="Apache NiFi Stateless Binary" qualifier="stateless" extension=bin.tar.gz >}}
+  - {{< download-links label="Apache NiFi Stateless Binary" qualifier="stateless" extension=bin.zip >}}
   - {{< download-links label="Apache NiFi Toolkit Binary" qualifier="toolkit" extension=bin.zip >}}
 
 ### {{< param previousProjectVersion >}}
