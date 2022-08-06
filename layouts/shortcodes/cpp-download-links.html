@@ -1,0 +1,24 @@
+{{- $primaryDownloadUrl := (.Site.Params.dynamicDownloadPathUrl) -}}
+{{- $secondaryDownloadUrl := (.Site.Params.downloadPathUrl) -}}
+
+{{- if eq (.Get "site") "archives" -}}
+  {{- $primaryDownloadUrl = (.Site.Params.archiveDownloadPathUrl) -}}
+  {{- $secondaryDownloadUrl = (.Site.Params.archiveDownloadPathUrl) -}}
+{{- end -}}
+
+{{- $downloadVersion := "" -}}
+{{- with .Get "version" -}}
+  {{- $downloadVersion = . -}}
+{{- end -}}
+
+{{- $extension := "" -}}
+{{- with .Get "extension" -}}
+  {{- $extension = . -}}
+{{- end -}}
+
+{{- $downloadFilePath := (print "nifi-minifi-cpp/" $downloadVersion "/nifi-minifi-cpp-" $downloadVersion "-" $extension) -}}
+
+<a href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}">{{ .Get "label" }} {{ $downloadVersion }}</a>
+[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.asc">OpenPGP</a>]
+[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha256">SHA-256</a>]
+[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha512">SHA-512</a>]
