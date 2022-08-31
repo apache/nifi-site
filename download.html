@@ -9,7 +9,26 @@
         <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
         <script src="/assets/js/modernizr.js"></script>
         <script src="/assets/js/webfontloader.js"></script>
-    </head>
+        <script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var baseUri = "//matomo.privacy.apache.org/";
+    _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
+    _paq.push(['setSiteId', '28']);
+    var trackerElement = document.createElement('script');
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    trackerElement.async = true;
+    trackerElement.src = baseUri + 'matomo.js';
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    if (window.location.host === 'nifi.apache.org') {
+      firstScriptElement.parentNode.insertBefore(trackerElement, firstScriptElement);
+    }
+  })();
+</script>
+</head>
     <body><div class="sticky contain-to-grid">
     <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
