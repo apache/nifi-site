@@ -1,0 +1,19 @@
+<script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var baseUri = "//matomo.privacy.apache.org/";
+    _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
+    _paq.push(['setSiteId', '{{ .Site.Params.matomoSiteId }}']);
+    var trackerElement = document.createElement('script');
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    trackerElement.async = true;
+    trackerElement.src = baseUri + 'matomo.js';
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    if (window.location.host === '{{ .Site.Params.productionHost }}') {
+      firstScriptElement.parentNode.insertBefore(trackerElement, firstScriptElement);
+    }
+  })();
+</script>
