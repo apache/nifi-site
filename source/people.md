@@ -23,7 +23,6 @@ or author documentation. Others are valuable as testers, submitting patches and 
 | devriesb | Brandon DeVries |
 | exceptionfactory | David Handermann |
 | ijokarumawak | Koji Kawamura |
-| jbarnabee | Jennifer Barnabee |
 | jcarey | Jason Carey |
 | jeremydyer | Jeremy Dyer |
 | jfrazee | Joey Frazee |
@@ -40,7 +39,6 @@ or author documentation. Others are valuable as testers, submitting patches and 
 | ozhurakousky | Oleg Zhurakousky |
 | phrocker | Marc Parisi |
 | pvillard | Pierre Villard |
-| pwicks | Peter Wicks |
 | scottyaslan | Scott Aslan |
 | szaszm | Marton Szasz |
 | taftster | Adam Taft |
@@ -90,6 +88,8 @@ or author documentation. Others are valuable as testers, submitting patches and 
 | Apache Username | Name |
 | --------------- | ---- |
 | bimargulies | Benson Margulies |
+| jbarnabee | Jennifer Barnabee |
+| pwicks | Peter Wicks |
 
 The team consists of Project Management Committee Members, Committers, and Contributors.
 
