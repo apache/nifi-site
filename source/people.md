@@ -27,7 +27,6 @@ or author documentation. Others are valuable as testers, submitting patches and 
 | jeremydyer | Jeremy Dyer |
 | jfrazee | Joey Frazee |
 | joewitt | Joe Witt |
-| jpercivall | Joe Percivall |
 | jskora | Joe Skora |
 | jvwing | James Wing |
 | kevdoran | Kevin Doran |
@@ -90,6 +89,7 @@ or author documentation. Others are valuable as testers, submitting patches and 
 | bimargulies | Benson Margulies |
 | jbarnabee | Jennifer Barnabee |
 | pwicks | Peter Wicks |
+| jpercivall | Joe Percivall |
 
 The team consists of Project Management Committee Members, Committers, and Contributors.
 
