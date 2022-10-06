@@ -1,4 +1,20 @@
-<!DOCTYPE html>
+<!--
+                        Licensed to the Apache Software Foundation (ASF) under one or more
+                        contributor license agreements.  See the NOTICE file distributed with
+                        this work for additional information regarding copyright ownership.
+                        The ASF licenses this file to You under the Apache License, Version 2.0
+                        (the "License"); you may not use this file except in compliance with
+                        the License.  You may obtain a copy of the License at
+
+                        http://www.apache.org/licenses/LICENSE-2.0
+
+                        Unless required by applicable law or agreed to in writing, software
+                        distributed under the License is distributed on an "AS IS" BASIS,
+                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                        See the License for the specific language governing permissions and
+                        limitations under the License.
+                        -->
+                        <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -483,6 +499,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="user-guide.html#parameters-and-el">Parameters and Expression Language</a></li>
 <li><a href="user-guide.html#assigning_parameter_context_to_PG">Assigning a Parameter Context to a Process Group</a></li>
 <li><a href="user-guide.html#referencing-parameters">Referencing Parameters</a></li>
+<li><a href="user-guide.html#parameter-providers">Parameter Providers</a></li>
 <li><a href="user-guide.html#accessing-parameters">Accessing Parameters</a></li>
 </ul>
 </li>
@@ -494,7 +511,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="user-guide.html#Controller_Services">Controller Services</a>
 <ul class="sectlevel3">
-<li><a href="user-guide.html#Controller_Services_for_Reporting_Tasks">Adding Controller Services for Reporting Tasks</a></li>
+<li><a href="user-guide.html#Management_Controller_Services">Adding Management Controller Services</a></li>
 <li><a href="user-guide.html#Controller_Services_for_Dataflows">Adding Controller Services for Dataflows</a></li>
 <li><a href="user-guide.html#Enabling_Disabling_Controller_Services">Enabling/Disabling Controller Services</a></li>
 </ul>
@@ -602,7 +619,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="user-guide.html#provenance_events">Provenance Events</a></li>
 <li><a href="user-guide.html#searching-for-events">Searching for Events</a></li>
 <li><a href="user-guide.html#event_details">Details of an Event</a></li>
-<li><a href="user-guide.html#replaying-a-flowfile">Replaying a FlowFile</a></li>
+<li><a href="user-guide.html#replay_flowfile">Replaying a FlowFile</a></li>
 <li><a href="user-guide.html#viewing-flowfile-lineage">Viewing FlowFile Lineage</a>
 <ul class="sectlevel3">
 <li><a href="user-guide.html#find-parents">Find Parents</a></li>
@@ -772,6 +789,9 @@ UI may become unavailable.</p>
 <p><strong>Reporting Task</strong>: Reporting Tasks run in the background to provide statistical reports about what is happening in the NiFi instance. The DFM adds and configures Reporting Tasks in the User Interface as desired. Common reporting tasks include the ControllerStatusReportingTask, MonitorDiskUsage reporting task, MonitorMemory reporting task, and the StandardGangliaReporter.</p>
 </div>
 <div class="paragraph">
+<p><strong>Parameter Provider</strong>: Parameter Providers can provide parameters from an external source to Parameter Contexts.  The parameters of a Parameter Provider may be fetched and applied to all referencing Parameter Contexts.</p>
+</div>
+<div class="paragraph">
 <p><strong>Funnel</strong>: A funnel is a NiFi component that is used to combine the data from several Connections into a single Connection.</p>
 </div>
 <div class="paragraph">
@@ -911,7 +931,7 @@ is visible and available to you, depending on the privileges assigned to you.</p
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">access the controller</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Allows users to view and modify the controller including reporting tasks, Controller Services, and nodes in the cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows users to view and modify the controller including Management Controller Services, Reporting Tasks, Registry Clients, Parameter Providers and nodes in the cluster</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">query provenance</p></td>
@@ -1149,6 +1169,9 @@ For Processors, Ports, Remote Process Groups, Connections and Labels, it is poss
 </li>
 <li>
 <p><strong>View data provenance</strong>: This option displays the NiFi Data Provenance table, with information about data provenance events for the FlowFiles routed through that Processor (see <a href="user-guide.html#data_provenance">Data Provenance</a>).</p>
+</li>
+<li>
+<p><strong>Replay last event</strong>: This option will replay the last Provenance event, effectively requeuing the last FlowFile that was processed by the Processor (see <a href="user-guide.html#replay_flowfile">Replaying a FlowFile</a>).</p>
 </li>
 <li>
 <p><strong>View status history</strong>: This option opens a graphical representation of the Processor&#8217;s statistical information over time.</p>
@@ -2143,7 +2166,7 @@ Setting the Default FlowFile Expiration to a non-zero value may lead to data los
 <p>Properties that reference Controller Services can not use Parameters</p>
 </li>
 <li>
-<p>Parameters cannot be referenced in Reporting Tasks or in controller-level Controller Services</p>
+<p>Parameters cannot be referenced in Reporting Tasks or in Management Controller Services</p>
 </li>
 </ul>
 </div>
@@ -2523,6 +2546,60 @@ If a Parameter Context is unset from a Process Group, it does <strong>NOT</stron
 <div class="paragraph">
 <p>The value of a sensitive property must be set to a single Parameter reference. For example, values of <code>#{password}123</code> and <code>#{password}#{suffix}</code> are not allowed. Sending <code>#{password}123</code> would lead to exposing part of the sensitive property&#8217;s value. This is in contrast to a non-sensitive property, where a value such as <code>#{path}/child/file.txt</code> is valid.</p>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="parameter-providers"><a class="anchor" href="user-guide.html#parameter-providers"></a>Parameter Providers</h4>
+<div class="paragraph">
+<p>Parameter Providers allow parameters to be stored in sources external to NiFi (e.g. HashiCorp Vault). The parameters of a Parameter Provider can be fetched and applied to all referencing Parameter Contexts.</p>
+</div>
+<div class="paragraph">
+<p>To add a Parameter Provider, select Controller Settings from the Global Menu.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/controller-settings-selection.png" alt="Global Menu - Controller Settings"></span></p>
+</div>
+<div class="paragraph">
+<p>This displays the NiFi Settings window. Select the Parameter Providers tab and click the <code>+</code> button in the upper-right corner to create a new Parameter Provider.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/parameter-providers-tab.png" alt="Parameter Providers Tab"></span></p>
+</div>
+<div class="paragraph">
+<p>The Add Parameter Provider window opens. This window is similar to the Add Processor window. It provides a list of the available Parameter Providers on the right and a tag cloud, showing the most common category tags used for Parameter Providers, on the left. The DFM may click any tag in the tag cloud in order to narrow down the list of Parameter Providers to those that fit the categories desired. The DFM may also use the Filter field at the top-right of the window to search for the desired Parameter Provider or use the Source drop-down at the top-left to filter the list by the group who created them. Upon selecting a Parameter Provider from the list, the DFM can see a description of the provider below. Select the desired parameter provider and click Add, or simply double-click the name of the provider to add it.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/add-parameter-provider-window.png" alt="Add Parameter Provider Window"></span></p>
+</div>
+<div class="paragraph">
+<p>Once a Parameter Provider has been added, the DFM may configure it by clicking the "Edit" button in the far-right column. Other buttons in this column include "Fetch Parameters", "Remove" and "Access Policies".</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/parameter-provider-edit-buttons.png" alt="Parameter Providers Edit Buttons"></span></p>
+</div>
+<div class="paragraph">
+<p>You can obtain information about Parameter Providers by clicking the "View Details", "Usage", and "Alerts" buttons in the left-hand column.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/parameter-provider-tasks-info-buttons.png" alt="Parameter Providers Information Buttons"></span></p>
+</div>
+<div class="paragraph">
+<p>When the DFM clicks the "Edit" button, a Configure Parameter Provider window opens. It has three tabs: Settings, Properties, and Comments. This window is similar to the Configure Processor window. The Settings tab provides a place for the DFM to give the Parameter Provider a unique name (if desired). It also lists the UUID, Type, and Bundle information for the provider and displays a list of other components (e.g. parameter contexts) that reference the parameter provider. The DFM may hover the mouse over the question mark icons to see more information about each setting.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/configure-parameter-provider-settings.png" alt="Configure Parameter Provider Settings"></span></p>
+</div>
+<div class="paragraph">
+<p>The Properties tab lists the various properties that may be configured for the parameter provider. The DFM may hover the mouse over the question mark icons to see more information about each property.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/configure-parameter-provider-properties.png" alt="Configure Parameter Provider Properties"></span></p>
+</div>
+<div class="paragraph">
+<p>The Comments tab is just an open-text field, where the DFM may include comments about the provider. After configuring the Parameter Provider, click "Apply" to save the configuration and close the window, or click "Cancel" to discard the changes and close the window.</p>
+</div>
+<div class="paragraph">
+<p>When you want to fetch parameters from the Parameter Provider, click the "Fetch" button (<span class="image"><img src="images/iconFetch.png" alt="Fetch Button"></span>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -2922,21 +2999,21 @@ If your NiFi instance is secured, your ability to view and add Controller Servic
 </table>
 </div>
 <div class="sect3">
-<h4 id="Controller_Services_for_Reporting_Tasks"><a class="anchor" href="user-guide.html#Controller_Services_for_Reporting_Tasks"></a>Adding Controller Services for Reporting Tasks</h4>
+<h4 id="Management_Controller_Services"><a class="anchor" href="user-guide.html#Management_Controller_Services"></a>Adding Management Controller Services</h4>
 <div class="paragraph">
-<p>To add a Controller Service for a reporting task, select Controller Settings from the Global Menu.</p>
+<p>To add a Management Controller Service, select Controller Settings from the Global Menu.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="images/controller-settings-selection.png" alt="Global Menu - Controller Settings"></span></p>
 </div>
 <div class="paragraph">
-<p>This displays the NiFi Settings window. The window has four tabs: General, Reporting Task Controller Services, Reporting Tasks and Registry Clients. The General tab provides settings for the overall maximum thread counts of the instance.</p>
+<p>This displays the NiFi Settings window. The window has five tabs: General, Management Controller Services, Reporting Tasks, Registry Clients and Parameter Providers. The General tab provides settings for the overall maximum thread counts of the instance.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="images/settings-general-tab.png" alt="Controller Settings General Tab"></span></p>
 </div>
 <div class="paragraph">
-<p>To the right of the General tab is the Reporting Task Controller Services tab. From this tab, the DFM may click the <code>+</code> button in the upper-right corner to create a new Controller Service.</p>
+<p>To the right of the General tab is the Management Controller Services tab. From this tab, the DFM may click the <code>+</code> button in the upper-right corner to create a new Controller Service.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="images/controller-services-tab.png" alt="Controller Services Tab"></span></p>
@@ -4677,7 +4754,7 @@ will remove the selection.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This displays the NiFi Settings window. Select the Registry Clients tab and click the <code>+</code> button in the upper-right corner to register a new Registry client.</p>
+<p>This displays the NiFi Settings window. Select the Registry Clients tab and click the <code>+</code> button in the upper-right corner to register a new Registry Client.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4685,7 +4762,7 @@ will remove the selection.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In the Add Registry Client window, provide a name and URL.</p>
+<p>In the Add Registry Client window, provide a name, select type and add a description (if desired).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4693,12 +4770,29 @@ will remove the selection.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Click "Add" to complete the registration.</p>
+<p>Click "Add".</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/registry-client-added.png" alt="Registry Client Added">
 </div>
+</div>
+<div class="paragraph">
+<p>Once a Registry Client has been added, the DFM may configure it by clicking the "Edit" button (<span class="image"><img src="images/iconEdit.png" alt="Edit Button"></span>) in the far-right column. When the DFM clicks the "Edit" button, an Edit Registry Client window opens. It has two tabs: Settings and Properties. The Settings tab provides a place for the DFM to edit the Registry Client name. It also lists the UUID, Type, and provides an open-text field to edit or add a Description.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/configure-registry-client-settings.png" alt="Registry Client Settings">
+</div>
+</div>
+<div class="paragraph">
+<p>The Properties tab lists the various properties that may be configured for the client. The DFM may hover the mouse over the question mark icons to see more information about each property.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/configure-registry-client-properties.png" alt="Configure Registry Client Properties"></span></p>
+</div>
+<div class="paragraph">
+<p>After configuring a Registry Client, click "Update" to save the configuration and close the window, or click "Cancel" to discard the changes and close the window.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -5649,13 +5743,21 @@ a result of the processing event, the user may select the checkbox next to "Only
 </div>
 </div>
 <div class="sect2">
-<h3 id="replaying-a-flowfile"><a class="anchor" href="user-guide.html#replaying-a-flowfile"></a>Replaying a FlowFile</h3>
+<h3 id="replay_flowfile"><a class="anchor" href="user-guide.html#replay_flowfile"></a>Replaying a FlowFile</h3>
 <div class="paragraph">
 <p>A DFM may need to inspect a FlowFile&#8217;s content at some point in the dataflow to ensure that it is being processed as expected. And if it
-is not being processed properly, the DFM may need to make adjustments to the dataflow and replay the FlowFile again. The Content tab of the View Details dialog window is where the DFM can do these things. The Content tab shows information about the FlowFile&#8217;s content, such as its location in the Content Repository
+is not being processed properly, the DFM may need to make adjustments to the dataflow and replay the FlowFile again.
+This can be achieved from the Content tab of the View Details dialog window. The Content tab shows information
+about the FlowFile&#8217;s content, such as its location in the Content Repository
 and its size. In addition, it is here that the user may click the "Download" button to download a copy of the FlowFile&#8217;s content as it existed
 at this point in the flow. The user may also click the "Submit" button to replay the FlowFile at this point in the flow. Upon clicking "Submit",
 the FlowFile is sent to the connection feeding the component that produced this processing event.</p>
+</div>
+<div class="paragraph">
+<p>When a user is developing a dataflow, it can be very beneficial to have easy access to replaying a FlowFile, as well. For example, a user may configure
+a Processor, run a FlowFile through it, and find that the configuration needs to be modified. The user can then update the configuration, and run the
+same FlowFile through again to verify the results. In order to ease this process, the user can right-click on a Processor and choose the "Replay last event"
+item. From here, the user can choose to either replay the last event from just the Primary Node or from all nodes.</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="images/event-content.png" alt="Event Content" width="700"></span></p>
@@ -6111,7 +6213,7 @@ the <a href="administration-guide.html">System Administrator&#8217;s Guide</a>.<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-27 14:13:40 -0700
+Last updated 2022-10-06 07:33:40 -0500
 </div>
 </div>
 </body>

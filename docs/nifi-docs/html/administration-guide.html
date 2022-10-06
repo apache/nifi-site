@@ -1,4 +1,20 @@
-<!DOCTYPE html>
+<!--
+                        Licensed to the Apache Software Foundation (ASF) under one or more
+                        contributor license agreements.  See the NOTICE file distributed with
+                        this work for additional information regarding copyright ownership.
+                        The ASF licenses this file to You under the Apache License, Version 2.0
+                        (the "License"); you may not use this file except in compliance with
+                        the License.  You may obtain a copy of the License at
+
+                        http://www.apache.org/licenses/LICENSE-2.0
+
+                        Unless required by applicable law or agreed to in writing, software
+                        distributed under the License is distributed on an "AS IS" BASIS,
+                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                        See the License for the specific language governing permissions and
+                        limitations under the License.
+                        -->
+                        <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -450,6 +466,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="administration-guide.html#configuration-best-practices">Configuration Best Practices</a></li>
 <li><a href="administration-guide.html#recommended-antivirus-exclusions">Recommended Antivirus Exclusions</a></li>
+<li><a href="administration-guide.html#logging_configuration">Logging Configuration</a>
+<ul class="sectlevel2">
+<li><a href="administration-guide.html#standard-log-files">Standard Log Files</a></li>
+<li><a href="administration-guide.html#deprecation-logging">Deprecation Logging</a></li>
+</ul>
+</li>
 <li><a href="administration-guide.html#security_configuration">Security Configuration</a>
 <ul class="sectlevel2">
 <li><a href="administration-guide.html#tls_generation_toolkit">TLS Generation Toolkit</a></li>
@@ -615,7 +637,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#http-notification-service">HTTP Notification Service<br></a></li>
 </ul>
 </li>
-<li><a href="administration-guide.html#proxy_configuration">Proxy Configuration</a></li>
+<li><a href="administration-guide.html#proxy_configuration">Proxy Configuration</a>
+<ul class="sectlevel2">
+<li><a href="administration-guide.html#session_affinity">Session Affinity</a>
+<ul class="sectlevel3">
+<li><a href="administration-guide.html#session-affinity-configuration">Session Affinity Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="administration-guide.html#kerberos_service">Kerberos Service</a>
 <ul class="sectlevel2">
 <li><a href="administration-guide.html#kerberos_service_notes">Notes</a></li>
@@ -1183,6 +1213,86 @@ and for the partition(s) of interest, add the <code>noatime</code> option.</p>
 <p><code>state</code></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="logging_configuration"><a class="anchor" href="administration-guide.html#logging_configuration"></a>Logging Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NiFi uses <a href="https://logback.qos.ch/" target="_blank" rel="noopener">logback</a> as the runtime logging implementation. The <code>conf</code> directory contains a
+standard <code>logback.xml</code> configuration with default appender and level settings. The
+<a href="https://logback.qos.ch/manual/index.html">logback manual</a> provides a complete reference of available options.</p>
+</div>
+<div class="sect2">
+<h3 id="standard-log-files"><a class="anchor" href="administration-guide.html#standard-log-files"></a>Standard Log Files</h3>
+<div class="paragraph">
+<p>The standard logback configuration includes the following appender definitions and associated log files:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">File</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi-app.log</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application log containing framework and component messages</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi-bootstrap.log</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap log containing startup and shutdown messages</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi-deprecation.log</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deprecation log containing warnings for deprecated components and features</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi-request.log</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP request log containing user interface and REST API access messages</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi-user.log</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User log containing authentication and authorization messages</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="deprecation-logging"><a class="anchor" href="administration-guide.html#deprecation-logging"></a>Deprecation Logging</h3>
+<div class="paragraph">
+<p>The <code>nifi-deprecation.log</code> contains warning messages describing components and features that will be removed in
+subsequent versions. Deprecation warnings should be evaluated and addressed to avoid breaking changes when upgrading to
+a new major version. Resolving deprecation warnings involves upgrading to new components, changing component property
+settings, or refactoring custom component classes.</p>
+</div>
+<div class="paragraph">
+<p>Deprecation logging provides a method for checking compatibility before upgrading from one major release version to
+another. Upgrading to the latest minor release version will provide the most accurate set of deprecation warnings.</p>
+</div>
+<div class="paragraph">
+<p>It is important to note that deprecation logging applies to both components and features. Logging for deprecated
+features requires a runtime reference to the property or method impacted. Disabled components with deprecated properties
+or methods will not generate deprecation logs. For this reason, it is important to exercise all configured components
+long enough to exercise standard flow behavior.</p>
+</div>
+<div class="paragraph">
+<p>Deprecation logging can generate repeated messages depending on component configuration and usage patterns. Disabling
+deprecation logging for a specific component class can be configured by adding a <code>logger</code> element to <code>logback.xml</code>.
+The <code>name</code> attribute must start with <code>deprecation</code>, followed by the component class. Setting the <code>level</code> attribute to
+<code>OFF</code> disables deprecation logging for the component specified.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;logger name="deprecation.org.apache.nifi.processors.ListenLegacyProtocol" level="OFF" /&gt;</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6492,7 +6602,7 @@ It has the following properties available:</p>
 <h2 id="proxy_configuration"><a class="anchor" href="administration-guide.html#proxy_configuration"></a>Proxy Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>​When running Apache NiFi behind a proxy there are a couple of key items to be aware of during deployment.</p>
+<p>When running Apache NiFi behind a proxy there are a couple of key items to be aware of during deployment.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -6594,6 +6704,73 @@ present in the allow list, the "An unexpected error has occurred" page will be s
 </div>
 </li>
 </ul>
+</div>
+<div class="sect2">
+<h3 id="session_affinity"><a class="anchor" href="administration-guide.html#session_affinity"></a>Session Affinity</h3>
+<div class="paragraph">
+<p>All HTTP requests from a single client must be routed to the same Apache NiFi node for the duration of an authenticated
+session. This applies to both browser-based users and programmatic clients accessing the REST API. This is not a concern
+for standalone deployments or direct network access to Apache NiFi, but accessing clustered nodes through a proxy server
+or load balancer requires enabling session affinity, also known as sticky sessions. Session affinity is required for
+mediated access to traditional cluster deployments as well as containerized deployments using platforms such as
+Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>Access to clustered deployments through a gateway requires session affinity for the following reasons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Each node uses a local key for signing and verifying JSON Web Tokens</p>
+</li>
+<li>
+<p>Each node uses a local cache for tracking configuration change transactions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Attempting to access a clustered node through a gateway without session affinity will result in intermittent failures of
+various types. When authenticating to Apache NiFi with username and password credentials, the lack of session affinity
+often results in HTTP 401 Unauthorized responses, indicating that the node did not accept the JSON Web Token. These
+failures can occur at different times based on the load balancing strategy. Accessing Apache NiFi using an X.509
+certificate avoids the verification issues associated with JSON Web Tokens, but is still subject to problems related to
+configuration change transaction handling across cluster nodes.</p>
+</div>
+<div class="sect3">
+<h4 id="session-affinity-configuration"><a class="anchor" href="administration-guide.html#session-affinity-configuration"></a>Session Affinity Configuration</h4>
+<div class="paragraph">
+<p>Enabling session affinity requires different settings depending on the product or service providing access. It is
+essential that the session affinity configuration has a timeout that is greater than the session expiration when
+authenticating with username and password credentials.</p>
+</div>
+<div class="sect4">
+<h5 id="apache-http-server-configuration"><a class="anchor" href="administration-guide.html#apache-http-server-configuration"></a>Apache HTTP Server Configuration</h5>
+<div class="paragraph">
+<p><a href="https://httpd.apache.org">Apache HTTP Server</a> supports session affinity in the
+<a href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html">mod_proxy</a> module using the
+<a href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#proxypass">ProxyPass</a> directive with the
+<a href="https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html#stickyness_implementation">stickysession</a> parameter to
+configure a cookie name for request routing.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="kubernetes-nginx-ingress-controller"><a class="anchor" href="administration-guide.html#kubernetes-nginx-ingress-controller"></a>Kubernetes Nginx Ingress Controller</h5>
+<div class="paragraph">
+<p>The <a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>
+supports session affinity using deployment annotations to configure
+<a href="https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/">sticky sessions</a> with cookies. The deployment
+annotations provide the ability to configure cookie attributes, including expiration.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="nginx-configuration"><a class="anchor" href="administration-guide.html#nginx-configuration"></a>Nginx Configuration</h5>
+<div class="paragraph">
+<p><a href="https://nginx.org/">Nginx</a> supports session affinity in the upstream module using the
+<a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#sticky">sticky</a> directive. The <strong>sticky</strong> directive
+supports different strategies, including <strong>cookie</strong> and <strong>route</strong> options.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -9914,7 +10091,7 @@ nifi.diagnostics.on.shutdown.max.directory.size=10 MB</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-27 14:13:40 -0700
+Last updated 2022-10-06 07:33:40 -0500
 </div>
 </div>
 </body>

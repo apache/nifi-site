@@ -1,4 +1,20 @@
-<!DOCTYPE html>
+<!--
+                        Licensed to the Apache Software Foundation (ASF) under one or more
+                        contributor license agreements.  See the NOTICE file distributed with
+                        this work for additional information regarding copyright ownership.
+                        The ASF licenses this file to You under the Apache License, Version 2.0
+                        (the "License"); you may not use this file except in compliance with
+                        the License.  You may obtain a copy of the License at
+
+                        http://www.apache.org/licenses/LICENSE-2.0
+
+                        Unless required by applicable law or agreed to in writing, software
+                        distributed under the License is distributed on an "AS IS" BASIS,
+                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                        See the License for the specific language governing permissions and
+                        limitations under the License.
+                        -->
+                        <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -548,6 +564,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="developer-guide.html#developing-a-reporting-task">Developing a Reporting Task</a></li>
 </ul>
 </li>
+<li><a href="developer-guide.html#parameter-providers">Parameter Providers</a>
+<ul class="sectlevel2">
+<li><a href="developer-guide.html#developing-a-parameter-provider">Developing a Parameter Provider</a></li>
+</ul>
+</li>
 <li><a href="developer-guide.html#ui-extensions">UI Extensions</a>
 <ul class="sectlevel2">
 <li><a href="developer-guide.html#custom-processor-uis">Custom Processor UIs</a></li>
@@ -573,7 +594,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="developer-guide.html#nars">NiFi Archives (NARs)</a></li>
 <li><a href="developer-guide.html#per-instance-classloading">Per-Instance ClassLoading</a></li>
-<li><a href="developer-guide.html#deprecation">Deprecating a Component</a></li>
+<li><a href="developer-guide.html#deprecation">Deprecating Components and Features</a>
+<ul class="sectlevel2">
+<li><a href="developer-guide.html#component-deprecation">Component Deprecation</a></li>
+<li><a href="developer-guide.html#feature-deprecation">Feature Deprecation</a></li>
+<li><a href="developer-guide.html#deprecation-logging">Deprecation Logging</a></li>
+</ul>
+</li>
 <li><a href="developer-guide.html#build">Build Options</a>
 <ul class="sectlevel2">
 <li><a href="developer-guide.html#maven-profiles">Maven Profiles</a></li>
@@ -679,12 +706,23 @@ endpoints, such as log files, e-mail, and remote web services.</p>
 </div>
 </li>
 <li>
+<p>ParameterProvider</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The ParameterProvider interface allows Parameters to be provided by external sources.  Provided parameters
+are still stored in Parameter Contexts, but this mechanism allows them to be provided and managed externally.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>ControllerService</p>
 <div class="ulist">
 <ul>
 <li>
 <p>A ControllerService provides shared state and functionality across Processors, other ControllerServices,
-and ReportingTasks within a single JVM. An example use case may include loading a very
+Parameter Providers, and ReportingTasks within a single JVM. An example use case may include loading a very
 large dataset into memory. By performing this work in a ControllerService, the data
 can be loaded once and be exposed to all Processors via this service, rather than requiring
 many different Processors to load the dataset themselves.</p>
@@ -855,7 +893,7 @@ Processors to run without consuming resources unnecessarily.</p>
 <h4 id="property_descriptor"><a class="anchor" href="developer-guide.html#property_descriptor"></a>PropertyDescriptor</h4>
 <div class="paragraph">
 <p>PropertyDescriptor defines a property that is to be used by a
-Processor, ReportingTask, or ControllerService.
+Processor, ReportingTask, ParameterProvider, or ControllerService.
 The definition of a property includes its name, a description of the
 property, an optional default value,
 validation logic, and an indicator as to whether or not the property
@@ -1238,7 +1276,7 @@ Annotations may be applied to Java methods in a NiFi component to
 indicate to
 the framework when the methods should be called. For the discussion of
 Component Lifecycle, we will define a NiFi component as a
-Processor, ControllerServices, or ReportingTask.</p>
+Processor, ControllerServices, ParameterProviders, or ReportingTask.</p>
 </div>
 <div class="sect3">
 <h4 id="onadded"><a class="anchor" href="developer-guide.html#onadded"></a>@OnAdded</h4>
@@ -1279,9 +1317,9 @@ without throwing anything.</p>
 of type <code>org.apache.nifi.controller.ConfigurationContext</code>.</p>
 </div>
 <div class="paragraph">
-<p>Note that this annotation will be ignored if applied to a ReportingTask or
-Processor. For a Controller Service, enabling and disabling are considered
-lifecycle events, as the action makes them usable or unusable by other
+<p>Note that this annotation will be ignored if applied to a ReportingTask,
+Parameter Provider, or Processor. For a Controller Service, enabling and disabling
+are considered lifecycle events, as the action makes them usable or unusable by other
 components. However, for a Processor and a Reporting Task, these are not
 lifecycle events but rather a mechanism to allow a component to be excluded
 when starting or stopping a group of components.</p>
@@ -1675,7 +1713,7 @@ public final class InvokeHTTP extends AbstractProcessor {</code></pre>
 Sometimes a Processor uses a ControllerService like <code>InvokeHTTP</code> and <code>StandardSSLContextService</code>.  Sometimes one ControllerService uses another
 like <code>DistributedMapCacheClientService</code> and <code>DistributedMapCacheServer</code>.  Developers of these extension points may relate these
 different components using the <code>SeeAlso</code> tag.  This annotation links these components in the documentation.
-<code>SeeAlso</code> can be applied to Processors, ControllerServices and ReportingTasks.  An example of how to do this is listed below:</p>
+<code>SeeAlso</code> can be applied to Processors, ControllerServices, ParameterProviders, and ReportingTasks.  An example of how to do this is listed below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1707,7 +1745,7 @@ to provide a rich explanation of what this Processor is doing, what kind of
 data it expects and produces, and what FlowFile attributes it expects and produces.
 Because this documentation is in an HTML format, you may include images and tables
 to best describe this component.  The same methods can be used to provide advanced
-documentation for Processors, ControllerServices and ReportingTasks.</p>
+documentation for Processors, ControllerServices, ParameterProviders, and ReportingTasks.</p>
 </div>
 </div>
 </div>
@@ -2908,14 +2946,15 @@ Controller Service&#8217;s interface. See <a href="developer-guide.html#nars">Ni
 <h3 id="interacting-with-controller-service"><a class="anchor" href="developer-guide.html#interacting-with-controller-service"></a>Interacting with a ControllerService</h3>
 <div class="paragraph">
 <p>ControllerServices may be obtained by a Processor, another
-ControllerService, or a ReportingTask
+ControllerService, a ParameterProvider, or a ReportingTask
 by means of the ControllerServiceLookup or by using the
 <code>identifiesControllerService</code> method of the
 PropertyDescriptor&#8217;s Builder class. The ControllerServiceLookup can be
 obtained by a Processor from the
 ProcessorInitializationContext that is passed to the <code>initialize</code>
 method. Likewise, it is obtained by
-a ControllerService from the ControllerServiceInitializationContext
+a ControllerService from the ControllerServiceInitializationContext,
+a ParameterProvider from the ParameterProviderInitializationContext,
 and by a ReportingTask via the
 ReportingConfiguration object passed to the <code>initialize</code> method.</p>
 </div>
@@ -2989,7 +3028,7 @@ ReportingTask interface exposes methods for
 configuration, validation, and initialization. These methods are all
 identical to those of the
 Processor and ControllerService interfaces except that the
-<code>initialize</code> method is passed a <code>ReportingConfiguration</code>
+<code>initialize</code> method is passed a <code>ReportingInitializationContext</code>
 object, as opposed to the initialization objects received by the other
 Components. The ReportingTask also has
 an <code>onTrigger</code> method that is invoked by the framework to trigger the
@@ -3035,6 +3074,52 @@ event describes. This provides a great deal of information to
 ReportingTasks, allowing reports to be generated
 in many different ways to expose metrics and monitoring capabilities
 needed for any number of operational concerns.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="parameter-providers"><a class="anchor" href="developer-guide.html#parameter-providers"></a>Parameter Providers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Although Parameter Contexts cannot be extended, the <code>ParameterProvider</code>
+interface allows an extension point for providing parameters to
+Parameter Contexts.  Parameter Providers can fetch groups of parameters
+that can be mapped to new Parameter Contexts, which can then be kept
+up to date by re-fetching the parameters.</p>
+</div>
+<div class="paragraph">
+<p>This extensibility allows parameters to be both initially provided and
+managed external to NiFi.</p>
+</div>
+<div class="sect2">
+<h3 id="developing-a-parameter-provider"><a class="anchor" href="developer-guide.html#developing-a-parameter-provider"></a>Developing a Parameter Provider</h3>
+<div class="paragraph">
+<p>The ParameterProvider interface exposes methods for
+configuration, validation, and initialization. These methods are all
+identical to those of the Processor and ControllerService interfaces except that the
+<code>initialize</code> method is passed a <code>ParameterProviderInitializationContext</code>
+object, as opposed to the initialization objects received by the other
+Components. The ParameterProvider also has a <code>fetchParameters</code> method that is invoked
+by the framework to fetch the parameters from its source.</p>
+</div>
+<div class="paragraph">
+<p>Fetched parameters are returned in <code>ParameterGroup</code> s, each of which has
+a group name and a list of parameters.  Parameter Groups may be mapped by the user
+to Parameter Contexts.  This allows a single <code>ParameterProvider</code> instance to provide different
+parameters to multiple Parameter Contexts based on their mappings.</p>
+</div>
+<div class="paragraph">
+<p>Within the <code>fetchParameters</code> method, the ParameterProvider is given access to a
+<code>ConfigurationContext</code>, from which configuration
+and information about the NiFi instance can be obtained. The
+ControllerServiceLookup that is accessible via the Context provides
+access to ControllerServices that have been
+configured. However, this method of obtaining Controller Services is
+not the preferred method. Rather, the
+preferred method for obtaining a Controller Service is to reference
+the Controller Service in a PropertyDescriptor,
+as is discussed in the <a href="developer-guide.html#interacting-with-controller-service">Interacting with a ControllerService</a> section.</p>
 </div>
 </div>
 </div>
@@ -3716,23 +3801,100 @@ logged to help avoid this bad practice.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deprecation"><a class="anchor" href="developer-guide.html#deprecation"></a>Deprecating a Component</h2>
+<h2 id="deprecation"><a class="anchor" href="developer-guide.html#deprecation"></a>Deprecating Components and Features</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Deprecating features is an important part of the software development lifecycle, providing an upgrade path for
+developers and users to follow.</p>
+</div>
+<div class="paragraph">
+<p>Apache NiFi follows the <a href="https://semver.org" target="_blank" rel="noopener">Semantic Versioning Specification 2.0.0</a> for features identified as
+part of the public version contract according to
+<a href="https://cwiki.apache.org/confluence/display/NIFI/Version+Scheme+and+API+Compatibility">Version Scheme</a>
+documentation.</p>
+</div>
+<div class="paragraph">
+<p>Components and features that fit under the public version contract require deprecation marking prior to removal. This
+approach allows developers to implement changes as part of minor version upgrades, in preparation for future removal
+of features in a subsequent major version.</p>
+</div>
+<div class="sect2">
+<h3 id="component-deprecation"><a class="anchor" href="developer-guide.html#component-deprecation"></a>Component Deprecation</h3>
 <div class="paragraph">
 <p>Sometimes it may be desirable to deprecate a component. Whenever this occurs the developer may use the
  <code>@DeprecationNotice</code> annotation to indicate that a component has been deprecated, allowing the developer
- to describe a reason for the deprecation and suggest alternative components. An example of how to do this can
+ to describe a <code>reason</code> for the deprecation and suggest alternative components. An example of how to do this can
  be found below:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java"> @DeprecationNotice(alternatives = {ListenSyslog.class}, classNames = {"org.apache.nifi.processors.standard.ListenRELP"}, reason = "Technology has been superseded",  )
- public class ListenOldProtocol extends AbstractProcessor {</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">@DeprecationNotice(
+        reason = "Legacy Protocol has been superseded",
+        alternatives = {ListenSyslog.class},
+        classNames = {"org.apache.nifi.processors.standard.ListenRELP"}
+)
+public class ListenLegacyProtocol extends AbstractProcessor {}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>As you can see, the alternatives can be used to define and array of alternative Components, while classNames can be
-used to represent the similar content through an array of strings.</p>
+<p>The <code>alternatives</code> property can be used to define an array of recommended replacement Components, while <code>classNames</code>
+can be used to represent similar content through an array of class name strings.</p>
+</div>
+<div class="paragraph">
+<p>Adding the <code>@DeprecationNotice</code> annotation renders a warning message in generated documentation and also logs the
+following warning when the Flow Configuration includes the component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Added Deprecated Component ListenLegacyProtocol[id=929a52c7-1e3e-423e-b303-6ca2ef657617] See alternatives [ListenSyslog,ListenRELP]</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="feature-deprecation"><a class="anchor" href="developer-guide.html#feature-deprecation"></a>Feature Deprecation</h3>
+<div class="paragraph">
+<p>Deprecating features includes changing component configuration strategies, introducing new repository classes, and
+refactoring a Controller Service interface. Removing component properties can create invalid Flow Configurations after
+upgrading, and removing public methods from a Controller Service interface can break components compiled against
+previous versions. For these reasons, introducing new properties and methods must include a deprecation strategy that
+supports compatibility when upgrading from one minor version to another.</p>
+</div>
+<div class="paragraph">
+<p>Annotating methods and properties with the Java <code>@Deprecated</code> annotation provides a warning to software developers, but
+does not provide any information to users. Adding selective deprecation logging provides a method for users to determine
+whether the current Flow Configuration uses deprecated properties or features.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deprecation-logging"><a class="anchor" href="developer-guide.html#deprecation-logging"></a>Deprecation Logging</h3>
+<div class="paragraph">
+<p>The <code>nifi-deprecation-log</code> module provides an abstraction for logging deprecation warnings. The <code>DeprecationLogger</code>
+interface has a <code>warn()</code> method that accepts a message string with a variable number of arguments. The standard
+implementation delegates to SLF4J, supporting standard features for providing and resolving placeholder arguments. The
+standard <code>DeprecationLogger</code> implementation also logs a <code>DeprecationException</code> with the referenced class, supporting
+tracing to the usage location.</p>
+</div>
+<div class="paragraph">
+<p>Instantiating a <code>DeprecationLogger</code> follows the same conventions as instantiating an SLF4J <code>Logger</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">private static final DeprecationLogger deprecationLogger = DeprecationLoggerFactory.getLogger(Service.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Logging warnings for deprecated extension component properties and methods should include the simple class name and the
+component identifier for tracing. Warning messages should also reference recommended alternatives.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">deprecationLogger.warn(
+        "{}[id={}] createServiceContext() should be replaced with createContext()",
+        getClass().getSimpleName(),
+        getIdentifier()
+);</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3897,7 +4059,7 @@ worry about bothering us. Just ping the mailing list again.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-07-27 14:13:40 -0700
+Last updated 2022-10-06 07:33:40 -0500
 </div>
 </div>
 </body>
