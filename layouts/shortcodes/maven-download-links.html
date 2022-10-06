@@ -1,0 +1,29 @@
+{{- $downloadVersion := (.Site.Params.currentProjectVersion) -}}
+{{- $primaryDownloadUrl := (.Site.Params.mavenCentralDownloadPathUrl) -}}
+
+{{- if eq (.Get "version") "previous" -}}
+  {{- $downloadVersion = (.Site.Params.previousProjectVersion) -}}
+{{- end -}}
+
+{{- $project := "nifi" -}}
+{{- with .Get "project" -}}
+  {{- $project = . -}}
+{{- end -}}
+
+{{- $qualifier := "" -}}
+{{- with .Get "qualifier" -}}
+  {{- $qualifier = . -}}
+{{- end -}}
+
+{{- $extension := "" -}}
+{{- with .Get "extension" -}}
+  {{- $extension = . -}}
+{{- end -}}
+
+{{- $module := (print $project "-" $qualifier) -}}
+
+{{- $downloadFilePath := (print $module "/" $downloadVersion "/" $module "-" $downloadVersion "." $extension) -}}
+
+<a href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}">{{ .Get "label" }} {{ $downloadVersion }}</a>
+[<a href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}.asc">OpenPGP</a>]
+[<a href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}.sha1">SHA-1</a>]

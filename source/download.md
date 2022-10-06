@@ -25,6 +25,7 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 - Binaries 
   - {{< download-links label="Apache NiFi Binary" extension=bin.zip >}} 
   - {{< download-links label="Apache NiFi Stateless Binary" qualifier="stateless" extension=bin.zip >}}
+  - {{< maven-download-links label="Apache NiFi Stateless Kafka Connector Binary" qualifier="kafka-connector-assembly" extension=zip >}}
   - {{< download-links label="Apache NiFi Toolkit Binary" qualifier="toolkit" extension=bin.zip >}}
 
 ### {{< param previousProjectVersion >}}
@@ -37,6 +38,7 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 - Binaries
   - {{< download-links label="Apache NiFi Binary" extension=bin.zip version=previous >}}
   - {{< download-links label="Apache NiFi Stateless Binary" qualifier="stateless" extension=bin.tar.gz version=previous >}}
+  - {{< maven-download-links label="Apache NiFi Stateless Kafka Connector Binary" qualifier="kafka-connector-assembly" extension=tar.gz version=previous >}} 
   - {{< download-links label="Apache NiFi Toolkit Binary" qualifier="toolkit" extension=bin.zip version=previous >}}
 
 ## Images
