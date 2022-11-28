@@ -442,7 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#system-requirements">System Requirements</a></li>
 <li><a href="administration-guide.html#how-to-install-and-start-nifi-registry">How to install and start NiFi Registry</a></li>
 <li><a href="administration-guide.html#recommended-antivirus-exclusions">Recommended Antivirus Exclusions</a></li>
-<li><a href="administration-guide.html#security_configuration">Security Configuration</a></li>
+<li><a href="administration-guide.html#security_configuration">Security Configuration</a>
+<ul class="sectlevel2">
+<li><a href="administration-guide.html#tls_cipher_suites">TLS Cipher Suites</a></li>
+</ul>
+</li>
 <li><a href="administration-guide.html#user_authentication">User Authentication</a>
 <ul class="sectlevel2">
 <li><a href="administration-guide.html#ldap_identity_provider">Lightweight Directory Access Protocol (LDAP)</a></li>
@@ -769,6 +773,56 @@ It is important when enabling HTTPS that the <code>nifi.registry.web.http.port</
 </td>
 </tr>
 </table>
+</div>
+<div class="sect2">
+<h3 id="tls_cipher_suites"><a class="anchor" href="administration-guide.html#tls_cipher_suites"></a>TLS Cipher Suites</h3>
+<div class="paragraph">
+<p>The Java Runtime Environment provides the ability to specify custom TLS cipher suites to be used by servers when accepting client connections.  See
+<a href="https://java.com/en/configure_crypto.html" target="_blank" rel="noopener">here</a> for more information.  To use this feature for the NiFi web service, the following NiFi properties
+may be set:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.registry.web.https.ciphersuites.include</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set of ciphers that are available to be used by incoming client connections.  Replaces system defaults if set.</p></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.registry.web.https.ciphersuites.exclude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set of ciphers that must not be used by incoming client connections.  Filters available ciphers if set.</p></td>
+</tr>
+</tfoot>
+</table>
+<div class="paragraph">
+<p>Each property should take the form of a comma-separated list of common cipher names as specified
+<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#ciphersuites" target="_blank" rel="noopener">here</a>.  Regular expressions
+(for example <code>^.*GCM_SHA256$</code>) may also be specified.</p>
+</div>
+<div class="paragraph">
+<p>The semantics match the use of the following Jetty APIs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.eclipse.org/jetty/javadoc/jetty-9/org/eclipse/jetty/util/ssl/SslContextFactory.html#setIncludeCipherSuites(java.lang.String...)">SslContextFactory.setIncludeCipherSuites()</a></p>
+</li>
+<li>
+<p><a href="https://www.eclipse.org/jetty/javadoc/jetty-9/org/eclipse/jetty/util/ssl/SslContextFactory.html#setExcludeCipherSuites(java.lang.String...)">SslContextFactory.setExcludeCipherSuites()</a></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -2294,6 +2348,13 @@ Values for periods of time and data sizes must include the unit of measure, for 
 <td class="tableblock halign-left valign-top"><p class="tableblock">The HTTPS port. It is blank by default. When configuring NiFi Registry to run securely, this port should be configured.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.registry.web.https.application.protocols</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The space-separated list of application protocols supported when running with HTTPS enabled.</p>
+<p class="tableblock">The default value is <code>http/1.1</code>.</p>
+<p class="tableblock">The value can be set to <code>h2 http/1.1</code> to support Application Layer Protocol Negotiation (ALPN) for HTTP/2 or HTTP/1.1 based on client capabilities.</p>
+<p class="tableblock">The value can be set to <code>h2</code> to require HTTP/2 and disable HTTP/1.1.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.registry.web.jetty.working.directory</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The location of the Jetty working directory. The default value is <code>./work/jetty</code>.</p></td>
 </tr>
@@ -3674,7 +3735,7 @@ via NiFi Registry’s <em>logback.xml</em>, which by default contains an appende
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-03 11:33:52 -0700
+Last updated 2022-11-22 19:57:25 -0700
 </div>
 </div>
 </body>
