@@ -487,6 +487,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="expression-language-guide.html#or">or</a></li>
 <li><a href="expression-language-guide.html#not">not</a></li>
 <li><a href="expression-language-guide.html#ifelse">ifElse</a></li>
+<li><a href="expression-language-guide.html#isjson">isJson</a></li>
 </ul>
 </li>
 <li><a href="expression-language-guide.html#strings">String Manipulation</a>
@@ -1439,6 +1440,93 @@ the following results:</p>
 </tbody>
 </table>
 </div>
+<div class="sect2 function">
+<h3 id="isjson"><a class="anchor" href="expression-language-guide.html#isjson"></a>isJson</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: [.description]#The <code>isJson</code> function returns <code>true</code> if the subject is a JSON array or a JSON object, <code>false</code> otherwise. This is typically used to determine whether an attribute is JSON in order to allow for a follow-on JSONPath query. Although technically there are other valid JSON types such as string, number, boolean and null, this method is only concerned with the primary JSON objects queried with JSONPath , arrays and objects. #</p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Any</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>: No arguments</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Boolean</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the attribute "jsonObj" has the value {"name":"John", "age":30, "car":null}, the attribute jsonObjMissingStartingBrace has the value "name":"John", "age":30, "car":null}, the attribute jsonObjMissingEndingBrace has the value {"name":"John", "age":30, "car":null, the attribute "jsonArray" has the value ["Ford", "BMW", "Fiat"], the attribute jsonArrayMissingStartingBracket has the value "Ford", "BMW", "Fiat"], the attribute jsonArrayMissingEndingBracket has the value ["Ford", "BMW", "Fiat", the "someAttribute" attribute does not exist, the "emptyQuotedString" attribute value is "", the attribute "quotedString" has the value "someString", the attribute "integer" has the value 1234, the attribute "decimal" has the value 18.36, the attribute "trueAttr" has the value true, the attribute "falseAttr" has the value false and the "nullAttr" attribute has the value null, then the following expressions will provide the following results:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. isJson Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${jsonObj:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${jsonObjMissingStartingBrace:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${jsonObjMissingEndingBrace:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${jsonArray:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${jsonArrayMissingStartingBracket:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${jsonArrayMissingEndingBracket:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${someAttribute:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${emptyQuotedString:isJson())</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${quotedString:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${integer:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${decimal:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${trueAttr:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${falseAttr:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${nullAttr:isJson()}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1556,7 +1644,7 @@ the following results:</p>
 then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Substring Examples</caption>
+<caption class="title">Table 4. Substring Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1613,7 +1701,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. SubstringBefore Examples</caption>
+<caption class="title">Table 5. SubstringBefore Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1670,7 +1758,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. SubstringBeforeLast Examples</caption>
+<caption class="title">Table 6. SubstringBeforeLast Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1727,7 +1815,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. SubstringAfter Examples</caption>
+<caption class="title">Table 7. SubstringAfter Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1784,7 +1872,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. SubstringAfterLast Examples</caption>
+<caption class="title">Table 8. SubstringAfterLast Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1861,7 +1949,7 @@ or <code>false</code>.</span></p>
     then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. GetDelimitedField Examples</caption>
+<caption class="title">Table 9. GetDelimitedField Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1977,7 +2065,7 @@ or <code>false</code>.</span></p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Replace Examples</caption>
+<caption class="title">Table 10. Replace Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2035,7 +2123,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. ReplaceFirst Examples</caption>
+<caption class="title">Table 11. ReplaceFirst Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2096,7 +2184,7 @@ argument uses Capturing Groups, back references are allowed in the <em>replaceme
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. ReplaceAll Examples</caption>
+<caption class="title">Table 12. ReplaceAll Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2158,7 +2246,7 @@ It returns <code>null</code> if the argument string is not a valid attribute.</p
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. PadLeft Examples</caption>
+<caption class="title">Table 13. PadLeft Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2220,7 +2308,7 @@ It returns <code>null</code> if the argument string is not a valid attribute.</p
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. PadLeft Examples</caption>
+<caption class="title">Table 14. PadLeft Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2389,7 +2477,7 @@ of times to repeat the subject if <em>max repeats</em> is not supplied.</span></
 then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Repeat Examples</caption>
+<caption class="title">Table 15. Repeat Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2949,7 +3037,7 @@ Supports one of [SHA-384, SHA-224, SHA-256, MD2, SHA, SHA-512, MD5]. Warning: MD
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. find Examples</caption>
+<caption class="title">Table 16. find Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3003,7 +3091,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. matches Examples</caption>
+<caption class="title">Table 17. matches Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3058,7 +3146,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. indexOf Examples</caption>
+<caption class="title">Table 18. indexOf Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3117,7 +3205,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. lastIndexOf Examples</caption>
+<caption class="title">Table 19. lastIndexOf Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3197,7 +3285,7 @@ Expressions will provide the following results:</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. jsonPath Examples</caption>
+<caption class="title">Table 20. jsonPath Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3285,7 +3373,7 @@ form of the updated JSON.</span></p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. jsonPathDelete Examples</caption>
+<caption class="title">Table 21. jsonPathDelete Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3368,7 +3456,7 @@ path is not in the JSON, the operation returns the original JSON without any mod
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. jsonPathAdd Examples</caption>
+<caption class="title">Table 22. jsonPathAdd Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3450,7 +3538,7 @@ form of the updated JSON.</span></p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. jsonPathSet Examples</caption>
+<caption class="title">Table 23. jsonPathSet Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3534,7 +3622,7 @@ form of the updated JSON.</span></p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. jsonPathPut Examples</caption>
+<caption class="title">Table 24. jsonPathPut Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3725,7 +3813,7 @@ Divide. This is to preserve backwards compatibility and to not force rounding er
 	the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. toRadix Examples</caption>
+<caption class="title">Table 25. toRadix Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3792,7 +3880,7 @@ Divide. This is to preserve backwards compatibility and to not force rounding er
 	the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. toRadix Examples</caption>
+<caption class="title">Table 26. toRadix Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3921,7 +4009,7 @@ In order to run the correct method, the parameter types must be correct. The Exp
 	the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. format Examples</caption>
+<caption class="title">Table 27. format Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4009,7 +4097,7 @@ timeIsoInstant has the value "2022-12-03T10:15:30Z" and "timeRFC1123" has the va
 then the following Expressions will yield the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. format Examples</caption>
+<caption class="title">Table 28. format Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4181,7 +4269,7 @@ was run then it would output <code>1453843201123</code>. This method provides mi
 manipulate the value.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. now Examples</caption>
+<caption class="title">Table 29. now Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4496,7 +4584,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. anyAttribute Examples</caption>
+<caption class="title">Table 30. anyAttribute Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4546,7 +4634,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. allAttributes Example</caption>
+<caption class="title">Table 31. allAttributes Example</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4597,7 +4685,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. anyMatchingAttribute Example</caption>
+<caption class="title">Table 32. anyMatchingAttribute Example</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4645,7 +4733,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. anyMatchingAttributes Examples</caption>
+<caption class="title">Table 33. anyMatchingAttributes Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4702,7 +4790,7 @@ though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. anyDelineatedValue Examples</caption>
+<caption class="title">Table 34. anyDelineatedValue Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4755,7 +4843,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. allDelineatedValues Examples</caption>
+<caption class="title">Table 35. allDelineatedValues Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4812,7 +4900,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. join Examples</caption>
+<caption class="title">Table 36. join Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4855,7 +4943,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	and "number_list" contains "1,2,3,4,5" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. count Examples</caption>
+<caption class="title">Table 37. count Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4893,7 +4981,7 @@ an embedded Expression, though it does not have to be.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-10-06 07:33:40 -0500
+Last updated 2022-11-23 13:46:01 -0600
 </div>
 </div>
 </body>
