@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
-        <link rel="stylesheet" href="/stylesheets/app.min.92da7048339401bf53463b01188254399d9c8a2138949712827fee24e79c12e4.css">
+        <link rel="stylesheet" href="/stylesheets/app.min.5c81cf462909783b5f788de8312885d5e08d20aa6dd5f6eb9507dd445444a6cb.css">
         <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
         <script src="/assets/js/modernizr.js"></script>
         <script src="/assets/js/webfontloader.js"></script>
@@ -132,7 +132,7 @@
 <p>After a new config is determined to be new, the MiNiFi agent will attempt to restart. The bootstrap first saves the old config into a swap file. The bootstrap monitors the agent as it restarts and if it fails it will roll back to the old config. If it succeeds then the swap file will be deleted and the agent will start processing using the new config.</p>
 <p><strong>Note:</strong> Data left in connections when the agent attempts to restart will either be mapped to a connection with the same ID in the new config, or orphaned and deleted.</p>
 <p>The configuration for Warm-Redeploy is done in the bootstrap.conf and primarily revolve around the Config Change Ingestors. The configuration in the bootstrap.conf is done using the <code>nifi.minifi.notifier.ingestors</code> key followed by the full path name of the desired Ingestor implementation to run. Use a comma separated list  to define more than one Ingestor implementation. For example:</p>
-<pre><code>nifi.minifi.notifier.ingestors=org.apache.nifi.minifi.bootstrap.configuration.ingestors.PullHttpChangeIngestor
+<pre tabindex="0"><code>nifi.minifi.notifier.ingestors=org.apache.nifi.minifi.bootstrap.configuration.ingestors.PullHttpChangeIngestor
 </code></pre><p>Ingestor specific configuration is also necessary and done in the bootstrap.conf as well. Specifics for each are detailed below.</p>
 <h2 id="filechangeingestor">FileChangeIngestor</h2>
 <p>class name: <code>org.apache.nifi.minifi.bootstrap.configuration.ingestors.FileChangeIngestor</code></p>
@@ -166,7 +166,7 @@
 <p>This Config Change Ingestor sets up a light-weight Jetty HTTP(S) REST service in order to listen to HTTP(S) requests. A potential new configuration is sent via a POST request with the BODY being the potential new config.</p>
 <p><strong>Note:</strong> The encoding is expected to be Unicode and the exact version specified by the BOM mark (&lsquo;UTF-8&rsquo;,&lsquo;UTF-16BE&rsquo; or &lsquo;UTF-16LE&rsquo;). If there is no BOM mark, then UTF-8 is used.</p>
 <p>Here is an example post request using <code>curl</code> hitting the local machine on port <code>8338</code> and it is executed with the config file <em>config.yml</em> in the directory the command is run from:</p>
-<pre><code>curl --request POST --data-binary &quot;@config.yml&quot; http://localhost:8338/
+<pre tabindex="0"><code>curl --request POST --data-binary &quot;@config.yml&quot; http://localhost:8338/
 </code></pre><p>Below are the configuration options. There are no required options. If no properties are set then the server will bind to hostname <code>localhost</code> on a random open port, will only connect via HTTP and will use the <code>WholeConfigDifferentiator</code>.</p>
 <table>
 <thead>
@@ -312,15 +312,15 @@
 <p>In NiFi there is a lot of information, such as stats and bulletins, that is only available to view through the UI. MiNiFi provides access to this information through a query mechanism. You can query FlowStatus either using the <code>minifi.sh</code> script or by configuring one of the Periodic Status Reporters. The API for the query is the same for the reporters and the &ldquo;flowStatus&rdquo; script option. The API is outlined in the &ldquo;FlowStatus Query Options&rdquo; section below.</p>
 <h2 id="flowstatus-script-query">FlowStatus Script Query</h2>
 <p>From the <code>minifi.sh</code> script, you can manually query to get the current status of your dataflow. The following is an example of a <code>minifi.sh</code> query you might run to view health, stats, and bulletins for the TailFile processor. This query returns information to your command-line.</p>
-<pre><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
-</code></pre><p>Currently the script only accepts one high level option at a time. Also any names of connections, remote process groups, or processors that contain &quot; &quot; (a space), &ldquo;:&quot;, &ldquo;;&rdquo; or &ldquo;,&rdquo; cause parsing errors when querying.</p>
+<pre tabindex="0"><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
+</code></pre><p>Currently the script only accepts one high level option at a time. Also any names of connections, remote process groups, or processors that contain &quot; &quot; (a space), &ldquo;:&rdquo;, &ldquo;;&rdquo; or &ldquo;,&rdquo; cause parsing errors when querying.</p>
 <p><strong>Note:</strong> The examples in this documentation are provided for *nix based environments.  Windows support is also provided by by the <code>flowstatus-minifi.bat</code> file.  To perform one of the listed interactions, <code>minifi.sh flowStatus</code> would simply be replaced by <code>flowstatus-minifi.bat</code>.  For example, the sample query above in *nix environments,</p>
-<pre><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
+<pre tabindex="0"><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
 </code></pre><p>would translate to Windows environments as,</p>
-<pre><code>flowstatus-minifi.bat processor:TailFile:health,stats,bulletins
+<pre tabindex="0"><code>flowstatus-minifi.bat processor:TailFile:health,stats,bulletins
 </code></pre><h2 id="periodic-status-reporters">Periodic Status Reporters</h2>
 <p>You can set up Periodic Status Reporters to periodically report the status of your dataflow. The query executes at configurable intervals and the results are reported using the configured implementation. Configure the Reporters in the <em>bootstrap.conf</em> file, using the <code>nifi.minifi.status.reporter.components</code> key followed by the full path name of the desired Reporter implementation to run. Use a comma separated list to define more than one Reporter implementation. For example:</p>
-<pre><code>nifi.minifi.status.reporter.components=org.apache.nifi.minifi.bootstrap.status.reporters.StatusLogger
+<pre tabindex="0"><code>nifi.minifi.status.reporter.components=org.apache.nifi.minifi.bootstrap.status.reporters.StatusLogger
 </code></pre><h3 id="statuslogger">StatusLogger</h3>
 <p>class name: <code>org.apache.nifi.minifi.bootstrap.status.reporters.StatusLogger</code></p>
 <p>The Periodic Status Reporter logs the results of the query to the logs. By default it is logged to the <em>minifi-bootstrap.log</em> but you can modify <em>logback.xml</em> to log to an alternate file and location.</p>
@@ -347,14 +347,14 @@
 </tbody>
 </table>
 <p>Example <code>bootstrap.conf</code> configuration:</p>
-<pre><code># The FlowStatus query to submit to the MiNiFi instance
+<pre tabindex="0"><code># The FlowStatus query to submit to the MiNiFi instance
 nifi.minifi.status.reporter.log.query=instance:health,bulletins
 # The log level at which the status will be logged
 nifi.minifi.status.reporter.log.level=INFO
 # The period (in milliseconds) at which to log the status
 nifi.minifi.status.reporter.log.period=60000
 </code></pre><p>Example <code>logback.xml</code> configuration to output the status to its own rolling log file:</p>
-<pre><code>&lt;appender name=&quot;STATUS_LOG_FILE&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+<pre tabindex="0"><code>&lt;appender name=&quot;STATUS_LOG_FILE&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
     &lt;file&gt;logs/minifi-status.log&lt;/file&gt;
     &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
         &lt;!--
@@ -403,7 +403,7 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the health, bulletins and stats of the &ldquo;TailFile&rdquo; processor is below.</p>
-<pre><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
+<pre tabindex="0"><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
 </code></pre><h3 id="connections">Connections</h3>
 <p>To query the connections, use the <code>connection</code> flag and specify the connection (by ID, name or &ldquo;all&rdquo;) followed by one of the connection options. The connection options are below.</p>
 <table>
@@ -425,7 +425,7 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the health and stats of the &ldquo;TailToS2S&rdquo; connection is below.</p>
-<pre><code>minifi.sh flowStatus connection:TailToS2S:health,stats
+<pre tabindex="0"><code>minifi.sh flowStatus connection:TailToS2S:health,stats
 </code></pre><h3 id="remote-process-groups">Remote Process Groups</h3>
 <p>To query the remote process groups (RPGs), use the <code>remoteprocessgroup</code> flag and specify the RPG (by ID, name or &ldquo;all&rdquo;) followed by one of the remote process group options. The remote process group options are below.</p>
 <table>
@@ -459,7 +459,7 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the health, bulletins, input ports and stats of all the RPGs is below.</p>
-<pre><code>minifi.sh flowStatus remoteprocessgroup:all:health,bulletins,inputports,stats
+<pre tabindex="0"><code>minifi.sh flowStatus remoteprocessgroup:all:health,bulletins,inputports,stats
 </code></pre><h3 id="controller-services">Controller Services</h3>
 <p>To query the controller services, use the <code>controllerservices</code> flag followed by one of the controller service options. The controller service options are below.</p>
 <table>
@@ -481,7 +481,7 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the health and bulletins of all the controller services is below.</p>
-<pre><code>minifi.sh flowStatus controllerservices:health,bulletins
+<pre tabindex="0"><code>minifi.sh flowStatus controllerservices:health,bulletins
 </code></pre><h3 id="provenance-reporting">Provenance Reporting</h3>
 <p>To query the status of the provenance reporting, use the <code>provenancereporting</code> flag followed by one of the provenance reporting  options. The provenance reporting options are below.</p>
 <table>
@@ -503,7 +503,7 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the health and bulletins of the provenance reporting is below.</p>
-<pre><code>minifi.sh flowStatus provenancereporting:health,bulletins
+<pre tabindex="0"><code>minifi.sh flowStatus provenancereporting:health,bulletins
 </code></pre><h3 id="instance">Instance</h3>
 <p>To query the status of the MiNiFi instance, use the <code>instance</code> flag followed by one of the instance options. The instance options are below.</p>
 <table>
@@ -529,7 +529,7 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the health, stats and bulletins of the instance is below.</p>
-<pre><code>minifi.sh flowStatus instance:health,stats,bulletins
+<pre tabindex="0"><code>minifi.sh flowStatus instance:health,stats,bulletins
 </code></pre><h3 id="system-diagnostics">System Diagnostics</h3>
 <p>To query the system diagnostics, use the <code>systemdiagnostics</code> flag followed by one of the system diagnostics options. The system diagnostics options are below.</p>
 <table>
@@ -563,10 +563,10 @@ nifi.minifi.status.reporter.log.period=60000
 </tbody>
 </table>
 <p>An example query to get the heap, processor stats, content repository usage, FlowFile repository usage and garbage collection from the system diagnostics is below.</p>
-<pre><code>minifi.sh flowStatus systemdiagnostics:heap,processorstats,contentrepositoryusage,flowfilerepositoryusage,garbagecollection
+<pre tabindex="0"><code>minifi.sh flowStatus systemdiagnostics:heap,processorstats,contentrepositoryusage,flowfilerepositoryusage,garbagecollection
 </code></pre><h3 id="example">Example</h3>
 <p>This is an example of a simple query to get the health of all the processors and its results from a simple flow:</p>
-<pre><code>User:minifi-0.0.1-SNAPSHOT user ./bin/minifi.sh flowStatus processor:all:health
+<pre tabindex="0"><code>User:minifi-0.0.1-SNAPSHOT user ./bin/minifi.sh flowStatus processor:all:health
 
 Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home
 MiNiFi home: /Users/user/projects/nifi-minifi/minifi-assembly/target/minifi-0.0.1-SNAPSHOT-bin/minifi-0.0.1-SNAPSHOT
@@ -788,7 +788,7 @@ of 576.</p>
 </tr>
 <tr>
 <td><code>snapshot frequency</code></td>
-<td>This value indicates how often to present a snapshot of the components&rsquo; status history. The default value is <code>1 min</code>.</td>
+<td>This value indicates how often to present a snapshot of the components' status history. The default value is <code>1 min</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1259,10 +1259,10 @@ of 576.</p>
 <h2 id="nifi-properties-overrides">NiFi Properties Overrides</h2>
 <p>This is a yaml map that contains values to be put into <em>nifi.properties</em>.  This will supercede any hardcoded or other schema values that are substituted into <em>nifi.properties</em> file.</p>
 <h3 id="example-nifi-properties-overrides">Example NiFi Properties Overrides</h3>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#a2f;font-weight:bold">NiFi Properties Overrides</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:bold">nifi.flowfile.repository.directory</span>:<span style="color:#bbb"> </span>./flowfile_repository_override<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:bold">nifi.content.repository.directory.default</span>:<span style="color:#bbb"> </span>./content_repository_override<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:bold">nifi.database.directory</span>:<span style="color:#bbb"> </span>./database_repository_override<span style="color:#bbb">
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#008000;font-weight:bold">NiFi Properties Overrides</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">nifi.flowfile.repository.directory</span>:<span style="color:#bbb"> </span>./flowfile_repository_override<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">nifi.content.repository.directory.default</span>:<span style="color:#bbb"> </span>./content_repository_override<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#008000;font-weight:bold">nifi.database.directory</span>:<span style="color:#bbb"> </span>./database_repository_override<span style="color:#bbb">
 </span></code></pre></div><h1 id="running-as-a-windows-service">Running as a Windows Service</h1>
 <p>MiNiFi can run as a Windows service. To do so, you must modify the <em>conf/bootstrap.conf</em> to set absolute paths for some properties. The properties are:</p>
 <ul>
@@ -1274,252 +1274,252 @@ of 576.</p>
 <p>The <em>minifi.exe</em> in MiNiFi <code>bin</code> directory is used to run MiNiFi Windows service. The bundled one is for 64 bit architecture and requires 64 bit JRE. If you have to use 32 bit JRE for some reason, you need to replace the <em>minifi.exe</em> file with the one for 32 bit to make MiNiFi service runs successfully. To do so, go to <a href="https://commons.apache.org/proper/commons-daemon/download_daemon.cgi">Commons Daemon project download page</a>, download the binary (e.g. <em>commons-daemon-1.1.0-bin.zip</em>), extract it and replace <em>bin/minifi.exe</em> by copying <code>commons-daemon-x.x.x-bin/prunsrv.exe</code> into MiNiFi <code>bin</code> directory as <em>minifi.exe</em> to overwrite the 64 bit exe with the 32 bit one.</p>
 <h1 id="example-config-file">Example Config File</h1>
 <p>Below are two example config YAML files. The first tails the <em>minifi-app.log</em> and sends the tailed log and provenance data back to a secure instance of NiFi. The second uses a series of processors to tail the app log, routes off only lines that contain &ldquo;WriteAheadFlowFileRepository&rdquo; and puts it as a file in the &ldquo;./&rdquo; directory.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#a2f;font-weight:bold">MiNiFi Config Version</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Flow Controller</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>MiNiFi<span style="color:#bbb"> </span>Flow<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">comment</span>:<span style="color:#bbb">
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#008000;font-weight:bold">MiNiFi Config Version</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Flow Controller</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>MiNiFi Flow<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">comment</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Core Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">flow controller graceful shutdown period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">flow service write delay interval</span>:<span style="color:#bbb"> </span><span style="color:#666">500</span><span style="color:#bbb"> </span>ms<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">administrative yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">bored yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>millis<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Core Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">flow controller graceful shutdown period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">flow service write delay interval</span>:<span style="color:#bbb"> </span><span style="color:#666">500</span><span style="color:#bbb"> </span>ms<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">administrative yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">bored yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>millis<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">FlowFile Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">partitions</span>:<span style="color:#bbb"> </span><span style="color:#666">256</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">checkpoint interval</span>:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb"> </span>mins<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">Swap</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">threshold</span>:<span style="color:#bbb"> </span><span style="color:#666">20000</span><span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">in period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">in threads</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">out period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">out threads</span>:<span style="color:#bbb"> </span><span style="color:#666">4</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">FlowFile Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">partitions</span>:<span style="color:#bbb"> </span><span style="color:#666">256</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">checkpoint interval</span>:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb"> </span>mins<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">Swap</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">threshold</span>:<span style="color:#bbb"> </span><span style="color:#666">20000</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">in period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">in threads</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">out period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">out threads</span>:<span style="color:#bbb"> </span><span style="color:#666">4</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Provenance Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">provenance rollover time</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>min<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Provenance Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">provenance rollover time</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>min<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Content Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">content claim max appendable size</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">content claim max flow files</span>:<span style="color:#bbb"> </span><span style="color:#666">100</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Content Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">content claim max appendable size</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">content claim max flow files</span>:<span style="color:#bbb"> </span><span style="color:#666">100</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Component Status Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">buffer size</span>:<span style="color:#bbb"> </span><span style="color:#666">1440</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">snapshot frequency</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>min<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Component Status Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">buffer size</span>:<span style="color:#bbb"> </span><span style="color:#666">1440</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">snapshot frequency</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>min<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Security Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">keystore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ks.jks<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">keystore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">keystore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">key password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">truststore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ts.jks<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">truststore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">truststore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">ssl protocol</span>:<span style="color:#bbb"> </span>TLS<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">Sensitive Props</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">key</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">algorithm</span>:<span style="color:#bbb"> </span>PBEWITHMD5AND256BITAES-CBC-OPENSSL<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">provider</span>:<span style="color:#bbb"> </span>BC<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Security Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">keystore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ks.jks<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">keystore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">keystore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">key password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">truststore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ts.jks<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">truststore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">truststore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">ssl protocol</span>:<span style="color:#bbb"> </span>TLS<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">Sensitive Props</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">key</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">algorithm</span>:<span style="color:#bbb"> </span>PBEWITHMD5AND256BITAES-CBC-OPENSSL<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">provider</span>:<span style="color:#bbb"> </span>BC<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Processors</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.TailFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">File to Tail</span>:<span style="color:#bbb"> </span>logs/minifi-app.log<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Rolling Filename Pattern</span>:<span style="color:#bbb"> </span>minifi-app*<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Initial Start Position</span>:<span style="color:#bbb"> </span>Beginning<span style="color:#bbb"> </span>of<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Processors</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.TailFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">File to Tail</span>:<span style="color:#bbb"> </span>logs/minifi-app.log<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Rolling Filename Pattern</span>:<span style="color:#bbb"> </span>minifi-app*<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Initial Start Position</span>:<span style="color:#bbb"> </span>Beginning of File<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Connections</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailToS2S<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>TailFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>success<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>8644cbcc-a45c<span style="color:#666">-40e0</span>-964d-5e536e2ada61<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Connections</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailToS2S<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>TailFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>success<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>8644cbcc-a45c-40e0-964d-5e536e2ada61<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Remote Processing Groups</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>NiFi<span style="color:#bbb"> </span>Flow<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">comment</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">url</span>:<span style="color:#bbb"> </span>https://localhost:<span style="color:#666">8090</span>/nifi<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">timeout</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>secs<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">Input Ports</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span>- <span style="color:#a2f;font-weight:bold">id</span>:<span style="color:#bbb"> </span>8644cbcc-a45c<span style="color:#666">-40e0</span>-964d-5e536e2ada61<span style="color:#bbb">
-</span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>tailed<span style="color:#bbb"> </span>log<span style="color:#bbb">
-</span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">comments</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">use compression</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Remote Processing Groups</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>NiFi Flow<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">comment</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">url</span>:<span style="color:#bbb"> </span>https://localhost:8090/nifi<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">timeout</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>secs<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">Input Ports</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>- <span style="color:#008000;font-weight:bold">id</span>:<span style="color:#bbb"> </span>8644cbcc-a45c-40e0-964d-5e536e2ada61<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>tailed log<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#008000;font-weight:bold">comments</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#008000;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">            </span><span style="color:#008000;font-weight:bold">use compression</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Provenance Reporting</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">comment</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">destination url</span>:<span style="color:#bbb"> </span>https://localhost:<span style="color:#666">8090</span>/<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">port name</span>:<span style="color:#bbb"> </span>provenance<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">originating url</span>:<span style="color:#bbb"> </span>http://${hostname(<span style="color:#a2f;font-weight:bold">true</span>)}:<span style="color:#666">8081</span>/nifi<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">use compression</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">timeout</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>secs<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">batch size</span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb">
-</span></code></pre></div><div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#a2f;font-weight:bold">Flow Controller</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>MiNiFi<span style="color:#bbb"> </span>Flow<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">comment</span>:<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Provenance Reporting</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">comment</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">destination url</span>:<span style="color:#bbb"> </span>https://localhost:8090/<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">port name</span>:<span style="color:#bbb"> </span>provenance<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">originating url</span>:<span style="color:#bbb"> </span>http://${hostname(true)}:8081/nifi<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">use compression</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">timeout</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>secs<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">batch size</span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#008000;font-weight:bold">Flow Controller</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>MiNiFi Flow<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">comment</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Core Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">flow controller graceful shutdown period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">flow service write delay interval</span>:<span style="color:#bbb"> </span><span style="color:#666">500</span><span style="color:#bbb"> </span>ms<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">administrative yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">bored yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>millis<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">max concurrent threads</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Core Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">flow controller graceful shutdown period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">flow service write delay interval</span>:<span style="color:#bbb"> </span><span style="color:#666">500</span><span style="color:#bbb"> </span>ms<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">administrative yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">bored yield duration</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>millis<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">max concurrent threads</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">FlowFile Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">partitions</span>:<span style="color:#bbb"> </span><span style="color:#666">256</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">checkpoint interval</span>:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb"> </span>mins<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">Swap</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">threshold</span>:<span style="color:#bbb"> </span><span style="color:#666">20000</span><span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">in period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">in threads</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">out period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">out threads</span>:<span style="color:#bbb"> </span><span style="color:#666">4</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">FlowFile Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">partitions</span>:<span style="color:#bbb"> </span><span style="color:#666">256</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">checkpoint interval</span>:<span style="color:#bbb"> </span><span style="color:#666">2</span><span style="color:#bbb"> </span>mins<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">Swap</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">threshold</span>:<span style="color:#bbb"> </span><span style="color:#666">20000</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">in period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">in threads</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">out period</span>:<span style="color:#bbb"> </span><span style="color:#666">5</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">out threads</span>:<span style="color:#bbb"> </span><span style="color:#666">4</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Content Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">content claim max appendable size</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">content claim max flow files</span>:<span style="color:#bbb"> </span><span style="color:#666">100</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Content Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">content claim max appendable size</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">content claim max flow files</span>:<span style="color:#bbb"> </span><span style="color:#666">100</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">always sync</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Component Status Repository</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">buffer size</span>:<span style="color:#bbb"> </span><span style="color:#666">1440</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">snapshot frequency</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>min<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Component Status Repository</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">buffer size</span>:<span style="color:#bbb"> </span><span style="color:#666">1440</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">snapshot frequency</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>min<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Security Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">keystore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ks.jks<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">keystore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">keystore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">key password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">truststore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ts.jks<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">truststore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">truststore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">ssl protocol</span>:<span style="color:#bbb"> </span>TLS<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">Sensitive Props</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">key</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">algorithm</span>:<span style="color:#bbb"> </span>PBEWITHMD5AND256BITAES-CBC-OPENSSL<span style="color:#bbb">
-</span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">provider</span>:<span style="color:#bbb"> </span>BC<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Security Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">keystore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ks.jks<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">keystore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">keystore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">key password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">truststore</span>:<span style="color:#bbb"> </span>/tmp/ssl/localhost-ts.jks<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">truststore type</span>:<span style="color:#bbb"> </span>JKS<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">truststore password</span>:<span style="color:#bbb"> </span>localtest<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">ssl protocol</span>:<span style="color:#bbb"> </span>TLS<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">Sensitive Props</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">key</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">algorithm</span>:<span style="color:#bbb"> </span>PBEWITHMD5AND256BITAES-CBC-OPENSSL<span style="color:#bbb">
+</span><span style="color:#bbb">        </span><span style="color:#008000;font-weight:bold">provider</span>:<span style="color:#bbb"> </span>BC<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Processors</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailAppLog<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.TailFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">File to Tail</span>:<span style="color:#bbb"> </span>logs/minifi-app.log<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Rolling Filename Pattern</span>:<span style="color:#bbb"> </span>minifi-app*<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Initial Start Position</span>:<span style="color:#bbb"> </span>Beginning<span style="color:#bbb"> </span>of<span style="color:#bbb"> </span>File<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SplitIntoSingleLines<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.SplitText<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Processors</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailAppLog<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.TailFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">10</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">File to Tail</span>:<span style="color:#bbb"> </span>logs/minifi-app.log<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Rolling Filename Pattern</span>:<span style="color:#bbb"> </span>minifi-app*<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Initial Start Position</span>:<span style="color:#bbb"> </span>Beginning of File<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SplitIntoSingleLines<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.SplitText<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">          </span>- failure<span style="color:#bbb">
 </span><span style="color:#bbb">          </span>- original<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Line Split Count</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Header Line Count</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Remove Trailing Newlines</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>RouteErrors<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.RouteText<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Line Split Count</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Header Line Count</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Remove Trailing Newlines</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>RouteErrors<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.RouteText<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">          </span>- unmatched<span style="color:#bbb">
 </span><span style="color:#bbb">          </span>- original<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Routing Strategy</span>:<span style="color:#bbb"> </span>Route<span style="color:#bbb"> </span>to<span style="color:#bbb"> </span><span style="color:#b44">&#39;matched&#39;</span><span style="color:#bbb"> </span>if<span style="color:#bbb"> </span>line<span style="color:#bbb"> </span>matches<span style="color:#bbb"> </span>all<span style="color:#bbb"> </span>conditions<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Matching Strategy</span>:<span style="color:#bbb"> </span>Contains<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Character Set</span>:<span style="color:#bbb"> </span>UTF<span style="color:#666">-8</span><span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Ignore Leading/Trailing Whitespace</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Ignore Case</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Grouping Regular Expression</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">WALFFR</span>:<span style="color:#bbb"> </span>WriteAheadFlowFileRepository<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>PutFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.PutFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Routing Strategy</span>:<span style="color:#bbb"> </span>Route to &#39;matched&#39; if line matches all conditions<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Matching Strategy</span>:<span style="color:#bbb"> </span>Contains<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Character Set</span>:<span style="color:#bbb"> </span>UTF-8<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Ignore Leading/Trailing Whitespace</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Ignore Case</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Grouping Regular Expression</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">WALFFR</span>:<span style="color:#bbb"> </span>WriteAheadFlowFileRepository<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>PutFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">class</span>:<span style="color:#bbb"> </span>org.apache.nifi.processors.standard.PutFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max concurrent tasks</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">penalization period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">yield period</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">run duration nanos</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">auto-terminated relationships list</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">          </span>- failure<span style="color:#bbb">
 </span><span style="color:#bbb">          </span>- success<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">Properties</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Directory</span>:<span style="color:#bbb"> </span>./<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Conflict Resolution Strategy</span>:<span style="color:#bbb"> </span>replace<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Create Missing Directories</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Maximum File Count</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Last Modified Time</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Permissions</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Owner</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">Group</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">Properties</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Directory</span>:<span style="color:#bbb"> </span>./<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Conflict Resolution Strategy</span>:<span style="color:#bbb"> </span>replace<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Create Missing Directories</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Maximum File Count</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Last Modified Time</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Permissions</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Owner</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span><span style="color:#008000;font-weight:bold">Group</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Connections</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailToSplit<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>TailAppLog<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>success<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>SplitIntoSingleLines<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SplitToRoute<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>SplitIntoSingleLines<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>splits<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>RouteErrors<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#a2f;font-weight:bold">name</span>:<span style="color:#bbb"> </span>RouteToS2S<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>RouteErrors<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>matched<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>PutFile<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">      </span><span style="color:#a2f;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Connections</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>TailToSplit<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>TailAppLog<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>success<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>SplitIntoSingleLines<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>SplitToRoute<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>SplitIntoSingleLines<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>splits<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>RouteErrors<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#008000;font-weight:bold">name</span>:<span style="color:#bbb"> </span>RouteToS2S<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source name</span>:<span style="color:#bbb"> </span>RouteErrors<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">source relationship name</span>:<span style="color:#bbb"> </span>matched<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">destination name</span>:<span style="color:#bbb"> </span>PutFile<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue size</span>:<span style="color:#bbb"> </span><span style="color:#666">0</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">max work queue data size</span>:<span style="color:#bbb"> </span><span style="color:#666">1</span><span style="color:#bbb"> </span>MB<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">flowfile expiration</span>:<span style="color:#bbb"> </span><span style="color:#666">60</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#008000;font-weight:bold">queue prioritizer class</span>:<span style="color:#bbb"> </span>org.apache.nifi.prioritizer.NewestFlowFileFirstPrioritizer<span style="color:#bbb">
 </span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">Provenance Reporting</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">comment</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">destination url</span>:<span style="color:#bbb"> </span>https://localhost:<span style="color:#666">8080</span>/<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">port name</span>:<span style="color:#bbb"> </span>provenance<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">originating url</span>:<span style="color:#bbb"> </span>http://${hostname(<span style="color:#a2f;font-weight:bold">true</span>)}:<span style="color:#666">8081</span>/nifi<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">use compression</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">timeout</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>secs<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">batch size</span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#008000;font-weight:bold">Provenance Reporting</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">comment</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">scheduling strategy</span>:<span style="color:#bbb"> </span>TIMER_DRIVEN<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">scheduling period</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>sec<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">destination url</span>:<span style="color:#bbb"> </span>https://localhost:8080/<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">port name</span>:<span style="color:#bbb"> </span>provenance<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">originating url</span>:<span style="color:#bbb"> </span>http://${hostname(true)}:8081/nifi<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">use compression</span>:<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">timeout</span>:<span style="color:#bbb"> </span><span style="color:#666">30</span><span style="color:#bbb"> </span>secs<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#008000;font-weight:bold">batch size</span>:<span style="color:#bbb"> </span><span style="color:#666">1000</span><span style="color:#bbb">
 </span></code></pre></div>
 </div>
           </div>
