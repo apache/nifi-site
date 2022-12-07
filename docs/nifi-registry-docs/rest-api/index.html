@@ -134,7 +134,7 @@
     <div class="app-desc">The REST API provides an interface to a registry with operations for saving, versioning, reading NiFi flows and components.</div>
     <div class="app-desc">More information: <a href="https://nifi.apache.org">https://nifi.apache.org</a></div>
     <div class="app-desc">Contact Info: <a href="http://localhost:18080/nifi-registry-docs/rest-api/dev@nifi.apache.org">dev@nifi.apache.org</a></div>
-    <div class="app-desc">Version: 1.19.0</div>
+    <div class="app-desc">Version: 1.19.1</div>
     
     <div class="license-info">Apache 2.0 License</div>
     <div class="license-url">https://www.apache.org/licenses/LICENSE-2.0.html</div>
@@ -161,10 +161,12 @@
   <li><a href="index.html#createAccessTokenUsingKerberosTicket"><code><span class="http-method">post</span> /access/token/kerberos</code></a></li>
   <li><a href="index.html#getAccessStatus"><code><span class="http-method">get</span> /access</code></a></li>
   <li><a href="index.html#getIdentityProviderUsageInstructions"><code><span class="http-method">get</span> /access/token/identity-provider/usage</code></a></li>
-  <li><a href="index.html#logOut"><code><span class="http-method">delete</span> /access/logout</code></a></li>
+  <li><a href="index.html#logout"><code><span class="http-method">delete</span> /access/logout</code></a></li>
+  <li><a href="index.html#logoutComplete"><code><span class="http-method">get</span> /access/logout/complete</code></a></li>
   <li><a href="index.html#oidcCallback"><code><span class="http-method">get</span> /access/oidc/callback</code></a></li>
   <li><a href="index.html#oidcExchange"><code><span class="http-method">post</span> /access/oidc/exchange</code></a></li>
-  <li><a href="index.html#oidcLogout"><code><span class="http-method">delete</span> /access/oidc/logout</code></a></li>
+  <li><a href="index.html#oidcLogout"><code><span class="http-method">get</span> /access/oidc/logout</code></a></li>
+  <li><a href="index.html#oidcLogoutCallback"><code><span class="http-method">get</span> /access/oidc/logout/callback</code></a></li>
   <li><a href="index.html#oidcRequest"><code><span class="http-method">get</span> /access/oidc/request</code></a></li>
   <li><a href="index.html#testIdentityProviderRecognizesCredentialsFormat"><code><span class="http-method">post</span> /access/token/identity-provider/test</code></a></li>
   </ul>
@@ -619,11 +621,41 @@
         <a href="index.html#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="logOut"></a>
+  <div class="method"><a name="logout"></a>
     <div class="method-path">
     <a class="up" href="index.html#__Methods">Up</a>
     <pre class="delete"><code class="huge"><span class="http-method">delete</span> /access/logout</code></pre></div>
-    <div class="method-summary">Performs a logout for other providers that have been issued a JWT. (<span class="nickname">logOut</span>)</div>
+    <div class="method-summary">Performs a logout for other providers that have been issued a JWT. (<span class="nickname">logout</span>)</div>
+    <div class="method-notes">NOTE: This endpoint is subject to change as NiFi Registry and its REST API evolve.</div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User was logged out successfully.
+        <a href="index.html#"></a>
+    <h4 class="field-label">401</h4>
+    Authentication token provided was empty or not in the correct JWT format.
+        <a href="index.html#"></a>
+    <h4 class="field-label">500</h4>
+    Client failed to log out.
+        <a href="index.html#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="logoutComplete"></a>
+    <div class="method-path">
+    <a class="up" href="index.html#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /access/logout/complete</code></pre></div>
+    <div class="method-summary">Completes the logout sequence. (<span class="nickname">logoutComplete</span>)</div>
     <div class="method-notes">NOTE: This endpoint is subject to change as NiFi Registry and its REST API evolve.</div>
 
 
@@ -714,8 +746,32 @@
   <div class="method"><a name="oidcLogout"></a>
     <div class="method-path">
     <a class="up" href="index.html#__Methods">Up</a>
-    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /access/oidc/logout</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /access/oidc/logout</code></pre></div>
     <div class="method-summary">Performs a logout in the OpenId Provider. (<span class="nickname">oidcLogout</span>)</div>
+    <div class="method-notes">NOTE: This endpoint is subject to change as NiFi Registry and its REST API evolve.</div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">default</h4>
+    successful operation
+        <a href="index.html#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="oidcLogoutCallback"></a>
+    <div class="method-path">
+    <a class="up" href="index.html#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /access/oidc/logout/callback</code></pre></div>
+    <div class="method-summary">Redirect/callback URI for processing the result of the OpenId Connect logout sequence. (<span class="nickname">oidcLogoutCallback</span>)</div>
     <div class="method-notes">NOTE: This endpoint is subject to change as NiFi Registry and its REST API evolve.</div>
 
 
@@ -1682,8 +1738,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -2336,8 +2392,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -3089,8 +3145,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -3844,8 +3900,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -4487,8 +4543,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -8870,8 +8926,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -9511,8 +9567,8 @@
     "key" : {
       "parameterGroupName" : "parameterGroupName",
       "identifier" : "identifier",
-      "componentType" : "CONNECTION",
       "synchronized" : true,
+      "componentType" : "CONNECTION",
       "comments" : "comments",
       "description" : "description",
       "inheritedParameterContexts" : [ "inheritedParameterContexts", "inheritedParameterContexts" ],
@@ -13073,10 +13129,10 @@
 <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The description of the parameter context </div>
 <div class="param">parameterProvider (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The identifier of an optional parameter provider </div>
 <div class="param">parameterGroupName (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The corresponding parameter group name fetched from the parameter provider, if applicable </div>
+<div class="param">synchronized (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#boolean">Boolean</a></span> True if the parameter provider is set and the context should receive updates when its parameters are next fetched </div>
 <div class="param">componentType (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span>  </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">CONNECTION</div><div class="param-enum">PROCESSOR</div><div class="param-enum">PROCESS_GROUP</div><div class="param-enum">REMOTE_PROCESS_GROUP</div><div class="param-enum">INPUT_PORT</div><div class="param-enum">OUTPUT_PORT</div><div class="param-enum">REMOTE_INPUT_PORT</div><div class="param-enum">REMOTE_OUTPUT_PORT</div><div class="param-enum">FUNNEL</div><div class="param-enum">LABEL</div><div class="param-enum">CONTROLLER_SERVICE</div><div class="param-enum">REPORTING_TASK</div><div class="param-enum">PARAMETER_CONTEXT</div><div class="param-enum">PARAMETER_PROVIDER</div><div class="param-enum">TEMPLATE</div><div class="param-enum">FLOW_REGISTRY_CLIENT</div>
-<div class="param">synchronized (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#boolean">Boolean</a></span> True if the parameter provider is set and the context should receive updates when its parameters are next fetched </div>
 <div class="param">groupIdentifier (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The ID of the Process Group that this component belongs to </div>
     </div>  <!-- field-items -->
   </div>
@@ -13127,11 +13183,11 @@
 <div class="param">defaultFlowFileExpiration (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The default FlowFile Expiration for this Process Group. </div>
 <div class="param">defaultBackPressureObjectThreshold (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#long">Long</a></span> Default value used in this Process Group for the maximum number of objects that can be queued before back pressure is applied. format: int64</div>
 <div class="param">defaultBackPressureDataSizeThreshold (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> Default value used in this Process Group for the maximum data size of objects that can be queued before back pressure is applied. </div>
+<div class="param">flowFileConcurrency (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The configured FlowFile Concurrency for the Process Group </div>
+<div class="param">flowFileOutboundPolicy (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The FlowFile Outbound Policy for the Process Group </div>
 <div class="param">componentType (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span>  </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">CONNECTION</div><div class="param-enum">PROCESSOR</div><div class="param-enum">PROCESS_GROUP</div><div class="param-enum">REMOTE_PROCESS_GROUP</div><div class="param-enum">INPUT_PORT</div><div class="param-enum">OUTPUT_PORT</div><div class="param-enum">REMOTE_INPUT_PORT</div><div class="param-enum">REMOTE_OUTPUT_PORT</div><div class="param-enum">FUNNEL</div><div class="param-enum">LABEL</div><div class="param-enum">CONTROLLER_SERVICE</div><div class="param-enum">REPORTING_TASK</div><div class="param-enum">PARAMETER_CONTEXT</div><div class="param-enum">PARAMETER_PROVIDER</div><div class="param-enum">TEMPLATE</div><div class="param-enum">FLOW_REGISTRY_CLIENT</div>
-<div class="param">flowFileConcurrency (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The configured FlowFile Concurrency for the Process Group </div>
-<div class="param">flowFileOutboundPolicy (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The FlowFile Outbound Policy for the Process Group </div>
 <div class="param">groupIdentifier (optional)</div><div class="param-desc"><span class="param-type"><a href="index.html#string">String</a></span> The ID of the Process Group that this component belongs to </div>
     </div>  <!-- field-items -->
   </div>
