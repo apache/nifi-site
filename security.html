@@ -185,6 +185,42 @@
 <div class="medium-space"></div>
 <div class="row">
     <div class="large-12 columns features">
+        <h2><a id="1.20.0" href="#1.20.0">Fixed in Apache NiFi 1.20.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.20.0-vulnerabilities" href="#1.20.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2023-22832" href="#CVE-2023-22832"><strong>CVE-2023-22832</strong></a>: Improper Restriction of XML External Entity References in ExtractCCDAAttributes</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.2.0 - 1.19.1</li>
+        </ul>
+        </p>
+        <p>The ExtractCCDAAttributes Processor in Apache NiFi 1.2.0 through 1.19.1 does not restrict XML External Entity references.</p>
+        <p>Flow configurations that include the ExtractCCDAAttributes Processor are vulnerable to malicious XML documents that contain Document Type Declarations with XML External Entity references.</p>
+        <p>The resolution disables Document Type Declarations and disallows XML External Entity resolution in the ExtractCCDAAttributes Processor.</p>
+        <p>Mitigation: Upgrading to NiFi 1.20.0 disables Document Type Declarations in the default configuration for ExtractCCDAAttributes.</p>
+        <p>Credit: This issue was discovered by Yi Cai of Chaitin Tech</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-22832" target="_blank">Mitre Database CVE-2023-22832</a></p>
+        <p>
+            NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-11029" target="_blank">NIFI-11029</a>
+        </p>
+        <p>
+            NiFi PR: <a href="https://github.com/apache/nifi/pull/6828" target="_blank">PR 6828</a>
+        </p>
+        <p>Released: 2023-02-09</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+<div class="row">
+    <div class="large-12 columns features">
         <h2><a id="1.16.3" href="#1.16.3">Fixed in Apache NiFi 1.16.3</a></h2>
     </div>
 </div>
