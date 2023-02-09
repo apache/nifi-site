@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.19.1</title>
+        <title>NiFi Rest API-1.20.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.19.1</div>
+            <div class="sub-title">NiFi Rest API 1.20.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -44135,6 +44135,61 @@
 </div>
         
             
+<div id="Attribute" class="type hidden">
+    <h3>Attribute</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>name</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The name of the attribute
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>description</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of the attribute
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "name": "value"<span class="comma">,</span>
+    "description": "value"<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
 <div id="AttributeDTO" class="type hidden">
     <h3>AttributeDTO</h3>
     <div class="type-container">
@@ -45402,22 +45457,6 @@
                 </tr>
             
                 <tr>
-                    <td>connectedToCluster</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>Whether this NiFi instance is connected to a cluster.
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>clustered</td>
                     <td>
                         
@@ -45433,14 +45472,30 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>connectedToCluster</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether this NiFi instance is connected to a cluster.
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
     "connectedNodes": "value"<span class="comma">,</span>
     "connectedNodeCount": 0<span class="comma">,</span>
     "totalNodeCount": 0<span class="comma">,</span>
-    "connectedToCluster": true<span class="comma">,</span>
     "clustered": true<span class="comma">,</span>
+    "connectedToCluster": true<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -50607,6 +50662,22 @@
                 </tr>
             
                 <tr>
+                    <td>seeAlso</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The names of other component types that may be related
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>deprecated</td>
                     <td>
                         
@@ -50634,6 +50705,22 @@
                     </td>
                     <td>optional</td>
                     <td>If this component has been deprecated, this optional field can be used to provide an explanation
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>deprecationAlternatives</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>If this component has been deprecated, this optional field provides alternatives to use
                         
                         </td>
                 </tr>
@@ -50697,7 +50784,39 @@
                         
                     </td>
                     <td>optional</td>
+                    <td>Indicates if the component stores state
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>systemResourceConsiderations</td>
                     <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">SystemResourceConsideration</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The system resource considerations for the given component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>additionalDetails</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Indicates if the component has additional details documentation
                         
                         </td>
                 </tr>
@@ -50734,6 +50853,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>dynamicProperties</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">DynamicProperty</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Describes the dynamic properties supported by this component
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -50745,16 +50880,21 @@
     "buildInfo": <span class="nested collapsed"><span class="nested-id hidden">BuildInfo</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "providedApiImplementations": [<span class="nested collapsed"><span class="nested-id hidden">DefinedType</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "tags": ["value"]<span class="comma">,</span>
+    "seeAlso": ["value"]<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "deprecationReason": "value"<span class="comma">,</span>
+    "deprecationAlternatives": ["value"]<span class="comma">,</span>
     "restricted": true<span class="comma">,</span>
     "restrictedExplanation": "value"<span class="comma">,</span>
     "explicitRestrictions": [<span class="nested collapsed"><span class="nested-id hidden">Restriction</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "stateful": <span class="nested collapsed"><span class="nested-id hidden">Stateful</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "systemResourceConsiderations": [<span class="nested collapsed"><span class="nested-id hidden">SystemResourceConsideration</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+    "additionalDetails": true<span class="comma">,</span>
     "propertyDescriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
     "supportsDynamicProperties": true<span class="comma">,</span>
+    "dynamicProperties": [<span class="nested collapsed"><span class="nested-id hidden">DynamicProperty</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -53553,6 +53693,150 @@
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="DynamicProperty" class="type hidden">
+    <h3>DynamicProperty</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>name</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of the dynamic property name
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>value</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of the dynamic property value
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>description</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of the dynamic property
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>expressionLanguageScope</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The scope of the expression language support
+                         Allowable values: NONE, VARIABLE_REGISTRY, FLOWFILE_ATTRIBUTES
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "name": "value"<span class="comma">,</span>
+    "value": "value"<span class="comma">,</span>
+    "description": "value"<span class="comma">,</span>
+    "expressionLanguageScope": "value"<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="DynamicRelationship" class="type hidden">
+    <h3>DynamicRelationship</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>name</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of the dynamic relationship name
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>description</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of the dynamic relationship
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "name": "value"<span class="comma">,</span>
+    "description": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -58326,22 +58610,6 @@
                 </tr>
             
                 <tr>
-                    <td>sourceRunning</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>Whether the source of the connection is running
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>destinationRunning</td>
                     <td>
                         
@@ -58353,6 +58621,22 @@
                     </td>
                     <td>optional</td>
                     <td>Whether the destination of the connection is running
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>sourceRunning</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether the source of the connection is running
                         
                         </td>
                 </tr>
@@ -58371,8 +58655,8 @@
     "state": "value"<span class="comma">,</span>
     "queueSize": <span class="nested collapsed"><span class="nested-id hidden">QueueSizeDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "flowFileSummaries": [<span class="nested collapsed"><span class="nested-id hidden">FlowFileSummaryDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
-    "sourceRunning": true<span class="comma">,</span>
     "destinationRunning": true<span class="comma">,</span>
+    "sourceRunning": true<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -60111,12 +60395,12 @@
                 </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>clientResponse</td>
                     <td>
                         
                             
+                                <a class="type-link" href="javascript:void(0);">Response</a>
                             
-                                integer (int32)
                             
                         
                     </td>
@@ -60127,12 +60411,12 @@
                 </tr>
             
                 <tr>
-                    <td>is5xx</td>
+                    <td>status</td>
                     <td>
                         
                             
                             
-                                boolean
+                                integer (int32)
                             
                         
                     </td>
@@ -60159,12 +60443,12 @@
                 </tr>
             
                 <tr>
-                    <td>clientResponse</td>
+                    <td>is5xx</td>
                     <td>
                         
                             
-                                <a class="type-link" href="javascript:void(0);">Response</a>
                             
+                                boolean
                             
                         
                     </td>
@@ -60200,10 +60484,10 @@
     "throwable": <span class="nested collapsed"><span class="nested-id hidden">Throwable</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
-    "status": 0<span class="comma">,</span>
-    "is5xx": true<span class="comma">,</span>
-    "is2xx": true<span class="comma">,</span>
     "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
+    "is2xx": true<span class="comma">,</span>
+    "is5xx": true<span class="comma">,</span>
     "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -67555,6 +67839,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>processingNanos</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int64)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -67593,6 +67893,7 @@
     "sent": "value"<span class="comma">,</span>
     "activeThreadCount": 0<span class="comma">,</span>
     "terminatedThreadCount": 0<span class="comma">,</span>
+    "processingNanos": 0<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -68701,6 +69002,22 @@
                 </tr>
             
                 <tr>
+                    <td>seeAlso</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The names of other component types that may be related
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>deprecated</td>
                     <td>
                         
@@ -68728,6 +69045,22 @@
                     </td>
                     <td>optional</td>
                     <td>If this component has been deprecated, this optional field can be used to provide an explanation
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>deprecationAlternatives</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>If this component has been deprecated, this optional field provides alternatives to use
                         
                         </td>
                 </tr>
@@ -68791,7 +69124,39 @@
                         
                     </td>
                     <td>optional</td>
+                    <td>Indicates if the component stores state
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>systemResourceConsiderations</td>
                     <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">SystemResourceConsideration</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The system resource considerations for the given component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>additionalDetails</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Indicates if the component has additional details documentation
                         
                         </td>
                 </tr>
@@ -68824,6 +69189,22 @@
                     </td>
                     <td>optional</td>
                     <td>Whether or not this component makes use of dynamic (user-set) properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>dynamicProperties</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">DynamicProperty</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Describes the dynamic properties supported by this component
                         
                         </td>
                 </tr>
@@ -68872,6 +69253,22 @@
                     </td>
                     <td>optional</td>
                     <td>Whether or not this processor supports dynamic relationships.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>dynamicRelationship</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">DynamicRelationship</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>If the processor supports dynamic relationships, this describes the dynamic relationship
                         
                         </td>
                 </tr>
@@ -69100,6 +69497,38 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>readsAttributes</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">Attribute</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The FlowFile attributes this processor reads
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>writesAttributes</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">Attribute</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The FlowFile attributes this processor writes/updates
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -69111,19 +69540,25 @@
     "buildInfo": <span class="nested collapsed"><span class="nested-id hidden">BuildInfo</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "providedApiImplementations": [<span class="nested collapsed"><span class="nested-id hidden">DefinedType</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "tags": ["value"]<span class="comma">,</span>
+    "seeAlso": ["value"]<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "deprecationReason": "value"<span class="comma">,</span>
+    "deprecationAlternatives": ["value"]<span class="comma">,</span>
     "restricted": true<span class="comma">,</span>
     "restrictedExplanation": "value"<span class="comma">,</span>
     "explicitRestrictions": [<span class="nested collapsed"><span class="nested-id hidden">Restriction</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "stateful": <span class="nested collapsed"><span class="nested-id hidden">Stateful</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "systemResourceConsiderations": [<span class="nested collapsed"><span class="nested-id hidden">SystemResourceConsideration</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+    "additionalDetails": true<span class="comma">,</span>
     "propertyDescriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
     "supportsDynamicProperties": true<span class="comma">,</span>
+    "dynamicProperties": [<span class="nested collapsed"><span class="nested-id hidden">DynamicProperty</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "inputRequirement": "value"<span class="comma">,</span>
     "supportedRelationships": [<span class="nested collapsed"><span class="nested-id hidden">Relationship</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "supportsDynamicRelationships": true<span class="comma">,</span>
+    "dynamicRelationship": <span class="nested collapsed"><span class="nested-id hidden">DynamicRelationship</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "triggerSerially": true<span class="comma">,</span>
     "triggerWhenEmpty": true<span class="comma">,</span>
     "triggerWhenAnyDestinationAvailable": true<span class="comma">,</span>
@@ -69142,6 +69577,8 @@
     "defaultPenaltyDuration": "value"<span class="comma">,</span>
     "defaultYieldDuration": "value"<span class="comma">,</span>
     "defaultBulletinLevel": "value"<span class="comma">,</span>
+    "readsAttributes": [<span class="nested collapsed"><span class="nested-id hidden">Attribute</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+    "writesAttributes": [<span class="nested collapsed"><span class="nested-id hidden">Attribute</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -76905,6 +77342,22 @@
                 </tr>
             
                 <tr>
+                    <td>seeAlso</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The names of other component types that may be related
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>deprecated</td>
                     <td>
                         
@@ -76932,6 +77385,22 @@
                     </td>
                     <td>optional</td>
                     <td>If this component has been deprecated, this optional field can be used to provide an explanation
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>deprecationAlternatives</td>
+                    <td>
+                        
+                            
+                            
+                                array[string]
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>If this component has been deprecated, this optional field provides alternatives to use
                         
                         </td>
                 </tr>
@@ -76995,7 +77464,39 @@
                         
                     </td>
                     <td>optional</td>
+                    <td>Indicates if the component stores state
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>systemResourceConsiderations</td>
                     <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">SystemResourceConsideration</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The system resource considerations for the given component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>additionalDetails</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Indicates if the component has additional details documentation
                         
                         </td>
                 </tr>
@@ -77028,6 +77529,22 @@
                     </td>
                     <td>optional</td>
                     <td>Whether or not this component makes use of dynamic (user-set) properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>dynamicProperties</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">DynamicProperty</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Describes the dynamic properties supported by this component
                         
                         </td>
                 </tr>
@@ -77091,16 +77608,21 @@
     "buildInfo": <span class="nested collapsed"><span class="nested-id hidden">BuildInfo</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "providedApiImplementations": [<span class="nested collapsed"><span class="nested-id hidden">DefinedType</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "tags": ["value"]<span class="comma">,</span>
+    "seeAlso": ["value"]<span class="comma">,</span>
     "deprecated": true<span class="comma">,</span>
     "deprecationReason": "value"<span class="comma">,</span>
+    "deprecationAlternatives": ["value"]<span class="comma">,</span>
     "restricted": true<span class="comma">,</span>
     "restrictedExplanation": "value"<span class="comma">,</span>
     "explicitRestrictions": [<span class="nested collapsed"><span class="nested-id hidden">Restriction</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "stateful": <span class="nested collapsed"><span class="nested-id hidden">Stateful</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "systemResourceConsiderations": [<span class="nested collapsed"><span class="nested-id hidden">SystemResourceConsideration</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+    "additionalDetails": true<span class="comma">,</span>
     "propertyDescriptors": <span class="open-object">&#123;
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
     "supportsDynamicProperties": true<span class="comma">,</span>
+    "dynamicProperties": [<span class="nested collapsed"><span class="nested-id hidden">DynamicProperty</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "supportedSchedulingStrategies": ["value"]<span class="comma">,</span>
     "defaultSchedulingStrategy": "value"<span class="comma">,</span>
     "defaultSchedulingPeriodBySchedulingStrategy": <span class="open-object">&#123;
@@ -80599,6 +81121,61 @@
     "garbageCollection": [<span class="nested collapsed"><span class="nested-id hidden">GarbageCollectionDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "statsLastRefreshed": "value"<span class="comma">,</span>
     "versionInfo": <span class="nested collapsed"><span class="nested-id hidden">VersionInfoDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="SystemResourceConsideration" class="type hidden">
+    <h3>SystemResourceConsideration</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>resource</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The resource to consider
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>description</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The description of how the resource is affected
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "resource": "value"<span class="comma">,</span>
+    "description": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -86678,22 +87255,6 @@
                 </tr>
             
                 <tr>
-                    <td>flowFileConcurrency</td>
-                    <td>
-                        
-                            
-                            
-                                string
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>The configured FlowFile Concurrency for the Process Group
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>flowFileOutboundPolicy</td>
                     <td>
                         
@@ -86705,6 +87266,22 @@
                     </td>
                     <td>optional</td>
                     <td>The FlowFile Outbound Policy for the Process Group
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>flowFileConcurrency</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The configured FlowFile Concurrency for the Process Group
                         
                         </td>
                 </tr>
@@ -86766,8 +87343,8 @@
     "defaultFlowFileExpiration": "value"<span class="comma">,</span>
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
-    "flowFileConcurrency": "value"<span class="comma">,</span>
     "flowFileOutboundPolicy": "value"<span class="comma">,</span>
+    "flowFileConcurrency": "value"<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>

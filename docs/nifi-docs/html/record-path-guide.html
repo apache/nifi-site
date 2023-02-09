@@ -495,6 +495,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="record-path-guide.html#padleft">padLeft</a></li>
 <li><a href="record-path-guide.html#padright">padRight</a></li>
 <li><a href="record-path-guide.html#uuid5">uuid5</a></li>
+<li><a href="record-path-guide.html#count">count</a></li>
 </ul>
 </li>
 <li><a href="record-path-guide.html#filter_functions">Filter Functions</a>
@@ -2118,6 +2119,45 @@ take the value of the supplied record path and use it as the namespace.</p>
 in an error. This is by design because the most common use case for UUID v5 is to uniquely identify records across data sets.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="count"><a class="anchor" href="record-path-guide.html#count"></a>count</h3>
+<div class="paragraph">
+<p>Returns the count of the number of elements. This is commonly used in conjunction with arrays. For example, if we have the following record:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "id": "1234",
+    "elements": [{
+        "name": "book",
+        "color": "red"
+    }, {
+        "name": "computer",
+        "color": "black"
+    }]
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We could determine the number of <code>elements</code> by using the <code>count</code> function. Using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>count(/elements[*])</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Would yield a value of <code>2</code>. We could also use this as a filter, such as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/id[ count(/elements[*]) = 2 ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Which will return the <code>id</code> element with a value of <code>1234</code>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2357,7 +2397,7 @@ only of white space (spaces, tabs, carriage returns, and new-line characters).</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 18:19:00 -0600
+Last updated 2023-02-09 16:36:43 -0600
 </div>
 </div>
 </body>

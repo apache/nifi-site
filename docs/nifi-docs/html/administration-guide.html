@@ -491,6 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="administration-guide.html#apache_knox">Apache Knox</a></li>
 <li><a href="administration-guide.html#json_web_token">JSON Web Tokens</a></li>
+<li><a href="administration-guide.html#csrf-protection">Cross-Site Request Forgery Protection</a></li>
 </ul>
 </li>
 <li><a href="administration-guide.html#multi-tenant-authorization">Multi-Tenant Authorization</a>
@@ -979,6 +980,15 @@ For security purposes, when no security configuration is provided NiFi will now 
 </div>
 <div class="paragraph">
 <p><code>mvn clean install -Pinclude-grpc,include-graph,include-media</code></p>
+</div>
+<div class="paragraph">
+<p>There is also a specific profile allowing you to build NiFi with all of the additional bundles that are not included by default:</p>
+</div>
+<div class="paragraph">
+<p><code>mvn clean install -Pinclude-all</code></p>
+</div>
+<div class="paragraph">
+<p>This will include bundles such as gRPC, Atlas, Hive, Hive 1_1, Hive 3, Media, Rules, SQL Reporting, Accumulo, Ranger, ASN1, Snowflake, Iceberg, etc.</p>
 </div>
 </div>
 </div>
@@ -1899,6 +1909,12 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 <td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated possible fallback claims used to identify the user in case <code>nifi.security.user.oidc.claim.identifying.user</code> claim is not present for the login user.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.oidc.claim.groups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the ID token claim that contains an array of group names of which the
+user is a member. Application groups must be supplied from a User Group Provider with matching names in order for the
+authorization process to use ID token claim groups. The default value is <code>groups</code>.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.oidc.truststore.strategy</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If value is <code>NIFI</code>, use the NiFi truststore when connecting to the OIDC service, otherwise if value is <code>JDK</code> use Java&#8217;s default <code>cacerts</code> truststore. The default value is <code>JDK</code>.</p></td>
 </tr>
@@ -2091,6 +2107,62 @@ configured local State Provider and runs a scheduled command to delete revoked i
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="csrf-protection"><a class="anchor" href="administration-guide.html#csrf-protection"></a>Cross-Site Request Forgery Protection</h3>
+<div class="paragraph">
+<p>NiFi 1.15.0 introduced
+<a href="https://owasp.org/www-community/attacks/csrf">Cross-Site Request Forgery</a> protection as part of user interface
+access based on session cookies. CSRF protection builds on standard
+<a href="https://docs.spring.io/spring-security/reference/features/exploits/csrf.html">Spring Security features</a>
+and implements the
+<a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie">double submit cookie</a>
+strategy. The implementation strategy relies on the server generating and sending a random request token cookie at the
+beginning of the session. The client browser stores the cookie, JavaScript application code reads the cookie, and sets
+the value in a custom HTTP header on subsequent requests.</p>
+</div>
+<div class="paragraph">
+<p>NiFi applies the <code>SameSite</code> attribute with a value of <code>Strict</code> to session cookies, which instructs supporting web
+browsers to avoid sending the cookie on requests that a third party initiates. These protections mitigate a number of
+potential threats.</p>
+</div>
+<div class="paragraph">
+<p>Cookie names are not considered part of the public REST API and are subject to change in minor release
+versions. Programmatic HTTP requests to the NiFi REST API should use the standard HTTP <code>Authorization</code> header when
+sending access tokens instead of the session cookie that the NiFi user interface uses.</p>
+</div>
+<div class="paragraph">
+<p>NiFi deployments that include HTTP load balanced access with <a href="administration-guide.html#session_affinity">Session Affinity</a> depend on custom HTTP cookies,
+requiring custom programmatic clients to store and send cookies for the duration of an authenticated session.
+Programmatic clients in these scenarios should limit cookie storage to cookie names specific to the HTTP load balancer
+to avoid HTTP 403 Forbidden errors related to CSRF filtering.</p>
+</div>
+<div class="paragraph">
+<p>The CSRF implementation sends the following HTTP cookie to set the random request token for the session:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cookie Name: <code>__Secure-Request-Token</code></p>
+</li>
+<li>
+<p>Value: Random UUID</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The CSRF security filter expects the following HTTP request header on non-idempotent methods such as <code>POST</code> or <code>PUT</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>Request-Token</code></p>
+</li>
+<li>
+<p>Value: UUID matching the <code>__Secure-Request-Token</code> cookie header</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -6363,8 +6435,13 @@ in the <em>$NIFI_HOME/conf/nifi.properties</em> file:</p>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.zookeeper.client.ensembleTracker</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to enable ZooKeeper client Ensemble Tracking.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.zookeeper.client.secure</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to acccess ZooKeeper using client TLS.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to access ZooKeeper using client TLS.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 </tr>
 <tr>
@@ -10387,7 +10464,7 @@ nifi.diagnostics.on.shutdown.max.directory.size=10 MB</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 18:19:00 -0600
+Last updated 2023-02-09 16:36:43 -0600
 </div>
 </div>
 </body>

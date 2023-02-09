@@ -593,6 +593,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="expression-language-guide.html#literal">literal</a></li>
 <li><a href="expression-language-guide.html#getstatevalue">getStateValue</a></li>
 <li><a href="expression-language-guide.html#thread">thread</a></li>
+<li><a href="expression-language-guide.html#geturi">getUri</a></li>
 </ul>
 </li>
 <li><a href="expression-language-guide.html#multi">Evaluating Multiple Attributes</a>
@@ -4545,6 +4546,105 @@ names begin with the letter <code>a</code>.</p>
 <p><strong>Examples</strong>: <code>${thread()}</code> could return something like <code>Timer-Driven Process Thread-4</code>.</p>
 </div>
 </div>
+<div class="sect2 function">
+<h3 id="geturi"><a class="anchor" href="expression-language-guide.html#geturi"></a>getUri</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Returns a URI compliant with RFC 2396. This includes encoding non-US-ASCII characters and
+quoting illegal characters with octets. This expression utilizes the
+<a href="https://docs.oracle.com/javase/8/docs/api/java/net/URI.html" target="_blank" rel="noopener">java.net.URI</a> class to build a URI.
+As described in the API, a hierarchical URI consists of seven components represented with the following types:</span></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scheme</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>user-info</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>int</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fragment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>See the API for more details on character categories, encoding and quoting.</p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subjectless">No Subject</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>: This expression takes seven arguments.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>scheme</em></span>, <span class="argName"><em>userinfo</em></span>, <span class="argName"><em>host</em></span>, <span class="argName"><em>port</em></span>, <span class="argName"><em>path</em></span>, <span class="argName"><em>query</em></span>, <span class="argName"><em>fragment</em></span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>NOTE:</strong> Any component of the new URI may be left undefined by passing <span class="argName"><em>null</em></span> for the corresponding parameter or, in the case of the port parameter, by passing <span class="argName"><em>-1</em></span>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>
+The following examples detail how this expression can be invoked:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${getUri('https', 'admin:admin', 'nifi.apache.org', '1234', '/path/data ', 'key=value &amp;key2=value2', 'frag1')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://admin:admin@nifi.apache.org:1234/path/data%20?key=value%20&amp;key2=value2#frag1" class="bare">https://admin:admin@nifi.apache.org:1234/path/data%20?key=value%20&amp;key2=value2#frag1</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${getUri('https', null, 'nifi.apache.org', 8443, '/docs.html', null, null)}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://nifi.apache.org:8443/docs.html" class="bare">https://nifi.apache.org:8443/docs.html</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${getUri('http', null, 'nifi.apache.org', -1, '/docs.html', null, null)}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="http://nifi.apache.org/docs.html" class="bare">http://nifi.apache.org/docs.html</a></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -4981,7 +5081,7 @@ an embedded Expression, though it does not have to be.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 18:19:00 -0600
+Last updated 2023-02-09 16:36:43 -0600
 </div>
 </div>
 </body>
