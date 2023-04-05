@@ -5,6 +5,12 @@ containerEnabled: true
 
 # Powered by Apache {{< project-label >}}
 
+## [Deep.BI](https://www.deep.bi)
+
+Deep.BI helps enterprises leverage next generation data and AI pipelines to process hundreds of thousands of real-time
+events per second, powered by Apache Druid and Apache Flink. The Deep.BI data processing platform leverages Apache NiFi
+to build robust cybersecurity solutions for critical applications.
+
 ## [Dove IO](https://www.dove.io) 
 
 The Dove IO Data Platform allows customers to process multimedia data, providing real-time identification of objects,
