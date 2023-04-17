@@ -29,6 +29,15 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 
 ## MiNiFi C++ Releases
 
+### 0.14.0
+
+- Released: 2023-04-17
+  - [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.14.0)
+- Sources
+  - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.14.0 extension=source.tar.gz >}}
+- Binaries
+  - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.14.0 extension=bin-linux.tar.gz >}}
+
 ### 0.13.0
 
 - Released: 2022-12-12
@@ -37,12 +46,3 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
   - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.13.0 extension=source.tar.gz >}}
 - Binaries
   - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.13.0 extension=bin-linux.tar.gz >}}
-
-### 0.12.0
-
-- Released: 2022-06-01
-  - [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.12.0)
-- Sources
-  - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.12.0 extension=source.tar.gz >}}
-- Binaries
-  - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.12.0 extension=bin-linux.tar.gz >}}
