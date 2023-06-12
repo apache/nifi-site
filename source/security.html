@@ -66,6 +66,67 @@ title: Apache NiFi Security Reports
     </div>
 </div>
 <div class="medium-space"></div>
+
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.22.0" href="#1.22.0">Fixed in Apache NiFi 1.22.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.22.0-vulnerabilities" href="#1.22.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2023-34468" href="#CVE-2023-34468"><strong>CVE-2023-34468</strong></a>: Potential Code Injection with Database Services using H2</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.0.2 - 1.21.0</li>
+        </ul>
+        </p>
+        <p>The DBCPConnectionPool and HikariCPConnectionPool Controller Services in Apache NiFi 0.0.2 through 1.21.0 allow an authenticated and authorized user to configure a Database URL with the H2 driver that enables custom code execution.</p>
+        <p>The resolution validates the Database URL and rejects H2 JDBC locations.</p>
+        <p>Mitigation: Upgrading to NiFi 1.22.0 disables H2 JDBC URLs in the default configuration.</p>
+        <p>Credit: This issue was discovered by Matei "Mal" Badanoiu</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-34468" target="_blank">Mitre Database CVE-2023-34468</a></p>
+        <p>
+            NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-11653" target="_blank">NIFI-11653</a>
+        </p>
+        <p>
+            NiFi PR: <a href="https://github.com/apache/nifi/pull/7349" target="_blank">PR 7349</a>
+        </p>
+        <p>Released: 2023-06-12</p>
+    </div>
+</div>
+<div class="small-space"></div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2023-34212" href="#CVE-2023-34212"><strong>CVE-2023-34212</strong></a>: Potential Deserialization of Untrusted Data with JNDI in JMS Components</p>
+        <p>Severity: <strong>Important</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.8.0 - 1.21.0</li>
+        </ul>
+        </p>
+        <p>The JndiJmsConnectionFactoryProvider Controller Service along with the ConsumeJMS and PublishJMS Processors, in Apache NiFi 1.8.0 through 1.21.0 allow an authenticated and authorized user to configure URL and library properties that enable deserialization of untrusted data from a remote location.</p>
+        <p>The resolution validates the JNDI URL and restricts locations to a set of allowed schemes.</p>
+        <p>Mitigation: Upgrading to NiFi 1.22.0 disables LDAP for JNDI URLs in the default configuration.</p>
+        <p>Credit: This issue was discovered by Veraxy00 of Qianxin TI Center and also reported by Matei "Mal" Badanoiu</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-34212" target="_blank">Mitre Database CVE-2023-34212</a></p>
+        <p>
+            NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-11614" target="_blank">NIFI-11614</a>
+        </p>
+        <p>
+            NiFi PR: <a href="https://github.com/apache/nifi/pull/7313" target="_blank">PR 7313</a>
+        </p>
+        <p>Released: 2023-06-12</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+
 <div class="row">
     <div class="large-12 columns features">
         <h2><a id="1.20.0" href="#1.20.0">Fixed in Apache NiFi 1.20.0</a></h2>
@@ -77,6 +138,7 @@ title: Apache NiFi Security Reports
         <h2><a id="1.20.0-vulnerabilities" href="#1.20.0-vulnerabilities">Vulnerabilities</a></h2>
     </div>
 </div>
+<div class="medium-space"></div>
 <div class="row" style="background-color: aliceblue">
     <div class="large-12 columns">
         <p><a id="CVE-2023-22832" href="#CVE-2023-22832"><strong>CVE-2023-22832</strong></a>: Improper Restriction of XML External Entity References in ExtractCCDAAttributes</p>
