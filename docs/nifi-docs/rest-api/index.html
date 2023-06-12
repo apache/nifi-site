@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.21.0</title>
+        <title>NiFi Rest API-1.22.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.21.0</div>
+            <div class="sub-title">NiFi Rest API 1.22.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -37670,6 +37670,154 @@
             
                 
 <div class="endpoints">
+    <span class="path hidden">/system-diagnostics/jmx-metrics</span>
+    
+    
+        <div class="endpoint get">
+            <div class="operation-handle">
+                <div class="method">GET</div>
+                <div class="path mono"></div>
+                <div class="summary">Retrieve available JMX metrics</div>
+                <div class="clear"></div>
+            </div>
+            
+<div class="operation hidden">
+    
+    <div class="description">
+        Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.
+    </div>
+    
+    <div class="title">Request</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">consumes:</div><div class="mono">application/json</div><div class="clear"></div></div>
+        
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+    
+        <tr>
+            <td>beanNameFilter</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>Regular Expression Pattern to be applied against the ObjectName</td>
+        </tr>
+    
+    
+        </tbody>
+    </table>
+    
+    <div class="title">Response</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">produces:</div><div class="mono">application/json</div><div class="clear"></div></div>
+        
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>200</td>
+                <td>
+                    
+                        <a class="type-link" href="javascript:void(0);">JmxMetricsResultsEntity</a>
+                    
+                </td>
+                <td>successful operation</td>
+            </tr>
+            
+            <tr>
+                <td>400</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.</td>
+            </tr>
+            
+            <tr>
+                <td>401</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client could not be authenticated.</td>
+            </tr>
+            
+            <tr>
+                <td>403</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client is not authorized to make this request.</td>
+            </tr>
+            
+            <tr>
+                <td>404</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>The specified resource could not be found.</td>
+            </tr>
+            
+            <tr>
+                <td>409</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful.</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="title">Authorization</div>
+    <div class="authorization details">
+        
+            
+            <div>Read - /system</div>
+            
+        
+    </div>
+</div>
+        </div>
+    
+    
+    
+</div>
+            
+                
+<div class="endpoints">
     <span class="path hidden">/templates/{id}</span>
     
     
@@ -50981,7 +51129,7 @@
                     </td>
                     <td>optional</td>
                     <td>The type of reference this is.
-                         Allowable values: Processor, ControllerService, ReportingTask
+                         Allowable values: Processor, ControllerService, ReportingTask, FlowRegistryClient
                         </td>
                 </tr>
             
@@ -57326,6 +57474,118 @@
 </div>
         
             
+<div id="JmxMetricsResultDTO" class="type hidden">
+    <h3>JmxMetricsResultDTO</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>beanName</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The bean name of the metrics bean.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>attributeName</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The attribute name of the metrics bean's attribute.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>attributeValue</td>
+                    <td>
+                        
+                            
+                            
+                                object
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The attribute value of the the metrics bean's attribute
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "beanName": "value"<span class="comma">,</span>
+    "attributeName": "value"<span class="comma">,</span>
+    "attributeValue": <span class="open-object">&#123;
+        "name": "value"
+    &#125;</span><span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="JmxMetricsResultsEntity" class="type hidden">
+    <h3>JmxMetricsResultsEntity</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>jmxMetricsResults</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">JmxMetricsResultDTO</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "jmxMetricsResults": [<span class="nested collapsed"><span class="nested-id hidden">JmxMetricsResultDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
 <div id="LabelDTO" class="type hidden">
     <h3>LabelDTO</h3>
     <div class="type-container">
@@ -60060,11 +60320,11 @@
                 </tr>
             
                 <tr>
-                    <td>clientResponse</td>
+                    <td>inputStream</td>
                     <td>
                         
                             
-                                <a class="type-link" href="javascript:void(0);">Response</a>
+                                <a class="type-link" href="javascript:void(0);">InputStream</a>
                             
                             
                         
@@ -60124,11 +60384,11 @@
                 </tr>
             
                 <tr>
-                    <td>inputStream</td>
+                    <td>clientResponse</td>
                     <td>
                         
                             
-                                <a class="type-link" href="javascript:void(0);">InputStream</a>
+                                <a class="type-link" href="javascript:void(0);">Response</a>
                             
                             
                         
@@ -60149,11 +60409,11 @@
     "throwable": <span class="nested collapsed"><span class="nested-id hidden">Throwable</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
-    "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "is2xx": true<span class="comma">,</span>
     "is5xx": true<span class="comma">,</span>
     "status": 0<span class="comma">,</span>
-    "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -78011,12 +78271,12 @@
             </tr>
             
                 <tr>
-                    <td>metadata</td>
+                    <td>status</td>
                     <td>
                         
                             
                             
-                                object
+                                integer (int32)
                             
                         
                     </td>
@@ -78027,12 +78287,12 @@
                 </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>metadata</td>
                     <td>
                         
                             
                             
-                                integer (int32)
+                                object
                             
                         
                     </td>
@@ -78061,10 +78321,10 @@
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
+    "status": 0<span class="comma">,</span>
     "metadata": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
-    "status": 0<span class="comma">,</span>
     "entity": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
@@ -86310,22 +86570,6 @@
                 </tr>
             
                 <tr>
-                    <td>synchronized</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>True if the parameter provider is set and the context should receive updates when its parameters are next fetched
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>componentType</td>
                     <td>
                         
@@ -86338,6 +86582,22 @@
                     <td>optional</td>
                     <td>
                          Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>synchronized</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>True if the parameter provider is set and the context should receive updates when its parameters are next fetched
+                        
                         </td>
                 </tr>
             
@@ -86370,8 +86630,8 @@
     "description": "value"<span class="comma">,</span>
     "parameterProvider": "value"<span class="comma">,</span>
     "parameterGroupName": "value"<span class="comma">,</span>
-    "synchronized": true<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
+    "synchronized": true<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -86920,6 +87180,22 @@
                 </tr>
             
                 <tr>
+                    <td>componentType</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>flowFileConcurrency</td>
                     <td>
                         
@@ -86948,22 +87224,6 @@
                     <td>optional</td>
                     <td>The FlowFile Outbound Policy for the Process Group
                         
-                        </td>
-                </tr>
-            
-                <tr>
-                    <td>componentType</td>
-                    <td>
-                        
-                            
-                            
-                                string
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
                         </td>
                 </tr>
             
@@ -87008,9 +87268,9 @@
     "defaultFlowFileExpiration": "value"<span class="comma">,</span>
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
+    "componentType": "value"<span class="comma">,</span>
     "flowFileConcurrency": "value"<span class="comma">,</span>
     "flowFileOutboundPolicy": "value"<span class="comma">,</span>
-    "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>

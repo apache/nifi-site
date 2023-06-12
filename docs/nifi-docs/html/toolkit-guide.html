@@ -1,20 +1,4 @@
-<!--
-                        Licensed to the Apache Software Foundation (ASF) under one or more
-                        contributor license agreements.  See the NOTICE file distributed with
-                        this work for additional information regarding copyright ownership.
-                        The ASF licenses this file to You under the Apache License, Version 2.0
-                        (the "License"); you may not use this file except in compliance with
-                        the License.  You may obtain a copy of the License at
-
-                        http://www.apache.org/licenses/LICENSE-2.0
-
-                        Unless required by applicable law or agreed to in writing, software
-                        distributed under the License is distributed on an "AS IS" BASIS,
-                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                        See the License for the specific language governing permissions and
-                        limitations under the License.
-                        -->
-                        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -502,11 +486,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="toolkit-guide.html#sensitive-property-key-migration">Sensitive Property Key Migration</a></li>
+<li><a href="toolkit-guide.html#export-all-flows">Export All Flows</a></li>
+<li><a href="toolkit-guide.html#import-all-flows">Import All Flows</a></li>
+<li><a href="toolkit-guide.html#usage-3">Usage</a></li>
+<li><a href="toolkit-guide.html#expected-behaviour">Expected behaviour</a></li>
+<li><a href="toolkit-guide.html#use-case-1-reconfiguring-an-existing-nifi-registry">Use case 1: reconfiguring an existing NiFi Registry</a></li>
+<li><a href="toolkit-guide.html#use-case-2-data-replication">Use case 2: data replication</a></li>
 </ul>
 </li>
 <li><a href="toolkit-guide.html#file-manager">File Manager</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-3">Usage</a></li>
+<li><a href="toolkit-guide.html#usage-4">Usage</a></li>
 <li><a href="toolkit-guide.html#expected-behavior">Expected Behavior</a>
 <ul class="sectlevel3">
 <li><a href="toolkit-guide.html#backup">Backup</a></li>
@@ -518,12 +508,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="toolkit-guide.html#flow-analyzer">Flow Analyzer</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-4">Usage</a></li>
+<li><a href="toolkit-guide.html#usage-5">Usage</a></li>
 </ul>
 </li>
 <li><a href="toolkit-guide.html#node-manager">Node Manager</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-5">Usage</a></li>
+<li><a href="toolkit-guide.html#usage-6">Usage</a></li>
 <li><a href="toolkit-guide.html#expected-behavior-2">Expected Behavior</a>
 <ul class="sectlevel3">
 <li><a href="toolkit-guide.html#status">Status</a></li>
@@ -536,12 +526,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="toolkit-guide.html#notify">Notify</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-6">Usage</a></li>
+<li><a href="toolkit-guide.html#usage-7">Usage</a></li>
 </ul>
 </li>
 <li><a href="toolkit-guide.html#s2s">S2S</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-7">Usage</a></li>
+<li><a href="toolkit-guide.html#usage-8">Usage</a></li>
 </ul>
 </li>
 <li><a href="toolkit-guide.html#tls_toolkit">TLS Toolkit</a>
@@ -569,7 +559,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="toolkit-guide.html#zookeeper_migrator">ZooKeeper Migrator</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-11">Usage</a></li>
+<li><a href="toolkit-guide.html#usage-12">Usage</a></li>
 <li><a href="toolkit-guide.html#migrating-between-source-and-destination-zookeepers">Migrating Between Source and Destination ZooKeepers</a>
 <ul class="sectlevel3">
 <li><a href="toolkit-guide.html#zookeeper-migration-steps">ZooKeeper Migration Steps</a></li>
@@ -579,8 +569,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="toolkit-guide.html#kafka_migrator">Kafka Processor Migrator</a>
 <ul class="sectlevel2">
-<li><a href="toolkit-guide.html#usage-12">Usage</a></li>
-<li><a href="toolkit-guide.html#expected-behaviour">Expected Behaviour</a></li>
+<li><a href="toolkit-guide.html#usage-13">Usage</a></li>
+<li><a href="toolkit-guide.html#expected-behaviour-2">Expected Behaviour</a></li>
 <li><a href="toolkit-guide.html#limitations">Limitations</a></li>
 </ul>
 </li>
@@ -820,6 +810,8 @@ registry update-bucket-policy
 registry get-access-token
 registry get-access-token-spnego
 registry logout-access-token
+registry export-all-flows
+registry import-all-flows
 session keys
 session show
 session get
@@ -1735,6 +1727,171 @@ and <code>--oldProtectionScheme</code> in the migration command.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="export-all-flows"><a class="anchor" href="toolkit-guide.html#export-all-flows"></a>Export All Flows</h3>
+<div class="paragraph">
+<p>You can use the <code>export-all-flows</code> to perform the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List all the buckets</p>
+</li>
+<li>
+<p>For each bucket, list all flows</p>
+</li>
+<li>
+<p>For each flow, list all versions</p>
+</li>
+<li>
+<p>Export each version into a provided directory</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Running the command requires an <code>--outputDirectory</code> parameter. The directory must exist and permissions correctly set.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="import-all-flows"><a class="anchor" href="toolkit-guide.html#import-all-flows"></a>Import All Flows</h3>
+<div class="paragraph">
+<p>You can use the <code>import-all-flows</code> to perform the following tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List all files, representing a flow version, from a directory created by export-all-flows</p>
+</li>
+<li>
+<p>Create all the corresponding buckets</p>
+</li>
+<li>
+<p>Create all the corresponding flows</p>
+</li>
+<li>
+<p>Import all the corresponding flow versions</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Running the command requires 2 parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--input</code> parameter represents a directory to read files from</p>
+</li>
+<li>
+<p><code>--skipExisting</code> optional parameter, configuring how to handle existing flow and flow version creation.
+If provided the flow and flow version creation will be skipped regardless of there are missing flow versions.
+If not provided the missing flow versions will be created.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage-3"><a class="anchor" href="toolkit-guide.html#usage-3"></a>Usage</h3>
+<div class="paragraph">
+<p>The input source for an import-all-flows command must be created by an export-all-flows command.
+To avoid migration conflicts, no modification should be performed in the NiFi Registry during this activity.
+Buckets and flows with the same name are considered equal.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Export all flow versions:</p>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry export-all-flows -u http://localhost:18080 --outputDirectory "/my_dir/flow_exports"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Import all flow versions:</p>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry import-all-flows -u http://localhost:18080 --input "/my_dir/flow_exports" --skipExisting</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="expected-behaviour"><a class="anchor" href="toolkit-guide.html#expected-behaviour"></a>Expected behaviour</h3>
+
+</div>
+<div class="sect2">
+<h3 id="use-case-1-reconfiguring-an-existing-nifi-registry"><a class="anchor" href="toolkit-guide.html#use-case-1-reconfiguring-an-existing-nifi-registry"></a>Use case 1: reconfiguring an existing NiFi Registry</h3>
+<div class="paragraph">
+<p>NiFi is connecting to NiFi Registry, the NiFi Registry does not change, only its configuration.
+All the data will be created.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Export versions:</p>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry export-all-flows -u http://localhost:18080 --outputDirectory "/my_dir/flow_exports"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Stop registry</p>
+</li>
+<li>
+<p>Switch provider</p>
+</li>
+<li>
+<p>Start registry</p>
+</li>
+<li>
+<p>Import versions</p>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry import-all-flows -u http://localhost:18080 --input "/my_dir/flow_exports" --skipExisting</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-2-data-replication"><a class="anchor" href="toolkit-guide.html#use-case-2-data-replication"></a>Use case 2: data replication</h3>
+<div class="paragraph">
+<p>NiFi_1 is connecting to NiFi Registry_1 and NiFi_2 is connecting to NiFi Registry_2.</p>
+</div>
+<div class="paragraph">
+<p>For disaster recovery purposes the data from NiFi Registry_1 needs to be periodically replicated to NiFi Registry_2 via a scheduled job.</p>
+</div>
+<div class="paragraph">
+<p>The initial version of Nifi Registry_2 needs to be created by this tool.</p>
+</div>
+<div class="paragraph">
+<p>The missing buckets, flows and versions will be created. If bucket and flow exist the missing versions will be created.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Export versions:</p>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry export-all-flows -u http://nifi-registry-1:18080 --outputDirectory "/my_dir/flow_exports"</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Import versions:</p>
+<div class="literalblock">
+<div class="content">
+<pre>./bin/cli.sh registry import-all-flows -u http://nifi-registry-2:18080 --input "/my_dir/flow_exports"</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1744,7 +1901,7 @@ and <code>--oldProtectionScheme</code> in the migration command.</p>
 <p>The File Manager utility (invoked as <code>./bin/file-manager.sh</code> or <code>bin\file-manager.bat</code>) allows system administrators to take a backup of an existing NiFi installation, install a new version of NiFi in a designated location (while migrating any previous configuration settings) or restore an installation from a previous backup. File Manager supports NiFi version 1.0.0 and higher.</p>
 </div>
 <div class="sect2">
-<h3 id="usage-3"><a class="anchor" href="toolkit-guide.html#usage-3"></a>Usage</h3>
+<h3 id="usage-4"><a class="anchor" href="toolkit-guide.html#usage-4"></a>Usage</h3>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -1898,7 +2055,7 @@ If repositories were changed due to the installation of a newer version of NiFi 
 </ul>
 </div>
 <div class="sect2">
-<h3 id="usage-4"><a class="anchor" href="toolkit-guide.html#usage-4"></a>Usage</h3>
+<h3 id="usage-5"><a class="anchor" href="toolkit-guide.html#usage-5"></a>Usage</h3>
 <div class="paragraph">
 <p>To execute the <code>flow-analyzer</code> tool:</p>
 </div>
@@ -1933,7 +2090,7 @@ Avg Flowfile Queue Size=10000.000000000</pre>
 <p>Node manager (invoked as <code>./bin/node-manager.sh</code> or <code>bin\node-manager.bat</code>) supports connecting, disconnecting and removing a node when in a cluster (an error message displays if the node is not part of a cluster) as well as obtaining the status of a node.  When nodes are disconnected from a cluster and need to be connected or removed, a list of urls of connected nodes should be provided to send the required command to the active cluster.  Node Manager supports NiFi version 1.0.0 and higher.</p>
 </div>
 <div class="sect2">
-<h3 id="usage-5"><a class="anchor" href="toolkit-guide.html#usage-5"></a>Usage</h3>
+<h3 id="usage-6"><a class="anchor" href="toolkit-guide.html#usage-6"></a>Usage</h3>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -2053,7 +2210,7 @@ Avg Flowfile Queue Size=10000.000000000</pre>
 <p>Notify (invoked as <code>./bin/notify.sh</code> or <code>bin\notify.bat</code>) allows administrators to send messages as bulletins to NiFi.  Notify is supported on NiFi version 1.2.0 and higher.</p>
 </div>
 <div class="sect2">
-<h3 id="usage-6"><a class="anchor" href="toolkit-guide.html#usage-6"></a>Usage</h3>
+<h3 id="usage-7"><a class="anchor" href="toolkit-guide.html#usage-7"></a>Usage</h3>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -2132,7 +2289,7 @@ Avg Flowfile Queue Size=10000.000000000</pre>
 <p>S2S is a command line tool (invoked as <code>./bin/s2s.sh</code> or <code>bin\s2s.bat</code>) that can either read a list of DataPackets from stdin to send over site-to-site or write the received DataPackets to stdout.</p>
 </div>
 <div class="sect2">
-<h3 id="usage-7"><a class="anchor" href="toolkit-guide.html#usage-7"></a>Usage</h3>
+<h3 id="usage-8"><a class="anchor" href="toolkit-guide.html#usage-8"></a>Usage</h3>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -2326,7 +2483,7 @@ JKS keystores and truststores are recommended for NiFi.  This tool allows the sp
 <p>Standalone mode is invoked by running <code>./bin/tls-toolkit.sh standalone</code> or <code>bin\tls-toolkit.sh standalone</code>.</p>
 </div>
 <div class="sect4">
-<h5 id="usage-8"><a class="anchor" href="toolkit-guide.html#usage-8"></a>Usage</h5>
+<h5 id="usage-9"><a class="anchor" href="toolkit-guide.html#usage-9"></a>Usage</h5>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -2469,7 +2626,7 @@ JKS keystores and truststores are recommended for NiFi.  This tool allows the sp
 <p>CA server mode is invoked by running <code>./bin/tls-toolkit.sh server</code> or <code>bin\tls-toolkit.sh server</code>.</p>
 </div>
 <div class="sect5">
-<h6 id="usage-9"><a class="anchor" href="toolkit-guide.html#usage-9"></a>Usage</h6>
+<h6 id="usage-10"><a class="anchor" href="toolkit-guide.html#usage-10"></a>Usage</h6>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -2532,7 +2689,7 @@ JKS keystores and truststores are recommended for NiFi.  This tool allows the sp
 <p>The client can be used to request new Certificates from the CA. The client utility generates a keypair and Certificate Signing Request (CSR) and sends the CSR to the Certificate Authority. CA client mode is invoked by running <code>./bin/tls-toolkit.sh client</code> or <code>bin\tls-toolkit.sh client</code>.</p>
 </div>
 <div class="sect5">
-<h6 id="usage-10"><a class="anchor" href="toolkit-guide.html#usage-10"></a>Usage</h6>
+<h6 id="usage-11"><a class="anchor" href="toolkit-guide.html#usage-11"></a>Usage</h6>
 <div class="paragraph">
 <p>To show help:</p>
 </div>
@@ -3112,7 +3269,7 @@ $ ./bin/tls-toolkit.sh standalone -n 'node1.nifi.apache.org' \
 </ul>
 </div>
 <div class="sect2">
-<h3 id="usage-11"><a class="anchor" href="toolkit-guide.html#usage-11"></a>Usage</h3>
+<h3 id="usage-12"><a class="anchor" href="toolkit-guide.html#usage-12"></a>Usage</h3>
 <div class="paragraph">
 <p>The <code>zk-migrator</code> tool is invoked as <code>./bin/zk-migrator.sh</code> or <code>bin\zk-migrator.bat</code>.</p>
 </div>
@@ -3391,7 +3548,7 @@ In large flows having many numbers of components it is challenging to replace th
 This tool can be used to update a flow in an automated way.</p>
 </div>
 <div class="sect2">
-<h3 id="usage-12"><a class="anchor" href="toolkit-guide.html#usage-12"></a>Usage</h3>
+<h3 id="usage-13"><a class="anchor" href="toolkit-guide.html#usage-13"></a>Usage</h3>
 <div class="paragraph">
 <p>Running the script requires 3 mandatory and 1 optional parameters:</p>
 </div>
@@ -3441,7 +3598,7 @@ Kafka Broker argument can be omitted if flow does not contain GetKafka or PutKaf
 </div>
 </div>
 <div class="sect2">
-<h3 id="expected-behaviour"><a class="anchor" href="toolkit-guide.html#expected-behaviour"></a>Expected Behaviour</h3>
+<h3 id="expected-behaviour-2"><a class="anchor" href="toolkit-guide.html#expected-behaviour-2"></a>Expected Behaviour</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -3595,7 +3752,7 @@ Kafka Broker argument can be omitted if flow does not contain GetKafka or PutKaf
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-07 13:31:50 -0500
+Last updated 2023-06-06 12:59:17 -0700
 </div>
 </div>
 </body>

@@ -1,20 +1,4 @@
-<!--
-                        Licensed to the Apache Software Foundation (ASF) under one or more
-                        contributor license agreements.  See the NOTICE file distributed with
-                        this work for additional information regarding copyright ownership.
-                        The ASF licenses this file to You under the Apache License, Version 2.0
-                        (the "License"); you may not use this file except in compliance with
-                        the License.  You may obtain a copy of the License at
-
-                        http://www.apache.org/licenses/LICENSE-2.0
-
-                        Unless required by applicable law or agreed to in writing, software
-                        distributed under the License is distributed on an "AS IS" BASIS,
-                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                        See the License for the specific language governing permissions and
-                        limitations under the License.
-                        -->
-                        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -762,6 +746,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#automatic-diagnostics-on-restart-and-shutdown">Automatic diagnostics on restart and shutdown</a></li>
 </ul>
 </li>
+<li><a href="administration-guide.html#jmx_metrics">JMX Metrics</a></li>
 </ul>
 </div>
 </div>
@@ -1945,7 +1930,7 @@ JSON Web Key (JWK) provided through the jwks_uri in the metadata found at the di
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.oidc.additional.scopes</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated scopes that are sent to OpenID Connect Provider in addition to <code>openid</code> and <code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma separated scopes that are sent to OpenID Connect Provider in addition to <code>openid</code> and <code>email</code>. Authorization Servers require the <code>offline_access</code> scope to return a Refresh Token.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.oidc.claim.identifying.user</code></p></td>
@@ -9162,6 +9147,11 @@ request headers. The default value is:</p>
 <p class="tableblock">The CustomRequestLog writes formatted messages using the following SLF4J logger:</p>
 <p class="tableblock"><code>org.apache.nifi.web.server.RequestLog</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.jmx.metrics.allowed.filter.pattern</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The regular expression controlling the JMX MBean names that the REST API
+is allowed to return. The default value is empty, blocking all MBeans. Configuring <code>.*</code> allows all registered MBeans.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -10549,10 +10539,59 @@ nifi.diagnostics.on.shutdown.max.directory.size=10 MB</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="jmx_metrics"><a class="anchor" href="administration-guide.html#jmx_metrics"></a>JMX Metrics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is possible to get JMX metrics using the REST API with read permissions on system diagnostics resources.</p>
+</div>
+<div class="paragraph">
+<p>The information available depends on the registered MBeans. Metrics can contain data related to performance indicators.</p>
+</div>
+<div class="paragraph">
+<p>Listing of MBeans is controlled using a regular expression pattern in application properties. Leaving the
+property empty means no MBeans will be returned. The default value blocks all MBeans and must be changed to return
+information.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>nifi.web.jmx.metrics.allowed.filter.pattern=.*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An optionally provided query parameter using a regular expression pattern, will display only MBeans with matching names.
+Leaving this parameter empty means listing all MBeans except those filtered out by the blocked filter pattern.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>https://localhost:8443/nifi-api/system-diagnostics/jmx-metrics?beanNameFilter=bean.name.1|bean.name.2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An example output would look like this:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[
+  {
+    "beanName" : "bean.name.1,type=type1",
+    "attributeName" : “attribute-name",
+    "attributeValue" : “attribute-value”
+  },
+  {
+    "beanName" : "bean.name.2, type=type2",
+    "attributeName" : "attribute-name",
+    "attributeValue" : integer-value
+  }
+]</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-04-07 13:31:50 -0500
+Last updated 2023-06-06 12:59:17 -0700
 </div>
 </div>
 </body>
