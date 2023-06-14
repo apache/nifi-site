@@ -538,22 +538,25 @@ gpg: BAD signature from &quot;Andy LoPresto &lt;alopresto@apache.org&gt;&quot; [
 gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 </code></pre><p>In this case, you should contact the RM and report this finding.</p>
 <h2 id="a-nametransfer-a-secret-keytransfer-a-secret-keya"><a name="transfer-a-secret-key">Transfer a secret key</a></h2>
-<p>This is a risky operation. The most vulnerable part of the system is the passphrase that encrypts the private key. If an attacker obtains a copy of the encrypted private key file, an attack on the passphrase is likely to be feasible. So it is vital to store the private key securely at all times.
-There are very few occasions when this risk is justified. One of them is when you need to transfer your key to a new machine.</p>
-<p>To export all secret keys to a temporary file:</p>
+<p>Transferring a secret key requires careful consideration to maintain security.
+The most vulnerable part of the system is the passphrase that encrypts the private key.
+The security of an encrypted private key is based on the strength of the associated passphrase, so it is vital to store the private key securely at all times.</p>
+<p>Run the following command to export all secret keys to a temporary file with ASCII Armor encoding:</p>
 <pre tabindex="0"><code>gpg --export-secret-keys --armor --output exported_keys.sec
-</code></pre><p>Move <code>exported_keys.sec</code> to the new machine, preferably with a pendrive.</p>
+</code></pre><p>Move <code>exported_keys.sec</code> to the new machine, preferably using an external drive.</p>
 <p>Import this temporary file into the target keyring:</p>
 <pre tabindex="0"><code>gpg --import exported_keys.sec 
 </code></pre><p>Check for secret keys imported in the output. Listing secret keys for the target keyring should now show the existence of the secret key:</p>
 <pre tabindex="0"><code>gpg --list-secret-keys
-</code></pre><p>Finally make sure that the temporary file you used cannot be read. We recommend secure deletion. If you are working on Linux, for example, you can use the <code>shred</code> command:</p>
+</code></pre><p>Delete the temporary keys file using a secure deletion method. If you are working on Linux, for example, you can use the <code>shred</code> command:</p>
 <pre tabindex="0"><code>shred exported_keys.sec
-</code></pre><p>The keys you exported most likely had <code>ultimate</code> trust by default, because you generated them. However the trust level is not exported, so the key going to have <code>unknown</code> trust.
+</code></pre><p>The keys you exported most likely had <code>ultimate</code> trust by default, because you generated them.
+However, the trust level is not exported, so the key going to have <code>unknown</code> trust.
 To restore <code>ultimate</code> trust, you need to edit the key <code>gpg --edit-key &lt;keyId&gt;</code> by typing <code>trust</code> command in the prompt.</p>
-<p>Another option is to export the trustlevel of your keys:</p>
+<p>Another option for restoring the trust level is to export the information and then import it on the new system.</p>
+<p>Run the following command to export the current trust level:</p>
 <pre tabindex="0"><code>gpg --export-ownertrust &gt; trustlevel.txt
-</code></pre><p>To import them:</p>
+</code></pre><p>Run the following command to import the trust level information:</p>
 <pre tabindex="0"><code>gpg --import-ownertrust &lt; trustlevel.txt
 </code></pre><h2 id="a-nametroubleshootingtroubleshootinga"><a name="troubleshooting">Troubleshooting</a></h2>
 <ul>
