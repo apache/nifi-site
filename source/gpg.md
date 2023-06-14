@@ -502,40 +502,50 @@ In this case, you should contact the RM and report this finding.
 
 ## <a name="transfer-a-secret-key">Transfer a secret key</a>
 
-This is a risky operation. The most vulnerable part of the system is the passphrase that encrypts the private key. If an attacker obtains a copy of the encrypted private key file, an attack on the passphrase is likely to be feasible. So it is vital to store the private key securely at all times.
-There are very few occasions when this risk is justified. One of them is when you need to transfer your key to a new machine.
+Transferring a secret key requires careful consideration to maintain security. 
+The most vulnerable part of the system is the passphrase that encrypts the private key.
+The security of an encrypted private key is based on the strength of the associated passphrase, so it is vital to store the private key securely at all times.
 
-To export all secret keys to a temporary file:
+Run the following command to export all secret keys to a temporary file with ASCII Armor encoding:
+
 ```
 gpg --export-secret-keys --armor --output exported_keys.sec
 ```
 
-Move `exported_keys.sec` to the new machine, preferably with a pendrive.
+Move `exported_keys.sec` to the new machine, preferably using an external drive.
 
 Import this temporary file into the target keyring:
+
 ```
 gpg --import exported_keys.sec 
 ```
 
 Check for secret keys imported in the output. Listing secret keys for the target keyring should now show the existence of the secret key:
+
 ```
 gpg --list-secret-keys
 ```
 
-Finally make sure that the temporary file you used cannot be read. We recommend secure deletion. If you are working on Linux, for example, you can use the `shred` command:
+Delete the temporary keys file using a secure deletion method. If you are working on Linux, for example, you can use the `shred` command:
+
 ```
 shred exported_keys.sec
 ```
 
-The keys you exported most likely had `ultimate` trust by default, because you generated them. However the trust level is not exported, so the key going to have `unknown` trust.
+The keys you exported most likely had `ultimate` trust by default, because you generated them.
+However, the trust level is not exported, so the key going to have `unknown` trust.
 To restore `ultimate` trust, you need to edit the key `gpg --edit-key <keyId>` by typing `trust` command in the prompt.
 
-Another option is to export the trustlevel of your keys: 
+Another option for restoring the trust level is to export the information and then import it on the new system.
+
+Run the following command to export the current trust level:
+
 ```
 gpg --export-ownertrust > trustlevel.txt
 ```
 
-To import them:
+Run the following command to import the trust level information:
+
 ```
 gpg --import-ownertrust < trustlevel.txt
 ```
