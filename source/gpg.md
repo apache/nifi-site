@@ -24,6 +24,8 @@ The purpose of this document is to capture and describe the steps involved in ge
   * [Set up GitHub with your key](#set-up-github-with-your-key)
   * [Signing a release artifact](#signing-a-release-artifact)
   * [Verifying a release signature](#verifying-a-release-signature)
+  * [Transfer a secret key](#transfer-a-secret-key)
+  * [Troubleshooting](#troubleshooting)
 
 ## <a name="the-objective">The Objective</a>
 
@@ -498,7 +500,47 @@ gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 
 In this case, you should contact the RM and report this finding. 
 
-## Troubleshooting
+## <a name="transfer-a-secret-key">Transfer a secret key</a>
+
+This is a risky operation. The most vulnerable part of the system is the passphrase that encrypts the private key. If an attacker obtains a copy of the encrypted private key file, an attack on the passphrase is likely to be feasible. So it is vital to store the private key securely at all times.
+There are very few occasions when this risk is justified. One of them is when you need to transfer your key to a new machine.
+
+To export all secret keys to a temporary file:
+```
+gpg --export-secret-keys --armor --output exported_keys.sec
+```
+
+Move `exported_keys.sec` to the new machine, preferably with a pendrive.
+
+Import this temporary file into the target keyring:
+```
+gpg --import exported_keys.sec 
+```
+
+Check for secret keys imported in the output. Listing secret keys for the target keyring should now show the existence of the secret key:
+```
+gpg --list-secret-keys
+```
+
+Finally make sure that the temporary file you used cannot be read. We recommend secure deletion. If you are working on Linux, for example, you can use the `shred` command:
+```
+shred exported_keys.sec
+```
+
+The keys you exported most likely had `ultimate` trust by default, because you generated them. However the trust level is not exported, so the key going to have `unknown` trust.
+To restore `ultimate` trust, you need to edit the key `gpg --edit-key <keyId>` by typing `trust` command in the prompt.
+
+Another option is to export the trustlevel of your keys: 
+```
+gpg --export-ownertrust > trustlevel.txt
+```
+
+To import them:
+```
+gpg --import-ownertrust < trustlevel.txt
+```
+
+## <a name="troubleshooting">Troubleshooting</a>
 
 * IDE integration may require configuring `gpg` to use `no-tty` in `~/.gnupg/gpg.conf`. See [Git GPG signing from IDE](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206502489-Git-GPG-commit-signing-commit-s-from-IDE-in-effective-way) or [How to sign git commits from within an IDE like IntelliJ?](https://stackoverflow.com/questions/46863981/how-to-sign-git-commits-from-within-an-ide-like-intellij). 
 
@@ -522,4 +564,4 @@ In this case, you should contact the RM and report this finding.
 [git-config-gpg]: https://help.github.com/articles/telling-git-about-your-gpg-key/
 [web-of-trust]: https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication
 [gnu-privacy-handbook]: https://www.gnupg.org/gph/en/manual/x334.html
-[github-new-key-account]: https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/
+[github-new-key-account]: https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
