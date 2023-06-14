@@ -141,6 +141,8 @@
 <li><a href="#set-up-github-with-your-key">Set up GitHub with your key</a></li>
 <li><a href="#signing-a-release-artifact">Signing a release artifact</a></li>
 <li><a href="#verifying-a-release-signature">Verifying a release signature</a></li>
+<li><a href="#transfer-a-secret-key">Transfer a secret key</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 <h2 id="a-namethe-objectivethe-objectivea"><a name="the-objective">The Objective</a></h2>
 <p>Our aim is to instruct users on how to sign their commits, verify other&rsquo;s signatures, and do the same for official releases of Apache NiFi.</p>
@@ -478,7 +480,7 @@ Date:   Tue Jun 5 12:47:36 2018 -0400
     Signed-off-by: Bryan Bende &lt;bbende@apache.org&gt;
 </code></pre><p>See <a href="https://blog.github.com/2016-04-05-gpg-signature-verification/">GitHub Blog: GPG Signature Verification</a> for more information on setting this up.</p>
 <h2 id="a-nameset-up-github-with-your-keyset-up-github-with-your-keya"><a name="set-up-github-with-your-key">Set up GitHub with your key</a></h2>
-<p>See <a href="https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/">Adding a new GPG key to your GitHub account</a>.</p>
+<p>See <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account">Adding a new GPG key to your GitHub account</a>.</p>
 <h2 id="a-namesigning-a-release-artifactsigning-a-release-artifacta"><a name="signing-a-release-artifact">Signing a release artifact</a></h2>
 <p>When signing a release artifact (an <a href="https://nifi.apache.org/release-guide.html">RM duty</a> only), you should generate detached GPG signatures (i.e. in a separate file, ASCII-armored (aka Base64-encoded)). These signatures should be named <code>file-being-signed.xyz.asc</code> and should be signed using the <code>SHA-512</code> hash algorithm. See <a href="https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1">Configure GPG to always prefer stronger hashes</a> to configure this preference permanently.</p>
 <pre tabindex="0"><code>       $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-source-release.zip  # produces nifi-${NIFI_VERSION}-source-release.zip.asc
@@ -535,7 +537,25 @@ gpg: using pgp trust model
 gpg: BAD signature from &quot;Andy LoPresto &lt;alopresto@apache.org&gt;&quot; [full]
 gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 </code></pre><p>In this case, you should contact the RM and report this finding.</p>
-<h2 id="troubleshooting">Troubleshooting</h2>
+<h2 id="a-nametransfer-a-secret-keytransfer-a-secret-keya"><a name="transfer-a-secret-key">Transfer a secret key</a></h2>
+<p>This is a risky operation. The most vulnerable part of the system is the passphrase that encrypts the private key. If an attacker obtains a copy of the encrypted private key file, an attack on the passphrase is likely to be feasible. So it is vital to store the private key securely at all times.
+There are very few occasions when this risk is justified. One of them is when you need to transfer your key to a new machine.</p>
+<p>To export all secret keys to a temporary file:</p>
+<pre tabindex="0"><code>gpg --export-secret-keys --armor --output exported_keys.sec
+</code></pre><p>Move <code>exported_keys.sec</code> to the new machine, preferably with a pendrive.</p>
+<p>Import this temporary file into the target keyring:</p>
+<pre tabindex="0"><code>gpg --import exported_keys.sec 
+</code></pre><p>Check for secret keys imported in the output. Listing secret keys for the target keyring should now show the existence of the secret key:</p>
+<pre tabindex="0"><code>gpg --list-secret-keys
+</code></pre><p>Finally make sure that the temporary file you used cannot be read. We recommend secure deletion. If you are working on Linux, for example, you can use the <code>shred</code> command:</p>
+<pre tabindex="0"><code>shred exported_keys.sec
+</code></pre><p>The keys you exported most likely had <code>ultimate</code> trust by default, because you generated them. However the trust level is not exported, so the key going to have <code>unknown</code> trust.
+To restore <code>ultimate</code> trust, you need to edit the key <code>gpg --edit-key &lt;keyId&gt;</code> by typing <code>trust</code> command in the prompt.</p>
+<p>Another option is to export the trustlevel of your keys:</p>
+<pre tabindex="0"><code>gpg --export-ownertrust &gt; trustlevel.txt
+</code></pre><p>To import them:</p>
+<pre tabindex="0"><code>gpg --import-ownertrust &lt; trustlevel.txt
+</code></pre><h2 id="a-nametroubleshootingtroubleshootinga"><a name="troubleshooting">Troubleshooting</a></h2>
 <ul>
 <li>IDE integration may require configuring <code>gpg</code> to use <code>no-tty</code> in <code>~/.gnupg/gpg.conf</code>. See <a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/206502489-Git-GPG-commit-signing-commit-s-from-IDE-in-effective-way">Git GPG signing from IDE</a> or <a href="https://stackoverflow.com/questions/46863981/how-to-sign-git-commits-from-within-an-ide-like-intellij">How to sign git commits from within an IDE like IntelliJ?</a>.</li>
 </ul>
