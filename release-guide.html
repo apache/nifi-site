@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
-        <link rel="stylesheet" href="/stylesheets/app.min.92da7048339401bf53463b01188254399d9c8a2138949712827fee24e79c12e4.css">
+        <link rel="stylesheet" href="/stylesheets/app.min.5c81cf462909783b5f788de8312885d5e08d20aa6dd5f6eb9507dd445444a6cb.css">
         <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
         <script src="/assets/js/modernizr.js"></script>
         <script src="/assets/js/webfontloader.js"></script>
@@ -265,16 +265,15 @@ Apache NiFi developer community.</p>
 <li>Follow the steps outlined in the <a href="https://nifi.apache.org/quickstart.html">Quickstart Guide</a> to prepare the development system.</li>
 <li>Confirm that the local Git workspace is configured with an origin remote pointing to the RM&rsquo;s personal fork of the
 NiFi source and an &ldquo;ASF&rdquo; remote pointing to the Apache Git Repository for NiFi.
-<pre><code>$ git remote -v
+<pre tabindex="0"><code>$ git remote -v
 asf	https://gitbox.apache.org/repos/asf/nifi.git (fetch)
 asf	https://gitbox.apache.org/repos/asf/nifi.git (push)
 origin	https://github.com/${RM_USERID}/nifi.git (fetch)
 origin	https://github.com/${RM_USERID}/nifi.git (push)
-</code></pre><p>Additional remotes will not cause a problem if these two are correct.  Other configurations are perfectly
-acceptable but the appropriate adjustments to the steps in this guide must be made by the release manager.</p>
-</li>
+</code></pre>Additional remotes will not cause a problem if these two are correct.  Other configurations are perfectly
+acceptable but the appropriate adjustments to the steps in this guide must be made by the release manager.</li>
 <li>Confirm that source code can be checked out for the branch being released.
-<pre><code>git checkout ${BRANCH}
+<pre tabindex="0"><code>git checkout ${BRANCH}
 </code></pre></li>
 <li>Confirm that the entire application builds correctly in the build environment.</li>
 </ol>
@@ -286,23 +285,23 @@ acceptable but the appropriate adjustments to the steps in this guide must be ma
 <li>Create meaningful release notes for this version if not already created.  <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes">Enter them here</a> on
 the NiFi wiki.</li>
 <li>Create a new branch off &lsquo;main&rsquo; named after the JIRA ticket.
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b <span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">JIRA_TICKET</span><span style="color:#b68;font-weight:bold">}</span>-RC<span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">RC</span><span style="color:#b68;font-weight:bold">}</span> <span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">BRANCH</span><span style="color:#b68;font-weight:bold">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b <span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">JIRA_TICKET</span><span style="color:#b68;font-weight:bold">}</span>-RC<span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">RC</span><span style="color:#b68;font-weight:bold">}</span> <span style="color:#b68;font-weight:bold">${</span><span style="color:#b8860b">BRANCH</span><span style="color:#b68;font-weight:bold">}</span>
 </code></pre></div></li>
 <li>Verify that Maven has sufficient heap space to perform the build tasks.  Some plugins and parts of the build
 consumes a surprisingly large amount of space.
 <ul>
 <li>These settings have been shown to work for Java 8 for NiFi version 1.x and later.
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">export</span> <span style="color:#b8860b">MAVEN_OPTS</span><span style="color:#666">=</span><span style="color:#b44">&#34;-Xms1024m -Xmx3076m&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">export</span> <span style="color:#b8860b">MAVEN_OPTS</span><span style="color:#666">=</span><span style="color:#b44">&#34;-Xms1024m -Xmx3076m&#34;</span>
 </code></pre></div></li>
 <li>And these work for Java 7 for NiFi version 0.x.
-<pre><code>$ export MAVEN_OPTS=&quot;-Xms1024m -Xmx3076m -XX:MaxPermSize=256m&quot;
+<pre tabindex="0"><code>$ export MAVEN_OPTS=&quot;-Xms1024m -Xmx3076m -XX:MaxPermSize=256m&quot;
 </code></pre></li>
 </ul>
 </li>
 <li>Ensure your settings.xml has been updated to include a <code>signed_release</code> profile and a <code>&lt;server&gt;</code> entry for
 &ldquo;repository.apache.org&rdquo; as shown below. <a href="http://blog.sonatype.com/2009/10/maven-tips-and-tricks-encrypting-passwords">Steps to configure and encrypt Maven passwords</a>.
 There are  other ways to ensure your PGP key is available for signing as well.
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-XML" data-lang="XML">    <span style="color:#008000;font-weight:bold">&lt;profile&gt;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-XML" data-lang="XML">    <span style="color:#008000;font-weight:bold">&lt;profile&gt;</span>
         <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>signed_release<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
         <span style="color:#008000;font-weight:bold">&lt;properties&gt;</span>
             <span style="color:#008000;font-weight:bold">&lt;mavenExecutorId&gt;</span>forked-path<span style="color:#008000;font-weight:bold">&lt;/mavenExecutorId&gt;</span>
@@ -320,11 +319,11 @@ There are  other ways to ensure your PGP key is available for signing as well.
     <span style="color:#008000;font-weight:bold">&lt;/servers&gt;</span>
 </code></pre></div></li>
 <li>Ensure the the full application builds and all tests work by executing a parallel (multi-threaded) build.
-<pre><code>$ mvn -T 2.5C clean install -Pinclude-grpc
+<pre tabindex="0"><code>$ mvn -T 2.5C clean install -Pinclude-grpc
 </code></pre></li>
 <li>Startup and test the application with from the root source folder.  After a few seconds, NiFi should be up and
 running at <a href="http://localhost:8080/nifi">http://localhost:8080/nifi</a>.
-<pre><code>$ cd nifi-assembly/target/nifi-${NIFI_VERSION}-bin/nifi-${NIFI_VERSION}
+<pre tabindex="0"><code>$ cd nifi-assembly/target/nifi-${NIFI_VERSION}-bin/nifi-${NIFI_VERSION}
 $ bin/nifi.sh start
 </code></pre></li>
 <li>Evaluate and ensure the appropriate license headers are present on all source files.</li>
@@ -332,7 +331,7 @@ $ bin/nifi.sh start
 they go along adding source and modifying dependencies to keep this burden manageable.)</li>
 <li>Build the project with the <code>contrib-check</code> profile enabled to validate contribution expectations and find any
 problems that must be addressed before proceeding.
-<pre><code>$ mvn install -Pcontrib-check,include-grpc
+<pre tabindex="0"><code>$ mvn install -Pcontrib-check,include-grpc
 </code></pre></li>
 <li>Verify and update if necessary to ensure Docker version information points to the next release version.  For instance, set correct release versions in various Dockerfile files found in the codebase.  There are approximately 5 to update as of version 1.16.</li>
 </ol>
@@ -342,7 +341,7 @@ problems that must be addressed before proceeding.
 <p>Now its time to have maven prepare the release with this command.<br>
 <em>NOTE: <code>gpg</code> will be invoked during this step, which will need to prompt you for a password.  From the command line, use
 <code>export GPG_TTY=$(tty)</code> to allow <code>gpg</code> to prompt you.</em></p>
-<pre><code>$ mvn --batch-mode release:prepare \
+<pre tabindex="0"><code>$ mvn --batch-mode release:prepare \
     -Psigned_release,include-grpc \
     -DscmCommentPrefix=&quot;${JIRA_TICKET}-RC${RC} &quot; \
     -Dtag=&quot;nifi-${NIFI_VERSION}-RC${RC}&quot; \
@@ -356,13 +355,13 @@ it may be necessary to run <code>$ mvn release:clean</code> to get the project t
 </li>
 <li>
 <p>If the preparation without problems, it is time to perform the release and deploy artifacts to staging.</p>
-<pre><code>$ mvn release:perform \
+<pre tabindex="0"><code>$ mvn release:perform \
     -Psigned_release,include-grpc \
     -DscmCommentPrefix=&quot;${JIRA_TICKET}-RC${RC} &quot; \
     -Darguments=&quot;-DskipTests&quot;
 </code></pre><p>When this completes the artifacts have been released to the Apache Nexus staging repository, a local release branch
 has been created and there should the staging repository ID returned in a log entry like this.</p>
-<pre><code>[INFO]  * Closing staging repository with ID &quot;orgapachenifi-1088&quot;
+<pre tabindex="0"><code>[INFO]  * Closing staging repository with ID &quot;orgapachenifi-1088&quot;
 </code></pre><p><em><strong>This staging repository ID is referred to by ${STAGING_REPO_ID} in this release guide.</strong></em></p>
 </li>
 <li>
@@ -385,31 +384,31 @@ click on that you can inspect the various staged artifacts.</p>
 </li>
 <li>
 <p>The validated artifacts all look good then push the branch to origin release branch to the ASF repository.</p>
-<pre><code>$ git push asf ${JIRA_TICKET}-RC${RC}
+<pre tabindex="0"><code>$ git push asf ${JIRA_TICKET}-RC${RC}
 </code></pre><p><em><strong>From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment ${JIRA_TICKET}-RC${RC} prepare release nifi-${NIFI_VERSION}-RC${RC}</strong></em></p>
 </li>
 <li>
 <p>Push the tag created by the release:prepare step to the ASF repository.</p>
-<pre><code>git push asf nifi-${NIFI_VERSION}-RC${RC}
+<pre tabindex="0"><code>git push asf nifi-${NIFI_VERSION}-RC${RC}
 </code></pre></li>
 <li>
 <p>Create the signature and hashes for the source release and convenience binary files.  You take the source release and signature from steps above.  You grab the other conveniece binaries from your local build directories.</p>
 <ol>
 <li>ASCII armored GPG signatures (<code>--digest-algo=SHA512</code> select the SHA512 hash algorithm). <a href="https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1">Configure GPG to always prefer stronger hashes</a>.
-<pre><code>$ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.tar.gz          # produces nifi-${NIFI_VERSION}-bin.tar.gz.asc
+<pre tabindex="0"><code>$ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.tar.gz          # produces nifi-${NIFI_VERSION}-bin.tar.gz.asc
 $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.zip             # produces nifi-${NIFI_VERSION}-bin.zip.asc
 $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.zip     # produces nifi-toolkit-${NIFI_VERSION}-bin.zip.asc
 $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz  # produces nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.asc
 </code></pre></li>
 <li>Generate SHA256 hash summaries.
-<pre><code>$ shasum -a 256 nifi-${NIFI_VERSION}-source-release.zip | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-source-release.zip.sha256
+<pre tabindex="0"><code>$ shasum -a 256 nifi-${NIFI_VERSION}-source-release.zip | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-source-release.zip.sha256
 $ shasum -a 256 nifi-${NIFI_VERSION}-bin.tar.gz | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-bin.tar.gz.sha256
 $ shasum -a 256 nifi-${NIFI_VERSION}-bin.zip | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-bin.zip.sha256
 $ shasum -a 256 nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d&quot; &quot; -f1 &gt;  nifi-toolkit-${NIFI_VERSION}-bin.zip.sha256
 $ shasum -a 256 nifi-toolkit-${NIFI_VERSION}-bin.tar.gz | cut -d&quot; &quot; -f1 &gt;  nifi-toolkit-${NIFI_VERSION}-bin.tar.gz.sha256
 </code></pre></li>
 <li>Generate SHA512 hash summaries.
-<pre><code>$ shasum -a 512 nifi-${NIFI_VERSION}-source-release.zip | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-source-release.zip.sha512
+<pre tabindex="0"><code>$ shasum -a 512 nifi-${NIFI_VERSION}-source-release.zip | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-source-release.zip.sha512
 $ shasum -a 512 nifi-${NIFI_VERSION}-bin.tar.gz | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-bin.tar.gz.sha512
 $ shasum -a 512 nifi-${NIFI_VERSION}-bin.zip | cut -d&quot; &quot; -f1 &gt;  nifi-${NIFI_VERSION}-bin.zip.sha512
 $ shasum -a 512 nifi-toolkit-${NIFI_VERSION}-bin.zip | cut -d&quot; &quot; -f1 &gt;  nifi-toolkit-${NIFI_VERSION}-bin.zip.sha512
@@ -445,7 +444,7 @@ and more positive than negative binding votes.</em></p>
 <li>FROM: <code>${RM_USERID}@apache.org</code></li>
 <li>SUBJECT: <code>[VOTE] Release Apache NiFi ${NIFI_VERSION}</code></li>
 </ul>
-<pre><code>Hello,
+<pre tabindex="0"><code>Hello,
 
 I am pleased to be calling this vote for the source release of Apache NiFi nifi-${NIFI_VERSION}.
 
@@ -505,7 +504,7 @@ on the release branch and a new release candidate is put forward for a new vote.
 <li>FROM: <code>${RM_USERID}@apache.org</code></li>
 <li>SUBJECT: <code>[RESULT][VOTE] Release Apache NiFi ${NIFI_VERSION}</code></li>
 </ul>
-<pre><code>Apache NiFi Community,
+<pre tabindex="0"><code>Apache NiFi Community,
 
 I am pleased to announce that the ${NIFI_VERSION} release of Apache NiFi passes with
     X +1 (binding) votes
@@ -523,14 +522,14 @@ Here is the PMC vote thread: ${VOTE_THREAD_URL}
 <ol>
 <li>
 <p>Move convenience binaries and related artifacts from dist/dev to dist/release:</p>
-<pre><code>$ svn move -m &quot;${JIRA_TICKET}&quot; https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION} https://dist.apache.org/repos/dist/release/nifi/${NIFI_VERSION}
+<pre tabindex="0"><code>$ svn move -m &quot;${JIRA_TICKET}&quot; https://dist.apache.org/repos/dist/dev/nifi/nifi-${NIFI_VERSION} https://dist.apache.org/repos/dist/release/nifi/${NIFI_VERSION}
 </code></pre></li>
 <li>
 <p>In repository.apache.org go to the staging repository and select <code>release</code> and follow the instructions on the site.</p>
 </li>
 <li>
 <p>Merge the release branch into main. (this will result in a merge commit)</p>
-<pre><code>$ git checkout main
+<pre tabindex="0"><code>$ git checkout main
 $ git merge --no-ff ${JIRA_TICKET}-RC${RC}
 $ git push asf main
 </code></pre></li>
@@ -544,7 +543,7 @@ $ git push asf main
 </li>
 <li>
 <p>Commit and push the dockerhub module updates to the ASF repository:</p>
-<pre><code>git commit -m &quot;${JIRA_TICKET} Updated dockerhub module for next release&quot;
+<pre tabindex="0"><code>git commit -m &quot;${JIRA_TICKET} Updated dockerhub module for next release&quot;
 git push asf main
 </code></pre></li>
 <li>
@@ -583,12 +582,12 @@ in the archive before continuing.</em></p>
 <p>Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.<br>
 <em>NOTE: <code>gpg</code> will be invoked during this step, which will need to prompt you for a password.  From the command line, use
 <code>export GPG_TTY=$(tty)</code> to allow <code>gpg</code> to prompt you.</em></p>
-<pre><code>$ git tag -s rel/nifi-${NIFI_VERSION} -m &quot;${JIRA_TICKET} Signed release tag for approved release of NiFi ${NIFI_VERSION}&quot; ${RC_TAG_COMMIT_ID}
+<pre tabindex="0"><code>$ git tag -s rel/nifi-${NIFI_VERSION} -m &quot;${JIRA_TICKET} Signed release tag for approved release of NiFi ${NIFI_VERSION}&quot; ${RC_TAG_COMMIT_ID}
 </code></pre><p>For instructions on setting up to sign your tag see <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">here</a>.</p>
 </li>
 <li>
 <p>Push the release tag to the official ASF repository.</p>
-<pre><code>$ git push asf rel/nifi-${NIFI_VERSION}
+<pre tabindex="0"><code>$ git push asf rel/nifi-${NIFI_VERSION}
 </code></pre></li>
 <li>
 <p>Verify that the Docker build began at the <a href="https://hub.docker.com/r/apache/nifi/builds/">Build Status</a> page.  If the build does not take place soon after the release tag was pushed, it may be necessary to contact ASF Infra to ask for assistance and the job to be triggered again.</p>
@@ -611,7 +610,7 @@ in the archive before continuing.</em></p>
 </li>
 <li>The subject should include <code>[ANNOUNCE] Apache NiFi x.y.z release</code>.</li>
 <li>The text should be based on the template included below.
-<pre><code>Hello
+<pre tabindex="0"><code>Hello
 
 The Apache NiFi team would like to announce the release of Apache NiFi ${NIFI_VERSION}.
 
@@ -649,7 +648,7 @@ The Apache NiFi team
             <img src="https://www.apache.org/events/current-event-234x60.png" style="margin:0px 10px" />
         </a>
         <div id="copyright">
-            <p>Copyright &#169; 2022 The Apache Software Foundation, Licensed under the <a
+            <p>Copyright &#169; 2023 The Apache Software Foundation, Licensed under the <a
                     href="https://www.apache.org/licenses/">Apache License, Version 2.0</a>.<br/>Apache, the
                 Apache feather logo, NiFi, Apache NiFi and the project logo are trademarks of The Apache Software
                 Foundation.</p>

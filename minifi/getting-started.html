@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
-        <link rel="stylesheet" href="/stylesheets/app.min.92da7048339401bf53463b01188254399d9c8a2138949712827fee24e79c12e4.css">
+        <link rel="stylesheet" href="/stylesheets/app.min.5c81cf462909783b5f788de8312885d5e08d20aa6dd5f6eb9507dd445444a6cb.css">
         <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
         <script src="/assets/js/modernizr.js"></script>
         <script src="/assets/js/webfontloader.js"></script>
@@ -159,7 +159,7 @@
 <p>If you&rsquo;re new to NiFi, watch the <a href="http://nifi.apache.org/videos.html">NiFi introductory video series</a> before proceeding. If you don&rsquo;t already have NiFi, you can download it from <a href="http://nifi.apache.org/download.html">here</a>.</p>
 <h2 id="configuring-nifi-to-receive-data">Configuring NiFi to Receive Data</h2>
 <p>First, check that $NIFI_HOME/conf/nifi.properties has a Site to Site input socket port specified:</p>
-<pre><code># Site to Site properties
+<pre tabindex="0"><code># Site to Site properties
 nifi.remote.input.host=
 nifi.remote.input.secure=false
 nifi.remote.input.socket.port=1026
@@ -175,7 +175,7 @@ nifi.remote.input.http.transaction.ttl=30 sec
 <img src="../assets/images/minifi/minifi-flow.png" alt=""></p>
 <p>Now create a template, download it as an XML file, and download the <a href="download.html">Converter ToolKit</a>.</p>
 <p>From the toolkit directory:</p>
-<pre><code>[user@host minifi-toolkit-0.0.1]# ./bin/config.sh transform /path/to/template.xml /output/path/config.yml
+<pre tabindex="0"><code>[user@host minifi-toolkit-0.0.1]# ./bin/config.sh transform /path/to/template.xml /output/path/config.yml
 
 Java home: /usr/lib/jvm/jre-1.8.0-openjdk
 MiNiFi Toolkit home: /minifi-toolkit-0.0.1
@@ -183,7 +183,7 @@ MiNiFi Toolkit home: /minifi-toolkit-0.0.1
 
 No validation errors found in template.
 </code></pre><p>Open the config.yml file and add Port and Host to a Properties section at the end of the Input Ports section (at the end of the file):</p>
-<pre><code>Remote Processing Groups:
+<pre tabindex="0"><code>Remote Processing Groups:
 - name: http://localhost:8080/nifi
   url: http://localhost:8080/nifi
   comment: ''
@@ -199,7 +199,7 @@ No validation errors found in template.
         Port: 1026		
         Host Name: localhost
 </code></pre><p>Copy the generated config.yml file into $MINIFI/conf/config.yml, and start MiNiFi:</p>
-<pre><code>[user@host nifi-minifi-cpp-0.1.0]# ./bin/minifi.sh start
+<pre tabindex="0"><code>[user@host nifi-minifi-cpp-0.1.0]# ./bin/minifi.sh start
 Starting MiNiFi with PID 463 and pid file /nifi-minifi-cpp-0.1.0/bin/.minifi.pid
 </code></pre><p>After a few seconds, you should see NiFi receiving data on the input port:
 <img src="../assets/images/minifi/nifi-received.png" alt=""></p>
@@ -216,7 +216,7 @@ Starting MiNiFi with PID 463 and pid file /nifi-minifi-cpp-0.1.0/bin/.minifi.pid
             <img src="https://www.apache.org/events/current-event-234x60.png" style="margin:0px 10px" />
         </a>
         <div id="copyright">
-            <p>Copyright &#169; 2022 The Apache Software Foundation, Licensed under the <a
+            <p>Copyright &#169; 2023 The Apache Software Foundation, Licensed under the <a
                     href="https://www.apache.org/licenses/">Apache License, Version 2.0</a>.<br/>Apache, the
                 Apache feather logo, NiFi, Apache NiFi and the project logo are trademarks of The Apache Software
                 Foundation.</p>
