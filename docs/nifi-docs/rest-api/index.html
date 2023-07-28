@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.22.0</title>
+        <title>NiFi Rest API-1.23.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.22.0</div>
+            <div class="sub-title">NiFi Rest API 1.23.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -9931,6 +9931,19 @@
             <td></td>
         </tr>
     
+        <tr>
+            <td>includeReferencingComponents</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>boolean </td>
+                    
+                
+            
+            <td>Whether or not to include services&#x27; referencing components in the response</td>
+        </tr>
+    
     
         </tbody>
     </table>
@@ -12010,7 +12023,7 @@
                     
                 
             
-            <td>Whether or not to include parent/ancestory process groups</td>
+            <td>Whether or not to include parent/ancestor process groups</td>
         </tr>
     
         <tr>
@@ -12024,6 +12037,19 @@
                 
             
             <td>Whether or not to include descendant process groups</td>
+        </tr>
+    
+        <tr>
+            <td>includeReferencingComponents</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>boolean </td>
+                    
+                
+            
+            <td>Whether or not to include services&#x27; referencing components in the response</td>
         </tr>
     
         <tr>
@@ -26847,6 +26873,19 @@
                 </td>
             
             <td>The process group configuration details.</td>
+        </tr>
+    
+        <tr>
+            <td>parameterContextHandlingStrategy</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>Handling Strategy controls whether to keep or replace Parameter Contexts</td>
         </tr>
     
     
@@ -50667,6 +50706,22 @@
                 </tr>
             
                 <tr>
+                    <td>supportsSensitiveDynamicProperties</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether or not this component makes use of sensitive dynamic (user-set) properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>dynamicProperties</td>
                     <td>
                         
@@ -50707,6 +50762,7 @@
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
     "supportsDynamicProperties": true<span class="comma">,</span>
+    "supportsSensitiveDynamicProperties": true<span class="comma">,</span>
     "dynamicProperties": [<span class="nested collapsed"><span class="nested-id hidden">DynamicProperty</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -60336,38 +60392,6 @@
                 </tr>
             
                 <tr>
-                    <td>is2xx</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                        
-                        </td>
-                </tr>
-            
-                <tr>
-                    <td>is5xx</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>status</td>
                     <td>
                         
@@ -60399,6 +60423,38 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>is2xx</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>is5xx</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -60410,10 +60466,10 @@
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
     "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
-    "is2xx": true<span class="comma">,</span>
-    "is5xx": true<span class="comma">,</span>
     "status": 0<span class="comma">,</span>
     "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "is2xx": true<span class="comma">,</span>
+    "is5xx": true<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -65636,6 +65692,22 @@
                 </tr>
             
                 <tr>
+                    <td>logFileSuffix</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The log file suffix for this Process Group for dedicated logging.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>runningCount</td>
                     <td>
                         
@@ -65942,6 +66014,7 @@
     "defaultFlowFileExpiration": "value"<span class="comma">,</span>
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
+    "logFileSuffix": "value"<span class="comma">,</span>
     "runningCount": 0<span class="comma">,</span>
     "stoppedCount": 0<span class="comma">,</span>
     "invalidCount": 0<span class="comma">,</span>
@@ -69119,6 +69192,22 @@
                 </tr>
             
                 <tr>
+                    <td>supportsSensitiveDynamicProperties</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether or not this component makes use of sensitive dynamic (user-set) properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>dynamicProperties</td>
                     <td>
                         
@@ -69479,6 +69568,7 @@
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
     "supportsDynamicProperties": true<span class="comma">,</span>
+    "supportsSensitiveDynamicProperties": true<span class="comma">,</span>
     "dynamicProperties": [<span class="nested collapsed"><span class="nested-id hidden">DynamicProperty</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "inputRequirement": "value"<span class="comma">,</span>
     "supportedRelationships": [<span class="nested collapsed"><span class="nested-id hidden">Relationship</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
@@ -77459,6 +77549,22 @@
                 </tr>
             
                 <tr>
+                    <td>supportsSensitiveDynamicProperties</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether or not this component makes use of sensitive dynamic (user-set) properties.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>dynamicProperties</td>
                     <td>
                         
@@ -77547,6 +77653,7 @@
         "name": <span class="nested collapsed"><span class="nested-id hidden">PropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
     &#125;</span><span class="comma">,</span>
     "supportsDynamicProperties": true<span class="comma">,</span>
+    "supportsSensitiveDynamicProperties": true<span class="comma">,</span>
     "dynamicProperties": [<span class="nested collapsed"><span class="nested-id hidden">DynamicProperty</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "supportedSchedulingStrategies": ["value"]<span class="comma">,</span>
     "defaultSchedulingStrategy": "value"<span class="comma">,</span>
@@ -78271,12 +78378,12 @@
             </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>metadata</td>
                     <td>
                         
                             
                             
-                                integer (int32)
+                                object
                             
                         
                     </td>
@@ -78287,12 +78394,12 @@
                 </tr>
             
                 <tr>
-                    <td>metadata</td>
+                    <td>status</td>
                     <td>
                         
                             
                             
-                                object
+                                integer (int32)
                             
                         
                     </td>
@@ -78321,10 +78428,10 @@
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
-    "status": 0<span class="comma">,</span>
     "metadata": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
     "entity": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
@@ -87180,6 +87287,22 @@
                 </tr>
             
                 <tr>
+                    <td>logFileSuffix</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The log file suffix for this Process Group for dedicated logging.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>componentType</td>
                     <td>
                         
@@ -87268,6 +87391,7 @@
     "defaultFlowFileExpiration": "value"<span class="comma">,</span>
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
+    "logFileSuffix": "value"<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
     "flowFileConcurrency": "value"<span class="comma">,</span>
     "flowFileOutboundPolicy": "value"<span class="comma">,</span>

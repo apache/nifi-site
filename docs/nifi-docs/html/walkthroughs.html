@@ -2087,15 +2087,20 @@ This section provides instructions to configure a single host machine to resolve
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>host@macbook ~ % brew install dnsmasq
-==&gt; Downloading https://homebrew.bintray.com/bottles/dnsmasq-2.81.catalina.bottle.tar.gz
-==&gt; Downloading from https://akamai.bintray.com/e4/e46052d3d5ae49135b80d383a9d89...
-######################################################################## 100.0%
-==&gt; Pouring dnsmasq-2.81.catalina.bottle.tar.gz
+==&gt; Fetching dnsmasq
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/dnsmasq/manifests/2.89
+########################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/dnsmasq/blobs/sha256:490265bd8d3e8392380fff3b0fbb4caf65f918366b5cf8c613372d21844860aa
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:490265bd8d3e8392380fff3b0fbb4caf65f918366b5cf8c61...
+########################################################################## 100.0%
+==&gt; Pouring dnsmasq--2.89.arm64_ventura.bottle.tar.gz
 ==&gt; Caveats
-To have launchd start dnsmasq now and restart at startup:
-sudo brew services start dnsmasq
+To start dnsmasq now and restart at startup:
+  sudo brew services start dnsmasq
+Or, if you don't want/need a background service you can just run:
+  /opt/homebrew/opt/dnsmasq/sbin/dnsmasq --keep-in-foreground -C /opt/homebrew/etc/dnsmasq.conf -7 /opt/homebrew/etc/dnsmasq.d,*.conf
 ==&gt; Summary
-/usr/local/Cellar/dnsmasq/2.81: 8 files, 543.9KB</code></pre>
+🍺  /opt/homebrew/Cellar/dnsmasq/2.89: 10 files, 646.3KB</code></pre>
 </div>
 </div>
 </div>
@@ -2115,11 +2120,11 @@ sudo brew services start dnsmasq
 </div>
 </li>
 <li>
-<p>Make a new file <code>development.conf</code> in <code>/usr/local/etc/dnsmasq.d/</code>. This file defines the address pattern to resolve. Here, <code>$EDITOR</code> is an environment variable defined as path to a text editor. You can use any text editor of your choice (Sublime Text, Atom, vi, emacs, nano, etc.).</p>
+<p>Make a new file <code>development.conf</code> in <code>/opt/homebrew/etc/dnsmasq.d/</code>. This file defines the address pattern to resolve. Here, <code>$EDITOR</code> is an environment variable defined as path to a text editor. You can use any text editor of your choice (Sublime Text, Atom, vi, emacs, nano, etc.).</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>$EDITOR /usr/local/etc/dnsmasq.d/development.conf</code>&#8201;&#8212;&#8201;creates and opens <code>development.conf</code> file for editing</p>
+<p><code>$EDITOR /opt/homebrew/etc/dnsmasq.d/development.conf</code>&#8201;&#8212;&#8201;creates and opens <code>development.conf</code> file for editing</p>
 </li>
 </ul>
 </div>
@@ -2466,11 +2471,11 @@ This section assumes no enterprise IT department to provide signed certificates.
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Navigate to the <code>nifi-toolkit-1.11.4/</code> directory.</p>
+<p>Create a directory for the cluster configuration and navigate to it.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>cd /etc/nifi-toolkit-1.11.4/</code>&#8201;&#8212;&#8201;Changes to the toolkit directory</p>
+<p><code>mkdir /opt/nifi_cluster_conf &amp;&amp; cd /opt/nifi_cluster_conf</code></p>
 </li>
 </ul>
 </div>
@@ -2480,7 +2485,7 @@ This section assumes no enterprise IT department to provide signed certificates.
 <div class="ulist">
 <ul>
 <li>
-<p><code>./bin/tls-toolkit.sh standalone -n 'node1.nifi' -c 'ca.nifi'</code>&#8201;&#8212;&#8201;Generates the NiFi CA (<code>ca.nifi</code>) certificate and key if not present and generates and signs <code>node1</code> certificate, placing the <code>keystore.jks</code>, <code>truststore.jks</code>, and populated <code>nifi.properties</code> in a subdirectory called <code>node1.nifi</code></p>
+<p><code>/opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node1.nifi' -c 'ca.nifi'</code>&#8201;&#8212;&#8201;Generates the NiFi CA (<code>ca.nifi</code>) certificate and key if not present and generates and signs <code>node1</code> certificate, placing the <code>keystore.jks</code>, <code>truststore.jks</code>, and populated <code>nifi.properties</code> in a subdirectory called <code>node1.nifi</code></p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -2488,28 +2493,28 @@ This section assumes no enterprise IT department to provide signed certificates.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>% ./bin/tls-toolkit.sh standalone -n 'node1.nifi' -c 'ca.nifi'
-2020/04/06 18:12:07 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine: No nifiPropertiesFile specified, using embedded one.
-2020/04/06 18:12:07 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Running standalone certificate generation with output directory ../nifi-toolkit-1.11.4
-2020/04/06 18:12:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Generated new CA certificate ../nifi-toolkit-1.11.4/nifi-cert.pem and key ../nifi-toolkit-1.11.4/nifi-key.key
-2020/04/06 18:12:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Writing new ssl configuration to ../nifi-toolkit-1.11.4/node1.nifi
-2020/04/06 18:12:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Successfully generated TLS configuration for node1.nifi 1 in ../nifi-toolkit-1.11.4/node1.nifi
-2020/04/06 18:12:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: No clientCertDn specified, not generating any client certificates.
-2020/04/06 18:12:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: tls-toolkit standalone completed successfully
+<pre class="highlight"><code>% /opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node1.nifi' -c 'ca.nifi'
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine - No nifiPropertiesFile specified, using embedded one.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Running standalone certificate generation with output directory ../nifi_cluster_conf
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Generated new CA certificate ../nifi_cluster_conf/nifi-cert.pem and key ../nifi_cluster_conf/nifi-key.key
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Writing new ssl configuration to ../nifi_cluster_conf/node1.nifi
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Successfully generated TLS configuration for node1.nifi 1 in ../nifi_cluster_conf/node1.nifi
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - No clientCertDn specified, not generating any client certificates.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - tls-toolkit standalone completed successfully
 % ls -alGh node1.nifi
-total 48
-drwx------   5 alopresto  staff   160B Apr  6 18:12 .
-drwxr-xr-x  11 alopresto  staff   352B Apr  6 18:12 ..
--rw-------   1 alopresto  staff   3.0K Apr  6 18:12 keystore.jks
--rw-------   1 alopresto  staff    12K Apr  6 18:12 nifi.properties
--rw-------   1 alopresto  staff   895B Apr  6 18:12 truststore.jks</code></pre>
+total 56
+drwx------@ 5 johndoe  wheel   160B Jun 26 17:33 .
+drwxr-xr-x@ 5 johndoe  wheel   160B Jun 26 17:33 ..
+-rw-------@ 1 johndoe  wheel   3.0K Jun 26 17:33 keystore.jks
+-rw-------@ 1 johndoe  wheel    17K Jun 26 17:33 nifi.properties
+-rw-------@ 1 johndoe  wheel   929B Jun 26 17:33 truststore.jks</code></pre>
 </div>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p><code>./bin/tls-toolkit.sh standalone -n 'node2.nifi'</code>&#8201;&#8212;&#8201;Generates and signs <code>node2</code> certificate with the same CA</p>
+<p><code>/opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node2.nifi'</code>&#8201;&#8212;&#8201;Generates and signs <code>node2</code> certificate with the same CA</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -2517,55 +2522,55 @@ drwxr-xr-x  11 alopresto  staff   352B Apr  6 18:12 ..
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>% ./bin/tls-toolkit.sh standalone -n 'node2.nifi'
-2020/04/06 18:13:13 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine: No nifiPropertiesFile specified, using embedded one.
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Running standalone certificate generation with output directory ../nifi-toolkit-1.11.4
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Verifying the certificate signature for CN=ca.nifi,OU=NIFI
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Attempting to verify certificate CN=ca.nifi,OU=NIFI signature with CN=ca.nifi,OU=NIFI
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Certificate was signed by CN=ca.nifi,OU=NIFI
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Using existing CA certificate ../nifi-toolkit-1.11.4/nifi-cert.pem and key ../nifi-toolkit-1.11.4/nifi-key.key
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Writing new ssl configuration to ../nifi-toolkit-1.11.4/node2.nifi
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Successfully generated TLS configuration for node2.nifi 1 in ../nifi-toolkit-1.11.4/node2.nifi
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: No clientCertDn specified, not generating any client certificates.
-2020/04/06 18:13:14 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: tls-toolkit standalone completed successfully</code></pre>
+<pre class="highlight"><code>% /opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node2.nifi'
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine - No nifiPropertiesFile specified, using embedded one.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Running standalone certificate generation with output directory ../nifi_cluster_conf
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Verifying the certificate signature for CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Attempting to verify certificate CN=ca.nifi,OU=NIFI signature with CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Certificate was signed by CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Using existing CA certificate ../nifi_cluster_conf/nifi-cert.pem and key ../nifi_cluster_conf/nifi-key.key
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Writing new ssl configuration to ../nifi_cluster_conf/node2.nifi
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Successfully generated TLS configuration for node2.nifi 1 in ../nifi_cluster_conf/node2.nifi
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - No clientCertDn specified, not generating any client certificates.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - tls-toolkit standalone completed successfully</code></pre>
 </div>
 </div>
 </div>
 </div>
 </li>
 <li>
-<p><code>./bin/tls-toolkit.sh standalone -n 'node3.nifi'</code>&#8201;&#8212;&#8201;Generates and signs <code>node3</code> certificate with the same CA</p>
+<p><code>/opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node3.nifi'</code>&#8201;&#8212;&#8201;Generates and signs <code>node3</code> certificate with the same CA</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>% ./bin/tls-toolkit.sh standalone -n 'node3.nifi'
-2020/04/06 18:53:07 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine: No nifiPropertiesFile specified, using embedded one.
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Running standalone certificate generation with output directory ../nifi-toolkit-1.11.4
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Verifying the certificate signature for CN=ca.nifi,OU=NIFI
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Attempting to verify certificate CN=ca.nifi,OU=NIFI signature with CN=ca.nifi,OU=NIFI
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Certificate was signed by CN=ca.nifi,OU=NIFI
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Using existing CA certificate ../nifi-toolkit-1.11.4/nifi-cert.pem and key ../nifi-toolkit-1.11.4/nifi-key.key
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Writing new ssl configuration to ../nifi-toolkit-1.11.4/node3.nifi
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Successfully generated TLS configuration for node3.nifi 1 in ../nifi-toolkit-1.11.4/node3.nifi
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: No clientCertDn specified, not generating any client certificates.
-2020/04/06 18:53:08 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: tls-toolkit standalone completed successfully</code></pre>
+<pre class="highlight"><code>% /opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node3.nifi'
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine - No nifiPropertiesFile specified, using embedded one.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Running standalone certificate generation with output directory ../nifi_cluster_conf
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Verifying the certificate signature for CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Attempting to verify certificate CN=ca.nifi,OU=NIFI signature with CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Certificate was signed by CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Using existing CA certificate ../nifi_cluster_conf/nifi-cert.pem and key ../nifi_cluster_conf/nifi-key.key
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Writing new ssl configuration to ../nifi_cluster_conf/node3.nifi
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Successfully generated TLS configuration for node3.nifi 1 in ../nifi_cluster_conf/node3.nifi
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - No clientCertDn specified, not generating any client certificates.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - tls-toolkit standalone completed successfully</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p><code>./bin/tls-toolkit.sh standalone -C 'CN=my_username'</code>&#8201;&#8212;&#8201;Generates and signs <code>my_username</code> client certificate with the same CA</p>
+<p><code>/opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -C 'CN=my_username'</code>&#8201;&#8212;&#8201;Generates and signs <code>my_username</code> client certificate with the same CA</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>% ./bin/tls-toolkit.sh standalone -C 'CN=my_username'
-2020/04/06 18:53:19 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine: No nifiPropertiesFile specified, using embedded one.
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Running standalone certificate generation with output directory ../nifi-toolkit-1.11.4
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Verifying the certificate signature for CN=ca.nifi,OU=NIFI
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Attempting to verify certificate CN=ca.nifi,OU=NIFI signature with CN=ca.nifi,OU=NIFI
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.util.TlsHelper: Certificate was signed by CN=ca.nifi,OU=NIFI
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Using existing CA certificate ../nifi-toolkit-1.11.4/nifi-cert.pem and key ../nifi-toolkit-1.11.4/nifi-key.key
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: No hostnames specified, not generating any host certificates or configuration.
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Generating new client certificate ../nifi-toolkit-1.11.4/CN=my_username.p12
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: Successfully generated client certificate ../nifi-toolkit-1.11.4/CN=my_username.p12
-2020/04/06 18:53:20 INFO [main] org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone: tls-toolkit standalone completed successfully</code></pre>
+<pre class="highlight"><code>% /opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -C 'CN=my_username'
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandaloneCommandLine - No nifiPropertiesFile specified, using embedded one.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Running standalone certificate generation with output directory ../nifi_cluster_conf
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Verifying the certificate signature for CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Attempting to verify certificate CN=ca.nifi,OU=NIFI signature with CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.util.TlsHelper - Certificate was signed by CN=ca.nifi,OU=NIFI
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Using existing CA certificate ../nifi_cluster_conf/nifi-cert.pem and key ../nifi_cluster_conf/nifi-key.key
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - No hostnames specified, not generating any host certificates or configuration.
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Generating new client certificate ../nifi_cluster_conf/CN=my_username.p12
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - Successfully generated client certificate ../nifi_cluster_conf/CN=my_username.p12
+[main] INFO org.apache.nifi.toolkit.tls.standalone.TlsToolkitStandalone - tls-toolkit standalone completed successfully</code></pre>
 </div>
 </div>
 <div class="openblock">
@@ -2605,7 +2610,7 @@ drwxr-xr-x  11 alopresto  staff   352B Apr  6 18:12 ..
 </div>
 </li>
 <li>
-<p><code>./bin/tls-toolkit.sh standalone -n 'node[1-3].nifi' -C 'CN=my_username' -c 'ca.nifi'</code>&#8201;&#8212;&#8201;Performs all steps listed above simultaneously</p>
+<p><code>/opt/nifi-toolkit-1.22.0/bin/tls-toolkit.sh standalone -n 'node[1-3].nifi' -C 'CN=my_username' -c 'ca.nifi'</code>&#8201;&#8212;&#8201;Performs all steps listed above simultaneously</p>
 </li>
 </ul>
 </div>
@@ -2627,17 +2632,17 @@ drwxr-xr-x  11 alopresto  staff   352B Apr  6 18:12 ..
 </div>
 </li>
 <li>
-<p>Copy the NiFi installation folder (i.e. <code>nifi-1.11.4</code>) to a new folder for <strong>each</strong> node in the <code>nifi_cluster</code> folder created in the previous step.</p>
+<p>Copy the NiFi installation folder (i.e. <code>nifi-1.22.0</code>) to a new folder for <strong>each</strong> node in the <code>nifi_cluster</code> folder created in the previous step.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>mkdir node1.nifi &amp;&amp; cp -R /etc/nifi-1.11.4 node1.nifi</code>&#8201;&#8212;&#8201;Creates the <code>node1</code> directory and copies the NiFi application into it</p>
+<p><code>cp -R /etc/nifi-1.22.0 node1.nifi</code>&#8201;&#8212;&#8201;Creates the <code>node1</code> directory and copies the NiFi application into it</p>
 </li>
 <li>
-<p><code>mkdir node2.nifi &amp;&amp; cp -R /etc/nifi-1.11.4 node2.nifi</code>&#8201;&#8212;&#8201;Creates the <code>node2</code> directory and copies the NiFi application into it</p>
+<p><code>cp -R /etc/nifi-1.22.0 node2.nifi</code>&#8201;&#8212;&#8201;Creates the <code>node2</code> directory and copies the NiFi application into it</p>
 </li>
 <li>
-<p><code>mkdir node3.nifi &amp;&amp; cp -R /etc/nifi-1.11.4 node3.nifi</code>&#8201;&#8212;&#8201;Creates the <code>node3</code> directory and copies the NiFi application into it</p>
+<p><code>cp -R /etc/nifi-1.22.0 node3.nifi</code>&#8201;&#8212;&#8201;Creates the <code>node3</code> directory and copies the NiFi application into it</p>
 </li>
 </ul>
 </div>
@@ -2647,13 +2652,13 @@ drwxr-xr-x  11 alopresto  staff   352B Apr  6 18:12 ..
 <div class="ulist">
 <ul>
 <li>
-<p><code>cp -R /etc/nifi-toolkit-1.11.4/node1.nifi/* node1.nifi/conf/.</code>&#8201;&#8212;&#8201;Copies the <code>node1</code> files</p>
+<p><code>cp -R /etc/nifi_cluster_configuration/node1.nifi/* node1.nifi/conf</code>&#8201;&#8212;&#8201;Copies the <code>node1</code> files</p>
 </li>
 <li>
-<p><code>cp -R /etc/nifi-toolkit-1.11.4/node2.nifi/* node2.nifi/conf/.</code>&#8201;&#8212;&#8201;Copies the <code>node2</code> files</p>
+<p><code>cp -R /etc/nifi_cluster_configuration/node2.nifi/* node2.nifi/conf</code>&#8201;&#8212;&#8201;Copies the <code>node2</code> files</p>
 </li>
 <li>
-<p><code>cp -R /etc/nifi-toolkit-1.11.4/node3.nifi/* node3.nifi/conf/.</code>&#8201;&#8212;&#8201;Copies the <code>node3</code> files</p>
+<p><code>cp -R /etc/nifi_cluster_configuration/node3.nifi/* node3.nifi/conf</code>&#8201;&#8212;&#8201;Copies the <code>node3</code> files</p>
 </li>
 </ul>
 </div>
@@ -2668,6 +2673,7 @@ drwxr-xr-x  11 alopresto  staff   352B Apr  6 18:12 ..
 </td>
 <td class="content">
 The <code>nifi.cluster.load.balance.host=</code> entry must be manually populated here because it was added after the TLS Toolkit was last updated. The toolkit correctly populates the hostname in all other necessary properties.
+NOTE: Starting with version 1.14.0, NiFi requires a value for <code>nifi.sensitive.props.key</code>. Set the same value on each node.
 </td>
 </tr>
 </table>
@@ -2689,6 +2695,9 @@ The <code>nifi.cluster.load.balance.host=</code> entry must be manually populate
 </li>
 <li>
 <p><code>nifi.web.https.port=9443</code> &#8594; <code>nifi.web.https.port=9441</code></p>
+</li>
+<li>
+<p><code>nifi.sensitive.props.key=</code> &#8594; <code>nifi.sensitive.props.key=&lt;secretKey&gt;</code></p>
 </li>
 <li>
 <p><code>nifi.cluster.is.node=false</code> &#8594; <code>nifi.cluster.is.node=true</code></p>
@@ -2725,6 +2734,9 @@ The <code>nifi.cluster.load.balance.host=</code> entry must be manually populate
 <p><code>nifi.web.https.port=9443</code> &#8594; <code>nifi.web.https.port=9442</code></p>
 </li>
 <li>
+<p><code>nifi.sensitive.props.key=</code> &#8594; <code>nifi.sensitive.props.key=&lt;secretKey&gt;</code></p>
+</li>
+<li>
 <p><code>nifi.cluster.is.node=false</code> &#8594; <code>nifi.cluster.is.node=true</code></p>
 </li>
 <li>
@@ -2757,6 +2769,9 @@ The <code>nifi.cluster.load.balance.host=</code> entry must be manually populate
 </li>
 <li>
 <p><code>nifi.web.https.port=9443</code> &#8594; <code>nifi.web.https.port=9443</code></p>
+</li>
+<li>
+<p><code>nifi.sensitive.props.key=</code> &#8594; <code>nifi.sensitive.props.key=&lt;secretKey&gt;</code></p>
 </li>
 <li>
 <p><code>nifi.cluster.is.node=false</code> &#8594; <code>nifi.cluster.is.node=true</code></p>
@@ -2896,9 +2911,18 @@ Each <code>Initial User Identity</code> must have a <strong>unique</strong> name
 </li>
 <li>
 <p>In the <code>&lt;userGroupProvider&gt;</code> section, add the line <code>&lt;property name="Initial User Identity 4"&gt;CN=node3.nifi, OU=NIFI&lt;/property&gt;</code>&#8201;&#8212;&#8201;Adds an initial user for <code>node3</code></p>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/authorizers-xml-initial-user-identities.png" alt="authorizers.xml with Initial User Identities">
+<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;userGroupProvider&gt;
+        &lt;identifier&gt;file-user-group-provider&lt;/identifier&gt;
+        &lt;class&gt;org.apache.nifi.authorization.FileUserGroupProvider&lt;/class&gt;
+        &lt;property name="Users File"&gt;./conf/users.xml&lt;/property&gt;
+        &lt;property name="Legacy Authorized Users File"&gt;&lt;/property&gt;
+        &lt;property name="Initial User Identity 1"&gt;CN=my_username&lt;/property&gt;
+        &lt;property name="Initial User Identity 2"&gt;CN=node1.nifi, OU=NIFI&lt;/property&gt;
+        &lt;property name="Initial User Identity 3"&gt;CN=node2.nifi, OU=NIFI&lt;/property&gt;
+        &lt;property name="Initial User Identity 4"&gt;CN=node3.nifi, OU=NIFI&lt;/property&gt;
+    &lt;/userGroupProvider&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -2913,9 +2937,20 @@ Each <code>Initial User Identity</code> must have a <strong>unique</strong> name
 </li>
 <li>
 <p>In the <code>&lt;accessPolicyProvider&gt;</code> section, add the line <code>&lt;property name="Node Identity 3"&gt;CN=node3.nifi, OU=NIFI&lt;/property&gt;</code></p>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/authorizers-xml-initial-node-identities.png" alt="authorizers.xml with Initial Node Identities">
+<pre class="highlight"><code class="language-xml" data-lang="xml">    &lt;accessPolicyProvider&gt;
+        &lt;identifier&gt;file-access-policy-provider&lt;/identifier&gt;
+        &lt;class&gt;org.apache.nifi.authorization.FileAccessPolicyProvider&lt;/class&gt;
+        &lt;property name="User Group Provider"&gt;file-user-group-provider&lt;/property&gt;
+        &lt;property name="Authorizations File"&gt;./conf/authorizations.xml&lt;/property&gt;
+        &lt;property name="Initial Admin Identity"&gt;CN=my_username&lt;/property&gt;
+        &lt;property name="Legacy Authorized Users File"&gt;&lt;/property&gt;
+        &lt;property name="Node Identity 1"&gt;CN=node1.nifi, OU=NIFI&lt;/property&gt;
+        &lt;property name="Node Identity 2"&gt;CN=node2.nifi, OU=NIFI&lt;/property&gt;
+        &lt;property name="Node Identity 3"&gt;CN=node3.nifi, OU=NIFI&lt;/property&gt;
+        &lt;property name="Node Group"&gt;&lt;/property&gt;
+    &lt;/accessPolicyProvider&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -3086,7 +3121,7 @@ Each <code>Initial User Identity</code> must have a <strong>unique</strong> name
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-06-06 12:59:17 -0700
+Last updated 2023-07-25 14:37:03 -0500
 </div>
 </div>
 </body>
