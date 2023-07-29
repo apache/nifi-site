@@ -68,6 +68,47 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 
 <div class="row">
+  <div class="large-12 columns features">
+    <h2><a id="1.23.0" href="#1.23.0">Fixed in Apache NiFi 1.23.0</a></h2>
+  </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+  <div class="large-12 columns features">
+    <h2><a id="1.23.0-vulnerabilities" href="#1.23.0-vulnerabilities">Vulnerabilities</a></h2>
+  </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+  <div class="large-12 columns">
+    <p><a id="CVE-2023-36542" href="#CVE-2023-36542"><strong>CVE-2023-36542</strong></a>: Potential Code Injection with Properties Referencing Remote Resources</p>
+    <p>Severity: <strong>Moderate</strong></p>
+    <p>Versions Affected:</p>
+    <ul>
+      <li>Apache NiFi 0.0.2 - 1.22.0</li>
+    </ul>
+    </p>
+    <p>
+      Apache NiFi 0.0.2 through 1.22.0 include Processors and Controller Services that support HTTP URL references for
+      retrieving drivers, which allows an authenticated and authorized user to configure a location that enables custom
+      code execution. The resolution introduces a new Required Permission for referencing remote resources, restricting
+      configuration of these components to privileged users. The permission prevents unprivileged users from configuring
+      Processors and Controller Services annotated with the new Reference Remote Resources restriction. Upgrading to
+      Apache NiFi 1.23.0 is the recommended mitigation.
+    </p>
+    <p>Credit: This issue was discovered by nbxiglk</p>
+    <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-36542" target="_blank">Mitre Database CVE-2023-36542</a></p>
+    <p>
+      NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-11744" target="_blank">NIFI-11744</a>
+    </p>
+    <p>
+      NiFi PR: <a href="https://github.com/apache/nifi/pull/7426" target="_blank">PR 7426</a>
+    </p>
+    <p>Released: 2023-07-28</p>
+  </div>
+</div>
+<div class="medium-space"></div>
+
+<div class="row">
     <div class="large-12 columns features">
         <h2><a id="1.22.0" href="#1.22.0">Fixed in Apache NiFi 1.22.0</a></h2>
     </div>
