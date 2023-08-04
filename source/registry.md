@@ -11,7 +11,7 @@ containerEnabled: true
 
 # Features
 
-Registry - a subproject of Apache NiF - is a complementary application that provides a central location for storage and
+Registry - a subproject of Apache NiFi - is a complementary application that provides a central location for storage and
 management of shared resources across one or more instances of NiFi or MiNiFi.
        
 Apache NiFi Registry provides the following features:
