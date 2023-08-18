@@ -68,6 +68,46 @@ title: Apache NiFi Security Reports
 <div class="medium-space"></div>
 
 <div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.23.1" href="#1.23.1">Fixed in Apache NiFi 1.23.1</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.23.1-vulnerabilities" href="#1.23.1-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2023-40037" href="#CVE-2023-40037"><strong>CVE-2023-40037</strong></a>: Incomplete Validation of JDBC and JNDI Connection URLs</p>
+        <p>Severity: <strong>Moderate</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 1.21.0 - 1.23.0</li>
+        </ul>
+        </p>
+        <p>
+            Apache NiFi 1.21.0 through 1.23.0 support JDBC and JNDI JMS access in several Processors and Controller
+            Services with connection URL validation that does not provide sufficient protection against crafted inputs.
+            An authenticated and authorized user can bypass connection URL validation using custom input formatting. The
+            resolution enhances connection URL validation and introduces validation for additional related properties.
+            Upgrading to Apache NiFi 1.23.1 is the recommended mitigation.
+        </p>
+        <p>Credit: This issue was discovered by Matei "Mal" Badanoiu</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-40037" target="_blank">Mitre Database CVE-2023-40037</a></p>
+        <p>
+            NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-11920" target="_blank">NIFI-11920</a>
+        </p>
+        <p>
+            NiFi PR: <a href="https://github.com/apache/nifi/pull/7586" target="_blank">PR 7586</a>
+        </p>
+        <p>Released: 2023-08-18</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+
+<div class="row">
   <div class="large-12 columns features">
     <h2><a id="1.23.0" href="#1.23.0">Fixed in Apache NiFi 1.23.0</a></h2>
   </div>
