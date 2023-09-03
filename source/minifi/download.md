@@ -36,7 +36,7 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 - Sources
   - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.15.0 extension=source.tar.gz >}}
 - Binaries
-  - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.15.0 extension=bin-linux.tar.gz >}}
+  - {{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.15.0 extension=bin.tar.gz >}}
 
 ### 0.14.0
 
