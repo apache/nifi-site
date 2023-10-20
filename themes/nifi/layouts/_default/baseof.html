@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "head.html" . }}
+
+  {{- $bodyClass := "section-background" -}}
+  {{- if .Page.IsHome -}}
+  {{- $bodyClass = "main-background" -}}
+  {{- end -}}
+
+  <body class="{{ $bodyClass }}">
+    {{ partial "header.html" . }}
+    <main class="main-container">
+    {{- block "main" . }}{{ end -}}
+    </main>
+    {{ partial "footer.html" . -}}
+    <script src="/uikit/js/uikit.min.js"></script>
+    <script src="/uikit/js/uikit-icons.min.js"></script>
+  </body>
+</html>

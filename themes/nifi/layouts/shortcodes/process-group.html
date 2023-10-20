@@ -1,0 +1,77 @@
+<div class="process-group uk-box-shadow-small">
+  <div class="process-group-header">
+    {{- .Get "label" -}}
+  </div>
+  <div class="process-group-status">
+    <i class="fa-regular fa-bullseye process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-play process-group-play-enabled"></i>
+    <span class="process-group-status-counter">{{- .Get "running" -}}</span>
+    <i class="fa-regular fa-stop process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-triangle-exclamation process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-bolt-lightning process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+  </div>
+  <table class="uk-table uk-table-divider process-group-statistics">
+    <tr>
+      <td class="process-group-statistics-label">
+        Queued
+      </td>
+      <td>
+        <span class="uk-text-bold">{{- .Get "queuedFiles" -}}</span> ({{- .Get "queuedSize" -}} MB)
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="process-group-statistics-label">
+        In
+      </td>
+      <td>
+        <span class="uk-text-bold">{{- .Get "inFiles" -}}</span> ({{- .Get "inSize" -}}) &rarr; <span class="uk-text-bold">{{- .Get "inPorts" -}}</span>
+      </td>
+      <td class="uk-text-right process-group-statistics-duration">
+        5 min
+      </td>
+    </tr>
+    <tr>
+      <td class="process-group-statistics-label">
+        Read/Write
+      </td>
+      <td>
+        <span class="uk-text-bold">
+          {{- .Get "readSize" -}}
+          <span> / </span>
+          {{- .Get "writeSize" -}}
+        </span>
+      </td>
+      <td class="uk-text-right process-group-statistics-duration">
+        5 min
+      </td>
+    </tr>
+    <tr>
+      <td class="process-group-statistics-label">
+        Out
+      </td>
+      <td>
+        <span class="uk-text-bold">{{- .Get "outPorts" -}} &rarr; {{- .Get "outFiles" -}}</span> ({{- .Get "outSize" -}})
+      </td>
+      <td class="uk-text-right process-group-statistics-duration">
+        5 min
+      </td>
+    </tr>
+  </table>
+  <div class="process-group-status">
+    <i class="fa-regular fa-check process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-asterisk process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-circle-arrow-up process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-circle-exclamation process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+    <i class="fa-regular fa-question process-group-status-icon"></i>
+    <span class="process-group-status-counter">0</span>
+  </div>
+</div>
