@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Apache NiFi Team">
+<title>Getting Started with Apache NiFi</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Copyright (C) 2012-2015 Dan Allen, Ryan Waldron and the Asciidoctor Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. */
+/* Remove the comments around the @import statement below when using this as a custom stylesheet */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+#map_canvas img,#map_canvas embed,#map_canvas object,.map_canvas img,.map_canvas embed,.map_canvas object{max-width:none!important}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+.antialiased,body{-webkit-font-smoothing:antialiased}
+img{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9);padding-right: 1px;}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite:before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media only screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7;font-weight:bold}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
+.clearfix:after,.float-group:after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{display:inline-block;color:rgba(0,0,0,.8);font-size:.75em;line-height:1.4;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:-.15em .15em 0 .15em;padding:.2em .6em .2em .5em;vertical-align:middle;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
+b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
+b.button:before{content:"[";padding:0 3px 0 2px}
+b.button:after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header:before,#header:after,#content:before,#content:after,#footnotes:before,#footnotes:after,#footer:before,#footer:after{content:" ";display:table}
+#header:after,#content:after,#footnotes:after,#footer:after{clear:both}
+#content{margin-top:1.25em}
+#content:before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span:before{content:"\00a0\2013\00a0"}
+#header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark:before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber:after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.sect1{padding-bottom:.625em}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
+.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]:before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]:before{display:block}
+.listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote:before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote:before{display:none}
+.verseblock{margin:0 1em 1.25em 1em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.05em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 0 1.25em 0;display:block}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
+.quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
+table.spread{width:100%}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot{border-width:1px 0}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
+ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
+ul.inline>li>*{display:block}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1{padding-right:.75em;font-weight:bold}
+td.hdlist1,td.hdlist2{vertical-align:top}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:last-of-type{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none}
+span.footnote,span.footnoteref{vertical-align:super;font-size:.875em}
+span.footnote a,span.footnoteref a{text-decoration:none}
+span.footnote a:active,span.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
+#footnotes .footnote{padding:0 .375em;line-height:1.3;font-size:.875em;margin-left:1.2em;text-indent:-1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]:after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+h1,h2{letter-spacing:-.01em}
+dt,th.tableblock,td.content{text-rendering:optimizeLegibility}
+p,td.content{letter-spacing:-.01em}
+p strong,td.content strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@media print{@page{margin:1.25cm .75cm}
+*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]:after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img{page-break-inside:avoid}
+thead{display:table-header-group}
+img{max-width:100%!important}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+.sect1{padding-bottom:0!important}
+.sect1+.sect1{border:0!important}
+#header>h1:first-child{margin-top:1.25rem}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em 0}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span:before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]:before{display:block}
+#footer{background:none!important;padding:0 .9375em}
+#footer-text{color:rgba(0,0,0,.6)!important;font-size:.9em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Getting Started with Apache NiFi</h1>
+<div class="details">
+<span id="author" class="author">Apache NiFi Team</span><br>
+<span id="email" class="email"><a href="mailto:dev@nifi.apache.org">dev@nifi.apache.org</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="getting-started.html#who-is-this-guide-for">Who is This Guide For?</a></li>
+<li><a href="getting-started.html#terminology-used-in-this-guide">Terminology Used in This Guide</a></li>
+<li><a href="getting-started.html#downloading-and-installing-nifi">Downloading and Installing NiFi</a></li>
+<li><a href="getting-started.html#starting-nifi">Starting NiFi</a>
+<ul class="sectlevel2">
+<li><a href="getting-started.html#for-windows-users">For Windows Users</a></li>
+<li><a href="getting-started.html#for-linuxmacos-users">For Linux/macOS users</a></li>
+<li><a href="getting-started.html#installing-as-a-service">Installing as a Service</a></li>
+</ul>
+</li>
+<li><a href="getting-started.html#i-started-nifi-now-what">I Started NiFi. Now What?</a>
+<ul class="sectlevel2">
+<li><a href="getting-started.html#adding-a-processor">Adding a Processor</a></li>
+<li><a href="getting-started.html#configuring-a-processor">Configuring a Processor</a></li>
+<li><a href="getting-started.html#connecting-processors">Connecting Processors</a></li>
+<li><a href="getting-started.html#starting-and-stopping-processors">Starting and Stopping Processors</a></li>
+<li><a href="getting-started.html#getting-more-info-for-a-processor">Getting More Info for a Processor</a></li>
+<li><a href="getting-started.html#other-components">Other Components</a></li>
+</ul>
+</li>
+<li><a href="getting-started.html#what-processors-are-available">What Processors are Available</a>
+<ul class="sectlevel2">
+<li><a href="getting-started.html#data-transformation">Data Transformation</a></li>
+<li><a href="getting-started.html#routing-and-mediation">Routing and Mediation</a></li>
+<li><a href="getting-started.html#database-access">Database Access</a></li>
+<li><a href="getting-started.html#AttributeExtraction">Attribute Extraction</a></li>
+<li><a href="getting-started.html#system-interaction">System Interaction</a></li>
+<li><a href="getting-started.html#data-ingestion">Data Ingestion</a></li>
+<li><a href="getting-started.html#data-egress-sending-data">Data Egress / Sending Data</a></li>
+<li><a href="getting-started.html#splitting-and-aggregation">Splitting and Aggregation</a></li>
+<li><a href="getting-started.html#http">HTTP</a></li>
+<li><a href="getting-started.html#amazon-web-services">Amazon Web Services</a></li>
+</ul>
+</li>
+<li><a href="getting-started.html#working-with-attributes">Working With Attributes</a>
+<ul class="sectlevel2">
+<li><a href="getting-started.html#common-attributes">Common Attributes</a></li>
+<li><a href="getting-started.html#extracting-attributes">Extracting Attributes</a></li>
+<li><a href="getting-started.html#adding-user-defined-attributes">Adding User-Defined Attributes</a></li>
+<li><a href="getting-started.html#routing-on-attributes">Routing on Attributes</a></li>
+<li><a href="getting-started.html#ExpressionLanguage">Expression Language / Using Attributes in Property Values</a></li>
+</ul>
+</li>
+<li><a href="getting-started.html#monitoring-nifi">Monitoring NiFi</a>
+<ul class="sectlevel2">
+<li><a href="getting-started.html#status-bar">Status Bar</a></li>
+<li><a href="getting-started.html#component-statistics">Component Statistics</a></li>
+<li><a href="getting-started.html#bulletins">Bulletins</a></li>
+</ul>
+</li>
+<li><a href="getting-started.html#data-provenance">Data Provenance</a>
+<ul class="sectlevel2">
+<li><a href="getting-started.html#EventDetails">Event Details</a></li>
+<li><a href="getting-started.html#lineage-graph">Lineage Graph</a></li>
+</ul>
+</li>
+<li><a href="getting-started.html#where-to-go-for-more-information">Where To Go For More Information</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="who-is-this-guide-for"><a class="anchor" href="getting-started.html#who-is-this-guide-for"></a>Who is This Guide For?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide is written for users who have never used, have had limited exposure to, or only accomplished specific tasks within NiFi.
+This guide is not intended to be an exhaustive instruction manual or a reference guide. The
+<a href="user-guide.html">User Guide</a> provides a great deal of information
+and is intended to be a much more exhaustive resource and is very useful as a reference guide, as well.
+This guide, in comparison, is intended to provide users with just the information needed in order
+to understand how to work with NiFi in order to quickly and easily build powerful and agile dataflows.</p>
+</div>
+<div class="paragraph">
+<p>Because some of the information in this guide is applicable only for first-time users while other
+information may be applicable for those who have used NiFi a bit, this guide is broken up into
+several different sections, some of which may not be useful for some readers. Feel free to jump to
+the sections that are most appropriate for you.</p>
+</div>
+<div class="paragraph">
+<p>This guide does expect that the user has a basic understanding of what NiFi is and does not
+delve into this level of detail. This level of information can be found in the
+<a href="overview.html">Overview</a> documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="terminology-used-in-this-guide"><a class="anchor" href="getting-started.html#terminology-used-in-this-guide"></a>Terminology Used in This Guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to talk about NiFi, there are a few key terms that readers should be familiar with.
+We will explain those NiFi-specific terms here, at a high level.</p>
+</div>
+<div class="paragraph">
+<p><strong>FlowFile</strong>: Each piece of "User Data" (i.e., data that the user brings into NiFi for processing and distribution) is
+referred to as a FlowFile. A FlowFile is made up of two parts: Attributes and Content. The Content is the User Data
+itself. Attributes are key-value pairs that are associated with the User Data.</p>
+</div>
+<div class="paragraph">
+<p><strong>Processor</strong>: The Processor is the NiFi component that is responsible for creating, sending, receiving, transforming, routing,
+splitting, merging, and processing FlowFiles. It is the most important building block available to NiFi users to build their
+dataflows.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="downloading-and-installing-nifi"><a class="anchor" href="getting-started.html#downloading-and-installing-nifi"></a>Downloading and Installing NiFi</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Before proceeding, check the Admin Guide to confirm you have the <a href="administration-guide.html#system_requirements">minimum system requirements</a> to install and run NiFi.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>NiFi can be downloaded from the <a href="http://nifi.apache.org/download.html" target="_blank" rel="noopener">NiFi Downloads page</a>. There are two packaging options
+available:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a "tarball" (tar.gz) that is tailored more to Linux</p>
+</li>
+<li>
+<p>a zip file that is more applicable for Windows users</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>macOS users may also use the tarball or can install via <a href="https://brew.sh" target="_blank" rel="noopener">Homebrew</a> by simply running the command <code>brew install nifi</code> from the command line terminal.</p>
+</div>
+<div class="paragraph">
+<p>For users who are not running macOS or do not have Homebrew installed, after downloading the version of NiFi that you
+would like to use, simply extract the archive to the location that you wish to run the application from.</p>
+</div>
+<div class="paragraph">
+<p>For information on how to configure the instance of NiFi (for example, to configure security, data storage
+configuration, or the port that NiFi is running on), see the <a href="administration-guide.html">Admin Guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="starting-nifi"><a class="anchor" href="getting-started.html#starting-nifi"></a>Starting NiFi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once NiFi has been downloaded and installed as described above, it can be started by using the mechanism
+appropriate for your operating system.</p>
+</div>
+<div class="sect2">
+<h3 id="for-windows-users"><a class="anchor" href="getting-started.html#for-windows-users"></a>For Windows Users</h3>
+<div class="paragraph">
+<p>For Windows users, navigate to the folder where NiFi was installed. Within this folder is a subfolder
+named <code>bin</code>. Navigate to this subfolder and double-click the <code>run-nifi.bat</code> file.</p>
+</div>
+<div class="paragraph">
+<p>This will launch NiFi and leave it running in the foreground. To shut down NiFi, select the window that
+was launched and hold the Ctrl key while pressing C.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="for-linuxmacos-users"><a class="anchor" href="getting-started.html#for-linuxmacos-users"></a>For Linux/macOS users</h3>
+<div class="paragraph">
+<p>For Linux and macOS users, use a Terminal window to navigate to the directory where NiFi was installed.
+To run NiFi in the foreground, run <code>bin/nifi.sh run</code>. This will leave the application running until
+the user presses Ctrl-C. At that time, it will initiate shutdown of the application.</p>
+</div>
+<div class="paragraph">
+<p>To run NiFi in the background, instead run <code>bin/nifi.sh start</code>. This will initiate the application to
+begin running. To check the status and see if NiFi is currently running, execute the command <code>bin/nifi.sh status</code>. NiFi can be shutdown by executing the command <code>bin/nifi.sh stop</code>.</p>
+</div>
+<div class="paragraph">
+<p>Issuing <code>bin/nifi.sh start</code> executes the <code>nifi.sh</code> script that starts NiFi in the background and then exits. If you want <code>nifi.sh</code> to wait for NiFi to finish scheduling all components before
+exiting, use the <code>--wait-for-init</code> flag with an optional timeout specified in seconds: <code>bin/nifi.sh start --wait-for-init 120</code>. If the timeout is not provided, the default timeout of 15 minutes will
+be used.</p>
+</div>
+<div class="paragraph">
+<p>If NiFi was installed with Homebrew, run the commands <code>nifi start</code> or <code>nifi stop</code> from anywhere in your file system to start or stop NiFi.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="installing-as-a-service"><a class="anchor" href="getting-started.html#installing-as-a-service"></a>Installing as a Service</h3>
+<div class="paragraph">
+<p>Currently, installing NiFi as a service is supported only for Linux and macOS users. To install the application
+as a service, navigate to the installation directory in a Terminal window and execute the command <code>bin/nifi.sh install</code>
+to install the service with the default name <code>nifi</code>. To specify a custom name for the service, execute the command
+with an optional second argument that is the name of the service. For example, to install NiFi as a service with the
+name <code>dataflow</code>, use the command <code>bin/nifi.sh install dataflow</code>.</p>
+</div>
+<div class="paragraph">
+<p>Once installed, the service can be started and stopped using the appropriate commands, such as <code>sudo service nifi start</code>
+and <code>sudo service nifi stop</code>. Additionally, the running status can be checked via <code>sudo service nifi status</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="i-started-nifi-now-what"><a class="anchor" href="getting-started.html#i-started-nifi-now-what"></a>I Started NiFi. Now What?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default installation generates a random username and password, writing the generated values to the application log.
+The application log is located in <code>logs/nifi-app.log</code> under the installation directory. The log file will contain lines
+with <code>Generated Username [USERNAME]</code> and <code>Generated Password [PASSWORD]</code> indicating the credentials needed for access.
+Search the application log for those lines and record the generated values in a secure location.</p>
+</div>
+<div class="paragraph">
+<p>The following command can be used to change the username and password:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ ./bin/nifi.sh set-single-user-credentials &lt;username&gt; &lt;password&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that NiFi has been started, we can bring up the User Interface (UI) in order to create and monitor our dataflow.
+To get started, open a web browser and navigate to <a href="https://localhost:8443/nifi" target="_blank" rel="noopener"><code>https://localhost:8443/nifi</code></a>. The port can be changed by
+editing the <code>nifi.properties</code> file in the NiFi <code>conf</code> directory, but the default port is 8443.</p>
+</div>
+<div class="paragraph">
+<p>The web browser will display a warning message indicating a potential security risk due to the self-signed
+certificate NiFi generated during initialization. Accepting the potential security risk and continuing to load
+the interface is an option for development installations. The self-signed certificate will expire after 60 days.
+Production deployments should provision a certificate from a trusted authority and update the NiFi keystore and truststore configuration.</p>
+</div>
+<div class="paragraph">
+<p>Accessing NiFi after accepting the self-signed certificate will display the login screen.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/nifi-login.png" alt="Login"></span></p>
+</div>
+<div class="paragraph">
+<p>Using the generated credentials, enter the generated username in the <code>User</code> field
+and the generated password in the <code>Password</code> field, then select <code>LOG IN</code> to access the system.
+This will bring up the User Interface, which at this point is a blank canvas for orchestrating a dataflow:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/nifi-flow-authenticated.png" alt="New Flow Authenticated"></span></p>
+</div>
+<div class="paragraph">
+<p>The UI has multiple tools to create and manage your first dataflow:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/nifi-toolbar-components.png" alt="Toolbar Components"></span></p>
+</div>
+<div class="paragraph">
+<p>The Global Menu contains the following options:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/global-menu.png" alt="Global Menu"></span></p>
+</div>
+<div class="sect2">
+<h3 id="adding-a-processor"><a class="anchor" href="getting-started.html#adding-a-processor"></a>Adding a Processor</h3>
+<div class="paragraph">
+<p>We can now begin creating our dataflow by adding a Processor to our canvas. To do this, drag the Processor icon
+(<span class="image"><img src="images/iconProcessor.png" alt="Processor"></span>) from the top-left of the screen into the middle of the canvas (the graph paper-like
+background) and drop it there. This will give us a dialog that allows us to choose which Processor we want to add:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/add-processor.png" alt="Add Processor"></span></p>
+</div>
+<div class="paragraph">
+<p>We have quite a few options to choose from. For the sake of becoming oriented with the system, let&#8217;s say that we
+just want to bring in files from our local disk into NiFi. When a developer creates a Processor, the developer can
+assign "tags" to that Processor. These can be thought of as keywords. We can filter by these tags or by Processor
+name by typing into the Filter box in the top-right corner of the dialog. Type in the keywords that you would think
+of when wanting to ingest files from a local disk. Typing in keyword "file", for instance, will provide us a few
+different Processors that deal with files. Filtering by the term "local" will narrow down the list pretty quickly,
+as well. If we select a Processor from the list,
+we will see a brief description of the Processor near the bottom of the dialog. This should tell us exactly what
+the Processor does. The description of the <strong>GetFile</strong> Processor tells us that it pulls data from our local disk
+into NiFi and then removes the local file. We can then double-click the Processor type or select it and choose the
+<code>Add</code> button. The Processor will be added to the canvas in the location that it was dropped.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-a-processor"><a class="anchor" href="getting-started.html#configuring-a-processor"></a>Configuring a Processor</h3>
+<div class="paragraph">
+<p>Now that we have added the GetFile Processor, we can configure it by right-clicking on the Processor and choosing
+the <code>Configure</code> menu item. The provided dialog allows us to configure many different options that can be read about
+in the <a href="user-guide.html">User Guide</a>, but for the sake of this guide, we will focus on the Properties tab. Once
+the Properties tab has been selected, we are given a list of several different properties that we can configure
+for the Processor. The properties that are available depend on the type of Processor and are generally different
+for each type. Properties that are in bold are required properties. The Processor cannot be started until all required
+properties have been configured. The most important property to configure for GetFile is the directory from which
+to pick up files. If we set the directory name to <code>./data-in</code>, this will cause the Processor to start picking up
+any data in the <code>data-in</code> subdirectory of the NiFi Home directory. We can choose to configure several different
+Properties for this Processor. If unsure what a particular Property does, we can hover over the Help icon (
+<span class="image"><img src="images/iconInfo.png" alt="Help"></span>
+)
+next to the Property Name with the mouse in order to read a description of the property. Additionally, the
+tooltip that is displayed when hovering over the Help icon will provide the default value for that property,
+if one exists, information about whether or not the property supports the Expression Language (see the
+<a href="getting-started.html#ExpressionLanguage">Expression Language / Using Attributes in Property Values</a> section below), and previously configured values for that property.</p>
+</div>
+<div class="paragraph">
+<p>In order for this property to be valid, create a directory named <code>data-in</code> in the NiFi home directory and then
+click the <code>Ok</code> button to close the dialog.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connecting-processors"><a class="anchor" href="getting-started.html#connecting-processors"></a>Connecting Processors</h3>
+<div class="paragraph">
+<p>Each Processor has a set of defined "Relationships" that it is able to send data to. When a Processor finishes handling
+a FlowFile, it transfers it to one of these Relationships. This allows a user to configure how to handle FlowFiles based
+on the result of Processing. For example, many Processors define two Relationships: <code>success</code> and <code>failure</code>. Users are
+then able to configure data to be routed through the flow one way if the Processor is able to successfully process
+the data and route the data through the flow in a completely different manner if the Processor cannot process the
+data for some reason. Or, depending on the use case, it may simply route both relationships to the same route through
+the flow.</p>
+</div>
+<div class="paragraph">
+<p>Now that we have added and configured our GetFile processor and applied the configuration, we can see in the
+top-left corner of the Processor an Alert icon (
+<span class="image"><img src="images/iconAlert.png" alt="Alert"></span>
+) signaling that the Processor is not in a valid state. Hovering over this icon, we can see that the <code>success</code>
+relationship has not been defined. This simply means that we have not told NiFi what to do with the data that the Processor
+transfers to the <code>success</code> Relationship.</p>
+</div>
+<div class="paragraph">
+<p>In order to address this, let&#8217;s add another Processor that we can connect the GetFile Processor to, by following
+the same steps above. This time, however, we will simply log the attributes that exist for the FlowFile. To do this,
+we will add a LogAttributes Processor.</p>
+</div>
+<div class="paragraph">
+<p>We can now send the output of the GetFile Processor to the LogAttribute Processor. Hover over the GetFile Processor
+with the mouse and a Connection Icon (
+<span class="image"><img src="images/iconConnection.png" alt="Connection"></span>
+) will appear over the middle of the Processor. We can drag this icon from the GetFile Processor to the LogAttribute
+Processor. This gives us a dialog to choose which Relationships we want to include for this connection. Because GetFile
+has only a single Relationship, <code>success</code>, it is automatically selected for us.</p>
+</div>
+<div class="paragraph">
+<p>Clicking on the Settings tab provides a handful of options for configuring how this Connection should behave:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/connection-settings.png" alt="Connection Settings"></span></p>
+</div>
+<div class="paragraph">
+<p>We can give the Connection a name, if we like. Otherwise, the Connection name will be based on the selected Relationships.
+We can also set an expiration for the data. By default, it is set to "0 sec" which indicates that the data should not
+expire. However, we can change the value so that when data in this Connection reaches a certain age, it will automatically
+be deleted (and a corresponding EXPIRE Provenance event will be created).</p>
+</div>
+<div class="paragraph">
+<p>The backpressure thresholds allow us to specify how full the queue is allowed to become before the source Processor is
+no longer scheduled to run. This allows us to handle cases where one Processor is capable of producing data faster than
+the next Processor is capable of consuming that data. If the backpressure is configured for each Connection along the way,
+the Processor that is bringing data into the system will eventually experience the backpressure and stop bringing in new
+data so that our system has the ability to recover.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we have the Prioritizers on the right-hand side. This allows us to control how the data in this queue is ordered.
+We can drag Prioritizers from the "Available prioritizers" list to the "Selected prioritizers" list in order to activate
+the prioritizer. If multiple prioritizers are activated, they will be evaluated such that the Prioritizer listed first
+will be evaluated first and if two FlowFiles are determined to be equal according to that Prioritizer, the second Prioritizer
+will be used.</p>
+</div>
+<div class="paragraph">
+<p>For the sake of this discussion, we can simply click <code>Add</code> to add the Connection to our graph. We should now see that the Alert
+icon has changed to a Stopped icon (
+<span class="image"><img src="images/iconStop.png" alt="Stopped"></span>
+). The LogAttribute Processor, however, is now invalid because its <code>success</code> Relationship has not been connected to
+anything. Let&#8217;s address this by signaling that data that is routed to <code>success</code> by LogAttribute should be "Auto Terminated,"
+meaning that NiFi should consider the FlowFile&#8217;s processing complete and "drop" the data. To do this, we configure the
+LogAttribute Processor. On the Settings tab, in the right-hand side we can check the box next to the <code>success</code> Relationship
+to Auto Terminate the data. Clicking <code>OK</code> will close the dialog and show that both Processors are now stopped.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="starting-and-stopping-processors"><a class="anchor" href="getting-started.html#starting-and-stopping-processors"></a>Starting and Stopping Processors</h3>
+<div class="paragraph">
+<p>At this point, we have two Processors on our graph, but nothing is happening. In order to start the Processors, we can
+click on each one individually and then right-click and choose the <code>Start</code> menu item. Alternatively, we can select the first
+Processor, and then hold the Shift key while selecting the other Processor in order to select both. Then, we can
+right-click and choose the <code>Start</code> menu item. As an alternative to using the context menu, we can select the Processors and
+then click the Start icon in the Operate palette.</p>
+</div>
+<div class="paragraph">
+<p>Once started, the icon in the top-left corner of the Processors will change from a stopped icon to a running icon. We can then
+stop the Processors by using the Stop icon in the Operate palette or the <code>Stop</code> menu item.</p>
+</div>
+<div class="paragraph">
+<p>Once a Processor has started, we are not able to configure it anymore. Instead, when we right-click on the Processor, we are
+given the option to view its current configuration. In order to configure a Processor, we must first stop the Processor and
+wait for any tasks that may be executing to finish. The number of tasks currently executing is shown near the top-right
+corner of the Processor, but nothing is shown there if there are currently no tasks.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getting-more-info-for-a-processor"><a class="anchor" href="getting-started.html#getting-more-info-for-a-processor"></a>Getting More Info for a Processor</h3>
+<div class="paragraph">
+<p>With each Processor having the ability to expose multiple different Properties and Relationships, it can be challenging
+to remember how all of the different pieces work for each Processor. To address this, you are able to right-click
+on a Processor and choose the <code>Usage</code> menu item. This will provide you with the Processor&#8217;s usage information, such as a
+description of the Processor, the different Relationships that are available, when the different Relationships are used,
+Properties that are exposed by the Processor and their documentation, as well as which FlowFile Attributes (if any) are
+expected on incoming FlowFiles and which Attributes (if any) are added to outgoing FlowFiles.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-components"><a class="anchor" href="getting-started.html#other-components"></a>Other Components</h3>
+<div class="paragraph">
+<p>The toolbar that provides users the ability to drag and drop Processors onto the graph includes several other components
+that can be used to build a dataflow. These components include Input and Output Ports, Funnels, Process Groups, and Remote
+Process Groups. Due to the intended scope of this document, we will not discuss these elements here, but information is
+readily available in the <a href="user-guide.html#building-dataflow">Building a Dataflow section</a> of the
+<a href="user-guide.html">User Guide</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-processors-are-available"><a class="anchor" href="getting-started.html#what-processors-are-available"></a>What Processors are Available</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to create an effective dataflow, the users must understand what types of Processors are available to them.
+NiFi contains many different Processors out of the box. These Processors provide capabilities to ingest data from
+numerous different systems, route, transform, process, split, and aggregate data, and distribute data to many systems.</p>
+</div>
+<div class="paragraph">
+<p>The number of Processors that are available increases in nearly each release of NiFi. As a result, we will not attempt
+to name each of the Processors that are available, but we will highlight some of the most frequently used Processors,
+categorizing them by their functions.</p>
+</div>
+<div class="sect2">
+<h3 id="data-transformation"><a class="anchor" href="getting-started.html#data-transformation"></a>Data Transformation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>CompressContent</strong>: Compress or Decompress Content</p>
+</li>
+<li>
+<p><strong>ConvertCharacterSet</strong>: Convert the character set used to encode the content from one character set to another</p>
+</li>
+<li>
+<p><strong>EncryptContent</strong>: Encrypt or Decrypt Content</p>
+</li>
+<li>
+<p><strong>ReplaceText</strong>: Use Regular Expressions to modify textual Content</p>
+</li>
+<li>
+<p><strong>TransformXml</strong>: Apply an XSLT transform to XML Content</p>
+</li>
+<li>
+<p><strong>JoltTransformJSON</strong>: Apply a JOLT specification to transform JSON Content</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="routing-and-mediation"><a class="anchor" href="getting-started.html#routing-and-mediation"></a>Routing and Mediation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ControlRate</strong>: Throttle the rate at which data can flow through one part of the flow</p>
+</li>
+<li>
+<p><strong>DetectDuplicate</strong>: Monitor for duplicate FlowFiles, based on some user-defined criteria. Often used in conjunction
+with HashContent</p>
+</li>
+<li>
+<p><strong>DistributeLoad</strong>: Load balance or sample data by distributing only a portion of data to each user-defined Relationship</p>
+</li>
+<li>
+<p><strong>MonitorActivity</strong>: Sends a notification when a user-defined period of time elapses without any data coming through a particular
+point in the flow. Optionally send a notification when dataflow resumes.</p>
+</li>
+<li>
+<p><strong>RouteOnAttribute</strong>: Route FlowFile based on the attributes that it contains.</p>
+</li>
+<li>
+<p><strong>ScanAttribute</strong>: Scans the user-defined set of Attributes on a FlowFile, checking to see if any of the Attributes match the terms
+found in a user-defined dictionary.</p>
+</li>
+<li>
+<p><strong>RouteOnContent</strong>: Search Content of a FlowFile to see if it matches any user-defined Regular Expression. If so, the FlowFile is
+routed to the configured Relationship.</p>
+</li>
+<li>
+<p><strong>ScanContent</strong>: Search Content of a FlowFile for terms that are present in a user-defined dictionary and route based on the
+presence or absence of those terms. The dictionary can consist of either textual entries or binary entries.</p>
+</li>
+<li>
+<p><strong>ValidateXml</strong>: Validation XML Content against an XML Schema; routes FlowFile based on whether or not the Content of the FlowFile
+is valid according to the user-defined XML Schema.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="database-access"><a class="anchor" href="getting-started.html#database-access"></a>Database Access</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ConvertJSONToSQL</strong>: Convert a JSON document into a SQL INSERT or UPDATE command that can then be passed to the PutSQL Processor</p>
+</li>
+<li>
+<p><strong>ExecuteSQL</strong>: Executes a user-defined SQL SELECT command, writing the results to a FlowFile in Avro format</p>
+</li>
+<li>
+<p><strong>PutSQL</strong>: Updates a database by executing the SQL DDM statement defined by the FlowFile&#8217;s content</p>
+</li>
+<li>
+<p><strong>SelectHiveQL</strong>: Executes a user-defined HiveQL SELECT command against an Apache Hive database, writing the results to a FlowFile in Avro or CSV format</p>
+</li>
+<li>
+<p><strong>PutHiveQL</strong>: Updates a Hive database by executing the HiveQL DDM statement defined by the FlowFile&#8217;s content</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="AttributeExtraction"><a class="anchor" href="getting-started.html#AttributeExtraction"></a>Attribute Extraction</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>EvaluateJsonPath</strong>: User supplies JSONPath Expressions (Similar to XPath, which is used for XML parsing/extraction), and these Expressions
+are then evaluated against the JSON Content to either replace the FlowFile Content or extract the value into the user-named Attribute.</p>
+</li>
+<li>
+<p><strong>EvaluateXPath</strong>: User supplies XPath Expressions, and these Expressions are then evaluated against the XML Content to either
+replace the FlowFile Content or extract the value into the user-named Attribute.</p>
+</li>
+<li>
+<p><strong>EvaluateXQuery</strong>: User supplies an XQuery query, and this query is then evaluated against the XML Content to either replace the FlowFile
+Content or extract the value into the user-named Attribute.</p>
+</li>
+<li>
+<p><strong>ExtractText</strong>: User supplies one or more Regular Expressions that are then evaluated against the textual content of the FlowFile, and the
+values that are extracted are then added as user-named Attributes.</p>
+</li>
+<li>
+<p><strong>HashAttribute</strong>: Performs a hashing function against the concatenation of a user-defined list of existing Attributes.</p>
+</li>
+<li>
+<p><strong>HashContent</strong>: Performs a hashing function against the content of a FlowFile and adds the hash value as an Attribute.</p>
+</li>
+<li>
+<p><strong>IdentifyMimeType</strong>: Evaluates the content of a FlowFile in order to determine what type of file the FlowFile encapsulates. This Processor is
+ capable of detecting many different MIME Types, such as images, word processor documents, text, and compression formats just to name
+a few.</p>
+</li>
+<li>
+<p><strong>UpdateAttribute</strong>: Adds or updates any number of user-defined Attributes to a FlowFile. This is useful for adding statically configured values,
+ as well as deriving Attribute values dynamically by using the Expression Language. This processor also provides an "Advanced User Interface,"
+allowing users to update Attributes conditionally, based on user-supplied rules.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="system-interaction"><a class="anchor" href="getting-started.html#system-interaction"></a>System Interaction</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>ExecuteProcess</strong>: Runs the user-defined Operating System command. The Process&#8217;s StdOut is redirected such that the content that is written
+ to StdOut becomes the content of the outbound FlowFile. This Processor is a Source Processor - its output is expected to generate a new FlowFile,
+and the system call is expected to receive no input. In order to provide input to the process, use the ExecuteStreamCommand Processor.</p>
+</li>
+<li>
+<p><strong>ExecuteStreamCommand</strong>: Runs the user-defined Operating System command. The contents of the FlowFile are optionally streamed to the StdIn
+ of the process. The content that is written to StdOut becomes the content of hte outbound FlowFile. This Processor cannot be used a Source Processor -
+it must be fed incoming FlowFiles in order to perform its work. To perform the same type of functionality with a Source Processor, see the
+ExecuteProcess Processor.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="data-ingestion"><a class="anchor" href="getting-started.html#data-ingestion"></a>Data Ingestion</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GetFile</strong>: Streams the contents of a file from a local disk (or network-attached disk) into NiFi and then deletes the original file. This
+Processor is expected to move the file from one location to another location and is not to be used for copying the data.</p>
+</li>
+<li>
+<p><strong>GetFTP</strong>: Downloads the contents of a remote file via FTP into NiFi and then deletes the original file. This Processor is expected to move
+the data from one location to another location and is not to be used for copying the data.</p>
+</li>
+<li>
+<p><strong>GetSFTP</strong>: Downloads the contents of a remote file via SFTP into NiFi and then deletes the original file. This Processor is expected to move
+the data from one location to another location and is not to be used for copying the data.</p>
+</li>
+<li>
+<p><strong>GetJMSQueue</strong>: Downloads a message from a JMS Queue and creates a FlowFile based on the contents of the JMS message. The JMS Properties are
+optionally copied over as Attributes, as well.</p>
+</li>
+<li>
+<p><strong>GetJMSTopic</strong>: Downloads a message from a JMS Topic and creates a FlowFile based on the contents of the JMS message. The JMS Properties are
+optionally copied over as Attributes, as well. This Processor supports both durable and non-durable subscriptions.</p>
+</li>
+<li>
+<p><strong>GetHTTP</strong>: Downloads the contents of a remote HTTP- or HTTPS-based URL into NiFi. The Processor will remember the ETag and Last-Modified Date
+in order to ensure that the data is not continually ingested.</p>
+</li>
+<li>
+<p><strong>ListenHTTP</strong>: Starts an HTTP (or HTTPS) Server and listens for incoming connections. For any incoming POST request, the contents of the request
+are written out as a FlowFile, and a 200 response is returned.</p>
+</li>
+<li>
+<p><strong>ListenUDP</strong>: Listens for incoming UDP packets and creates a FlowFile per packet or per bundle of packets (depending on configuration) and
+emits the FlowFile to the 'success' relationship.</p>
+</li>
+<li>
+<p><strong>GetHDFS</strong>: Monitors a user-specified directory in HDFS. Whenever a new file enters HDFS, it is copied into NiFi and deleted from HDFS. This
+ Processor is expected to move the file from one location to another location and is not to be used for copying the data. This Processor is also
+expected to be run On Primary Node only, if run within a cluster. In order to copy the data from HDFS and leave it in-tact, or to stream the data
+from multiple nodes in the cluster, see the ListHDFS Processor.</p>
+</li>
+<li>
+<p><strong>ListHDFS</strong> / <strong>FetchHDFS</strong>: ListHDFS monitors a user-specified directory in HDFS and emits a FlowFile containing the filename for each file that it
+ encounters. It then persists this state across the entire NiFi cluster by way of a Distributed Cache. These FlowFiles can then be fanned out across
+the cluster and sent to the FetchHDFS Processor, which is responsible for fetching the actual content of those files and emitting FlowFiles that contain
+the content fetched from HDFS.</p>
+</li>
+<li>
+<p><strong>FetchS3Object</strong>: Fetches the contents of an object from the Amazon Web Services (AWS) Simple Storage Service (S3). The outbound FlowFile contains the contents
+received from S3.</p>
+</li>
+<li>
+<p><strong>GetKafka</strong>: Fetches messages from Apache Kafka, specifically for 0.8.x versions. The messages can be emitted as a FlowFile per message or can be batched together using a user-specified delimiter.</p>
+</li>
+<li>
+<p><strong>GetMongo</strong>: Executes a user-specified query against MongoDB and writes the contents to a new FlowFile.</p>
+</li>
+<li>
+<p><strong>GetTwitter</strong>: Allows Users to register a filter to listen to the Twitter "garden hose" or Enterprise endpoint, creating a FlowFile for each tweet
+that is received.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="data-egress-sending-data"><a class="anchor" href="getting-started.html#data-egress-sending-data"></a>Data Egress / Sending Data</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PutEmail</strong>: Sends an E-mail to the configured recipients. The content of the FlowFile is optionally sent as an attachment.</p>
+</li>
+<li>
+<p><strong>PutFile</strong>: Writes the contents of a FlowFile to a directory on the local (or network attached) file system.</p>
+</li>
+<li>
+<p><strong>PutFTP</strong>: Copies the contents of a FlowFile to a remote FTP Server.</p>
+</li>
+<li>
+<p><strong>PutSFTP</strong>: Copies the contents of a FlowFile to a remote SFTP Server.</p>
+</li>
+<li>
+<p><strong>PutJMS</strong>: Sends the contents of a FlowFile as a JMS message to a JMS broker, optionally adding JMS Properties based on Attributes.</p>
+</li>
+<li>
+<p><strong>PutSQL</strong>: Executes the contents of a FlowFile as a SQL DDL Statement (INSERT, UPDATE, or DELETE). The contents of the FlowFile must be a valid
+ SQL statement. Attributes can be used as parameters so that the contents of the FlowFile can be parameterized SQL statements in order to avoid
+SQL injection attacks.</p>
+</li>
+<li>
+<p><strong>PutKafka</strong>: Sends the contents of a FlowFile as a message to Apache Kafka, specifically for 0.8.x versions. The FlowFile can be sent as a single message or a delimiter, such as a
+new-line can be specified, in order to send many messages for a single FlowFile.</p>
+</li>
+<li>
+<p><strong>PutMongo</strong>: Sends the contents of a FlowFile to Mongo as an INSERT or an UPDATE.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="splitting-and-aggregation"><a class="anchor" href="getting-started.html#splitting-and-aggregation"></a>Splitting and Aggregation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SplitText</strong>: SplitText takes in a single FlowFile whose contents are textual and splits it into 1 or more FlowFiles based on the configured
+number of lines. For example, the Processor can be configured to split a FlowFile into many FlowFiles, each of which is only 1 line.</p>
+</li>
+<li>
+<p><strong>SplitJson</strong>: Allows the user to split a JSON object that is comprised of an array or many child objects into a FlowFile per JSON element.</p>
+</li>
+<li>
+<p><strong>SplitXml</strong>: Allows the user to split an XML message into many FlowFiles, each containing a segment of the original. This is generally used when
+ several XML elements have been joined together with a "wrapper" element. This Processor then allows those elements to be split out into individual
+XML elements.</p>
+</li>
+<li>
+<p><strong>UnpackContent</strong>: Unpacks different types of archive formats, such as ZIP and TAR. Each file within the archive is then transferred as a single
+FlowFile.</p>
+</li>
+<li>
+<p><strong>MergeContent</strong>: This Processor is responsible for merging many FlowFiles into a single FlowFile. The FlowFiles can be merged by concatenating their
+ content together along with optional header, footer, and demarcator, or by specifying an archive format, such as ZIP or TAR. FlowFiles can be binned
+together based on a common attribute, or can be "defragmented" if they were split apart by some other Splitting process. The minimum and maximum
+size of each bin is user-specified, based on number of elements or total size of FlowFiles' contents, and an optional Timeout can be assigned as well
+so that FlowFiles will only wait for their bin to become full for a certain amount of time.</p>
+</li>
+<li>
+<p><strong>SegmentContent</strong>: Segments a FlowFile into potentially many smaller FlowFiles based on some configured data size. The splitting is not performed
+ against any sort of demarcator but rather just based on byte offsets. This is used before transmitting FlowFiles in order to provide lower latency
+by sending many different pieces in parallel. On the other side, these FlowFiles can then be reassembled by the MergeContent processor using the
+Defragment mode.</p>
+</li>
+<li>
+<p><strong>SplitContent</strong>: Splits a single FlowFile into potentially many FlowFiles, similarly to SegmentContent. However, with SplitContent, the splitting
+is not performed on arbitrary byte boundaries but rather a byte sequence is specified on which to split the content.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="http"><a class="anchor" href="getting-started.html#http"></a>HTTP</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GetHTTP</strong>: Downloads the contents of a remote HTTP- or HTTPS-based URL into NiFi. The Processor will remember the ETag and Last-Modified Date
+in order to ensure that the data is not continually ingested.</p>
+</li>
+<li>
+<p><strong>ListenHTTP</strong>: Starts an HTTP (or HTTPS) Server and listens for incoming connections. For any incoming POST request, the contents of the request
+are written out as a FlowFile, and a 200 response is returned.</p>
+</li>
+<li>
+<p><strong>InvokeHTTP</strong>: Performs an HTTP Request that is configured by the user. This Processor is much more versatile than the GetHTTP and PostHTTP
+ but requires a bit more configuration. This Processor cannot be used as a Source Processor and is required to have incoming FlowFiles in order
+to be triggered to perform its task.</p>
+</li>
+<li>
+<p><strong>PostHTTP</strong>: Performs an HTTP POST request, sending the contents of the FlowFile as the body of the message. This is often used in conjunction
+ with ListenHTTP in order to transfer data between two different instances of NiFi in cases where Site-to-Site cannot be used (for instance,
+when the nodes cannot access each other directly and are able to communicate through an HTTP proxy).
+<strong>Note</strong>: HTTP is available as a <a href="user-guide.html#site-to-site">Site-to-Site</a> transport protocol in addition to the existing RAW socket transport. It also supports HTTP Proxy. Using HTTP Site-to-Site is recommended since it&#8217;s more scalable, and can provide bi-directional data transfer using input/output ports with better user authentication and authorization.</p>
+</li>
+<li>
+<p><strong>HandleHttpRequest</strong> / <strong>HandleHttpResponse</strong>: The HandleHttpRequest Processor is a Source Processor that starts an embedded HTTP(S) server
+ similarly to ListenHTTP. However, it does not send a response to the client. Instead, the FlowFile is sent out with the body of the HTTP request
+as its contents and attributes for all of the typical Servlet parameters, headers, etc. as Attributes. The HandleHttpResponse then is able to
+send a response back to the client after the FlowFile has finished being processed. These Processors are always expected to be used in conjunction
+with one another and allow the user to visually create a Web Service within NiFi. This is particularly useful for adding a front-end to a non-web-
+ based protocol or to add a simple web service around some functionality that is already performed by NiFi, such as data format conversion.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="amazon-web-services"><a class="anchor" href="getting-started.html#amazon-web-services"></a>Amazon Web Services</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>FetchS3Object</strong>: Fetches the content of an object stored in Amazon Simple Storage Service (S3). The content that is retrieved from S3
+is then written to the content of the FlowFile.</p>
+</li>
+<li>
+<p><strong>PutS3Object</strong>: Writes the contents of a FlowFile to an Amazon S3 object using the configured credentials, key, and bucket name.</p>
+</li>
+<li>
+<p><strong>PutSNS</strong>: Sends the contents of a FlowFile as a notification to the Amazon Simple Notification Service (SNS).</p>
+</li>
+<li>
+<p><strong>GetSQS</strong>: Pulls a message from the Amazon Simple Queuing Service (SQS) and writes the contents of the message to the content of the FlowFile.</p>
+</li>
+<li>
+<p><strong>PutSQS</strong>: Sends the contents of a FlowFile as a message to the Amazon Simple Queuing Service (SQS).</p>
+</li>
+<li>
+<p><strong>DeleteSQS</strong>: Deletes a message from the Amazon Simple Queuing Service (SQS). This can be used in conjunction with the GetSQS in order to receive
+a message from SQS, perform some processing on it, and then delete the object from the queue only after it has successfully completed processing.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="working-with-attributes"><a class="anchor" href="getting-started.html#working-with-attributes"></a>Working With Attributes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each FlowFile is created with several Attributes, and these Attributes will change over the life of
+the FlowFile. The concept of a FlowFile is extremely powerful and provides three primary benefits.
+First, it allows the user to make routing decisions in the flow so that FlowFiles that meet some criteria
+can be handled differently than other FlowFiles. This is done using the RouteOnAttribute and similar Processors.</p>
+</div>
+<div class="paragraph">
+<p>Secondly, Attributes are used in order to configure Processors in such a way that the configuration of the
+Processor is dependent on the data itself. For instance, the PutFile Processor is able to use the Attributes in order
+to know where to store each FlowFile, while the directory and filename Attributes may be different for each FlowFile.</p>
+</div>
+<div class="paragraph">
+<p>Finally, the Attributes provide extremely valuable context about the data. This is useful when reviewing the Provenance
+data for a FlowFile. This allows the user to search for Provenance data that match specific criteria, and it also allows
+the user to view this context when inspecting the details of a Provenance Event. By doing this, the user is then able
+to gain valuable insight as to why the data was processed one way or another, simply by glancing at this context that is
+carried along with the content.</p>
+</div>
+<div class="sect2">
+<h3 id="common-attributes"><a class="anchor" href="getting-started.html#common-attributes"></a>Common Attributes</h3>
+<div class="paragraph">
+<p>Each FlowFile has a minimum set of Attributes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>filename</strong>: A filename that can be used to store the data to a local or remote file system.</p>
+</li>
+<li>
+<p><strong>path</strong>: The name of a directory that can be used to store the data to a local or remote file system.</p>
+</li>
+<li>
+<p><strong>uuid</strong>: A Universally Unique Identifier that distinguishes the FlowFile from other FlowFiles in the system.</p>
+</li>
+<li>
+<p><strong>entryDate</strong>: The date and time at which the FlowFile entered the system (i.e., was created). The value of this
+attribute is a number that represents the number of milliseconds since midnight, Jan. 1, 1970 (UTC).</p>
+</li>
+<li>
+<p><strong>lineageStartDate</strong>: Any time that a FlowFile is cloned, merged, or split, this results in a "child" FlowFile being
+created. As those children are then cloned, merged, or split, a chain of ancestors is built. This value represents
+the date and time at which the oldest ancestor entered the system. Another way to think about this is that this
+attribute represents the latency of the FlowFile through the system. The value is a number that represents the number
+of milliseconds since midnight, Jan. 1, 1970 (UTC).</p>
+</li>
+<li>
+<p><strong>fileSize</strong>: This attribute represents the number of bytes taken up by the FlowFile&#8217;s Content.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that the <code>uuid</code>, <code>entryDate</code>, <code>lineageStartDate</code>, and <code>fileSize</code> attributes are system-generated and cannot be changed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extracting-attributes"><a class="anchor" href="getting-started.html#extracting-attributes"></a>Extracting Attributes</h3>
+<div class="paragraph">
+<p>NiFi provides several different Processors out of the box for extracting Attributes from FlowFiles. A list of commonly used
+Processors for this purpose can be found above in the <a href="getting-started.html#AttributeExtraction">Attribute Extraction</a> section. This is a very common use case for building
+custom Processors, as well. Many Processors are written to understand a specific data format and extract pertinent information from
+a FlowFile&#8217;s content, creating Attributes to hold that information, so that decisions can then be made about how to route or
+process the data.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-user-defined-attributes"><a class="anchor" href="getting-started.html#adding-user-defined-attributes"></a>Adding User-Defined Attributes</h3>
+<div class="paragraph">
+<p>In addition to having Processors that are able to extract particular pieces of information from FlowFile content into Attributes,
+it is also common for users to want to add their own user-defined Attributes to each FlowFile at a particular place in the flow.
+The UpdateAttribute Processor is designed specifically for this purpose. Users are able to add a new property to the Processor
+in the Configure dialog by clicking the "+" button in the top-right corner of the Properties tab. The user is then
+prompted to enter the name of the property and then a value. For each FlowFile that is processed by this UpdateAttribute
+Processor, an Attribute will be added for each user-defined property. The name of the Attribute will be the same as the name of
+the property that was added. The value of the Attribute will be the same as the value of the property.</p>
+</div>
+<div class="paragraph">
+<p>The value of the property may contain the Expression Language, as well. This allows Attributes to be modified or added
+based on other Attributes. For example, if we want to prepend the hostname that is processing a file as well as the date to
+a filename, we could do this by adding a property with the name <code>filename</code> and the value <code>${hostname()}-${now():format('yyyy-dd-MM')}-${filename}</code>.
+While this may seem confusing at first, the section below on <a href="getting-started.html#ExpressionLanguage">Expression Language / Using Attributes in Property Values</a> will help to clear up what is going on
+here.</p>
+</div>
+<div class="paragraph">
+<p>In addition to always adding a defined set of Attributes, the UpdateAttribute Processor has an Advanced UI that allows the user
+to configure a set of rules for which Attributes should be added when. To access this capability, in the Configure dialog&#8217;s
+Properties tab, click the <code>Advanced</code> button at the bottom of the dialog. This will provide a UI that is tailored specifically
+to this Processor, rather than the simple Properties table that is provided for all Processors. Within this UI, the user is able
+to configure a rules engine, essentially, specifying rules that must match in order to have the configured Attributes added
+to the FlowFile.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="routing-on-attributes"><a class="anchor" href="getting-started.html#routing-on-attributes"></a>Routing on Attributes</h3>
+<div class="paragraph">
+<p>One of the most powerful features of NiFi is the ability to route FlowFiles based on their Attributes. The primary mechanism
+for doing this is the RouteOnAttribute Processor. This Processor, like UpdateAttribute, is configured by adding user-defined properties.
+Any number of properties can be added by clicking the "+" button in the top-right corner of the Properties tab in the
+Processor&#8217;s Configure dialog.</p>
+</div>
+<div class="paragraph">
+<p>Each FlowFile&#8217;s Attributes will be compared against the configured properties to determine whether or not the FlowFile meets the
+specified criteria. The value of each property is expected to be an Expression Language expression and return a boolean value.
+For more on the Expression Language, see the <a href="getting-started.html#ExpressionLanguage">Expression Language / Using Attributes in Property Values</a> section below.</p>
+</div>
+<div class="paragraph">
+<p>After evaluating the Expression Language expressions provided against the FlowFile&#8217;s Attributes, the Processor determines how to
+route the FlowFile based on the Routing Strategy selected. The most common strategy is the "Route to Property name" strategy. With this
+strategy selected, the Processor will expose a Relationship for each property configured. If the FlowFile&#8217;s Attributes satisfy the given
+expression, a copy of the FlowFile will be routed to the corresponding Relationship. For example, if we had a new property with the name
+"begins-with-r" and the value "${filename:startsWith(\'r')}" then any FlowFile whose filename starts with the letter 'r' will be routed
+to that Relationship. All other FlowFiles will be routed to 'unmatched'.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ExpressionLanguage"><a class="anchor" href="getting-started.html#ExpressionLanguage"></a>Expression Language / Using Attributes in Property Values</h3>
+<div class="paragraph">
+<p>As we extract Attributes from FlowFiles' contents and add user-defined Attributes, they don&#8217;t do us much good as an operator unless
+we have some mechanism by which we can use them. The NiFi Expression Language allows us to access and manipulate FlowFile Attribute
+values as we configure our flows. Not all Processor properties allow the Expression Language to be used, but many do. In order to
+determine whether or not a property supports the Expression Language, a user can hover over the Help icon (
+<span class="image"><img src="images/iconInfo.png" alt="Help"></span>
+) in the Properties tab of the Processor Configure dialog. This will provide a tooltip that shows a description of the property, the
+default value, if any, and whether or not the property supports the Expression Language.</p>
+</div>
+<div class="paragraph">
+<p>For properties that do support the Expression Language, it is used by adding an expression within the opening <code>${</code> tag and the closing
+<code>}</code> tag. An expression can be as simple as an attribute name. For example, to reference the <code>uuid</code> Attribute, we can simply use the
+value <code>${uuid}</code>. If the Attribute name begins with any character other than a letter, or if it contains a character other than
+a number, a letter, a period (.), or an underscore (_), the Attribute name will need to be quoted. For example, <code>${My Attribute Name}</code>
+will be invalid, but <code>${'My Attribute Name'}</code> will refer to the Attribute <code>My Attribute Name</code>.</p>
+</div>
+<div class="paragraph">
+<p>In addition to referencing Attribute values, we can perform a number of functions and comparisons on those Attributes. For example,
+if we want to check if the <code>filename</code> attribute contains the letter 'r' without paying attention to case (upper case or lower case),
+we can do this by using the expression <code>${filename:toLower():contains('r')}</code>. Note here that the functions are separated by colons.
+We can chain together any number of functions to build up more complex expressions. It is also important to understand here that even
+though we are calling <code>filename:toLower()</code>, this does not alter the value of the <code>filename</code> Attribute in anyway but rather just gives
+us a new value to work with.</p>
+</div>
+<div class="paragraph">
+<p>We can also embed one expression within another. For example, if we wanted to compare the value of the <code>attr1</code> Attribute to
+the value of the <code>attr2</code> Attribute, we can do this with the following expression: <code>${attr1:equals( ${attr2} )}</code>.</p>
+</div>
+<div class="paragraph">
+<p>The Expression Language contains many different functions that can be used in order to perform the tasks needed for routing and manipulating
+Attributes. Functions exist for parsing and manipulating strings, comparing string and numeric values, manipulating and replacing values,
+and comparing values. A full explanation of the different functions available is out of the scope of this document, but the
+<a href="expression-language-guide.html">Expression Language Guide</a> provides far greater detail for each of the functions.</p>
+</div>
+<div class="paragraph">
+<p>In addition, this Expression Language guide is built in to the application so that users are able to easily see which functions are available
+and see their documentation while typing. When setting the value of a property that supports the Expression Language, if the cursor is within
+the Expression Language start and end tags, pressing Ctrl + Space on the keyword will provide a pop-up of all of the available functions and
+will provide auto-complete functionality. Clicking on or using the keyboard to navigate to one of the functions listed in the pop-up will
+cause a tooltip to show, which explains what the function does, the arguments that it expects, and the return type of the function.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="monitoring-nifi"><a class="anchor" href="getting-started.html#monitoring-nifi"></a>Monitoring NiFi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As data flows through your dataflow in NiFi, it is important to understand how well your system is performing in order to assess if you
+will require more resources and in order to assess the health of your current resources. NiFi provides a few mechanisms for monitoring
+your system.</p>
+</div>
+<div class="sect2">
+<h3 id="status-bar"><a class="anchor" href="getting-started.html#status-bar"></a>Status Bar</h3>
+<div class="paragraph">
+<p>Near the top of the NiFi screen under the Component toolbar is a bar that is referred to as the Status Bar. It contains a few important statistics about the current
+health of NiFi. The number of Active Threads can indicate how hard NiFi is currently working, and the Queued stat indicates how many FlowFiles
+are currently queued across the entire flow, as well as the total size of those FlowFiles.</p>
+</div>
+<div class="paragraph">
+<p>If the NiFi instance is in a cluster, we will also see an indicator here telling us how many nodes are in the cluster and how many are currently
+connected. In this case, the number of active threads and the queue size are indicative of all the sum of all nodes that are currently connected.
+It is important to note that active threads only captures threads by objects that are in the graph (processors, processor groups, remote processor groups, funnels, etc.).
+When broken down by node in the cluster (Global Menu &#8594; Cluster), the active thread count is more comprehensive and includes these as well as any
+other threads (reporting tasks, controller services, etc.)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="component-statistics"><a class="anchor" href="getting-started.html#component-statistics"></a>Component Statistics</h3>
+<div class="paragraph">
+<p>Each Processor, Process Group, and Remote Process Group on the canvas provides several statistics about how much data has been processed
+by the component. These statistics provide information about how much data has been processed in the past five minutes. This is a rolling
+window and allows us to see things like the number of FlowFiles that have been consumed by a Processor, as well as the number of FlowFiles
+that have been emitted by the Processor.</p>
+</div>
+<div class="paragraph">
+<p>The connections between Processors also expose the number of items that are currently queued.</p>
+</div>
+<div class="paragraph">
+<p>It may also be valuable to see historical values for these metrics and, if clustered, how the different nodes compare to one another.
+In order to see this information, we can right-click on a component and choose the <code>Stats</code> menu item. This will show us a graph that spans
+the time since NiFi was started, or up to 24 hours, whichever is less. The amount of time that is shown here can be extended or reduced
+by changing the configuration in the properties file.</p>
+</div>
+<div class="paragraph">
+<p>In the top-right corner of this dialog is a drop-down that allows the user to select which metric they are viewing. The graph on the bottom allows the
+user to select a smaller portion of the graph to zoom in.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bulletins"><a class="anchor" href="getting-started.html#bulletins"></a>Bulletins</h3>
+<div class="paragraph">
+<p>In addition to the statistics provided by each component, a user will want to know if any problems occur. While we could monitor the
+logs for anything interesting, it is much more convenient to have notifications pop up on the screen. If a Processor logs
+anything as a WARNING or ERROR, we will see a "Bulletin Indicator" show up in the top-right-hand corner of the Processor. This indicator
+looks like a sticky note and will be shown for five minutes after the event occurs. Hovering over the bulletin provides information about
+what happened so that the user does not have to sift through log messages to find it. If in a cluster, the bulletin will also indicate which
+node in the cluster emitted the bulletin. We can also change the log level at which bulletins will occur in the Settings tab of the Configure
+dialog for a Processor.</p>
+</div>
+<div class="paragraph">
+<p>If the framework emits a bulletin, we will also see a bulletin indicator highlighted at the top-right of the screen.
+In the Global Menu is a Bulletin Board option. Clicking this option will take us to the bulletin board where we can see all bulletins that occur across the NiFi instance and can filter based on the component, the message, etc.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="data-provenance"><a class="anchor" href="getting-started.html#data-provenance"></a>Data Provenance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NiFi keeps a very granular level of detail about each piece of data that it ingests. As the data is processed through
+the system and is transformed, routed, split, aggregated, and distributed to other endpoints, this information is
+all stored within NiFi&#8217;s Provenance Repository. In order to search and view this information, we can select Data Provenance from the Global Menu. This will provide us a table that lists
+the Provenance events that we have searched for:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/provenance-table.png" alt="Provenance Table"></span></p>
+</div>
+<div class="paragraph">
+<p>Initially, this table is populated with the most recent 1,000 Provenance Events that have occurred (though it may take a few
+seconds for the information to be processed after the events occur). From this dialog, there is a <code>Search</code> button that allows the
+user to search for events that happened by a particular Processor, for a particular FlowFile by filename or UUID, or several other
+fields. The <code>nifi.properties</code> file provides the ability to configure which of these properties are indexed, or made searchable.
+Additionally, the properties file also allows you to choose specific FlowFile Attributes that will be indexed. As a result, you can
+choose which Attributes will be important to your specific dataflows and make those Attributes searchable.</p>
+</div>
+<div class="sect2">
+<h3 id="EventDetails"><a class="anchor" href="getting-started.html#EventDetails"></a>Event Details</h3>
+<div class="paragraph">
+<p>Once we have performed our search, our table will be populated only with the events that match the search criteria. From here, we
+can choose the Info icon (
+<span class="image"><img src="images/iconDetails.png" alt="Details Icon"></span>
+) on the left-hand side of the table to view the details of that event:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/event-details.png" alt="Event Details"></span></p>
+</div>
+<div class="paragraph">
+<p>From here, we can see exactly when that event occurred, which FlowFile the event affected, which component (Processor, etc.) performed the event,
+how long the event took, and the overall time that the data had been in NiFi when the event occurred (total latency).</p>
+</div>
+<div class="paragraph">
+<p>The next tab provides a listing of all Attributes that existed on the FlowFile at the time that the event occurred:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/event-attributes.png" alt="Event Attributes"></span></p>
+</div>
+<div class="paragraph">
+<p>From here, we can see all the Attributes that existed on the FlowFile when the event occurred, as well as the previous values for those
+Attributes. This allows us to know which Attributes changed as a result of this event and how they changed. Additionally, in the right-hand
+corner is a checkbox that allows the user to see only those Attributes that changed. This may not be particularly useful if the FlowFile has
+only a handful of Attributes, but can be very helpful when a FlowFile has hundreds of Attributes.</p>
+</div>
+<div class="paragraph">
+<p>This is very important because it allows the user to understand the exact context in which the FlowFile was processed. It is helpful
+to understand 'why' the FlowFile was processed the way that it was, especially when the Processor was configured using the Expression Language.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we have the Content tab:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/event-content.png" alt="Event Content"></span></p>
+</div>
+<div class="paragraph">
+<p>This tab provides us information about where in the Content Repository the FlowFile&#8217;s content was stored. If the event modified the content
+of the FlowFile, we will see the 'before' (input) and 'after' (output) content claims. We are then given the option to Download the content or to View the
+content within NiFi itself, if the data format is one that NiFi understands how to render.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, in the Replay section of the tab, there is a 'Replay' button that allows the user to re-insert the FlowFile into the flow and re-process it from exactly the point
+at which the event happened. This provides a very powerful mechanism, as we are able to modify our flow in real time, re-process a FlowFile,
+and then view the results. If they are not as expected, we can modify the flow again, and re-process the FlowFile again. We are able to perform
+this iterative development of the flow until it is processing the data exactly as intended.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lineage-graph"><a class="anchor" href="getting-started.html#lineage-graph"></a>Lineage Graph</h3>
+<div class="paragraph">
+<p>In addition to viewing the details of a Provenance event, we can also view the lineage of the FlowFile involved by clicking on the Lineage Icon (
+<span class="image"><img src="images/iconLineage.png" alt="Lineage"></span>
+) from the table view.</p>
+</div>
+<div class="paragraph">
+<p>This provides us with a graphical representation of exactly what happened to that piece of data as it traversed the system:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/lineage-graph-annotated.png" alt="Lineage Graph"></span></p>
+</div>
+<div class="paragraph">
+<p>From here, we can right-click on any of the events represented and click the <code>View Details</code> menu item to see the <a href="getting-started.html#EventDetails">Event Details</a>.
+This graphical representation shows us exactly which events occurred to the data. There are a few "special" event types to be
+aware of. If we see a JOIN, FORK, or CLONE event, we can right-click and choose to Find Parents or Expand. This allows us to
+see the lineage of parent FlowFiles and children FlowFiles that were created as well.</p>
+</div>
+<div class="paragraph">
+<p>The slider in the bottom-left corner allows us to see the time at which these events occurred. By sliding it left and right, we can
+see which events introduced latency into the system so that we have a very good understanding of where in our system we may need to
+provide more resources, such as the number of Concurrent Tasks for a Processor. Or it may reveal, for example, that most of the latency
+was introduced by a JOIN event, in which we were waiting for more FlowFiles to join together. In either case, the ability to easily
+see where this is occurring is a very powerful feature that will help users to understand how the enterprise is operating.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="where-to-go-for-more-information"><a class="anchor" href="getting-started.html#where-to-go-for-more-information"></a>Where To Go For More Information</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The NiFi community has built up a significant amount of documentation on how to use the software. The following guides are available, in
+addition to this Getting Started Guide:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="overview.html">Apache NiFi Overview</a> - Provides an overview of what Apache NiFi is, what it does, and why it was created.</p>
+</li>
+<li>
+<p><a href="user-guide.html">Apache NiFi User Guide</a> - A fairly extensive guide that is often used more as a Reference Guide, as it has pretty
+ lengthy discussions of all of the different components that comprise the application. This guide is written with the NiFi Operator as its
+audience. It provides information on each of the different components available in NiFi and explains how to use the different features
+provided by the application.</p>
+</li>
+<li>
+<p><a href="administration-guide.html">Administration Guide</a> - A guide for setting up and administering Apache NiFi for production environments.
+ This guide provides information about the different system-level settings, such as setting up clusters of NiFi and securing access to the
+web UI and data.</p>
+</li>
+<li>
+<p><a href="expression-language-guide.html">Expression Language Guide</a> - A far more exhaustive guide for understanding the Expression Language than
+ is provided above. This guide is the definitive documentation for the NiFi Expression Language. It provides an introduction to the EL
+and an explanation of each function, its arguments, and return types as well as providing examples.</p>
+</li>
+<li>
+<p><a href="developer-guide.html">Developer&#8217;s Guide</a> - While not an exhaustive guide to All Things NiFi Development, this guide does provide a
+ comprehensive overview of the different API&#8217;s available and how they should be used. In addition, it provides Best Practices for developing
+NiFi components and common Processor idioms to help aid in understanding the logic behind many of the existing NiFi components.</p>
+</li>
+<li>
+<p><a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide" target="_blank" rel="noopener">Contributor&#8217;s Guide</a> - A guide for explaining how to contribute
+work back to the Apache NiFi community so that others can make use of it.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Several blog postings have also been added to the Apache NiFi blog site:
+<a href="https://blogs.apache.org/nifi/" target="_blank" rel="noopener">https://blogs.apache.org/nifi/</a></p>
+</div>
+<div class="paragraph">
+<p>In addition to the blog and guides provided here, you can browse the different
+<a href="https://nifi.apache.org/mailing_lists.html" target="_blank" rel="noopener">NiFi Mailing Lists</a> or send an e-mail to one of the mailing lists at
+<a href="mailto:users@nifi.apache.org">users@nifi.apache.org</a> or
+<a href="mailto:dev@nifi.apache.org">dev@nifi.apache.org</a>.</p>
+</div>
+<div class="paragraph">
+<p>Many of the members of the NiFi community are also available on Twitter and actively monitor for tweets that mention @apachenifi.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-11-22 19:22:01 -0600
+</div>
+</div>
+</body>
+</html>
