@@ -177,6 +177,49 @@
 
 <div class="row">
     <div class="large-12 columns features">
+        <h2><a id="1.24.0" href="#1.24.0">Fixed in Apache NiFi 1.24.0</a></h2>
+    </div>
+</div>
+<!-- Vulnerabilities -->
+<div class="row">
+    <div class="large-12 columns features">
+        <h2><a id="1.24.0-vulnerabilities" href="#1.24.0-vulnerabilities">Vulnerabilities</a></h2>
+    </div>
+</div>
+<div class="row" style="background-color: aliceblue">
+    <div class="large-12 columns">
+        <p><a id="CVE-2023-49145" href="#CVE-2023-49145"><strong>CVE-2023-49145</strong></a>: Improper Neutralization of Input in Advanced User Interface for Jolt</p>
+        <p>Severity: <strong>High</strong></p>
+        <p>Versions Affected:</p>
+        <ul>
+            <li>Apache NiFi 0.7.0 - 1.23.2</li>
+        </ul>
+        </p>
+        <p>
+            Apache NiFi 0.7.0 through 1.23.2 include the JoltTransformJSON
+            Processor, which provides an advanced configuration user interface that
+            is vulnerable to DOM-based cross-site scripting. If an authenticated
+            user, who is authorized to configure a JoltTransformJSON Processor,
+            visits a crafted URL, then arbitrary
+            JavaScript code can be executed within the session context of the
+            authenticated user. Upgrading to Apache NiFi 1.24.0 or 2.0.0-M1 is the recommended
+            mitigation.
+        </p>
+        <p>Credit: This issue was discovered by Dr. Oliver Matula, DB Systel GmbH</p>
+        <p>CVE Link: <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-49145" target="_blank">Mitre Database CVE-2023-49145</a></p>
+        <p>
+            NiFi Jira: <a href="https://issues.apache.org/jira/browse/NIFI-12403" target="_blank">NIFI-12403</a>
+        </p>
+        <p>
+            NiFi PR: <a href="https://github.com/apache/nifi/pull/8060" target="_blank">PR 8060</a>
+        </p>
+        <p>Released: 2023-11-27</p>
+    </div>
+</div>
+<div class="medium-space"></div>
+
+<div class="row">
+    <div class="large-12 columns features">
         <h2><a id="1.23.1" href="#1.23.1">Fixed in Apache NiFi 1.23.1</a></h2>
     </div>
 </div>
