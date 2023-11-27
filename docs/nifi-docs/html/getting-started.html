@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="Apache NiFi Team">
 <title>Getting Started with Apache NiFi</title>
 <style>
@@ -1465,7 +1465,10 @@ are currently queued across the entire flow, as well as the total size of those 
 </div>
 <div class="paragraph">
 <p>If the NiFi instance is in a cluster, we will also see an indicator here telling us how many nodes are in the cluster and how many are currently
-connected. In this case, the number of active threads and the queue size are indicative of all the sum of all nodes that are currently connected.</p>
+connected. In this case, the number of active threads and the queue size are indicative of all the sum of all nodes that are currently connected.
+It is important to note that active threads only captures threads by objects that are in the graph (processors, processor groups, remote processor groups, funnels, etc.).
+When broken down by node in the cluster (Global Menu &#8594; Cluster), the active thread count is more comprehensive and includes these as well as any
+other threads (reporting tasks, controller services, etc.)</p>
 </div>
 </div>
 <div class="sect2">
@@ -1663,7 +1666,7 @@ work back to the Apache NiFi community so that others can make use of it.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-21 13:15:46 -0500
+Last updated 2023-11-23 12:34:19 +0100
 </div>
 </div>
 </body>

@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.23.2</title>
+        <title>NiFi Rest API-1.24.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.23.2</div>
+            <div class="sub-title">NiFi Rest API 1.24.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -14406,6 +14406,254 @@
                     
                 </td>
                 <td>NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.</td>
+            </tr>
+            
+            <tr>
+                <td>401</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client could not be authenticated.</td>
+            </tr>
+            
+            <tr>
+                <td>403</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client is not authorized to make this request.</td>
+            </tr>
+            
+            <tr>
+                <td>409</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful.</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="title">Authorization</div>
+    <div class="authorization details">
+        
+            
+            <div>Read - /flow</div>
+            
+        
+    </div>
+</div>
+        </div>
+    
+    
+    
+</div>
+            
+                
+<div class="endpoints">
+    <span class="path hidden">/flow/reporting-tasks/download</span>
+    
+    
+        <div class="endpoint get">
+            <div class="operation-handle">
+                <div class="method">GET</div>
+                <div class="path mono"></div>
+                <div class="summary">Download a snapshot of the given reporting tasks and any controller services they use</div>
+                <div class="clear"></div>
+            </div>
+            
+<div class="operation hidden">
+    
+    <div class="title">Request</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
+        
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+    
+        <tr>
+            <td>reportingTaskId</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>Specifies a reporting task id to export. If not specified, all reporting tasks will be exported.</td>
+        </tr>
+    
+    
+        </tbody>
+    </table>
+    
+    <div class="title">Response</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">produces:</div><div class="mono">application/json</div><div class="clear"></div></div>
+        
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>200</td>
+                <td>
+                    
+                        
+                    
+                </td>
+                <td>successful operation</td>
+            </tr>
+            
+            <tr>
+                <td>401</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client could not be authenticated.</td>
+            </tr>
+            
+            <tr>
+                <td>403</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client is not authorized to make this request.</td>
+            </tr>
+            
+            <tr>
+                <td>409</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful.</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="title">Authorization</div>
+    <div class="authorization details">
+        
+            
+            <div>Read - /flow</div>
+            
+        
+    </div>
+</div>
+        </div>
+    
+    
+    
+</div>
+            
+                
+<div class="endpoints">
+    <span class="path hidden">/flow/reporting-tasks/snapshot</span>
+    
+    
+        <div class="endpoint get">
+            <div class="operation-handle">
+                <div class="method">GET</div>
+                <div class="path mono"></div>
+                <div class="summary">Get a snapshot of the given reporting tasks and any controller services they use</div>
+                <div class="clear"></div>
+            </div>
+            
+<div class="operation hidden">
+    
+    <div class="title">Request</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
+        
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+    
+        <tr>
+            <td>reportingTaskId</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>Specifies a reporting task id to export. If not specified, all reporting tasks will be exported.</td>
+        </tr>
+    
+    
+        </tbody>
+    </table>
+    
+    <div class="title">Response</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">produces:</div><div class="mono">application/json</div><div class="clear"></div></div>
+        
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>200</td>
+                <td>
+                    
+                        <a class="type-link" href="javascript:void(0);">VersionedReportingTaskSnapshot</a>
+                    
+                </td>
+                <td>successful operation</td>
             </tr>
             
             <tr>
@@ -42072,7 +42320,7 @@
                     <td>optional</td>
                     <td>The timezone of the NiFi instance.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -42220,7 +42468,7 @@
                     <td>optional</td>
                     <td>Indicates whether or not this NiFi supports user login.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -42975,7 +43223,7 @@
                     <td>optional</td>
                     <td>The user identity.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -42991,7 +43239,7 @@
                     <td>optional</td>
                     <td>The user access status.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -43007,7 +43255,7 @@
                     <td>optional</td>
                     <td>Additional details about the user access status.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -43085,7 +43333,7 @@
                     <td>optional</td>
                     <td>Token Expiration
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -43404,7 +43652,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -43972,7 +44220,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -44845,7 +45093,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -47342,7 +47590,7 @@
                     <td>optional</td>
                     <td>The relationships that the source of the connection currently supports.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -47486,7 +47734,7 @@
                     <td>optional</td>
                     <td>The current status of the Connection's Load Balancing Activities. Status can indicate that Load Balancing is not configured for the connection, that Load Balancing is configured but inactive (not currently transferring data to another node), or that Load Balancing is configured and actively transferring data to another node.
                          Allowable values: LOAD_BALANCE_NOT_CONFIGURED, LOAD_BALANCE_INACTIVE, LOAD_BALANCE_ACTIVE
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -47543,7 +47791,7 @@
                     <td>optional</td>
                     <td>Details about the connection
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -47559,7 +47807,7 @@
                     <td>optional</td>
                     <td>Aggregate values for all nodes in the cluster, or for this instance if not clustered
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -47575,7 +47823,7 @@
                     <td>optional</td>
                     <td>A list of values for each node in the cluster, if clustered.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -48153,7 +48401,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -48556,7 +48804,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -49162,7 +49410,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -50300,7 +50548,7 @@
                     <td>optional</td>
                     <td>Indicates whether the ControllerService is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the ControllerService is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -51010,7 +51258,7 @@
                     <td>optional</td>
                     <td>The status for this ControllerService.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -51588,7 +51836,7 @@
                     <td>optional</td>
                     <td>The run status of this ControllerService
                          Allowable values: ENABLED, ENABLING, DISABLED, DISABLING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -51604,7 +51852,7 @@
                     <td>optional</td>
                     <td>Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -53972,7 +54220,7 @@
                     <td>optional</td>
                     <td>The current state of the Process Group, as it relates to the Versioned Flow
                          Allowable values: LOCALLY_MODIFIED, STALE, LOCALLY_MODIFIED_AND_STALE, UP_TO_DATE, SYNC_FAILURE
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -54084,7 +54332,7 @@
                     <td>optional</td>
                     <td>Whether this NiFi supports a managed authorizer. Managed authorizers can visualize users, groups, and policies in the UI.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -54100,7 +54348,7 @@
                     <td>optional</td>
                     <td>Whether this NiFi supports a configurable authorizer.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -54116,7 +54364,7 @@
                     <td>optional</td>
                     <td>Whether this NiFi supports configurable users and groups.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -54132,7 +54380,7 @@
                     <td>optional</td>
                     <td>The interval in seconds between the automatic NiFi refresh requests.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -55562,7 +55810,7 @@
                     <td>optional</td>
                     <td>Indicates whether the Processor is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Processor is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -55582,22 +55830,6 @@
                 </tr>
             
                 <tr>
-                    <td>extensionMissing</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>Whether the underlying extension is missing.
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>multipleVersionsAvailable</td>
                     <td>
                         
@@ -55609,6 +55841,22 @@
                     </td>
                     <td>optional</td>
                     <td>Whether the flow registry client has multiple versions available.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>extensionMissing</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether the underlying extension is missing.
                         
                         </td>
                 </tr>
@@ -55635,8 +55883,8 @@
     "validationErrors": ["value"]<span class="comma">,</span>
     "validationStatus": "value"<span class="comma">,</span>
     "annotationData": "value"<span class="comma">,</span>
-    "extensionMissing": true<span class="comma">,</span>
     "multipleVersionsAvailable": true<span class="comma">,</span>
+    "extensionMissing": true<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -59182,7 +59430,7 @@
                     <td>optional</td>
                     <td>The id of the node.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59198,7 +59446,7 @@
                     <td>optional</td>
                     <td>The node's host/ip address.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59214,7 +59462,7 @@
                     <td>optional</td>
                     <td>The port the node is listening for API requests.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59246,7 +59494,7 @@
                     <td>optional</td>
                     <td>the time of the nodes's last heartbeat.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59262,7 +59510,7 @@
                     <td>optional</td>
                     <td>The time of the node's last connection request.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59278,7 +59526,7 @@
                     <td>optional</td>
                     <td>The roles of this node.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59294,7 +59542,7 @@
                     <td>optional</td>
                     <td>The active threads for the NiFi on the node.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59310,7 +59558,7 @@
                     <td>optional</td>
                     <td>The queue the NiFi on the node.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59326,7 +59574,7 @@
                     <td>optional</td>
                     <td>The node's events.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -59342,7 +59590,7 @@
                     <td>optional</td>
                     <td>The time at which this Node was last refreshed.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -60376,11 +60624,11 @@
                 </tr>
             
                 <tr>
-                    <td>inputStream</td>
+                    <td>clientResponse</td>
                     <td>
                         
                             
-                                <a class="type-link" href="javascript:void(0);">InputStream</a>
+                                <a class="type-link" href="javascript:void(0);">Response</a>
                             
                             
                         
@@ -60398,22 +60646,6 @@
                             
                             
                                 integer (int32)
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                        
-                        </td>
-                </tr>
-            
-                <tr>
-                    <td>clientResponse</td>
-                    <td>
-                        
-                            
-                                <a class="type-link" href="javascript:void(0);">Response</a>
-                            
                             
                         
                     </td>
@@ -60455,6 +60687,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>inputStream</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">InputStream</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -60465,11 +60713,11 @@
     "throwable": <span class="nested collapsed"><span class="nested-id hidden">Throwable</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
-    "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
-    "status": 0<span class="comma">,</span>
     "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
     "is2xx": true<span class="comma">,</span>
     "is5xx": true<span class="comma">,</span>
+    "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -60820,7 +61068,7 @@
                     <td>optional</td>
                     <td>The Process Groups that are bound to this Parameter Context
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -60868,7 +61116,7 @@
                     <td>optional</td>
                     <td>The ID the Parameter Context.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -61212,7 +61460,7 @@
                     <td>optional</td>
                     <td>The Parameter Context that is being operated on. This may not be populated until the request has successfully completed.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61228,7 +61476,7 @@
                     <td>optional</td>
                     <td>The components that are referenced by the update.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -61268,7 +61516,7 @@
                     <td>optional</td>
                     <td>The ID of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61284,7 +61532,7 @@
                     <td>optional</td>
                     <td>The URI for the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61300,7 +61548,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was submitted
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61316,7 +61564,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was last updated
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61332,7 +61580,7 @@
                     <td>optional</td>
                     <td>Whether or not the request is completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61348,7 +61596,7 @@
                     <td>optional</td>
                     <td>The reason for the request failing, or null if the request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61364,7 +61612,7 @@
                     <td>optional</td>
                     <td>A value between 0 and 100 (inclusive) indicating how close the request is to completion
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61380,7 +61628,7 @@
                     <td>optional</td>
                     <td>A description of the current state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61396,7 +61644,7 @@
                     <td>optional</td>
                     <td>The steps that are required in order to complete the request, along with the status of each
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61412,7 +61660,7 @@
                     <td>optional</td>
                     <td>The Parameter Context that is being operated on. This may not be populated until the request has successfully completed.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61428,7 +61676,7 @@
                     <td>optional</td>
                     <td>The components that are referenced by the update.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -61531,7 +61779,7 @@
                     <td>optional</td>
                     <td>Explanation of what happens in this step
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61547,7 +61795,7 @@
                     <td>optional</td>
                     <td>Whether or not this step has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61563,7 +61811,7 @@
                     <td>optional</td>
                     <td>An explanation of why this step failed, or null if this step did not fail
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -61603,7 +61851,7 @@
                     <td>optional</td>
                     <td>The ID of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61619,7 +61867,7 @@
                     <td>optional</td>
                     <td>The URI for the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61635,7 +61883,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was submitted
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61651,7 +61899,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was last updated
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61667,7 +61915,7 @@
                     <td>optional</td>
                     <td>Whether or not the request is completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61683,7 +61931,7 @@
                     <td>optional</td>
                     <td>The reason for the request failing, or null if the request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61699,7 +61947,7 @@
                     <td>optional</td>
                     <td>A value between 0 and 100 (inclusive) indicating how close the request is to completion
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61715,7 +61963,7 @@
                     <td>optional</td>
                     <td>A description of the current state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61731,7 +61979,7 @@
                     <td>optional</td>
                     <td>The steps that are required in order to complete the request, along with the status of each
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61763,7 +62011,7 @@
                     <td>optional</td>
                     <td>The Validation Results that were calculated for each component. This value may not be set until the request completes.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -61866,7 +62114,7 @@
                     <td>optional</td>
                     <td>Explanation of what happens in this step
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61882,7 +62130,7 @@
                     <td>optional</td>
                     <td>Whether or not this step has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -61898,7 +62146,7 @@
                     <td>optional</td>
                     <td>An explanation of why this step failed, or null if this step did not fail
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -61954,7 +62202,7 @@
                     <td>optional</td>
                     <td>The current time on the system.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -62121,7 +62369,7 @@
                     <td>optional</td>
                     <td>Whether or not the Parameter is inherited from another context
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -62167,7 +62415,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can write a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62313,7 +62561,7 @@
                     <td>optional</td>
                     <td>The ID of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62329,7 +62577,7 @@
                     <td>optional</td>
                     <td>The URI for the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62345,7 +62593,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was submitted
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62361,7 +62609,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was last updated
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62377,7 +62625,7 @@
                     <td>optional</td>
                     <td>Whether or not the request is completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62393,7 +62641,7 @@
                     <td>optional</td>
                     <td>The reason for the request failing, or null if the request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62409,7 +62657,7 @@
                     <td>optional</td>
                     <td>A value between 0 and 100 (inclusive) indicating how close the request is to completion
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62425,7 +62673,7 @@
                     <td>optional</td>
                     <td>A description of the current state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62441,7 +62689,7 @@
                     <td>optional</td>
                     <td>The steps that are required in order to complete the request, along with the status of each
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62457,7 +62705,7 @@
                     <td>optional</td>
                     <td>The Parameter Provider that is being operated on. This may not be populated until the request has successfully completed.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62473,7 +62721,7 @@
                     <td>optional</td>
                     <td>The Parameter Contexts updated by this Parameter Provider. This may not be populated until the request has successfully completed.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62489,7 +62737,7 @@
                     <td>optional</td>
                     <td>The components that are referenced by the update.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -62576,7 +62824,7 @@
                     <td>optional</td>
                     <td>Explanation of what happens in this step
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62592,7 +62840,7 @@
                     <td>optional</td>
                     <td>Whether or not this step has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -62608,7 +62856,7 @@
                     <td>optional</td>
                     <td>An explanation of why this step failed, or null if this step did not fail
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -63081,7 +63329,7 @@
                     <td>optional</td>
                     <td>The Parameter Contexts that reference this Parameter Provider
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -63145,7 +63393,7 @@
                     <td>optional</td>
                     <td>Indicates whether the Parameter Provider is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Parameter Provider is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -64140,7 +64388,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -64156,7 +64404,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can write a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -64924,7 +65172,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -65220,7 +65468,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -65576,7 +65824,7 @@
                     <td>optional</td>
                     <td>The variables that are configured for the Process Group. Note that this map contains only those variables that are defined on this Process Group and not any variables that are defined in the parent Process Group, etc. I.e., this Map will not contain all variables that are accessible by components in this Process Group by rather only the variables that are defined for this Process Group itself.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -65976,7 +66224,7 @@
                     <td>optional</td>
                     <td>The number of input ports in the process group.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -65992,7 +66240,7 @@
                     <td>optional</td>
                     <td>The number of output ports in the process group.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -66208,7 +66456,7 @@
                     <td>optional</td>
                     <td>Returns the Versioned Flow that describes the contents of the Versioned Flow to be imported
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66320,7 +66568,7 @@
                     <td>optional</td>
                     <td>The current state of the Process Group, as it relates to the Versioned Flow
                          Allowable values: LOCALLY_MODIFIED, STALE, LOCALLY_MODIFIED_AND_STALE, UP_TO_DATE, SYNC_FAILURE
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66496,7 +66744,7 @@
                     <td>optional</td>
                     <td>The number of input ports in the process group.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66512,7 +66760,7 @@
                     <td>optional</td>
                     <td>The number of output ports in the process group.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -66900,7 +67148,7 @@
                     <td>optional</td>
                     <td>The unique ID of this request.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66932,7 +67180,7 @@
                     <td>optional</td>
                     <td>The URI for future requests to this drop request.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66948,7 +67196,7 @@
                     <td>optional</td>
                     <td>The last time this request was updated.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66964,7 +67212,7 @@
                     <td>optional</td>
                     <td>Whether or not this request has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66980,7 +67228,7 @@
                     <td>optional</td>
                     <td>An explanation of why this request failed, or null if this request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -66996,7 +67244,7 @@
                     <td>optional</td>
                     <td>The percentage complete for the request, between 0 and 100
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -67012,7 +67260,7 @@
                     <td>optional</td>
                     <td>The state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -67089,7 +67337,7 @@
                     <td>optional</td>
                     <td>Returns the Versioned Flow to replace with
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -67251,7 +67499,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -67418,7 +67666,7 @@
                     <td>optional</td>
                     <td>The current state of the Process Group, as it relates to the Versioned Flow
                          Allowable values: LOCALLY_MODIFIED, STALE, LOCALLY_MODIFIED_AND_STALE, UP_TO_DATE, SYNC_FAILURE
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -67955,7 +68203,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -68353,7 +68601,7 @@
                     <td>optional</td>
                     <td>Determines whether the FlowFile should be penalized or the processor should be yielded between retries.
                          Allowable values: PENALIZE_FLOWFILE, YIELD_PROCESSOR
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -68580,7 +68828,7 @@
                     <td>optional</td>
                     <td>The available relationships that the processor currently supports.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -68804,7 +69052,7 @@
                     <td>optional</td>
                     <td>Indicates whether the Processor is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Processor is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -70570,7 +70818,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -71036,7 +71284,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -75897,7 +76145,7 @@
                     <td>optional</td>
                     <td>Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -75991,7 +76239,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -76287,7 +76535,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -77140,7 +77388,7 @@
                     <td>optional</td>
                     <td>Indicates whether the Reporting Task is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the Reporting Task is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -77835,7 +78083,7 @@
                     <td>optional</td>
                     <td>The status for this ReportingTask.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -77954,7 +78202,7 @@
                     <td>optional</td>
                     <td>The run status of this ReportingTask
                          Allowable values: RUNNING, STOPPED, DISABLED
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -77970,7 +78218,7 @@
                     <td>optional</td>
                     <td>Indicates whether the component is valid, invalid, or still in the process of validating (i.e., it is unknown whether or not the component is valid)
                          Allowable values: VALID, INVALID, VALIDATING
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -78378,7 +78626,7 @@
             </tr>
             
                 <tr>
-                    <td>metadata</td>
+                    <td>entity</td>
                     <td>
                         
                             
@@ -78410,7 +78658,7 @@
                 </tr>
             
                 <tr>
-                    <td>entity</td>
+                    <td>metadata</td>
                     <td>
                         
                             
@@ -78428,11 +78676,11 @@
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
-    "metadata": <span class="open-object">&#123;
+    "entity": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
     "status": 0<span class="comma">,</span>
-    "entity": <span class="open-object">&#123;
+    "metadata": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
 &#125;</span></code>
@@ -78553,7 +78801,7 @@
                     <td>optional</td>
                     <td>The user that last modified the flow.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -80248,7 +80496,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can read a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -82465,7 +82713,7 @@
                     <td>optional</td>
                     <td>The groups to which the user belongs. This field is read only and it provided for convenience.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -82481,7 +82729,7 @@
                     <td>optional</td>
                     <td>The access policies this user belongs to.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -82795,7 +83043,7 @@
                     <td>optional</td>
                     <td>The access policies this user group belongs to. This field was incorrectly defined as an AccessPolicyEntity. For compatibility reasons the field will remain of this type, however only the fields that are present in the AccessPolicySummaryEntity will be populated here.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -83122,7 +83370,7 @@
                     <td>optional</td>
                     <td>The ID of the Process Group where this Variable is defined
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83138,7 +83386,7 @@
                     <td>optional</td>
                     <td>A set of all components that will be affected if the value of this variable is changed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -83195,7 +83443,7 @@
                     <td>optional</td>
                     <td>Indicates whether the user can write a given resource.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -83361,7 +83609,7 @@
                     <td>optional</td>
                     <td>The ID of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83377,7 +83625,7 @@
                     <td>optional</td>
                     <td>The URI for the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83393,7 +83641,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was submitted
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83409,7 +83657,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was last updated
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83425,7 +83673,7 @@
                     <td>optional</td>
                     <td>Whether or not the request is completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83441,7 +83689,7 @@
                     <td>optional</td>
                     <td>The reason for the request failing, or null if the request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83457,7 +83705,7 @@
                     <td>optional</td>
                     <td>A value between 0 and 100 (inclusive) indicating how close the request is to completion
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83473,7 +83721,7 @@
                     <td>optional</td>
                     <td>A description of the current state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83489,7 +83737,7 @@
                     <td>optional</td>
                     <td>The steps that are required in order to complete the request, along with the status of each
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83521,7 +83769,7 @@
                     <td>optional</td>
                     <td>A set of all components that will be affected if the value of this variable is changed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -83624,7 +83872,7 @@
                     <td>optional</td>
                     <td>Explanation of what happens in this step
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83640,7 +83888,7 @@
                     <td>optional</td>
                     <td>Whether or not this step has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83656,7 +83904,7 @@
                     <td>optional</td>
                     <td>An explanation of why this step failed, or null if this step did not fail
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -83696,7 +83944,7 @@
                     <td>optional</td>
                     <td>The ID of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83712,7 +83960,7 @@
                     <td>optional</td>
                     <td>The URI for the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83728,7 +83976,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was submitted
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83744,7 +83992,7 @@
                     <td>optional</td>
                     <td>The timestamp of when the request was last updated
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83760,7 +84008,7 @@
                     <td>optional</td>
                     <td>Whether or not the request is completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83776,7 +84024,7 @@
                     <td>optional</td>
                     <td>The reason for the request failing, or null if the request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83792,7 +84040,7 @@
                     <td>optional</td>
                     <td>A value between 0 and 100 (inclusive) indicating how close the request is to completion
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83808,7 +84056,7 @@
                     <td>optional</td>
                     <td>A description of the current state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83824,7 +84072,7 @@
                     <td>optional</td>
                     <td>The steps that are required in order to complete the request, along with the status of each
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83888,7 +84136,7 @@
                     <td>optional</td>
                     <td>The Results of the verification
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -83980,7 +84228,7 @@
                     <td>optional</td>
                     <td>Explanation of what happens in this step
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -83996,7 +84244,7 @@
                     <td>optional</td>
                     <td>Whether or not this step has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -84012,7 +84260,7 @@
                     <td>optional</td>
                     <td>An explanation of why this step failed, or null if this step did not fail
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -84175,7 +84423,7 @@
                     <td>optional</td>
                     <td>The name of the registry that the flow is stored in
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -84207,7 +84455,7 @@
                     <td>optional</td>
                     <td>The name of the bucket that the flow is stored in
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -84303,7 +84551,7 @@
                     <td>optional</td>
                     <td>The current state of the Process Group, as it relates to the Versioned Flow
                          Allowable values: LOCALLY_MODIFIED, STALE, LOCALLY_MODIFIED_AND_STALE, UP_TO_DATE, SYNC_FAILURE
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -84319,7 +84567,7 @@
                     <td>optional</td>
                     <td>Explanation of why the group is in the specified state
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -85789,7 +86037,7 @@
                     <td>optional</td>
                     <td>The unique ID of this request.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85821,7 +86069,7 @@
                     <td>optional</td>
                     <td>The URI for future requests to this drop request.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85837,7 +86085,7 @@
                     <td>optional</td>
                     <td>The last time this request was updated.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85853,7 +86101,7 @@
                     <td>optional</td>
                     <td>Whether or not this request has completed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85869,7 +86117,7 @@
                     <td>optional</td>
                     <td>An explanation of why this request failed, or null if this request has not failed
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85885,7 +86133,7 @@
                     <td>optional</td>
                     <td>The percentage complete for the request, between 0 and 100
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85901,7 +86149,7 @@
                     <td>optional</td>
                     <td>The state of the request
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
                 <tr>
@@ -85917,7 +86165,7 @@
                     <td>optional</td>
                     <td>The VersionControlInformation that describes where the Versioned Flow is located; this may not be populated until the request is completed.
                         
-                        </td>
+                         This property is read only.</td>
                 </tr>
             
         </table>
@@ -86677,22 +86925,6 @@
                 </tr>
             
                 <tr>
-                    <td>componentType</td>
-                    <td>
-                        
-                            
-                            
-                                string
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>synchronized</td>
                     <td>
                         
@@ -86705,6 +86937,22 @@
                     <td>optional</td>
                     <td>True if the parameter provider is set and the context should receive updates when its parameters are next fetched
                         
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>componentType</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
                         </td>
                 </tr>
             
@@ -86737,8 +86985,8 @@
     "description": "value"<span class="comma">,</span>
     "parameterProvider": "value"<span class="comma">,</span>
     "parameterGroupName": "value"<span class="comma">,</span>
-    "componentType": "value"<span class="comma">,</span>
     "synchronized": true<span class="comma">,</span>
+    "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -87303,22 +87551,6 @@
                 </tr>
             
                 <tr>
-                    <td>flowFileConcurrency</td>
-                    <td>
-                        
-                            
-                            
-                                string
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>The configured FlowFile Concurrency for the Process Group
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>flowFileOutboundPolicy</td>
                     <td>
                         
@@ -87330,6 +87562,22 @@
                     </td>
                     <td>optional</td>
                     <td>The FlowFile Outbound Policy for the Process Group
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>flowFileConcurrency</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The configured FlowFile Concurrency for the Process Group
                         
                         </td>
                 </tr>
@@ -87392,8 +87640,8 @@
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
     "logFileSuffix": "value"<span class="comma">,</span>
-    "flowFileConcurrency": "value"<span class="comma">,</span>
     "flowFileOutboundPolicy": "value"<span class="comma">,</span>
+    "flowFileConcurrency": "value"<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
@@ -88574,6 +88822,341 @@
     "outputPorts": [<span class="nested collapsed"><span class="nested-id hidden">VersionedRemoteGroupPort</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="VersionedReportingTask" class="type hidden">
+    <h3>VersionedReportingTask</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>identifier</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The component's unique identifier
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>instanceIdentifier</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The instance ID of an existing component that is described by this VersionedComponent, or null if this is not mapped to an instantiated component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>name</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The component's name
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>comments</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The user-supplied comments for the component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>position</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">Position</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The component's position on the graph
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>type</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The type of the extension component
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>bundle</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">Bundle</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Information about the bundle from which the component came
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>properties</td>
+                    <td>
+                        
+                            
+                            
+                                object
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The properties for the component. Properties whose value is not set will only contain the property name.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>propertyDescriptors</td>
+                    <td>
+                        
+                            
+                            
+                                object
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The property descriptors for the component.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>annotationData</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The annotation for the reporting task. This is how the custom UI relays configuration to the reporting task.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>scheduledState</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Indicates the scheduled state for the Reporting Task
+                         Allowable values: ENABLED, DISABLED, RUNNING
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>schedulingPeriod</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The frequency with which to schedule the reporting task. The format of the value will depend on the value of schedulingStrategy.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>schedulingStrategy</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Indicates scheduling strategy that should dictate how the reporting task is triggered.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>componentType</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>groupIdentifier</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The ID of the Process Group that this component belongs to
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "identifier": "value"<span class="comma">,</span>
+    "instanceIdentifier": "value"<span class="comma">,</span>
+    "name": "value"<span class="comma">,</span>
+    "comments": "value"<span class="comma">,</span>
+    "position": <span class="nested collapsed"><span class="nested-id hidden">Position</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "type": "value"<span class="comma">,</span>
+    "bundle": <span class="nested collapsed"><span class="nested-id hidden">Bundle</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "properties": <span class="open-object">&#123;
+        "name": "value"
+    &#125;</span><span class="comma">,</span>
+    "propertyDescriptors": <span class="open-object">&#123;
+        "name": <span class="nested collapsed"><span class="nested-id hidden">VersionedPropertyDescriptor</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>
+    &#125;</span><span class="comma">,</span>
+    "annotationData": "value"<span class="comma">,</span>
+    "scheduledState": "value"<span class="comma">,</span>
+    "schedulingPeriod": "value"<span class="comma">,</span>
+    "schedulingStrategy": "value"<span class="comma">,</span>
+    "componentType": "value"<span class="comma">,</span>
+    "groupIdentifier": "value"<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="VersionedReportingTaskSnapshot" class="type hidden">
+    <h3>VersionedReportingTaskSnapshot</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>reportingTasks</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">VersionedReportingTask</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The reporting tasks
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>controllerServices</td>
+                    <td>
+                        
+                            
+                                array[<a class="type-link" href="javascript:void(0);">VersionedControllerService</a>]
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The controller services
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "reportingTasks": [<span class="nested collapsed"><span class="nested-id hidden">VersionedReportingTask</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+    "controllerServices": [<span class="nested collapsed"><span class="nested-id hidden">VersionedControllerService</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>

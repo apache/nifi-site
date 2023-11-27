@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.8">
+<meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="Apache NiFi Team">
 <title>NiFi System Administrator&#8217;s Guide</title>
 <style>
@@ -663,7 +663,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="administration-guide.html#upgrade-recommendations">Upgrade Recommendations</a></li>
 <li><a href="administration-guide.html#core-properties">Core Properties<br></a></li>
 <li><a href="administration-guide.html#state-management">State Management<br></a></li>
-<li><a href="administration-guide.html#h2-settings">H2 Settings</a></li>
+<li><a href="administration-guide.html#database-settings">Database Settings</a></li>
 <li><a href="administration-guide.html#repository-encryption-properties">Repository Encryption</a></li>
 <li><a href="administration-guide.html#flowfile-repository">FlowFile Repository</a></li>
 <li><a href="administration-guide.html#write-ahead-flowfile-repository">Write Ahead FlowFile Repository</a></li>
@@ -2557,7 +2557,15 @@ will return those external users and groups.  This provides administrators anoth
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authority Endpoint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The endpoint of the Azure AD login. This can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Endpoints. For example, the global authority endpoint is <a href="https://login.microsoftonline.com" class="bare">https://login.microsoftonline.com</a>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The endpoint of the Azure AD login. This can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Endpoints. For example, the global authority endpoint is <code><a href="https://login.microsoftonline.com" class="bare">https://login.microsoftonline.com</a></code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Graph Endpoint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The endpoint of the Azure Graph API, with the version identifier attached. The base url can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Endpoints. For example, the global graph endpoint is <code><a href="https://graph.microsoft.com/v1.0" class="bare">https://graph.microsoft.com/v1.0</a></code>, which is also the default setting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Graph Scope</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The url for the Graph api scope.  See <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/scopes-oidc" class="bare">https://learn.microsoft.com/en-us/azure/active-directory/develop/scopes-oidc</a> for an explanation of scopes.  This usually only needs to be changed if you are connecting to a different <code>Graph Endpoint</code>.  The Azure global default scope is <code><a href="https://graph.microsoft.com/.default" class="bare">https://graph.microsoft.com/.default</a></code>, which is also the default setting.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Directory ID</code></p></td>
@@ -7544,9 +7552,9 @@ for components to persist state. See the <a href="administration-guide.html#stat
 </table>
 </div>
 <div class="sect2">
-<h3 id="h2-settings"><a class="anchor" href="administration-guide.html#h2-settings"></a>H2 Settings</h3>
+<h3 id="database-settings"><a class="anchor" href="administration-guide.html#database-settings"></a>Database Settings</h3>
 <div class="paragraph">
-<p>The H2 Settings section defines the settings for the H2 database, which keeps track of user access and flow controller history.</p>
+<p>The Database Settings section defines the settings for the internal database, which tracks flow configuration history.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -7561,10 +7569,6 @@ for components to persist state. See the <a href="administration-guide.html#stat
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.database.directory</code>*</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The location of the H2 database directory. The default value is <code>./database_repository</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.h2.url.append</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This property specifies additional arguments to add to the connection string for the H2 database. The default value should be used and should not be changed. It is: <code>;LOCK_TIMEOUT=25000;WRITE_DELAY=0;AUTO_SERVER=FALSE</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -10591,7 +10595,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-21 13:15:46 -0500
+Last updated 2023-11-23 12:34:19 +0100
 </div>
 </div>
 </body>
