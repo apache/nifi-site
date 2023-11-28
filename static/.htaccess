@@ -6,3 +6,6 @@ RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 
 # Redirect component documentation to specified version
 RewriteRule ^docs/nifi-docs/components/org\.apache\.nifi/([^\/]+?)/[^\/]+?/(.*)$ docs/nifi-docs/components/org.apache.nifi/$1/1.24.0/$2 [L]
+
+# Rewrite registry-security.html to security.html for merged tracking
+RewriteRule ^registry-security\.html$ security.html [L,R]
