@@ -20,6 +20,8 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 - Released: {{< param currentProjectVersionReleased >}}
   - [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
   - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
+- Minimum Requirements
+  - Java 21
 - Sources
   - {{< download-links label="Apache NiFi Sources" extension=source-release.zip >}}
 - Binaries 
@@ -33,6 +35,8 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 - Released: {{< param previousProjectVersionReleased >}}
   - [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}})
   - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
+- Minimum Requirements
+  - Java 8 Update 251
 - Sources
   - {{< download-links label="Apache NiFi Sources" extension=source-release.zip version=previous >}}
 - Binaries
