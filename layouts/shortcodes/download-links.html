@@ -23,9 +23,16 @@
   {{- $extension = . -}}
 {{- end -}}
 
-{{- $downloadFilePath := (print $downloadVersion "/" $project "-" $qualifier $downloadVersion "-" $extension) -}}
+{{- $downloadFilePath := (print $downloadVersion "/" $project "-" $qualifier $downloadVersion $extension) -}}
 
-<a href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}">{{ .Get "label" }} {{ $downloadVersion }}</a>
-[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.asc">OpenPGP</a>]
-[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha256">SHA-256</a>]
-[<a href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha512">SHA-512</a>]
+<div class="uk-margin-top download-links">
+  <a class="uk-button uk-button-primary uk-button-small" 
+    title="nifi-{{ $downloadVersion }}-source-release.zip" 
+    href="{{ $primaryDownloadUrl }}/{{ $downloadFilePath }}">{{ .Get "label" }} {{ $downloadVersion }}</a>
+  <a class="uk-button uk-button-default uk-button-small" 
+    href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.asc">OpenPGP</a>
+  <a class="uk-button uk-button-default uk-button-small" 
+    href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha256">SHA-256</a>
+  <a class="uk-button uk-button-default uk-button-small" 
+    href="{{ $secondaryDownloadUrl }}/{{ $downloadFilePath }}.sha512">SHA-512</a>
+</div>

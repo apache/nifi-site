@@ -1,0 +1,39 @@
+{{- $title := "" }}
+{{- $separator := " - " }}
+{{- $openGraphType := "website" }}
+{{- $openGraphTitle := .Site.Title }}
+{{- if and .Title (ne (trim (lower .Site.Title) "") (trim (lower .Title) "")) }}
+  {{- $title = .Title }}
+  {{- $openGraphType = "article" }}
+  {{- $openGraphTitle = .Title }}
+{{- end }}
+{{- $description := .Site.Params.description }}
+{{- if .Description }}
+  {{- $description = .Description }}
+{{- end }}
+{{- $keywords := .Site.Params.keywords }}
+{{- if .Params.tags }}
+  {{- $keywords = (delimit .Params.tags ",") }}
+{{- end }}
+<head>
+  <title>
+    {{- with $title -}}{{ . }}{{ $separator }}{{ end -}}
+    {{- .Site.Title -}}
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ $description }}">
+  <meta name="keywords" content="{{ $keywords }}">
+  <title>
+    {{- with $title -}}{{ . }}{{ $separator }}{{ end -}}
+    {{- .Site.Title -}}
+  </title>
+  <meta property="og:title" content="{{ $openGraphTitle }}">
+  <meta property="og:type" content="{{ $openGraphType }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:description" content="{{ $description }}">
+  <meta name="twitter:title" content="{{ .Title }}">
+  <link rel="icon" href="/images/apache-nifi-drop-logo.svg">
+  <link rel="stylesheet" href="/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  {{ partial "matomo.html" . -}}
+</head>
