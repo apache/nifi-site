@@ -1,35 +1,16 @@
 baseURL = "https://nifi.apache.org"
 title = "Apache NiFi"
-
+copyright = "The Apache Software Foundation"
 languageCode = "en"
-
-contentDir = "source"
-
-disablePathToLower = true
-uglyURLs = true
 enableRobotsTXT = true
 disableBrowserError = true
-timeout = 3000
-
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
-
-# Highlighting config. See https://help.farbox.com/pygments.html
-pygmentsCodeFences = true
-pygmentsUseClasses = false
-pygmentsStyle = "emacs"
-
-# Enable Git variables like commit, lastmod
+disableKinds = ["RSS"]
 enableGitInfo = true
+theme = "nifi"
+enableInlineShortcodes = true
 
 [markup.goldmark.renderer]
 unsafe = true
-
-[blackfriday]
-# hrefTargetBlank = true # We don't want everything opened in a new window
-fractions = false
-
-[frontmatter]
-date = ["date", ":filename", "publishDate", "lastmod"]
 
 [params]
 repositoryUrl = "https://github.com/apache/nifi"
@@ -42,6 +23,9 @@ assets = "assets"
 matomoSiteId = 28
 productionHost = "nifi.apache.org"
 
+apacheFoundationGroupsUrl = "https://projects.apache.org/json/foundation/groups.json"
+apacheFoundationPeopleNameUrl = "https://projects.apache.org/json/foundation/people_name.json"
+
 dynamicDownloadPathUrl = "https://www.apache.org/dyn/closer.lua?path=/nifi"
 downloadPathUrl = "https://downloads.apache.org/nifi"
 archiveDownloadPathUrl = "https://archive.apache.org/dist/nifi"
@@ -52,8 +36,76 @@ currentProjectVersionReleased = "2023-11-25"
 previousProjectVersion = "1.24.0"
 previousProjectVersionReleased = "2023-11-27"
 
-minifiCppCurrentProjectVersion = "0.15.0"
-minifiCppCurrentProjectVersionReleased = "2023-09-01"
-
-minifiCppPreviousProjectVersion = "0.14.0"
-minifiCppPreviousProjectVersionReleased = "2023-04-17"
+[menu]
+  [[menu.main]]
+    name = 'Wiki'
+    url = 'https://cwiki.apache.org/confluence/display/NIFI'
+    weight = 3
+    parent = 'Documentation'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Contributing'
+    url = 'https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide'
+    weight = 1
+    parent = 'Development'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Issues'
+    url = 'https://issues.apache.org/jira/browse/NIFI'
+    weight = 2
+    parent = 'Development'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Source'
+    url = 'https://github.com/apache/nifi'
+    weight = 3
+    parent = 'Development'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Team'
+    url = '/community'
+    weight = 3
+    parent = 'Community'
+  [[menu.main]]
+    name = 'Apache'
+    url = 'https://www.apache.org'
+  [[menu.main]]
+    name = 'Events'
+    url = 'https://apache.org/events/current-event'
+    parent = 'Apache'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'License'
+    url = 'https://www.apache.org/licenses'
+    parent = 'Apache'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Privacy'
+    url = 'https://privacy.apache.org/policies/privacy-policy-public.html'
+    parent = 'Apache'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Security'
+    url = 'https://www.apache.org/security/'
+    parent = 'Apache'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Sponsorship'
+    url = 'https://www.apache.org/foundation/sponsorship.html'
+    parent = 'Apache'
+    [menu.main.params]
+      external = true
+  [[menu.main]]
+    name = 'Thanks'
+    url = 'https://www.apache.org/foundation/thanks.html'
+    parent = 'Apache'
+    [menu.main.params]
+      external = true
