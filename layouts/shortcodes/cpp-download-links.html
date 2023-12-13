@@ -1,14 +1,9 @@
 {{- $primaryDownloadUrl := (.Site.Params.dynamicDownloadPathUrl) -}}
 {{- $secondaryDownloadUrl := (.Site.Params.downloadPathUrl) -}}
+{{- $downloadVersion := (.Site.Params.minifiCppCurrentProjectVersion) -}}
 
-{{- if eq (.Get "site") "archives" -}}
-  {{- $primaryDownloadUrl = (.Site.Params.archiveDownloadPathUrl) -}}
-  {{- $secondaryDownloadUrl = (.Site.Params.archiveDownloadPathUrl) -}}
-{{- end -}}
-
-{{- $downloadVersion := "" -}}
-{{- with .Get "version" -}}
-  {{- $downloadVersion = . -}}
+{{- if eq (.Get "version") "previous" -}}
+  {{- $downloadVersion = (.Site.Params.minifiCppPreviousProjectVersion) -}}
 {{- end -}}
 
 {{- $extension := "" -}}

@@ -10,86 +10,86 @@ or author documentation. Others are valuable as testers, submitting patches and 
 
 ### PMC Members
 
-| Apache Username | Name |
-| --------------- | ---- |
-| aboda | Arpad Boda |
-| afucs | Andre Fucs de Miranda |
-| aldrin | Aldrin Piri |
-| alopresto | Andy LoPresto |
-| andrewmlim | Andrew M. Lim |
-| bbende | Bryan Bende |
-| busbey | Sean Busbey |
-| danbress | Dan Bress |
-| devriesb | Brandon DeVries |
-| exceptionfactory | David Handermann |
-| ijokarumawak | Koji Kawamura |
-| jcarey | Jason Carey |
-| jeremydyer | Jeremy Dyer |
-| jfrazee | Joey Frazee |
-| joewitt | Joe Witt |
-| jskora | Joe Skora |
-| jvwing | James Wing |
-| kevdoran | Kevin Doran |
-| markap14 | Mark Payne |
-| mattyb149 | Matt Burgess |
-| mcgilman | Matt Gilman |
-| mosermw | Michael W Moser |
-| mthomsen | Mike Thomsen |
-| ozhurakousky | Oleg Zhurakousky |
-| phrocker | Marc Parisi |
-| pvillard | Pierre Villard |
-| scottyaslan | Scott Aslan |
-| szaszm | Marton Szasz |
-| taftster | Adam Taft |
-| tkurc | Tony Kurc |
-| turcsanyi | Peter Turcsanyi |
-| ymdavis | Yolanda Davis |
+| Apache Username  | Name                  |
+|------------------|-----------------------|
+| aboda            | Arpad Boda            |
+| afucs            | Andre Fucs de Miranda |
+| aldrin           | Aldrin Piri           |
+| alopresto        | Andy LoPresto         |
+| andrewmlim       | Andrew M. Lim         |
+| bbende           | Bryan Bende           |
+| busbey           | Sean Busbey           |
+| danbress         | Dan Bress             |
+| devriesb         | Brandon DeVries       |
+| exceptionfactory | David Handermann      |
+| ijokarumawak     | Koji Kawamura         |
+| jcarey           | Jason Carey           |
+| jeremydyer       | Jeremy Dyer           |
+| jfrazee          | Joey Frazee           |
+| joewitt          | Joe Witt              |
+| jskora           | Joe Skora             |
+| jvwing           | James Wing            |
+| kevdoran         | Kevin Doran           |
+| markap14         | Mark Payne            |
+| mattyb149        | Matt Burgess          |
+| mcgilman         | Matt Gilman           |
+| mosermw          | Michael W Moser       |
+| mthomsen         | Mike Thomsen          |
+| ozhurakousky     | Oleg Zhurakousky      |
+| phrocker         | Marc Parisi           |
+| pvillard         | Pierre Villard        |
+| scottyaslan      | Scott Aslan           |
+| szaszm           | Marton Szasz          |
+| taftster         | Adam Taft             |
+| tkurc            | Tony Kurc             |
+| turcsanyi        | Peter Turcsanyi       |
+| ymdavis          | Yolanda Davis         |
 
 ### Committers
 
-| Apache Username | Name |
-| --------------- | ---- |
-| adebreceni | Adam Debreceni |
-| aichrist | Andy I.C. |
-| amarkovics | Ádám Markovics |
-| bakaid | Dániel Bakai |
-| bqiu | Ben Qiu |
-| brosander | Bryan Rosander |
-| bsimon | Simon Bence |
-| chriss | Chris Sampson |
-| denes | Denes Arvay |
-| edbe | Ed Berezitsky |
-| fgerlits | Ferenc Gerlits |
-| greyp | Paul Grey |
-| jgresock | Joe Gresock |
-| kotarot | Kotaro Terada |
-| lordgamez | Gábor Gyimesi |
-| martinzink | Martin Zink |
-| mhogue | Mike Hogue |
-| mtien | Margot Tien |
-| otto | Otto Fowler |
-| rfellows | Rob Fellows |
-| rickysaltzer | Ricky Saltzer |
-| rmoran | Rob Moran |
-| thenatog | Nathan Gough |
-| toivoadams | Toivo Adams |
-| tpalfy | Tamas Palfy |
-| zenfenan | Sivaprasanna Sethuraman |
+| Apache Username | Name                    |
+|-----------------|-------------------------|
+| adebreceni      | Adam Debreceni          |
+| aichrist        | Andy I.C.               |
+| amarkovics      | Ádám Markovics          |
+| bakaid          | Dániel Bakai            |
+| bqiu            | Ben Qiu                 |
+| brosander       | Bryan Rosander          |
+| bsimon          | Simon Bence             |
+| chriss          | Chris Sampson           |
+| denes           | Denes Arvay             |
+| edbe            | Ed Berezitsky           |
+| fgerlits        | Ferenc Gerlits          |
+| greyp           | Paul Grey               |
+| jgresock        | Joe Gresock             |
+| kotarot         | Kotaro Terada           |
+| lordgamez       | Gábor Gyimesi           |
+| martinzink      | Martin Zink             |
+| mhogue          | Mike Hogue              |
+| mtien           | Margot Tien             |
+| otto            | Otto Fowler             |
+| rfellows        | Rob Fellows             |
+| rickysaltzer    | Ricky Saltzer           |
+| rmoran          | Rob Moran               |
+| thenatog        | Nathan Gough            |
+| toivoadams      | Toivo Adams             |
+| tpalfy          | Tamas Palfy             |
+| zenfenan        | Sivaprasanna Sethuraman |
 
 ### In Memoriam
 
-| Apache Username | Name |
-| --------------- | ---- |
-| jstorck | Jeff Storck |
+| Apache Username | Name        |
+|-----------------|-------------|
+| jstorck         | Jeff Storck |
 
 ### Emeritus Members
 
-| Apache Username | Name |
-| --------------- | ---- |
-| bimargulies | Benson Margulies |
-| jbarnabee | Jennifer Barnabee |
-| pwicks | Peter Wicks |
-| jpercivall | Joe Percivall |
+| Apache Username | Name              |
+|-----------------|-------------------|
+| bimargulies     | Benson Margulies  |
+| jbarnabee       | Jennifer Barnabee |
+| pwicks          | Peter Wicks       |
+| jpercivall      | Joe Percivall     |
 
 The team consists of Project Management Committee Members, Committers, and Contributors.
 

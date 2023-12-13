@@ -1,16 +1,10 @@
 ---
-title:     Apache NiFi MiNiFi System Administrator's Guide
+title: Apache NiFi MiNiFi Java System Administrator's Guide
 menu: minifi-topbar.html
 containerEnabled: true
 ---
 
-[Apache NiFi Team](dev@nifi.apache.org>)
-
-[MiNiFi Homepage](https://nifi.apache.org/minifi/index.html)
-
-This documentation is for MiNiFi 0.5.0.
-
-# Automatic Warm-Redeploy
+# Apache {{< project-label >}} MiNiFi System Administrator's Guide
 
 When many MiNiFi agents running on the edge, it may not be possible to manually stop, edit the *config.yml* and then restart every one every time their configuration needs to change. The Config Change Coordinator and its Ingestors were designed to automatically redeploy in response to a configuration update.
 
@@ -333,8 +327,8 @@ The *config.yml* in the `conf` directory is the main configuration file for cont
 and follows the YAML format laid out [here](http://www.yaml.org/).
 
 Alternatively, the MiNiFi Toolkit Converter can aid in creating a *config.yml* from a generated template exported from a NiFi instance.  This
-tool can be downloaded from https://nifi.apache.org/minifi/download.html under the "MiNiFi Toolkit Binaries" section.  Information on the toolkit's usage is
-available at https://nifi.apache.org/minifi/minifi-toolkit.html.
+tool can be downloaded from https://nifi.apache.org/minifi/minifi-java-download.html under the "MiNiFi Toolkit Binaries" section.  Information on the toolkit's usage is
+available at https://nifi.apache.org/minifi/minifi-java-toolkit.html.
 
 **Note:** Values for periods of time and data sizes must include the unit of measure,
 for example "10 sec" or "10 MB", not simply "10".

@@ -1,42 +1,12 @@
 ---
-title:     Apache NiFi MiNiFi Toolkit Guide
+title: Apache NiFi MiNiFi Toolkit Guide
 menu: minifi-topbar.html
 containerEnabled: true
 ---
 
-<!--
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
-      http://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
-# Apache NiFi - MiNiFi - Toolkit
-
-MiNiFi is a child project effort of Apache NiFi.  The MiNiFi toolkit aids in creating MiNiFi configuration files from exported NiFi templates.
-
-## Table of Contents
-
-- [Requirements](#requirements)
-- [Getting Started](#getting-started)
-- [Getting Help](#getting-help)
-- [Documentation](#documentation)
-- [License](#license)
-- [Export Control](#export-control)
-
-## Requirements
-* JRE 1.8
+# Apache {{< project-label >}} MiNiFi Toolkit
 
 ## Getting Started
-
-The latest version of the MiNiFi Toolkit Converter can be found at https://nifi.apache.org/minifi/download.html under the `MiNiFi Toolkit Binaries` section.
 
 After downloading the binary and extracting it, to run the MiNiFi Toolkit Converter:
 - Change directory to the location where you installed MiNiFi Toolkit and run it and view usage information
