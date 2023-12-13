@@ -23,4 +23,4 @@ If your primary concern is gathering and pushing data to downstream consumers wh
 
 ### Can I use MiNiFi Toolkit Converter for MiNiFi C++?
 
-Unfortunately due to differences in naming, properties and processor availability in MiNiFi C++ and NiFi, the MiNiFi Toolkit Converter is not recommended for MiNiFi C++.
+Unfortunately due to differences in naming, properties and processor availability in MiNiFi C++ and NiFi, the MiNiFi Toolkit Converter is not recommended for MiNiFi C++. To create a flow definition for MiNiFi C++, check out our [examples](https://github.com/apache/nifi-minifi-cpp/tree/main/examples).
