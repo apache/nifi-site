@@ -8,7 +8,10 @@ containerEnabled: true
 
 [NiFi Homepage](http://nifi.apache.org)
 
-# Overview
+# MiNiFi Java Quick Start
+
+
+## Overview
 
 Apache NiFi MiNiFi is an Apache NiFi project, designed to collect data at its source. MiNiFi was developed with the following objectives in mind:
 * Small and lightweight footprint
@@ -16,7 +19,7 @@ Apache NiFi MiNiFi is an Apache NiFi project, designed to collect data at its so
 * Data provenance generation
 * NiFi integration for follow-on dataflow management and chain of custody information
 
-# Before You Begin
+## Before You Begin
 MiNiFi Java Agent is supported on the following operating systems:
 * Red Hat Enterprise Linux / CentOS 6 (64-bit)
 * Red Hat Enterprise Linux / CentOS 7 (64-bit)
@@ -27,10 +30,10 @@ MiNiFi Java Agent is supported on the following operating systems:
 
 You can download the MiNiFi Java Agent and the MiNiFi Toolkit from the [MiNiFi download page](http://nifi.apache.org/minifi/download.html).
 
-# Installing and Starting MiNiFi
+## Installing and Starting MiNiFi
 You have several options for installing and starting MiNiFi.
 
-## For Linux and Mac OS X Users
+### For Linux and Mac OS X Users
 To install MiNiFi:
 1. [Download](http://nifi.apache.org/minifi/download.html) MiNiFi.
 2. Extract the file to the location from which you want to the application.
@@ -94,7 +97,7 @@ config.sh transform input_file output_file
 
 **Result:** Once you have your _config.yml_ file in the `minifi/conf` directory, launch that instance of MiNiFi and your dataflow begins automatically.
 
-## Using Processors Not Packaged with MiNiFi
+### Using Processors Not Packaged with MiNiFi
 MiNiFi is able to use following processors out of the box:
 * UpdateAttribute
 * AttributesToJSON
@@ -185,7 +188,7 @@ If you want to create a dataflow with a processor not shipped with MiNiFi, you c
   * HandleHttpResponse
 
 
-# Securing your Dataflow
+## Securing your Dataflow
 You can secure your MiNiFi dataflow using keystore or trust store SSL protocols, however, this information is not automatically generated. You will need to generate your security configuration information yourself.
 
 To run a MiNiFi dataflow securely:
@@ -209,10 +212,10 @@ algorithm: PBEWITHMD5AND256BITAES-CBC-OPENSSL
 provider: BC
 ```
 
-# Managing MiNiFi
+## Managing MiNiFi
 You can also perform some management tasks using MiNiFi.
 
-## Monitoring Status
+### Monitoring Status
 You can use the `minifi.sh flowStatus` option to monitor a range of aspects of your MiNiFi operational and dataflow status. You can use the `flowStatus` option to get information about dataflow component health and functionality, a MiNiFi instance, or system diagnostics.
 
 FlowStatus accepts the following flags and options:
@@ -258,14 +261,14 @@ minifi.sh flowStatus processor:TailFile:health,stats,bulletins
 
 For details on the `flowStatus` option, see the "FlowStatus Query Option" section of the [Administration Guide](http://nifi.apache.org/minifi/system-admin-guide.html).
 
-## Loading a New Dataflow
+### Loading a New Dataflow
 You can load a new dataflow for a MiNiFi instance to run:
 
 1. Create a new _config.yml_ file with the new dataflow.
 2. Replace the existing _config.yml_ in `minifi/conf` with the new file.
 3. Restart MiNiFi.
 
-## Stopping MiNiFi
+### Stopping MiNiFi
 
 You can stop MiNiFi at any time.
 
@@ -283,3 +286,7 @@ Stopping MiNiFi as a service:
 ```
 sudo service minifi stop
 ```
+
+# Guides
+
+[Pushing Data From MiNiFi to NiFi Guide](pushing-nifi-minifi-java.html)

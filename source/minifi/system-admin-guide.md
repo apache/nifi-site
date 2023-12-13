@@ -1,5 +1,5 @@
 ---
-title:     Apache NiFi MiNiFi System Administrator's Guide
+title:     Apache NiFi MiNiFi Java System Administrator's Guide
 menu: minifi-topbar.html
 containerEnabled: true
 ---
@@ -8,7 +8,7 @@ containerEnabled: true
 
 [MiNiFi Homepage](https://nifi.apache.org/minifi/index.html)
 
-This documentation is for MiNiFi 0.5.0.
+This documentation is for MiNiFi Java 0.5.0.
 
 # Automatic Warm-Redeploy
 
