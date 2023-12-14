@@ -4,20 +4,7 @@ menu: minifi-topbar.html
 containerEnabled: true
 ---
 
-[Apache NiFi Team](dev@nifi.apache.org>)
-
-[NiFi Homepage](http://nifi.apache.org)
-
-# MiNiFi Java Quick Start
-
-
-## Overview
-
-Apache NiFi MiNiFi is an Apache NiFi project, designed to collect data at its source. MiNiFi was developed with the following objectives in mind:
-* Small and lightweight footprint
-* Central agent management
-* Data provenance generation
-* NiFi integration for follow-on dataflow management and chain of custody information
+# Apache {{< project-label >}} MiNiFi Java Quick Start
 
 ## Before You Begin
 MiNiFi Java Agent is supported on the following operating systems:
@@ -28,14 +15,14 @@ MiNiFi Java Agent is supported on the following operating systems:
 * Debian 7
 * SUSE Linux Enterprise Server (SLES) 11 SP3 (64-bit)
 
-You can download the MiNiFi Java Agent and the MiNiFi Toolkit from the [MiNiFi download page](http://nifi.apache.org/minifi/download.html).
+You can download the MiNiFi Java Agent and the MiNiFi Toolkit from the [MiNiFi download page](minifi-java-download.html).
 
 ## Installing and Starting MiNiFi
 You have several options for installing and starting MiNiFi.
 
 ### For Linux and Mac OS X Users
 To install MiNiFi:
-1. [Download](http://nifi.apache.org/minifi/download.html) MiNiFi.
+1. [Download](minifi-java-download.html) MiNiFi.
 2. Extract the file to the location from which you want to the application.
 
 You can also install MiNiFi as a service:

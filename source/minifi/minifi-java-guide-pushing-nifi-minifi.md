@@ -8,7 +8,7 @@ containerEnabled: true
 
 What follows is an illustrated walkthrough of configuring MiNiFi and NiFi to generate and collect log data.
 
-If you're new to NiFi, watch the [NiFi introductory video series](http://nifi.apache.org/videos.html) before proceeding. If you don't already have NiFi, you can download it from [here](http://nifi.apache.org/download.html).
+If you're new to NiFi, watch the [NiFi introductory video series](http://nifi.apache.org/videos.html) before proceeding. If you don't already have NiFi, you can download it from [here](minifi-java-download.html).
 
 ## Configuring NiFi to Receive Data
 
@@ -36,7 +36,7 @@ Inside the process group, create a Remote Process Group (RPG) and give it the UR
 Create a TailFile processor and connect it to the RPG, selecting the "From MiNiFi" input port.
 ![](../assets/images/minifi/minifi-flow.png)
 
-Now create a template, download it as an XML file, and download the [Converter ToolKit](download.html).
+Now create a template, download it as an XML file, and download the [Converter ToolKit](minifi-java-download.html).
 
 From the toolkit directory:
 ```

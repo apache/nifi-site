@@ -36,7 +36,7 @@ MiNiFi is a child project effort of Apache NiFi.  The MiNiFi toolkit aids in cre
 
 ## Getting Started
 
-The latest version of the MiNiFi Toolkit Converter can be found at https://nifi.apache.org/minifi/download.html under the `MiNiFi Toolkit Binaries` section.
+The latest version of the MiNiFi Toolkit Converter can be found at https://nifi.apache.org/minifi/minifi-java-download.html under the `MiNiFi Toolkit Binaries` section.
 
 After downloading the binary and extracting it, to run the MiNiFi Toolkit Converter:
 - Change directory to the location where you installed MiNiFi Toolkit and run it and view usage information

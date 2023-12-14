@@ -11,17 +11,21 @@ containerEnabled: true
 
 <p class="description">A subproject of Apache NiFi to collect data from the point of origin.</p>
 
-# Features
 
-MiNiFi - a subproject of Apache NiFi - is a complementary data collection approach that supplements the core tenets of
-NiFi in dataflow management, focusing on the collection of data at the source of its creation.
+## Overview
 
-Apache NiFi MiNiFi provides the following features:
+Apache NiFi MiNiFi is an Apache NiFi project, designed to collect data at its source. MiNiFi was developed with the following objectives in mind:
+* Small and lightweight footprint
+* Central agent management
+* Data provenance generation
+* NiFi integration for follow-on dataflow management and chain of custody information
 
-- Small size and low resource consumption
-- Central management of agents
-- Generation of data provenance with full chain of custody of information
-- Integration with NiFi for follow-on dataflow management
 
-MiNiFi functions in the role of an agent acting immediately at, or directly adjacent to, source sensors, systems, or
-servers.
+## Choose your flavour
+
+MiNiFi comes in two different flavours.
+
+{{% include minifi-java-about.md %}}
+
+{{% include minifi-cpp-about.md %}}
+

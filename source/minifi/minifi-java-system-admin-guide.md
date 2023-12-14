@@ -333,8 +333,8 @@ The *config.yml* in the `conf` directory is the main configuration file for cont
 and follows the YAML format laid out [here](http://www.yaml.org/).
 
 Alternatively, the MiNiFi Toolkit Converter can aid in creating a *config.yml* from a generated template exported from a NiFi instance.  This
-tool can be downloaded from https://nifi.apache.org/minifi/download.html under the "MiNiFi Toolkit Binaries" section.  Information on the toolkit's usage is
-available at https://nifi.apache.org/minifi/minifi-toolkit.html.
+tool can be downloaded from https://nifi.apache.org/minifi/minifi-java-download.html under the "MiNiFi Toolkit Binaries" section.  Information on the toolkit's usage is
+available at https://nifi.apache.org/minifi/minifi-java-toolkit.html.
 
 **Note:** Values for periods of time and data sizes must include the unit of measure,
 for example "10 sec" or "10 MB", not simply "10".
