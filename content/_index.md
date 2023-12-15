@@ -2,7 +2,7 @@
 title: "Apache NiFi"
 ---
 
-{{% hero-section  img=main-hero.png %}}
+{{% hero-section  img=main-hero.svg %}}
 # An **easy to use**, **powerful**, and **reliable** system to process and distribute data
 Apache NiFi provides configurable, scalable, and reliable data transformation and distribution
 
@@ -10,12 +10,12 @@ Apache NiFi provides configurable, scalable, and reliable data transformation an
 <a class="uk-button uk-button-default uk-icon" href="/download/"> View Documentation</a>
 {{% /hero-section %}}
 
-{{% hero-section  img=provenance.png background=white %}}
+{{% hero-section  img=provenance.svg background=white %}}
 ## Data provenance tracking
 Complete lineage of information from beginning to end
 {{% /hero-section %}}
 
-{{% hero-section  img=config.png background=white position=right %}}
+{{% hero-section  img=config.svg background=white position=right %}}
 ## Extensive configuration
 - Loss-tolerant and guaranteed delivery
 - Low latency and high throughput
@@ -29,7 +29,7 @@ Complete lineage of information from beginning to end
 Seamless experience for design, control, feedback, and monitoring
 {{% /hero-section %}}
 
-{{% hero-section  img=security.png position=right %}}
+{{% hero-section  img=security.svg position=right %}}
 ## Secure communication
 - HTTPS with configurable authentication strategies
 - Multi-tenant authorization and policy management
