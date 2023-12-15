@@ -1,8 +1,8 @@
 ---
-title: Apache NiFi Security
+title: Apache NiFi Security Reporting
 menu:
   main:
-    name: NiFi Security
+    name: Security Reporting
     parent: "Documentation"
     weight: 2
 ---
