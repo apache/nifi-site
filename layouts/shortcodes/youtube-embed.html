@@ -1,8 +1,8 @@
-<a href="#" data-reveal-id="youtube-{{ .Get "id" }}">{{ .Get "title" }}</a>
-<div id="youtube-{{ .Get "id" }}" class="reveal-modal medium" data-reveal>
-  <h2>{{ .Get "title" }}</h2>
-  <div class="flex-video widescreen" style="display: block;">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ .Get "id" }}" frameborder="0" allowfullscreen></iframe>
+<a href="#youtube-{{ .Get "id" }}" uk-toggle>{{ .Get "title" }}</a>
+<div id="youtube-{{ .Get "id" }}" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body video-modal">
+    <h2 class="uk-modal-title">{{ .Get "title" }}</h2>
+      <iframe src="https://www.youtube.com/embed/{{ .Get "id" }}" frameborder="0" allowfullscreen></iframe>
+    <a class="uk-modal-close">&#215;</a>
   </div>
-  <a class="close-reveal-modal">&#215;</a>
 </div>
