@@ -5,7 +5,7 @@ menu:
     weight: 3
 ---
 
-# {{< project-label >}} Team
+# Apache {{< project-label >}} Team
 
 A successful project requires many people to play many roles. Some write code, others provide project mentorship, and
 still others author documentation. General contributors provide valuable feedback, submitting patches and suggestions.
