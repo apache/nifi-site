@@ -31,12 +31,11 @@ Apache NiFi [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used t
 
 Please allow up to 24 hours for mirrors to synchronize following the release of a new version.
 
-### {{< param currentProjectVersion >}}
-- [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
-- Sources
-  - {{< download-links label="Apache NiFi Sources" extension=source-release.zip >}}
-- Binaries
-  - {{< download-links label="Apache NiFi Registry" qualifier="registry" extension=bin.zip >}}
+### Registry {{< param currentProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
+#### Sources
+{{< download-links label="Apache NiFi Sources" extension=-source-release.zip >}}
+#### Binaries
+{{< download-links label="Apache NiFi Registry" qualifier="registry" extension=-bin.zip >}}
 
 ## Sources
 

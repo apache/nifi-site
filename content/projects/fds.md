@@ -27,21 +27,17 @@ Specific goals for the initial thrust of the Flow Design System effort include:
 Future efforts may include capabilities to support additional UI/UX concepts as they are identified by the community.
 
 ## Releases
+### 0.3.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.3.0)
 
-### 0.3.0
+{{< fds-download-links label="Apache NiFi FDS Sources" version=0.3.0 >}}
 
-- [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.3.0)
-- {{< fds-download-links label="Apache NiFi FDS Sources" version=0.3.0 >}}
+### 0.2.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.2.0)
 
-### 0.2.0
+{{< fds-download-links label="Apache NiFi FDS Sources" version=0.2.0 site=archives >}}
 
-- [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.2.0)
-- {{< fds-download-links label="Apache NiFi FDS Sources" version=0.2.0 site=archives >}}
+### 0.1.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.1.0)
 
-### 0.1.0
-
-- [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.1.0)
-- {{< fds-download-links label="Apache NiFi FDS Sources" version=0.1.0 site=archives >}}
+{{< fds-download-links label="Apache NiFi FDS Sources" version=0.1.0 site=archives >}}
 
 ## Sources
 

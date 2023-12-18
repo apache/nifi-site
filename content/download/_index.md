@@ -10,188 +10,97 @@ subject to rate limiting.
 OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 [download verification](https://www.apache.org/info/verification.html).
 
-## Apache NiFi {{< param currentProjectVersion >}}
+<ul class="uk-tab" uk-switcher>
+  <li><a class="uk-active" href="#nifi">NiFi</a></li>
+  <li><a href="#minifi">MiNiFi</a></li>
+  <li><a href="#registry">Registry</a></li>
+  <li><a href="#fds">FDS</a></li>
+</ul>
+
+<ul class="uk-switcher">
+  <li>
+
+## Apache NiFi
+
+### Apache NiFi {{< param currentProjectVersion >}} <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}}">Release Notes</a>
 
 - Released: {{< param currentProjectVersionReleased >}}
-- <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}}">Release Notes</a>
 - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
 
-<div class="uk-card uk-card-default uk-margin-top">
-  <div class="uk-card-body">
-    <h3>Sources</h3>
-    <div class="uk-margin-top uk-flex">
-      <div>
-        <a class="uk-button uk-button-primary uk-button-small"
-          href="https://www.apache.org/dyn/closer.lua?path=/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip">
-          Download
-        </a>
-      </div>
-      <div class="uk-width-1-3 uk-margin-left">nifi-{{< param currentProjectVersion >}}-source-release.zip</div>
-      <div class="uk-width-1-1 uk-flex uk-flex-right">
-        <a class="uk-button uk-button-default uk-button-small"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.asc">
-          OpenPGP
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha512">
-          SHA-512
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha256">
-          SHA-256
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="uk-card uk-card-default uk-margin-top">
-  <div class="uk-card-body">
-    <h3>Standard</h3>
-    <div class="uk-margin-top uk-flex">
-      <div>
-        <a class="uk-button uk-button-primary uk-button-small"
-          href="https://www.apache.org/dyn/closer.lua?path=/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip">
-          Download
-        </a>
-      </div>
-      <div class="uk-width-1-3 uk-margin-left">nifi-{{< param currentProjectVersion >}}-bin.zip</div>
-      <div class="uk-width-1-1 uk-flex uk-flex-right">
-        <a class="uk-button uk-button-default uk-button-small"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.asc">
-          OpenPGP
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha512">
-          SHA-512
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha256">
-          SHA-256
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="uk-card uk-card-default uk-margin-top">
-  <div class="uk-card-body">
-    <h3>Stateless</h3>
-    <div class="uk-margin-top uk-flex">
-      <div>
-        <a class="uk-button uk-button-primary uk-button-small"
-          href="https://www.apache.org/dyn/closer.lua?path=/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip">
-          Download
-        </a>
-      </div>
-      <div class="uk-width-1-3 uk-margin-left">nifi-stateless-{{< param currentProjectVersion >}}-bin.zip</div>
-      <div class="uk-width-1-1 uk-flex uk-flex-right">
-        <a class="uk-button uk-button-default uk-button-small"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.asc">
-          OpenPGP
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha512">
-          SHA-512
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha256">
-          SHA-256
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="uk-card uk-card-default uk-margin-top">
-  <div class="uk-card-body">
-    <h3>Kafka Connector</h3>
-    <div class="uk-margin-top uk-flex">
-      <div>
-        <a class="uk-button uk-button-primary uk-button-small"
-          href="https://www.apache.org/dyn/closer.lua?path=/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip">
-          Download
-        </a>
-      </div>
-      <div class="uk-width-1-2 uk-margin-left">nifi-kafka-connector-assembly-{{< param currentProjectVersion >}}.zip</div>
-      <div class="uk-width-1-1 uk-flex uk-flex-right">
-        <a class="uk-button uk-button-default uk-button-small"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.asc">
-          OpenPGP
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha512">
-          SHA-512
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha256">
-          SHA-256
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="uk-card uk-card-default uk-margin-top">
-  <div class="uk-card-body">
-    <h3>Toolkit</h3>
-    <div class="uk-margin-top uk-flex">
-      <div>
-        <a class="uk-button uk-button-primary uk-button-small"
-          href="https://www.apache.org/dyn/closer.lua?path=/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip">
-          Download
-        </a>
-      </div>
-      <div class="uk-width-1-2 uk-margin-left">nifi-toolkit-{{< param currentProjectVersion >}}-bin.zip</div>
-      <div class="uk-width-1-1 uk-flex uk-flex-right">
-        <a class="uk-button uk-button-default uk-button-small"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.asc">
-          OpenPGP
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha512">
-          SHA-512
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param currentProjectVersion >}}/nifi-{{< param currentProjectVersion >}}-source-release.zip.sha256">
-          SHA-256
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-## Apache NiFi {{< param previousProjectVersion >}}
+#### Sources
+{{< download-links label="Download Source" project="nifi" extension="-source-release.zip">}}
+#### Binaries
+{{< download-links label="Download Standard" project="nifi" extension="-bin.zip">}}
+{{< download-links label="Download Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
+{{< download-links label="Download Kafka" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
+{{< download-links label="Download Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
+### Apache NiFi {{< param previousProjectVersion >}} <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}}">Release Notes</a>
 
 - Released: {{< param previousProjectVersionReleased >}}
-- <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}}">Release Notes</a>
 - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
 
-<div class="uk-card uk-card-default uk-margin-top">
-  <div class="uk-card-body">
-    <h3>Sources</h3>
-    <div class="uk-margin-top uk-flex">
-      <div>
-        <a class="uk-button uk-button-primary uk-button-small"
-          href="https://www.apache.org/dyn/closer.lua?path=/nifi/{{< param previousProjectVersion >}}/nifi-{{< param previousProjectVersion >}}-source-release.zip">
-          Download
-        </a>
-      </div>
-      <div class="uk-width-1-3 uk-margin-left">nifi-{{< param previousProjectVersion >}}-source-release.zip</div>
-      <div class="uk-width-1-1 uk-flex uk-flex-right">
-        <a class="uk-button uk-button-default uk-button-small"
-          href="https://downloads.apache.org/nifi/{{< param previousProjectVersion >}}/nifi-{{< param previousProjectVersion >}}-source-release.zip.asc">
-          OpenPGP
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param previousProjectVersion >}}/nifi-{{< param previousProjectVersion >}}-source-release.zip.sha512">
-          SHA-512
-        </a>
-        <a class="uk-button uk-button-default uk-button-small uk-margin-small-left"
-          href="https://downloads.apache.org/nifi/{{< param previousProjectVersion >}}/nifi-{{< param previousProjectVersion >}}-source-release.zip.sha256">
-          SHA-256
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+#### Sources
+{{< download-links version="previous" label="Download Source" project="nifi" extension="-source-release.zip">}}
+
+#### Binaries
+{{< download-links version="previous" label="Download Standard" project="nifi" extension="-bin.zip">}}
+{{< download-links version="previous" label="Download Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
+{{< download-links version="previous" label="Download Kafka" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
+{{< download-links version="previous" label="Download Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
+
+</li><li>
+
+## MiNiFi
+
+### MiNiFi Java {{< param currentProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
+
+- Released: {{< param currentProjectVersionReleased >}}
+#### Sources
+ {{< download-links label="Apache NiFi Sources" extension=source-release.zip >}}
+#### Binaries
+ {{< download-links label="Apache NiFi MiNiFi Binary" project=minifi extension=-bin.zip >}}
+ {{< download-links label="Apache NiFi MiNiFi Toolkit Binary" project=minifi qualifier=toolkit extension=-bin.zip >}}
+ {{< download-links label="Apache NiFi MiNiFi Command and Control Binary" project=minifi qualifier=c2 extension=-bin.zip >}}
+
+### MiNiFi C++ 0.15.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.15.0)
+
+- Released: 2023-09-01 
+#### Sources
+{{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.15.0 extension=source.tar.gz >}}
+#### Binaries
+{{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.15.0 extension=bin.tar.gz >}}
+
+### MiNiFi C++ 0.14.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.14.0)
+
+- Released: 2023-04-17
+#### Sources
+{{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.14.0 extension=source.tar.gz >}}
+#### Binaries
+{{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.14.0 extension=bin-linux.tar.gz >}}
+
+</li><li>
+
+## Apache NiFi Registry
+
+### Registry {{< param currentProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
+#### Sources
+{{< download-links label="Apache NiFi Sources" extension=-source-release.zip >}}
+#### Binaries
+{{< download-links label="Apache NiFi Registry" qualifier="registry" extension=-bin.zip >}}
+
+</li><li>
+
+## Apache NiFi Flow Design System
+### 0.3.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.3.0)
+
+{{< fds-download-links label="Apache NiFi FDS Sources" version=0.3.0 >}}
+
+### 0.2.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.2.0)
+
+{{< fds-download-links label="Apache NiFi FDS Sources" version=0.2.0 site=archives >}}
+
+### 0.1.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.1.0)
+
+{{< fds-download-links label="Apache NiFi FDS Sources" version=0.1.0 site=archives >}}
+
+</li></ul>
