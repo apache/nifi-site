@@ -56,27 +56,27 @@ OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 
 - Released: {{< param currentProjectVersionReleased >}}
 #### Sources
- {{< download-links label="Apache NiFi Sources" extension=source-release.zip >}}
+ {{< download-links label="MiNiFi Sources" extension=source-release.zip >}}
 #### Binaries
- {{< download-links label="Apache NiFi MiNiFi Binary" project=minifi extension=-bin.zip >}}
- {{< download-links label="Apache NiFi MiNiFi Toolkit Binary" project=minifi qualifier=toolkit extension=-bin.zip >}}
- {{< download-links label="Apache NiFi MiNiFi Command and Control Binary" project=minifi qualifier=c2 extension=-bin.zip >}}
+ {{< download-links label="MiNiFi" project=minifi extension=-bin.zip >}}
+ {{< download-links label="MiNiFi Toolkit" project=minifi qualifier=toolkit extension=-bin.zip >}}
+ {{< download-links label="Command and Control" project=minifi qualifier=c2 extension=-bin.zip >}}
 
 ### MiNiFi C++ 0.15.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.15.0)
 
 - Released: 2023-09-01 
 #### Sources
-{{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.15.0 extension=source.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++ Sources" version=0.15.0 extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.15.0 extension=bin.tar.gz >}}
+{{< cpp-download-links label="Download MiNiFi C++" version=0.15.0 extension=bin.tar.gz >}}
 
 ### MiNiFi C++ 0.14.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.14.0)
 
 - Released: 2023-04-17
 #### Sources
-{{< cpp-download-links label="Apache NiFi MiNiFi C++ Sources" version=0.14.0 extension=source.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++ Sources" version=0.14.0 extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="Apache NiFi MiNiFi C++ Binary for Linux x86_64" version=0.14.0 extension=bin-linux.tar.gz >}}
+{{< cpp-download-links label="Download MiNiFi C++" version=0.14.0 extension=bin-linux.tar.gz >}}
 
 </li><li>
 
@@ -93,14 +93,14 @@ OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 ## Apache NiFi Flow Design System
 ### 0.3.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.3.0)
 
-{{< fds-download-links label="Apache NiFi FDS Sources" version=0.3.0 >}}
+{{< fds-download-links label="FDS Sources" version=0.3.0 >}}
 
 ### 0.2.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.2.0)
 
-{{< fds-download-links label="Apache NiFi FDS Sources" version=0.2.0 site=archives >}}
+{{< fds-download-links label="FDS Sources" version=0.2.0 site=archives >}}
 
 ### 0.1.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.1.0)
 
-{{< fds-download-links label="Apache NiFi FDS Sources" version=0.1.0 site=archives >}}
+{{< fds-download-links label="FDS Sources" version=0.1.0 site=archives >}}
 
 </li></ul>
