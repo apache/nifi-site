@@ -50,7 +50,7 @@ No validation errors found in template.
 ```
 
 Open the config.yml file and add Port and Host to a Properties section at the end of the Input Ports section (at the end of the file):
-````
+```
 Remote Processing Groups:
 - name: http://localhost:8080/nifi
   url: http://localhost:8080/nifi
@@ -78,4 +78,3 @@ After a few seconds, you should see NiFi receiving data on the input port:
 ![](../assets/images/minifi/nifi-received.png)
 
 If you do not see data in the queue, it may have already been consumed by the downstream processor (PutFile in this case). If no data is arriving ay the input port at all, check the MiNiFi log files, and confirm that the file being tailed exists and is not empty.
-`
