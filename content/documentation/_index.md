@@ -1,6 +1,7 @@
 ---
 title: "Documentation"
 layout: "documentation"
+iframe: true
 menu:
   main:
     weight: 1
