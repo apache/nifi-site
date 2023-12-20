@@ -37,7 +37,7 @@ Please avoid repeated downloads from archives to avoid infrastructure rate limit
 #### Sources
 {{< cpp-download-links label="MiNiFi C++ Sources" version=0.15.0 extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="Download MiNiFi C++" version=0.15.0 extension=bin.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++" version=0.15.0 extension=bin.tar.gz >}}
 
 ### MiNiFi C++ 0.14.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.14.0)
 

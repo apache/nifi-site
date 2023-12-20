@@ -27,7 +27,6 @@ following features:
 </div>
 
   <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/projects/minifi/download">Download</a>
-  [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
   
 </div>
 </div>
@@ -49,7 +48,6 @@ across one or more instances of NiFi or MiNiFi. Registry provides the following 
     </div>
 
   <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/projects/registry">Download</a>
-  [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
 
 </div>
 </div>
@@ -66,7 +64,6 @@ MiNiFi, and Registry, as well as any other open source web application. Features
     
 
 <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/projects/fds">Download</a>
-[Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
 
 </div>
   </div>

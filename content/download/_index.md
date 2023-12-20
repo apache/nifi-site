@@ -28,25 +28,25 @@ OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
 
 #### Sources
-{{< download-links label="Download Source" project="nifi" extension="-source-release.zip">}}
+{{< download-links label="NiFi Source" project="nifi" extension="-source-release.zip">}}
 #### Binaries
-{{< download-links label="Download Standard" project="nifi" extension="-bin.zip">}}
-{{< download-links label="Download Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
-{{< download-links label="Download Kafka" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
-{{< download-links label="Download Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
+{{< download-links label="NiFi Standard" project="nifi" extension="-bin.zip">}}
+{{< download-links label="NiFi Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
+{{< download-links label="NiFi Kafka Connector" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
+{{< download-links label="NiFi Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
 ### Apache NiFi {{< param previousProjectVersion >}} <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}}">Release Notes</a>
 
 - Released: {{< param previousProjectVersionReleased >}}
 - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
 
 #### Sources
-{{< download-links version="previous" label="Download Source" project="nifi" extension="-source-release.zip">}}
+{{< download-links version="previous" label="NiFi Source" project="nifi" extension="-source-release.zip">}}
 
 #### Binaries
-{{< download-links version="previous" label="Download Standard" project="nifi" extension="-bin.zip">}}
-{{< download-links version="previous" label="Download Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
-{{< download-links version="previous" label="Download Kafka" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
-{{< download-links version="previous" label="Download Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
+{{< download-links version="previous" label="NiFi Standard" project="nifi" extension="-bin.zip">}}
+{{< download-links version="previous" label="NiFi Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
+{{< download-links version="previous" label="NiFi Kafka Connector" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
+{{< download-links version="previous" label="NiFi Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
 
 </li><li>
 
@@ -68,7 +68,7 @@ OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 #### Sources
 {{< cpp-download-links label="MiNiFi C++ Sources" version=0.15.0 extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="Download MiNiFi C++" version=0.15.0 extension=bin.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++" version=0.15.0 extension=bin.tar.gz >}}
 
 ### MiNiFi C++ 0.14.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.14.0)
 
@@ -76,7 +76,7 @@ OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 #### Sources
 {{< cpp-download-links label="MiNiFi C++ Sources" version=0.14.0 extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="Download MiNiFi C++" version=0.14.0 extension=bin-linux.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++" version=0.14.0 extension=bin-linux.tar.gz >}}
 
 </li><li>
 

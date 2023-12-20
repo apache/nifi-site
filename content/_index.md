@@ -7,7 +7,7 @@ title: "Apache NiFi"
 Apache NiFi provides configurable, scalable, and reliable data transformation and distribution
 
 <a class="uk-button uk-button-primary uk-icon" href="/download/">Download</a>
-<a class="uk-button uk-button-default uk-icon" href="/download/"> View Documentation</a>
+<a class="uk-button uk-button-default uk-icon" href="/documentation/"> View Documentation</a>
 {{% /hero-section %}}
 
 {{% hero-section  img=provenance.svg background=white %}}
