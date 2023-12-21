@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <title>Apache NiFi MiNiFi Java Agent Quick Start Guide</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
+        <link rel="stylesheet" href="/stylesheets/app.min.27f785d2dfa83c24896261ad5106f3c19ee004c4d04b8a1c4b22e03a3a9fcb2a.css">
+        <link rel="stylesheet" href="/assets/stylesheets/font-awesome.min.css">
+        <script src="/assets/js/modernizr.js"></script>
+        <script src="/assets/js/webfontloader.js"></script>
+        <script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var baseUri = "//matomo.privacy.apache.org/";
+    _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
+    _paq.push(['setSiteId', '28']);
+    var trackerElement = document.createElement('script');
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    trackerElement.async = true;
+    trackerElement.src = baseUri + 'matomo.js';
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    if (window.location.host === 'nifi.apache.org') {
+      firstScriptElement.parentNode.insertBefore(trackerElement, firstScriptElement);
+    }
+  })();
+</script>
+</head>
+    <body><div class="sticky contain-to-grid">
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1>
+                    <a href="index.html">
+                        <img id="logo-top-bar" src="/assets/images/minifi-drop-white.svg" alt="MiNiFi"/>
+                    </a>
+                </h1>
+            </li>
+            
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            
+            <ul class="right">
+                <li class="has-dropdown">
+                    <a href="#">MiNiFi Java</a>
+                    <ul class="dropdown">
+                        <li><a href="java-quick-start.html"><i class="fa"></i>Quick Start</a></li>
+                        <li><a href="java-toolkit.html"><i class="fa"></i>Converter Toolkit</a></li>
+                        <li><a href="java-system-admin-guide.html"><i class="fa"></i>Administrator's Guide</a></li>
+                        <li><a href="java-download.html"><i class="fa fa-download external-link"></i>Download</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">MiNiFi C++</a>
+                    <ul class="dropdown">
+                        <li><a href="https://github.com/apache/nifi-minifi-cpp?tab=readme-ov-file#installing-as-a-service"><i class="fa fa-external-link external-link"></i>Installation</a></li>
+                        <li><a href="https://github.com/apache/nifi-minifi-cpp/blob/main/CONFIGURE.md"><i class="fa fa-external-link external-link"></i>Configuration</a></li>
+                        <li><a href="https://github.com/apache/nifi-minifi-cpp/blob/main/PROCESSORS.md"><i class="fa fa-external-link external-link"></i>Processors</a></li>
+                        <li><a href="https://github.com/apache/nifi-minifi-cpp/blob/main/examples/README.md"><i class="fa fa-external-link external-link"></i>Examples</a></li>
+                        <li><a href="cpp-download.html"><i class="fa fa-download external-link"></i>Download</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-dropdown">
+                    <a href="#">Community</a>
+                    <ul class="dropdown">
+                        <li><a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide"><i class="fa fa-external-link external-link"></i>Contributor Guide</a></li>
+                        <li><a href="../mailing_lists.html">Mailing Lists &amp; Chat</a></li>
+                        <li><a href="../people.html">People</a></li>
+                        <li><a href="https://cwiki.apache.org/confluence/display/MiNiFi"><i class="fa fa-external-link external-link"></i>Wiki</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">Development</a>
+                    <ul class="dropdown">
+                        <li><a href="../release-guide.html">Release Guide</a></li>
+                        <li><a href="../licensing-guide.html">Licensing Guide</a></li>
+                        <li><a href="https://gitbox.apache.org/repos/asf?p=nifi.git"><i class="fa fa-external-link external-link"></i>Source - Java Agent</a></li>
+                        <li><a href="https://github.com/apache/nifi"><i class="fa fa-github external-link"></i>Source - GitHub - Java Agent</a></li>
+                        <li><a href="https://gitbox.apache.org/repos/asf/nifi-minifi-cpp.git"><i class="fa fa-external-link external-link"></i>Source - C++ Agent</a></li>
+                        <li><a href="https://github.com/apache/nifi-minifi-cpp"><i class="fa fa-github external-link"></i>Source - GitHub - C++ Agent</a></li>
+                        <li><a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20NIFI%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22MiNiFi%22%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC"><i class="fa fa-external-link external-link"></i>MiNiFi Java Issues</a></li>
+                        <li><a href="https://issues.apache.org/jira/browse/MINIFICPP"><i class="fa fa-external-link external-link"></i>MiNiFi C++ Issues</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown">
+                    <a href="#">ASF Links</a>
+                    <ul class="dropdown">
+                        <li><a href="https://www.apache.org"><i class="fa fa-external-link external-link"></i>Apache Software Foundation</a></li>
+                        <li><a href="https://privacy.apache.org/policies/privacy-policy-public.html"><i class="fa fa-external-link external-link"></i>Privacy Policy</a></li>
+                        <li><a href="https://www.apache.org/foundation/sponsorship.html"><i class="fa fa-external-link external-link"></i>Sponsorship</a></li>
+                        <li><a href="https://www.apache.org/security/"><i class="fa fa-external-link external-link"></i>Security</a></li>
+                        <li><a href="https://www.apache.org/foundation/thanks.html"><i class="fa fa-external-link external-link"></i>Thanks</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="../index.html">Apache NiFi</a>
+                </li>
+            </ul>
+        </section>
+    </nav>
+</div>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="large-space"></div>
+	<h1 id="apache-hahahugoshortcode-s0-hbhb-minifi-java-quick-start">Apache <span class="ni">ni</span><span class="fi">fi</span>
+ MiNiFi Java Quick Start</h1>
+<h2 id="before-you-begin">Before You Begin</h2>
+<p>MiNiFi Java Agent is supported on the following operating systems:</p>
+<ul>
+<li>Red Hat Enterprise Linux / CentOS 6 (64-bit)</li>
+<li>Red Hat Enterprise Linux / CentOS 7 (64-bit)</li>
+<li>Ubuntu Precise (12.04) (64-bit)</li>
+<li>Ubuntu Trusty (14.04) (64-bit)</li>
+<li>Debian 7</li>
+<li>SUSE Linux Enterprise Server (SLES) 11 SP3 (64-bit)</li>
+</ul>
+<p>You can download the MiNiFi Java Agent and the MiNiFi Toolkit from the <a href="minifi-java-download.html">MiNiFi download page</a>.</p>
+<h2 id="installing-and-starting-minifi">Installing and Starting MiNiFi</h2>
+<p>You have several options for installing and starting MiNiFi.</p>
+<h3 id="for-linux-and-mac-os-x-users">For Linux and Mac OS X Users</h3>
+<p>To install MiNiFi:</p>
+<ol>
+<li><a href="minifi-java-download.html">Download</a> MiNiFi.</li>
+<li>Extract the file to the location from which you want to the application.</li>
+</ol>
+<p>You can also install MiNiFi as a service:</p>
+<ol>
+<li>Navigate to the MiNiFi installation directory.</li>
+<li>Enter:</li>
+</ol>
+<pre tabindex="0"><code>bin/minifi.sh install
+</code></pre><p><strong>Note:</strong> You can also specify a custom name for your MiNiFi installation, by specifying that name during your install command. For example, to install MiNiFi as a service and named dataflow, enter:</p>
+<pre tabindex="0"><code>bin/minifi.sh install dataflow
+</code></pre><p>Once you have downloaded and installed MiNiFi, you need to start MiNiFi. You can start NiFi in the foreground, background, or as a service.</p>
+<p>To launch MiNiFi in the foreground:</p>
+<ol>
+<li>From a terminal window, navigate to the MiNiFi installation directory.</li>
+<li>Enter:</li>
+</ol>
+<pre tabindex="0"><code>bin/minifi.sh run
+</code></pre><p>To launch MiNiFi in the background:</p>
+<ol>
+<li>From a terminal window, navigate to the MiNiFi installation directory.</li>
+<li>Enter:</li>
+</ol>
+<pre tabindex="0"><code>bin/minifi.sh start
+</code></pre><p>To launch MiNiFi as a service:</p>
+<ol>
+<li>From a terminal window, enter:</li>
+</ol>
+<pre tabindex="0"><code>sudo service minifi start
+</code></pre><h2 id="for-windows-users">For Windows Users</h2>
+<p>For Windows users, navigate to the folder where MiNiFi was installed. Navigate to the <code>/bin</code> subdirectory and double-click the <em>run-minifi.bat</em> file.</p>
+<p>This launches MiNiFi and leaves it running in the foreground. To shut down NiFi, select the window that was launched and hold the Ctrl key while pressing C.</p>
+<h1 id="working-with-dataflows">Working with dataflows</h1>
+<p>When you are working with a MiNiFi dataflow, you should design it, add any additional configuration your environment or use case requires, and then deploy your dataflow. MiNiFi is not designed to accommodate substantial mid-dataflow configuration.</p>
+<h2 id="setting-up-your-dataflow">Setting up Your Dataflow</h2>
+<p>You can use the MiNiFi Toolkit, located in your MiNiFi installation directory, and any NiFi instance to set up the dataflow you want MiNiFi to run:</p>
+<ol>
+<li>Launch NiFi</li>
+<li>Create a dataflow.</li>
+<li>Convert your dataflow into a template.</li>
+<li>Download your template as an .xml file. For more information on working with templates, see the <a href="https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#templates">Templates</a> section in the <em>User Guide</em>.</li>
+<li>From the MiNiFi Toolkit, run the following command to turn your .xml file into a .yml file:</li>
+</ol>
+<pre tabindex="0"><code>config.sh transform input_file output_file
+</code></pre><ol start="6">
+<li>Move your new .yml file to <code>minifi/conf</code>.</li>
+<li>Rename your .yml file <em>config.yml</em>.</li>
+</ol>
+<p><strong>Note:</strong> You can use one template at a time, per MiNiFi instance.</p>
+<p><strong>Result:</strong> Once you have your <em>config.yml</em> file in the <code>minifi/conf</code> directory, launch that instance of MiNiFi and your dataflow begins automatically.</p>
+<h3 id="using-processors-not-packaged-with-minifi">Using Processors Not Packaged with MiNiFi</h3>
+<p>MiNiFi is able to use following processors out of the box:</p>
+<ul>
+<li>UpdateAttribute</li>
+<li>AttributesToJSON</li>
+<li>Base64EncodeContent</li>
+<li>CompressContent</li>
+<li>ControlRate</li>
+<li>ConvertCharacterSet</li>
+<li>DuplicateFlowFile</li>
+<li>EncryptContent</li>
+<li>EvaluateJsonPath</li>
+<li>EvaluateRegularExpression</li>
+<li>EvaluateXPath</li>
+<li>EvaluateXQuery</li>
+<li>ExecuteProcess</li>
+<li>ExecuteStreamCommand</li>
+<li>ExtractText</li>
+<li>FetchFile</li>
+<li>FetchSFTP</li>
+<li>GenerateFlowFile</li>
+<li>GetFTP</li>
+<li>GetFile</li>
+<li>GetHTTP</li>
+<li>GetJMSQueue</li>
+<li>GetJMSTopic</li>
+<li>GetSFTP</li>
+<li>HashAttribute</li>
+<li>HashContent</li>
+<li>IdentifyMimeType</li>
+<li>InvokeHTTP</li>
+<li>ListFile</li>
+<li>ListSFTP</li>
+<li>ListenHTTP</li>
+<li>ListenRELP</li>
+<li>ListenSyslog</li>
+<li>ListenTCP</li>
+<li>ListenUDP</li>
+<li>LogAttribute</li>
+<li>MergeContent</li>
+<li>ModifyBytes</li>
+<li>MonitorActivity</li>
+<li>ParseSyslog</li>
+<li>PostHTTP</li>
+<li>PutEmail</li>
+<li>PutFTP</li>
+<li>PutFile</li>
+<li>PutJMS</li>
+<li>PutSFTP</li>
+<li>PutSyslog</li>
+<li>ReplaceText</li>
+<li>ReplaceTextWithMapping</li>
+<li>RouteOnAttribute</li>
+<li>RouteOnContent</li>
+<li>RouteText</li>
+<li>ScanAttribute</li>
+<li>ScanContent</li>
+<li>SegmentContent</li>
+<li>SplitContent</li>
+<li>SplitJson</li>
+<li>SplitText</li>
+<li>SplitXml</li>
+<li>TailFile</li>
+<li>TransformXml</li>
+<li>UnpackContent</li>
+<li>ValidateXml</li>
+</ul>
+<p>MiNiFi is able to use the StandardSSLContextService out of the box.</p>
+<p>If you want to create a dataflow with a processor not shipped with MiNiFi, you can do so by following these steps:</p>
+<ol>
+<li>Set up your dataflow as described above.</li>
+<li>Copy the desired NAR file into the MiNiFi <code>lib</code> directory.</li>
+<li>Restart your MiNiFi instance.</li>
+</ol>
+<p><strong>Note:</strong> The following processors are also a part of the default distribution but require adding a NAR for a Controller Service not packaged by default. The processors are grouped by the NAR that is required.</p>
+<ul>
+<li>nifi-dbcp-service-nar
+<ul>
+<li>ConvertJSONToSQL</li>
+<li>PutSQL</li>
+<li>GenerateTableFetch</li>
+<li>ListDatabaseTable</li>
+<li>QueryDatabaseTable</li>
+<li>ExecuteSQL</li>
+</ul>
+</li>
+<li>nifi-distributed-cache-services-nar
+<ul>
+<li>DetectDuplicate</li>
+<li>FetchDistributedMapCache</li>
+<li>PutDistributedMapCache</li>
+</ul>
+</li>
+<li>nifi-http-context-map-nar
+<ul>
+<li>HandleHttpRequest</li>
+<li>HandleHttpResponse</li>
+</ul>
+</li>
+</ul>
+<h2 id="securing-your-dataflow">Securing your Dataflow</h2>
+<p>You can secure your MiNiFi dataflow using keystore or trust store SSL protocols, however, this information is not automatically generated. You will need to generate your security configuration information yourself.</p>
+<p>To run a MiNiFi dataflow securely:</p>
+<ol>
+<li>Create your dataflow template as discussed above.</li>
+<li>Move it to <code>minifi/conf</code> and rename <em>config.yml</em>.</li>
+<li>Manually modify the Security Properties section of <em>config.yml</em>. For example:</li>
+</ol>
+<pre tabindex="0"><code>Security Properties:
+keystore:  
+keystore type:
+keystore password:
+key password:
+truststore:
+truststore type:
+truststore password:
+ssl protocol: TLS
+Sensitive Props:
+key:
+algorithm: PBEWITHMD5AND256BITAES-CBC-OPENSSL
+provider: BC
+</code></pre><h2 id="managing-minifi">Managing MiNiFi</h2>
+<p>You can also perform some management tasks using MiNiFi.</p>
+<h3 id="monitoring-status">Monitoring Status</h3>
+<p>You can use the <code>minifi.sh flowStatus</code> option to monitor a range of aspects of your MiNiFi operational and dataflow status. You can use the <code>flowStatus</code> option to get information about dataflow component health and functionality, a MiNiFi instance, or system diagnostics.</p>
+<p>FlowStatus accepts the following flags and options:</p>
+<ul>
+<li><code>processor</code>
+<ul>
+<li><code>health</code></li>
+<li><code>bulletins</code></li>
+<li><code>status</code></li>
+</ul>
+</li>
+<li><code>connection</code>
+<ul>
+<li><code>health</code></li>
+<li><code>stats</code></li>
+</ul>
+</li>
+<li><code>remoteProcessGroup</code>
+<ul>
+<li><code>health</code></li>
+<li><code>bulletins</code></li>
+<li><code>status</code></li>
+<li><code>authorizationIssues</code></li>
+<li><code>inputPorts</code></li>
+</ul>
+</li>
+<li><code>controllerServices</code>
+<ul>
+<li><code>health</code></li>
+<li><code>bulletins</code></li>
+</ul>
+</li>
+<li><code>provenancereporting</code>
+<ul>
+<li><code>health</code></li>
+<li><code>bulletins</code></li>
+</ul>
+</li>
+<li><code>instance</code>
+<ul>
+<li><code>health</code></li>
+<li><code>bulletins</code></li>
+<li><code>status</code></li>
+</ul>
+</li>
+<li><code>systemdiagnostics</code>
+<ul>
+<li><code>heap</code></li>
+<li><code>processorstats</code></li>
+<li><code>contentrepositoryusage</code></li>
+<li><code>flowfilerepositoryusage</code></li>
+<li><code>garbagecollection</code></li>
+</ul>
+</li>
+</ul>
+<p>For example, this query gets the health, stats, and bulletins for the TailFile processor:</p>
+<pre tabindex="0"><code>minifi.sh flowStatus processor:TailFile:health,stats,bulletins
+</code></pre><p><strong>Note:</strong> Currently, the script only accepts one high level option at a time.</p>
+<p><strong>Note:</strong> Any connections, remote process groups or processors names that contain &ldquo;:&rdquo;, &ldquo;;&rdquo; or &ldquo;,&rdquo; will cause parsing errors when querying.</p>
+<p>For details on the <code>flowStatus</code> option, see the &ldquo;FlowStatus Query Option&rdquo; section of the <a href="http://nifi.apache.org/minifi/system-admin-guide.html">Administration Guide</a>.</p>
+<h3 id="loading-a-new-dataflow">Loading a New Dataflow</h3>
+<p>You can load a new dataflow for a MiNiFi instance to run:</p>
+<ol>
+<li>Create a new <em>config.yml</em> file with the new dataflow.</li>
+<li>Replace the existing <em>config.yml</em> in <code>minifi/conf</code> with the new file.</li>
+<li>Restart MiNiFi.</li>
+</ol>
+<h3 id="stopping-minifi">Stopping MiNiFi</h3>
+<p>You can stop MiNiFi at any time.</p>
+<p>Stopping MiNiFi:</p>
+<ol>
+<li>From a terminal window, navigate to the MiNiFi installation directory.</li>
+<li>Enter:</li>
+</ol>
+<pre tabindex="0"><code>bin/minifi.sh stop
+</code></pre><p>Stopping MiNiFi as a service:</p>
+<ol>
+<li>From a terminal window, enter:</li>
+</ol>
+<pre tabindex="0"><code>sudo service minifi stop
+</code></pre><h1 id="guides">Guides</h1>
+<p><a href="pushing-nifi-minifi-java.html">Pushing Data From MiNiFi to NiFi Guide</a></p>
+
+</div>
+          </div>
+        <div class="row">
+    <div class="large-12 columns footer">
+        <a href="https://www.apache.org">
+            <img id="asf-logo" alt="Apache Software Foundation" src="/assets/images/asf_logo.png" width="200" style="margin:0px 10px" />
+        </a>
+        <a  href="https://www.apache.org/events/current-event.html">
+            <img src="https://www.apache.org/events/current-event-234x60.png" style="margin:0px 10px" />
+        </a>
+        <div id="copyright">
+            <p>Copyright &#169; 2023 The Apache Software Foundation, Licensed under the <a
+                    href="https://www.apache.org/licenses/">Apache License, Version 2.0</a>.<br/>Apache, the
+                Apache feather logo, NiFi, Apache NiFi and the project logo are trademarks of The Apache Software
+                Foundation.</p>
+        </div>
+    </div>
+</div>
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/foundation.js"></script>
+        <script src="/assets/js/app.js"></script>
+    </body>
+</html>

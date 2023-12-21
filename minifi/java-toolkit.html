@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
-        <title>Apache NiFi MiNiFi</title>
+        <title>Apache NiFi MiNiFi Toolkit Guide</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/assets/images/nifi16.ico"/>
@@ -108,26 +108,81 @@
           <div class="row">
             <div class="large-12 columns">
               <div class="large-space"></div>
-	<div class="large-6">
-  <img id="minifi-logo" src="/assets/images/minifi/minifi-logo.svg" alt="MiNiFi logo">
-</div>
-<p class="description">A subproject of Apache NiFi to collect data from the point of origin.</p>
-<h2 id="overview">Overview</h2>
-<p>Apache NiFi MiNiFi is an Apache NiFi project, designed to collect data at its source. MiNiFi was developed with the following objectives in mind:</p>
+	<h1 id="apache-hahahugoshortcode-s0-hbhb-minifi-toolkit">Apache <span class="ni">ni</span><span class="fi">fi</span>
+ MiNiFi Toolkit</h1>
+<h2 id="getting-started">Getting Started</h2>
+<p>After downloading the binary and extracting it, to run the MiNiFi Toolkit Converter:</p>
 <ul>
-<li>Small and lightweight footprint</li>
-<li>Central agent management</li>
-<li>Data provenance generation</li>
-<li>NiFi integration for follow-on dataflow management and chain of custody information</li>
+<li>
+<p>Change directory to the location where you installed MiNiFi Toolkit and run it and view usage information</p>
+<ul>
+<li>
+<p>Linux / OS X
+$ ./config.sh</p>
+</li>
+<li>
+<p>Windows
+execute bin/config.bat</p>
+</li>
 </ul>
-<h3 id="minifi-java">MiNiFi Java</h3>
-<p>The Java agent is built from the same codebase as NiFi, enabling it to run most of <a href="http://nifi.apache.org/docs.html">NiFi&rsquo;s processors</a>.
-However, it results in a larger binary distribution, consumes greater system resources, and requires JRE, compared to MiNiFi C++.
-If you require maximum flexibility to make routing and processing decisions at your data&rsquo;s point of origin, the Java agent is a good fit.</p>
-<h3 id="minifi-c">MiNiFi C++</h3>
-<p>The C++ agent is a native reimplementation of MiNiFi Java.
-Due to the absence of a JVM, it consumes fewer system resources but has a <a href="https://github.com/apache/nifi-minifi-cpp/blob/main/PROCESSORS.md">limited subset of processors</a>, and their properties might slightly differ from NiFi.
-If your primary concern is gathering and pushing data to downstream consumers while minimizing system impact, the C++ agent is a good fit.</p>
+</li>
+<li>
+<p>Usage Information</p>
+<pre><code>Usage:
+
+java org.apache.nifi.minifi.toolkit.configuration.ConfigMain &lt;command&gt; options
+
+Valid commands include:
+transform: Transform template xml into MiNiFi config YAML
+validate: Validate config YAML
+</code></pre>
+</li>
+</ul>
+<p>Note: Currently MiNiFi does not support external Input Ports or Output Ports. Any templates that contain these will fail transformation.</p>
+<h2 id="getting-help">Getting Help</h2>
+<p>If you have questions, you can reach out to our mailing list: <a href="mailto:dev@nifi.apache.org">dev@nifi.apache.org</a>
+(<a href="https://mail-archives.apache.org/mod_mbox/nifi-dev">archive</a>).
+We&rsquo;re also often available in IRC: #nifi on
+<a href="https://webchat.freenode.net/?channels=#nifi">irc.freenode.net</a>.</p>
+<h2 id="documentation">Documentation</h2>
+<p>See <a href="https://nifi.apache.org/minifi">https://nifi.apache.org/minifi</a> and <a href="https://cwiki.apache.org/confluence/display/NIFI/MiNiFi">https://cwiki.apache.org/confluence/display/NIFI/MiNiFi</a> for the latest documentation.</p>
+<h2 id="license">License</h2>
+<p>Except as otherwise noted this software is licensed under the
+<a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &ldquo;License&rdquo;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &ldquo;AS IS&rdquo; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+<h2 id="export-control">Export Control</h2>
+<p>This distribution includes cryptographic software. The country in which you
+currently reside may have restrictions on the import, possession, use, and/or
+re-export to another country, of encryption software. BEFORE using any
+encryption software, please check your country&rsquo;s laws, regulations and
+policies concerning the import, possession, or use, and re-export of encryption
+software, to see if this is permitted. See <a href="http://www.wassenaar.org/">http://www.wassenaar.org/</a> for more
+information.</p>
+<p>The U.S. Government Department of Commerce, Bureau of Industry and Security
+(BIS), has classified this software as Export Commodity Control Number (ECCN)
+5D002.C.1, which includes information security software using or performing
+cryptographic functions with asymmetric algorithms. The form and manner of this
+Apache Software Foundation distribution makes it eligible for export under the
+License Exception ENC Technology Software Unrestricted (TSU) exception (see the
+BIS Export Administration Regulations, Section 740.13) for both object code and
+source code.</p>
+<p>The following provides more details on the included cryptographic software:</p>
+<p>Apache NiFi - MiNiFi uses BouncyCastle, Jasypt, JCraft Inc., and the built-in
+java cryptography libraries for SSL, SSH, and the protection
+of sensitive configuration parameters. See
+<a href="https://bouncycastle.org/about.html">https://bouncycastle.org/about.html</a>
+<a href="http://www.jasypt.org/faq.html">http://www.jasypt.org/faq.html</a>
+<a href="http://jcraft.com/c-info.html">http://jcraft.com/c-info.html</a>
+<a href="https://www.oracle.com/us/products/export/export-regulations-345813.html">https://www.oracle.com/us/products/export/export-regulations-345813.html</a>
+for more details on each of these libraries cryptography features.</p>
 
 </div>
           </div>
