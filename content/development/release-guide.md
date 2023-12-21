@@ -1,5 +1,5 @@
 ---
-title: Apache NiFi Release Guidelines
+title: Release Guide
 menu:
   main:
     parent: "Development"

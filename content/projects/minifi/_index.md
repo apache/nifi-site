@@ -1,5 +1,5 @@
 ---
-title: Apache NiFi MiNiFi
+title: MiNiFi
 menu:
   main:
     parent: "Projects"
@@ -8,10 +8,8 @@ menu:
 ---
 
 <div class="uk-column-1-3@l">
-  <img id="minifi-logo" src="images/minifi-logo.svg" alt="MiNiFi logo">
+  <img id="minifi-logo" src="/images/minifi-logo.svg" alt="MiNiFi logo">
 </div>
-
-<p class="description">A subproject of Apache NiFi to collect data from the point of origin.</p>
 
 # Features
 

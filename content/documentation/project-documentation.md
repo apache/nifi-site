@@ -9,6 +9,4 @@ menu:
     weight: 2
 ---
 
-
-
 <iframe class="documentation-container" src="https://nifi.apache.org/docs/nifi-docs/"></iframe>

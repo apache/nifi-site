@@ -1,5 +1,5 @@
 ---
-title: Apache NiFi NAR Maven Plugin Release Guidelines
+title: NAR Maven Plugin Release Guide
 menu:
   main:
     parent: "Development"

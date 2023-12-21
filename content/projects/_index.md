@@ -12,7 +12,7 @@ Apache NiFi includes several subprojects with various capabilities.
 <div class="uk-card uk-card-default uk-margin-top">
   <div class="uk-card-body">
 <div class="uk-column-1-4@l">
-  <img id="minifi-logo" src="minifi/images/minifi-logo.svg" alt="MiNiFi logo">
+  <img id="minifi-logo" src="/images/minifi-logo.svg" alt="MiNiFi logo">
 </div>
     <div class="uk-margin-top">
 MiNiFi supports data collection from the point of origin. It is a complementary data collection approach that
@@ -36,7 +36,7 @@ following features:
 <div class="uk-card uk-card-default uk-margin-top">
   <div class="uk-card-body">
 <div class="uk-column-1-4@l">
-  <img id="minifi-logo" src="images/registry-logo.png" alt="Registy logo">
+  <img id="minifi-logo" src="/images/registry-logo.png" alt="Registy logo">
 </div>
     <div class="uk-margin-top">
 Registry is a complementary application that provides a central location for storage and management of shared resources

@@ -1,13 +1,11 @@
 ---
-title:     Apache NiFi MiNiFi System Administrator's Guide
+title: MiNiFi System Administrator's Guide
 menu:
   main:
     parent: "MiNiFi"
     name: System Admin Guide
     weight: 3
 ---
-
-This documentation is for MiNiFi 0.5.0.
 
 # Automatic Warm-Redeploy
 

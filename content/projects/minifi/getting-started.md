@@ -1,5 +1,5 @@
 ---
-title:     Apache NiFi MiNiFi Getting Started
+title: MiNiFi Getting Started
 menu:
   main:
     parent: "MiNiFi"
@@ -7,7 +7,7 @@ menu:
     weight: 1
 ---
 
-# Getting started with MiNiFi
+# Getting Started
 
 This page explains how to configure and deploy MiNiFi agents.
 
@@ -71,8 +71,7 @@ nifi.remote.input.http.transaction.ttl=30 sec
 
 Restart NiFi so changes take effect.
 
-On NiFi's web UI, place an Input Port "From MiNiFi" and connect it to a downstream processor:
-![](../assets/images/minifi/nifi-receive.png)
+On NiFi's web UI, place an Input Port "From MiNiFi" and connect it to a downstream processor.
 
 ## Creating the MiNiFi Flow
 
@@ -81,7 +80,6 @@ Create a new process group, and double click on it to enter it. Working inside t
 Inside the process group, create a Remote Process Group (RPG) and give it the URL of your NiFi instance. The RPG will connect to NiFi and discover the input port created earlier.
 
 Create a TailFile processor and connect it to the RPG, selecting the "From MiNiFi" input port.
-![](../assets/images/minifi/minifi-flow.png)
 
 Now create a template, download it as an XML file, and download the [Converter ToolKit](download.html).
 
@@ -121,7 +119,6 @@ Copy the generated config.yml file into $MINIFI/conf/config.yml, and start MiNiF
 Starting MiNiFi with PID 463 and pid file /nifi-minifi-cpp-0.1.0/bin/.minifi.pid
 ```
 
-After a few seconds, you should see NiFi receiving data on the input port:
-![](../assets/images/minifi/nifi-received.png)
+After a few seconds, you should see NiFi receiving data on the input port.
 
 If you do not see data in the queue, it may have already been consumed by the downstream processor (PutFile in this case). If no data is arriving on the input port at all, check the MiNiFi log files, and confirm that the file being tailed exists and is not empty.

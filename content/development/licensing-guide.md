@@ -1,5 +1,5 @@
 ---
-title:     Apache NiFi Licensing Guide
+title: Licensing Guide
 menu:
   main:
     parent: "Development"

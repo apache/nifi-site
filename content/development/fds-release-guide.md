@@ -1,5 +1,5 @@
 ---
-title: Apache NiFi Flow Design System Release Guidelines
+title: Flow Design System Release Guidelines
 menu:
   main:
     parent: "Development"

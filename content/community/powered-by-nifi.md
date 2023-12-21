@@ -1,5 +1,5 @@
 ---
-title: Powered by NiFi - Companies and Organizations using Apache NiFi
+title: Powered by NiFi
 menu:
   main:
     parent: "Community"

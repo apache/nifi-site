@@ -1,5 +1,5 @@
 ---
-title:     Apache NiFi MiNiFi Java Agent Quick Start Guide
+title: MiNiFi Java Agent Quick Start Guide
 menu:
   main:
     parent: "MiNiFi"
@@ -7,19 +7,8 @@ menu:
     weight: 2
 ---
 
-[Apache NiFi Team](dev@nifi.apache.org>)
+# Prerequisites
 
-[NiFi Homepage](http://nifi.apache.org)
-
-# Overview
-
-Apache NiFi MiNiFi is an Apache NiFi project, designed to collect data at its source. MiNiFi was developed with the following objectives in mind:
-* Small and lightweight footprint
-* Central agent management
-* Data provenance generation
-* NiFi integration for follow-on dataflow management and chain of custody information
-
-# Before You Begin
 MiNiFi Java Agent is supported on the following operating systems:
 * Red Hat Enterprise Linux / CentOS 6 (64-bit)
 * Red Hat Enterprise Linux / CentOS 7 (64-bit)

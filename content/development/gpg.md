@@ -1,13 +1,13 @@
 ---
-title: GPG (Gnu Privacy Guard / Open PGP) Signatures
+title: Commit and Release Signing
 menu:
   main:
     parent: "Development"
-    name: GPG Guide
+    name: Commit and Release Signing
     weight: 3
 ---
 
-# Apache {{< project-label >}} Release Signatures and Code Signing
+# Apache {{< project-label >}} Commit and Release Signing
 
 The purpose of this document is to capture and describe the steps involved in generating and verifying cryptographic signatures of official releases of Apache NiFi, as well as configuring cryptographic signatures of individual code commits.  It is written for contributors, committers, and users of Apache NiFi (and related applications).  
 

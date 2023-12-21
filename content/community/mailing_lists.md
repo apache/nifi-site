@@ -1,9 +1,9 @@
 ---
-title: Apache NiFi Mailing Lists
+title: Mailing Lists
 menu:
   main:
     parent: "Community"
-    name: Mailing Lists & Chat
+    name: Mailing Lists
     weight: 1
 ---
 
