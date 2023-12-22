@@ -14,20 +14,9 @@ menu:
 - [NiFi Documentation {{< param currentProjectVersion >}}]({{< ref "/documentation/v2" >}})
 - [NiFi Documentation {{< param previousProjectVersion >}}]({{< ref "/documentation/v1" >}})
 
-## Development Process
-
-- [Contributing](https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide)
-- [Commit and Release Signing]({{< ref "documentation/guides/signing" >}})
-- [Licensing]({{< ref "documentation/guides/licensing" >}})
-
-## Release Process
-
-- [Flow Design System Releases]({{< ref "documentation/guides/fds-releases" >}})
-- [Maven Plugin Releases]({{< ref "documentation/guides/maven-plugin-releases" >}})
-- [Releases]({{< ref "documentation/guides/releases" >}})
-
 ## Reference Information
 
+- [Guides]({{< ref "/documentation/guides" >}})
 - [Security Reporting]({{< ref "/documentation/security" >}})
-- [Videos](https://cwiki.apache.org/confluence/display/NIFI/Project+Videos)
-- [Wiki](https://cwiki.apache.org/confluence/display/NIFI/)
+- [Videos](https://cwiki.apache.org/confluence/display/NIFI/Project+Videos) {{< external-icon >}}
+- [Wiki](https://cwiki.apache.org/confluence/display/NIFI/) {{< external-icon >}}
