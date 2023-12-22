@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <title>NAR Maven Plugin Releases - Apache NiFi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>NAR Maven Plugin Releases - Apache NiFi</title>
+  <meta property="og:title" content="NAR Maven Plugin Releases">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://nifi.apache.org/documentation/guides/maven-plugin-releases/">
+  <meta property="og:description" content="">
+  <meta name="twitter:title" content="NAR Maven Plugin Releases">
+  <link rel="icon" href="/images/apache-nifi-drop-logo.svg">
+  <link rel="stylesheet" href="/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var baseUri = "//matomo.privacy.apache.org/";
+    _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
+    _paq.push(['setSiteId', '28']);
+    var trackerElement = document.createElement('script');
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    trackerElement.async = true;
+    trackerElement.src = baseUri + 'matomo.js';
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    if (window.location.host === 'nifi.apache.org') {
+      firstScriptElement.parentNode.insertBefore(trackerElement, firstScriptElement);
+    }
+  })();
+</script>
+</head>
+<body class="section-background">
+    
+
+<div class="nav-container" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+  <nav class="uk-container uk-navbar-container uk-navbar-transparent" uk-navbar>
+    <div class="uk-navbar-left">
+      <ul class="uk-navbar-nav">
+        <li>
+          <a class="uk-navbar-item" href="/">
+            <img src="/images/apache-nifi-drop-logo.svg" alt="Apache NiFi Logo" class="navbar-logo" width="36" height="48" />
+          </a>
+        </li>
+        <li class="uk-hidden@s">
+          <a href="#" class="uk-navbar-toggle " uk-navbar-toggle-icon uk-toggle="target: #mobile-menu"></a>
+        </li>
+
+
+          
+          
+          <li class="uk-visible@s uk-active">
+            <a href="/documentation/">Documentation</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="/documentation/v2/" >
+                  NiFi Documentation 2.0.0-M1
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/documentation/v1/" >
+                  NiFi Documentation 1.24.0
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/documentation/guides/" >
+                  Guides
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/documentation/security/" >
+                  Security Reporting
+                  
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="/development/">Development</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor&#43;Guide" target="_blank" rel="noopener noreferrer">
+                  Contributing
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://issues.apache.org/jira/browse/NIFI" target="_blank" rel="noopener noreferrer">
+                  Issues
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://github.com/apache/nifi" target="_blank" rel="noopener noreferrer">
+                  Source
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="/community/">Community</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="/community/contact/" >
+                  Contact
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/community/powered-by/" >
+                  Powered By
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/community" >
+                  Team
+                  
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="/projects/">Projects</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="/projects/minifi/" >
+                  MiNiFi
+                  
+                </a>
+
+              
+              <ul>
+                
+                <li class="">
+                <a href="/projects/minifi/java-agent-introduction/" >
+                  Java Agent Introduction
+                  
+                </a>
+                </li>
+                
+                <li class="">
+                <a href="/projects/minifi/java-agent-administration/" >
+                  Java Agent Administration
+                  
+                </a>
+                </li>
+                
+                <li class="">
+                <a href="https://cwiki.apache.org/confluence/display/MiNiFi" target="_blank" rel="noopener noreferrer">
+                  Wiki
+                  <span uk-icon="link"></span>
+                </a>
+                </li>
+                
+              </ul>
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/projects/registry/" >
+                  Registry
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/projects/fds/" >
+                  Flow Design System
+                  
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+
+      </ul>
+
+    </div>
+    <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+        <li>
+          <div class="uk-navbar-item">
+            <a class="uk-icon-link navbar-icon" uk-icon="icon: github; ratio: 2" href="https://github.com/apache/nifi"></a>
+          </div>
+        </li>
+        <li>
+          <div class="uk-navbar-item">
+            <a class="uk-button uk-button-primary uk-icon" href="/download/">
+              Download
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+<div id="mobile-menu" uk-offcanvas class="uk-offcanvas">
+  <div class="uk-offcanvas-bar">
+    <ul class="uk-navbar-nav" uk-accordion>
+      
+      
+        
+        <li class="uk-active">
+          <a class="uk-accordion-title" >Documentation</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="/documentation/v2/" >
+                NiFi Documentation 2.0.0-M1
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/documentation/v1/" >
+                NiFi Documentation 1.24.0
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/documentation/guides/" >
+                Guides
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/documentation/security/" >
+                Security Reporting
+                
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Development</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor&#43;Guide" target="_blank" rel="noopener noreferrer">
+                Contributing
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://issues.apache.org/jira/browse/NIFI" target="_blank" rel="noopener noreferrer">
+                Issues
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://github.com/apache/nifi" target="_blank" rel="noopener noreferrer">
+                Source
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Community</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="/community/contact/" >
+                Contact
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/community/powered-by/" >
+                Powered By
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/community" >
+                Team
+                
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Projects</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="/projects/minifi/" >
+                MiNiFi
+                
+              </a>
+
+            
+            <ul>
+              
+              <li class="">
+              <a href="/projects/minifi/java-agent-introduction/" >
+                Java Agent Introduction
+                
+              </a>
+              </li>
+              
+              <li class="">
+              <a href="/projects/minifi/java-agent-administration/" >
+                Java Agent Administration
+                
+              </a>
+              </li>
+              
+              <li class="">
+              <a href="https://cwiki.apache.org/confluence/display/MiNiFi" target="_blank" rel="noopener noreferrer">
+                Wiki
+                <span uk-icon="link"></span>
+              </a>
+              </li>
+              
+            </ul>
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/projects/registry/" >
+                Registry
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/projects/fds/" >
+                Flow Design System
+                
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+
+    </ul>
+  </div>
+</div>
+    <main>
+  <div class="uk-container">
+    <h1 id="apache-hahahugoshortcode-s0-hbhb-nar-maven-plugin-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+ NAR Maven Plugin Releases</h1>
+<p>The purpose of this document is to capture and describe the steps involved in producing
+an official release of Apache NiFi NAR Maven Plugin. It is written specifically to someone acting in the
+capacity of a <a href="https://www.apache.org/dev/release-publishing.html#release_manager">Release Manager</a> (RM).</p>
+<h2 id="the-objective">The objective</h2>
+<p>Our aim is to produce an official Apache release from an existing release branch.</p>
+<h2 id="background-material">Background Material</h2>
+<ul>
+<li>
+<p>These documents are necessary for all committers to be familiar with</p>
+<ul>
+<li><a href="https://apache.org/licenses/LICENSE-2.0">Apache License V2.0</a></li>
+<li><a href="https://www.apache.org/legal/resolved.html">Apache Legal License/Resolved</a></li>
+<li><a href="https://www.apache.org/dev/apply-license.html">Apache How-to Apply License</a></li>
+</ul>
+</li>
+<li>
+<p>These documents are necessary for someone acting as the RM</p>
+<ul>
+<li><a href="https://www.apache.org/licenses/exports/">Apache Encryption Software / ECCN Info</a></li>
+<li><a href="https://www.apache.org/dev/release.html">Apache Release Policy</a></li>
+<li><a href="https://www.apache.org/dev/release-publishing">Apache Release Guide</a></li>
+</ul>
+</li>
+<li>
+<p>These documents are helpful for general environmental setup to perform releases</p>
+<ul>
+<li><a href="https://www.apache.org/dev/openpgp.html">Apache PGP Info</a></li>
+<li><a href="http://www.apache.org/dev/release-signing.html">Apache Release Signing</a></li>
+<li><a href="https://www.apache.org/dev/publishing-maven-artifacts.html">Apache Guide to publish Maven Artifacts</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="terms">Terms</h2>
+<ul>
+<li><strong>Release Manager</strong> (RM) - the Apache NiFi PMC Member or Committer acting as <a href="https://www.apache.org/dev/release-publishing.html#release_manager">Release Manager</a>
+for a particular release of Apache NiFi.</li>
+<li><strong>Release Candidate</strong> (RC) - an iteration of the release process that is proposed for a vote by the Apache NiFi
+Community.</li>
+<li><strong>Community</strong> - the <a href="https://www.apache.org/foundation/glossary.html#Community">community</a> of people with an interest
+in the improvement and advancement of Apache NiFi, including end-users, developers, evangelists, and advisers.</li>
+<li><strong>PMC</strong> - within the Apache NiFi community, members of the <a href="https://www.apache.org/foundation/glossary.html#PMC">PMC</a> oversee the ongoing project.</li>
+<li><strong>Committer</strong> - within the Apache NiFi community, <a href="https://www.apache.org/foundation/glossary.html#Committer">committers</a> have gained the privilege to commit changes to the Apache NiFi codebase.</li>
+</ul>
+<h2 id="high-level-flow-of-a-release">High level flow of a release</h2>
+<ul>
+<li>The Apache NiFi community is constantly contributing to JIRA tickets assigned to the next release.</li>
+<li>At some point the number of tickets open/remaining for the next release begins to approach zero.</li>
+<li>A member of the community suggests a release and initiates a discussion.</li>
+<li>Someone volunteers to perform the Release Manager (RM) role for the release.  (This can be a committer but Apache
+guides indicate a preference for a PMC member.)</li>
+<li>The RM validates the proposed release and stages the source code, Maven artifacts, and distributable files for a
+Release Candidate (RC).</li>
+<li>The RM initiates a vote on the RC by the NiFi community.</li>
+<li>If the NiFi community rejects the RC, the issues noted are resolved and another RC is generated.</li>
+<li>If the NiFi community accepts the RC, the staged source code, artifacts, and distribution files are moved to the
+appropriately locations for public release.</li>
+</ul>
+<h2 id="variable-reference-substitutions">Variable reference substitutions</h2>
+<p>This guide is written to be generic for any release. As such, where string literals, code snippets,
+or parameter/argument values are used, placeholders will be used for values that are specific for each release.</p>
+<ul>
+<li>
+<p>Substitutions used in tasks and email templates</p>
+<table>
+<thead>
+<tr>
+<th>Reference</th>
+<th>Example value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>${BRANCH}</td>
+<td>main</td>
+<td>the development branch on which the release is based</td>
+</tr>
+<tr>
+<td>${VERSION}</td>
+<td>1.5.1</td>
+<td>the version being released (typically based off dropping the &ldquo;-SNAPSHOT&rdquo; suffix for the current development branch that is being released to mark a stable version</td>
+</tr>
+<tr>
+<td>${NEXT_VERSION}</td>
+<td>1.5.2-SNAPSHOT</td>
+<td>the next development version that will being after the release is completed. Typically the next bugfix version with the &ldquo;-SNAPSHOT&rdquo; suffix</td>
+</tr>
+<tr>
+<td>${JIRA_TICKET}</td>
+<td>NIFI-11688</td>
+<td>the JIRA ticket created by the release manager for the release tasks.</td>
+</tr>
+<tr>
+<td>${JIRA_VERSION_URL}</td>
+<td><a href="https://issues.apache.org/jira/projects/NIFI/versions/12353009">jira version page</a></td>
+<td>the link to the version in Jira that corresponds to this release and contains all the tickets</td>
+</tr>
+<tr>
+<td>${JIRA_RELEASE_NOTES_URL}</td>
+<td><a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12316020&amp;version=12353009">jira release notes</a></td>
+<td>the link to the JIRA auto-generated release notes based on the Jira version</td>
+</tr>
+<tr>
+<td>${RC}</td>
+<td>1</td>
+<td>the Release Candidate index start at 1 for the first release candidate.</td>
+</tr>
+<tr>
+<td>${RC_TAG_COMMIT_ID}</td>
+<td>39fc959426ea405df6360969b55ae2adad47e1aa</td>
+<td>the 40 byte commit ID of the RC tag created during the Maven release process.</td>
+</tr>
+<tr>
+<td>${STAGING_REPO_ID}</td>
+<td>orgapachenifi-1229</td>
+<td>the temporary Apache Nexus repository ID where staged artifacts have been placed</td>
+</tr>
+<tr>
+<td>${RM_USERID}</td>
+<td>johndoe</td>
+<td>the Apache account ID of Release Manager.</td>
+</tr>
+<tr>
+<td>${RELEASE_TAG}</td>
+<td>rel/nifi-nar-maven-plugin-1.5.1</td>
+<td>the Git repository tag for the source code as released.</td>
+</tr>
+<tr>
+<td>${VOTE_THREAD_URL}</td>
+<td><a href="https://lists.apache.org/thread/vrr3ndjh2wd9f4c8slb82232yglbfysd">1.5.1 vote thread</a></td>
+<td>the URL for the Apache Pony Mail archive of the release vote thread.</td>
+</tr>
+</tbody>
+</table>
+<p><em>To be practical but avoid confusion with future release details, these example values reflect the previous release
+NiFi NAR Maven Plugin 1.5.1 RC1 release details.</em></p>
+<p><em>NOTE: The next version should be the next hotfix version since NAR Maven Plugin is released infrequently and releases are
+mostly bugfix releases.</em></p>
+</li>
+</ul>
+<h2 id="what-to-validate-and-how-to-validate-a-release">What to validate and how to validate a release</h2>
+<p>The following is a list of the sorts of things that will be validated and are the basics to check
+when evaluating a release for a vote.</p>
+<ul>
+<li>Verify the contents contain a good README, NOTICE, and LICENSE.</li>
+<li>Verify the git commit ID is correct</li>
+<li>Verify the RC was branched off the correct git commit ID</li>
+<li>Verify that NiFi can build NARs correctly using the plugin:
+<ul>
+<li>Update NiFi&rsquo;s root pom to use version 1.5.1 of the plugin: <a href="https://github.com/apache/nifi/blob/main/pom.xml#L101">https://github.com/apache/nifi/blob/main/pom.xml#L101</a></li>
+<li>Perform a build of NiFi, optionally clear out local .m2 repo mvn clean install</li>
+<li>Ensure that NiFi starts and loads all processors, controller services, and reporting tasks</li>
+<li>Spot check a few NARs to ensure they include META-INF/docs/extension-manifest.xml
+<ul>
+<li>cp NIFI_HOME/lib/nifi-xyz-bundle.nar /tmp</li>
+<li>cd /tmp unzip nifi-xyz-bundle.nar</li>
+<li>cat META-INF/docs/extension-manifest.xml</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>This list is reflected in the Release Vote and Release Helper Guide emails that are sent once the release has been
+staged in the Git and Nexus repositories.</p>
+<h2 id="the-release-process">The Release Process</h2>
+<p>The release process includes steps to be performed by the Release Manager as well as the
+Apache NiFi developer community.</p>
+<h3 id="step-1-configure-the-build-environment-rm-and-community">Step 1. Configure the build environment (RM and community)</h3>
+<ol>
+<li>Follow the steps outlined in the <a href="https://nifi.apache.org/quickstart.html">Quickstart Guide</a> to prepare the development system.</li>
+<li>Confirm that the local Git workspace is configured with an origin remote pointing to the RM&rsquo;s personal fork of the
+NiFi source and an &ldquo;ASF&rdquo; remote pointing to the Apache Git Repository for NiFi.
+<pre tabindex="0"><code>$ git remote -v
+asf	https://gitbox.apache.org/repos/asf/nifi-maven.git (fetch)
+asf	https://gitbox.apache.org/repos/asf/nifi-maven.git (push)
+origin	https://github.com/${RM_USERID}/nifi-maven.git (fetch)
+origin	https://github.com/${RM_USERID}/nifi-maven.git (push)
+</code></pre>Additional remotes will not cause a problem if these two are correct.  Other configurations are perfectly
+acceptable but the appropriate adjustments to the steps in this guide must be made by the release manager.</li>
+<li>Confirm that source code can be checked out for the branch being released.
+<pre tabindex="0"><code>git checkout ${BRANCH}
+</code></pre></li>
+<li>Confirm that the entire application builds correctly in the build environment.</li>
+</ol>
+<h3 id="step-2-prepare-and-stage-the-release-rm">Step 2. Prepare and stage the release (RM)</h3>
+<ol>
+<li>Create a JIRA ticket for the release tasks for version ${VERSION}.<br>
+<em><strong>The resulting JIRA ticket number is referred to as ${JIRA_TICKET} in this guide.</strong></em></li>
+<li>Create the next version in JIRA, if it doesn&rsquo;t already exist, so work can continue towards that release.</li>
+<li>Create meaningful release notes for this version if not already created. <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes">Enter them here</a> on
+the NiFi wiki. A good starting point is reviewing the Jira generated release notes from the
+<a href="https://issues.apache.org/jira/projects/NIFI?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page&amp;status=unreleased">NiFi Versions management page</a>
+or this JQL filter: project = NIFI and fixVersion = ${VERSION}</li>
+<li>Create a new branch off &lsquo;main&rsquo; named after the JIRA ticket.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</code></pre></div></li>
+<li>Verify that Maven has sufficient heap space to perform the build tasks. Some plugins and parts of the build
+consumes a surprisingly large amount of space. These settings have been shown to work for Java 8 for NiFi NAR Maven Plugin version 1.5.1 and later.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export MAVEN_OPTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-Xms1024m -Xmx3076m&#34;</span>
+</code></pre></div></li>
+<li>Ensure your settings.xml has been updated to include a <code>signed_release</code> profile and a <code>&lt;server&gt;</code> entry for
+&ldquo;repository.apache.org&rdquo; as shown below. <a href="http://blog.sonatype.com/2009/10/maven-tips-and-tricks-encrypting-passwords">Steps to configure and encrypt Maven passwords</a>.
+There are  other ways to ensure your PGP key is available for signing as well.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-XML" data-lang="XML">    <span style="color:#f92672">&lt;profile&gt;</span>
+        <span style="color:#f92672">&lt;id&gt;</span>signed_release<span style="color:#f92672">&lt;/id&gt;</span>
+        <span style="color:#f92672">&lt;properties&gt;</span>
+            <span style="color:#f92672">&lt;mavenExecutorId&gt;</span>forked-path<span style="color:#f92672">&lt;/mavenExecutorId&gt;</span>
+            <span style="color:#f92672">&lt;gpg.keyname&gt;</span>${RM_USERID}@apache.org<span style="color:#f92672">&lt;/gpg.keyname&gt;</span>
+            <span style="color:#f92672">&lt;gpg.passphrase&gt;</span>ENCRYPTED_GPG_PASSPHRASE_HERE<span style="color:#f92672">&lt;/gpg.passphrase&gt;</span>
+        <span style="color:#f92672">&lt;/properties&gt;</span>
+    <span style="color:#f92672">&lt;/profile&gt;</span>
+
+    <span style="color:#f92672">&lt;servers&gt;</span>
+        <span style="color:#f92672">&lt;server&gt;</span>
+            <span style="color:#f92672">&lt;id&gt;</span>repository.apache.org<span style="color:#f92672">&lt;/id&gt;</span>
+            <span style="color:#f92672">&lt;username&gt;</span>${RM_USERID}<span style="color:#f92672">&lt;/username&gt;</span>
+            <span style="color:#f92672">&lt;password&gt;</span>ENCRYPTED_PASSWORD_HERE<span style="color:#f92672">&lt;/password&gt;</span>
+        <span style="color:#f92672">&lt;/server&gt;</span>
+    <span style="color:#f92672">&lt;/servers&gt;</span>
+</code></pre></div></li>
+</ol>
+<p><em>NOTE: <code>gpg</code> will be invoked during this step, which will need to prompt you for a password.  From the command line, use
+<code>export GPG_TTY=$(tty)</code> to allow <code>gpg</code> to prompt you.</em></p>
+<p><em>NOTE: It is not mandatory but it is advised to sign all commits created during the release. Since the commits are created
+automatically, the best way is to enable gpg sign for all commits: <code>git config commit.gpgsign true</code></em></p>
+<ol>
+<li>Ensure the the full application builds and all tests work by executing a parallel (multi-threaded) build.
+Checkstyle is part of the build, there is no need to explicitly trigger it.
+<pre tabindex="0"><code>$ mvn -T 2.5C clean install
+</code></pre></li>
+<li>Ensure that <code>nifi-nar-maven-plugin-${VERSION}.jar</code> is present in the target directory.</li>
+<li>Evaluate and ensure the appropriate license headers are present on all source files.</li>
+<li>Ensure LICENSE and NOTICE files are complete and accurate. (Developers should always be keeping these up to date as
+they go along adding source and modifying dependencies to keep this burden manageable.)</li>
+<li>Go through the steps described in &ldquo;What to validate and how to validate a release&rdquo; section</li>
+</ol>
+<h3 id="step-3-perform-the-release-rm">Step 3. Perform the release (RM)</h3>
+<ol>
+<li>
+<p>Use the Maven Release Plugin to prepare the release with this command.</p>
+<pre tabindex="0"><code>$ mvn --batch-mode release:prepare \
+    -Psigned_release \
+    -DscmCommentPrefix=&quot;${JIRA_TICKET}-RC${RC} &quot; \
+    -Dtag=&quot;nifi-nar-maven-plugin-${VERSION}-RC${RC}&quot; \
+    -DreleaseVersion=&quot;${VERSION}&quot; \
+    -DdevelopmentVersion=&quot;${NEXT_VERSION}&quot; \
+    -Darguments=&quot;-DskipTests&quot;
+</code></pre></li>
+<li>
+<p>Review the release preparation results.  If problems are found <code>$ mvn release:rollback</code> will reset the changes, or
+it may be necessary to run <code>$ mvn release:clean</code> to get the project to a state where it can be rebuilt.</p>
+</li>
+<li>
+<p>If the release preparation completed without problems, perform the release and deploy artifacts to staging.</p>
+<pre tabindex="0"><code>$ mvn release:perform \
+    -Psigned_release \
+    -DscmCommentPrefix=&quot;${JIRA_TICKET}-RC${RC} &quot; \
+    -Darguments=&quot;-DskipTests&quot;
+</code></pre><p>When this completes the artifacts have been released to the Apache Nexus staging repository at <a href="https://repository.apache.org">https://repository.apache.org</a>.
+and there should the staging repository ID returned in a log entry like this:</p>
+<pre tabindex="0"><code>[INFO]  * Closing staging repository with ID &quot;orgapachenifi-1229&quot;
+</code></pre><p><em><strong>This staging repository ID is referred to by ${STAGING_REPO_ID} in this release guide.</strong></em>
+<em><strong>Example staging repo url: <a href="https://repository.apache.org/content/repositories/orgapachenifi-1229/org/apache/nifi/nifi-nar-maven-plugin/1.5.1/">https://repository.apache.org/content/repositories/orgapachenifi-1229/org/apache/nifi/nifi-nar-maven-plugin/1.5.1/</a></strong></em></p>
+</li>
+<li>
+<p>Browse to the Apache <a href="https://repository.apache.org/#stagingRepositories">Staging Repository</a> and
+login with your Apache committer credentials and you should see the newly created staging repository listed.  If you
+click on that you can inspect the various staged artifacts.</p>
+</li>
+<li>
+<p>Validate that all the various aspects of the staged artifacts appear correct</p>
+<ul>
+<li>Download the source-release and signature at the following URL. Do they compile cleanly?
+<code>wget https://repository.apache.org/content/repositories/orgapachenifi-1229/org/apache/nifi/nifi-nar-maven-plugin/${VERSION}/nifi-nar-maven-plugin-${VERSION}-source-release.zip</code>
+<code>wget https://repository.apache.org/content/repositories/orgapachenifi-1229/org/apache/nifi/nifi-nar-maven-plugin/${VERSION}/nifi-nar-maven-plugin-${VERSION}-source-release.zip.asc</code></li>
+<li>Validate the signature and hashes. <a href="https://nifi.apache.org/gpg.html#verifying-a-release-signature">Verifying a release signature</a>.</li>
+<li>Validate that the sources contain no unexpected binaries.</li>
+<li>Validate the LICENSE/NOTICE/Headers.</li>
+<li>Validate that the README is present and provides sufficient information to build and if necessary execute.</li>
+</ul>
+</li>
+<li>
+<p>If the validated artifacts all look good then push the local git branch and tag to the ASF repository.</p>
+<pre tabindex="0"><code>$ git push asf ${JIRA_TICKET}-RC${RC}
+$ git push asf nifi-nar-maven-plugin-${VERSION}-RC${RC}  # Note this tag is created as part of the maven release plugin
+</code></pre><p><em><strong>From this branch, the ${RC_TAG_COMMIT_ID} will be the 40 byte commit hash with the comment: ${JIRA_TICKET}-RC${RC} prepare release nifi-${NIFI_VERSION}-RC${RC}</strong></em></p>
+</li>
+<li>
+<p>Create the signature and hashes for the source-release. During the vote process we only use the source-release, so we only need that file.</p>
+<ol>
+<li>ASCII armored GPG signatures (<code>--digest-algo=SHA512</code> select the SHA512 hash algorithm). <a href="https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1">Configure GPG to always prefer stronger hashes</a>.
+Technically you can include the .asc file from the release build, but our practice is to generate the .asc file locally again. (based on the downloaded .zip)
+<pre tabindex="0"><code>$ gpg -a -b --digest-algo=SHA512 nifi-nar-maven-plugin-${VERSION}-source-release.zip
+</code></pre></li>
+<li>Generate SHA256 and SHA512 hash summaries. The automation only creates the sha1 and md5 hashes. However we use sha256 and sha512 hashes during the
+vote process that we need to generate locally:
+<pre tabindex="0"><code>$ shasum -a 256 nifi-nar-maven-plugin-1.5.1-source-release.zip | cut -d&quot; &quot; -f1 &gt; nifi-nar-maven-plugin-${VERSION}-source-release.zip.sha256
+$ shasum -a 512 nifi-nar-maven-plugin-1.5.1-source-release.zip | cut -d&quot; &quot; -f1 &gt; nifi-nar-maven-plugin-${VERSION}-source-release.zip.sha512
+</code></pre></li>
+</ol>
+</li>
+<li>
+<p>For reviewing of the release candidate, commit the source release and convenience binaries files along with their
+hashes and signatures to <code>https://dist.apache.org/repos/dist/dev/nifi/nifi-nar-maven-plugin-${VERSION}</code>. There should be in total 4 files (1 source-release.zip, 1 signature, 1 sha256, 1 sha512).</p>
+</li>
+</ol>
+<pre tabindex="0"><code>svn checkout https://dist.apache.org/repos/dist/dev/nifi dist-dev-nifi
+ 
+cd dist-dev-nifi/
+ 
+mkdir nifi-nar-maven-plugin-${VERSION}
+# Add source release to nifi-nar-maven-plugin-${VERSION}, along with their corresponding signature and hash files
+ 
+svn update
+svn add nifi-nar-maven-plugin-${VERSION}
+svn commit -m &quot;${JIRA_TICKET} Staging artifacts for nifi-nar-maven-plugin-${VERSION}-RC${RC}&quot; nifi-nar-maven-plugin-${VERSION}
+</code></pre><h3 id="step-4-error-recovery-rm">Step 4. Error recovery (RM)</h3>
+<p>If anything isn&rsquo;t correct about the staged artifacts you can drop the staged repo from repository.apache.org and delete
+the local tag in git.  If you also delete the local branch and clear your local maven repository under org/apache/nifi
+then it is as if the release never happened.  Before doing that though try to figure out what went wrong so the Release
+Guide can be updated or corrected if necessary.</p>
+<p>So, as has been described here you can test the release process until you get it right.  The <code>mvn versions:set</code> and
+<code>mvn versions:commit</code> commands can come in handy to help do this so you can set versions to something clearly release
+test related.</p>
+<h3 id="step-5-release-vote-rm-and-community">Step 5. Release Vote (RM and community)</h3>
+<p>After the release source and artifacts are staged in the repositories, the RM sends a release vote to the community.</p>
+<p>Once the release vote is called for, members of the NiFi developer community have 72 hours to evaluate the RC and
+cast their vote by replying to the &ldquo;[VOTE] Release &hellip;&rdquo; email sent by the RM.</p>
+<p><em>NOTE:  The release vote is majority rule vote that must include at least 3 binding +1 votes Apache NiFi PMC members
+and more positive than negative binding votes.</em></p>
+<ol>
+<li>
+<p>RM sends a vote request email to the NiFi Developers Mailing List.</p>
+<ul>
+<li>TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: <code>${RM_USERID}@apache.org</code></li>
+<li>SUBJECT: <code>[VOTE] Release Apache NiFi NAR Maven Plugin ${VERSION}</code></li>
+</ul>
+<pre tabindex="0"><code>Hello Apache NiFi Community,
+
+I am pleased to be calling this vote for the source release of Apache NiFi NAR Maven Plugin ${VERSION}
+
+The source being voted upon, including signatures, digests, etc. can be found at:
+https://dist.apache.org/repos/dist/dev/nifi/nifi-nar-maven-plugin-${VERSION}/
+
+A helpful reminder on how the release candidate verification process works:
+https://cwiki.apache.org/confluence/display/NIFI/How+to+help+verify+an+Apache+NiFi+NAR+Maven+Plugin+release+candidate
+
+The Git tag is nifi-nar-maven-plugin-${VERSION}-rc${VERSION}
+The Git commit ID is ${RC_TAG_COMMIT_ID}
+https://gitbox.apache.org/repos/asf?p=nifi-maven.git;a=commit;h=${RC_TAG_COMMIT_ID}
+
+Checksums of nifi-nar-maven-plugin-${VERSION}-source-release.zip:
+SHA256: &lt;64-CHAR-SHA256SUM-HASH&gt;
+SHA512: &lt;128-CHAR-SHA512SUM-HASH&gt;
+
+Release artifacts are signed with the following key:
+https://people.apache.org/keys/committer/${RM_USERID}.asc
+
+KEYS file available here:
+https://dist.apache.org/repos/dist/release/nifi/KEYS
+
+3 issues were closed/resolved for this release:
+${JIRA_RELEASE_NOTES_URL}
+
+Release note highlights can be found here:
+https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiNARMavenPluginVersion${VERSION}
+
+The vote will be open for 72 hours. Please download the release
+candidate and evaluate the necessary items including checking hashes,
+signatures, build from source, and test. Then please vote:
+
+[ ] +1 Release this package as nifi-nar-maven-plugin-${VERSION}
+[ ] +0 no opinion
+[ ] -1 Do not release this package because ...
+</code></pre></li>
+<li>
+<p>Developers in the community review the release candidate and reply to the vote email with their vote.</p>
+</li>
+<li>
+<p>After 72 hours if</p>
+<ul>
+<li>at least 3 binding (PMC members) cast +1 votes, and</li>
+<li>the positive binding votes out number any negative binding votes</li>
+</ul>
+<p>the vote passes and the release candidate is officially released. If the vote does not pass, corrections are made
+on the release branch and a new release candidate is put forward for a new vote.</p>
+</li>
+<li>
+<p>RM sends vote result email.</p>
+<ul>
+<li>TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: <code>${RM_USERID}@apache.org</code></li>
+<li>SUBJECT: <code>[RESULT][VOTE] Release Apache NiFi NAR Maven Plugin ${VERSION}</code></li>
+</ul>
+<pre tabindex="0"><code>Apache NiFi Community,
+
+I am pleased to announce that the ${VERSION} release of Apache NiFi NAR Maven Plugin passes with
+    X +1 (binding) votes
+    Y +1 (non-binding) votes
+    0 0 votes
+    0 -1 votes
+
+Thanks to all who helped make this release possible.
+
+Here is the PMC vote thread: ${VOTE_THREAD_URL}
+</code></pre></li>
+</ol>
+<h3 id="step-6-finalize-the-release">Step 6. Finalize the Release</h3>
+<p>After the vote is complete and the release is approved, these steps complete the release process.</p>
+<ol>
+<li>
+<p>Move convenience binaries and related artifacts from dist/dev to dist/release:<br>
+<em>NOTE: the release branch requires PMC access</em></p>
+<pre tabindex="0"><code>$ svn move -m &quot;${JIRA_TICKET}&quot; https://dist.apache.org/repos/dist/dev/nifi/nifi-nar-maven-plugin-${VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-nar-maven-plugin-${VERSION}
+</code></pre></li>
+<li>
+<p>At <a href="https://repository.apache.org">https://repository.apache.org</a>, login with your Apache ID credentials, go to Staging Repositories, select Release and follow the instructions on the site.</p>
+</li>
+<li>
+<p>Merge the release branch into main. (this will result in a merge commit)</p>
+<pre tabindex="0"><code>$ git checkout main
+$ git merge --no-ff ${JIRA_TICKET}-RC${RC}
+$ git push asf main
+</code></pre></li>
+<li>
+<p>Delete the previous version release artifacts from the dist/release repo. Confirm the artifacts you deleted are present in apache archive where ASF keeps all releases forever <a href="http://archive.apache.org/dist/nifi/">http://archive.apache.org/dist/nifi/</a></p>
+<pre tabindex="0"><code>$ svn delete -m &quot;${JIRA_TICKET} Removing old release dir&quot; https://dist.apache.org/repos/dist/release/nifi/nifi-nar-maven-plugin-${OLD_VERSION}
+</code></pre></li>
+<li>
+<p>In Jira, mark the ${JIRA_TICKET} resolved. All tickets for the Jira release version should now be resolved or closed. Mark the release version for ${VERSION} as &lsquo;Released&rsquo; using the NiFi Versions management page.
+This may also be a good time to create a Jira version for the next planned release of ${NEXT_VERSION} (usually the next hotfix version in case of NAR Maven Plugin).</p>
+</li>
+<li>
+<p>Ensure the release artifacts are successfully mirrored to the archive, specifically <a href="https://archive.apache.org/dist/nifi/nifi-nar-maven-plugin-$%7BVERSION%7D.jar">https://archive.apache.org/dist/nifi/nifi-nar-maven-plugin-${VERSION}.jar</a>.<br>
+This convenience binary file will be used as a dependency in NiFi and will be mirrored to Maven Central.  If there were any
+issues with the above listed file not being available, it may be necessary to reach out to the ASF Infra team. This step might take a long time (even an overnight) so
+it can be skipped.</p>
+</li>
+<li>
+<p>Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.<br>
+<em>NOTE: <code>gpg</code> will be invoked during this step, which will need to prompt you for a password.  From the command line, use
+<code>export GPG_TTY=$(tty)</code> to allow <code>gpg</code> to prompt you.</em></p>
+<pre tabindex="0"><code>$ git tag -s rel/nifi-nar-maven-plugin-${VERSION} -m &quot;${JIRA_TICKET} signed release tag for approved release of NiFi NAR Maven Plugin ${VERSION}&quot; ${RC_TAG_COMMIT_ID}
+</code></pre><p>For instructions on setting up to sign your tag see <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">here</a>.</p>
+</li>
+<li>
+<p>Push the release tag to the official ASF repository.</p>
+<pre tabindex="0"><code>$ git push asf rel/nifi-nar-maven-plugin-${VERSION}
+</code></pre></li>
+<li>
+<p>Update the release notes with the final date of the release.</p>
+</li>
+<li>
+<p>After the release has been complete for an hour send the release announcement.</p>
+</li>
+</ol>
+<ul>
+<li>See <a href="https://www.apache.org/dev/release.html#release-announcements">here</a> for an understanding of why you need to wait</li>
+<li>The email must be in pure-text format otherwise the email sent to the announce list will be rejected. If you are using Gmail, just click the &ldquo;vertical 3 spots&rdquo; icon, and choose &ldquo;pure text&rdquo;.</li>
+<li>The announcement should addressed as follows.
+<ul>
+<li>TO: <code>announce@apache.org</code>, <code>dev@nifi.apache.org</code></li>
+<li>REPLY-TO: <code>dev@nifi.apache.org</code></li>
+<li>FROM: <code>${RM_USERID}@apache.org</code> (this is crucial announce list doesn&rsquo;t accept addresses outside of apache.org)</li>
+<li>SUBJECT: <code>[ANNOUNCE] Apache NiFi NAR Maven Plugin ${VERSION} release</code>.</li>
+</ul>
+<pre tabindex="0"><code>Hello
+
+The Apache NiFi team would like to announce the release of Apache NiFi NAR Maven Plugin ${VERSION}.
+
+Apache NiFi is an easy to use, powerful, and reliable system to process and distribute
+data. Apache NiFi was made for dataflow. It supports highly configurable directed graphs
+of data routing, transformation, and system mediation logic.
+
+Nar Maven Plugin is a release artifact used for supporting the NiFi classloader isolation model.
+
+More details on Apache NiFi can be found here:
+https://nifi.apache.org/
+
+The release artifacts can be downloaded from here:
+https://repository.apache.org/content/groups/public/org/apache/nifi/nifi-nar-maven-plugin/${VERSION}/
+
+Maven artifacts have been made available and mirrored as per normal ASF artifact processes.
+
+Issues closed/resolved for this list can be found here:
+${JIRA_RELEASE_NOTES_URL}
+
+Release note highlights can be found here:
+https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiNARMavenPluginVersion${VERSION}
+
+Thank you
+The Apache NiFi team
+</code></pre></li>
+</ul>
+
+  </div>
+</main>
+    <footer>
+  <div class="uk-container">
+    <div class="uk-flex uk-grid uk-grid-large">
+      <div class="uk-width-1-2@m">
+        <p>
+          <a class="uk-link-reset" href="/">
+            <img src="/images/apache-nifi-logo.svg" class="footer-logo" alt="Apache NiFi Logo"/>
+          </a>
+          <a class="uk-link-reset" href="https://apache.org">
+            <img src="/images/apache-logo.svg" class="footer-logo uk-margin-left" alt="Apache Software Foundation Logo"/>
+          </a>
+        </p>
+        <p>
+          Copyright &copy; 2023 The Apache Software Foundation under the terms of the
+          <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
+        </p>
+        <p>
+          Apache NiFi, NiFi, and the NiFi logo are trademarks of
+          <a href="https://apache.org/">The Apache Software Foundation</a>
+        </p>
+      </div>
+      <div class="uk-width-1-4@m">
+        <h3><a href="/">Project</a></h3>
+        <ul>
+          <li><a href="https://issues.apache.org/jira/browse/NIFI">Issues</a></li>
+          <li><a href="https://github.com/apache/nifi">Source</a></li>
+          <li><a href="https://www.linkedin.com/company/apache-nifi/">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="uk-width-1-4@m">
+        <h3><a href="https://www.apache.org/">Apache</a></h3>
+        <ul>
+          <li><a href="https://www.apache.org/licenses/">License</a></li>
+          <li><a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a></li>
+          <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+          <li><a href="https://www.apache.org/security/">Security</a></li>
+          <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/uikit/js/uikit.min.js"></script>
+    <script src="/uikit/js/uikit-icons.min.js"></script>
+  </body>
+</html>
