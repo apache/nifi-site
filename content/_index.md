@@ -5,9 +5,10 @@ title: "Apache NiFi"
 {{% hero-section img=main-hero.svg %}}
 # An **easy to use**, **powerful**, and **reliable** system to process and distribute data
 Apache NiFi provides configurable, scalable, and reliable data transformation and distribution
-
+<div class="download-links">
 <a class="uk-button uk-button-primary uk-icon" href="/download/">Download</a>
 <a class="uk-button uk-button-default uk-icon" href="/documentation/">View Documentation</a>
+</div>
 {{% /hero-section %}}
 
 {{% hero-section img=provenance.svg background=white %}}
