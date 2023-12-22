@@ -9,11 +9,14 @@
             <img src="/images/apache-nifi-drop-logo.svg" alt="Apache NiFi Logo" class="navbar-logo" width="36" height="48" />
           </a>
         </li>
+        <li class="uk-hidden@s">
+          <a href="#" class="uk-navbar-toggle " uk-navbar-toggle-icon uk-toggle="target: #mobile-menu"></a>
+        </li>
 
 
           {{ $currentPage := . }}
           {{ range .Site.Menus.main }}
-          <li class="{{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}uk-active{{ end }}">
+          <li class="uk-visible@s {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}uk-active{{ end }}">
             <a href="{{ .URL }}">{{ .Name }}</a>
             {{ if .HasChildren }}
             <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
@@ -64,4 +67,46 @@
       </ul>
     </div>
   </nav>
+</div>
+
+
+<div id="mobile-menu" uk-offcanvas class="uk-offcanvas">
+  <div class="uk-offcanvas-bar">
+    <ul class="uk-navbar-nav" uk-accordion>
+      
+      {{ $currentPage := . }}
+        {{ range .Site.Menus.main }}
+        <li class="{{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}uk-active{{ end }}">
+          <a {{ if not .HasChildren }}href="{{ .URL }}"{{ else }}class="uk-accordion-title" {{ end }}>{{ .Name }}</a>
+          {{ if .HasChildren }}
+          <ul class="uk-accordion-content">
+            {{ range .Children }}
+            <li class="{{ if $currentPage.IsMenuCurrent "main" . }}uk-active{{ end }}">
+              <a href="{{ .URL }}" {{ if eq .Params.external true }}target="_blank" rel="noopener noreferrer"{{ end }}>
+                {{ .Name }}
+                {{ if eq .Params.external true }}<span uk-icon="link"></span>{{ end }}
+              </a>
+
+            {{ if .HasChildren }}
+            <ul>
+              {{ range .Children }}
+              <li class="{{ if $currentPage.IsMenuCurrent "main" . }}uk-active{{ end }}">
+              <a href="{{ .URL }}" {{ if eq .Params.external true }}target="_blank" rel="noopener noreferrer"{{ end }}>
+                {{ .Name }}
+                {{ if eq .Params.external true }}<span uk-icon="link"></span>{{ end }}
+              </a>
+              </li>
+              {{ end }}
+            </ul>
+            {{ end }}
+
+            </li>
+            {{ end }}
+          </ul>
+          {{ end }}
+        </li>
+        {{ end }}
+
+    </ul>
+  </div>
 </div>
