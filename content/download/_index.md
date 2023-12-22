@@ -10,12 +10,25 @@ subject to rate limiting.
 OpenPGP [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used for
 [download verification](https://www.apache.org/info/verification.html).
 
-<ul class="uk-tab" uk-switcher>
-  <li><a class="uk-active" href="#nifi">NiFi</a></li>
-  <li><a href="#minifi">MiNiFi</a></li>
-  <li><a href="#registry">Registry</a></li>
-  <li><a href="#fds">FDS</a></li>
+<ul uk-tab>
+  <li id="download-nifi"><a href="">NiFi</a></li>
+  <li id="download-minifi"><a href="">MiNiFi</a></li>
+  <li id="download-registry"><a href="">Registry</a></li>
+  <li id="download-fds"><a href="">FDS</a></li>
 </ul>
+
+<script type="text/javascript">
+window.addEventListener('uikit:init', () => {
+    var hash = window.location.hash
+    if (hash) {
+        var hashDownloadId = hash.replace(/^#/, 'download-');
+        var downloadElement = document.getElementById(hashDownloadId);
+        if (downloadElement) { 
+            downloadElement.classList.add('uk-active'); 
+        }
+    }
+});
+</script>
 
 <ul class="uk-switcher">
 <li>

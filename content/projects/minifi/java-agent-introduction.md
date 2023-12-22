@@ -1,9 +1,9 @@
 ---
-title: MiNiFi Java Agent Quick Start Guide
+title: MiNiFi Java Agent Introduction
 menu:
   main:
     parent: "MiNiFi"
-    name: Quick Start Guide
+    name: Java Agent Introduction
     weight: 2
 ---
 

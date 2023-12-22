@@ -1,13 +1,8 @@
 ---
-title: Flow Design System Release Guidelines
-menu:
-  main:
-    parent: "Development"
-    name: FDS Release Guide
-    weight: 5
+title: Flow Design System Releases
 ---
 
-# Apache {{< project-label >}} Flow Design System Release Guidelines
+# Apache {{< project-label >}} Flow Design System Releases
 
 The purpose of this document is to capture and describe the steps involved in producing
 an official release of Apache NiFi Flow Design System.  It is written specifically to someone acting in the

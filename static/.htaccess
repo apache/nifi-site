@@ -7,5 +7,16 @@ RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 # Redirect component documentation to specified version
 RewriteRule ^docs/nifi-docs/components/org\.apache\.nifi/([^\/]+?)/[^\/]+?/(.*)$ docs/nifi-docs/components/org.apache.nifi/$1/1.24.0/$2 [L]
 
-# Rewrite registry-security.html to security.html for merged tracking
-RewriteRule ^registry-security\.html$ /security.html [L,R]
+# Rewrite historical links
+RewriteRule ^docs\.html$ /documentation/v2/ [L,R]
+RewriteRule ^download\.html$ /download/ [L,R]
+RewriteRule ^faq\.html$ /documentation/ [L,R]
+RewriteRule ^fds\.html$ /projects/fds/ [L,R]
+RewriteRule ^mailing_lists\.html$ /community/contact/ [L,R]
+RewriteRule ^people\.html$ /community/ [L,R]
+RewriteRule ^powered-by-nifi\.html$ /community/powered-by/ [L,R]
+RewriteRule ^project-documentation\.html$ /documentation/v2/ [L,R]
+RewriteRule ^registry-security\.html$ /documentation/security/ [L,R]
+RewriteRule ^registry\.html$ /projects/registry/ [L,R]
+RewriteRule ^security\.html$ /documentation/security/ [L,R]
+RewriteRule ^videos\.html$ /documentation/ [L,R]

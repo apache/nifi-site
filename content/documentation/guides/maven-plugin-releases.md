@@ -1,13 +1,8 @@
 ---
-title: NAR Maven Plugin Release Guide
-menu:
-  main:
-    parent: "Development"
-    name: NAR Maven Plugin Release Guide
-    weight: 4
+title: NAR Maven Plugin Releases
 ---
 
-# Apache {{< project-label >}} NAR Maven Plugin Release Guidelines
+# Apache {{< project-label >}} NAR Maven Plugin Releases
 
 The purpose of this document is to capture and describe the steps involved in producing
 an official release of Apache NiFi NAR Maven Plugin. It is written specifically to someone acting in the

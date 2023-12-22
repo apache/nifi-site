@@ -1,10 +1,5 @@
 ---
 title: Commit and Release Signing
-menu:
-  main:
-    parent: "Development"
-    name: Commit and Release Signing
-    weight: 3
 ---
 
 # Apache {{< project-label >}} Commit and Release Signing

@@ -1,5 +1,5 @@
 ---
-title: Apache NiFi Registry
+title: Registry
 menu:
   main:
     parent: "Projects"
@@ -35,28 +35,3 @@ Apache NiFi Registry provides the following features:
 - {{< youtube-embed id="qD03ao3R-a4" title="Setting Up a Secure Apache NiFi Registry" >}}
 - {{< youtube-embed id="DSO12fhnZ90" title="Setting Up a Secure NiFi to Integrate with a Secure NiFi Registry" >}}
 - {{< youtube-embed id="kK7eVppg9Aw" title="Storing Versioned Flows in a Git Repository" >}}
-
-## Releases
-
-Apache NiFi [Project Keys](https://downloads.apache.org/nifi/KEYS) can be used to
-[verify downloads](https://www.apache.org/info/verification.html).
-
-Please allow up to 24 hours for mirrors to synchronize following the release of a new version.
-
-### Registry {{< param currentProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param currentProjectVersion >}})
-
-- Released: {{< param currentProjectVersionReleased >}}
-
-#### Sources
-{{< download-links label="Source" extension=-source-release.zip >}}
-#### Binaries
-{{< download-links label="NiFi Registry" qualifier="registry" extension=-bin.zip >}}
-
-### Registry {{< param previousProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}})
-
-- Released: {{< param previousProjectVersionReleased >}}
-
-#### Sources
-{{< download-links version="previous" label="Source" extension=-source-release.zip >}}
-#### Binaries
-{{< download-links version="previous" label="NiFi Registry" qualifier="registry" extension=-bin.zip >}}

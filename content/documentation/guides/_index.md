@@ -1,12 +1,13 @@
 ---
-title: "Development"
-layout: "documentation"
+title: Guides
 menu:
   main:
-    weight: 2
+    name: Guides
+    parent: "Documentation"
+    weight: 3
 ---
 
-# Apache {{< project-label >}} Development
+# Apache {{< project-label >}} Guides
 
 ## Development Process
 
@@ -15,7 +16,8 @@ menu:
 - [Developing](https://nifi.apache.org/documentation/nifi-{{< param currentProjectVersion >}}/html/developer-guide.html)
 - [Licensing]({{< ref "documentation/guides/licensing" >}})
 
-## Development Resources
+## Release Process
 
-- [Issues](https://issues.apache.org/jira/browse/NIFI)
-- [Source](https://github.com/apache/nifi)
+- [Flow Design System Releases]({{< ref "documentation/guides/fds-releases" >}})
+- [Maven Plugin Releases]({{< ref "documentation/guides/maven-plugin-releases" >}})
+- [Releases]({{< ref "documentation/guides/releases" >}})

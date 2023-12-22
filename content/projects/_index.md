@@ -26,12 +26,10 @@ following features:
 - Integration with NiFi for follow-on dataflow management      
 </div>
 
-  <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/projects/minifi/download">Download</a>
+  <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/download/#minifi">Download</a>
   
 </div>
 </div>
-
-
 
 <div class="uk-card uk-card-default uk-margin-top">
   <div class="uk-card-body">
@@ -46,8 +44,7 @@ across one or more instances of NiFi or MiNiFi. Registry provides the following 
 - Integration with NiFi to allow storing, retrieving, and upgrading versioned flows from a Flow Registry
 - Administration of the Registry for defining users, groups, and policies
     </div>
-
-  <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/projects/registry">Download</a>
+  <a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/download/#registry">Download</a>
 
 </div>
 </div>
@@ -63,7 +60,7 @@ MiNiFi, and Registry, as well as any other open source web application. Features
 - Integration with NPM public registry
     
 
-<a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/projects/fds">Download</a>
+<a class="uk-button uk-button-primary uk-button-small uk-margin-right" href="/download/#fds">Download</a>
 
 </div>
   </div>

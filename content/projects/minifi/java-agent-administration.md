@@ -1,9 +1,9 @@
 ---
-title: MiNiFi System Administrator's Guide
+title: MiNiFi Java Agent Administration
 menu:
   main:
     parent: "MiNiFi"
-    name: System Admin Guide
+    name: Java Agent Administration
     weight: 3
 ---
 

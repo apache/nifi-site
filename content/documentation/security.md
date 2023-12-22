@@ -1,10 +1,10 @@
 ---
-title: Apache NiFi Security Reporting
+title: Security Reporting
 menu:
   main:
     name: Security Reporting
     parent: "Documentation"
-    weight: 2
+    weight: 3
 ---
 
 # Apache {{< project-label >}} Security

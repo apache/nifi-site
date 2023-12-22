@@ -1,9 +1,9 @@
 ---
-title: Powered by NiFi
+title: Powered By
 menu:
   main:
     parent: "Community"
-    name: Powered by NiFi
+    name: Powered By
     weight: 3
 ---
 

@@ -1,9 +1,9 @@
 ---
-title: Apache NiFi - Flow Design System
+title: Flow Design System
 menu:
   main:
     parent: "Projects"
-    name: FDS
+    name: Flow Design System
     weight: 3
 ---
 
@@ -30,13 +30,3 @@ Future efforts may include capabilities to support additional UI/UX concepts as 
 
 - [Apache Gitbox](https://gitbox.apache.org/repos/asf?p=nifi-fds.git)
 - [GitHub](https://github.com/apache/nifi-fds)
-
-## Releases
-
-### FDS 0.3.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.3.0)
-
-{{< fds-download-links label="Source" version=0.3.0 >}}
-
-### FDS 0.2.0 [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-NiFiFlowDesignSystem0.2.0)
-
-{{< fds-download-links label="Source" version=0.2.0 site=archives >}}

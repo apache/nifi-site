@@ -1,5 +1,5 @@
 ---
-title: "Documentation"
+title: "Documentation for 1.24.0"
 layout: "documentation"
 iframe: true
 menu:

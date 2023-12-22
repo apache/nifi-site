@@ -1,16 +1,21 @@
 ---
-title: Mailing Lists
+title: Contact
 menu:
   main:
     parent: "Community"
-    name: Mailing Lists
+    name: Contact
     weight: 1
 ---
 
-# Apache {{< project-label >}} Mailing Lists
+# Apache {{< project-label >}} Contact Information
 
 See the [Apache Software Foundation Mailing List Tips](http://apache.org/foundation/mailinglists.html) for
 recommendations on how to interact with the community.
+
+## Slack
+
+- [Apache NiFi on Slack](https://apachenifi.slack.com/)
+- New users can join the workspace using the [invitation link](https://join.slack.com/t/apachenifi/shared_invite/zt-11njbtkdx-ZRU8FKYSWoEHRJetidy0zA)
 
 ## Users Mailing List
 
@@ -49,11 +54,6 @@ List for receiving automated notification of issues or comments from Jira or Git
 ## Security Mailing List
 
 Private list for reporting potential security issues.
-See [Apache NiFi Security Reporting]({{< ref "/documentation/security.html" >}}) for more details.
+See [Apache NiFi Security Reporting]({{< ref "/documentation/security" >}}) for more details.
 
 - [Send](mailto:security@nifi.apache.org)
-
-# Apache {{< project-label >}} Chat
-
-- [Apache NiFi on Slack](https://apachenifi.slack.com/)
-- New users can join the workspace using the [invitation link](https://join.slack.com/t/apachenifi/shared_invite/zt-11njbtkdx-ZRU8FKYSWoEHRJetidy0zA)

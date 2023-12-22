@@ -1,13 +1,8 @@
 ---
-title: Release Guide
-menu:
-  main:
-    parent: "Development"
-    name: Release Guide
-    weight: 3
+title: Releases
 ---
 
-# Apache {{< project-label >}} Release Guidelines
+# Apache {{< project-label >}} Releases
 
 This document describes the steps required to build and release an official version of the project.
 

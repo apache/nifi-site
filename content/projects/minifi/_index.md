@@ -25,3 +25,14 @@ Apache NiFi MiNiFi provides the following features:
 
 MiNiFi functions in the role of an agent acting immediately at, or directly adjacent to, source sensors, systems, or
 servers.
+
+## MiNiFi C++
+
+The C++ agent is a native reimplementation of MiNiFi Java. It consumes fewer system resources but has a limited subset
+of processors, with properties differing from MiNiFi Java Processors. The C++ agent supports gathering and pushing data
+to downstream consumers while minimizing system impact.
+
+## MiNiFi Java
+
+The Java agent is built from the same codebase as NiFi, enabling it to run most of NiFi’s processors. The Java agent
+provides maximum flexibility to make routing and processing decisions at the point of origin.

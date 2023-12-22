@@ -1,13 +1,8 @@
 ---
 title: Licensing Guide
-menu:
-  main:
-    parent: "Development"
-    name: Licensing Guide
-    weight: 6
 ---
 
-# Apache {{< project-label >}} Release Guidelines
+# Apache {{< project-label >}} Licensing
 
 This document provides guidance to contributors of Apache NiFi to help properly account for licensing, notice, and legal requirements.
 
