@@ -64,34 +64,34 @@ members on a vote open for at least 72 hours. A Committer is considered inactive
 can be revoked by a unanimous vote of all the active PMC members, except the member in question if they are a PMC
 member.
 
-| Apache Username   | Name                    |
-|-------------------|-------------------------|
-| adebreceni        | Adam Debreceni          |
-| aichrist          | Andy I.C.               |
-| amarkovics        | Ádám Markovics          |
-| bakaid            | Dániel Bakai            |
-| bqiu              | Ben Qiu                 |
-| brosander         | Bryan Rosander          |
-| bsimon            | Simon Bence             |
-| chriss            | Chris Sampson           |
-| denes             | Denes Arvay             |
-| edbe              | Ed Berezitsky           |
-| fgerlits          | Ferenc Gerlits          |
-| greyp             | Paul Grey               |
-| jgresock          | Joe Gresock             |
-| kotarot           | Kotaro Terada           |
-| lordgamez         | Gábor Gyimesi           |
-| martinzink        | Martin Zink             |
-| mhogue            | Mike Hogue              |
-| mtien             | Margot Tien             |
-| otto              | Otto Fowler             |
-| rfellows          | Rob Fellows             |
-| rickysaltzer      | Ricky Saltzer           |
-| rmoran            | Rob Moran               |
-| thenatog          | Nathan Gough            |
-| toivoadams        | Toivo Adams             |
-| tpalfy            | Tamas Palfy             |
-| zenfenan          | Sivaprasanna Sethuraman |
+| Apache Username   | Name                     |
+|-------------------|--------------------------|
+| adebreceni        | Adam Debreceni           |
+| aichrist          | Andy I.C.                |
+| amarkovics        | &#193;d&#225;m Markovics |
+| bakaid            | D&#225;niel Bakai        |
+| bqiu              | Ben Qiu                  |
+| brosander         | Bryan Rosander           |
+| bsimon            | Simon Bence              |
+| chriss            | Chris Sampson            |
+| denes             | Denes Arvay              |
+| edbe              | Ed Berezitsky            |
+| fgerlits          | Ferenc Gerlits           |
+| greyp             | Paul Grey                |
+| jgresock          | Joe Gresock              |
+| kotarot           | Kotaro Terada            |
+| lordgamez         | Gábor Gyimesi            |
+| martinzink        | Martin Zink              |
+| mhogue            | Mike Hogue               |
+| mtien             | Margot Tien              |
+| otto              | Otto Fowler              |
+| rfellows          | Rob Fellows              |
+| rickysaltzer      | Ricky Saltzer            |
+| rmoran            | Rob Moran                |
+| thenatog          | Nathan Gough             |
+| toivoadams        | Toivo Adams              |
+| tpalfy            | Tamas Palfy              |
+| zenfenan          | Sivaprasanna Sethuraman  |
 
 ## Contributors
 
