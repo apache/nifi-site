@@ -15,7 +15,7 @@ menu:
 
 ## Features
 
-Flow Design System&mdash;a subproject of Apache NiFi&mdash; is an atomic reusable platform for providing a consistent
+Flow Design System - a subproject of Apache NiFi - is an atomic reusable platform for providing a consistent
 set of UI/UX components for Apache NiFi, Apache NiFi Registry, Apache NiFi MiNiFi, and any other open source web
 applications to consume.
 
