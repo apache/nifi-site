@@ -4,7 +4,8 @@ title: "Apache NiFi"
 
 {{% hero-section img=main-hero.svg %}}
 # An **easy to use**, **powerful**, and **reliable** system to process and distribute data
-Apache NiFi provides configurable, scalable, and reliable data transformation and distribution
+NiFi automates cybersecurity, observability, event streams, and generative AI data pipelines and distribution for
+thousands of companies worldwide across every industry.
 <div class="download-links">
 <a class="uk-button uk-button-primary uk-icon" href="/download/">Download</a>
 <a class="uk-button uk-button-default uk-icon" href="/documentation/">View Documentation</a>
