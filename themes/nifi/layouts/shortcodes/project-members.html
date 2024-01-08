@@ -1,0 +1,26 @@
+{{ $groups := getJSON .Site.Params.apacheFoundationGroupsUrl }}
+{{ $people := getJSON .Site.Params.apacheFoundationPeopleNameUrl }}
+
+{{- $project := "nifi" -}}
+{{- with .Get "project" -}}
+  {{- $project = . -}}
+{{- end -}}
+
+<table>
+  <thead>
+    <tr>
+      <th>Apache Username</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{ $members := index $groups $project }}
+  {{- range $username := $members -}}
+    {{ $name := index $people $username }}
+    <tr>
+      <td>{{ $username }}</td>
+      <td>{{ $name }}</td>
+    </tr>
+  {{- end }}
+  </tbody>
+</table>
