@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <title>Commit and Release Signing - Apache NiFi</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>Commit and Release Signing - Apache NiFi</title>
+  <meta property="og:title" content="Commit and Release Signing">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://nifi.apache.org/documentation/guides/signing/">
+  <meta property="og:description" content="">
+  <meta name="twitter:title" content="Commit and Release Signing">
+  <link rel="icon" href="/images/apache-nifi-drop-logo.svg">
+  <link rel="stylesheet" href="/uikit/css/uikit.min.css">
+  <link rel="stylesheet" href="/css/main.css?version=1">
+  <script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(['disableCookies']);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var baseUri = "//matomo.privacy.apache.org/";
+    _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
+    _paq.push(['setSiteId', '28']);
+    var trackerElement = document.createElement('script');
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    trackerElement.async = true;
+    trackerElement.src = baseUri + 'matomo.js';
+    var firstScriptElement = document.getElementsByTagName('script')[0];
+    if (window.location.host === 'nifi.apache.org') {
+      firstScriptElement.parentNode.insertBefore(trackerElement, firstScriptElement);
+    }
+  })();
+</script>
+</head>
+<body class="section-background">
+    <div class="nav-container" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+  <nav class="uk-container uk-navbar-container uk-navbar-transparent" uk-navbar>
+    <div class="uk-navbar-left">
+      <ul class="uk-navbar-nav">
+        <li>
+          <a class="uk-navbar-item" href="/">
+            <img src="/images/apache-nifi-drop-logo.svg" alt="Apache NiFi Logo" class="navbar-logo" width="36" height="48" />
+          </a>
+        </li>
+        <li class="uk-hidden@s">
+          <a href="#" class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #mobile-menu"></a>
+        </li>
+
+          
+          
+          <li class="uk-visible@s uk-active">
+            <a href="/documentation/">Documentation</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="/documentation/v2/" >
+                  NiFi Documentation 2.0.0-M1
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/documentation/v1/" >
+                  NiFi Documentation 1.24.0
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/documentation/guides/" >
+                  Guides
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/documentation/security/" >
+                  Security Reporting
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://cwiki.apache.org/confluence/display/NIFI" target="_blank" rel="noopener noreferrer">
+                  Wiki
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="/development/">Development</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor&#43;Guide" target="_blank" rel="noopener noreferrer">
+                  Contributing
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://issues.apache.org/jira/browse/NIFI" target="_blank" rel="noopener noreferrer">
+                  Issues
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://github.com/apache/nifi" target="_blank" rel="noopener noreferrer">
+                  Source
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="/community/">Community</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="/community/contact/" >
+                  Contact
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/community/powered-by/" >
+                  Powered By
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/community" >
+                  Team
+                  
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="/projects/">Projects</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="/projects/minifi/" >
+                  MiNiFi
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/projects/registry/" >
+                  Registry
+                  
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="/projects/fds/" >
+                  Flow Design System
+                  
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="uk-visible@s ">
+            <a href="https://www.apache.org">Apache</a>
+            
+            <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
+              
+              <li class="">
+                <a href="https://apache.org/events/current-event" target="_blank" rel="noopener noreferrer">
+                  Events
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://www.apache.org/licenses" target="_blank" rel="noopener noreferrer">
+                  License
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://privacy.apache.org/policies/privacy-policy-public.html" target="_blank" rel="noopener noreferrer">
+                  Privacy
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://www.apache.org/security/" target="_blank" rel="noopener noreferrer">
+                  Security
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://www.apache.org/foundation/sponsorship.html" target="_blank" rel="noopener noreferrer">
+                  Sponsorship
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+              <li class="">
+                <a href="https://www.apache.org/foundation/thanks.html" target="_blank" rel="noopener noreferrer">
+                  Thanks
+                  <span uk-icon="link"></span>
+                </a>
+
+              
+
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+
+      </ul>
+
+    </div>
+    <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+        <li>
+          <div class="uk-navbar-item">
+            <a class="uk-icon-link navbar-icon" uk-icon="icon: github; ratio: 2" href="https://github.com/apache/nifi"></a>
+          </div>
+        </li>
+        <li>
+          <div class="uk-navbar-item">
+            <a class="uk-button uk-button-primary uk-icon" href="/download/">
+              Download
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div id="mobile-menu" uk-offcanvas class="uk-offcanvas">
+  <div class="uk-offcanvas-bar">
+    <ul class="uk-navbar-nav" uk-accordion>
+      
+      
+        
+        <li class="uk-active">
+          <a class="uk-accordion-title" >Documentation</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="/documentation/v2/" >
+                NiFi Documentation 2.0.0-M1
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/documentation/v1/" >
+                NiFi Documentation 1.24.0
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/documentation/guides/" >
+                Guides
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/documentation/security/" >
+                Security Reporting
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://cwiki.apache.org/confluence/display/NIFI" target="_blank" rel="noopener noreferrer">
+                Wiki
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Development</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor&#43;Guide" target="_blank" rel="noopener noreferrer">
+                Contributing
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://issues.apache.org/jira/browse/NIFI" target="_blank" rel="noopener noreferrer">
+                Issues
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://github.com/apache/nifi" target="_blank" rel="noopener noreferrer">
+                Source
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Community</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="/community/contact/" >
+                Contact
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/community/powered-by/" >
+                Powered By
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/community" >
+                Team
+                
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Projects</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="/projects/minifi/" >
+                MiNiFi
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/projects/registry/" >
+                Registry
+                
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="/projects/fds/" >
+                Flow Design System
+                
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+        <li class="">
+          <a class="uk-accordion-title" >Apache</a>
+          
+          <ul class="uk-accordion-content">
+            
+            <li class="">
+              <a href="https://apache.org/events/current-event" target="_blank" rel="noopener noreferrer">
+                Events
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://www.apache.org/licenses" target="_blank" rel="noopener noreferrer">
+                License
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://privacy.apache.org/policies/privacy-policy-public.html" target="_blank" rel="noopener noreferrer">
+                Privacy
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://www.apache.org/security/" target="_blank" rel="noopener noreferrer">
+                Security
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://www.apache.org/foundation/sponsorship.html" target="_blank" rel="noopener noreferrer">
+                Sponsorship
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+            <li class="">
+              <a href="https://www.apache.org/foundation/thanks.html" target="_blank" rel="noopener noreferrer">
+                Thanks
+                <span uk-icon="link"></span>
+              </a>
+
+            
+
+            </li>
+            
+          </ul>
+          
+        </li>
+        
+
+    </ul>
+  </div>
+</div>
+    <main>
+  <div class="uk-container">
+    <h1 id="apache-hahahugoshortcode-s0-hbhb-commit-and-release-signing">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+ Commit and Release Signing</h1>
+<p>The purpose of this document is to capture and describe the steps involved in generating and verifying cryptographic signatures of official releases of Apache NiFi, as well as configuring cryptographic signatures of individual code commits.  It is written for contributors, committers, and users of Apache NiFi (and related applications).</p>
+<h2 id="a-nametable-of-contentstable-of-contentsa"><a name="table-of-contents">Table of Contents</a></h2>
+<ul>
+<li><a href="#the-objective">The Objective</a></li>
+<li><a href="#background-material">Background Material</a></li>
+<li><a href="#terms">Terms</a></li>
+<li><a href="#variable-reference-substitutions">Variable Reference Substitutions</a></li>
+<li><a href="#download-gpg">Download GPG</a></li>
+<li><a href="#setting-up-your-key">Setting up your key</a></li>
+<li><a href="#publish-your-key">Publish your key</a></li>
+<li><a href="#import-another-gpg-key">Import another GPG key</a></li>
+<li><a href="#verify-a-key">Verify a key</a></li>
+<li><a href="#web-of-trust">Web of trust</a></li>
+<li><a href="#set-up-git-with-your-key">Set up Git with your key</a></li>
+<li><a href="#sign-commits">Sign commits</a></li>
+<li><a href="#verifying-a-signature">Verifying a signature</a></li>
+<li><a href="#set-up-github-with-your-key">Set up GitHub with your key</a></li>
+<li><a href="#signing-a-release-artifact">Signing a release artifact</a></li>
+<li><a href="#verifying-a-release-signature">Verifying a release signature</a></li>
+<li><a href="#transfer-a-secret-key">Transfer a secret key</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<h2 id="a-namethe-objectivethe-objectivea"><a name="the-objective">The Objective</a></h2>
+<p>Our aim is to instruct users on how to sign their commits, verify other&rsquo;s signatures, and do the same for official releases of Apache NiFi.</p>
+<h2 id="a-namebackground-materialbackground-materiala"><a name="background-material">Background Material</a></h2>
+<ul>
+<li>These documents are helpful for general environmental setup to perform GPG signing and signature verification:
+<ul>
+<li><a href="https://www.apache.org/dev/openpgp.html">Apache PGP Info</a></li>
+<li><a href="http://www.apache.org/dev/release-signing.html">Apache Release Signing</a></li>
+<li><a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">Git Ready: Signing Releases with GPG</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4880">RFC 4880: IETF Standard Spec for OpenPGP</a></li>
+<li><a href="https://blog.github.com/2016-04-05-gpg-signature-verification/">GitHub Blog: GPG Signature Verification</a></li>
+<li><a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">Git Ready: gpg-sign releases</a></li>
+<li><a href="https://help.github.com/articles/signing-commits-using-gpg/">GitHub Help: Signing Commits Using GPG</a></li>
+<li><a href="https://help.github.com/articles/telling-git-about-your-gpg-key/">GitHub Help: Telling Git About Your GPG Key</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work">Git Docs: Git Tools Signing Your Work</a></li>
+<li><a href="https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication">PGP Web of Trust</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="a-nametermstermsa"><a name="terms">Terms</a></h2>
+<ul>
+<li><strong>Asymmetric Cryptography</strong> - a type of cryptography which relies on <em>key pairs</em> &ndash; a <em>public</em> and <em>private</em> key which are mathematically-related such that no other component key matches. This cryptography offers the following actions: <strong>encrypt</strong>, <strong>decrypt</strong>, <strong>sign</strong>, and <strong>verify</strong></li>
+<li><strong>Cryptographic Signature</strong> - a series of bytes which are the result of a signing operation such that only the possessor of a specific private key could have generated this signature. A valid signature indicates that the possessor of said key performed the operation (non-repudiable)</li>
+<li><strong>GNU Privacy Guard (GnuPG or GPG)</strong> - an open-source implementation of encryption software compatible with the OpenPGP standard specified by <a href="https://tools.ietf.org/html/rfc4880">RFC 4880</a></li>
+<li><strong>Pretty Good Privacy (PGP)</strong> - an encryption program written by Phil Zimmermann to provide cryptographic protection (via confidentiality and integrity/authenticity) over data. It follows the OpenPGP standard as specified by <a href="https://tools.ietf.org/html/rfc4880">RFC 4880</a></li>
+</ul>
+<h2 id="a-namevariable-reference-substitutionsvariable-reference-substitutionsa"><a name="variable-reference-substitutions">Variable Reference Substitutions</a></h2>
+<p>Throughout this guide, references must be made to names and values that will vary from release to release.  For clarity
+those variable values have been written like Bash variable references.  When a term like
+&ldquo;<code>/tmp/src/nifi-${NIFI_VERSION}</code>&rdquo; is seen in an instruction or email template it should be replaced with
+&ldquo;<code>/tmp/src/nifi-1.7.0</code>&rdquo; when working the release of &ldquo;Apache NiFi 1.7.0&rdquo;.</p>
+<ul>
+<li>
+<p>Substitutions used in tasks and email templates</p>
+ <pre>
+ Reference            Example value       Description
+ =========            ==============      ===========
+ ${BRANCH}            master              the development branch on which the release is based.
+ ${NIFI_VERSION}      1.7.0               the version currently in development on the release branch.
+ ${NEXT_VERSION}      1.8.0-SNAPSHOT      the future version for development on the release branch.
+ ${JIRA_TICKET}       NIFI-2112           the JIRA ticket created by the release manager for the release tasks.
+ ${RC}                2                   the Release Candidate index start at 1 for the first release candidate.
+ ${RC_TAG_COMMIT_ID}                      the 40 byte commit ID of the RC tag created during the Maven release process.
+ ${STAGING_REPO_ID}   orgapachenifi-1088  the temporary repository ID where staged artifacts have been placed.
+ ${RM_USERID}         johndoe             the Apache account ID of Release Manager.
+ ${RELEASE_TAG}       rel/nifi-1.7.0      the Git repository tag for the source code as released.
+ ${VOTE_THREAD_URL}   [1.7.0 vote thread][070-rc2-vote]   the URL for the Apache Pony Mail archive of the release vote thread.
+ </pre>
+<p><em>To be practical but avoid confusion with future release details, these example values reflect the previous release
+NiFi 1.7.0 RC2 release details.</em></p>
+</li>
+</ul>
+<p><em>NOTE: The next version should be the next minor version if the release is based on a major version development branch (e.g master
+or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
+support/nifi-1.1.x or support/nifi-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
+branch may need to be created.</em></p>
+<h2 id="a-namedownload-gpgdownload-gpga"><a name="download-gpg">Download GPG</a></h2>
+<p>To get started, you should download the appropriate software for your operating system (links and version compatibility as of July 10, 2018). Follow the configuration instructions that come with your tool of choice:</p>
+<h3 id="mac-os-x--macos">Mac OS X / macOS</h3>
+<ul>
+<li><a href="https://gpgtools.org">GPG Suite</a> &ndash; macOS 10.9+ &ndash; a GUI-based suite of GPG tools including command-line tool, Mail client integration, etc.</li>
+<li>gpg via brew &ndash; distribution of <a href="https://gnupg.org">GnuPG</a> command-line tool via <a href="https://brew.sh">brew</a>. Install via <code>brew update &amp;&amp; brew install gpg2</code>. You may also need <code>gpg-agent</code> depending on your system.</li>
+</ul>
+<h3 id="linux">Linux</h3>
+<ul>
+<li>Redhat/CentOS &ndash; <code>yum install gnupg</code></li>
+<li>Debian/Ubuntu &ndash; <code>apt-get install gnupg</code></li>
+</ul>
+<h3 id="windows">Windows</h3>
+<ul>
+<li><a href="https://gpg4win.org">Gpg4win</a> &ndash; Windows 7+ &ndash; a GUI-based suite of GPG tools</li>
+</ul>
+<h2 id="a-namesetting-up-your-keysetting-up-your-keya"><a name="setting-up-your-key">Setting up your key</a></h2>
+<p><em>All following commands will use the command-line syntax to perform these operations unless otherwise noted. For instructions on performing these operations in a GUI-environment, refer to the resources listed above.</em></p>
+<p>To begin, run the <code>gpg</code> command with the <code>--gen-key</code> or <code>--full-generate-key</code> flag. You will be prompted for various information, and can accept the defaults other than <strong>name</strong> and <strong>email</strong>. The tool will prompt for a passphrase, and the key pair will be identified by the <strong>user id</strong> (<strong>name</strong> + <strong>email</strong>) and a <strong>key fingerprint</strong>.</p>
+<p>Example:</p>
+<pre tabindex="0"><code># Generate the key
+🔓 0s @ 15:06:19 $ gpg --gen-key
+Note: Use &quot;gpg --full-generate-key&quot; for a full featured key generation dialog.
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: NiFi Test User
+Email address: test@nifi.apache.org
+You selected this USER-ID:
+    &quot;NiFi Test User &lt;test@nifi.apache.org&gt;&quot;
+
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? o
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key 71456940555DB64A marked as ultimately trusted
+gpg: revocation certificate stored as '/Users/alopresto/.gnupg/openpgp-revocs.d/718FAE8D4F81CDED06EA652271456940555DB64A.rev'
+public and secret key created and signed.
+
+pub   rsa2048 2018-07-10 [SC] [expires: 2020-07-09]
+      718FAE8D4F81CDED06EA652271456940555DB64A
+uid                      NiFi Test User &lt;test@nifi.apache.org&gt;
+sub   rsa2048 2018-07-10 [E] [expires: 2020-07-09]
+
+# List all keys in the key ring
+🔓 38s @ 15:07:11 $ gpg -k
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   6  signed:   4  trust: 0-, 0q, 0n, 0m, 0f, 6u
+gpg: depth: 1  valid:   4  signed:  10  trust: 3-, 0q, 0n, 0m, 1f, 0u
+gpg: depth: 2  valid:  10  signed:   1  trust: 8-, 0q, 0n, 0m, 2f, 0u
+gpg: next trustdb check due at 2018-08-19
+/Users/alopresto/.gnupg/pubring.gpg
+-----------------------------------
+pub   dsa2048 2010-08-19 [SC] [expires: 2018-08-19]
+      85E38F69046B44C1EC9FB07B76D78F0500D026C4
+uid           [ultimate] GPGTools Team &lt;team@gpgtools.org&gt;
+uid           [ultimate] GPGMail Project Team (Official OpenPGP Key) &lt;gpgmail-devel@lists.gpgmail.org&gt;
+uid           [ultimate] GPGTools Project Team (Official OpenPGP Key) &lt;gpgtools-org@lists.gpgtools.org&gt;
+uid           [ultimate] [jpeg image of size 5871]
+sub   elg2048 2010-08-19 [E] [expires: 2018-08-19]
+sub   rsa4096 2014-04-08 [S] [expires: 2024-01-02]
+
+...
+
+pub   rsa2048 2018-07-10 [SC] [expires: 2020-07-09]
+      718FAE8D4F81CDED06EA652271456940555DB64A
+uid           [ultimate] NiFi Test User &lt;test@nifi.apache.org&gt;
+sub   rsa2048 2018-07-10 [E] [expires: 2020-07-09]
+
+# List a specific key with (formatted) fingerprint
+🔓 0s @ 15:11:37 $ gpg --fingerprint 0x555DB64A
+pub   rsa2048 2018-07-10 [SC] [expires: 2020-07-09]
+      718F AE8D 4F81 CDED 06EA  6522 7145 6940 555D B64A
+uid           [ultimate] NiFi Test User &lt;test@nifi.apache.org&gt;
+sub   rsa2048 2018-07-10 [E] [expires: 2020-07-09]
+
+</code></pre><p>You now have a key generated for your identity. Some Apache users will include &ldquo;(CODE SIGNING KEY)&rdquo; after their name to separate this key from other keys they use. This is optional. By default, keys use 2048 bit length. You can increase this to 4096 bits by using the <code>--full-generate-key</code> or <code>--default-new-key-algo rsa4096</code> flags when generating.</p>
+<p>The <strong>key fingerprint</strong> can be referred to by the last 8 hex digits (<strong>short ID</strong>) or last 16 hex digits (<strong>long ID</strong>), so for the remainder of this guide, our example key will have the <strong>long ID</strong> <code>7145 6940 555D B64A</code> (spaces optional) and <strong>short ID</strong> <code>555D B64A</code>, which we can reference in commands as <code>0x555DB64A</code>.</p>
+<h3 id="trust-vs-validity">Trust vs. Validity</h3>
+<p>It is important to understand the difference between two closely related concepts &ndash; <strong>trust</strong> and <strong>validity</strong>. Validity is how much <em>you</em> trust a <em>key</em>; that is <em>how well you have verified the key represents who it claims</em>. Trust (sometimes referred to as <strong>ownertrust</strong>) is how much transitive trust you give to that entity; how well do you believe <em>Person X</em> verifies keys that <em>they</em> sign?</p>
+<p>There are four levels of <strong>trust</strong> and five levels of <strong>validity</strong>.</p>
+<p><strong>Trust</strong></p>
+<ol>
+<li><code>unknown</code> &ndash; you do not know how well the owner verifies keys</li>
+<li><code>none</code> &ndash; you do not trust the owner to verify keys</li>
+<li><code>marginal</code> &ndash; you trust the owner to verify keys</li>
+<li><code>full</code> &ndash; you trust the owner to verify keys as well or better than you do</li>
+</ol>
+<p><strong>Validity</strong></p>
+<ol>
+<li><code>unknown</code> &ndash; you do not know whether to trust this key</li>
+<li><code>never</code>/<code>none</code> &ndash; you do not trust this key</li>
+<li><code>marginal</code> &ndash; you have lightly verified that this key belongs to the owner</li>
+<li><code>full</code> &ndash; you have verified that this key belongs to the owner</li>
+<li><code>ultimate</code> &ndash; you have no doubt that this key belongs to the owner (likely because you generated it)</li>
+</ol>
+<p>Your generated key is granted <code>ultimate</code> trust by default, because you just generated it. See <a href="https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication">Web of Trust</a> and <a href="https://www.gnupg.org/gph/en/manual/x334.html">GNU Privacy Handbook</a> for more information and helpful diagrams.</p>
+<h2 id="a-namepublish-your-keypublish-your-keya"><a name="publish-your-key">Publish your key</a></h2>
+<p>To allow other users to encrypt data with your key, verify signatures made by your key, etc., you should publish your <strong>PUBLIC</strong> key. <em>Never share your <strong>PRIVATE</strong> (sometimes referred to as <strong>SECRET</strong>) key</em>. You can publish your public key to a <em>key server</em>, post it on your website, etc. The tools provide multiple ways to perform this task via <code>--export</code> and <code>--send-keys</code>. Refer to the references above for more information on this process.</p>
+<pre tabindex="0"><code># Send the public key to a remote key server
+🔓 0s @ 15:20:53 $ gpg --send-keys 0x555DB64A
+gpg: sending key 71456940555DB64A to hkps://hkps.pool.sks-keyservers.net
+</code></pre><h2 id="a-nameimport-another-gpg-keyimport-another-gpg-keya"><a name="import-another-gpg-key">Import another GPG key</a></h2>
+<p>For the key ecosystem to function, you&rsquo;ll want to import other public keys. These can come from key servers, public keys encoded as ASCII sent directly to you, or <code>KEYS</code> files posted on servers (such as <a href="https://dist.apache.org/repos/dist/release/nifi/KEYS">https://dist.apache.org/repos/dist/release/nifi/KEYS</a>).</p>
+<pre tabindex="0"><code># Download the KEYS file
+🔓 4s @ 15:21:35 $ wget https://archive.apache.org/dist/nifi/KEYS
+--2018-07-10 15:26:24--  https://archive.apache.org/dist/nifi/KEYS
+...
+
+# Import the KEYS file keys
+🔓 1s @ 15:26:27 $ gpg -v --import KEYS
+gpg: armor header: Version: GnuPG v1
+gpg: armor header: Version: GnuPG v2.0.22 (GNU/Linux)
+gpg: pub  rsa4096/9C4F7E9D98B1CC53 2010-10-23  Benson Margulies &lt;bimargulies@apache.org&gt;
+gpg: using pgp trust model
+gpg: key 9C4F7E9D98B1CC53: public key &quot;Benson Margulies &lt;bimargulies@apache.org&gt;&quot; imported
+...
+gpg: Total number processed: 17
+gpg:               imported: 16
+gpg:              unchanged: 1
+gpg: 23 keys processed (26 validity counts cleared)
+gpg: public key of ultimately trusted key 71456940555DB64A not found
+gpg: public key of ultimately trusted key D735933E0D99CDD3 not found
+gpg: public key of ultimately trusted key AFF2B36823B944E9 not found
+gpg: public key of ultimately trusted key 6EC293152D90B61D not found
+gpg: public key of ultimately trusted key 125A4E6851BF2B79 not found
+gpg: public key of ultimately trusted key 76D78F0500D026C4 not found
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   6  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 6u
+</code></pre><h2 id="a-nameverify-a-keyverify-a-keya"><a name="verify-a-key">Verify a key</a></h2>
+<p>When you first import an external key, the key is untrusted (<strong>validity</strong> level <code>never</code>). To mark a key as trusted, you will perform <em>key verification</em>, either <em>directly</em> or via <em>web of trust</em>.</p>
+<h3 id="direct-verification">Direct Verification</h3>
+<p>For entities you can contact directly via a trusted mechanism (voice call, in-person, etc.), you can exchange the <strong>key fingerprint</strong> personally and verify that the fingerprint they present matches what you have imported. Once verified, you can sign the key. Here I am imitating another user, using a previously-generated key (<code>0x2F7DEF69</code>) to sign the &ldquo;imported&rdquo; key that was generated above.</p>
+<pre tabindex="0"><code># Signing an imported key with your own key
+🔓 132s @ 15:36:12 $ gpg -v --sign-key 0x555DB64A
+
+gpg: using pgp trust model
+sec  rsa2048/71456940555DB64A
+     created: 2018-07-10  expires: 2020-07-09  usage: SC
+     trust: ultimate      validity: unknown
+ssb  rsa2048/4FC72361977CEC0A
+     created: 2018-07-10  expires: 2020-07-09  usage: E
+[ unknown] (1). NiFi Test User &lt;test@nifi.apache.org&gt;
+
+gpg: using &quot;70ECB3E598A65A3FD3C4BACE3C6EF65B2F7DEF69&quot; as default secret key for signing
+
+sec  rsa2048/71456940555DB64A
+     created: 2018-07-10  expires: 2020-07-09  usage: SC
+     trust: ultimate      validity: unknown
+ Primary key fingerprint: 718F AE8D 4F81 CDED 06EA  6522 7145 6940 555D B64A
+
+     NiFi Test User &lt;test@nifi.apache.org&gt;
+
+This key is due to expire on 2020-07-09.
+Are you sure that you want to sign this key with your
+key &quot;Andy LoPresto &lt;alopresto@apache.org&gt;&quot; (3C6EF65B2F7DEF69)
+
+Really sign? (y/N) y
+gpg: RSA/SHA512 signature from: &quot;3C6EF65B2F7DEF69 Andy LoPresto &lt;alopresto@apache.org&gt;&quot;
+</code></pre><h3 id="web-of-trust">Web of Trust</h3>
+<p>If it is infeasible to contact the key bearer directly, you can delegate that trust to a third-party who you already trust. For example, if you cannot directly contact Joe Witt, but you already trust Andy LoPresto (i.e. you have verified Andy&rsquo;s key and believe Andy would verify keys he trusts), you can sign Joe&rsquo;s key if Andy has already done so. You can choose to employ a lower level of validity (<code>marginal</code> vs. <code>full</code>) in that case depending on your transitive <strong>ownertrust</strong> in Andy&rsquo;s verification. See <a href="https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication">Web of Trust</a> and <a href="https://www.gnupg.org/gph/en/manual/x334.html">GNU Privacy Handbook</a> for more information and helpful diagrams.</p>
+<h2 id="a-nameset-up-git-with-your-keyset-up-git-with-your-keya"><a name="set-up-git-with-your-key">Set up Git with your key</a></h2>
+<p>To sign commits via <code>git</code>, update your <code>~/.gitconfig</code> file. You can also do this by running <code>git --config ...</code> commands. This example file (not complete) is configured for our <em>NiFi Test User <a href="mailto:test@nifi.apache.org">test@nifi.apache.org</a></em> (<code>0x555DB64A</code>) user.</p>
+<pre tabindex="0"><code># ~/.gitconfig
+[user]
+    name = NiFi Test User
+    email = test@nifi.apache.org
+    signingkey = 555DB64A
+[commit]
+    gpgsign = true
+    template = /path/to/template/.stCommitMsg
+[gpg]
+    program = /path/to/bin/gpg
+</code></pre><p>See <a href="https://help.github.com/articles/telling-git-about-your-gpg-key/">Telling Git About Your GPG Key</a> for more on setting this up.</p>
+<h2 id="a-namesign-commitssign-commitsa"><a name="sign-commits">Sign commits</a></h2>
+<p>Now when you commit work via git, you will run the command <code>git commit -S</code> to tell git to sign the commit. After doing that, <code>git log --show-signature</code> will show the signature:</p>
+<pre tabindex="0"><code>🔓 0s @ 16:13:38 $ git log -1 --show-signature
+commit bef91008bb86de9b541fbe1fd82ed37eef1784d5 (HEAD -&gt; master, apache/master)
+gpg: Signature made Tue Jul 10 11:15:07 2018 PDT
+gpg:                using RSA key BD540AEC07AC788F5613EF1D6EC293152D90B61D
+gpg: Good signature from &quot;Andy LoPresto (CODE SIGNING KEY) &lt;alopresto@apache.org&gt;&quot; [ultimate]
+Author: Andy LoPresto &lt;alopresto@apache.org&gt;
+Date:   Mon Jul 9 18:42:56 2018 -0700
+
+    NIFI-5399 Added wildcard certificate documentation to Admin Guide.
+    Clarified CN vs. SAN entries.
+
+    This closes #2870.
+
+    Signed-off-by: Pierre Villard &lt;pierre.villard.fr@gmail.com&gt;
+</code></pre><p>See <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">git-sign-tag-instructs</a>, <a href="https://help.github.com/articles/signing-commits-using-gpg/">github-help-gpg</a>, and <a href="https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work">git-gpg</a> for more information on setting this up.</p>
+<h2 id="a-nameverifying-a-signatureverifying-a-signaturea"><a name="verifying-a-signature">Verifying a signature</a></h2>
+<p>When viewing commits by other authors, each may have a signature. The validity of the signature depends on your trust of the signer&rsquo;s key.</p>
+<p><em>NOTE: sometimes, the <strong>author</strong> and <strong>signer</strong> of a commit are different, especially in NiFi&rsquo;s RTC context.</em> The <em>author</em> is who wrote the code/content in the change, while the <em>signer</em> is the <em>committer</em> who actually merged the code to the <code>master</code> branch.</p>
+<p>For example, I have imported and trust Matt&rsquo;s key but do not trust Bryan&rsquo;s key. Here are two commits, both <em>authored</em> by Matt, but one (<code>06e8f88</code>) he committed himself (thus also <em>signed</em> by his key), and one (<code>26ea785</code>) that Bryan commited for him (and <em>signed</em> with Bryan&rsquo;s key).</p>
+<pre tabindex="0"><code>🔓 89s @ 16:16:27 $ git log --show-signature
+commit fe31a06fdc4c76b94f47194d87f5a811b06e8f88
+gpg: Signature made Thu Jun 14 09:21:47 2018 PDT
+gpg:                using RSA key 507A205016328841C4BAC9EEDF61EC19432AEE37
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   6  signed:   4  trust: 0-, 0q, 0n, 0m, 0f, 6u
+gpg: depth: 1  valid:   4  signed:   9  trust: 3-, 0q, 0n, 0m, 1f, 0u
+gpg: depth: 2  valid:   9  signed:   1  trust: 7-, 0q, 0n, 0m, 2f, 0u
+gpg: next trustdb check due at 2018-08-19
+gpg: Good signature from &quot;Matt Gilman (CODE SIGNING KEY) &lt;mcgilman@apache.org&gt;&quot; [full]
+Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
+Date:   Wed Jun 13 09:28:44 2018 -0400
+
+    NIFI-4907:
+    - Minor adjustments following PR.
+    - Avoiding additional find operation when authorizing components when populating component details.
+    - Requiring access to provenance events when downloading content or submitting a replay as they may provide events details.
+    - Updating the REST API docs detailing the required permissions.
+    - Updating the wording in the documentation regarding the provenance and data policies.
+    - Removed the event attributes from the authorization calls that were verifying access to provenance events.
+    - Only checking content availability when the user is authorized for the components data.
+    - Addressing typo in JavaDoc.
+
+    This closes #2703
+
+commit 8feac9ae54f84fbc86f957732e193e91726ea785
+gpg: Signature made Tue Jun 12 09:50:48 2018 PDT
+gpg:                using RSA key 5D277C87E312B3BB738A4076A0DDA9ED50711C39
+gpg: Good signature from &quot;Bryan Bende &lt;bbende@apache.org&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 5D27 7C87 E312 B3BB 738A  4076 A0DD A9ED 5071 1C39
+Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
+Date:   Tue Jun 5 12:47:36 2018 -0400
+
+    NIFI-5237:
+    - Ensuring the proxy headers are considered when redirecting the user following a OIDC or Knox login exchange.
+
+    This closes #2763.
+
+    Signed-off-by: Bryan Bende &lt;bbende@apache.org&gt;
+
+</code></pre><p>After importing and marking Bryan&rsquo;s key as trusted:</p>
+<pre tabindex="0"><code> 1s @ 16:17:36 $ git log --show-signature
+commit fe31a06fdc4c76b94f47194d87f5a811b06e8f88
+gpg: Signature made Thu Jun 14 09:21:47 2018 PDT
+gpg:                using RSA key 507A205016328841C4BAC9EEDF61EC19432AEE37
+gpg: Good signature from &quot;Matt Gilman (CODE SIGNING KEY) &lt;mcgilman@apache.org&gt;&quot; [full]
+Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
+Date:   Wed Jun 13 09:28:44 2018 -0400
+
+    NIFI-4907:
+    - Minor adjustments following PR.
+    - Avoiding additional find operation when authorizing components when populating component details.
+    - Requiring access to provenance events when downloading content or submitting a replay as they may provide events details.
+    - Updating the REST API docs detailing the required permissions.
+    - Updating the wording in the documentation regarding the provenance and data policies.
+    - Removed the event attributes from the authorization calls that were verifying access to provenance events.
+    - Only checking content availability when the user is authorized for the components data.
+    - Addressing typo in JavaDoc.
+
+    This closes #2703
+
+commit 8feac9ae54f84fbc86f957732e193e91726ea785
+gpg: Signature made Tue Jun 12 09:50:48 2018 PDT
+gpg:                using RSA key 5D277C87E312B3BB738A4076A0DDA9ED50711C39
+gpg: Good signature from &quot;Bryan Bende &lt;bbende@apache.org&gt;&quot; [full]
+Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
+Date:   Tue Jun 5 12:47:36 2018 -0400
+
+    NIFI-5237:
+    - Ensuring the proxy headers are considered when redirecting the user following a OIDC or Knox login exchange.
+
+    This closes #2763.
+
+    Signed-off-by: Bryan Bende &lt;bbende@apache.org&gt;
+</code></pre><p>See <a href="https://blog.github.com/2016-04-05-gpg-signature-verification/">GitHub Blog: GPG Signature Verification</a> for more information on setting this up.</p>
+<h2 id="a-nameset-up-github-with-your-keyset-up-github-with-your-keya"><a name="set-up-github-with-your-key">Set up GitHub with your key</a></h2>
+<p>See <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account">Adding a new GPG key to your GitHub account</a>.</p>
+<h2 id="a-namesigning-a-release-artifactsigning-a-release-artifacta"><a name="signing-a-release-artifact">Signing a release artifact</a></h2>
+<p>When signing a release artifact (an <a href="https://nifi.apache.org/release-guide.html">RM duty</a> only), you should generate detached GPG signatures (i.e. in a separate file, ASCII-armored (aka Base64-encoded)). These signatures should be named <code>file-being-signed.xyz.asc</code> and should be signed using the <code>SHA-512</code> hash algorithm. See <a href="https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1">Configure GPG to always prefer stronger hashes</a> to configure this preference permanently.</p>
+<pre tabindex="0"><code>       $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-source-release.zip  # produces nifi-${NIFI_VERSION}-source-release.zip.asc
+       $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.zip             # produces nifi-${NIFI_VERSION}-bin.zip.asc
+       $ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.zip     # produces nifi-toolkit-${NIFI_VERSION}-bin.zip.asc
+</code></pre><p>The output looks like below:</p>
+<pre tabindex="0"><code># Display the detached signature
+🔓 0s @ 16:38:03 $ more nifi-1.7.0-source-release.zip.asc
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEvVQK7AeseI9WE+8dbsKTFS2Qth0FAlspxKcACgkQbsKTFS2Q
+th1Lrw/+JCd6dqM8xlTWvBeWMqKQyhkJ/rkiGjrldRKzQx3rczjeuFuSKhd5aRCi
+3GUqdLHIoJ3NgOJ/kaoDtU1BsOCTDUs7kacXAR8NAHnTOx8W1e22xThp9hqXBGep
+epxqWAftYBp+MTuvqw9ci2t+bDZUYlvjbRiOhN9mcPaJZ9u/0lxSsvAwKMY5kJQz
+tfS17952kBEEYH7BpIiR8TNCg2Xdk+N6qsvW9ojpXQaiVMAso/B+I7TeJZlkvpuw
+5rNZ9dTQ8s2MRR0cev7w8rF8VlzlbjU3HIWPUADVvdYmvn4JQRD/c0XoBpUlRFbx
+4QEQbm5vdKnGGOrpCJ3W+T79iOSMLoRX/EPGLoqcizVGgl8LMUcZgN53w2Nm6ggA
+UiwBZeXvC0nuveaN7MN5x4p19A0nicjIEB7tdL3oT69XaINjpC/l97VlahnILcjZ
+K+Ik9c3RabJjKU5dPl1zPGKCRYAU62UvHZrXwTNuDx6oaLBDfIPnRs+QrRet6O7z
+FoY3JIti3He2nP38pbXuZGthjzgxEqcst/tBBLORJ8Ak3l/oWze5dc9Dud9sgjg+
+kJ2nIoN1c4Kkv1+menhoU37JWcqDHrYWe3cZ0GRMQLp1Mqt8MbN7dLF7YcKN3yNA
+1GuwDc/VKXzv2AoDYPI36wPpho8jUIzEZtiRhiZ3vm+tkFnwGKc=
+=gPIi
+-----END PGP SIGNATURE-----
+</code></pre><h2 id="a-nameverifying-a-release-signatureverifying-a-release-signaturea"><a name="verifying-a-release-signature">Verifying a release signature</a></h2>
+<p>For an official Apache NiFi release, the source release archive (<em>nifi-${NIFI_VERSION}-source-release.zip</em>) will be accompanied by multiple checksum files and a GPG signature. The user who generated the GPG signature (the Release Manager) will have specified the user ID (name and email) used to sign it, and will have ensured their public key is present in the <code>KEYS</code> file listed in the vote email. Following the steps in the email, download the <code>KEYS</code> file and import it into your GPG keyring (it may report that no keys changed if you already had all of the published keys imported). Refer to <a href="#import-another-gpg-key">Import another GPG key</a> for more details if necessary.</p>
+<pre tabindex="0"><code># Verifying a good signature
+🔓 0s @ 16:38:08 $ gpg --verify -v nifi-1.7.0-source-release.zip.asc
+gpg: assuming signed data in 'nifi-1.7.0-source-release.zip'
+gpg: Signature made Tue Jun 19 20:06:15 2018 PDT
+gpg:                using RSA key BD540AEC07AC788F5613EF1D6EC293152D90B61D
+gpg: using pgp trust model
+gpg: Good signature from &quot;Andy LoPresto (CODE SIGNING KEY) &lt;alopresto@apache.org&gt;&quot; [ultimate]
+gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
+</code></pre><p>A signature by an untrusted key will have a result like:</p>
+<pre tabindex="0"><code># Verifying an untrusted signature
+🔓 10s @ 16:46:24 $ gpg --verify -v nifi-registry-0.2.0-source-release.zip.asc
+gpg: assuming signed data in 'nifi-registry-0.2.0-source-release.zip'
+gpg: Signature made Fri Jun 15 17:19:30 2018 PDT
+gpg:                using RSA key C09BA891AED45B8C2C231AFE1FB66A91F71B6207
+gpg: Good signature from &quot;Kevin Doran (CODE SIGNING KEY) &lt;kdoran@apache.org&gt;&quot; [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: C09B A891 AED4 5B8C 2C23  1AFE 1FB6 6A91 F71B 6207
+gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
+</code></pre><p>Refer to <a href="#verify-a-key">Verify a key</a> for steps to verify the untrusted key if necessary.</p>
+<p>A bad (incorrect, modified, malicious) signature will have a result like:</p>
+<pre tabindex="0"><code># Verifying a bad signature
+🔓 0s @ 16:41:11 $ gpg --verify -v nifi-1.7.0-source-release.zip.asc
+gpg: assuming signed data in 'nifi-1.7.0-source-release.zip'
+gpg: Signature made Tue Jul 10 16:40:51 2018 PDT
+gpg:                using RSA key 70ECB3E598A65A3FD3C4BACE3C6EF65B2F7DEF69
+gpg: using pgp trust model
+gpg: BAD signature from &quot;Andy LoPresto &lt;alopresto@apache.org&gt;&quot; [full]
+gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
+</code></pre><p>In this case, you should contact the RM and report this finding.</p>
+<h2 id="a-nametransfer-a-secret-keytransfer-a-secret-keya"><a name="transfer-a-secret-key">Transfer a secret key</a></h2>
+<p>Transferring a secret key requires careful consideration to maintain security.
+The most vulnerable part of the system is the passphrase that encrypts the private key.
+The security of an encrypted private key is based on the strength of the associated passphrase, so it is vital to store the private key securely at all times.</p>
+<p>Run the following command to export all secret keys to a temporary file with ASCII Armor encoding:</p>
+<pre tabindex="0"><code>gpg --export-secret-keys --armor --output exported_keys.sec
+</code></pre><p>Move <code>exported_keys.sec</code> to the new machine, preferably using an external drive.</p>
+<p>Import this temporary file into the target keyring:</p>
+<pre tabindex="0"><code>gpg --import exported_keys.sec 
+</code></pre><p>Check for secret keys imported in the output. Listing secret keys for the target keyring should now show the existence of the secret key:</p>
+<pre tabindex="0"><code>gpg --list-secret-keys
+</code></pre><p>Delete the temporary keys file using a secure deletion method. If you are working on Linux, for example, you can use the <code>shred</code> command:</p>
+<pre tabindex="0"><code>shred exported_keys.sec
+</code></pre><p>The keys you exported most likely had <code>ultimate</code> trust by default, because you generated them.
+However, the trust level is not exported, so the key going to have <code>unknown</code> trust.
+To restore <code>ultimate</code> trust, you need to edit the key <code>gpg --edit-key &lt;keyId&gt;</code> by typing <code>trust</code> command in the prompt.</p>
+<p>Another option for restoring the trust level is to export the information and then import it on the new system.</p>
+<p>Run the following command to export the current trust level:</p>
+<pre tabindex="0"><code>gpg --export-ownertrust &gt; trustlevel.txt
+</code></pre><p>Run the following command to import the trust level information:</p>
+<pre tabindex="0"><code>gpg --import-ownertrust &lt; trustlevel.txt
+</code></pre><h2 id="a-nametroubleshootingtroubleshootinga"><a name="troubleshooting">Troubleshooting</a></h2>
+<ul>
+<li>IDE integration may require configuring <code>gpg</code> to use <code>no-tty</code> in <code>~/.gnupg/gpg.conf</code>. See <a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/206502489-Git-GPG-commit-signing-commit-s-from-IDE-in-effective-way">Git GPG signing from IDE</a> or <a href="https://stackoverflow.com/questions/46863981/how-to-sign-git-commits-from-within-an-ide-like-intellij">How to sign git commits from within an IDE like IntelliJ?</a>.</li>
+</ul>
+
+  </div>
+</main>
+    <footer>
+  <div class="uk-container">
+    <div class="uk-flex uk-grid uk-grid-large">
+      <div class="uk-width-1-2@m">
+        <p>
+          <a class="uk-link-reset" href="/">
+            <img src="/images/apache-nifi-logo.svg" class="footer-logo" alt="Apache NiFi Logo"/>
+          </a>
+          <a class="uk-link-reset" href="https://apache.org">
+            <img src="/images/apache-logo.svg" class="footer-logo uk-margin-left" alt="Apache Software Foundation Logo"/>
+          </a>
+        </p>
+        <p>
+          Copyright &copy; 2024 The Apache Software Foundation under the terms of the
+          <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
+        </p>
+        <p>
+          Apache NiFi, NiFi, and the NiFi logo are trademarks of
+          <a href="https://apache.org/">The Apache Software Foundation</a>
+        </p>
+      </div>
+      <div class="uk-width-1-4@m">
+        <h3><a href="/">Project</a></h3>
+        <ul>
+          <li><a href="https://issues.apache.org/jira/browse/NIFI">Issues</a></li>
+          <li><a href="https://github.com/apache/nifi">Source</a></li>
+          <li><a href="https://www.linkedin.com/company/apache-nifi/">LinkedIn</a></li>
+          <li><a href="https://apachenifi.slack.com/">Slack</a></li>
+        </ul>
+      </div>
+      <div class="uk-width-1-4@m">
+        <h3><a href="https://www.apache.org/">Apache</a></h3>
+        <ul>
+          <li><a href="https://www.apache.org/licenses/">License</a></li>
+          <li><a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy</a></li>
+          <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+          <li><a href="https://www.apache.org/security/">Security</a></li>
+          <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/uikit/js/uikit.min.js"></script>
+    <script src="/uikit/js/uikit-icons.min.js"></script>
+  </body>
+</html>
