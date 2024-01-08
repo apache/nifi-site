@@ -78,23 +78,23 @@ window.addEventListener('uikit:init', () => {
  {{< download-links label="MiNiFi Toolkit" project=minifi qualifier=toolkit extension=-bin.zip >}}
  {{< download-links label="Command and Control" project=minifi qualifier=c2 extension=-bin.zip >}}
 
-### MiNiFi C++ 0.15.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.15.0)
+### MiNiFi C++ {{< param minifiCppCurrentProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-{{< param minifiCppCurrentProjectVersion >}})
 
-- Released: 2023-09-01 
-
-#### Sources
-{{< cpp-download-links label="C++ Source" version=0.15.0 extension=source.tar.gz >}}
-#### Binaries
-{{< cpp-download-links label="MiNiFi C++" version=0.15.0 extension=bin.tar.gz >}}
-
-### MiNiFi C++ 0.14.0 [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-0.14.0)
-
-- Released: 2023-04-17
+- Released: {{< param minifiCppCurrentProjectVersionReleased >}}
 
 #### Sources
-{{< cpp-download-links label="Source" version=0.14.0 extension=source.tar.gz >}}
+{{< cpp-download-links label="C++ Source" extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="MiNiFi C++" version=0.14.0 extension=bin-linux.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++" extension=bin.tar.gz >}}
+
+### MiNiFi C++ {{< param minifiCppPreviousProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-{{< param minifiCppPreviousProjectVersion >}})
+
+- Released: {{< param minifiCppPreviousProjectVersionReleased >}}
+
+#### Sources
+{{< cpp-download-links version="previous" label="Source" extension=source.tar.gz >}}
+#### Binaries
+{{< cpp-download-links version="previous" label="MiNiFi C++" extension=bin-linux.tar.gz >}}
 
 </li>
 <li>
