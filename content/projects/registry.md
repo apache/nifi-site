@@ -26,7 +26,7 @@ Apache NiFi Registry provides the following features:
 
 ## Documentation
 
-- [Apache NiFi Registry Documentation](docs/nifi-registry-docs/index.html)
+- [Apache NiFi Registry Documentation](/docs/nifi-registry-docs/)
 - [Apache NiFi Registry Wiki](https://cwiki.apache.org/confluence/display/NIFIREG)
 
 ## Videos
