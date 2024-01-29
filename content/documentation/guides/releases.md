@@ -138,10 +138,10 @@ with the `Version name` set to the next minor release version number
 ```bash
 git checkout -b ${JIRA_TICKET}-RC${RC} ${BRANCH}
 ```
-- Run Maven build with `include-grpc` and `contrib-check` profiles
+- Run Maven build with standard profiles
 
 ```bash
-./mvnw -T 2C -Pinclude-grpc,contrib-check clean install
+./mvnw -T 2C -P contrib-check clean install
 ```
 
 ## Stage Artifacts
@@ -152,10 +152,10 @@ git checkout -b ${JIRA_TICKET}-RC${RC} ${BRANCH}
 export GPG_TTY=$(tty)
 ```
 
-- Run Maven release preparation with `signing` and `include-grpc` profiles using RC version numbers
+- Run Maven release preparation with `signing` and profile using RC version numbers
 
 ```bash
-./mvnw release:prepare -Psigning,include-grpc \
+./mvnw release:prepare -Psigning \
 -DscmCommentPrefix="${JIRA_TICKET}-RC${RC} " \
 -Dtag="nifi-${NIFI_VERSION}-RC${RC}" \
 -DreleaseVersion="${NIFI_VERSION}" \
@@ -167,10 +167,10 @@ export GPG_TTY=$(tty)
 and [clean](https://maven.apache.org/maven-release/maven-release-plugin/clean-mojo.html) commands when necessary to
 start over when encountering failures
 
-- Run Maven release with `signing` and `include-grpc` profiles to deploy artifacts to the Apache Nexus Repository
+- Run Maven release with `signing` and profile to deploy artifacts to the Apache Nexus Repository
 
 ```bash
-./mvnw release:perform -Psigning,include-grpc \
+./mvnw release:perform -Psigning \
 -DscmCommentPrefix="${JIRA_TICKET}-RC${RC} " \
 -Darguments="-DskipTests"
 ```
@@ -213,9 +213,8 @@ cd nifi-${NIFI_VERSION}
 - Run Maven command to package binaries
 
 ```bash
-./mvnw package -P include-grpc -pl \
+./mvnw package -pl \
 :minifi-assembly,\
-:minifi-c2-assembly,\
 :minifi-tookit-assembly,\
 :nifi-assembly,\
 :nifi-kafka-connector-assembly,\
@@ -231,7 +230,6 @@ cd nifi-${NIFI_VERSION}
 ARTIFACTS_DIR=~/staging/artifacts
 mkdir ${ARTIFACTS_DIR}
 cp minifi/minifi-assembly/target/minifi-${NIFI_VERSION}-bin.zip ${ARTIFACTS_DIR}
-cp minifi/minifi-c2/minifi-c2-assembly/target/minifi-c2-${NIFI_VERSION}-bin.zip ${ARTIFACTS_DIR}
 cp minifi/minifi-toolkit/minifi-toolkit-assembly/target/minifi-toolkit-${NIFI_VERSION}-bin.zip ${ARTIFACTS_DIR}
 cp nifi-assembly/target/nifi-${NIFI_VERSION}-bin.zip ${ARTIFACTS_DIR}
 cp nifi-external/nifi-kafka-connector-assembly/target/nifi-kafka-connector-assembly-${NIFI_VERSION}.zip ${ARTIFACTS_DIR}
@@ -248,7 +246,6 @@ cd ${ARTIFACTS_DIR}
 
 ```bash
 gpg -a -b --digest-algo=SHA512 minifi-${NIFI_VERSION}-bin.zip
-gpg -a -b --digest-algo=SHA512 minifi-c2-${NIFI_VERSION}-bin.zip
 gpg -a -b --digest-algo=SHA512 minifi-toolkit-${NIFI_VERSION}-bin.zip
 gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.zip
 gpg -a -b --digest-algo=SHA512 nifi-kafka-connector-assembly-${NIFI_VERSION}.zip
@@ -262,7 +259,6 @@ gpg -a -b --digest-algo=SHA512 nifi-toolkit-${NIFI_VERSION}-bin.zip
 
 ```bash
 sh -c 'sha256sum $1 | cut -d " " -f 1 > $1.sha256' -- minifi-${NIFI_VERSION}-bin.zip
-sh -c 'sha256sum $1 | cut -d " " -f 1 > $1.sha256' -- minifi-c2-${NIFI_VERSION}-bin.zip
 sh -c 'sha256sum $1 | cut -d " " -f 1 > $1.sha256' -- minifi-toolkit-${NIFI_VERSION}-bin.zip
 sh -c 'sha256sum $1 | cut -d " " -f 1 > $1.sha256' -- nifi-${NIFI_VERSION}-source-release.zip
 sh -c 'sha256sum $1 | cut -d " " -f 1 > $1.sha256' -- nifi-${NIFI_VERSION}-bin.zip
@@ -277,7 +273,6 @@ sh -c 'sha256sum $1 | cut -d " " -f 1 > $1.sha256' -- nifi-toolkit-${NIFI_VERSIO
 
 ```bash
 sh -c 'sha512sum $1 | cut -d " " -f 1 > $1.sha256' -- minifi-${NIFI_VERSION}-bin.zip
-sh -c 'sha512sum $1 | cut -d " " -f 1 > $1.sha256' -- minifi-c2-${NIFI_VERSION}-bin.zip
 sh -c 'sha512sum $1 | cut -d " " -f 1 > $1.sha256' -- minifi-toolkit-${NIFI_VERSION}-bin.zip
 sh -c 'sha512sum $1 | cut -d " " -f 1 > $1.sha256' -- nifi-${NIFI_VERSION}-source-release.zip
 sh -c 'sha512sum $1 | cut -d " " -f 1 > $1.sha256' -- nifi-${NIFI_VERSION}-bin.zip
@@ -515,7 +510,7 @@ SUBJECT: [ANNOUNCE] Apache NiFi ${NIFI_VERSION} Released
 ```
 
 ```
-The Apache NiFi Team is pelased to announce the release of Apache NiFi ${NIFI_VERSION}.
+The Apache NiFi Team is pleased to announce the release of Apache NiFi ${NIFI_VERSION}.
 
 Apache NiFi is an easy to use, powerful, and reliable system to process and distribute
 data.
@@ -524,7 +519,7 @@ https://nifi.apache.org
 
 The release artifacts can be downloaded from the project website.
 
-https://nifi.apache.org/download.html
+https://nifi.apache.org/download/
 
 Maven artifacts have been released and mirrored according to Apache distribution processes.
 
