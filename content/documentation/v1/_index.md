@@ -1,10 +1,10 @@
 ---
-title: "Documentation for 1.24.0"
+title: "Documentation for Version 1"
 layout: "documentation"
 iframe: true
 menu:
   main:
-    name: NiFi Documentation 1.24.0
+    name: NiFi Version 1 Documentation
     parent: "Documentation"
     weight: 2
 ---
