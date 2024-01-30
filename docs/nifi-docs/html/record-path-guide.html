@@ -480,6 +480,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="record-path-guide.html#padright">padRight</a></li>
 <li><a href="record-path-guide.html#uuid5">uuid5</a></li>
 <li><a href="record-path-guide.html#count">count</a></li>
+<li><a href="record-path-guide.html#mapof">mapOf</a></li>
 </ul>
 </li>
 <li><a href="record-path-guide.html#filter_functions">Filter Functions</a>
@@ -2183,6 +2184,43 @@ in an error. This is by design because the most common use case for UUID v5 is t
 <p>Which will return the <code>id</code> element with a value of <code>1234</code>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="mapof"><a class="anchor" href="record-path-guide.html#mapof"></a>mapOf</h3>
+<div class="paragraph">
+<p>Creates a map of Strings with the given parameters. For example, if we have the following record:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "firstName": "John",
+    "lastName": "Snow"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We could use the <code>UpdateRecord</code> processor with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/fullName =&gt; mapOf("firstName", /firstName, "lastName", /lastName)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And that would give us something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "firstName": "John",
+    "lastName": "Snow",
+    "fullName": {"firstName": "John", "lastName": "Snow"}
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This function requires an even number of arguments and the record paths must represent simple field values.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2422,7 +2460,7 @@ only of white space (spaces, tabs, carriage returns, and new-line characters).</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-23 12:34:19 +0100
+Last updated 2024-01-25 19:15:47 +0400
 </div>
 </div>
 </body>

@@ -449,6 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="expression-language-guide.html#escaping">Escaping Expression Language</a></li>
 <li><a href="expression-language-guide.html#editor">Expression Language Editor</a></li>
+<li><a href="expression-language-guide.html#system-properties">Framework System Properties</a></li>
 </ul>
 </li>
 <li><a href="expression-language-guide.html#functions">Functions</a>
@@ -944,6 +945,19 @@ and then press Ctrl+Space, we are provided a pop-up that lists six different fun
 <code>toLower</code>, <code>toNumber</code>, <code>toRadix</code>, <code>toString</code>, and <code>toUpper</code>. We can then continue typing to narrow
 which functions are shown, or we can select one of the functions from the list by double-clicking
 it with the mouse or using the arrow keys to highlight the desired function and pressing Enter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="system-properties"><a class="anchor" href="expression-language-guide.html#system-properties"></a>Framework System Properties</h3>
+<div class="paragraph">
+<p>The following system properties are set by the NiFi application, and are available to the Expression Language:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>nifi.framework.version</strong>: The build version for the NiFi framework. Usage: ${'nifi.framework.version'}</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2293,7 +2307,7 @@ It returns <code>null</code> if the argument string is not a valid attribute.</p
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. PadLeft Examples</caption>
+<caption class="title">Table 14. PadRight Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2316,7 +2330,7 @@ Expressions will provide the following results:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>helloxyxyx</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${greetings:padLeft(10, 'aVeryLongPaddingString')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${greetings:padRight(10, 'aVeryLongPaddingString')}</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>helloaVery</code></p></td>
 </tr>
 </tbody>
@@ -5065,7 +5079,7 @@ an embedded Expression, though it does not have to be.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-23 12:34:19 +0100
+Last updated 2024-01-25 19:15:47 +0400
 </div>
 </div>
 </body>
