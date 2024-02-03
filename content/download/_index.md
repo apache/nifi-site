@@ -76,7 +76,6 @@ window.addEventListener('uikit:init', () => {
 #### Binaries
  {{< download-links label="MiNiFi" project=minifi extension=-bin.zip >}}
  {{< download-links label="MiNiFi Toolkit" project=minifi qualifier=toolkit extension=-bin.zip >}}
- {{< download-links label="Command and Control" project=minifi qualifier=c2 extension=-bin.zip >}}
 
 ### MiNiFi C++ {{< param minifiCppCurrentProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-{{< param minifiCppCurrentProjectVersion >}})
 
