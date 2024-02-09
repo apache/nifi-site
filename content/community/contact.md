@@ -15,7 +15,7 @@ recommendations on how to interact with the community.
 ## Slack
 
 - [Apache NiFi on Slack](https://apachenifi.slack.com/)
-- New users can join the workspace using the [invitation link](https://join.slack.com/t/apachenifi/shared_invite/zt-11njbtkdx-ZRU8FKYSWoEHRJetidy0zA)
+- New users can join the workspace using the [invitation link](https://join.slack.com/t/apachenifi/shared_invite/zt-2ccusmst2-l2KrTzJLrGcHOO0V7~XD4g)
 
 ## Users Mailing List
 
