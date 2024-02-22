@@ -31,7 +31,7 @@ members on a vote open for at least 72 hours. A Committer is considered inactive
 can be revoked by a unanimous vote of all the active PMC members, except the member in question if they are a PMC
 member.
 
-{{< project-members project="nifi" >}}
+{{< project-members project="nifi" exclude-project="nifi-pmc" >}}
 
 ## Contributors
 
