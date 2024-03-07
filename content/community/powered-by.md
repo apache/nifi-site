@@ -9,6 +9,15 @@ menu:
 
 # Powered by Apache {{< project-label >}}
 
+## [Datavolo](https://datavolo.io)
+
+The creators of Apache NiFi, led by Joe Witt, founded Datavolo to rapidly accelerate time to market for enterprise data
+pipelines. Datavolo focuses on building enhanced features to solve the unique challenges of Generative AI data
+processing, along with developing improvements to NiFi usability for enterprise deployments. Company capabilities
+include Flow Generator, allowing consumers to describe pipelines using natural language for translation to a NiFi flow.
+Datavolo also provides a secure, containerized version of NiFi for deployment in Kubernetes across multiple cloud 
+environments.
+
 ## [Deep.BI](https://www.deep.bi)
 
 Deep.BI helps enterprises leverage next generation data and AI pipelines to process hundreds of thousands of real-time
