@@ -1850,6 +1850,10 @@ The implementation supports the Authorization Code Grant Type as described in
 <a href="https://openid.net/specs/openid-connect-core-1_0.html#CodeFlowSteps" target="_blank" rel="noopener">OpenID Connect Core Section 3.1.1</a>.</p>
 </div>
 <div class="paragraph">
+<p>The Authorization Code Grant Type implementation supports <a href="https://www.rfc-editor.org/rfc/rfc7636">RFC 7636</a> Proof
+Key for Code Exchange as part of the authentication process. PKCE support uses the <code>S256</code> code challenge method.</p>
+</div>
+<div class="paragraph">
 <p>After successful authentication with the Authorization Server, NiFi generates an application Bearer Token with an
 expiration based on the OAuth2 Access Token expiration. NiFi stores authorized tokens using the local State
 Provider and encrypts serialized information using the application Sensitive Properties Key.</p>
@@ -10595,7 +10599,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-25 19:15:47 +0400
+Last updated 2024-05-03 12:56:02 +0200
 </div>
 </div>
 </body>

@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.25.0</title>
+        <title>NiFi Rest API-1.26.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.25.0</div>
+            <div class="sub-title">NiFi Rest API 1.26.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -27550,63 +27550,81 @@
         </tr>
     
         <tr>
-            <td></td>
-            <td>body</td>
+            <td>groupName</td>
+            <td>formData</td>
             
-                <td>
                 
+                    
+                        <td>string </td>
+                    
                 
-                </td>
             
             <td>The process group name.</td>
         </tr>
     
         <tr>
-            <td></td>
-            <td>body</td>
+            <td>positionX</td>
+            <td>formData</td>
             
-                <td>
                 
+                    
+                        <td>number </td>
+                    
                 
-                </td>
             
             <td>The process group X position.</td>
         </tr>
     
         <tr>
-            <td></td>
-            <td>body</td>
+            <td>positionY</td>
+            <td>formData</td>
             
-                <td>
                 
+                    
+                        <td>number </td>
+                    
                 
-                </td>
             
             <td>The process group Y position.</td>
         </tr>
     
         <tr>
-            <td></td>
-            <td>body</td>
+            <td>clientId</td>
+            <td>formData</td>
             
-                <td>
                 
+                    
+                        <td>string </td>
+                    
                 
-                </td>
             
             <td>The client id.</td>
         </tr>
     
         <tr>
-            <td></td>
-            <td>body</td>
+            <td>disconnectedNodeAcknowledged</td>
+            <td>formData</td>
             
-                <td>
                 
+                    
+                        <td>boolean </td>
+                    
                 
-                </td>
             
             <td>Acknowledges that this node is disconnected to allow for mutable requests to proceed.</td>
+        </tr>
+    
+        <tr>
+            <td>file</td>
+            <td>formData</td>
+            
+                
+                    
+                        <td>file </td>
+                    
+                
+            
+            <td>The binary content of the versioned flow definition file being uploaded.</td>
         </tr>
     
     
@@ -29159,13 +29177,14 @@
         </tr>
     
         <tr>
-            <td></td>
-            <td>body</td>
+            <td>disconnectedNodeAcknowledged</td>
+            <td>formData</td>
             
-                <td>
                 
+                    
+                        <td>boolean </td>
+                    
                 
-                </td>
             
             <td>Acknowledges that this node is disconnected to allow for mutable requests to proceed.</td>
         </tr>
@@ -60640,12 +60659,12 @@
                 </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>is2xx</td>
                     <td>
                         
                             
                             
-                                integer (int32)
+                                boolean
                             
                         
                     </td>
@@ -60672,12 +60691,12 @@
                 </tr>
             
                 <tr>
-                    <td>is2xx</td>
+                    <td>status</td>
                     <td>
                         
                             
                             
-                                boolean
+                                integer (int32)
                             
                         
                     </td>
@@ -60714,9 +60733,9 @@
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
     "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
-    "status": 0<span class="comma">,</span>
-    "is5xx": true<span class="comma">,</span>
     "is2xx": true<span class="comma">,</span>
+    "is5xx": true<span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
     "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -78626,12 +78645,12 @@
             </tr>
             
                 <tr>
-                    <td>entity</td>
+                    <td>status</td>
                     <td>
                         
                             
                             
-                                object
+                                integer (int32)
                             
                         
                     </td>
@@ -78658,12 +78677,12 @@
                 </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>entity</td>
                     <td>
                         
                             
                             
-                                integer (int32)
+                                object
                             
                         
                     </td>
@@ -78676,13 +78695,13 @@
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
-    "entity": <span class="open-object">&#123;
-        "name": "value"
-    &#125;</span><span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
     "metadata": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
-    "status": 0<span class="comma">,</span>
+    "entity": <span class="open-object">&#123;
+        "name": "value"
+    &#125;</span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
