@@ -23,8 +23,8 @@ window.addEventListener('uikit:init', () => {
     if (hash) {
         var hashDownloadId = hash.replace(/^#/, 'download-');
         var downloadElement = document.getElementById(hashDownloadId);
-        if (downloadElement) { 
-            downloadElement.classList.add('uk-active'); 
+        if (downloadElement) {
+            downloadElement.classList.add('uk-active');
         }
     }
 });
@@ -83,7 +83,8 @@ window.addEventListener('uikit:init', () => {
 #### Sources
 {{< cpp-download-links label="C++ Source" extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links label="MiNiFi C++" extension=bin.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++ Linux binaries" extension=bin-linux.tar.gz >}}
+{{< cpp-download-links label="MiNiFi C++ Windows installer" extension=windows.msi >}}
 
 ### MiNiFi C++ {{< param minifiCppPreviousProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=65145325#ReleaseNotesMiNiFi(C++)-Versioncpp-{{< param minifiCppPreviousProjectVersion >}})
 
