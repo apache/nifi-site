@@ -45,7 +45,6 @@ window.addEventListener('uikit:init', () => {
 #### Binaries
 {{< download-links label="NiFi Standard" project="nifi" extension="-bin.zip">}}
 {{< download-links label="NiFi Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
-{{< download-links label="NiFi Kafka Connector" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
 {{< download-links label="NiFi Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
 
 ### NiFi {{< param previousProjectVersion >}} <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}}">Release Notes</a>
