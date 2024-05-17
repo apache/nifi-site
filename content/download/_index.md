@@ -93,7 +93,7 @@ window.addEventListener('uikit:init', () => {
 #### Sources
 {{< cpp-download-links version="previous" label="Source" extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links version="previous" label="MiNiFi C++" extension=bin-linux.tar.gz >}}
+{{< cpp-download-links version="previous" label="MiNiFi C++" extension=bin.tar.gz >}}
 
 </li>
 <li>
