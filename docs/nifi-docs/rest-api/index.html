@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.26.0</title>
+        <title>NiFi Rest API-1.27.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.26.0</div>
+            <div class="sub-title">NiFi Rest API 1.27.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -13851,6 +13851,228 @@
                     
                 </td>
                 <td>The request was valid but NiFi was not in the appropriate state to process it. Retrying the same request later may be successful.</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="title">Authorization</div>
+    <div class="authorization details">
+        
+            
+            <div>Read - /flow</div>
+            
+        
+    </div>
+</div>
+        </div>
+    
+    
+    
+</div>
+            
+                
+<div class="endpoints">
+    <span class="path hidden">/flow/registries/{registry-id}/buckets/{bucket-id}/flows/{flow-id}/{version-a}/diff/{version-b}</span>
+    
+    
+        <div class="endpoint get">
+            <div class="operation-handle">
+                <div class="method">GET</div>
+                <div class="path mono"></div>
+                <div class="summary">Gets the differences between two versions of the same versioned flow, the basis of the comparison will be the first version</div>
+                <div class="clear"></div>
+            </div>
+            
+<div class="operation hidden">
+    
+    <div class="title">Request</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">consumes:</div><div class="mono">*/*</div><div class="clear"></div></div>
+        
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+    
+        <tr>
+            <td>registry-id</td>
+            <td>path</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>The registry client id.</td>
+        </tr>
+    
+        <tr>
+            <td>bucket-id</td>
+            <td>path</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>The bucket id.</td>
+        </tr>
+    
+        <tr>
+            <td>flow-id</td>
+            <td>path</td>
+            
+                
+                    
+                        <td>string </td>
+                    
+                
+            
+            <td>The flow id.</td>
+        </tr>
+    
+        <tr>
+            <td>version-a</td>
+            <td>path</td>
+            
+                
+                    
+                        <td>integer (int32)</td>
+                    
+                
+            
+            <td>The base version.</td>
+        </tr>
+    
+        <tr>
+            <td>version-b</td>
+            <td>path</td>
+            
+                
+                    
+                        <td>integer (int32)</td>
+                    
+                
+            
+            <td>The compared version.</td>
+        </tr>
+    
+        <tr>
+            <td>offset</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>integer (int32)</td>
+                    
+                
+            
+            <td>Must be a non-negative number. Specifies the starting point of the listing. 0 means start from the beginning.</td>
+        </tr>
+    
+        <tr>
+            <td>limit</td>
+            <td>query</td>
+            
+                
+                    
+                        <td>integer (int32)</td>
+                    
+                
+            
+            <td>Limits the number of differences listed. This might lead to partial result. 0 means no limitation is applied.</td>
+        </tr>
+    
+    
+        </tbody>
+    </table>
+    
+    <div class="title">Response</div>
+    <div class="mediatypes details">
+        
+        <div class="mediatype"><div class="title">produces:</div><div class="mono">application/json</div><div class="clear"></div></div>
+        
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Status Code</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr>
+                <td>200</td>
+                <td>
+                    
+                        <a class="type-link" href="javascript:void(0);">FlowComparisonEntity</a>
+                    
+                </td>
+                <td>successful operation</td>
+            </tr>
+            
+            <tr>
+                <td>400</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.</td>
+            </tr>
+            
+            <tr>
+                <td>401</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client could not be authenticated.</td>
+            </tr>
+            
+            <tr>
+                <td>403</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>Client is not authorized to make this request.</td>
+            </tr>
+            
+            <tr>
+                <td>404</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>The specified resource could not be found.</td>
+            </tr>
+            
+            <tr>
+                <td>409</td>
+                <td>
+                    
+                        string
+                    
+                </td>
+                <td>The request was valid but NiFi was not in the appropriate state to process it.</td>
             </tr>
             
         </tbody>
@@ -55849,22 +56071,6 @@
                 </tr>
             
                 <tr>
-                    <td>multipleVersionsAvailable</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>Whether the flow registry client has multiple versions available.
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>extensionMissing</td>
                     <td>
                         
@@ -55876,6 +56082,22 @@
                     </td>
                     <td>optional</td>
                     <td>Whether the underlying extension is missing.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>multipleVersionsAvailable</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Whether the flow registry client has multiple versions available.
                         
                         </td>
                 </tr>
@@ -55902,8 +56124,8 @@
     "validationErrors": ["value"]<span class="comma">,</span>
     "validationStatus": "value"<span class="comma">,</span>
     "annotationData": "value"<span class="comma">,</span>
-    "multipleVersionsAvailable": true<span class="comma">,</span>
     "extensionMissing": true<span class="comma">,</span>
+    "multipleVersionsAvailable": true<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -60659,22 +60881,6 @@
                 </tr>
             
                 <tr>
-                    <td>is2xx</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>is5xx</td>
                     <td>
                         
@@ -60691,12 +60897,12 @@
                 </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>is2xx</td>
                     <td>
                         
                             
                             
-                                integer (int32)
+                                boolean
                             
                         
                     </td>
@@ -60722,6 +60928,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>status</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int32)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -60733,10 +60955,10 @@
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
     "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
-    "is2xx": true<span class="comma">,</span>
     "is5xx": true<span class="comma">,</span>
-    "status": 0<span class="comma">,</span>
+    "is2xx": true<span class="comma">,</span>
     "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -66751,6 +66973,22 @@
                 </tr>
             
                 <tr>
+                    <td>processGroupUpdateStrategy</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Determines the process group update strategy
+                         Allowable values: DIRECT_CHILDREN, ALL_DESCENDANTS
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>inputPortCount</td>
                     <td>
                         
@@ -66812,6 +67050,7 @@
     "publicInputPortCount": 0<span class="comma">,</span>
     "publicOutputPortCount": 0<span class="comma">,</span>
     "parameterContext": <span class="nested collapsed"><span class="nested-id hidden">ParameterContextReferenceEntity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "processGroupUpdateStrategy": "value"<span class="comma">,</span>
     "inputPortCount": 0<span class="comma">,</span>
     "outputPortCount": 0<span class="comma">,</span>
 &#125;</span></code>
@@ -78645,12 +78884,12 @@
             </tr>
             
                 <tr>
-                    <td>status</td>
+                    <td>metadata</td>
                     <td>
                         
                             
                             
-                                integer (int32)
+                                object
                             
                         
                     </td>
@@ -78661,12 +78900,12 @@
                 </tr>
             
                 <tr>
-                    <td>metadata</td>
+                    <td>status</td>
                     <td>
                         
                             
                             
-                                object
+                                integer (int32)
                             
                         
                     </td>
@@ -78695,10 +78934,10 @@
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
-    "status": 0<span class="comma">,</span>
     "metadata": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
+    "status": 0<span class="comma">,</span>
     "entity": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
@@ -87570,22 +87809,6 @@
                 </tr>
             
                 <tr>
-                    <td>flowFileOutboundPolicy</td>
-                    <td>
-                        
-                            
-                            
-                                string
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>The FlowFile Outbound Policy for the Process Group
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>flowFileConcurrency</td>
                     <td>
                         
@@ -87597,6 +87820,22 @@
                     </td>
                     <td>optional</td>
                     <td>The configured FlowFile Concurrency for the Process Group
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>flowFileOutboundPolicy</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The FlowFile Outbound Policy for the Process Group
                         
                         </td>
                 </tr>
@@ -87659,8 +87898,8 @@
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
     "logFileSuffix": "value"<span class="comma">,</span>
-    "flowFileOutboundPolicy": "value"<span class="comma">,</span>
     "flowFileConcurrency": "value"<span class="comma">,</span>
+    "flowFileOutboundPolicy": "value"<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>

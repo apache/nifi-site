@@ -1,4 +1,20 @@
-<!DOCTYPE html>
+<!--
+                        Licensed to the Apache Software Foundation (ASF) under one or more
+                        contributor license agreements.  See the NOTICE file distributed with
+                        this work for additional information regarding copyright ownership.
+                        The ASF licenses this file to You under the Apache License, Version 2.0
+                        (the "License"); you may not use this file except in compliance with
+                        the License.  You may obtain a copy of the License at
+
+                        http://www.apache.org/licenses/LICENSE-2.0
+
+                        Unless required by applicable law or agreed to in writing, software
+                        distributed under the License is distributed on an "AS IS" BASIS,
+                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                        See the License for the specific language governing permissions and
+                        limitations under the License.
+                        -->
+                        <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -2105,6 +2121,18 @@ to authenticate using an account managed through a SAML 2.0 Asserting Party.</p>
 </div>
 <div class="sect2">
 <h3 id="apache_knox"><a class="anchor" href="administration-guide.html#apache_knox"></a>Apache Knox</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Support for Apache Knox Single Sign-On is deprecated for removal in NiFi 2.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>To enable authentication via Apache Knox the following properties must be configured in <em>nifi.properties</em>.</p>
 </div>
@@ -7235,6 +7263,18 @@ supports different strategies, including <strong>cookie</strong> and <strong>rou
 <div class="sect1">
 <h2 id="kerberos_service"><a class="anchor" href="administration-guide.html#kerberos_service"></a>Kerberos Service</h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Support for Kerberos SPNEGO authentication is deprecated for removal in NiFi 2.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>NiFi can be configured to use Kerberos SPNEGO (or "Kerberos Service") for authentication. In this scenario, users will hit the REST endpoint <code>/access/kerberos</code> and the server will respond with a <code>401</code> status code and the challenge response header <code>WWW-Authenticate: Negotiate</code>. This communicates to the browser to use the GSS-API and load the user&#8217;s Kerberos ticket and provide it as a Base64-encoded header value in the subsequent request. It will be of the form <code>Authorization: Negotiate YII&#8230;&#8203;</code>. NiFi will attempt to validate this ticket with the KDC. If it is successful, the user&#8217;s <em>principal</em> will be returned as the identity, and the flow will follow login/credential authentication, in that a JWT will be issued in the response to prevent the unnecessary overhead of Kerberos authentication on every subsequent request. If the ticket cannot be validated, it will return with the appropriate error response code. The user will then be able to provide their Kerberos credentials to the login form if the <code>KerberosLoginIdentityProvider</code> has been configured. See <a href="administration-guide.html#kerberos_login_identity_provider">Kerberos</a> login identity provider for more details.</p>
 </div>
@@ -10599,7 +10639,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-03 12:56:02 +0200
+Last updated 2024-07-04 14:46:05 -0500
 </div>
 </div>
 </body>
