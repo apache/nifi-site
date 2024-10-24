@@ -28,7 +28,7 @@
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var baseUri = "//matomo.privacy.apache.org/";
+    var baseUri = "//analytics.apache.org/";
     _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
     _paq.push(['setSiteId', '28']);
     var trackerElement = document.createElement('script');
@@ -65,7 +65,7 @@
               
               <li class="">
                 <a href="/documentation/v2/" >
-                  NiFi Documentation 2.0.0-M1
+                  NiFi Version 2 Documentation
                   
                 </a>
 
@@ -75,7 +75,7 @@
               
               <li class="">
                 <a href="/documentation/v1/" >
-                  NiFi Documentation 1.24.0
+                  NiFi Version 1 Documentation
                   
                 </a>
 
@@ -270,16 +270,6 @@
               </li>
               
               <li class="">
-                <a href="https://www.apache.org/security/" target="_blank" rel="noopener noreferrer">
-                  Security
-                  <span uk-icon="link"></span>
-                </a>
-
-              
-
-              </li>
-              
-              <li class="">
                 <a href="https://www.apache.org/foundation/sponsorship.html" target="_blank" rel="noopener noreferrer">
                   Sponsorship
                   <span uk-icon="link"></span>
@@ -339,7 +329,7 @@
             
             <li class="">
               <a href="/documentation/v2/" >
-                NiFi Documentation 2.0.0-M1
+                NiFi Version 2 Documentation
                 
               </a>
 
@@ -349,7 +339,7 @@
             
             <li class="">
               <a href="/documentation/v1/" >
-                NiFi Documentation 1.24.0
+                NiFi Version 1 Documentation
                 
               </a>
 
@@ -536,16 +526,6 @@
             <li class="">
               <a href="https://privacy.apache.org/policies/privacy-policy-public.html" target="_blank" rel="noopener noreferrer">
                 Privacy
-                <span uk-icon="link"></span>
-              </a>
-
-            
-
-            </li>
-            
-            <li class="">
-              <a href="https://www.apache.org/security/" target="_blank" rel="noopener noreferrer">
-                Security
                 <span uk-icon="link"></span>
               </a>
 
@@ -767,18 +747,18 @@ with the <code>Version name</code> set to the next minor release version number<
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout -b <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
 </code></pre></div><ul>
-<li>Run Maven build with <code>include-grpc</code> and <code>contrib-check</code> profiles</li>
+<li>Run Maven build with standard profiles</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw -T 2C -Pinclude-grpc,contrib-check clean install
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw -T 2C -P contrib-check clean install
 </code></pre></div><h2 id="stage-artifacts">Stage Artifacts</h2>
 <ul>
 <li>Set the <code>GPG_TTY</code> environment variable to allow <code>gpg</code> password prompts for artifact signing</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export GPG_TTY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>tty<span style="color:#66d9ef">)</span>
 </code></pre></div><ul>
-<li>Run Maven release preparation with <code>signing</code> and <code>include-grpc</code> profiles using RC version numbers</li>
+<li>Run Maven release preparation with <code>signing</code> and profile using RC version numbers</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw release:prepare -Psigning,include-grpc <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw release:prepare -Psigning <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>-DscmCommentPrefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>-Dtag<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>-DreleaseVersion<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
@@ -791,10 +771,10 @@ and <a href="https://maven.apache.org/maven-release/maven-release-plugin/clean-m
 start over when encountering failures</p>
 </li>
 <li>
-<p>Run Maven release with <code>signing</code> and <code>include-grpc</code> profiles to deploy artifacts to the Apache Nexus Repository</p>
+<p>Run Maven release with <code>signing</code> and profile to deploy artifacts to the Apache Nexus Repository</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw release:perform -Psigning,include-grpc <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw release:perform -Psigning <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>-DscmCommentPrefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>-Darguments<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-DskipTests&#34;</span>
 </code></pre></div><ul>
@@ -827,9 +807,8 @@ cd nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6d
 </code></pre></div><ul>
 <li>Run Maven command to package binaries</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw package -P include-grpc -pl <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw package -pl <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>:minifi-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:minifi-c2-assembly,<span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>:minifi-tookit-assembly,<span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>:nifi-assembly,<span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>:nifi-kafka-connector-assembly,<span style="color:#ae81ff">\
@@ -843,7 +822,6 @@ cd nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6d
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ARTIFACTS_DIR<span style="color:#f92672">=</span>~/staging/artifacts
 mkdir <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
 cp minifi/minifi-assembly/target/minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp minifi/minifi-c2/minifi-c2-assembly/target/minifi-c2-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
 cp minifi/minifi-toolkit/minifi-toolkit-assembly/target/minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
 cp nifi-assembly/target/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
 cp nifi-external/nifi-kafka-connector-assembly/target/nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
@@ -858,7 +836,6 @@ cd <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74"
 <li>Create OpenPGP signatures for binary files from the cloned repository directory</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-c2-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
@@ -870,7 +847,6 @@ gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-toolkit-<
 <li>Create SHA-256 hashes for binary files from the cloned repository directory</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-c2-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip
 sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
@@ -883,7 +859,6 @@ sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &g
 <li>Create SHA-512 hashes for binary files from the cloned repository directory</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-c2-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
 sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip
 sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
@@ -1080,7 +1055,7 @@ using the <code>Actions</code> button to <code>Release</code> the selected versi
 <p>The Release Manager sends an email to the Apache Announcements List as well as project mailing lists.</p>
 <pre tabindex="0"><code>TO: announce@apache.org, users@nifi.apache.org, dev@nifi.apache.org
 SUBJECT: [ANNOUNCE] Apache NiFi ${NIFI_VERSION} Released
-</code></pre><pre tabindex="0"><code>The Apache NiFi Team is pelased to announce the release of Apache NiFi ${NIFI_VERSION}.
+</code></pre><pre tabindex="0"><code>The Apache NiFi Team is pleased to announce the release of Apache NiFi ${NIFI_VERSION}.
 
 Apache NiFi is an easy to use, powerful, and reliable system to process and distribute
 data.
@@ -1089,7 +1064,7 @@ https://nifi.apache.org
 
 The release artifacts can be downloaded from the project website.
 
-https://nifi.apache.org/download.html
+https://nifi.apache.org/download/
 
 Maven artifacts have been released and mirrored according to Apache distribution processes.
 
@@ -1133,7 +1108,8 @@ The Apache NiFi Team
           <li><a href="https://issues.apache.org/jira/browse/NIFI">Issues</a></li>
           <li><a href="https://github.com/apache/nifi">Source</a></li>
           <li><a href="https://www.linkedin.com/company/apache-nifi/">LinkedIn</a></li>
-          <li><a href="https://apachenifi.slack.com/">Slack</a></li>
+          <li><a href="https://join.slack.com/t/apachenifi/shared_invite/zt-2ccusmst2-l2KrTzJLrGcHOO0V7~XD4g">Slack</a></li>
+          <li><a href="https://nifi.apache.org/documentation/security/">Security</a></li>
         </ul>
       </div>
       <div class="uk-width-1-4@m">
@@ -1142,7 +1118,6 @@ The Apache NiFi Team
           <li><a href="https://www.apache.org/licenses/">License</a></li>
           <li><a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy</a></li>
           <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
-          <li><a href="https://www.apache.org/security/">Security</a></li>
           <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
         </ul>
       </div>

@@ -28,7 +28,7 @@
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var baseUri = "//matomo.privacy.apache.org/";
+    var baseUri = "//analytics.apache.org/";
     _paq.push(['setTrackerUrl', baseUri + 'matomo.php']);
     _paq.push(['setSiteId', '28']);
     var trackerElement = document.createElement('script');
@@ -65,7 +65,7 @@
               
               <li class="">
                 <a href="/documentation/v2/" >
-                  NiFi Documentation 2.0.0-M1
+                  NiFi Version 2 Documentation
                   
                 </a>
 
@@ -75,7 +75,7 @@
               
               <li class="">
                 <a href="/documentation/v1/" >
-                  NiFi Documentation 1.24.0
+                  NiFi Version 1 Documentation
                   
                 </a>
 
@@ -270,16 +270,6 @@
               </li>
               
               <li class="">
-                <a href="https://www.apache.org/security/" target="_blank" rel="noopener noreferrer">
-                  Security
-                  <span uk-icon="link"></span>
-                </a>
-
-              
-
-              </li>
-              
-              <li class="">
                 <a href="https://www.apache.org/foundation/sponsorship.html" target="_blank" rel="noopener noreferrer">
                   Sponsorship
                   <span uk-icon="link"></span>
@@ -339,7 +329,7 @@
             
             <li class="">
               <a href="/documentation/v2/" >
-                NiFi Documentation 2.0.0-M1
+                NiFi Version 2 Documentation
                 
               </a>
 
@@ -349,7 +339,7 @@
             
             <li class="">
               <a href="/documentation/v1/" >
-                NiFi Documentation 1.24.0
+                NiFi Version 1 Documentation
                 
               </a>
 
@@ -544,16 +534,6 @@
             </li>
             
             <li class="">
-              <a href="https://www.apache.org/security/" target="_blank" rel="noopener noreferrer">
-                Security
-                <span uk-icon="link"></span>
-              </a>
-
-            
-
-            </li>
-            
-            <li class="">
               <a href="https://www.apache.org/foundation/sponsorship.html" target="_blank" rel="noopener noreferrer">
                 Sponsorship
                 <span uk-icon="link"></span>
@@ -634,6 +614,48 @@ contrary to best practices, but it does not constitute of security issue for rem
 </ul>
 <h1 id="published-vulnerabilities">Published Vulnerabilities</h1>
 <p>The following announcements include published vulnerabilities that apply directly to Apache NiFi components.</p>
+<div class="vulnerability-container">
+  <h3 id="CVE-2024-37389">CVE-2024-37389</h3>
+
+  <ul>
+    <li>Title: Improper Neutralization of Input in Parameter Context Description</li>
+    <li>Published: 2024-07-08</li>
+    <li>Severity: Medium</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.10.0 to 1.26.0 and 2.0.0-M1 to 2.0.0-M3</li>
+    <li>Fixed Versions: 1.27.0 and 2.0.0-M4</li>
+    <li>Reporter: Akbar Kustirama at abay.sh</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2024-37389" target="_blank">CVE-2024-37389</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-37389" target="_blank">CVE-2024-37389</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-13374" target="_blank">NIFI-13374</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/8938" target="_blank">8938</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.10.0 through 1.26.0 and 2.0.0-M1 through 2.0.0-M3 support a description field in the Parameter Context
+configuration that is vulnerable to cross-site scripting. An authenticated user, authorized to configure a Parameter
+Context, can enter arbitrary JavaScript code, which the client browser will execute within the session context of the
+authenticated user. Upgrading to Apache NiFi 1.27.0 or 2.0.0-M4 is the recommended mitigation.
+
+
+  </p>
+</div>
 <div class="vulnerability-container">
   <h3 id="CVE-2023-49145">CVE-2023-49145</h3>
 
@@ -2170,7 +2192,8 @@ pull request when merging changes. Users running a prior release should upgrade 
           <li><a href="https://issues.apache.org/jira/browse/NIFI">Issues</a></li>
           <li><a href="https://github.com/apache/nifi">Source</a></li>
           <li><a href="https://www.linkedin.com/company/apache-nifi/">LinkedIn</a></li>
-          <li><a href="https://apachenifi.slack.com/">Slack</a></li>
+          <li><a href="https://join.slack.com/t/apachenifi/shared_invite/zt-2ccusmst2-l2KrTzJLrGcHOO0V7~XD4g">Slack</a></li>
+          <li><a href="https://nifi.apache.org/documentation/security/">Security</a></li>
         </ul>
       </div>
       <div class="uk-width-1-4@m">
@@ -2179,7 +2202,6 @@ pull request when merging changes. Users running a prior release should upgrade 
           <li><a href="https://www.apache.org/licenses/">License</a></li>
           <li><a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy</a></li>
           <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
-          <li><a href="https://www.apache.org/security/">Security</a></li>
           <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
         </ul>
       </div>
