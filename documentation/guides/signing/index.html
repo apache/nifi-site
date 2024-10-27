@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode-s0-hbhb-commit-and-release-signing">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode17s0hbhb-commit-and-release-signing">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Commit and Release Signing</h1>
 <p>The purpose of this document is to capture and describe the steps involved in generating and verifying cryptographic signatures of official releases of Apache NiFi, as well as configuring cryptographic signatures of individual code commits.  It is written for contributors, committers, and users of Apache NiFi (and related applications).</p>
 <h2 id="a-nametable-of-contentstable-of-contentsa"><a name="table-of-contents">Table of Contents</a></h2>
@@ -665,14 +665,14 @@ branch may need to be created.</em></p>
 <p>Example:</p>
 <pre tabindex="0"><code># Generate the key
 🔓 0s @ 15:06:19 $ gpg --gen-key
-Note: Use &quot;gpg --full-generate-key&quot; for a full featured key generation dialog.
+Note: Use &#34;gpg --full-generate-key&#34; for a full featured key generation dialog.
 
 GnuPG needs to construct a user ID to identify your key.
 
 Real name: NiFi Test User
 Email address: test@nifi.apache.org
 You selected this USER-ID:
-    &quot;NiFi Test User &lt;test@nifi.apache.org&gt;&quot;
+    &#34;NiFi Test User &lt;test@nifi.apache.org&gt;&#34;
 
 Change (N)ame, (E)mail, or (O)kay/(Q)uit? o
 We need to generate a lot of random bytes. It is a good idea to perform
@@ -684,7 +684,7 @@ some other action (type on the keyboard, move the mouse, utilize the
 disks) during the prime generation; this gives the random number
 generator a better chance to gain enough entropy.
 gpg: key 71456940555DB64A marked as ultimately trusted
-gpg: revocation certificate stored as '/Users/alopresto/.gnupg/openpgp-revocs.d/718FAE8D4F81CDED06EA652271456940555DB64A.rev'
+gpg: revocation certificate stored as &#39;/Users/alopresto/.gnupg/openpgp-revocs.d/718FAE8D4F81CDED06EA652271456940555DB64A.rev&#39;
 public and secret key created and signed.
 
 pub   rsa2048 2018-07-10 [SC] [expires: 2020-07-09]
@@ -724,7 +724,6 @@ pub   rsa2048 2018-07-10 [SC] [expires: 2020-07-09]
       718F AE8D 4F81 CDED 06EA  6522 7145 6940 555D B64A
 uid           [ultimate] NiFi Test User &lt;test@nifi.apache.org&gt;
 sub   rsa2048 2018-07-10 [E] [expires: 2020-07-09]
-
 </code></pre><p>You now have a key generated for your identity. Some Apache users will include &ldquo;(CODE SIGNING KEY)&rdquo; after their name to separate this key from other keys they use. This is optional. By default, keys use 2048 bit length. You can increase this to 4096 bits by using the <code>--full-generate-key</code> or <code>--default-new-key-algo rsa4096</code> flags when generating.</p>
 <p>The <strong>key fingerprint</strong> can be referred to by the last 8 hex digits (<strong>short ID</strong>) or last 16 hex digits (<strong>long ID</strong>), so for the remainder of this guide, our example key will have the <strong>long ID</strong> <code>7145 6940 555D B64A</code> (spaces optional) and <strong>short ID</strong> <code>555D B64A</code>, which we can reference in commands as <code>0x555DB64A</code>.</p>
 <h3 id="trust-vs-validity">Trust vs. Validity</h3>
@@ -764,7 +763,7 @@ gpg: armor header: Version: GnuPG v1
 gpg: armor header: Version: GnuPG v2.0.22 (GNU/Linux)
 gpg: pub  rsa4096/9C4F7E9D98B1CC53 2010-10-23  Benson Margulies &lt;bimargulies@apache.org&gt;
 gpg: using pgp trust model
-gpg: key 9C4F7E9D98B1CC53: public key &quot;Benson Margulies &lt;bimargulies@apache.org&gt;&quot; imported
+gpg: key 9C4F7E9D98B1CC53: public key &#34;Benson Margulies &lt;bimargulies@apache.org&gt;&#34; imported
 ...
 gpg: Total number processed: 17
 gpg:               imported: 16
@@ -793,7 +792,7 @@ ssb  rsa2048/4FC72361977CEC0A
      created: 2018-07-10  expires: 2020-07-09  usage: E
 [ unknown] (1). NiFi Test User &lt;test@nifi.apache.org&gt;
 
-gpg: using &quot;70ECB3E598A65A3FD3C4BACE3C6EF65B2F7DEF69&quot; as default secret key for signing
+gpg: using &#34;70ECB3E598A65A3FD3C4BACE3C6EF65B2F7DEF69&#34; as default secret key for signing
 
 sec  rsa2048/71456940555DB64A
      created: 2018-07-10  expires: 2020-07-09  usage: SC
@@ -804,10 +803,10 @@ sec  rsa2048/71456940555DB64A
 
 This key is due to expire on 2020-07-09.
 Are you sure that you want to sign this key with your
-key &quot;Andy LoPresto &lt;alopresto@apache.org&gt;&quot; (3C6EF65B2F7DEF69)
+key &#34;Andy LoPresto &lt;alopresto@apache.org&gt;&#34; (3C6EF65B2F7DEF69)
 
 Really sign? (y/N) y
-gpg: RSA/SHA512 signature from: &quot;3C6EF65B2F7DEF69 Andy LoPresto &lt;alopresto@apache.org&gt;&quot;
+gpg: RSA/SHA512 signature from: &#34;3C6EF65B2F7DEF69 Andy LoPresto &lt;alopresto@apache.org&gt;&#34;
 </code></pre><h3 id="web-of-trust">Web of Trust</h3>
 <p>If it is infeasible to contact the key bearer directly, you can delegate that trust to a third-party who you already trust. For example, if you cannot directly contact Joe Witt, but you already trust Andy LoPresto (i.e. you have verified Andy&rsquo;s key and believe Andy would verify keys he trusts), you can sign Joe&rsquo;s key if Andy has already done so. You can choose to employ a lower level of validity (<code>marginal</code> vs. <code>full</code>) in that case depending on your transitive <strong>ownertrust</strong> in Andy&rsquo;s verification. See <a href="https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication">Web of Trust</a> and <a href="https://www.gnupg.org/gph/en/manual/x334.html">GNU Privacy Handbook</a> for more information and helpful diagrams.</p>
 <h2 id="a-nameset-up-git-with-your-keyset-up-git-with-your-keya"><a name="set-up-git-with-your-key">Set up Git with your key</a></h2>
@@ -829,7 +828,7 @@ gpg: RSA/SHA512 signature from: &quot;3C6EF65B2F7DEF69 Andy LoPresto &lt;alopres
 commit bef91008bb86de9b541fbe1fd82ed37eef1784d5 (HEAD -&gt; master, apache/master)
 gpg: Signature made Tue Jul 10 11:15:07 2018 PDT
 gpg:                using RSA key BD540AEC07AC788F5613EF1D6EC293152D90B61D
-gpg: Good signature from &quot;Andy LoPresto (CODE SIGNING KEY) &lt;alopresto@apache.org&gt;&quot; [ultimate]
+gpg: Good signature from &#34;Andy LoPresto (CODE SIGNING KEY) &lt;alopresto@apache.org&gt;&#34; [ultimate]
 Author: Andy LoPresto &lt;alopresto@apache.org&gt;
 Date:   Mon Jul 9 18:42:56 2018 -0700
 
@@ -854,7 +853,7 @@ gpg: depth: 0  valid:   6  signed:   4  trust: 0-, 0q, 0n, 0m, 0f, 6u
 gpg: depth: 1  valid:   4  signed:   9  trust: 3-, 0q, 0n, 0m, 1f, 0u
 gpg: depth: 2  valid:   9  signed:   1  trust: 7-, 0q, 0n, 0m, 2f, 0u
 gpg: next trustdb check due at 2018-08-19
-gpg: Good signature from &quot;Matt Gilman (CODE SIGNING KEY) &lt;mcgilman@apache.org&gt;&quot; [full]
+gpg: Good signature from &#34;Matt Gilman (CODE SIGNING KEY) &lt;mcgilman@apache.org&gt;&#34; [full]
 Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
 Date:   Wed Jun 13 09:28:44 2018 -0400
 
@@ -873,7 +872,7 @@ Date:   Wed Jun 13 09:28:44 2018 -0400
 commit 8feac9ae54f84fbc86f957732e193e91726ea785
 gpg: Signature made Tue Jun 12 09:50:48 2018 PDT
 gpg:                using RSA key 5D277C87E312B3BB738A4076A0DDA9ED50711C39
-gpg: Good signature from &quot;Bryan Bende &lt;bbende@apache.org&gt;&quot; [unknown]
+gpg: Good signature from &#34;Bryan Bende &lt;bbende@apache.org&gt;&#34; [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 5D27 7C87 E312 B3BB 738A  4076 A0DD A9ED 5071 1C39
@@ -886,13 +885,12 @@ Date:   Tue Jun 5 12:47:36 2018 -0400
     This closes #2763.
 
     Signed-off-by: Bryan Bende &lt;bbende@apache.org&gt;
-
 </code></pre><p>After importing and marking Bryan&rsquo;s key as trusted:</p>
 <pre tabindex="0"><code> 1s @ 16:17:36 $ git log --show-signature
 commit fe31a06fdc4c76b94f47194d87f5a811b06e8f88
 gpg: Signature made Thu Jun 14 09:21:47 2018 PDT
 gpg:                using RSA key 507A205016328841C4BAC9EEDF61EC19432AEE37
-gpg: Good signature from &quot;Matt Gilman (CODE SIGNING KEY) &lt;mcgilman@apache.org&gt;&quot; [full]
+gpg: Good signature from &#34;Matt Gilman (CODE SIGNING KEY) &lt;mcgilman@apache.org&gt;&#34; [full]
 Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
 Date:   Wed Jun 13 09:28:44 2018 -0400
 
@@ -911,7 +909,7 @@ Date:   Wed Jun 13 09:28:44 2018 -0400
 commit 8feac9ae54f84fbc86f957732e193e91726ea785
 gpg: Signature made Tue Jun 12 09:50:48 2018 PDT
 gpg:                using RSA key 5D277C87E312B3BB738A4076A0DDA9ED50711C39
-gpg: Good signature from &quot;Bryan Bende &lt;bbende@apache.org&gt;&quot; [full]
+gpg: Good signature from &#34;Bryan Bende &lt;bbende@apache.org&gt;&#34; [full]
 Author: Matt Gilman &lt;matt.c.gilman@gmail.com&gt;
 Date:   Tue Jun 5 12:47:36 2018 -0400
 
@@ -952,19 +950,19 @@ kJ2nIoN1c4Kkv1+menhoU37JWcqDHrYWe3cZ0GRMQLp1Mqt8MbN7dLF7YcKN3yNA
 <p>For an official Apache NiFi release, the source release archive (<em>nifi-${NIFI_VERSION}-source-release.zip</em>) will be accompanied by multiple checksum files and a GPG signature. The user who generated the GPG signature (the Release Manager) will have specified the user ID (name and email) used to sign it, and will have ensured their public key is present in the <code>KEYS</code> file listed in the vote email. Following the steps in the email, download the <code>KEYS</code> file and import it into your GPG keyring (it may report that no keys changed if you already had all of the published keys imported). Refer to <a href="#import-another-gpg-key">Import another GPG key</a> for more details if necessary.</p>
 <pre tabindex="0"><code># Verifying a good signature
 🔓 0s @ 16:38:08 $ gpg --verify -v nifi-1.7.0-source-release.zip.asc
-gpg: assuming signed data in 'nifi-1.7.0-source-release.zip'
+gpg: assuming signed data in &#39;nifi-1.7.0-source-release.zip&#39;
 gpg: Signature made Tue Jun 19 20:06:15 2018 PDT
 gpg:                using RSA key BD540AEC07AC788F5613EF1D6EC293152D90B61D
 gpg: using pgp trust model
-gpg: Good signature from &quot;Andy LoPresto (CODE SIGNING KEY) &lt;alopresto@apache.org&gt;&quot; [ultimate]
+gpg: Good signature from &#34;Andy LoPresto (CODE SIGNING KEY) &lt;alopresto@apache.org&gt;&#34; [ultimate]
 gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 </code></pre><p>A signature by an untrusted key will have a result like:</p>
 <pre tabindex="0"><code># Verifying an untrusted signature
 🔓 10s @ 16:46:24 $ gpg --verify -v nifi-registry-0.2.0-source-release.zip.asc
-gpg: assuming signed data in 'nifi-registry-0.2.0-source-release.zip'
+gpg: assuming signed data in &#39;nifi-registry-0.2.0-source-release.zip&#39;
 gpg: Signature made Fri Jun 15 17:19:30 2018 PDT
 gpg:                using RSA key C09BA891AED45B8C2C231AFE1FB66A91F71B6207
-gpg: Good signature from &quot;Kevin Doran (CODE SIGNING KEY) &lt;kdoran@apache.org&gt;&quot; [unknown]
+gpg: Good signature from &#34;Kevin Doran (CODE SIGNING KEY) &lt;kdoran@apache.org&gt;&#34; [unknown]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: C09B A891 AED4 5B8C 2C23  1AFE 1FB6 6A91 F71B 6207
@@ -973,11 +971,11 @@ gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 <p>A bad (incorrect, modified, malicious) signature will have a result like:</p>
 <pre tabindex="0"><code># Verifying a bad signature
 🔓 0s @ 16:41:11 $ gpg --verify -v nifi-1.7.0-source-release.zip.asc
-gpg: assuming signed data in 'nifi-1.7.0-source-release.zip'
+gpg: assuming signed data in &#39;nifi-1.7.0-source-release.zip&#39;
 gpg: Signature made Tue Jul 10 16:40:51 2018 PDT
 gpg:                using RSA key 70ECB3E598A65A3FD3C4BACE3C6EF65B2F7DEF69
 gpg: using pgp trust model
-gpg: BAD signature from &quot;Andy LoPresto &lt;alopresto@apache.org&gt;&quot; [full]
+gpg: BAD signature from &#34;Andy LoPresto &lt;alopresto@apache.org&gt;&#34; [full]
 gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 </code></pre><p>In this case, you should contact the RM and report this finding.</p>
 <h2 id="a-nametransfer-a-secret-keytransfer-a-secret-keya"><a name="transfer-a-secret-key">Transfer a secret key</a></h2>

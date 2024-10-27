@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode-s0-hbhb-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode15s0hbhb-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Releases</h1>
 <p>This document describes the steps required to build and release an official version of the project.</p>
 <h2 id="objective">Objective</h2>
@@ -699,33 +699,33 @@ of Apache NiFi <code>0.7.0</code>, the tag would be rendered as <code>nifi-0.7.0
 passwords</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;profile&gt;</span>
-    <span style="color:#f92672">&lt;id&gt;</span>signing<span style="color:#f92672">&lt;/id&gt;</span>
-    <span style="color:#f92672">&lt;properties&gt;</span>
-        <span style="color:#f92672">&lt;mavenExecutorId&gt;</span>forked-path<span style="color:#f92672">&lt;/mavenExecutorId&gt;</span>
-        <span style="color:#f92672">&lt;gpg.keyname&gt;</span>${RM_USERID}@apache.org<span style="color:#f92672">&lt;/gpg.keyname&gt;</span>
-        <span style="color:#f92672">&lt;gpg.passphrase&gt;</span>REPLACE-WITH-ENCRYPTED-GPG-PASSPHRASE<span style="color:#f92672">&lt;/gpg.passphrase&gt;</span>
-    <span style="color:#f92672">&lt;/properties&gt;</span>
-<span style="color:#f92672">&lt;/profile&gt;</span>
-
-<span style="color:#f92672">&lt;servers&gt;</span>
-    <span style="color:#f92672">&lt;server&gt;</span>
-        <span style="color:#f92672">&lt;id&gt;</span>repository.apache.org<span style="color:#f92672">&lt;/id&gt;</span>
-        <span style="color:#f92672">&lt;username&gt;</span>${RM_USERID}<span style="color:#f92672">&lt;/username&gt;</span>
-        <span style="color:#f92672">&lt;password&gt;</span>REPLACE-WITH-ENCRYPTED-REPOSITORY-PASSWORD<span style="color:#f92672">&lt;/password&gt;</span>
-    <span style="color:#f92672">&lt;/server&gt;</span>
-<span style="color:#f92672">&lt;/servers&gt;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;profile&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;id&gt;</span>signing<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;properties&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;mavenExecutorId&gt;</span>forked-path<span style="color:#f92672">&lt;/mavenExecutorId&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;gpg.keyname&gt;</span>${RM_USERID}@apache.org<span style="color:#f92672">&lt;/gpg.keyname&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;gpg.passphrase&gt;</span>REPLACE-WITH-ENCRYPTED-GPG-PASSPHRASE<span style="color:#f92672">&lt;/gpg.passphrase&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/properties&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/profile&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;servers&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;id&gt;</span>repository.apache.org<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;username&gt;</span>${RM_USERID}<span style="color:#f92672">&lt;/username&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;password&gt;</span>REPLACE-WITH-ENCRYPTED-REPOSITORY-PASSWORD<span style="color:#f92672">&lt;/password&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/servers&gt;</span>
+</span></span></code></pre></div><ul>
 <li>Confirm that the local Git workspace is configured with an <code>origin</code> remote pointing to a personal fork of the
 project source, and an <code>upstream</code> remote pointing to the Apache Git Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git remote -v
-
-upstream https://gitbox.apache.org/repos/asf/nifi.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
-upstream https://gitbox.apache.org/repos/asf/nifi.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
-origin   https://github.com/<span style="color:#e6db74">${</span>RM_USERID<span style="color:#e6db74">}</span>/nifi.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
-origin   https://github.com/<span style="color:#e6db74">${</span>RM_USERID<span style="color:#e6db74">}</span>/nifi.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
-</code></pre></div><h2 id="update-tracking">Update Tracking</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git remote -v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>upstream https://gitbox.apache.org/repos/asf/nifi.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>upstream https://gitbox.apache.org/repos/asf/nifi.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin   https://github.com/<span style="color:#e6db74">${</span>RM_USERID<span style="color:#e6db74">}</span>/nifi.git <span style="color:#f92672">(</span>fetch<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>origin   https://github.com/<span style="color:#e6db74">${</span>RM_USERID<span style="color:#e6db74">}</span>/nifi.git <span style="color:#f92672">(</span>push<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h2 id="update-tracking">Update Tracking</h2>
 <ul>
 <li>
 <p>Create a <a href="https://issues.apache.org/jira/browse/NIFI">Jira issue</a> for tracking the release process with the
@@ -745,26 +745,26 @@ with the <code>Version name</code> set to the next minor release version number<
 <ul>
 <li>Create a new Release Candidate branch from the source development branch named with the Jira issue and RC number</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout -b <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git checkout -b <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Run Maven build with standard profiles</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw -T 2C -P contrib-check clean install
-</code></pre></div><h2 id="stage-artifacts">Stage Artifacts</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mvnw -T 2C -P contrib-check clean install
+</span></span></code></pre></div><h2 id="stage-artifacts">Stage Artifacts</h2>
 <ul>
 <li>Set the <code>GPG_TTY</code> environment variable to allow <code>gpg</code> password prompts for artifact signing</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export GPG_TTY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>tty<span style="color:#66d9ef">)</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export GPG_TTY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>tty<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><ul>
 <li>Run Maven release preparation with <code>signing</code> and profile using RC version numbers</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw release:prepare -Psigning <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-DscmCommentPrefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-Dtag<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-DreleaseVersion<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-DdevelopmentVersion<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>NEXT_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-Darguments<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-DskipTests&#34;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mvnw release:prepare -Psigning <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-DscmCommentPrefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-Dtag<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-DreleaseVersion<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-DdevelopmentVersion<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>NEXT_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-Darguments<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-DskipTests&#34;</span>
+</span></span></code></pre></div><ul>
 <li>
 <p>Review release preparation results and use <a href="https://maven.apache.org/maven-release/maven-release-plugin/rollback-mojo.html">rollback</a>
 and <a href="https://maven.apache.org/maven-release/maven-release-plugin/clean-mojo.html">clean</a> commands when necessary to
@@ -774,10 +774,10 @@ start over when encountering failures</p>
 <p>Run Maven release with <code>signing</code> and profile to deploy artifacts to the Apache Nexus Repository</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw release:perform -Psigning <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-DscmCommentPrefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>-Darguments<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-DskipTests&#34;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mvnw release:perform -Psigning <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-DscmCommentPrefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> &#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-Darguments<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-DskipTests&#34;</span>
+</span></span></code></pre></div><ul>
 <li>Open the Apache Nexus <a href="https://repository.apache.org/#stagingRepositories">Staging Repository</a> and login to view the staging repository that
 Maven release created</li>
 </ul>
@@ -785,110 +785,110 @@ Maven release created</li>
 <ul>
 <li>Create local staging directory</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">STAGING_DIR<span style="color:#f92672">=</span>~/staging
-mkdir <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>
-cd <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>STAGING_DIR<span style="color:#f92672">=</span>~/staging
+</span></span><span style="display:flex;"><span>mkdir <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cd <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Download the source release and signature from the Apache Nexus Staging Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">SOURCE_RELEASE_ZIP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://repository.apache.org/service/local/repositories/</span><span style="color:#e6db74">${</span>STAGING_REPO_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">/content/org/apache/nifi/nifi/</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">/nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-source-release.zip&#34;</span>
-wget <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP<span style="color:#e6db74">}</span> 
-wget <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP<span style="color:#e6db74">}</span>.asc
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SOURCE_RELEASE_ZIP<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://repository.apache.org/service/local/repositories/</span><span style="color:#e6db74">${</span>STAGING_REPO_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">/content/org/apache/nifi/nifi/</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">/nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-source-release.zip&#34;</span>
+</span></span><span style="display:flex;"><span>wget <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP<span style="color:#e6db74">}</span> 
+</span></span><span style="display:flex;"><span>wget <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP<span style="color:#e6db74">}</span>.asc
+</span></span></code></pre></div><ul>
 <li>Verify the source release signature using the <code>gpg</code> command</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">SOURCE_RELEASE_ZIP_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-source-release.zip&#34;</span>
-gpg --verify <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP_FILE<span style="color:#e6db74">}</span>.asc <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP_FILE<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SOURCE_RELEASE_ZIP_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-source-release.zip&#34;</span>
+</span></span><span style="display:flex;"><span>gpg --verify <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP_FILE<span style="color:#e6db74">}</span>.asc <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP_FILE<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Extract source release archive files</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">unzip <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP_FILE<span style="color:#e6db74">}</span>
-cd nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>unzip <span style="color:#e6db74">${</span>SOURCE_RELEASE_ZIP_FILE<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cd nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Run Maven command to package binaries</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./mvnw package -pl <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:minifi-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:minifi-tookit-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:nifi-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:nifi-kafka-connector-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:nifi-toolkit-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:nifi-registry-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:nifi-registry-toolkit-assembly,<span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>:nifi-stateless-assembly
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./mvnw package -pl <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:minifi-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:minifi-tookit-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:nifi-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:nifi-kafka-connector-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:nifi-toolkit-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:nifi-registry-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:nifi-registry-toolkit-assembly,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>:nifi-stateless-assembly
+</span></span></code></pre></div><ul>
 <li>Copy binaries to local artifacts directory</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ARTIFACTS_DIR<span style="color:#f92672">=</span>~/staging/artifacts
-mkdir <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp minifi/minifi-assembly/target/minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp minifi/minifi-toolkit/minifi-toolkit-assembly/target/minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp nifi-assembly/target/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp nifi-external/nifi-kafka-connector-assembly/target/nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp nifi-registry/nifi-registry-assembly/target/nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp nifi-registry/nifi-registry-toolkit/nifi-registry-toolkit-assembly/target/nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp nifi-stateless/nifi-stateless-assembly/target/nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp nifi-toolkit/nifi-toolkit-assembly/target/nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cp <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip.asc <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-cd <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ARTIFACTS_DIR<span style="color:#f92672">=</span>~/staging/artifacts
+</span></span><span style="display:flex;"><span>mkdir <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp minifi/minifi-assembly/target/minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp minifi/minifi-toolkit/minifi-toolkit-assembly/target/minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp nifi-assembly/target/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp nifi-external/nifi-kafka-connector-assembly/target/nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp nifi-registry/nifi-registry-assembly/target/nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp nifi-registry/nifi-registry-toolkit/nifi-registry-toolkit-assembly/target/nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp nifi-stateless/nifi-stateless-assembly/target/nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp nifi-toolkit/nifi-toolkit-assembly/target/nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cp <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip.asc <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>cd <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Create OpenPGP signatures for binary files from the cloned repository directory</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>gpg -a -b --digest-algo<span style="color:#f92672">=</span>SHA512 nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span></code></pre></div><ul>
 <li>Create SHA-256 hashes for binary files from the cloned repository directory</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha256sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span></code></pre></div><ul>
 <li>Create SHA-512 hashes for binary files from the cloned repository directory</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
-</code></pre></div><h2 id="publish-artifacts">Publish Artifacts</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- minifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-source-release.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-kafka-connector-assembly-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-registry-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-stateless-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span><span style="display:flex;"><span>sh -c <span style="color:#e6db74">&#39;sha512sum $1 | cut -d &#34; &#34; -f 1 &gt; $1.sha256&#39;</span> -- nifi-toolkit-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-bin.zip
+</span></span></code></pre></div><h2 id="publish-artifacts">Publish Artifacts</h2>
 <ul>
 <li>Push the Release Candidate branch to the Apache Git Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git push upstream <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git push upstream <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Push the Release Candidate tag to the Apache Git Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git push upstream nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git push upstream nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Checkout Apache Distribution Repository using Subversion</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>
-svn checkout https://dist.apache.org/repos/dist/dev/nifi
-cd nifi
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd <span style="color:#e6db74">${</span>STAGING_DIR<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>svn checkout https://dist.apache.org/repos/dist/dev/nifi
+</span></span><span style="display:flex;"><span>cd nifi
+</span></span></code></pre></div><ul>
 <li>Copy and commit binaries to Apache Distribution Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cp -r <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span> nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
-svn add nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
-svn commit -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74"> Uploaded NiFi </span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> artifacts&#34;</span>
-</code></pre></div><h2 id="release-candidate-voting">Release Candidate Voting</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp -r <span style="color:#e6db74">${</span>ARTIFACTS_DIR<span style="color:#e6db74">}</span> nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>svn add nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>svn commit -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74"> Uploaded NiFi </span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">-RC</span><span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74"> artifacts&#34;</span>
+</span></span></code></pre></div><h2 id="release-candidate-voting">Release Candidate Voting</h2>
 <p>The release vote process should take place for <strong>72 hours</strong> under standard circumstances.</p>
 <p>The Release Manager is responsible for sending the initial vote thread and tabulating results.</p>
 <p>The Release Manager sends an email to the NiFi Developers Mailing List calling for a vote on the Release Candidate.</p>
@@ -975,33 +975,33 @@ Here is the vote thread: ${VOTE_THREAD_URL}
 <p>Move source and binary artifacts to the release directory on the Apache Distribution Repository</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">DIST_DEV_URL<span style="color:#f92672">=</span>https://dist.apache.org/repos/dist/dev/nifi/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
-DIST_RELEASE_URL<span style="color:#f92672">=</span>https://dist.apache.org/repos/dist/release/nifi/<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
-svn move -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">${</span>DIST_DEV_URL<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>DIST_RELEASE_URL<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>DIST_DEV_URL<span style="color:#f92672">=</span>https://dist.apache.org/repos/dist/dev/nifi/nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>DIST_RELEASE_URL<span style="color:#f92672">=</span>https://dist.apache.org/repos/dist/release/nifi/<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>svn move -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">${</span>DIST_DEV_URL<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>DIST_RELEASE_URL<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Merge the Release Candidate branch into the source development branch</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
-git merge --no-ff <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
-git push upstream <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git checkout <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>git merge --no-ff <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>git push upstream <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Create signed Git tag for the release version</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export GPG_TTY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>tty<span style="color:#66d9ef">)</span>
-COMMIT_ID<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>git rev-list -n <span style="color:#ae81ff">1</span> nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
-RELEASE_TAG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rel/nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-git tag -s <span style="color:#e6db74">${</span>RELEASE_TAG<span style="color:#e6db74">}</span> -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74"> Tagged NiFi </span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span>COMMIT_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export GPG_TTY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>tty<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>COMMIT_ID<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>git rev-list -n <span style="color:#ae81ff">1</span> nifi-<span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>RELEASE_TAG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rel/nifi-</span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>git tag -s <span style="color:#e6db74">${</span>RELEASE_TAG<span style="color:#e6db74">}</span> -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74"> Tagged NiFi </span><span style="color:#e6db74">${</span>NIFI_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span>COMMIT_ID<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><ul>
 <li>Push Git tag to the Apache Git Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git push upstream <span style="color:#e6db74">${</span>RELEASE_TAG<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git push upstream <span style="color:#e6db74">${</span>RELEASE_TAG<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>Delete previous release version from the Apache Distribution Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">PREVIOUS_VERSION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0.6.0&#34;</span>
-PREVIOUS_RELEASE_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://dist.apache.org/repos/dist/release/nifi/</span><span style="color:#e6db74">${</span>PREVIOUS_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-svn delete -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">${</span>PREVIOUS_RELEASE_URL<span style="color:#e6db74">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PREVIOUS_VERSION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0.6.0&#34;</span>
+</span></span><span style="display:flex;"><span>PREVIOUS_RELEASE_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://dist.apache.org/repos/dist/release/nifi/</span><span style="color:#e6db74">${</span>PREVIOUS_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>svn delete -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">${</span>PREVIOUS_RELEASE_URL<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><ul>
 <li>
 <p>Update Docker files with the next release version</p>
 </li>
@@ -1009,9 +1009,9 @@ svn delete -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74
 <p>Commit and push Docker version changes to the Apache Git Repository</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git commit -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74"> Updated Docker version to </span><span style="color:#e6db74">${</span>NEXT_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-git push upstream <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
-</code></pre></div><h2 id="update-documentation">Update Documentation</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span><span style="color:#e6db74"> Updated Docker version to </span><span style="color:#e6db74">${</span>NEXT_VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>git push upstream <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><h2 id="update-documentation">Update Documentation</h2>
 <ul>
 <li>
 <p>Follow the <a href="https://cwiki.apache.org/confluence/display/NIFI/Website+Publishing">website publishing</a> instructions for
@@ -1021,9 +1021,9 @@ generating and updating project documentation</p>
 <p>Clone the <a href="https://github.com/apache/nifi-site/">Apache NiFi Website</a> repository</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://gitbox.apache.org/repos/asf/nifi-site.git
-cd nifi-site
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://gitbox.apache.org/repos/asf/nifi-site.git
+</span></span><span style="display:flex;"><span>cd nifi-site
+</span></span></code></pre></div><ul>
 <li>
 <p>Update the current and previous version variables in
 <a href="https://github.com/apache/nifi-site/blob/main/config.toml">config.toml</a></p>
@@ -1036,8 +1036,8 @@ cd nifi-site
 <p>Push changes to the <code>main</code> branch for automated build and publication</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git push origin main
-</code></pre></div><h2 id="update-notes">Update Notes</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div><h2 id="update-notes">Update Notes</h2>
 <ul>
 <li>
 <p>Update

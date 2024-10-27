@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode-s0-hbhb-flow-design-system-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode9s0hbhb-flow-design-system-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Flow Design System Releases</h1>
 <p>The purpose of this document is to capture and describe the steps involved in producing
 an official release of Apache NiFi Flow Design System.  It is written specifically to someone acting in the
@@ -712,8 +712,8 @@ acceptable but the appropriate adjustments to the steps in this guide must be ma
 <li>Create meaningful release notes for this version if not already created.  <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes">Enter them here</a> on
 the NiFi wiki.</li>
 <li>Create a new branch off &lsquo;main&rsquo; named after the JIRA ticket.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b NIFI-FDS-<span style="color:#e6db74">${</span>NIFI_FDS_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout -b NIFI-FDS-<span style="color:#e6db74">${</span>NIFI_FDS_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</span></span></code></pre></div></li>
 <li>Ensure the the full application builds and all tests work by executing a build.
 <pre tabindex="0"><code>$ npm run clean:install
 </code></pre></li>
@@ -759,10 +759,10 @@ they go along adding source and modifying dependencies to keep this burden manag
 <pre tabindex="0"><code>$ gpg -a -b --digest-algo=SHA512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip  # produces nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.asc
 </code></pre></li>
 <li>Generate SHA256 hash summaries.
-<pre tabindex="0"><code>$ shasum -a 256 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d&quot; &quot; -f1 &gt;  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha256
+<pre tabindex="0"><code>$ shasum -a 256 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d&#34; &#34; -f1 &gt;  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha256
 </code></pre></li>
 <li>Generate SHA512 hash summaries.
-<pre tabindex="0"><code>$ shasum -a 512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d&quot; &quot; -f1 &gt;  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
+<pre tabindex="0"><code>$ shasum -a 512 nifi-fds-${NIFI_FDS_VERSION}-source-release.zip | cut -d&#34; &#34; -f1 &gt;  nifi-fds-${NIFI_FDS_VERSION}-source-release.zip.sha512
 </code></pre></li>
 </ol>
 </li>
@@ -778,7 +778,7 @@ they go along adding source and modifying dependencies to keep this burden manag
 <pre tabindex="0"><code>$ svn add ./nifi-fds-${NIFI_FDS_VERSION}/*
 </code></pre></li>
 <li>Stage the artifacts by committing to svn.
-<pre tabindex="0"><code>$ svn commit -m 'Staging artifacts for nifi-fds-${NIFI_FDS_VERSION}'
+<pre tabindex="0"><code>$ svn commit -m &#39;Staging artifacts for nifi-fds-${NIFI_FDS_VERSION}&#39;
 </code></pre></li>
 </ol>
 </li>
@@ -930,20 +930,20 @@ Here is the PMC vote thread: ${VOTE_THREAD_URL}
 <ol>
 <li>
 <p>Move the source code and related artifacts from dist/dev to dist/release:</p>
-<pre tabindex="0"><code>$ svn move -m &quot;NIFI-FDS-${NIFI_FDS_VERSION}&quot; https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
+<pre tabindex="0"><code>$ svn move -m &#34;NIFI-FDS-${NIFI_FDS_VERSION}&#34; https://dist.apache.org/repos/dist/dev/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-fds/nifi-fds-${NIFI_FDS_VERSION}
 </code></pre></li>
 <li>
 <p>Manually update the version number to the next snapshot</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout NIFI-FDS-<span style="color:#e6db74">${</span>NIFI_FDS_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
-</code></pre></div><p>Update the version number to the next <code>${NIFI_FDS_VERSION}-SNAPSHOT</code> in</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout NIFI-FDS-<span style="color:#e6db74">${</span>NIFI_FDS_VERSION<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span>
+</span></span></code></pre></div><p>Update the version number to the next <code>${NIFI_FDS_VERSION}-SNAPSHOT</code> in</p>
 <ul>
 <li>root package.json</li>
 <li>root package-lock.json</li>
 <li>src/platform/core/package.json</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git add -A .
-$ git commit -m <span style="color:#e6db74">&#39;NIFI-FDS-${NIFI_FDS_VERSION} finalize RC${RC}&#39;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git add -A .
+</span></span><span style="display:flex;"><span>$ git commit -m <span style="color:#e6db74">&#39;NIFI-FDS-${NIFI_FDS_VERSION} finalize RC${RC}&#39;</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Merge the release branch into main.</p>
 <pre tabindex="0"><code>$ git checkout main
@@ -980,7 +980,7 @@ $   cp -f ./target/frontend-working-directory/README.md ./README.md
 </code></pre><p>and change the base href to <code>&lt;base href=&quot;/nifi-fds/&quot;&gt;</code>.</p>
 <p>Finally, commit and push the changes:</p>
 <pre tabindex="0"><code>$   git add -A .
-$   git commit -m 'NIFI-FDS-${NIFI_FDS_VERSION} gh-pages update demo application to run NiFi FDS ${NIFI_FDS_VERSION}'
+$   git commit -m &#39;NIFI-FDS-${NIFI_FDS_VERSION} gh-pages update demo application to run NiFi FDS ${NIFI_FDS_VERSION}&#39;
 $   git push asf gh-pages:gh-pages
 </code></pre></li>
 <li>
@@ -991,7 +991,7 @@ $   git push asf gh-pages:gh-pages
 </li>
 <li>
 <p>Create a proper signed tag of the released codebase based on the RC Tag created during the release process.</p>
-<pre tabindex="0"><code>$ git tag -s rel/nifi-fds-${NIFI_FDS_VERSION} -m &quot;NIFI-FDS-${JIRA_TICKET} signed release tag for approved release of NiFi Flow Design System ${NIFI_FDS_VERSION}&quot; ${RC_TAG_COMMIT_ID}
+<pre tabindex="0"><code>$ git tag -s rel/nifi-fds-${NIFI_FDS_VERSION} -m &#34;NIFI-FDS-${JIRA_TICKET} signed release tag for approved release of NiFi Flow Design System ${NIFI_FDS_VERSION}&#34; ${RC_TAG_COMMIT_ID}
 </code></pre><p>For instructions on setting up to sign your tag see <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">here</a>.</p>
 </li>
 <li>
