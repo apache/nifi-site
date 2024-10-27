@@ -15,7 +15,7 @@
 -->
 <html lang="en">
     <head>
-        <title>NiFi Rest API-1.27.0</title>
+        <title>NiFi Rest API-1.28.0</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" href="images/nifi16.ico"/>
         <script type="text/javascript" src="../../nifi/assets/jquery/dist/jquery.min.js"></script>
@@ -473,7 +473,7 @@
         <div class="header">
             <img class="logo" src="images/bgNifiLogo.png" alt="NiFi Logo"/>
             <div class="title">/nifi-api</div>
-            <div class="sub-title">NiFi Rest API 1.27.0</div>
+            <div class="sub-title">NiFi Rest API 1.28.0</div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
@@ -60865,28 +60865,12 @@
                 </tr>
             
                 <tr>
-                    <td>clientResponse</td>
+                    <td>inputStream</td>
                     <td>
                         
                             
-                                <a class="type-link" href="javascript:void(0);">Response</a>
+                                <a class="type-link" href="javascript:void(0);">InputStream</a>
                             
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                        
-                        </td>
-                </tr>
-            
-                <tr>
-                    <td>is5xx</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
                             
                         
                     </td>
@@ -60913,12 +60897,12 @@
                 </tr>
             
                 <tr>
-                    <td>inputStream</td>
+                    <td>is5xx</td>
                     <td>
                         
                             
-                                <a class="type-link" href="javascript:void(0);">InputStream</a>
                             
+                                boolean
                             
                         
                     </td>
@@ -60944,6 +60928,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>clientResponse</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">Response</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -60954,11 +60954,11 @@
     "throwable": <span class="nested collapsed"><span class="nested-id hidden">Throwable</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "updatedEntity": <span class="nested collapsed"><span class="nested-id hidden">Entity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
     "requestId": "value"<span class="comma">,</span>
-    "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
-    "is5xx": true<span class="comma">,</span>
-    "is2xx": true<span class="comma">,</span>
     "inputStream": <span class="nested collapsed"><span class="nested-id hidden">InputStream</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
+    "is2xx": true<span class="comma">,</span>
+    "is5xx": true<span class="comma">,</span>
     "status": 0<span class="comma">,</span>
+    "clientResponse": <span class="nested collapsed"><span class="nested-id hidden">Response</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -68359,6 +68359,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>processingPerformanceStatus</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">ProcessingPerformanceStatusDTO</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Represents the processing performance for all the processors in the given process group.
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -68398,6 +68414,7 @@
     "activeThreadCount": 0<span class="comma">,</span>
     "terminatedThreadCount": 0<span class="comma">,</span>
     "processingNanos": 0<span class="comma">,</span>
+    "processingPerformanceStatus": <span class="nested collapsed"><span class="nested-id hidden">ProcessingPerformanceStatusDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -68508,6 +68525,129 @@
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
     "processGroups": [<span class="nested collapsed"><span class="nested-id hidden">ProcessGroupEntity</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span>]<span class="comma">,</span>
+&#125;</span></code>
+    </div>
+    <div class="close">Close</div>
+    <div class="clear"></div>
+</div>
+        
+            
+<div id="ProcessingPerformanceStatusDTO" class="type hidden">
+    <h3>ProcessingPerformanceStatusDTO</h3>
+    <div class="type-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            
+                <tr>
+                    <td>identifier</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The unique ID of the process group that the Processor belongs to
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>cpuDuration</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int64)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The number of nanoseconds has spent on CPU usage in the last 5 minutes.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>contentReadDuration</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int64)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The number of nanoseconds has spent to read content in the last 5 minutes.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>contentWriteDuration</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int64)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The number of nanoseconds has spent to write content in the last 5 minutes.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>sessionCommitDuration</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int64)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The number of nanoseconds has spent running to commit sessions the last 5 minutes.
+                        
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>garbageCollectionDuration</td>
+                    <td>
+                        
+                            
+                            
+                                integer (int64)
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>The number of nanoseconds has spent running garbage collection in the last 5 minutes.
+                        
+                        </td>
+                </tr>
+            
+        </table>
+        <h4>Example JSON</h4>
+        <code class="example"><span class="open-object">&#123;
+    "identifier": "value"<span class="comma">,</span>
+    "cpuDuration": 0<span class="comma">,</span>
+    "contentReadDuration": 0<span class="comma">,</span>
+    "contentWriteDuration": 0<span class="comma">,</span>
+    "sessionCommitDuration": 0<span class="comma">,</span>
+    "garbageCollectionDuration": 0<span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -71454,6 +71594,22 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>processingPerformanceStatus</td>
+                    <td>
+                        
+                            
+                                <a class="type-link" href="javascript:void(0);">ProcessingPerformanceStatusDTO</a>
+                            
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>Represents the processor's processing performance.
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
@@ -71479,6 +71635,7 @@
     "tasksDuration": "value"<span class="comma">,</span>
     "activeThreadCount": 0<span class="comma">,</span>
     "terminatedThreadCount": 0<span class="comma">,</span>
+    "processingPerformanceStatus": <span class="nested collapsed"><span class="nested-id hidden">ProcessingPerformanceStatusDTO</span><span class="nested-example"><span class="open-object">&#123;&#8230;&#125;</span></span></span><span class="comma">,</span>
 &#125;</span></code>
     </div>
     <div class="close">Close</div>
@@ -78884,22 +79041,6 @@
             </tr>
             
                 <tr>
-                    <td>metadata</td>
-                    <td>
-                        
-                            
-                            
-                                object
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>status</td>
                     <td>
                         
@@ -78931,14 +79072,30 @@
                         </td>
                 </tr>
             
+                <tr>
+                    <td>metadata</td>
+                    <td>
+                        
+                            
+                            
+                                object
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                        
+                        </td>
+                </tr>
+            
         </table>
         <h4>Example JSON</h4>
         <code class="example"><span class="open-object">&#123;
-    "metadata": <span class="open-object">&#123;
-        "name": "value"
-    &#125;</span><span class="comma">,</span>
     "status": 0<span class="comma">,</span>
     "entity": <span class="open-object">&#123;
+        "name": "value"
+    &#125;</span><span class="comma">,</span>
+    "metadata": <span class="open-object">&#123;
         "name": "value"
     &#125;</span><span class="comma">,</span>
 &#125;</span></code>
@@ -87183,22 +87340,6 @@
                 </tr>
             
                 <tr>
-                    <td>synchronized</td>
-                    <td>
-                        
-                            
-                            
-                                boolean
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>True if the parameter provider is set and the context should receive updates when its parameters are next fetched
-                        
-                        </td>
-                </tr>
-            
-                <tr>
                     <td>componentType</td>
                     <td>
                         
@@ -87211,6 +87352,22 @@
                     <td>optional</td>
                     <td>
                          Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
+                        </td>
+                </tr>
+            
+                <tr>
+                    <td>synchronized</td>
+                    <td>
+                        
+                            
+                            
+                                boolean
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>True if the parameter provider is set and the context should receive updates when its parameters are next fetched
+                        
                         </td>
                 </tr>
             
@@ -87243,8 +87400,8 @@
     "description": "value"<span class="comma">,</span>
     "parameterProvider": "value"<span class="comma">,</span>
     "parameterGroupName": "value"<span class="comma">,</span>
-    "synchronized": true<span class="comma">,</span>
     "componentType": "value"<span class="comma">,</span>
+    "synchronized": true<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
@@ -87809,6 +87966,22 @@
                 </tr>
             
                 <tr>
+                    <td>componentType</td>
+                    <td>
+                        
+                            
+                            
+                                string
+                            
+                        
+                    </td>
+                    <td>optional</td>
+                    <td>
+                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
+                        </td>
+                </tr>
+            
+                <tr>
                     <td>flowFileConcurrency</td>
                     <td>
                         
@@ -87837,22 +88010,6 @@
                     <td>optional</td>
                     <td>The FlowFile Outbound Policy for the Process Group
                         
-                        </td>
-                </tr>
-            
-                <tr>
-                    <td>componentType</td>
-                    <td>
-                        
-                            
-                            
-                                string
-                            
-                        
-                    </td>
-                    <td>optional</td>
-                    <td>
-                         Allowable values: CONNECTION, PROCESSOR, PROCESS_GROUP, REMOTE_PROCESS_GROUP, INPUT_PORT, OUTPUT_PORT, REMOTE_INPUT_PORT, REMOTE_OUTPUT_PORT, FUNNEL, LABEL, CONTROLLER_SERVICE, REPORTING_TASK, PARAMETER_CONTEXT, PARAMETER_PROVIDER, TEMPLATE, FLOW_REGISTRY_CLIENT
                         </td>
                 </tr>
             
@@ -87898,9 +88055,9 @@
     "defaultBackPressureObjectThreshold": 0<span class="comma">,</span>
     "defaultBackPressureDataSizeThreshold": "value"<span class="comma">,</span>
     "logFileSuffix": "value"<span class="comma">,</span>
+    "componentType": "value"<span class="comma">,</span>
     "flowFileConcurrency": "value"<span class="comma">,</span>
     "flowFileOutboundPolicy": "value"<span class="comma">,</span>
-    "componentType": "value"<span class="comma">,</span>
     "groupIdentifier": "value"<span class="comma">,</span>
 &#125;</span></code>
     </div>
