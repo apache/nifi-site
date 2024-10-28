@@ -65,6 +65,25 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2024-45477"
+title="Improper Neutralization of Input in Parameter Context Description"
+published="2024-10-28"
+severity="Medium"
+products="Apache NiFi"
+affectedVersions="1.10.0 to 1.27.0 and 2.0.0-M1 to 2.0.0-M3"
+fixedVersion="1.28.0 and 2.0.0-M4"
+jira="NIFI-13675"
+pullRequest="9195"
+reporter="Muhammad Hazim Bin Nor Aizi" >}}
+
+Apache NiFi 1.10.0 through 1.27.0 and 2.0.0-M1 through 2.0.0-M3 support a description field for Parameters in a Parameter Context
+configuration that is vulnerable to cross-site scripting. An authenticated user, authorized to configure a Parameter Context,
+can enter arbitrary JavaScript code, which the client browser will execute within the session context of the authenticated user.
+Upgrading to Apache NiFi 1.28.0 or 2.0.0-M4 is the recommended mitigation.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2024-37389"
 title="Improper Neutralization of Input in Parameter Context Description"
 published="2024-07-08"
