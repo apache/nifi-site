@@ -66,7 +66,7 @@ The following announcements include published vulnerabilities that apply directl
 
 {{< vulnerability
 id="CVE-2024-45477"
-title="Improper Neutralization of Input in Parameter Context Description"
+title="Improper Neutralization of Input in Parameter Description"
 published="2024-10-28"
 severity="Medium"
 products="Apache NiFi"
