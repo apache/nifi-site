@@ -8,6 +8,7 @@ disableKinds = ["RSS"]
 enableGitInfo = true
 theme = "nifi"
 enableInlineShortcodes = true
+disablePathToLower = true
 
 [markup.goldmark.renderer]
 unsafe = true
@@ -28,6 +29,8 @@ assets = "assets"
 matomoSiteId = 28
 productionHost = "nifi.apache.org"
 
+staticDocsPath = "/nifi-docs"
+
 apacheFoundationGroupsUrl = "https://projects.apache.org/json/foundation/groups.json"
 apacheFoundationPeopleNameUrl = "https://projects.apache.org/json/foundation/people_name.json"
 
@@ -47,7 +50,29 @@ minifiCppCurrentProjectVersionReleased = "2024-05-17"
 minifiCppPreviousProjectVersion = "0.15.0"
 minifiCppPreviousProjectVersionReleased = "2023-09-01"
 
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "prebuild/public/components"
+    target = "content/components"
+  [[module.mounts]]
+    source = "prebuild/public/html"
+    target = "content/nifi-docs"
+
 [menu]
+  [[menu.main]]
+    name = 'NiFi Version 2 Documentation'
+    url = '/components/'
+    weight = 1
+    parent = 'Documentation'
   [[menu.main]]
     name = 'Wiki'
     url = 'https://cwiki.apache.org/confluence/display/NIFI'
