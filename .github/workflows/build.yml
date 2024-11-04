@@ -17,16 +17,16 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout Sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Checkout Staging
         if: github.ref_name == 'main-staging'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: asf-staging
           path: ${{ env.PUBLISH_DIRECTORY }}
       - name: Checkout Production
         if: github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: asf-site
           path: ${{ env.PUBLISH_DIRECTORY }}
