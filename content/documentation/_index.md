@@ -11,7 +11,7 @@ menu:
 
 ## Configuration and Component Properties
 
-- [NiFi Documentation {{< param currentProjectVersion >}}]({{< relref "/documentation/v2" >}})
+- [NiFi Documentation {{< param currentProjectVersion >}}]({{< relref "/components/" >}})
 - [NiFi Documentation {{< param previousProjectVersion >}}]({{< relref "/documentation/v1" >}})
 
 ## Reference Information

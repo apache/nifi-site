@@ -1,0 +1,422 @@
+{{ $processors := where .Site.Pages "Params.componentType" "processors" }}
+{{ $controllerServices := where .Site.Pages "Params.componentType" "controller-services" }}
+
+<h3>{{ .Params.title }} {{ .Params.version }}</h3>
+
+<dl class="uk-description-list">
+    <dt>Bundle</dt>
+    <dd>{{ .Params.group }} | {{ .Params.artifact }}</dd>
+    <dt>Description</dt>
+    <dd>{{ .Params.typeDescription }}</dd>
+    <dt>Tags</dt>
+    <dd>
+        {{- range $index, $tag := .Params.tags -}}
+        {{- if $index }}, {{ end }}{{ $tag }}
+        {{- end -}}
+    </dd>
+    <dt>Input Requirement</dt>
+    <dd>
+        {{ replace .Params.inputRequirement "INPUT_" "" }}
+    </dd>
+    <dt>Supports Sensitive Dynamic Properties</dt>
+    <dd>{{ .Params.supportsSensitiveDynamicProperties }}</dd>
+</dl>
+
+<div class="uk-margin uk-flex">
+    <div class="component-section-header uk-width-3-4">Properties</div>
+    <div class="uk-width-1-4 uk-text-right">
+        <button uk-icon="icon: expand" uk-tooltip="Expand Properties" id="expand-property-descriptors" class="uk-button uk-button-link uk-button-small"></button>
+        <button uk-icon="icon: shrink" uk-tooltip="Collapse Properties" id="shrink-property-descriptors" class="uk-button uk-button-link uk-button-small"></button>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('uikit:init', () => {
+            var expand = document.getElementById('expand-property-descriptors');
+            expand.addEventListener('click', () => {
+                var descriptors = document.getElementsByClassName('property-descriptor-content');
+                for (var i = 0; i < descriptors.length; i++) {
+                    var descriptor = descriptors[i];
+                    descriptor.hidden = false;
+                }
+            });
+
+            var shrink = document.getElementById('shrink-property-descriptors');
+            shrink.addEventListener('click', () => {
+                var descriptors = document.getElementsByClassName('property-descriptor-content');
+                for (var i = 0; i < descriptors.length; i++) {
+                    var descriptor = descriptors[i];
+                    descriptor.hidden = true;
+                }
+            });
+        });
+    </script>
+</div>
+<div>
+    <ul uk-accordion="multiple: true" id="property-descriptors">
+        {{ range .Params.propertyDescriptors }}
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="{{ if .required }}property-required{{ end }}">{{ .displayName }}</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">{{ .description }}</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>{{ .displayName }}</dd>
+                    <dt>Description</dt>
+                    <dd>{{ .description }}</dd>
+                    <dt>API Name</dt>
+                    <dd>{{ .name }}</dd>
+                    {{ if .defaultValue }}
+                    <dt>Default Value</dt>
+                    <dd>{{ .defaultValue }}</dd>
+                    {{ end }}
+                    {{ if .allowableValues }}
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            {{ range .allowableValues }}
+                            <li>
+                                {{ .displayName }}
+                                {{ if .description -}}
+                                <span uk-icon="info" uk-tooltip="{{ .description }}"></span>
+                                {{- end -}}
+                            </li>
+                            {{ end }}
+                        </ul>
+                    </dd>
+                    {{ end }}
+                    {{ if .typeProvidedByValue }}
+                    <dt>Service Interface</dt>
+                    <dd>{{ .typeProvidedByValue.type }}</dd>
+
+                    {{ $serviceInterface := .typeProvidedByValue.type }}
+
+                    <dt>Service Implementations</dt>
+                    <dd>
+                        {{ range $controllerServices }}
+                        {{ $serviceImplementation := .Params.type }}
+                        {{ range .Params.providedApiImplementations }}
+                        {{ if eq .type $serviceInterface }}
+                        <div><a href="/components/{{ $serviceImplementation }}/">{{ $serviceImplementation }}</a></div>
+                        {{ end }}
+                        {{ end }}
+                        {{ end }}
+                    </dd>
+
+                    {{ end }}
+                    <dt>Expression Language Scope</dt>
+                    <dd>{{ .expressionLanguageScopeDescription }}</dd>
+                    <dt>Sensitive</dt>
+                    <dd>{{ .sensitive }}</dd>
+                    <dt>Required</dt>
+                    <dd>{{ .required }}</dd>
+                    {{ if .dependencies }}
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            {{ range .dependencies }}
+                            <li>
+                                <span>{{ .propertyDisplayName }}</span>
+                                <span class="uk-text-light">is set to any
+                                {{ if .dependentValues }}
+                                  of
+                                {{ else }}
+                                  value specified
+                                {{ end }}
+                                </span>
+                                {{ if .dependentValues }}
+                                [{{- range $index, $dependentValue := .dependentValues -}}
+                                {{- if $index }}, {{ end }}{{ $dependentValue -}}
+                                {{ end }}]
+                                {{ end }}
+                            </li>
+                            {{ end }}
+                        </ul>
+                    </dd>
+                    {{ end }}
+                </dl>
+            </div>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+
+{{ if .Params.dynamicProperties }}
+<div class="uk-margin uk-flex">
+    <div class="component-section-header uk-width-3-4">Dynamic Properties</div>
+    <div class="uk-width-1-4 uk-text-right">
+        <button uk-icon="icon: expand" uk-tooltip="Expand Properties" id="expand-dynamic-properties" class="uk-button uk-button-link uk-button-small"></button>
+        <button uk-icon="icon: shrink" uk-tooltip="Collapse Properties" id="shrink-dynamic-properties" class="uk-button uk-button-link uk-button-small"></button>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('uikit:init', () => {
+            var expand = document.getElementById('expand-dynamic-properties');
+            expand.addEventListener('click', () => {
+                var descriptors = document.getElementsByClassName('dynamic-property-content');
+                for (var i = 0; i < descriptors.length; i++) {
+                    var descriptor = descriptors[i];
+                    descriptor.hidden = false;
+                }
+            });
+
+            var shrink = document.getElementById('shrink-dynamic-properties');
+            shrink.addEventListener('click', () => {
+                var descriptors = document.getElementsByClassName('dynamic-property-content');
+                for (var i = 0; i < descriptors.length; i++) {
+                    var descriptor = descriptors[i];
+                    descriptor.hidden = true;
+                }
+            });
+        });
+    </script>
+</div>
+<div>
+    <ul uk-accordion="multiple: true" id="dynamic-properties">
+        {{ range .Params.dynamicProperties }}
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span>{{ .name }}</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">{{ .description }}</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small dynamic-property-content">
+                <dl class="uk-description-list">
+                    <dt>Name</dt>
+                    <dd>{{ .name }}</dd>
+                    <dt>Description</dt>
+                    <dd>{{ .description }}</dd>
+                    <dt>Value</dt>
+                    <dd>{{ .value }}</dd>
+                    <dt>Expression Language Scope</dt>
+                    <dd>{{ .expressionLanguageScope }}</dd>
+                </dl>
+            </div>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}
+
+{{ if .Params.stateful }}
+<div class="component-section-header uk-margin">State Management</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Scopes</th>
+            <th class="uk-width-3-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                {{- range $index, $scope := .Params.stateful.scopes -}}
+                {{- if $index }}, {{ end }}{{ $scope }}
+                {{- end -}}
+            </td>
+            <td class="uk-text-lighter">{{ .Params.stateful.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ if .Params.systemResourceConsiderations }}
+<div class="component-section-header uk-margin">System Resource Considerations</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Resource</th>
+            <th class="uk-width-3-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range .Params.systemResourceConsiderations }}
+        <tr>
+            <td>{{ .resource }}</td>
+            <td class="uk-text-lighter">{{ .description }}</td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ if .Params.explicitRestrictions }}
+<div class="component-section-header uk-margin">Restrictions</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Required Permission</th>
+            <th class="uk-width-3-4">Explanation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range .Params.explicitRestrictions }}
+        <tr>
+            <td>{{ .requiredPermission }}</td>
+            <td class="uk-text-lighter">{{ .explanation }}</td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ if .Params.supportedRelationships }}
+<div class="component-section-header uk-margin">Relationships</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Name</th>
+            <th class="uk-width-3-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range .Params.supportedRelationships }}
+        <tr>
+            <td>{{ .name }}</td>
+            <td class="uk-text-lighter">{{ .description }}</td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ if .Params.readsAttributes }}
+<div class="component-section-header uk-margin">Reads Attributes</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Name</th>
+            <th class="uk-width-3-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range .Params.readsAttributes }}
+        <tr>
+            <td>{{ .name }}</td>
+            <td class="uk-text-lighter">{{ .description }}</td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ if .Params.writesAttributes }}
+<div class="component-section-header uk-margin">Writes Attributes</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Name</th>
+            <th class="uk-width-3-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range .Params.writesAttributes }}
+        <tr>
+            <td>{{ .name }}</td>
+            <td class="uk-text-lighter">{{ .description }}</td>
+        </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+
+{{ if .Params.useCases }}
+<div class="uk-margin">
+    <div class="component-section-header">Use Cases</div>
+</div>
+<div>
+    <ul uk-accordion="multiple: true" id="use-cases">
+        {{ range .Params.useCases }}
+        <li class="description">
+            <a class="uk-accordion-title" href>
+                <div class="uk-margin-remove uk-text-truncate uk-text-light">{{ .description }}</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small">
+                <dl class="uk-description-list">
+                    <dt>Description</dt>
+                    <dd>{{ .description }}</dd>
+                    {{ if .notes }}
+                    <dt>Notes</dt>
+                    <dd>{{ .notes }}</dd>
+                    {{ end }}
+                    {{ if .keywords }}
+                    <dt>Keywords</dt>
+                    <dd>
+                        {{- range $index, $keyword := .keywords -}}
+                        {{- if $index }}, {{ end }}{{ $keyword }}
+                        {{- end -}}
+                    </dd>
+                    {{ end }}
+                    <dt>Configuration</dt>
+                    <dd><pre class="use-case-configuration">{{ .configuration }}</pre></dd>
+                </dl>
+            </div>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}
+
+{{ if .Params.multiProcessorUseCases }}
+<div class="uk-margin">
+    <div class="component-section-header">Use Cases Involving Other Components</div>
+</div>
+<div>
+    <ul uk-accordion="multiple: true" id="multi-processor-use-cases">
+        {{ range .Params.multiProcessorUseCases }}
+        <li class="description">
+            <a class="uk-accordion-title" href>
+                <div class="uk-margin-remove uk-text-truncate uk-text-light">{{ .description }}</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small">
+                <dl class="uk-description-list">
+                    <dt>Description</dt>
+                    <dd>{{ .description }}</dd>
+                    {{ if .notes }}
+                    <dt>Notes</dt>
+                    <dd>{{ .notes }}</dd>
+                    {{ end }}
+                    {{ if .keywords }}
+                    <dt>Keywords</dt>
+                    <dd>
+                        {{- range $index, $keyword := .keywords -}}
+                        {{- if $index }}, {{ end }}{{ $keyword }}
+                        {{- end -}}
+                    </dd>
+                    {{ end }}
+                    <dt>Processor Configurations</dt>
+                    <dd>
+                        {{ range .configurations }}
+                        <div class="uk-margin-top">{{ .processorClassName }}</div>
+                        <pre class="use-case-configuration">{{ .configuration }}</pre>
+                        {{ end }}
+                    </dd>
+                </dl>
+            </div>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+
+{{ end }}
+
+{{ if .Params.seeAlso }}
+<div class="component-section-header uk-margin">See Also</div>
+<ul>
+    {{ range .Params.seeAlso }}
+    <li>
+        <a href="/components/{{ . }}/">{{ . }}</a>
+    </li>
+    {{ end }}
+</ul>
+{{ end }}

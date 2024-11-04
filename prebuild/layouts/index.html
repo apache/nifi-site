@@ -1,0 +1,51 @@
+{{ $manifest := dict }}
+{{ with resources.Get "nifi-runtime-manifest.json" }}
+  {{ with . | transform.Unmarshal }}
+    {{ $manifest = . }}
+  {{ end }}
+{{ else }}
+  not found
+{{ end }}
+
+{{ range $manifest.bundles }}
+  {{ range .componentManifest.controllerServices }}
+    {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
+    {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "controller-services") }}
+    {{ $string := jsonify $metadata }}
+    {{ $filename := printf "components/%s/_index.md" .type }}
+    {{ $resource := resources.FromString $filename $string }}
+    {{ $file := $resource.RelPermalink }}
+  {{ end }}
+  {{ range .componentManifest.processors }}
+    {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
+    {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "processors") }}
+    {{ $string := jsonify $metadata }}
+    {{ $filename := printf "components/%s/_index.md" .type }}
+    {{ $resource := resources.FromString $filename $string }}
+    {{ $file := $resource.RelPermalink }}
+  {{ end }}
+  {{ range .componentManifest.reportingTasks }}
+    {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
+    {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "reporting-tasks") }}
+    {{ $string := jsonify $metadata }}
+    {{ $filename := printf "components/%s/_index.md" .type }}
+    {{ $resource := resources.FromString $filename $string }}
+    {{ $file := $resource.RelPermalink }}
+  {{ end }}
+  {{ range .componentManifest.parameterProviders }}
+    {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
+    {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "parameter-providers") }}
+    {{ $string := jsonify $metadata }}
+    {{ $filename := printf "components/%s/_index.md" .type }}
+    {{ $resource := resources.FromString $filename $string }}
+    {{ $file := $resource.RelPermalink }}
+  {{ end }}
+  {{ range .componentManifest.flowAnalysisRules }}
+    {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
+    {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "flow-analysis-rules") }}
+    {{ $string := jsonify $metadata }}
+    {{ $filename := printf "components/%s/_index.md" .type }}
+    {{ $resource := resources.FromString $filename $string }}
+    {{ $file := $resource.RelPermalink }}
+  {{ end }}
+{{ end }}

@@ -33,6 +33,9 @@ The Apache NiFi website uses [Hugo](https://gohugo.io) to build static HTML and 
 
 ## Build
 
+- Run prebuild.sh for generated documentation
+  - `bash prebuild.sh`
+
 - Run Hugo Build
   - `hugo`
 
