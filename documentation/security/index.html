@@ -64,7 +64,7 @@
             <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
               
               <li class="">
-                <a href="/documentation/v2/" >
+                <a href="/components/" >
                   NiFi Version 2 Documentation
                   
                 </a>
@@ -328,7 +328,7 @@
           <ul class="uk-accordion-content">
             
             <li class="">
-              <a href="/documentation/v2/" >
+              <a href="/components/" >
                 NiFi Version 2 Documentation
                 
               </a>
@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode-s0-hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode415s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Security</h1>
 <p>Apache NiFi welcomes the responsible reporting of security vulnerabilities. Project Management Committee members will
 collaborate and respond to potential vulnerabilities, providing an assessment of the concern and a plan of action to
@@ -614,6 +614,48 @@ contrary to best practices, but it does not constitute of security issue for rem
 </ul>
 <h1 id="published-vulnerabilities">Published Vulnerabilities</h1>
 <p>The following announcements include published vulnerabilities that apply directly to Apache NiFi components.</p>
+<div class="vulnerability-container">
+  <h3 id="CVE-2024-45477">CVE-2024-45477</h3>
+
+  <ul>
+    <li>Title: Improper Neutralization of Input in Parameter Description</li>
+    <li>Published: 2024-10-28</li>
+    <li>Severity: Medium</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.10.0 to 1.27.0 and 2.0.0-M1 to 2.0.0-M3</li>
+    <li>Fixed Versions: 1.28.0 and 2.0.0-M4</li>
+    <li>Reporter: Muhammad Hazim Bin Nor Aizi</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2024-45477" target="_blank">CVE-2024-45477</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45477" target="_blank">CVE-2024-45477</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-13675" target="_blank">NIFI-13675</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/9195" target="_blank">9195</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.10.0 through 1.27.0 and 2.0.0-M1 through 2.0.0-M3 support a description field for Parameters in a Parameter Context
+configuration that is vulnerable to cross-site scripting. An authenticated user, authorized to configure a Parameter Context,
+can enter arbitrary JavaScript code, which the client browser will execute within the session context of the authenticated user.
+Upgrading to Apache NiFi 1.28.0 or 2.0.0-M4 is the recommended mitigation.
+
+
+  </p>
+</div>
 <div class="vulnerability-container">
   <h3 id="CVE-2024-37389">CVE-2024-37389</h3>
 

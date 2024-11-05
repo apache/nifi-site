@@ -64,7 +64,7 @@
             <ul class="uk-dropdown" uk-dropdown="mode: click; animation: uk-animation-slide-top-small; duration: 300;">
               
               <li class="">
-                <a href="/documentation/v2/" >
+                <a href="/components/" >
                   NiFi Version 2 Documentation
                   
                 </a>
@@ -328,7 +328,7 @@
           <ul class="uk-accordion-content">
             
             <li class="">
-              <a href="/documentation/v2/" >
+              <a href="/components/" >
                 NiFi Version 2 Documentation
                 
               </a>
@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode-s0-hbhb-nar-maven-plugin-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode412s0hbhb-nar-maven-plugin-releases">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  NAR Maven Plugin Releases</h1>
 <p>The purpose of this document is to capture and describe the steps involved in producing
 an official release of Apache NiFi NAR Maven Plugin. It is written specifically to someone acting in the
@@ -759,32 +759,32 @@ the NiFi wiki. A good starting point is reviewing the Jira generated release not
 <a href="https://issues.apache.org/jira/projects/NIFI?selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page&amp;status=unreleased">NiFi Versions management page</a>
 or this JQL filter: project = NIFI and fixVersion = ${VERSION}</li>
 <li>Create a new branch off &lsquo;main&rsquo; named after the JIRA ticket.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git checkout -b <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ git checkout -b <span style="color:#e6db74">${</span>JIRA_TICKET<span style="color:#e6db74">}</span>-RC<span style="color:#e6db74">${</span>RC<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</span></span></code></pre></div></li>
 <li>Verify that Maven has sufficient heap space to perform the build tasks. Some plugins and parts of the build
 consumes a surprisingly large amount of space. These settings have been shown to work for Java 8 for NiFi NAR Maven Plugin version 1.5.1 and later.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export MAVEN_OPTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-Xms1024m -Xmx3076m&#34;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ export MAVEN_OPTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-Xms1024m -Xmx3076m&#34;</span>
+</span></span></code></pre></div></li>
 <li>Ensure your settings.xml has been updated to include a <code>signed_release</code> profile and a <code>&lt;server&gt;</code> entry for
 &ldquo;repository.apache.org&rdquo; as shown below. <a href="http://blog.sonatype.com/2009/10/maven-tips-and-tricks-encrypting-passwords">Steps to configure and encrypt Maven passwords</a>.
 There are  other ways to ensure your PGP key is available for signing as well.
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-XML" data-lang="XML">    <span style="color:#f92672">&lt;profile&gt;</span>
-        <span style="color:#f92672">&lt;id&gt;</span>signed_release<span style="color:#f92672">&lt;/id&gt;</span>
-        <span style="color:#f92672">&lt;properties&gt;</span>
-            <span style="color:#f92672">&lt;mavenExecutorId&gt;</span>forked-path<span style="color:#f92672">&lt;/mavenExecutorId&gt;</span>
-            <span style="color:#f92672">&lt;gpg.keyname&gt;</span>${RM_USERID}@apache.org<span style="color:#f92672">&lt;/gpg.keyname&gt;</span>
-            <span style="color:#f92672">&lt;gpg.passphrase&gt;</span>ENCRYPTED_GPG_PASSPHRASE_HERE<span style="color:#f92672">&lt;/gpg.passphrase&gt;</span>
-        <span style="color:#f92672">&lt;/properties&gt;</span>
-    <span style="color:#f92672">&lt;/profile&gt;</span>
-
-    <span style="color:#f92672">&lt;servers&gt;</span>
-        <span style="color:#f92672">&lt;server&gt;</span>
-            <span style="color:#f92672">&lt;id&gt;</span>repository.apache.org<span style="color:#f92672">&lt;/id&gt;</span>
-            <span style="color:#f92672">&lt;username&gt;</span>${RM_USERID}<span style="color:#f92672">&lt;/username&gt;</span>
-            <span style="color:#f92672">&lt;password&gt;</span>ENCRYPTED_PASSWORD_HERE<span style="color:#f92672">&lt;/password&gt;</span>
-        <span style="color:#f92672">&lt;/server&gt;</span>
-    <span style="color:#f92672">&lt;/servers&gt;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-XML" data-lang="XML"><span style="display:flex;"><span>    <span style="color:#f92672">&lt;profile&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;id&gt;</span>signed_release<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;properties&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;mavenExecutorId&gt;</span>forked-path<span style="color:#f92672">&lt;/mavenExecutorId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;gpg.keyname&gt;</span>${RM_USERID}@apache.org<span style="color:#f92672">&lt;/gpg.keyname&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;gpg.passphrase&gt;</span>ENCRYPTED_GPG_PASSPHRASE_HERE<span style="color:#f92672">&lt;/gpg.passphrase&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/properties&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/profile&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;servers&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;id&gt;</span>repository.apache.org<span style="color:#f92672">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;username&gt;</span>${RM_USERID}<span style="color:#f92672">&lt;/username&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;password&gt;</span>ENCRYPTED_PASSWORD_HERE<span style="color:#f92672">&lt;/password&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/servers&gt;</span>
+</span></span></code></pre></div></li>
 </ol>
 <p><em>NOTE: <code>gpg</code> will be invoked during this step, which will need to prompt you for a password.  From the command line, use
 <code>export GPG_TTY=$(tty)</code> to allow <code>gpg</code> to prompt you.</em></p>
@@ -807,11 +807,11 @@ they go along adding source and modifying dependencies to keep this burden manag
 <p>Use the Maven Release Plugin to prepare the release with this command.</p>
 <pre tabindex="0"><code>$ mvn --batch-mode release:prepare \
     -Psigned_release \
-    -DscmCommentPrefix=&quot;${JIRA_TICKET}-RC${RC} &quot; \
-    -Dtag=&quot;nifi-nar-maven-plugin-${VERSION}-RC${RC}&quot; \
-    -DreleaseVersion=&quot;${VERSION}&quot; \
-    -DdevelopmentVersion=&quot;${NEXT_VERSION}&quot; \
-    -Darguments=&quot;-DskipTests&quot;
+    -DscmCommentPrefix=&#34;${JIRA_TICKET}-RC${RC} &#34; \
+    -Dtag=&#34;nifi-nar-maven-plugin-${VERSION}-RC${RC}&#34; \
+    -DreleaseVersion=&#34;${VERSION}&#34; \
+    -DdevelopmentVersion=&#34;${NEXT_VERSION}&#34; \
+    -Darguments=&#34;-DskipTests&#34;
 </code></pre></li>
 <li>
 <p>Review the release preparation results.  If problems are found <code>$ mvn release:rollback</code> will reset the changes, or
@@ -821,11 +821,11 @@ it may be necessary to run <code>$ mvn release:clean</code> to get the project t
 <p>If the release preparation completed without problems, perform the release and deploy artifacts to staging.</p>
 <pre tabindex="0"><code>$ mvn release:perform \
     -Psigned_release \
-    -DscmCommentPrefix=&quot;${JIRA_TICKET}-RC${RC} &quot; \
-    -Darguments=&quot;-DskipTests&quot;
+    -DscmCommentPrefix=&#34;${JIRA_TICKET}-RC${RC} &#34; \
+    -Darguments=&#34;-DskipTests&#34;
 </code></pre><p>When this completes the artifacts have been released to the Apache Nexus staging repository at <a href="https://repository.apache.org">https://repository.apache.org</a>.
 and there should the staging repository ID returned in a log entry like this:</p>
-<pre tabindex="0"><code>[INFO]  * Closing staging repository with ID &quot;orgapachenifi-1229&quot;
+<pre tabindex="0"><code>[INFO]  * Closing staging repository with ID &#34;orgapachenifi-1229&#34;
 </code></pre><p><em><strong>This staging repository ID is referred to by ${STAGING_REPO_ID} in this release guide.</strong></em>
 <em><strong>Example staging repo url: <a href="https://repository.apache.org/content/repositories/orgapachenifi-1229/org/apache/nifi/nifi-nar-maven-plugin/1.5.1/">https://repository.apache.org/content/repositories/orgapachenifi-1229/org/apache/nifi/nifi-nar-maven-plugin/1.5.1/</a></strong></em></p>
 </li>
@@ -861,8 +861,8 @@ Technically you can include the .asc file from the release build, but our practi
 </code></pre></li>
 <li>Generate SHA256 and SHA512 hash summaries. The automation only creates the sha1 and md5 hashes. However we use sha256 and sha512 hashes during the
 vote process that we need to generate locally:
-<pre tabindex="0"><code>$ shasum -a 256 nifi-nar-maven-plugin-1.5.1-source-release.zip | cut -d&quot; &quot; -f1 &gt; nifi-nar-maven-plugin-${VERSION}-source-release.zip.sha256
-$ shasum -a 512 nifi-nar-maven-plugin-1.5.1-source-release.zip | cut -d&quot; &quot; -f1 &gt; nifi-nar-maven-plugin-${VERSION}-source-release.zip.sha512
+<pre tabindex="0"><code>$ shasum -a 256 nifi-nar-maven-plugin-1.5.1-source-release.zip | cut -d&#34; &#34; -f1 &gt; nifi-nar-maven-plugin-${VERSION}-source-release.zip.sha256
+$ shasum -a 512 nifi-nar-maven-plugin-1.5.1-source-release.zip | cut -d&#34; &#34; -f1 &gt; nifi-nar-maven-plugin-${VERSION}-source-release.zip.sha512
 </code></pre></li>
 </ol>
 </li>
@@ -880,7 +880,7 @@ mkdir nifi-nar-maven-plugin-${VERSION}
  
 svn update
 svn add nifi-nar-maven-plugin-${VERSION}
-svn commit -m &quot;${JIRA_TICKET} Staging artifacts for nifi-nar-maven-plugin-${VERSION}-RC${RC}&quot; nifi-nar-maven-plugin-${VERSION}
+svn commit -m &#34;${JIRA_TICKET} Staging artifacts for nifi-nar-maven-plugin-${VERSION}-RC${RC}&#34; nifi-nar-maven-plugin-${VERSION}
 </code></pre><h3 id="step-4-error-recovery-rm">Step 4. Error recovery (RM)</h3>
 <p>If anything isn&rsquo;t correct about the staged artifacts you can drop the staged repo from repository.apache.org and delete
 the local tag in git.  If you also delete the local branch and clear your local maven repository under org/apache/nifi
@@ -979,7 +979,7 @@ Here is the PMC vote thread: ${VOTE_THREAD_URL}
 <li>
 <p>Move convenience binaries and related artifacts from dist/dev to dist/release:<br>
 <em>NOTE: the release branch requires PMC access</em></p>
-<pre tabindex="0"><code>$ svn move -m &quot;${JIRA_TICKET}&quot; https://dist.apache.org/repos/dist/dev/nifi/nifi-nar-maven-plugin-${VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-nar-maven-plugin-${VERSION}
+<pre tabindex="0"><code>$ svn move -m &#34;${JIRA_TICKET}&#34; https://dist.apache.org/repos/dist/dev/nifi/nifi-nar-maven-plugin-${VERSION} https://dist.apache.org/repos/dist/release/nifi/nifi-nar-maven-plugin-${VERSION}
 </code></pre></li>
 <li>
 <p>At <a href="https://repository.apache.org">https://repository.apache.org</a>, login with your Apache ID credentials, go to Staging Repositories, select Release and follow the instructions on the site.</p>
@@ -992,7 +992,7 @@ $ git push asf main
 </code></pre></li>
 <li>
 <p>Delete the previous version release artifacts from the dist/release repo. Confirm the artifacts you deleted are present in apache archive where ASF keeps all releases forever <a href="http://archive.apache.org/dist/nifi/">http://archive.apache.org/dist/nifi/</a></p>
-<pre tabindex="0"><code>$ svn delete -m &quot;${JIRA_TICKET} Removing old release dir&quot; https://dist.apache.org/repos/dist/release/nifi/nifi-nar-maven-plugin-${OLD_VERSION}
+<pre tabindex="0"><code>$ svn delete -m &#34;${JIRA_TICKET} Removing old release dir&#34; https://dist.apache.org/repos/dist/release/nifi/nifi-nar-maven-plugin-${OLD_VERSION}
 </code></pre></li>
 <li>
 <p>In Jira, mark the ${JIRA_TICKET} resolved. All tickets for the Jira release version should now be resolved or closed. Mark the release version for ${VERSION} as &lsquo;Released&rsquo; using the NiFi Versions management page.
@@ -1008,7 +1008,7 @@ it can be skipped.</p>
 <p>Create a proper signed tag of the released codebase based on the RC Tag created during the Maven release process.<br>
 <em>NOTE: <code>gpg</code> will be invoked during this step, which will need to prompt you for a password.  From the command line, use
 <code>export GPG_TTY=$(tty)</code> to allow <code>gpg</code> to prompt you.</em></p>
-<pre tabindex="0"><code>$ git tag -s rel/nifi-nar-maven-plugin-${VERSION} -m &quot;${JIRA_TICKET} signed release tag for approved release of NiFi NAR Maven Plugin ${VERSION}&quot; ${RC_TAG_COMMIT_ID}
+<pre tabindex="0"><code>$ git tag -s rel/nifi-nar-maven-plugin-${VERSION} -m &#34;${JIRA_TICKET} signed release tag for approved release of NiFi NAR Maven Plugin ${VERSION}&#34; ${RC_TAG_COMMIT_ID}
 </code></pre><p>For instructions on setting up to sign your tag see <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">here</a>.</p>
 </li>
 <li>

@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="author" content="Apache NiFi Team">
+<title>Apache NiFi Walkthroughs</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Copyright (C) 2012-2015 Dan Allen, Ryan Waldron and the Asciidoctor Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. */
+/* Remove the comments around the @import statement below when using this as a custom stylesheet */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400";
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+#map_canvas img,#map_canvas embed,#map_canvas object,.map_canvas img,.map_canvas embed,.map_canvas object{max-width:none!important}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+.antialiased,body{-webkit-font-smoothing:antialiased}
+img{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+p.lead,.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{font-size:1.21875em;line-height:1.6}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9);padding-right: 1px;}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.no-bullet{list-style:none}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite:before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media only screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7;font-weight:bold}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
+.clearfix:after,.float-group:after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{display:inline-block;color:rgba(0,0,0,.8);font-size:.75em;line-height:1.4;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:-.15em .15em 0 .15em;padding:.2em .6em .2em .5em;vertical-align:middle;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menu{color:rgba(0,0,0,.8)}
+b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
+b.button:before{content:"[";padding:0 3px 0 2px}
+b.button:after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header:before,#header:after,#content:before,#content:after,#footnotes:before,#footnotes:after,#footer:before,#footer:after{content:" ";display:table}
+#header:after,#content:after,#footnotes:after,#footer:after{clear:both}
+#content{margin-top:1.25em}
+#content:before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span:before{content:"\00a0\2013\00a0"}
+#header .details br+span.author:before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark:before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber:after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media only screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}@media only screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+.sect1{padding-bottom:.625em}
+@media only screen and (min-width:768px){.sect1{padding-bottom:1.25em}}.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor:before,h2>a.anchor:before,h3>a.anchor:before,#toctitle>a.anchor:before,.sidebarblock>.content>.title>a.anchor:before,h4>a.anchor:before,h5>a.anchor:before,h6>a.anchor:before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
+.paragraph.lead>p,#preamble>.sectionbody>.paragraph:first-of-type p{color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media only screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}@media only screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]:before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]:before{display:block}
+.listingblock.terminal pre .command:before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt]):before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote:before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote:before{display:none}
+.verseblock{margin:0 1em 1.25em 1em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.05em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 0 1.25em 0;display:block}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{text-align:left;word-spacing:0}
+.quoteblock.abstract blockquote:before,.quoteblock.abstract blockquote p:first-of-type:before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
+table.spread{width:100%}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
+table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
+table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
+table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
+table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
+table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
+table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot{border-width:1px 0}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
+ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
+ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
+ul.inline>li>*{display:block}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1{padding-right:.75em;font-weight:bold}
+td.hdlist1,td.hdlist2{vertical-align:top}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:last-of-type{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none}
+span.footnote,span.footnoteref{vertical-align:super;font-size:.875em}
+span.footnote a,span.footnoteref a{text-decoration:none}
+span.footnote a:active,span.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em 0;border-width:1px 0 0 0}
+#footnotes .footnote{padding:0 .375em;line-height:1.3;font-size:.875em;margin-left:1.2em;text-indent:-1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]:after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+h1,h2{letter-spacing:-.01em}
+dt,th.tableblock,td.content{text-rendering:optimizeLegibility}
+p,td.content{letter-spacing:-.01em}
+p strong,td.content strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@media print{@page{margin:1.25cm .75cm}
+*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare):after,a[href^="https:"]:not(.bare):after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]:after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img{page-break-inside:avoid}
+thead{display:table-header-group}
+img{max-width:100%!important}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+.sect1{padding-bottom:0!important}
+.sect1+.sect1{border:0!important}
+#header>h1:first-child{margin-top:1.25rem}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em 0}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span:before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]:before{display:block}
+#footer{background:none!important;padding:0 .9375em}
+#footer-text{color:rgba(0,0,0,.6)!important;font-size:.9em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Apache NiFi Walkthroughs</h1>
+<div class="details">
+<span id="author" class="author">Apache NiFi Team</span><br>
+<span id="email" class="email"><a href="mailto:dev@nifi.apache.org">dev@nifi.apache.org</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#installing-apache-nifi">Installing Apache NiFi</a></li>
+<li><a href="#building-nifi-from-source">Building NiFi From Source</a></li>
+<li><a href="#starting-nifi">Starting NiFi</a>
+<ul class="sectlevel2">
+<li><a href="#modification-of-configuration-values">Modification of Configuration Values</a></li>
+</ul>
+</li>
+<li><a href="#securing-nifi-with-tls">Securing NiFi with TLS</a>
+<ul class="sectlevel2">
+<li><a href="#securing-nifi-with-provided-certificates">Securing NiFi with Provided Certificates</a></li>
+</ul>
+</li>
+<li><a href="#deploying-a-nifi-cluster">Deploying a NiFi Cluster</a>
+<ul class="sectlevel2">
+<li><a href="#configuring-a-host-to-resolve-arbitrary-dns-hostnames">Configuring a Host to Resolve Arbitrary DNS Hostnames</a></li>
+<li><a href="#securing-nifi-with-mtls">Securing NiFi with mTLS</a>
+<ul class="sectlevel3">
+<li><a href="#manual-keystore">Manual Keystore Generation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="purpose"><a class="anchor" href="#purpose"></a>Purpose</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The intent of this document is to provide a canonical source of prescriptive instruction sets for common administrator and user tasks using Apache NiFi. It is intended to complement the <a href="overview.html" target="_blank" rel="noopener">NiFi Overview</a>, <a href="administration-guide.html" target="_blank" rel="noopener">NiFi System Administrator&#8217;s Guide</a>, and <a href="user-guide.html" target="_blank" rel="noopener">NiFi User&#8217;s Guide</a>. Those documents provide extensive reference information about various features and configuration values, but they do not provide information on <em>how</em> to accomplish tasks.</p>
+</div>
+<div class="paragraph">
+<p>This document is <em>not</em> intended to be a comprehensive repository of all possible admin or user activities, but rather a collection of well-documented reference activities which can be followed directly or adapted to custom scenarios. This document requires continued updates as application or ecosystem behavior changes, and corrections and improvements where the content is unclear to the community. To contribute to this document, please <a href="https://issues.apache.org/jira/secure/CreateIssue!default.jspa" target="_blank" rel="noopener">open a Jira</a> (see <a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide#ContributorGuide-WheretoStart?" target="_blank" rel="noopener">further instructions in the Contributor Guide</a>) and <a href="https://github.com/apache/nifi/pulls" target="_blank" rel="noopener">submit a pull request (PR)</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This document is provided with no warranty. All steps have been evaluated for correctness to the extent possible by the Apache NiFi community, but no responsibility is assumed for negative impacts on any computer system where these commands are executed.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-apache-nifi"><a class="anchor" href="#installing-apache-nifi"></a>Installing Apache NiFi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data. It supports powerful and scalable directed graphs of data routing, transformation, and system mediation logic. In addition to NiFi, there is the NiFi Toolkit, a collection of command-line tools which help perform administrative tasks such as interacting with remote services, managing nodes in a cluster, and encrypting sensitive configuration values.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructions on downloading the Apache NiFi application and Toolkit</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To make the application available to run on the specified machine (e.g. a local development environment)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starting Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Machine running modern OS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected Outcome</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version of Apache NiFi available to run on host with no configuration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estimated Duration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 minute + download time</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The following instructions are for installing a single node of NiFi. This guide assumes macOS 10.11.0+ but should work for any modern operating system. *nix commands are used by default, but Windows equivalents are provided where available.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the <a href="http://nifi.apache.org/download.html" target="_blank" rel="noopener">Apache NiFi Downloads</a> page.</p>
+</li>
+<li>
+<p>Download the latest version of NiFi via the compressed binary files. For example, if the latest version is 1.11.4:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>nifi-1.11.4-bin.tar.gz</code> [1.2 GB]</p>
+</li>
+<li>
+<p><code>nifi-toolkit-1.11.4-bin.tar.gz</code> [42 MB]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you are directed to a mirror page, click the first link on the page to download the respective archive file.</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/install-download-link.png" alt="Download site">
+</div>
+</div>
+</li>
+<li>
+<p>Note that the <code>nifi-1.11.4-bin.tar.gz</code> and the <code>nifi-toolkit-1.11.4-bin.tar.gz</code> compressed files are downloaded to your <code>Downloads</code> folder.</p>
+</li>
+<li>
+<p>Download the GPG signature and checksums for those files. They are found on the initial download page next to each binary file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>gpg --verify -v nifi-1.11.4-bin.tar.gz.asc</code>&#8201;&#8212;&#8201;Verifies the GPG signature provided on the binary by the Release Manager (RM). See <a href="https://nifi.apache.org/gpg.html#verifying-a-release-signature" target="_blank" rel="noopener">NiFi GPG Guide: Verifying a Release Signature</a> for further details</p>
+</li>
+<li>
+<p><code>shasum -a 256 nifi-1.11.4-bin.tar.gz</code>&#8201;&#8212;&#8201;Calculates a SHA-256 checksum over the downloaded artifact. This should be compared with the contents of <code>nifi-1.11.4-bin.tar.gz.sha256</code> for equality</p>
+</li>
+<li>
+<p><code>shasum -a 512 nifi-1.11.4-bin.tar.gz</code>&#8201;&#8212;&#8201;Calculates a SHA-512 checksum over the downloaded artifact. This should be compared with the contents of <code>nifi-1.11.4-bin.tar.gz.sha512</code> for equality</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/verify-release-gpg-and-checksums.png" alt="&quot;Verifying the GPG signature and checksums">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Extract the files from each <code>tar.gz</code> file. This can be done by double-clicking on the files in the Finder or running the following commands in the terminal.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tar -xvzf nifi-1.11.4-bin.tar.gz</code>&#8201;&#8212;&#8201;Uncompresses the <code>gzip</code> file and extracts the <code>tar</code> archive contents to <code>nifi-1.11.4/</code></p>
+</li>
+<li>
+<p><code>tar -xvzf nifi-toolkit-1.11.4-bin.tar.gz</code>&#8201;&#8212;&#8201;Uncompresses the <code>gzip</code> file and extracts the <code>tar</code> archive contents to <code>nifi-toolkit-1.11.4/</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Optionally, move the folders to a more appropriate location.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="building-nifi-from-source"><a class="anchor" href="#building-nifi-from-source"></a>Building NiFi From Source</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructions on downloading the Apache NiFi source code and building the application locally</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To make the application (with potential code modifications) available to run on the specified machine (e.g. a local development environment)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starting Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Machine running modern OS</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected Outcome</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version of Apache NiFi available to run on host with no configuration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estimated Duration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 - 35 minutes + download time</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This guide assumes macOS 10.11.0+ but should work for any modern operating system. *nix commands are used by default, but Windows equivalents are provided where available.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the <a href="http://nifi.apache.org/download.html" target="_blank" rel="noopener">Apache NiFi Downloads</a> page.</p>
+</li>
+<li>
+<p>Download the latest version of NiFi source code via the compressed files. For example, if the latest version is 1.11.4:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>nifi-1.11.4-source-release.zip</code> [53 MB]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you are directed to a mirror page, click the first link on the page to download the respective archive file.</p>
+</li>
+<li>
+<p>Note that the <code>nifi-1.11.4-source-release.zip</code> compressed file is downloaded to your <code>Downloads</code> folder.</p>
+</li>
+<li>
+<p>Download the GPG signature and checksums for the file. They are found on the initial download page next to the archive file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>gpg --verify -v nifi-1.11.4-source-release.zip.asc</code>&#8201;&#8212;&#8201;Verifies the GPG signature provided on the archive by the Release Manager (RM). See <a href="https://nifi.apache.org/gpg.html#verifying-a-release-signature" target="_blank" rel="noopener">NiFi GPG Guide: Verifying a Release Signature</a> for further details</p>
+</li>
+<li>
+<p><code>shasum -a 256 nifi-1.11.4-source-release.zip</code>&#8201;&#8212;&#8201;Calculates a SHA-256 checksum over the downloaded artifact. This should be compared with the contents of <code>nifi-1.11.4-source-release.zip.sha256</code> for equality</p>
+</li>
+<li>
+<p><code>shasum -a 512 nifi-1.11.4-source-release.zip</code>&#8201;&#8212;&#8201;Calculates a SHA-512 checksum over the downloaded artifact. This should be compared with the contents of <code>nifi-1.11.4-source-release.zip.sha512</code> for equality</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Extract the files from the <code>zip</code> file. This can be done by double-clicking on the file in the Finder or running the following command in the terminal.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>unzip nifi-1.11.4-source-release.zip</code>&#8201;&#8212;&#8201;Uncompresses the <code>zip</code> file and extracts the archive contents to <code>nifi-1.11.4/</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Optionally, move the folder to a more appropriate location.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>nifi-1.11.4/ % ls -alGh
+total 328
+drwxr-xr-x  25 alopresto  staff   800B Apr  6 15:48 ./
+drwxr-xr-x   8 alopresto  staff   256B Apr  4 18:01 ../
+drwxr-xr-x   4 alopresto  staff   128B Jan 22 15:10 .github/
+-rw-r--r--   1 alopresto  staff   254B Jan 22 15:10 DEPENDENCIES
+-rw-r--r--   1 alopresto  staff    66K Jan 22 15:10 KEYS
+-rw-r--r--   1 alopresto  staff    21K Jan 22 15:10 LICENSE
+-rw-r--r--   1 alopresto  staff   7.1K Jan 22 15:10 NOTICE
+-rw-r--r--   1 alopresto  staff   9.1K Jan 22 15:10 README.md
+-rw-r--r--   1 alopresto  staff   3.3K Jan 22 15:10 SECURITY.md
+drwxr-xr-x   5 alopresto  staff   160B Apr  6 15:44 nifi-api/
+drwxr-xr-x   8 alopresto  staff   256B Apr  6 15:50 nifi-assembly/
+drwxr-xr-x   5 alopresto  staff   160B Apr  6 15:45 nifi-bootstrap/
+drwxr-xr-x  23 alopresto  staff   736B Apr  6 15:44 nifi-commons/
+drwxr-xr-x   9 alopresto  staff   288B Apr  6 15:44 nifi-docker/
+drwxr-xr-x   7 alopresto  staff   224B Apr  6 15:44 nifi-docs/
+drwxr-xr-x   8 alopresto  staff   256B Apr  6 15:44 nifi-external/
+drwxr-xr-x   5 alopresto  staff   160B Apr  6 15:44 nifi-framework-api/
+drwxr-xr-x   6 alopresto  staff   192B Apr  6 15:44 nifi-maven-archetypes/
+drwxr-xr-x   5 alopresto  staff   160B Apr  6 15:45 nifi-mock/
+drwxr-xr-x  82 alopresto  staff   2.6K Apr  6 15:44 nifi-nar-bundles/
+drwxr-xr-x   7 alopresto  staff   224B Apr  6 15:44 nifi-system-tests/
+drwxr-xr-x  14 alopresto  staff   448B Apr  6 15:44 nifi-toolkit/
+-rw-r--r--   1 alopresto  staff    44K Jan 22 15:10 pom.xml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Build the NiFi source using <a href="https://maven.apache.org/" target="_blank" rel="noopener">Apache Maven</a> from the source root directory (<code>nifi-1.11.4/</code>) using one of the following commands. For more information, see the <a href="https://cwiki.apache.org/confluence/display/NIFI/Contributor+Guide" target="_blank" rel="noopener">NiFi Contributor Guide</a>. Estimated build times for each command on a modern professional laptop are listed below; allow additional time for dependency library downloads on first build.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mvn clean install</code>&#8201;&#8212;&#8201;Builds the application (expected time ~30 minutes)</p>
+</li>
+<li>
+<p><code>mvn clean install -T2.0C</code>&#8201;&#8212;&#8201;Builds the application with multiple parallel threads (expected time ~15 minutes)</p>
+</li>
+<li>
+<p><code>mvn clean install -T2.0C -DskipTests</code>&#8201;&#8212;&#8201;Builds the application with multiple parallel threads and unit tests disabled (expected time ~6 minutes)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>nifi-1.11.4/ % mvn clean install -T2.0C -DskipTests
+...
+------------------------------------------------------------------------
+Reactor Summary for nifi 1.11.4:
+
+nifi ............................................... SUCCESS [  0.834 s]
+nifi-api ........................................... SUCCESS [  8.799 s]
+nifi-framework-api ................................. SUCCESS [ 12.020 s]
+nifi-commons ....................................... SUCCESS [  0.253 s]
+nifi-utils ......................................... SUCCESS [ 16.029 s]
+nifi-properties .................................... SUCCESS [  6.863 s]
+nifi-security-utils ................................ SUCCESS [ 14.682 s]
+nifi-nar-bundles ................................... SUCCESS [  0.279 s]
+nifi-framework-bundle .............................. SUCCESS [  0.358 s]
+nifi-framework ..................................... SUCCESS [  1.538 s]
+nifi-properties-loader ............................. SUCCESS [ 14.153 s]
+...
+nifi-system-test-suite ............................. SUCCESS [  3.999 s]
+------------------------------------------------------------------------
+BUILD SUCCESS
+------------------------------------------------------------------------
+Total time:  06:17 min (Wall Clock)
+Finished at: 2020-04-06T15:50:35-07:00
+------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The resulting application is available in the build directory (for 1.11.14: <code>nifi-assembly/target/nifi-1.11.4-bin/nifi-1.11.4</code>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cd nifi-assembly/target/nifi-1.11.4-bin/nifi-1.11.4</code>&#8201;&#8212;&#8201;Changes directory to the application root directory</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>nifi-1.11.4/nifi-assembly/target/nifi-1.11.4-bin/nifi-1.11.4/ % ls -alGh
+drwxr-xr-x   10 alopresto  staff   320B Apr  6 15:50 ./
+drwxr-xr-x    3 alopresto  staff    96B Apr  6 15:50 ../
+-rw-r--r--    1 alopresto  staff   157K Jan 22 07:10 LICENSE
+-rw-r--r--    1 alopresto  staff    85K Jan 22 07:10 NOTICE
+-rw-r--r--    1 alopresto  staff   4.7K Jan 22 07:10 README
+drwxr-xr-x    8 alopresto  staff   256B Apr  6 15:50 bin/
+drwxr-xr-x   10 alopresto  staff   320B Apr  6 15:50 conf/
+drwxr-xr-x    3 alopresto  staff    96B Apr  6 15:50 docs/
+drwxr-xr-x    2 alopresto  staff    64B Jan 22 07:10 extensions/
+drwxr-xr-x  116 alopresto  staff   3.6K Apr  6 15:50 lib/</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="starting-nifi"><a class="anchor" href="#starting-nifi"></a>Starting NiFi</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructions on running the Apache NiFi application</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To configure and run the application on the local machine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starting Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#installing-apache-nifi">Installing Apache NiFi</a> or <a href="#building-nifi-from-source">Building NiFi from Source</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected Outcome</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version of Apache NiFi running on host with minimal configuration</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estimated Duration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 minute</p></td>
+</tr>
+</tbody>
+</table>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start in the directory where NiFi was downloaded and unarchived or built. For this section, the directory <code>/etc/nifi-1.11.4</code> will be used. This directory will be referred to as the "NiFi home directory" and can be set explicitly (this is not done automatically by NiFi nor is it required).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>export NIFI_HOME="/etc/nifi-1.11.4/"</code>&#8201;&#8212;&#8201;Sets an environment variable (<code>$NIFI_HOME</code>) which references the installation directory (optional)</p>
+</li>
+<li>
+<p><code>cd /etc/nifi-1.11.4</code>&#8201;&#8212;&#8201;Changes the terminal to the NiFi home directory</p>
+</li>
+<li>
+<p><code>ls -alGh</code>&#8201;&#8212;&#8201;Lists the contents of the directory (optional)</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/nifi-home-dir-listing.png" alt="NiFi Home directory contents">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>At this point, NiFi can be started with default configuration values (available at <a href="http://localhost:8080/nifi" target="_blank" rel="noopener"><code>http://localhost:8080/nifi</code></a>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>./bin/nifi.sh start</code>&#8201;&#8212;&#8201;Starts NiFi. (It takes some time for NiFi to finish scheduling all components. Issuing <code>bin/nifi.sh start</code> executes the <code>nifi.sh</code> script that starts NiFi in the
+background and then exits. If you want <code>nifi.sh</code> to wait for NiFi to finish scheduling all components before exiting, use the <code>--wait-for-init</code> flag with an optional timeout specified in seconds:
+<code>bin/nifi.sh start --wait-for-init 120</code>. If the timeout is not provided, the default timeout of 15 minutes will be used.)</p>
+</li>
+<li>
+<p><code>tail -f logs/nifi-app.log</code>&#8201;&#8212;&#8201;Tails the application log which will indicate when the application has started</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/nifi-app-log-ui-available.png" alt="NiFi application log listing available URLS">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Navigate to the URL in a web browser (<a href="http://localhost:8080/nifi" target="_blank" rel="noopener"><code>http://localhost:8080/nifi</code></a> or any listed in the <code>nifi-app.log</code> output).</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/nifi-application-running-browser.png" alt="NiFi application running in browser">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="modification-of-configuration-values"><a class="anchor" href="#modification-of-configuration-values"></a>Modification of Configuration Values</h3>
+<div class="paragraph">
+<p>Many web applications run on <code>:8080</code> by default, so this port may already be occupied on the machine. This section will demonstrate changing the port used by NiFi. All of the following commands are run from <code>$NIFI_HOME</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure the application is not running.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ps -ef | grep nifi</code>&#8201;&#8212;&#8201;Checks the running system for any processes referencing <code>nifi</code> (optional)</p>
+</li>
+<li>
+<p><code>./bin/nifi.sh status</code>&#8201;&#8212;&#8201;Determines if the specified instance is running (optional)</p>
+</li>
+<li>
+<p><code>./bin/nifi.sh stop</code>&#8201;&#8212;&#8201;Stops the specified instance</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Open the main configuration file for NiFi (<code>nifi.properties</code>). Any text editor is sufficient for this (Sublime Text, Atom, vi, nano, etc.)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$EDITOR conf/nifi.properties</code>&#8201;&#8212;&#8201;Opens the <code>nifi.properties</code> file for editing</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change <code>nifi.web.http.port=8080</code> &#8594; <code>nifi.web.http.port=7777</code>&#8201;&#8212;&#8201;Sets the HTTP port to a new value</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Setting a port between 1 - 1024 requires <code>root</code> access on *nix systems
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Save and close the file.</p>
+</li>
+<li>
+<p>Start NiFi again</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>./bin/nifi.sh start</code>&#8201;&#8212;&#8201;Starts NiFi</p>
+</li>
+<li>
+<p><code>tail -f logs/nifi-app.log</code>&#8201;&#8212;&#8201;Tails the application log</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Open a web browser to the new address (<a href="http://localhost:7777/nifi" target="_blank" rel="noopener"><code>http://localhost:7777/nifi</code></a>)</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="securing-nifi-with-tls"><a class="anchor" href="#securing-nifi-with-tls"></a>Securing NiFi with TLS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apache NiFi requires <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener">Transport Layer Security (TLS)</a> configuration for multiple reasons.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To encrypt communication between clients and server (this provides confidentialty and integrity over transmitted data)</p>
+</li>
+<li>
+<p>To prevent malicious users from intercepting data or impersonating the server</p>
+</li>
+<li>
+<p>To enable any authentication &amp; authorization mechanisms</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>NiFi intentionally does not allow any authentication or authorization features over plaintext HTTP. Without the confidentiality and integrity provided by TLS and the user &amp; group access controls, any malicious entity can intercept and modify NiFi API requests, corrupt and steal data, and otherwise interfere with the NiFi instance. Because of NiFi&#8217;s robust feature set, this can even lead to complete control over the host running NiFi. For more information, see <a href="administration-guide.html#security_configuration" target="_blank" rel="noopener">Administrator&#8217;s Guide: Security Configuration</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="securing-nifi-with-provided-certificates"><a class="anchor" href="#securing-nifi-with-provided-certificates"></a>Securing NiFi with Provided Certificates</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section assumes an enterprise IT department or other mechanism to provide signed certificates.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructions on enabling <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener">Transport Layer Security (TLS)</a> for the Apache NiFi application using provided certificates</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Securing NiFi with TLS protects data in motion and is required to enable authentication &amp; authorization</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starting Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#starting-nifi">Starting NiFi</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected Outcome</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Latest version of Apache NiFi running on host over TLS with client certificate authentication and authorization enabled and a single configured user</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estimated Duration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 minutes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In this scenario, a commercial CA is used, but it could also be an enterprise CA with an internal CA certificate which is configured to be trusted by corporate machines. There are many commercial vendors providing signed certificates. For this example, <a href="https://tinycert.org" target="_blank" rel="noopener">TinyCert</a> is used as it is free. <a href="https://letsencrypt.org" target="_blank" rel="noopener">Let&#8217;s Encrypt</a> is another free provider, but requires verification of hostname ownership which involves additional steps not shown here.</p>
+</div>
+<div class="paragraph">
+<p>For this scenario, all certificates and keys will be in <a href="https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail" target="_blank" rel="noopener">Privacy-Enhanced Mail (PEM)</a> format. This is a common format for certificates and keys. It uses Base64 encoding for the contents of the files, and can be transmitted across various mediums and storage mechanisms easily. Plain text editors can be used to view the contents, and the <code>openssl</code> and <code>keytool</code> tools can parse the contents.</p>
+</div>
+<div class="paragraph">
+<p>Example PEM file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>% cat nifi.pem
+-----BEGIN CERTIFICATE-----
+MIIFDzCCA/egAwIBAgICURswDQYJKoZIhvcNAQELBQAwgZMxCzAJBgNVBAYTAlVT
+MQswCQYDVQQIDAJDQTEVMBMGA1UEBwwMU2FudGEgTW9uaWNhMRcwFQYDVQQKDA5B
+cGFjaGUgTmlGaSBDQTErMCkGA1UECwwiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNh
+dGUgU2lnbmluZzEaMBgGA1UEAwwRQXBhY2hlIE5pRmkgQ0EgQ0EwHhcNMjAwNDA1
+MjI0MTQ5WhcNMjEwNDA1MjI0MTQ5WjCBgjELMAkGA1UEBhMCVVMxCzAJBgNVBAgM
+AkNBMRUwEwYDVQQHDAxTYW50YSBNb25pY2ExFzAVBgNVBAoMDkFwYWNoZSBOaUZp
+IENBMSAwHgYDVQQLDBdBcGFjaGUgTmlGaSBXYWxrdGhyb3VnaDEUMBIGA1UEAwwL
+c2VjdXJlLm5pZmkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDJySMX
+H+Fco7WbXIKQ1u1RrMd/FE7zl/69X/7Da6x4c6jlI8fy3MbxZjqFnDsJpNuIkPVv
+yHcGCm8Lkw70DbCTUkW60MlVM5r4CkWhVgOd1RD34QzhgkcKjg29uOuCYa+FM78q
+E5Qp64wbLpDXHpxmm4/Qv97RHdTqynqRzYs6g+VyCn14nXuqJp0533F1T2khtK4z
+BrIMZj6VpWyyCFmJjmrW37GbcRuxMbtbgj+4mzD0Eew6/96R9A7Wxlq0QMuRTz12
+ie9xSi/GyzQV2r9gRzxuIo8qshMIq2d/1pipIgWNj2LzEXXoEbfHy7Jwm78e1G/+
+PV/ULIx+QL4h9Ni/AgMBAAGjggF6MIIBdjAJBgNVHRMEAjAAMB0GA1UdDgQWBBTy
+gw/GBUrqMI80gYpdlh3NNfwrBzAfBgNVHSMEGDAWgBRkovbp8RqbD0BeDyPcrBYg
+a1rzdDARBglghkgBhvhCAQEEBAMCBPAwCwYDVR0PBAQDAgP4MDsGA1UdJQQ0MDIG
+CCsGAQUFBwMBBggrBgEFBQcDAgYIKwYBBQUHAwMGCCsGAQUFBwMEBggrBgEFBQcD
+CDBtBggrBgEFBQcBAQRhMF8wLAYIKwYBBQUHMAGGIGh0dHA6Ly9vY3NwLnRpbnlj
+ZXJ0Lm9yZy9jYS0yNDA1MC8GCCsGAQUFBzAChiNodHRwOi8vYWlhLnRpbnljZXJ0
+Lm9yZy9jYS0yNDA1LmNydDA0BgNVHR8ELTArMCmgJ6AlhiNodHRwOi8vY3JsLnRp
+bnljZXJ0Lm9yZy9jYS0yNDA1LmNybDAnBgNVHREEIDAeggtzZWN1cmUubmlmaYcE
+fwAAAYIJbG9jYWxob3N0MA0GCSqGSIb3DQEBCwUAA4IBAQDAICxyfgm2eBa8J3+s
+D2QpIQgOc8fgMYeqWwgk5rHbDk8IdkH9XloAuSzxi/weZt3PQQOdNHeeOCOXEWAf
+n0X1SMGFUvLForHgArGolt9uFofvh2sE2q3/wSBI6J2940dYwZOPAlf5m7fNpcbz
+WCJZGt7Pn/VWm3+uPZrMAj+GzsvR9NVMZwK/eAFM4OKNCeiLRPv1qLARYVqvLJFK
+t9dlCrHKyDLIaUbG2Lcw6Yt7SBU7nAnobuYqImRRXm/bE0xwb9X9fD8UzJfmryOT
+Fvz4hlntwk1fgvG1n4SrZgFNZpg1awN5tXbwiOdisTwslQ49C4QCH5iEWCM1HExL
+A5GR
+-----END CERTIFICATE-----</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example parsed contents:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>% openssl x509 -in nifi.pem -text -noout
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 20763 (0x511b)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, ST=CA, L=Santa Monica, O=Apache NiFi CA, OU=Secure Digital Certificate Signing, CN=Apache NiFi CA CA
+        Validity
+            Not Before: Apr  5 22:41:49 2020 GMT
+            Not After : Apr  5 22:41:49 2021 GMT
+        Subject: C=US, ST=CA, L=Santa Monica, O=Apache NiFi CA, OU=Apache NiFi Walkthrough, CN=secure.nifi
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:c9:c9:23:17:1f:e1:5c:a3:b5:9b:5c:82:90:d6:
+                    ed:51:ac:c7:7f:14:4e:f3:97:fe:bd:5f:fe:c3:6b:
+                    ac:78:73:a8:e5:23:c7:f2:dc:c6:f1:66:3a:85:9c:
+                    3b:09:a4:db:88:90:f5:6f:c8:77:06:0a:6f:0b:93:
+                    0e:f4:0d:b0:93:52:45:ba:d0:c9:55:33:9a:f8:0a:
+                    45:a1:56:03:9d:d5:10:f7:e1:0c:e1:82:47:0a:8e:
+                    0d:bd:b8:eb:82:61:af:85:33:bf:2a:13:94:29:eb:
+                    8c:1b:2e:90:d7:1e:9c:66:9b:8f:d0:bf:de:d1:1d:
+                    d4:ea:ca:7a:91:cd:8b:3a:83:e5:72:0a:7d:78:9d:
+                    7b:aa:26:9d:39:df:71:75:4f:69:21:b4:ae:33:06:
+                    b2:0c:66:3e:95:a5:6c:b2:08:59:89:8e:6a:d6:df:
+                    b1:9b:71:1b:b1:31:bb:5b:82:3f:b8:9b:30:f4:11:
+                    ec:3a:ff:de:91:f4:0e:d6:c6:5a:b4:40:cb:91:4f:
+                    3d:76:89:ef:71:4a:2f:c6:cb:34:15:da:bf:60:47:
+                    3c:6e:22:8f:2a:b2:13:08:ab:67:7f:d6:98:a9:22:
+                    05:8d:8f:62:f3:11:75:e8:11:b7:c7:cb:b2:70:9b:
+                    bf:1e:d4:6f:fe:3d:5f:d4:2c:8c:7e:40:be:21:f4:
+                    d8:bf
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints:
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                F2:83:0F:C6:05:4A:EA:30:8F:34:81:8A:5D:96:1D:CD:35:FC:2B:07
+            X509v3 Authority Key Identifier:
+                keyid:64:A2:F6:E9:F1:1A:9B:0F:40:5E:0F:23:DC:AC:16:20:6B:5A:F3:74
+
+            Netscape Cert Type:
+                SSL Client, SSL Server, S/MIME, Object Signing
+            X509v3 Key Usage:
+                Digital Signature, Non Repudiation, Key Encipherment, Data Encipherment, Key Agreement
+            X509v3 Extended Key Usage:
+                TLS Web Server Authentication, TLS Web Client Authentication, Code Signing, E-mail Protection, Time Stamping
+            Authority Information Access:
+                OCSP - URI:http://ocsp.tinycert.org/ca-2405
+                CA Issuers - URI:http://aia.tinycert.org/ca-2405.crt
+
+            X509v3 CRL Distribution Points:
+
+                Full Name:
+                  URI:http://crl.tinycert.org/ca-2405.crl
+
+            X509v3 Subject Alternative Name:
+                DNS:secure.nifi, IP Address:127.0.0.1, DNS:localhost
+    Signature Algorithm: sha256WithRSAEncryption
+         c0:20:2c:72:7e:09:b6:78:16:bc:27:7f:ac:0f:64:29:21:08:
+         0e:73:c7:e0:31:87:aa:5b:08:24:e6:b1:db:0e:4f:08:76:41:
+         fd:5e:5a:00:b9:2c:f1:8b:fc:1e:66:dd:cf:41:03:9d:34:77:
+         9e:38:23:97:11:60:1f:9f:45:f5:48:c1:85:52:f2:c5:a2:b1:
+         e0:02:b1:a8:96:df:6e:16:87:ef:87:6b:04:da:ad:ff:c1:20:
+         48:e8:9d:bd:e3:47:58:c1:93:8f:02:57:f9:9b:b7:cd:a5:c6:
+         f3:58:22:59:1a:de:cf:9f:f5:56:9b:7f:ae:3d:9a:cc:02:3f:
+         86:ce:cb:d1:f4:d5:4c:67:02:bf:78:01:4c:e0:e2:8d:09:e8:
+         8b:44:fb:f5:a8:b0:11:61:5a:af:2c:91:4a:b7:d7:65:0a:b1:
+         ca:c8:32:c8:69:46:c6:d8:b7:30:e9:8b:7b:48:15:3b:9c:09:
+         e8:6e:e6:2a:22:64:51:5e:6f:db:13:4c:70:6f:d5:fd:7c:3f:
+         14:cc:97:e6:af:23:93:16:fc:f8:86:59:ed:c2:4d:5f:82:f1:
+         b5:9f:84:ab:66:01:4d:66:98:35:6b:03:79:b5:76:f0:88:e7:
+         62:b1:3c:2c:95:0e:3d:0b:84:02:1f:98:84:58:23:35:1c:4c:
+         4b:03:91:91</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The prerequisites for the scenario (issued by the IT department):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A signed NiFi server certificate for the specified host (<code>secure.nifi</code> for this example) in PEM format (<code>nifi.pem</code>)</p>
+</li>
+<li>
+<p>The matching private key in PEM format (<code>nifi.key</code>)</p>
+</li>
+<li>
+<p>A signed client certificate for the specified user (<code>CN=my_username, &#8230;&#8203;</code> for this example) in PEM format (<code>client.pem</code>)</p>
+</li>
+<li>
+<p>The matching private key in PEM format (<code>client.key</code>)</p>
+</li>
+<li>
+<p>The CA certificate in PEM format (<code>cacert.pem</code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The end result will consist of a self-signed external CA (the root), a keystore and truststore containing the necessary certificates for the NiFi instance to operate, and a client certificate for a human user to access NiFi.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/nifi-tls-standalone-external-certificate-diagram.png" alt="NiFi TLS Standalone Provided Certificate Diagram">
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Depending on the version of Java used, some commands below may display a warning <code>Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore keystore.jks -destkeystore keystore.jks -deststoretype pkcs12".</code> As of version 1.11.4, NiFi still handles JKS keystores better than PKCS12 keystores, but either is acceptable. This may change in future versions. PKCS12 keystores are used for client certificates and keys as browsers prefer loading this format.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start in the directory where NiFi was downloaded and unarchived. For this section, the directory <code>/etc/nifi-1.11.4</code> will be used. This directory will be referred to as the "NiFi home directory" and can be set explicitly (this is not done automatically by NiFi nor is it required).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>export NIFI_HOME="/etc/nifi-1.11.4/"</code>&#8201;&#8212;&#8201;Sets an environment variable (<code>$NIFI_HOME</code>) which references the installation directory (optional)</p>
+</li>
+<li>
+<p><code>cd /etc/nifi-1.11.4</code>&#8201;&#8212;&#8201;Changes the terminal to the NiFi home directory</p>
+</li>
+<li>
+<p><code>ls -alGh</code>&#8201;&#8212;&#8201;Lists the contents of the directory (optional)</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/nifi-home-dir-listing.png" alt="NiFi Home directory contents">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Determine if the server certificate (<code>nifi.pem</code>) contains the complete certificate chain or just the server certificate. If the sequence <code>-----BEGIN CERTIFICATE-----</code> occurs only once, this is just the server certificate. If it occurs multiple times, the certificate chain is present. If the certificate chain is present, continue with Step 4. If it is not present, continue to Step 3.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cat nifi.pem</code>&#8201;&#8212;&#8201;Prints the Base64-encoded contents</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Concatenate the server certificate and CA certificate to form the certificate chain.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cat cacert.pem &gt;&gt; nifi.pem</code>&#8201;&#8212;&#8201;Concatenates the CA certificate to the NiFi server certificate in the proper order</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Form the PKCS12 keystore from the certificate chain and private key.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl pkcs12 -export -out nifi.p12 -inkey nifi.key -in nifi.pem -name nifi-key</code>&#8201;&#8212;&#8201;Generates the PKCS12 keystore containing the private key and certificate chain under the alias <code>nifi-key</code>. The command will prompt for an <strong>export password</strong>. Choose a secure password and enter it twice for confirmation (for this scenario, the <strong>bad</strong> example <code>passwordpassword</code> is used)</p>
+</li>
+<li>
+<p><code>keytool -list -v -keystore nifi.p12</code>&#8201;&#8212;&#8201;Verifies the contents of the PKCS12 keystore (optional). This command will prompt for the same password entered on the previous step</p>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The certificate chain length is 2, starting with the server certificate and including the CA certificate.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>keytool -list -v -keystore nifi.p12
+Enter keystore password:
+Keystore type: PKCS12
+Keystore provider: SUN
+
+Your keystore contains 1 entry
+
+Alias name: 1
+Creation date: Apr 5, 2020
+Entry type: PrivateKeyEntry
+Certificate chain length: 2
+Certificate[1]:
+Owner: CN=secure.nifi, OU=Apache NiFi Walkthrough, O=Apache NiFi CA, L=Santa Monica, ST=CA, C=US
+Issuer: CN=Apache NiFi CA CA, OU=Secure Digital Certificate Signing, O=Apache NiFi CA, L=Santa Monica, ST=CA, C=US
+Serial number: 511b
+Valid from: Sun Apr 05 15:41:49 PDT 2020 until: Mon Apr 05 15:41:49 PDT 2021
+Certificate fingerprints:
+	 SHA1: C7:DD:26:7F:8E:25:45:2E:02:FE:34:FA:89:42:D8:BE:5B:88:AB:2D
+	 SHA256: 6E:A6:6C:BB:88:E3:24:99:5C:EB:C7:B8:02:D1:30:C4:AC:6D:0C:F2:40:46:DA:CB:6A:15:13:B7:49:40:FA:99
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+AuthorityInfoAccess [
+  [
+   accessMethod: ocsp
+   accessLocation: URIName: http://ocsp.tinycert.org/ca-2405
+,
+   accessMethod: caIssuers
+   accessLocation: URIName: http://aia.tinycert.org/ca-2405.crt
+]
+]
+
+#2: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 64 A2 F6 E9 F1 1A 9B 0F   40 5E 0F 23 DC AC 16 20  d.......@^.#...
+0010: 6B 5A F3 74                                        kZ.t
+]
+]
+
+#3: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:false
+  PathLen: undefined
+]
+
+#4: ObjectId: 2.5.29.31 Criticality=false
+CRLDistributionPoints [
+  [DistributionPoint:
+     [URIName: http://crl.tinycert.org/ca-2405.crl]
+]]
+
+#5: ObjectId: 2.5.29.37 Criticality=false
+ExtendedKeyUsages [
+  serverAuth
+  clientAuth
+  codeSigning
+  emailProtection
+  timeStamping
+]
+
+#6: ObjectId: 2.5.29.15 Criticality=false
+KeyUsage [
+  DigitalSignature
+  Non_repudiation
+  Key_Encipherment
+  Data_Encipherment
+  Key_Agreement
+]
+
+#7: ObjectId: 2.16.840.1.113730.1.1 Criticality=false
+NetscapeCertType [
+   SSL client
+   SSL server
+   S/MIME
+   Object Signing
+]
+
+#8: ObjectId: 2.5.29.17 Criticality=false
+SubjectAlternativeName [
+  DNSName: secure.nifi
+  IPAddress: 127.0.0.1
+  DNSName: localhost
+]
+
+#9: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: F2 83 0F C6 05 4A EA 30   8F 34 81 8A 5D 96 1D CD  .....J.0.4..]...
+0010: 35 FC 2B 07                                        5.+.
+]
+]
+
+Certificate[2]:
+Owner: CN=Apache NiFi CA CA, OU=Secure Digital Certificate Signing, O=Apache NiFi CA, L=Santa Monica, ST=CA, C=US
+Issuer: CN=Apache NiFi CA CA, OU=Secure Digital Certificate Signing, O=Apache NiFi CA, L=Santa Monica, ST=CA, C=US
+Serial number: 0
+Valid from: Mon Feb 08 20:24:06 PST 2016 until: Thu Feb 05 20:24:06 PST 2026
+Certificate fingerprints:
+	 SHA1: E9:CA:EF:26:C7:2A:AF:7A:FD:BC:97:12:ED:F5:6B:3B:79:40:D2:A3
+	 SHA256: 4C:0A:2F:C4:D3:CC:B5:A8:0E:0B:95:EE:0C:E6:60:7C:85:78:7A:58:77:BB:87:58:12:9B:D1:E4:BA:E0:9B:67
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.19 Criticality=true
+BasicConstraints:[
+  CA:true
+  PathLen:2147483647
+]
+
+#2: ObjectId: 2.5.29.31 Criticality=false
+CRLDistributionPoints [
+  [DistributionPoint:
+     [URIName: http://crl.tinycert.org/ca-2405.crl]
+]]
+
+#3: ObjectId: 2.5.29.18 Criticality=false
+IssuerAlternativeName [
+  RFC822Name: andy@andylopresto.com
+]
+
+#4: ObjectId: 2.5.29.15 Criticality=true
+KeyUsage [
+  DigitalSignature
+  Key_Encipherment
+  Key_Agreement
+  Key_CertSign
+]
+
+#5: ObjectId: 2.5.29.17 Criticality=false
+SubjectAlternativeName [
+  RFC822Name: andy@andylopresto.com
+]
+
+#6: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 64 A2 F6 E9 F1 1A 9B 0F   40 5E 0F 23 DC AC 16 20  d.......@^.#...
+0010: 6B 5A F3 74                                        kZ.t
+]
+]
+
+
+
+*******************************************
+*******************************************</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Convert the PKCS12 keystore for the NiFi instance into the Java KeyStore file (<code>keystore.jks</code>). PKCS12 keystores are usable by NiFi, but JKS format is handled more robustly and causes fewer edge cases. JKS keystores cannot be formed directly from PEM files, so the PKCS12 keystore serves as an intermediate form.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keytool -importkeystore -srckeystore nifi.p12 -srcstoretype pkcs12 -srcalias nifi-key -destkeystore keystore.jks
+-deststoretype jks -destalias nifi-key</code>&#8201;&#8212;&#8201;Converts the PKCS12 keystore to a JKS keystore. This command will prompt for a new keystore password twice, then prompt for the password set on the PKCS12 keystore from the previous step</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Convert the CA certificate into the NiFi truststore (<code>truststore.jks</code>) to allow trusted incoming connections.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keytool -importcert -alias nifi-cert -file cacert.pem -keystore truststore.jks</code>&#8201;&#8212;&#8201;Imports the CA certificate into the truststore. This command will prompt for a new truststore password twice</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>% keytool -importcert -alias nifi-cert -file cacert.pem -keystore truststore.jks
+Enter keystore password:
+Re-enter new password:
+Owner: CN=Apache NiFi CA CA, OU=Secure Digital Certificate Signing, O=Apache NiFi CA, L=Santa Monica, ST=CA, C=US
+Issuer: CN=Apache NiFi CA CA, OU=Secure Digital Certificate Signing, O=Apache NiFi CA, L=Santa Monica, ST=CA, C=US
+Serial number: 0
+Valid from: Mon Feb 08 20:24:06 PST 2016 until: Thu Feb 05 20:24:06 PST 2026
+Certificate fingerprints:
+	 SHA1: E9:CA:EF:26:C7:2A:AF:7A:FD:BC:97:12:ED:F5:6B:3B:79:40:D2:A3
+	 SHA256: 4C:0A:2F:C4:D3:CC:B5:A8:0E:0B:95:EE:0C:E6:60:7C:85:78:7A:58:77:BB:87:58:12:9B:D1:E4:BA:E0:9B:67
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions:
+
+#1: ObjectId: 2.5.29.19 Criticality=true
+BasicConstraints:[
+  CA:true
+  PathLen:2147483647
+]
+
+#2: ObjectId: 2.5.29.31 Criticality=false
+CRLDistributionPoints [
+  [DistributionPoint:
+     [URIName: http://crl.tinycert.org/ca-2405.crl]
+]]
+
+#3: ObjectId: 2.5.29.18 Criticality=false
+IssuerAlternativeName [
+  RFC822Name: andy@andylopresto.com
+]
+
+#4: ObjectId: 2.5.29.15 Criticality=true
+KeyUsage [
+  DigitalSignature
+  Key_Encipherment
+  Key_Agreement
+  Key_CertSign
+]
+
+#5: ObjectId: 2.5.29.17 Criticality=false
+SubjectAlternativeName [
+  RFC822Name: andy@andylopresto.com
+]
+
+#6: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 64 A2 F6 E9 F1 1A 9B 0F   40 5E 0F 23 DC AC 16 20  d.......@^.#...
+0010: 6B 5A F3 74                                        kZ.t
+]
+]
+
+Trust this certificate? [no]:  yes
+Certificate was added to keystore</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Optionally, move the <code>keystore.jks</code> and <code>truststore.jks</code> files into the <code>conf/</code> directory. This step is not required, but helps with organization.</p>
+</li>
+<li>
+<p>Configure the <code>nifi.properties</code> file with the necessary values. This includes setting the hostname, ports, and keystore and truststore paths and passwords.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$EDITOR conf/nifi.properties</code>&#8201;&#8212;&#8201;Opens the <code>nifi.properties</code> file in a text editor</p>
+</li>
+<li>
+<p>Update the following lines:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>nifi.remote.input.host=</code> &#8594; <code>nifi.remote.input.host=secure.nifi</code></p>
+</li>
+<li>
+<p><code>nifi.remote.input.secure=false</code> &#8594; <code>nifi.remote.input.secure=true</code></p>
+</li>
+<li>
+<p><code>nifi.remote.input.socket.port=</code> &#8594; <code>nifi.remote.input.socket.port=10443</code></p>
+</li>
+<li>
+<p><code>nifi.web.http.port=8080</code> &#8594; <code>nifi.web.http.port=</code></p>
+</li>
+<li>
+<p><code>nifi.web.https.host=</code> &#8594; <code>nifi.web.https.host=secure.nifi</code></p>
+</li>
+<li>
+<p><code>nifi.web.https.port=</code> &#8594; <code>nifi.web.https.port=9443</code></p>
+</li>
+<li>
+<p><code>nifi.security.keystore=</code> &#8594; <code>nifi.security.keystore=./conf/keystore.jks</code></p>
+</li>
+<li>
+<p><code>nifi.security.keystoreType=</code> &#8594; <code>nifi.security.keystoreType=jks</code></p>
+</li>
+<li>
+<p><code>nifi.security.keystorePasswd=</code> &#8594; <code>nifi.security.keystorePasswd=passwordpassword</code></p>
+</li>
+<li>
+<p><code>nifi.security.truststore=</code> &#8594; <code>nifi.security.truststore=./conf/truststore.jks</code></p>
+</li>
+<li>
+<p><code>nifi.security.truststoreType=</code> &#8594; <code>nifi.security.truststoreType=jks</code></p>
+</li>
+<li>
+<p><code>nifi.security.truststorePasswd=</code> &#8594; <code>nifi.security.truststorePasswd=passwordpassword</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate the client certificate keystore from the client certificate and key.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl pkcs12 -export -out CN=my_username.p12 -inkey client.key -in client.pem</code>&#8201;&#8212;&#8201;Creates the PKCS12 keystore containing the client certificate and private key. This command prompts for an <strong>export password</strong> twice</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploying-a-nifi-cluster"><a class="anchor" href="#deploying-a-nifi-cluster"></a>Deploying a NiFi Cluster</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apache NiFi can run in either <em>standalone</em> or <em>clustered</em> mode. A standalone node is often sufficient for dataflow operations, but in a production or high-volume environment, a cluster is more performant and resilient. For more information, see <a href="administration-guide.html#clustering" target="_blank" rel="noopener">NiFi Administrator&#8217;s Guide: Clustering</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="configuring-a-host-to-resolve-arbitrary-dns-hostnames"><a class="anchor" href="#configuring-a-host-to-resolve-arbitrary-dns-hostnames"></a>Configuring a Host to Resolve Arbitrary DNS Hostnames</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This section provides instructions to configure a single host machine to resolve dynamic hostnames via DNS using a tool called <code>dnsmasq</code>. This is useful if deploying a NiFi cluster to a single host machine to logically separate nodes running side-by-side. There are many options to achieve this outcome; this is one approach.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructions on installing and configuring dynamic DNS hostname resolution</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A NiFi cluster with multiple nodes needs to communicate between them and if all nodes are <code>localhost</code>, this is confusing and doesn&#8217;t support certificates for unique hostnames.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Starting Point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected Outcome</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The host machine can resolve arbitrary DNS hostnames without impacting normal network connectivity</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Helpful Reading</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estimated Duration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 minutes</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Machines resolve DNS hostnames (e.g. <code>nifi.apache.org</code>) to IP addresses (<code>95.216.24.32</code>). Each node in a NiFi cluster needs a hostname (e.g. <code>node1.nificluster.com</code>) to use while serving the UI/API and to communicate with peer nodes. When deploying a cluster of multiple nodes on the same physical/virtual host, each node can receive a different, non-conflicting set of ports, but the hostname (<code>localhost</code>) would conflict. By allowing arbitrary hostname resolution, each node can reside side-by-side but be identified uniquely.</p>
+</div>
+<div class="paragraph">
+<p>For this guide, any hostname which ends in <code>.nifi</code> will resolve to <code>localhost</code>.</p>
+</div>
+<div class="paragraph">
+<p>Prerequisites:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A *nix (or similar) operating system</p>
+</li>
+<li>
+<p>A package manager (e.g. <code>apt-get</code>, <code>yum</code>, <code>brew</code>). The instructions below use <code>brew</code>; substitute the command for the relevant package manager inline</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The end result will resolve <code>*.nifi</code> hostnames to the local machine and all other names with the pre-existing DNS resolution services.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install and configure dnsmasq.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Install dnsmasq.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>brew install dnsmasq</code></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>host@macbook ~ % brew install dnsmasq
+==&gt; Fetching dnsmasq
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/dnsmasq/manifests/2.89
+########################################################################## 100.0%
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/dnsmasq/blobs/sha256:490265bd8d3e8392380fff3b0fbb4caf65f918366b5cf8c613372d21844860aa
+==&gt; Downloading from https://pkg-containers.githubusercontent.com/ghcr1/blobs/sha256:490265bd8d3e8392380fff3b0fbb4caf65f918366b5cf8c61...
+########################################################################## 100.0%
+==&gt; Pouring dnsmasq--2.89.arm64_ventura.bottle.tar.gz
+==&gt; Caveats
+To start dnsmasq now and restart at startup:
+  sudo brew services start dnsmasq
+Or, if you don't want/need a background service you can just run:
+  /opt/homebrew/opt/dnsmasq/sbin/dnsmasq --keep-in-foreground -C /opt/homebrew/etc/dnsmasq.conf -7 /opt/homebrew/etc/dnsmasq.d,*.conf
+==&gt; Summary
+🍺  /opt/homebrew/Cellar/dnsmasq/2.89: 10 files, 646.3KB</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Start dnsmasq using the service manager.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sudo brew services start dnsmasq</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Make a new file <code>development.conf</code> in <code>/opt/homebrew/etc/dnsmasq.d/</code>. This file defines the address pattern to resolve. Here, <code>$EDITOR</code> is an environment variable defined as path to a text editor. You can use any text editor of your choice (Sublime Text, Atom, vi, emacs, nano, etc.).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$EDITOR /opt/homebrew/etc/dnsmasq.d/development.conf</code>&#8201;&#8212;&#8201;creates and opens <code>development.conf</code> file for editing</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Populate the <code>development.conf</code> with the address pattern. The <code>address/</code> line defines the pattern and the <code># Direct</code> line is a comment describing the pattern.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the following lines to <code>development.conf</code>:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code># Test NiFi instances
+address=/.nifi/127.0.0.1
+# Direct any hostnames ending in .nifi to 127.0.0.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Create a directory <code>resolver</code> in <code>/etc</code> directory.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sudo mkdir /etc/resolver</code>&#8201;&#8212;&#8201;creates 'resolver' directory</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Create a new file <code>nifi</code> in <code>/etc/resolver/</code>. This filename must match the top-level domain (TLD) to be resolved (e.g. <code>hostname.nifi</code> &#8594; <code>nifi</code>, <code>hostname.example</code> &#8594; <code>example</code>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sudo $EDITOR /etc/resolver/nifi</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Populate the <code>nifi</code> file and register a new DNS resolver (<code>dnsmasq</code> running on this host) with the OS.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the following line to <code>nifi</code>:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>nameserver 127.0.0.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Restart <code>dnsmasq</code>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sudo brew services restart dnsmasq</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>To test successful deployment of the new DNS resolver, ping two addresses. One is an external site not hosted by this machine to demonstrate that regular DNS functionality remains, and the other is a new hostname which this machine will respond to.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Ping an existing website hosted externally (<a href="https://nifi.apache.org" class="bare">https://nifi.apache.org</a>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ping -c 1 nifi.apache.org</code></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>PING nifi.apache.org (95.216.24.32): 56 data bytes
+64 bytes from 95.216.24.32: icmp_seq=0 ttl=48 time=189.600 ms</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the <code>nifi.apache.org</code> resolution is done by the system&#8217;s default DNS resolver and resolves to <code>95.216.24.32</code> (not this machine).</p>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Ping a non-existent website which this machine should resolve locally (<a href="http://imaginary.node.nifi" class="bare">http://imaginary.node.nifi</a>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ping -c 1 imaginary.node.nifi</code></p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>PING imaginary.node.nifi (127.0.0.1): 56 data bytes
+64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.026 ms</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the <code>*.nifi</code> resolution redirects to the host machine&#8217;s IP (<code>127.0.0.1</code>) which was configured via the  <code>/etc/resolver/nifi</code> file.</p>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="securing-nifi-with-mtls"><a class="anchor" href="#securing-nifi-with-mtls"></a>Securing NiFi with mTLS</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<a href="https://lists.apache.org/thread/vn1nzobtz4fh7fs461sgg8jj9zygrk0f" target="_blank" rel="noopener">(recent mailing list discussion)</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A secure setup of a NiFi cluster involves a set of keystores and truststores to facilitate secure communication between cluster nodes via the mTLS protocol.  Each cluster node will use a keystore containing a private key and certificate used to identify itself, and a truststore with a certificate that specifies trusted remote endpoints.  Commonly, the truststore will specify a single certificate authority, which can enable a trust relationship with any certificate signed by the authority.</p>
+</div>
+<div class="paragraph">
+<p>Multiple options are available to create the needed keystores and truststores:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>kubernetes / cert-manager <a href="https://cert-manager.io/" target="_blank" rel="noopener">(link)</a></p>
+</li>
+<li>
+<p>Let&#8217;s Encrypt <a href="https://letsencrypt.org/" target="_blank" rel="noopener">(link)</a></p>
+</li>
+<li>
+<p>organization-specific Certificate Authorities</p>
+</li>
+<li>
+<p>mkcert <a href="https://github.com/FiloSottile/mkcert/" target="_blank" rel="noopener">(link)</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the special case of a single node NiFi development instance, automatic self-signed certificate generation has been available in NiFi since version 1.14.0.  This utility performs the needed certificate generation and configuration on the first run of a freshly built NiFi assembly.</p>
+</div>
+<div class="sect3">
+<h4 id="manual-keystore"><a class="anchor" href="#manual-keystore"></a>Manual Keystore Generation</h4>
+<div class="paragraph">
+<p>Manual use of <a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a> and/or the Java <code>keytool</code> utility can also help to provide the keystores and truststores to secure NiFi cluster communications.  While use of one of the previously mentioned alternatives is encouraged, these commands are documented for informational purposes, and as an additional alternative if needed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The following OpenSSL version is known to support generation of certificates with "subjectAltName": <code>OpenSSL 3.0.7 1 Nov 2022</code>.  The following OpenSSL version is known not to support generation of certificates with "subjectAltName": <code>LibreSSL 2.8.3</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the below instructions, values for <code>subjectAltName IP</code> and <code>subjectAltName DNS</code> should be substituted as appropriate for the use case.  The instructions intend only to convey syntax.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Many of the below commands will request a password that will protect the data generated by the command.  Choose a password appropriately strong for the use case.  Protect the security of the passwords and generated files in a manner appropriate for the use case.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Generate certificate authority key.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl genrsa -aes256 -out ca.key 3072</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate cluster node key (one for each node).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl genrsa -aes256 -out nifi1.key 3072</code></p>
+</li>
+<li>
+<p><code>openssl genrsa -aes256 -out nifi2.key 3072</code></p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate certificate authority certificate.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl req -new -x509 -days 1461 -key ca.key -sha256  -out ca.cer -subj "/CN=nifi-ca/OU=nifi/"</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate cluster node certificate signing request (one for each node).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl req -new -key nifi1.key -out nifi1.csr -subj "/CN=nifi1/OU=nifi/" -addext "subjectAltName = IP:192.168.1.1,DNS:localhost"</code></p>
+</li>
+<li>
+<p><code>openssl req -new -key nifi2.key -out nifi2.csr -subj "/CN=nifi2/OU=nifi/" -addext "subjectAltName = IP:192.168.1.2,DNS:localhost"</code></p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate cluster node certificate, using certificate authority key (one for each node).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl x509 -req -in nifi1.csr -CA ca.cer -CAkey ca.key -CAcreateserial -out nifi1.cer -days 365 -sha256 -copy_extensions=copyall</code></p>
+</li>
+<li>
+<p><code>openssl x509 -req -in nifi2.csr -CA ca.cer -CAkey ca.key -CAcreateserial -out nifi1.cer -days 365 -sha256 -copy_extensions=copyall</code></p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate cluster node certificate chain (one for each node).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cat nifi1.cer ca.cer &gt;nifi1.chain.cer</code></p>
+</li>
+<li>
+<p><code>cat nifi2.cer ca.cer &gt;nifi2.chain.cer</code></p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate certificate authority keystore.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>keytool -importcert -keystore trust.p12 -storetype PKCS12 -file ca.cer -alias 1</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Generate cluster node keystore (one for each node).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>openssl pkcs12 -export -out nifi1.p12 -inkey nifi1.key -in nifi1.chain.cer</code></p>
+</li>
+<li>
+<p><code>openssl pkcs12 -export -out nifi2.p12 -inkey nifi2.key -in nifi2.chain.cer</code></p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After completing these steps, use the generated keystores and truststore as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Node</th>
+<th class="tableblock halign-left valign-top">Keystore</th>
+<th class="tableblock halign-left valign-top">Truststore</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nifi1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nifi1.p12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trust.p12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nifi2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nifi2.p12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trust.p12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">trust.p12</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2024-11-04 08:22:42 -0500
+</div>
+</div>
+</body>
+</html>

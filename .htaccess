@@ -5,10 +5,13 @@ RewriteCond     %{HTTPS} !=on
 RewriteRule     ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 
 # Redirect latest documentation alias to specified version
-RewriteRule ^documentation/nifi-latest/html/(.+?)$ /documentation/nifi-2.0.0-M4/html/$1 [L,R]
+RewriteRule ^documentation/nifi-latest/html/(.+?)$ /nifi-docs/$1 [L,R]
 
 # Redirect component documentation to specified version
-RewriteRule ^docs/nifi-docs/components/org\.apache\.nifi/([^\/]+?)/[^\/]+?/(.*)$ docs/nifi-docs/components/org.apache.nifi/$1/1.27.0/$2 [L]
+RewriteRule ^docs/nifi-docs/components/org\.apache\.nifi/([^\/]+?)/[^\/]+?/(.*)$ docs/nifi-docs/components/org.apache.nifi/$1/1.28.0/$2 [L]
+
+# Rewrite documentation overview pages
+RewriteRule ^documentation/v2/$ /components/ [L,R]
 
 # Rewrite historical links
 RewriteRule ^minifi/.*$ /projects/minifi/ [L,R]
