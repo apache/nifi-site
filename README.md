@@ -16,32 +16,66 @@
 -->
 # Apache NiFi Website
 
-The Apache NiFi website uses [Hugo](https://gohugo.io) to build static HTML and related resources.
+<img src="https://nifi.apache.org/assets/images/apache-nifi-logo.svg" width="300" alt="Apache NiFi"/>
 
-## Environment Configuration
+### Status
 
-- [Install Hugo](https://gohugo.io/getting-started/installing)
-- Clone repository
-  - `git clone https://github.com/apache/nifi-site.git`
+[![build](https://github.com/apache/nifi-site/workflows/build/badge.svg)](https://github.com/apache/nifi-site/actions/workflows/build.yml)
+[![License](https://img.shields.io/github/license/apache/nifi-site)](https://github.com/apache/nifi-site/blob/main/LICENSE)
 
-## Preview
+### Contacts
 
-- Start Hugo Server
-  - `hugo server`
-- Open Browser Preview
-  - http://localhost:1313/
+[![Track Issues](https://img.shields.io/badge/track-Issues-728e9b.svg?logo=jirasoftware)](https://issues.apache.org/jira/browse/NIFI)
+[![Chat on Slack](https://img.shields.io/badge/chat-Slack-728e9b.svg?logo=slack)](https://s.apache.org/nifi-community-slack)
+[![Contact Developers](https://img.shields.io/badge/contact-Developers-728e9b.svg?logo=apache)](https://lists.apache.org/list.html?dev@nifi.apache.org)
+[![Contact Users](https://img.shields.io/badge/contact-Users-728e9b.svg?logo=apache)](https://lists.apache.org/list.html?users@nifi.apache.org)
 
-## Build
+### Community
 
-- Run prebuild.sh for generated documentation
-  - `bash prebuild.sh`
+[![Join Slack Community](https://img.shields.io/badge/join-Slack-728e9b.svg?logo=slack)](https://join.slack.com/t/apachenifi/shared_invite/zt-11njbtkdx-ZRU8FKYSWoEHRJetidy0zA)
+[![Follow on LinkedIn](https://img.shields.io/badge/follow-Apache%20NiFi-728e9b.svg?logo=linkedin)](https://www.linkedin.com/company/apache-nifi/)
+[![Follow on X](https://img.shields.io/badge/follow-apachenifi-728e9b.svg?logo=x)](https://x.com/apachenifi)
 
-- Run Hugo Build
-  - `hugo`
+## Developing
 
-## Publish
+The project website uses [Hugo](https://gohugo.io) to build static HTML and related resources.
+
+### Prerequisites
+
+- [Hugo](https://gohugo.io/getting-started/installing)
+
+### Preparation
+
+Prepare build artifacts using published component manifests for generated documentation.
+
+```shell
+bash prebuild.sh
+```
+
+### Building
+
+Start Hugo Server to view rendered pages.
+
+```shell
+hugo server
+```
+
+Open a web browser to preview rendered pages.
+
+```
+http://localhost:1313
+```
+
+Run Hugo to generate pages in the `public` directory.
+
+```shell
+hugo
+```
+
+## Publishing
 
 The Apache NiFi website uses [GitHub Actions](https://docs.github.com/en/actions) and
 [Apache Software Foundation Infrastructure](https://infra.apache.org/project-site.html) configuration for automated
-publishing. See [Website Publishing](https://cwiki.apache.org/confluence/display/NIFI/Website+Publishing) for
-documentation.
+publishing.
+
+See [Website Publishing](https://cwiki.apache.org/confluence/display/NIFI/Website+Publishing) for documentation.
