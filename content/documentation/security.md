@@ -93,7 +93,7 @@ affectedVersions="1.10.0 to 1.26.0 and 2.0.0-M1 to 2.0.0-M3"
 fixedVersion="1.27.0 and 2.0.0-M4"
 jira="NIFI-13374"
 pullRequest="8938"
-reporter="Akbar Kustirama at abay.sh" >}}
+reporter="Akbar Kustirama at abay.sh, GitHub user abaykan" >}}
 
 Apache NiFi 1.10.0 through 1.26.0 and 2.0.0-M1 through 2.0.0-M3 support a description field in the Parameter Context
 configuration that is vulnerable to cross-site scripting. An authenticated user, authorized to configure a Parameter
