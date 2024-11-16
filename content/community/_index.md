@@ -43,6 +43,8 @@ project is unbounded. Get involved today. All contributions to the project are g
 Emeritus members are those that served as PMC members or committers and who have since moved into inactive status.
 Their contributions and efforts are greatly appreciated in helping the community develop.
 
+<div class="project-members">
+
 | Apache Username | Name              |
 |-----------------|-------------------|
 | bimargulies     | Benson Margulies  |
@@ -50,8 +52,14 @@ Their contributions and efforts are greatly appreciated in helping the community
 | pwicks          | Peter Wicks       |
 | jpercivall      | Joe Percivall     |
 
+</div>
+
 ## In Memoriam
+
+<div class="project-members">
 
 | Apache Username | Name        |
 |-----------------|-------------|
 | jstorck         | Jeff Storck |
+
+</div>
