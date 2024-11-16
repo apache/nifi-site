@@ -30,7 +30,7 @@ window.addEventListener('uikit:init', () => {
 });
 </script>
 
-<ul class="uk-switcher">
+<ul class="uk-switcher uk-width-1-2@m">
 <li>
 
 ## Apache NiFi
@@ -49,6 +49,18 @@ window.addEventListener('uikit:init', () => {
 
 ### NiFi {{< param previousProjectVersion >}} <a href="https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}}">Release Notes</a>
 
+<div class="uk-card uk-card-default uk-card-body uk-margin-bottom">
+
+Apache NiFi 1.28 is the last minor release of the version 1 series. The project management committee may consider
+critical bug fixes for essential framework features on an exceptional basis. Critical bug fixes do not include upgrading
+project dependencies. Multiple fundamental dependencies in NiFi 1 cannot be upgraded. These dependencies
+include [Jetty 9.4](https://github.com/jetty/jetty.project/issues/7958),
+[Spring Framework 5.3](https://spring.io/blog/2024/08/14/spring-framework-6-1-12-6-0-23-and-5-3-39-available-now),
+and [AngularJS 1.8](https://docs.angularjs.org/misc/version-support-status).
+The Apache NiFi Team strongly encourages users to upgrade to NiFi 2.
+
+</div>
+
 - Released: {{< param previousProjectVersionReleased >}}
 - [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
 
@@ -57,9 +69,6 @@ window.addEventListener('uikit:init', () => {
 
 #### Binaries
 {{< download-links version="previous" label="NiFi Standard" project="nifi" extension="-bin.zip">}}
-{{< download-links version="previous" label="NiFi Stateless" project="nifi" extension="-bin.zip" qualifier="stateless">}}
-{{< download-links version="previous" label="NiFi Kafka Connector" project="nifi" extension=".zip" qualifier="kafka-connector-assembly">}}
-{{< download-links version="previous" label="NiFi Toolkit" project="nifi" extension="-bin.zip" qualifier="toolkit">}}
 
 </li>
 <li>
