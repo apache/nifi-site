@@ -30,7 +30,7 @@ window.addEventListener('uikit:init', () => {
 });
 </script>
 
-<ul class="uk-switcher uk-width-1-2@m">
+<ul class="uk-switcher uk-width-1-2@l uk-width-2-3@m">
 <li>
 
 ## Apache NiFi
@@ -61,13 +61,10 @@ The Apache NiFi Team strongly encourages users to upgrade to NiFi 2.
 
 </div>
 
-- Released: {{< param previousProjectVersionReleased >}}
-- [Migration Guidance](https://cwiki.apache.org/confluence/display/NIFI/Migration+Guidance)
+- End of Support: 2024-12-08
 
-#### Sources
 {{< download-links version="previous" label="Source" project="nifi" extension="-source-release.zip">}}
 
-#### Binaries
 {{< download-links version="previous" label="NiFi Standard" project="nifi" extension="-bin.zip">}}
 
 </li>
