@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode408s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode409s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Security</h1>
 <p>Apache NiFi welcomes the responsible reporting of security vulnerabilities. Project Management Committee members will
 collaborate and respond to potential vulnerabilities, providing an assessment of the concern and a plan of action to
@@ -614,6 +614,50 @@ contrary to best practices, but it does not constitute of security issue for rem
 </ul>
 <h1 id="published-vulnerabilities">Published Vulnerabilities</h1>
 <p>The following announcements include published vulnerabilities that apply directly to Apache NiFi components.</p>
+<div class="vulnerability-container">
+  <h3 id="CVE-2024-52067">CVE-2024-52067</h3>
+
+  <ul>
+    <li>Title: Potential Insertion of Sensitive Parameter Values in Debug Log</li>
+    <li>Published: 2024-11-20</li>
+    <li>Severity: Medium</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.16.0 to 1.28.0 and 2.0.0-M1 to 2.0.0-M4</li>
+    <li>Fixed Versions: 1.28.1 and 2.0.0</li>
+    <li>Reporter: David Handermann</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2024-52067" target="_blank">CVE-2024-52067</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-52067" target="_blank">CVE-2024-52067</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-13971" target="_blank">NIFI-13971</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/9489" target="_blank">9489</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.16.0 through 1.28.0 and 2.0.0-M1 through 2.0.0-M4 include optional debug logging of Parameter Context values
+during the flow synchronization process. An authorized administrator with access to change logging levels could enable debug logging
+for framework flow synchronization, causing the application to write Parameter names and values to the application log.
+Parameter Context values may contain sensitive information depending on application flow configuration.
+Deployments of Apache NiFi with the default Logback configuration do not log Parameter Context values.
+Upgrading to Apache NiFi 2.0.0 or 1.28.1 is the recommendation mitigation, eliminating Parameter value logging from the flow synchronization process regardless of the Logback configuration.
+
+
+  </p>
+</div>
 <div class="vulnerability-container">
   <h3 id="CVE-2024-45477">CVE-2024-45477</h3>
 
