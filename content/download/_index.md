@@ -117,11 +117,8 @@ The Apache NiFi Team strongly encourages users to upgrade to NiFi 2.
 
 ### Registry {{< param previousProjectVersion >}} [Release Notes](https://cwiki.apache.org/confluence/display/NIFI/Release+Notes#ReleaseNotes-Version{{< param previousProjectVersion >}})
 
-- Released: {{< param previousProjectVersionReleased >}}
+- End of Support: 2024-12-08
 
-#### Sources
-{{< download-links version="previous" label="Source" extension=-source-release.zip >}}
-#### Binaries
 {{< download-links version="previous" label="NiFi Registry" qualifier="registry" extension=-bin.zip >}}
 
 </li>
