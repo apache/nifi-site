@@ -65,6 +65,27 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2024-52067"
+title="Potential Insertion of Sensitive Parameter Values in Debug Log"
+published="2024-11-20"
+severity="Medium"
+products="Apache NiFi"
+affectedVersions="1.16.0 to 1.28.0 and 2.0.0-M1 to 2.0.0-M4"
+fixedVersion="1.28.1 and 2.0.0"
+jira="NIFI-13971"
+pullRequest="9489"
+reporter="David Handermann" >}}
+
+Apache NiFi 1.16.0 through 1.28.0 and 2.0.0-M1 through 2.0.0-M4 include optional debug logging of Parameter Context values
+during the flow synchronization process. An authorized administrator with access to change logging levels could enable debug logging
+for framework flow synchronization, causing the application to write Parameter names and values to the application log.
+Parameter Context values may contain sensitive information depending on application flow configuration.
+Deployments of Apache NiFi with the default Logback configuration do not log Parameter Context values.
+Upgrading to Apache NiFi 2.0.0 or 1.28.1 is the recommendation mitigation, eliminating Parameter value logging from the flow synchronization process regardless of the Logback configuration.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2024-45477"
 title="Improper Neutralization of Input in Parameter Description"
 published="2024-10-28"
