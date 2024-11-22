@@ -22,6 +22,20 @@
     <dd>{{ .Params.supportsSensitiveDynamicProperties }}</dd>
 </dl>
 
+{{ if .Params.additionalDetails }}
+
+{{ $detailsPage := .GetPage "additional-details" }}
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for {{ .Params.title }} {{ .Params.version }}</a>
+        <div class="uk-accordion-content">
+            {{ $detailsPage.Content }}
+        </div>
+    </li>
+</ul>
+
+{{ end }}
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">
