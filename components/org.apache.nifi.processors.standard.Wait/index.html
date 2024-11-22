@@ -2298,6 +2298,376 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for Wait 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="wait">Wait</h1>
+<h2 id="best-practices-to-handle-multiple-signal-ids-at-a-wait-processor">Best practices to handle multiple signal ids at a Wait processor</h2>
+<p>When a Wait processor is expected to process multiple signal ids, by configuring &lsquo;Release Signal Identifier&rsquo; with a
+FlowFile attribute Expression Language, there are few things to consider in order to get the expected result. Processor
+configuration can vary based on your requirement. Also, you will need to have high level understanding on how Wait
+processor works:</p>
+<ul>
+<li>The Wait processor only processes a single signal id at a time</li>
+<li>How frequently the Wait processor runs is defined in the &lsquo;Run Schedule&rsquo;</li>
+<li>Which FlowFile is processed is determined by a Prioritizer</li>
+<li>Not limited to the Wait processor, but for all processors, the order of queued FlowFiles in a connection is undefined
+if no Prioritizer is set</li>
+</ul>
+<p>See following sections for common patterns</p>
+<ul>
+<li><a href="#asap">Release any FlowFile as soon as its signal is notified</a></li>
+<li><a href="#higher-priority">Release higher priority FlowFiles in each signal id</a></li>
+</ul>
+<h3 id="release-any-flowfile-as-soon-as-its-signal-is-notified">Release any FlowFile as soon as its signal is notified</h3>
+<p>This is the most common use case. FlowFiles are independent and can be released in any order.</p>
+<h4 id="important-configurations">Important configurations:</h4>
+<ul>
+<li>Use FirstInFirstOutPrioritizer (FIFO) at &lsquo;wait&rsquo; relationship (or the incoming connection if &lsquo;Wait Mode&rsquo; is &lsquo;Keep in
+the upstream connection)</li>
+</ul>
+<p>The following table illustrates the notified signal ids, queued FlowFiles and what will happen at each Wait run cycle.</p>
+<table>
+<thead>
+<tr>
+<th># of Wait run</th>
+<th>Notified Signals</th>
+<th>Queue Index (FIFO)</th>
+<th>FlowFile UUID</th>
+<th>Signal ID</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>B</td>
+<td>1</td>
+<td>a</td>
+<td>A</td>
+<td>This FlowFile is processed. But its signal is not found, and will be re-queued at the end of the queue.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>b</td>
+<td>B</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>c</td>
+<td>C</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>B</td>
+<td>1</td>
+<td>b</td>
+<td>B</td>
+<td>This FlowFile is processed and since its signal is notified, this one will be released to &lsquo;success&rsquo;.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>c</td>
+<td>C</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>a</td>
+<td>A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>1</td>
+<td>c</td>
+<td>C</td>
+<td>This FlowFile will be processed at the next run.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>a</td>
+<td>A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="release-higher-priority-flowfiles-in-each-signal-id">Release higher priority FlowFiles in each signal id</h3>
+<p>Multiple FlowFiles share the same signal id, and the order of releasing a FlowFile is important.</p>
+<h4 id="important-configurations-1">Important configurations:</h4>
+<ul>
+<li>Use a (or set of a) Prioritizer(s) suites your need other than FIFO, at &lsquo;wait&rsquo; relationship (or the incoming
+connection if &lsquo;Wait Mode&rsquo; is &lsquo;Keep in the upstream connection), e.g. PriorityPrioritizer</li>
+<li>Specify adequate &lsquo;Wait Penalty Duration&rsquo;, e.g. &ldquo;3 sec&rdquo;,</li>
+<li>&lsquo;Wait Penalty Duration&rsquo; should be grater than &lsquo;Run Schedule&rsquo;, e.g &ldquo;3 sec&rdquo; &gt; &ldquo;1 sec&rdquo;</li>
+<li>Increase &lsquo;Run Duration&rsquo; to avoid the limitation of number of signal ids (see the <a href="#run-duration">note</a> below)</li>
+</ul>
+<p>The following table illustrates the notified signal ids, queued FlowFiles and what will happen at each Wait run cycle.
+The example uses PriorityPrioritizer to control the order of processing FlowFiles within a signal id. If &lsquo;Wait Penalty
+Duration&rsquo; is configured, Wait processor tracks unreleased signal ids and their penalty representing when they will be
+checked again.</p>
+<table>
+<thead>
+<tr>
+<th># of Wait run</th>
+<th>Notified Signals</th>
+<th>Signal Penalties</th>
+<th>Queue Index (via &lsquo;priority&rsquo; attribute)</th>
+<th>FlowFile UUID</th>
+<th>Signal ID</th>
+<th>&lsquo;priority&rsquo; attr</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (00:01)</td>
+<td>B</td>
+<td></td>
+<td>1</td>
+<td>a-1</td>
+<td>A</td>
+<td>1</td>
+<td>This FlowFile is processed. But its signal is not found. Penalized.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>b-1</td>
+<td>B</td>
+<td>1</td>
+<td>Since a-1 and b-1 have the same priority &lsquo;1&rsquo;, b-1 may be processed before a-1. You can add another Prioritizer to define more specific ordering.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>b-2</td>
+<td>B</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2 (00:02)</td>
+<td>B</td>
+<td>A (00:04)</td>
+<td>1</td>
+<td>a-1</td>
+<td>A</td>
+<td>1</td>
+<td>This FlowFile is the first one according to the configured Prioritizer, but the signal id is penalized. So, this FlowFile is skipped at this execution.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>b-1</td>
+<td>B</td>
+<td>1</td>
+<td>This FlowFile is processed.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>b-2</td>
+<td>B</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3 (00:03)</td>
+<td></td>
+<td>A (00:04)</td>
+<td>1</td>
+<td>a-1</td>
+<td>A</td>
+<td>1</td>
+<td>This FlowFile is the first one but is still penalized.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>b-2</td>
+<td>B</td>
+<td>2</td>
+<td>This FlowFile is processed, but its signal is not notified yet, thus will be penalized.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4 (00:04)</td>
+<td></td>
+<td>B (00:06)</td>
+<td>1</td>
+<td>a-1</td>
+<td>A</td>
+<td>1</td>
+<td>This FlowFile is no longer penalized, and get processed. But its signal is not notified yet, thus will be penalized again.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>b-2</td>
+<td>B</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="the-importance-of-run-duration-when-wait-penalty-duration-is-used">The importance of &lsquo;Run Duration&rsquo; when &lsquo;Wait Penalty Duration&rsquo; is used</h4>
+<p>There are limitation of number of signals can be checked based on the combination of &lsquo;Run Schedule&rsquo; and &lsquo;Wait Penalize
+Duration&rsquo;. If this limitation is engaged, some FlowFiles may not be processed and remain in the &lsquo;wait&rsquo; relationship even
+if their signal ids are notified. Let&rsquo;s say Wait is configured with:</p>
+<ul>
+<li>Run Schedule = 1 sec</li>
+<li>Wait Penalize Duration = 3 sec</li>
+<li>Release Signal Identifier = ${uuid}</li>
+</ul>
+<p>And there are 5 FlowFiles F1, F2 &hellip; F5 in the &lsquo;wait&rsquo; relationship. Then the signal for F5 is notified. Wait will work
+as follows:</p>
+<ul>
+<li>At 00:00 Wait checks the signal for F1, not found, and penalize F1 (till 00:03)</li>
+<li>At 00:01 Wait checks the signal for F2, not found, and penalize F2 (till 00:04)</li>
+<li>At 00:02 Wait checks the signal for F3, not found, and penalize F3 (till 00:05)</li>
+<li>At 00:03 Wait checks the signal for F4, not found, and penalize F4 (till 00:06)</li>
+<li>At 00:04 Wait checks the signal for F1 again, because it&rsquo;s not penalized any longer</li>
+</ul>
+<p>Repeat above cycle, thus F5 will not be released until one of F1 &hellip; F4 is released.</p>
+<p>To mitigate such limitation, increasing &lsquo;Run Duration&rsquo; is recommended. By increasing &lsquo;Run Duration&rsquo;, Wait processor can
+keep being scheduled for that duration. For example, with &lsquo;Run Duration&rsquo; 500 ms, Wait should be able to loop through all
+5 queued FlowFiles at a single run.</p>
+<h2 id="using-counters">Using counters</h2>
+<p>A counter is basically a label to differentiate signals within the cache. (A cache in this context is a &ldquo;container&rdquo; that
+contains signals that have the same signal identifier.)</p>
+<p>Let&rsquo;s suppose that there are the following signals in the cache (note, that these are not FlowFiles on the incoming (or
+wait) connection of the Wait processor, like in the examples above, but release signals stored in the cache.)</p>
+<table>
+<thead>
+<tr>
+<th>Signal ID</th>
+<th>Signal Counter Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>counter_1</td>
+</tr>
+<tr>
+<td>A</td>
+<td>counter_1</td>
+</tr>
+<tr>
+<td>A</td>
+<td>counter_2</td>
+</tr>
+</tbody>
+</table>
+<p>In this state, the following FlowFile gets processed by the Wait processor, (the FlowFile has a signal_counter_name
+attribute and the Wait processor is configured to use the value of this attribute as the value of the Signal Counter
+Name property):</p>
+<table>
+<thead>
+<tr>
+<th>FlowFile UUID</th>
+<th>Signal ID</th>
+<th>signal_counter_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a-1</td>
+<td>A</td>
+<td>counter_3</td>
+</tr>
+</tbody>
+</table>
+<p>Despite the fact that the cache identified by Signal ID &ldquo;A&rdquo; has signals in it, the FlowFile above will be sent to the '
+wait&rsquo; relationship, since there is no signal in the cache that belongs to the counter named &ldquo;counter_3&rdquo;.</p>
+<p>Let&rsquo;s suppose, that the state of the cache is the same as above, and the following FlowFile gets processed by the Wait
+processor:</p>
+<table>
+<thead>
+<tr>
+<th>FlowFile UUID</th>
+<th>Signal ID</th>
+<th>signal_counter_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a-2</td>
+<td>A</td>
+<td>counter_1</td>
+</tr>
+</tbody>
+</table>
+<p>The FlowFile is transmitted to the &lsquo;success&rsquo; relationship, since cache &ldquo;A&rdquo; has signals in it and there are signals that
+belong to &ldquo;counter_1&rdquo;. The outgoing FlowFile will have the following attributes and their values appended to it:</p>
+<ul>
+<li>wait.counter.counter_1 : 2</li>
+<li>wait.counter.counter_2 : 1</li>
+<li>wait.counter.total : 3</li>
+</ul>
+<p>The key point here is that counters can be used to differentiate between signals within the cache. If counters are used,
+a new attribute will be appended to the FlowFile passing the Wait processor for each counter. If a large number of
+counters are used within a cache, the FlowFile passing the Wait processor will have a large number of attributes
+appended to it. To avoid that, it is recommended to use multiple caches with a few counters in each, instead of one
+cache with many counters.</p>
+<p>For example:</p>
+<ul>
+<li>Cache identified by Release Signal ID &ldquo;A&rdquo; has counters: &ldquo;counter_1&rdquo; and &ldquo;counter_2&rdquo;</li>
+<li>Cache identified by Release Signal ID &ldquo;B&rdquo; has counters: &ldquo;counter_3&rdquo; and &ldquo;counter_4&rdquo;</li>
+<li>Cache identified by Release Signal ID &ldquo;C&rdquo; has counters: &ldquo;counter_5&rdquo; and &ldquo;counter_6&rdquo;</li>
+</ul>
+<p>(Counter names do not need to be unique between caches, the counter name(s) used in cache &ldquo;A&rdquo; could be reused in cache &quot;
+B&quot; and &ldquo;C&rdquo; as well.)</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

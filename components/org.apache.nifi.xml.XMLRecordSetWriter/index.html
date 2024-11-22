@@ -2298,6 +2298,154 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for XMLRecordSetWriter 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="xmlrecordsetwriter">XMLRecordSetWriter</h1>
+<p>The XMLRecordSetWriter Controller Service writes record objects to XML. The Controller Service must be configured with a
+schema that describes the structure of the record objects. Multiple records are wrapped by a root node. The name of the
+root node can be configured via property. If no root node is configured, the writer expects only one record for each
+FlowFile (that will not be wrapped). As Avro does not support defining attributes for records, this writer currently
+does not support writing XML attributes.</p>
+<h2 id="example-simple-records">Example: Simple records</h2>
+<pre tabindex="0"><code>RecordSet (
+  Record (
+    Field &#34;name1&#34; = &#34;value1&#34;,
+    Field &#34;name2&#34; = 42
+  ),
+  Record (
+    Field &#34;name1&#34; = &#34;value2&#34;,
+    Field &#34;name2&#34; = 84
+  )
+)
+</code></pre><p>This record can be described by the following schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name2&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Assuming that &ldquo;root_name&rdquo; has been configured as the name for the root node and &ldquo;record_name&rdquo; has been configured as
+the name for the record nodes, the writer will write the following XML:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;root_name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;record_name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name1&gt;</span>value1<span style="color:#f92672">&lt;/name1&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name2&gt;</span>42<span style="color:#f92672">&lt;/name2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/record_name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;record_name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name1&gt;</span>value2<span style="color:#f92672">&lt;/name1&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name2&gt;</span>84<span style="color:#f92672">&lt;/name2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/record_name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/root_name&gt;</span>
+</span></span></code></pre></div><p>The writer furthermore can be configured how to treat null or missing values in records:</p>
+<pre tabindex="0"><code>RecordSet (
+  Record (
+    Field &#34;name1&#34; = &#34;value1&#34;,
+    Field &#34;name2&#34; = null
+  ),
+  Record (
+    Field &#34;name1&#34; = &#34;value2&#34;,
+  )
+)
+</code></pre><p>If the writer is configured always to suppress missing or null values, only the field of name &ldquo;name1&rdquo; will appear in the
+XML. If the writer ist configured only to suppress missing values, the field of name &ldquo;name2&rdquo; will appear in the XML as a
+node without content for the first record. If the writer is configured never to suppress anything, the field of name &quot;
+name2&quot; will appear in the XML as a node without content for both records.</p>
+<h2 id="example-arrays">Example: Arrays</h2>
+<p>The writer furthermore can be configured how to write arrays:</p>
+<pre tabindex="0"><code>RecordSet (
+  Record (
+    Field &#34;name1&#34; = &#34;value1&#34;,
+    Field &#34;array_field&#34; = [ 1, 2, 3 ]
+  )
+)
+</code></pre><p>This record can be described by the following schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;array_field&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>If the writer is configured not to wrap arrays, it will transform the record to the following XML:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;root_name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;record_name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name1&gt;</span>value1<span style="color:#f92672">&lt;/name1&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;array_field&gt;</span>1<span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;array_field&gt;</span>2<span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;array_field&gt;</span>3<span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/record_name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/root_name&gt;</span>
+</span></span></code></pre></div><p>If the writer is configured to wrap arrays using the field name as wrapper and &ldquo;elem&rdquo; as tag name for element nodes, it
+will transform the record to the following XML:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;root_name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;record_name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name1&gt;</span>value1<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;array_field&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;elem&gt;</span>1<span style="color:#f92672">&lt;/elem&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;elem&gt;</span>2<span style="color:#f92672">&lt;/elem&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;elem&gt;</span>3<span style="color:#f92672">&lt;/elem&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/record_name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/root_name&gt;</span>
+</span></span></code></pre></div><p>If the writer is configured to wrap arrays using &ldquo;wrap&rdquo; as wrapper and the field name as tag name for element nodes, it
+will transform the record to the following XML:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;root_name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;record_name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name1&gt;</span>value1<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;wrap&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;array_field&gt;</span>1<span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;array_field&gt;</span>2<span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;array_field&gt;</span>3<span style="color:#f92672">&lt;/array_field&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/wrap&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/record_name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/root_name&gt;</span>
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

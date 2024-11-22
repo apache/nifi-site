@@ -2298,6 +2298,559 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for RemoveRecordField 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="removerecordfield">RemoveRecordField</h1>
+<h2 id="removerecordfield-processor-usage-with-examples">RemoveRecordField processor usage with examples</h2>
+<p>The RemoveRecordField processor is capable of removing fields from a NiFi record. The fields that should be removed from
+the record are identified by a RecordPath expression. To learn about RecordPath, please read the RecordPath Guide.</p>
+<p>RemoveRecordField will update all Records within the FlowFile based upon the RecordPath(s) configured for removal. The
+Schema associated with the Record Reader configured to read the FlowFile content will be updated based upon the same
+RecordPath(s) and considering the values remaining within the Record&rsquo;s Fields after removal. This updated schema can be
+used for output if the Record Writer has a Schema Access Strategy of Inherit Record Schema, otherwise the schema updates
+will be lost and the Records output using the Schema configured upon the Writer.</p>
+<p>Below are some examples that are intended to explain how to use the processor. In these examples the input data, the
+record schema, the output data and the output schema are all in JSON format for easy understanding. We assume that the
+processor is configured to use a JsonTreeReader and JsonRecordSetWriter controller service, but of course the processor
+works with other Reader and Writer controller services as well. In the examples it is also assumed that the record
+schema is provided explicitly as a FlowFile attribute (avro.schema attribute), and the Reader uses this schema to work
+with the FlowFile. The Writer&rsquo;s Schema Access Strategy is &ldquo;Inherit Record Schema&rdquo; so that all modifications made to the
+schema by the processor are considered by the Writer. Schema Write Strategy of the Writer is set to &ldquo;Set &lsquo;avro.schema&rsquo;
+Attribute&rdquo; so that the output FlowFile contains the schema as an attribute value.</p>
+<h3 id="example-1">Example 1:</h3>
+<p><strong>Removing a field from a simple record</strong></p>
+<p>Input data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dateOfBirth&#34;</span>: <span style="color:#e6db74">&#34;1980-01-01&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Input schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;PersonRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;dateOfBirth&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Field to remove:</p>
+<p>/dateOfBirth</p>
+<p>In this case the <em>dateOfBirth</em> field is removed from the record as well as the schema.</p>
+<p>Output data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Output schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;PersonRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Note, that removing a field from a record differs from setting a field&rsquo;s value to <em>null</em>. With RemoveRecordField a field
+is completely removed from the record and its schema regardless of the field being nullable or not.</p>
+<h3 id="example-2">Example 2:</h3>
+<p><strong>Removing fields from a complex record</strong></p>
+<p>Let&rsquo;s suppose we have an input record that contains a <em>homeAddress</em> and a <em>mailingAddress</em> field both of which contain a
+<em>zip</em> field and we want to remove the <em>zip</em> field from both of them.</p>
+<p>Input data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;homeAddress&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1111</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Main&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;mailingAddress&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1121</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Input schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;PersonRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;homeAddress&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;address&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;zip&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;street&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;number&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;mailingAddress&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;address&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <em>zip</em> field from both addresses can be removed by specifying &ldquo;Field to remove 1&rdquo; property on the processor as &quot;
+/homeAddress/zip&quot; and adding a dynamic property with the value &ldquo;/mailingAddress/zip&rdquo;. Or we can use a wildcard
+expression in the RecordPath in &ldquo;Field To Remove 1&rdquo; (no need to specify a dynamic property).</p>
+<p>Field to remove:</p>
+<p>/*/zip</p>
+<p>The <em>zip</em> field is removed from both addresses.</p>
+<p>Output data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;homeAddress&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Main&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;mailingAddress&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <em>zip</em> field is removed from the schema of both the <em>homeAddress</em> field and the <em>mailingAddress</em> field. However, if
+only &ldquo;/homeAddress/zip&rdquo; was specified to be removed, the schema of <em>mailingAddress</em> would be intact regardless of the
+fact that originally these two addresses shared the same schema.</p>
+<h3 id="example-3">Example 3:</h3>
+<p><strong>Arrays</strong></p>
+<p>Let&rsquo;s suppose we have an input record that contains an array of addresses.</p>
+<p>Input data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1111</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Main&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1121</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Input schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;PersonRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;addresses&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;address&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;zip&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;street&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;number&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Case 1: removing one element from the array</li>
+</ul>
+<p>Field to remove:</p>
+<p>/addresses[0]</p>
+<p>Output data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1121</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Output schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;nifiRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;addresses&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;addressesType&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;zip&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;street&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;number&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The first element of the array is removed. The schema of the output data is structurally the same as the input schema.
+Note that the name &ldquo;PersonRecord&rdquo; of the input schema changed to &ldquo;nifiRecord&rdquo; and the name &ldquo;address&rdquo; changed to &quot;
+addressesType&quot;. This is normal, NiFi generates these names for the output schema. These name changes occur regardless of
+the schema actually being modified or not.</p>
+<ul>
+<li>Case 2: removing all elements from the array</li>
+</ul>
+<p>Field to remove:</p>
+<p>/addresses[*]</p>
+<p>Output data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;addresses&#34;</span>: []
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>All elements of the array are removed, the result is an empty array. The output schema is the same as in Case 1, no
+structural changes made to the schema.</p>
+<ul>
+<li>Case 3: removing a field from certain elements of the array</li>
+</ul>
+<p>Field to remove:</p>
+<p>/addresses[0]/zip</p>
+<p>Output data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Main&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1121</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The output schema is the same as in Case 1, no structural changes. The <em>zip</em> field of the array&rsquo;s first element is set
+to <em>null</em> since the value had to be deleted but the schema could not be modified since deletion is not applied to all
+elements in the array. In a case like this, the value of the field is set to <em>null</em> regardless of the field being
+nullable or not.</p>
+<ul>
+<li>Case 4: removing a field from all elements of an array</li>
+</ul>
+<p>Field to remove:</p>
+<p>/addresses[*]/zip</p>
+<p>Output data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Main&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Output schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;nifiRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;addresses&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;addressesType&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;street&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;number&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The <em>zip</em> field is removed from all elements of the array, and the schema is modified, the <em>zip</em> field is removed from
+the array&rsquo;s element type.</p>
+<p>The examples shown in Case 1, Case 2, Case 3 and Case 4 apply to both kinds of collections: arrays and maps. The schema
+of an array or a map is only modified if the field removal applies to all elements of the collection. Selecting all
+elements of an array can be performed with the [*] as well as the [0..-1] operator.</p>
+<p><strong>Important note:</strong> if there are e.g. 3 elements in the addresses array, and &ldquo;/addresses[*]/zip&rdquo; is removed, then the
+<em>zip</em> field is removed from the schema because it applies explicitly for all elements regardless of the actual number of
+elements in the array. However, if the path says &ldquo;/addresses[0,1,2]/zip&rdquo; then the schema is NOT modified (even though
+[0,1,2] means all the elements in this particular array), because it selects the first, second and third elements
+individually and does not express the intention to apply removal to all elements of the array regardless of the number
+of elements.</p>
+<ul>
+<li>Case 5: removing multiple elements from an array</li>
+</ul>
+<p>Fields to remove:</p>
+<p>/addresses[0]
+/addresses[0]</p>
+<p>In this example we want to remove the first two elements of the array. To do that we need to specify two separate path
+expressions, each pointing to one array element. Each removal is executed on the result of the previous removal, and
+removals are executed in the order in which the properties containing record paths are specified on the Processor.
+First, &ldquo;/addresses[0]&rdquo; is removed, that is the address with zip code 1111 in the example. After this removal, the
+addresses array has a new first element, which is the second element of the original array (the address with zip code
+1121). To remove this element, we need to issue &ldquo;/addresses[0]&rdquo; again. Trying to remove &ldquo;/addresses[0,1]&rdquo;, or
+filtering array elements with predicates when the target of the removal is multiple different array elements may produce
+unexpected results.</p>
+<ul>
+<li>Case 6: array within an array</li>
+</ul>
+<p>Let&rsquo;s suppose we have a complex input record that has an array within an array.</p>
+<p>Input data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;people&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">11</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1111</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Main&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">1121</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Airport&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">22</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">2222</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Ocean&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">2232</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Sunset&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">33</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;addresses&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">3333</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Dawn&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;zip&#34;</span>: <span style="color:#ae81ff">3323</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;street&#34;</span>: <span style="color:#e6db74">&#34;Spring&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;number&#34;</span>: <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The following table summarizes what happens to the record and the schema for different RecordPaths</p>
+<table>
+<thead>
+<tr>
+<th>Field To Remove</th>
+<th>Is the schema modified?</th>
+<th>What happens to the record?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/people[0]/addresses[1]/zip</td>
+<td>No</td>
+<td>The <em>zip</em> field of the first person&rsquo;s second address is set to <em>null</em>.</td>
+</tr>
+<tr>
+<td>/people[*]/addresses[1]/zip</td>
+<td>No</td>
+<td>The <em>zip</em> field of all people&rsquo;s second address is set to <em>null</em>.</td>
+</tr>
+<tr>
+<td>/people[0]/addresses[*]/zip</td>
+<td>No</td>
+<td>The <em>zip</em> field of the first person&rsquo;s every address is set to <em>null</em>.</td>
+</tr>
+<tr>
+<td>/people[*]/addresses[*]/zip</td>
+<td>Yes</td>
+<td>The <em>zip</em> field every person&rsquo;s every address is removed (from the schema AND the data).</td>
+</tr>
+</tbody>
+</table>
+<p>The rules and examples shown for arrays apply for maps as well.</p>
+<h3 id="example-4">Example 4:</h3>
+<p><strong>Choice datatype</strong></p>
+<p>Let&rsquo;s suppose we have an input schema that contains a field of type CHOICE.</p>
+<p>Input data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">12</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Input schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;nameRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;nameType&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;firstName&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;lastName&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this example, the schema specifies the <em>name</em> field as CHOICE, but in the data it is a simple string. If we remove &quot;
+/name/firstName&quot; then there is no modifications to the data, but the schema is modified, the <em>firstName</em> field gets
+removed from the schema only.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

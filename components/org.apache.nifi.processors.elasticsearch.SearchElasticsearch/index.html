@@ -2298,6 +2298,95 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for SearchElasticsearch 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="searchelasticsearch">SearchElasticsearch</h1>
+<p>This processor is intended for use with the Elasticsearch JSON DSL and Elasticsearch 5.X and newer. It is designed to be
+able to take a JSON query (e.g. from Kibana) and execute it as-is against an Elasticsearch cluster in a paginated
+manner. Like all processors in the &ldquo;restapi&rdquo; bundle, it uses the official Elastic client APIs, so it supports leader
+detection.</p>
+<p>The query to execute must be provided in the Query configuration property.</p>
+<p>The query is paginated in Elasticsearch using one of the available methods - &ldquo;Scroll&rdquo; or &ldquo;Search After&rdquo; (optionally with
+a &ldquo;Point in Time&rdquo; for Elasticsearch 7.10+ with XPack enabled). The number of results per page can be controlled using
+the <em>size</em> parameter in the Query JSON. For Search After functionality, a <em>sort</em> parameter <strong>must</strong> be present within
+the Query JSON.</p>
+<p>Search results and aggregation results can be split up into multiple flowfiles. Aggregation results will only be split
+at the top level because nested aggregations lose their context (and thus lose their value) if separated from their
+parent aggregation. Additionally, the results from all pages can be combined into a single flowfile (but the processor
+will only load each page of data into memory at any one time).</p>
+<p>The following is an example query that would be accepted:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;query&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;size&#34;</span>: <span style="color:#ae81ff">10000</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;sort&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;product&#34;</span>: <span style="color:#e6db74">&#34;desc&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;match&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;restaurant.keyword&#34;</span>: <span style="color:#e6db74">&#34;Local Pizzaz FTW Inc&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;aggs&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;weekly_sales&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;date_histogram&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;date&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;interval&#34;</span>: <span style="color:#e6db74">&#34;week&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;aggs&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;terms&#34;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;product&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;size&#34;</span>: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="query-pagination-across-processor-executions">Query Pagination Across Processor Executions</h2>
+<p>This processor runs on a schedule in order to execute the same query repeatedly. Once a paginated query has been
+initiated within Elasticsearch, this processor will continue to retrieve results for that same query until no further
+results are available. After that point, a new paginated query will be initiated using the same Query JSON.</p>
+<p>If the results are &ldquo;Combined&rdquo; from this processor, then the paginated query will run continually within a single
+invocation until no more results are available (then the processor will start a new paginated query upon its next
+invocation). If the results are &ldquo;Split&rdquo; or &ldquo;Per Page&rdquo;, then each invocation of this processor will retrieve the next
+page of results until either there are no more results or the paginated query expires within Elasticsearch.</p>
+<h2 id="resetting-queries--clearing-processor-state">Resetting Queries / Clearing Processor State</h2>
+<p>Local State is used to track the progress of a paginated query within this processor. If there is need to restart the
+query completely or change the processor configuration after a paginated query has already been started, be sure to
+&ldquo;Clear State&rdquo; of the processor once it has been stopped and before restarting.</p>
+<h2 id="duplicate-results">Duplicate Results</h2>
+<p>This processor does not attempt to de-duplicate results between queries, for example if the same query runs twice and
+(some or all of) the results are identical, the output will contain these same results for both invocations. This might
+happen if the NiFi Primary Node changes while a page of data is being retrieved, or if the processor state is cleared,
+then the processor is restarted.</p>
+<p>This processor will continually run the same query unless the processor properties are updated, so unless the data in
+Elasticsearch has changed, the same data will be retrieved multiple times.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

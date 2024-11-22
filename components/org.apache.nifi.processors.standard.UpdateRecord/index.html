@@ -2298,6 +2298,379 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for UpdateRecord 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="updaterecord">UpdateRecord</h1>
+<p>UpdateRecord makes use of the NiFi RecordPath Domain-Specific Language (DSL) to allow the user to
+indicate which field(s) in the Record should be updated. Users do this by adding a User-defined Property to the
+Processor&rsquo;s configuration. The name of the User-defined Property must be the RecordPath text that should be evaluated
+against each Record. The value of the Property specifies what value should go into that selected Record field.</p>
+<p>When specifying the replacement value (the value of the User-defined Property), the user is able to specify a literal
+value such as the number <code>10</code>; an Expression Language Expression to reference FlowFile attributes, such as<code>${filename}</code>;
+or another RecordPath path from which to retrieve the desired value from the Record itself. Whether the value entered
+should be interpreted as a literal or a RecordPath path is determined by the value of the <Replacement Value Strategy>
+Property.</p>
+<p>If a RecordPath is given and does not match any field in an input Record, that Property will be skipped and all other
+Properties will still be evaluated. If the RecordPath matches exactly one field, that field will be updated with the
+corresponding value. If multiple fields match the RecordPath, then all fields that match will be updated. If the
+replacement value is itself a RecordPath that does not match, then a <code>null</code> value will be set for the field. For
+instances where this is not the desired behavior, RecordPath predicates can be used to filter the fields that match so
+that no fields will be selected. See RecordPath Predicates for more information.</p>
+<p>Below, we lay out some examples in order to provide clarity about the Processor&rsquo;s behavior. For all the examples below,
+consider the example to operate on the following set of 2 (JSON) records:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">17</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">98</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;F&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>For brevity, we will omit the corresponding schema and configuration of the RecordReader and RecordWriter. Otherwise,
+consider the following set of Properties are configured for the Processor and their associated outputs.</p>
+<h3 id="example-1---replace-with-literal">Example 1 - Replace with Literal</h3>
+<p>Here, we will replace the name of each Record with the name &lsquo;Jeremy&rsquo; and set the gender to &lsquo;M&rsquo;:</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Property Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replacement Value Strategy</td>
+<td>Literal Value</td>
+</tr>
+<tr>
+<td>/name</td>
+<td>Jeremy</td>
+</tr>
+<tr>
+<td>/gender</td>
+<td>M</td>
+</tr>
+</tbody>
+</table>
+<p>This will yield the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">17</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;M&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">98</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;M&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Note that even though the first record did not have a &ldquo;gender&rdquo; field in the input, one will be added after the &ldquo;child&rdquo;
+field, as that&rsquo;s where the field is located in the schema.</p>
+<h3 id="example-2---replace-with-recordpath">Example 2 - Replace with RecordPath</h3>
+<p>This example will replace the value in one field of the Record with the value from another field. For this example,
+consider the following set of Properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Property Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replacement Value Strategy</td>
+<td>Record Path Value</td>
+</tr>
+<tr>
+<td>/name</td>
+<td>/siblings[0]/name</td>
+</tr>
+</tbody>
+</table>
+<p>This will yield the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">17</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">98</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;F&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h3 id="example-3---replace-with-relative-recordpath">Example 3 - Replace with Relative RecordPath</h3>
+<p>In the above example, we replaced the value of field based on another RecordPath. That RecordPath was an &ldquo;absolute
+RecordPath,&rdquo; meaning that it starts with a &ldquo;slash&rdquo; character (<code>/</code>) and therefore it specifies the path from the &ldquo;root&rdquo;
+or &ldquo;outermost&rdquo; element. However, sometimes we want to reference a field in such a way that we defined the RecordPath
+relative to the field being updated. This example does just that. For each of the siblings given in the &ldquo;siblings&quot;array,
+we will replace the sibling&rsquo;s name with their id&rsquo;s. To do so, we will configure the processor with the following
+properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Property Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replacement Value Strategy</td>
+<td>Record Path Value</td>
+</tr>
+<tr>
+<td>/siblings[*]/name</td>
+<td>../id</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the RecordPath that was given for the value starts with <code>..</code>, which is a reference to the parent. We do this
+because the field that we are going to update is the &ldquo;name&rdquo; field of the sibling. To get to the associated &ldquo;id&rdquo; field,
+we need to go to the &ldquo;name&rdquo; field&rsquo;s parent and then to its &ldquo;id&rdquo; child field. The above example results in the following
+output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">17</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">98</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;F&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h3 id="example-4---replace-multiple-values">Example 4 - Replace Multiple Values</h3>
+<p>This example will replace the value of all fields that have the name &ldquo;id&rdquo;, regardless of where in the Record hierarchy
+the field is found. The value that it uses references the Expression Language, so for this example, let&rsquo;s assume that
+the incoming FlowFile has an attribute named &ldquo;replacement.id&rdquo; that has a value of &ldquo;91&rdquo;:</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Property Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replacement Value Strategy</td>
+<td>Literal Value</td>
+</tr>
+<tr>
+<td>//id</td>
+<td>${replacement.id}</td>
+</tr>
+</tbody>
+</table>
+<p>This will yield the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">91</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;91&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jeremy&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">91</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">91</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">91</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">91</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;F&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>It is also worth noting that in this example, some of the &ldquo;id&rdquo; fields were of type STRING, while others were of type
+INT. This is okay because the RecordReaders and RecordWriters should handle these simple type coercions for us.</p>
+<h3 id="example-5---use-expression-language-to-modify-value">Example 5 - Use Expression Language to Modify Value</h3>
+<p>This example will capitalize the value of all &rsquo;name&rsquo; fields, regardless of where in the Record hierarchy the field is
+found. This is done by referencing the &lsquo;field.value&rsquo; variable in the Expression Language. We can also access the
+field.name variable and the field.type variable.</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Property Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replacement Value Strategy</td>
+<td>Literal Value</td>
+</tr>
+<tr>
+<td>//name</td>
+<td>${field.value:toUpper()}</td>
+</tr>
+</tbody>
+</table>
+<p>This will yield the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">17</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;JOHN&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;JEREMY&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;JULIA&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">98</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;JANE&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;child&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gender&#34;</span>: <span style="color:#e6db74">&#34;F&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblingIds&#34;</span>: [],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;siblings&#34;</span>: []
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

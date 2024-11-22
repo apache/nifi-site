@@ -2298,6 +2298,73 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for PublishJMS 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="publishjms">PublishJMS</h1>
+<h2 id="summary">Summary</h2>
+<p>This processor publishes the contents of the incoming FlowFile to a JMS compliant messaging system.</p>
+<p>This processor does two things. It constructs JMS Message by extracting FlowFile contents (both body and attributes).
+Once message is constructed it is sent to a pre-configured JMS Destination. Standard JMS Headers will be extracted from
+the FlowFile and set on <em>javax.jms.Message</em> as JMS headers while other FlowFile attributes will be set as properties of
+<em>javax.jms.Message</em>. Upon success the incoming FlowFile is transferred to the <em>success</em> Relationship and upon failure
+FlowFile is penalized and transferred to the <em>failure</em> Relationship.</p>
+<h2 id="configuration-details">Configuration Details</h2>
+<p>At the time of writing this document it only defines the essential configuration properties which are suitable for most
+cases. Other properties will be defined later as this component progresses. Configuring PublishJMS:</p>
+<ol>
+<li><strong>User Name</strong> - [OPTIONAL] User Name used for authentication and authorization when this processor obtains
+<em>javax.jms.Connection</em> from the pre-configured <em>javax.jms.ConnectionFactory</em> (see below).</li>
+<li><strong>Password</strong> - [OPTIONAL] Password used in conjunction with <strong>User Name</strong>.</li>
+<li><strong>Destination Name</strong> - [REQUIRED] the name of the <em>javax.jms.Destination</em>. Usually provided by administrator
+(e.g., &rsquo;topic://myTopic&rsquo;).</li>
+<li><strong>Destination Type</strong> - [REQUIRED] the type of the <em>javax.jms.Destination</em>. Could be one of &lsquo;QUEUE&rsquo; or &lsquo;TOPIC&rsquo;
+Usually provided by the administrator. Defaults to &lsquo;QUEUE&rsquo;.</li>
+</ol>
+<h3 id="connection-factory-configuration">Connection Factory Configuration</h3>
+<p>There are multiple ways to configure the Connection Factory for the processor:</p>
+<ul>
+<li><strong>Connection Factory Service</strong> property - link to a pre-configured controller service
+(<em>JndiJmsConnectionFactoryProvider</em> or <em>JMSConnectionFactoryProvider</em>)</li>
+<li><strong>JNDI *</strong> properties - processor level configuration, the properties are the same as the properties of
+<em>JndiJmsConnectionFactoryProvider</em> controller service, the dynamic properties can also be used in this case</li>
+<li><strong>JMS *</strong> properties - processor level configuration, the properties are the same as the properties of
+<em>JMSConnectionFactoryProvider</em> controller service, the dynamic properties can also be used in this case</li>
+</ul>
+<p>The preferred way is to use the Connection Factory Service property and a pre-configured controller service. It is also
+the most convenient method, because it is enough to configure the controller service once and then it can be used in
+multiple processors.</p>
+<p>However, some JMS client libraries may not work with the controller services due to incompatible Java ClassLoader
+handling between the 3rd party JMS client library and NiFi. Should you encounter <em>java.lang.ClassCastException</em> errors
+when using the controller services, please try to configure the Connection Factory via the &lsquo;JNDI *&rsquo; or the &lsquo;JMS *&rsquo; and
+the dynamic properties of the processor. For more details on these properties, see the documentation of the
+corresponding controller service (<em>JndiJmsConnectionFactoryProvider</em> for &lsquo;JNDI *&rsquo; and <em>JMSConnectionFactoryProvider</em>
+for &lsquo;JMS *&rsquo;).</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

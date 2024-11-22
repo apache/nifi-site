@@ -2298,6 +2298,79 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for PutAzureDataLakeStorage 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="putazuredatalakestorage">PutAzureDataLakeStorage</h1>
+<p>This processor is responsible for uploading files to Azure Data Lake Storage Gen2.</p>
+<h3 id="file-uploading-and-cleanup-process-in-case-of-write-and-rename-strategy">File uploading and cleanup process in case of &ldquo;Write and Rename&rdquo; strategy</h3>
+<h4 id="new-file-upload">New file upload</h4>
+<ol>
+<li>A temporary file is created with random prefix under the given path in &lsquo;_nifitempdirectory&rsquo;.</li>
+<li>Content is appended to temp file.</li>
+<li>Temp file is moved to the final destination directory and renamed to its original name.</li>
+<li>In case of appending or renaming failure, the temp file is deleted.</li>
+<li>In case of temporary file deletion failure, the temp file remains on the server.</li>
+</ol>
+<h4 id="existing-file-upload">Existing file upload</h4>
+<ul>
+<li>Processors with &ldquo;fail&rdquo; conflict resolution strategy will direct the FlowFile to &ldquo;Failure&rdquo; relationship.</li>
+<li>Processors with &ldquo;ignore&rdquo; conflict resolution strategy will direct the FlowFile to &ldquo;Success&rdquo; relationship.</li>
+<li>Processors with &ldquo;replace&rdquo; conflict resolution strategy:</li>
+</ul>
+<ol>
+<li>A temporary file is created with random prefix under the given path in &lsquo;_nifitempdirectory&rsquo;.</li>
+<li>Content is appended to temp file.</li>
+<li>Temp file is moved to the final destination directory and renamed to its original name, the original file is
+overwritten.</li>
+<li>In case of appending or renaming failure, the temp file is deleted and the original file remains intact.</li>
+<li>In case of temporary file deletion failure, both temp file and original file remain on the server.</li>
+</ol>
+<h3 id="file-uploading-and-cleanup-process-in-case-of-simple-write-strategy">File uploading and cleanup process in case of &ldquo;Simple Write&rdquo; strategy</h3>
+<h4 id="new-file-upload-1">New file upload</h4>
+<ol>
+<li>An empty file is created at its final destination.</li>
+<li>Content is appended to the file.</li>
+<li>In case of appending failure, the file is deleted.</li>
+<li>In case of file deletion failure, the file remains on the server.</li>
+</ol>
+<h4 id="existing-file-upload-1">Existing file upload</h4>
+<ul>
+<li>Processors with &ldquo;fail&rdquo; conflict resolution strategy will direct the FlowFile to &ldquo;Failure&rdquo; relationship.</li>
+<li>Processors with &ldquo;ignore&rdquo; conflict resolution strategy will direct the FlowFile to &ldquo;Success&rdquo; relationship.</li>
+<li>Processors with &ldquo;replace&rdquo; conflict resolution strategy:</li>
+</ul>
+<ol>
+<li>An empty file is created at its final destination, the original file is overwritten.</li>
+<li>Content is appended to the file.</li>
+<li>In case of appending failure, the file is deleted and the original file is not restored.</li>
+<li>In case of file deletion failure, the file remains on the server.</li>
+</ol>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

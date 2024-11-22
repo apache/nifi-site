@@ -2298,6 +2298,96 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for WindowsEventLogReader 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="windowseventlogreader">WindowsEventLogReader</h1>
+<h2 id="description">Description:</h2>
+<p>This controller service is used to parse Windows Event Log events in the form of XML input (possibly from
+ConsumeWindowsEventLog or ParseEvtx).</p>
+<h2 id="input-xml-example">Input XML Example:</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Event</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;https://schemas.microsoft.com/win/2004/08/events/event&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;System&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Provider</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;Service Control Manager&#34;</span> <span style="color:#a6e22e">Guid=</span><span style="color:#e6db74">&#34;{555908d1-a6d7-4695-8e1e-26931d2012f4}&#34;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#a6e22e">EventSourceName=</span><span style="color:#e6db74">&#34;Service Control Manager&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;EventID</span> <span style="color:#a6e22e">Qualifiers=</span><span style="color:#e6db74">&#34;16384&#34;</span><span style="color:#f92672">&gt;</span>7036<span style="color:#f92672">&lt;/EventID&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Version&gt;</span>0<span style="color:#f92672">&lt;/Version&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Level&gt;</span>4<span style="color:#f92672">&lt;/Level&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Task&gt;</span>0<span style="color:#f92672">&lt;/Task&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Opcode&gt;</span>0<span style="color:#f92672">&lt;/Opcode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Keywords&gt;</span>0x8080000000000000<span style="color:#f92672">&lt;/Keywords&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;TimeCreated</span> <span style="color:#a6e22e">SystemTime=</span><span style="color:#e6db74">&#34;2016-06-10T22:28:53.905233700Z&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;EventRecordID&gt;</span>34153<span style="color:#f92672">&lt;/EventRecordID&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Correlation/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Execution</span> <span style="color:#a6e22e">ProcessID=</span><span style="color:#e6db74">&#34;684&#34;</span> <span style="color:#a6e22e">ThreadID=</span><span style="color:#e6db74">&#34;3504&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Channel&gt;</span>System<span style="color:#f92672">&lt;/Channel&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Computer&gt;</span>WIN-O05CNUCF16M.hdf.local<span style="color:#f92672">&lt;/Computer&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Security/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/System&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;EventData&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Data</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;param1&#34;</span><span style="color:#f92672">&gt;</span>Smart Card Device Enumeration Service<span style="color:#f92672">&lt;/Data&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Data&gt;</span>param2<span style="color:#f92672">&lt;/Data&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;Binary&gt;</span>5300630044006500760069006300650045006E0075006D002F0034000000<span style="color:#f92672">&lt;/Binary&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/EventData&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Event&gt;</span>
+</span></span></code></pre></div><h2 id="output-example-using-convertrecord-with-jsonrecordsetwriter">Output example (using ConvertRecord with JsonRecordSetWriter</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;System&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Provider&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Guid&#34;</span>: <span style="color:#e6db74">&#34;{555908d1-a6d7-4695-8e1e-26931d2012f4}&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;Name&#34;</span>: <span style="color:#e6db74">&#34;Service Control Manager&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;EventID&#34;</span>: <span style="color:#ae81ff">7036</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Level&#34;</span>: <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Task&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Opcode&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Keywords&#34;</span>: <span style="color:#e6db74">&#34;0x8080000000000000&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;TimeCreated&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;SystemTime&#34;</span>: <span style="color:#e6db74">&#34;2016-06-10T22:28:53.905233700Z&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;EventRecordID&#34;</span>: <span style="color:#ae81ff">34153</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Correlation&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Execution&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;ThreadID&#34;</span>: <span style="color:#ae81ff">3504</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;ProcessID&#34;</span>: <span style="color:#ae81ff">684</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Channel&#34;</span>: <span style="color:#e6db74">&#34;System&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Computer&#34;</span>: <span style="color:#e6db74">&#34;WIN-O05CNUCF16M.hdf.local&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Security&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;EventData&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;param1&#34;</span>: <span style="color:#e6db74">&#34;Smart Card Device Enumeration Service&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;param2&#34;</span>: <span style="color:#e6db74">&#34;5300630044006500760069006300650045006E0075006D002F0034000000&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

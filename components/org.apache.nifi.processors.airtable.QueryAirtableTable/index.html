@@ -2298,6 +2298,54 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for QueryAirtableTable 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="queryairtabletable">QueryAirtableTable</h1>
+<h3 id="description">Description</h3>
+<p>Airtable is a spreadsheet-database hybrid. In Airtable an application is called base and each base can have multiple
+tables. A table consists of records (rows) and each record can have multiple fields (columns). The QueryAirtableTable
+processor can query records from a single base and table via Airtable&rsquo;s REST API. The processor utilizes streams to be
+able to handle a large number of records. It can also split large record sets to multiple FlowFiles just like a database
+processor.</p>
+<h3 id="personal-access-token">Personal Access Token</h3>
+<p>Please note that API Keys were deprecated, Airtable now provides Personal Access Tokens (PATs) instead.
+Airtable REST API calls requires a PAT (Personal Access Token) that needs to be passed in a request. An Airtable account
+is required to generate the PAT.</p>
+<h3 id="api-rate-limit">API rate limit</h3>
+<p>The Airtable REST API limits the number of requests that can be sent on a per-base basis to avoid bottlenecks.
+Currently, this limit is 5 requests per second per base. If this limit is exceeded you can&rsquo;t make another request for 30
+seconds. It&rsquo;s your responsibility to handle this rate limit via configuring Yield Duration and Run Schedule properly. It
+is recommended to start off with the default settings and to increase both parameters when rate limit issues occur.</p>
+<h3 id="metadata-api">Metadata API</h3>
+<p>Currently, the Metadata API of Airtable is unstable, and we don&rsquo;t provide a way to use it. Until it becomes stable you
+can set up a ConvertRecord or MergeRecord processor with a JsonTreeReader to read the content and convert it into a
+Record with schema.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

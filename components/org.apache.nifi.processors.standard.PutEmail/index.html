@@ -2298,6 +2298,101 @@
     <dd>true</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for PutEmail 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="putemail">PutEmail</h1>
+<h1 id="oauth-authorization-mode">OAuth Authorization Mode</h1>
+<p>PutEmail can use OAuth2. The exact way may depend on the email provider.</p>
+<h2 id="oauth-with-gmail">OAuth with Gmail</h2>
+<h3 id="configure-gmail-oauth-client">Configure Gmail OAuth Client</h3>
+<p>The Gmail OAuth client can be used to send email on behalf of multiple different gmail accounts so this needs to be done once.</p>
+<ol>
+<li>In the Google Development Console <a href="https://support.google.com/googleapi/answer/6251787">Create a project</a> (if you don&rsquo;t have one yet)</li>
+<li><a href="https://console.cloud.google.com/apis/credentials/consent">Configure OAuth consent</a></li>
+<li><a href="https://console.cloud.google.com/apis/credentials/oauthclient">Create OAuth client</a>. Select <strong>Desktop app</strong> as <strong>Application type</strong>. When the client has been created, take note of the Client ID and Client secret values as they will be needed later.</li>
+</ol>
+<h3 id="retrieve-token-for-nifi">Retrieve Token for NiFi</h3>
+<p>Tokens are provided once the owner of the Gmail account consented to the previously created client to send emails on their behalf. Consequently, this needs to be done for every gmail account.</p>
+<ol>
+<li>
+<p>Go to the following web page:</p>
+<p><a href="https://accounts.google.com/o/oauth2/auth?redirect">https://accounts.google.com/o/oauth2/auth?redirect</a>_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&amp;response_type=code&amp;scope=https%3A%2F%2Fmail.google.com&amp;client_id=<em>CLIENT_ID</em></p>
+<p>Replace CLIENT_ID at the end to your Client ID.</p>
+</li>
+<li>
+<p>You may need to select the Google Account for which you want to consent. Click <strong>Continue</strong> twice.</p>
+</li>
+<li>
+<p>A page will appear with an Authorisation code that will have a message at the bottom like this:</p>
+<p><strong>Authorisation code</strong></p>
+<p>Please copy this code, switch to your application and paste it there:</p>
+<p><em>AUTHORISATION_CODE</em></p>
+</li>
+<li>
+<p>Execute the following command from terminal to fetch the access and refresh tokens.<br>
+In case the curl command returns an error, please try again from step 1.</p>
+<p>curl <a href="https://accounts.google.com/o/oauth2/token">https://accounts.google.com/o/oauth2/token</a> -d grant_type=authorization_code -d redirect_uri=&ldquo;urn:ietf:wg:oauth:2.0:oob&rdquo; -d client_id=<em>CLIENT_ID</em> -d client_secret=<em>CLIENT_SECRET</em> -d code=<em>AUTHORISATION_CODE</em></p>
+<p>Replace CLIENT_ID, CLIENT_SECRET and AUTHORISATION_CODE to your values.</p>
+</li>
+<li>
+<p>The curl command results a json file which contains the access token and refresh token:</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;ACCESS_TOKEN&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;expires_in&#34;</span>: <span style="color:#ae81ff">3599</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;refresh_token&#34;</span>: <span style="color:#e6db74">&#34;REFRESH_TOKEN&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;scope&#34;</span>: <span style="color:#e6db74">&#34;https://mail.google.com/&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="configure-token-in-nifi">Configure Token in NiFi</h3>
+<ol>
+<li>
+<p>On the PutEmail processor in the <strong>Authorization Mode</strong> property select <strong>Use OAuth2</strong>.</p>
+</li>
+<li>
+<p>In the <strong>OAuth2 Access Token Provider</strong> property select/create a StandardOauth2AccessTokenProvider controller service.</p>
+</li>
+<li>
+<p>On the StandardOauth2AccessTokenProvider controller service in the <strong>Grant Type</strong> property select <strong>Refresh Token</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Refresh Token</strong> property enter the REFRESH_TOKEN returned by the curl command.</p>
+</li>
+<li>
+<p>In the <strong>Authorization Server URL</strong> enter</p>
+<p><a href="https://accounts.google.com/o/oauth2/token">https://accounts.google.com/o/oauth2/token</a></p>
+</li>
+<li>
+<p>Also fill in the <strong>Client ID</strong> and <strong>Client secret</strong> properties.</p>
+</li>
+</ol>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

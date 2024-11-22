@@ -2298,6 +2298,96 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ParseEvtx 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="parseevtx">ParseEvtx</h1>
+<h2 id="description">Description:</h2>
+<p>This processor is used to parse Windows event logs in the binary evtx format. The input flow files&rsquo; content should be
+evtx files. The processor has 4 outputs:</p>
+<ul>
+<li>The original unmodified FlowFile</li>
+<li>The XML resulting from parsing at the configured granularity</li>
+<li>Failed parsing with partial output</li>
+<li>Malformed chunk in binary form</li>
+</ul>
+<h2 id="output-xml-example">Output XML Example:</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;Events&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Event</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/win/2004/08/events/event&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;System&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Provider</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;Service Control Manager&#34;</span> <span style="color:#a6e22e">Guid=</span><span style="color:#e6db74">&#34;{555908d1-a6d7-4695-8e1e-26931d2012f4}&#34;</span> <span style="color:#960050;background-color:#1e0010">Ev</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">entSourceName=</span><span style="color:#e6db74">&#34;Service Control Manager&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;EventID</span> <span style="color:#a6e22e">Qualifiers=</span><span style="color:#e6db74">&#34;16384&#34;</span><span style="color:#f92672">&gt;</span>7036<span style="color:#f92672">&lt;/EventID&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Version&gt;</span>0<span style="color:#f92672">&lt;/Version&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Level&gt;</span>4<span style="color:#f92672">&lt;/Level&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Task&gt;</span>0<span style="color:#f92672">&lt;/Task&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Opcode&gt;</span>0<span style="color:#f92672">&lt;/Opcode&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Keywords&gt;</span>0x8080000000000000<span style="color:#f92672">&lt;/Keywords&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;TimeCreated</span> <span style="color:#a6e22e">SystemTime=</span><span style="color:#e6db74">&#34;2016-01-08 16:49:47.518&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;EventRecordID&gt;</span>780<span style="color:#f92672">&lt;/EventRecordID&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Correlation</span> <span style="color:#a6e22e">ActivityID=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">RelatedActivityID=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Execution</span> <span style="color:#a6e22e">ProcessID=</span><span style="color:#e6db74">&#34;480&#34;</span> <span style="color:#a6e22e">ThreadID=</span><span style="color:#e6db74">&#34;596&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Channel&gt;</span>System<span style="color:#f92672">&lt;/Channel&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Computer&gt;</span>win7-pro-vm<span style="color:#f92672">&lt;/Computer&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Security</span> <span style="color:#a6e22e">UserID=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/System&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;EventData&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Data</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;param1&#34;</span><span style="color:#f92672">&gt;</span>Workstation<span style="color:#f92672">&lt;/Data&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Data</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;param2&#34;</span><span style="color:#f92672">&gt;</span>running<span style="color:#f92672">&lt;/Data&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Binary&gt;</span>TABhAG4AbQBhAG4AVwBvAHIAawBzAHQAYQB0AGkAbwBuAC8ANAAAAA==<span style="color:#f92672">&lt;/Binary&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/EventData&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Event&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Event</span> <span style="color:#a6e22e">xmlns=</span><span style="color:#e6db74">&#34;http://schemas.microsoft.com/win/2004/08/events/event&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;System&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Provider</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;Service Control Manager&#34;</span> <span style="color:#a6e22e">Guid=</span><span style="color:#e6db74">&#34;{555908d1-a6d7-4695-8e1e-26931d2012f4}&#34;</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#a6e22e">EventSourceName=</span><span style="color:#e6db74">&#34;Service Control Manager&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;EventID</span> <span style="color:#a6e22e">Qualifiers=</span><span style="color:#e6db74">&#34;16384&#34;</span><span style="color:#f92672">&gt;</span>7036<span style="color:#f92672">&lt;/EventID&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Version&gt;</span>0<span style="color:#f92672">&lt;/Version&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Level&gt;</span>4<span style="color:#f92672">&lt;/Level&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Task&gt;</span>0<span style="color:#f92672">&lt;/Task&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Opcode&gt;</span>0<span style="color:#f92672">&lt;/Opcode&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Keywords&gt;</span>0x8080000000000000<span style="color:#f92672">&lt;/Keywords&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;TimeCreated</span> <span style="color:#a6e22e">SystemTime=</span><span style="color:#e6db74">&#34;2016-01-08 16:49:47.535&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;EventRecordID&gt;</span>781<span style="color:#f92672">&lt;/EventRecordID&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Correlation</span> <span style="color:#a6e22e">ActivityID=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">RelatedActivityID=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Execution</span> <span style="color:#a6e22e">ProcessID=</span><span style="color:#e6db74">&#34;480&#34;</span> <span style="color:#a6e22e">ThreadID=</span><span style="color:#e6db74">&#34;576&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Channel&gt;</span>System<span style="color:#f92672">&lt;/Channel&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Computer&gt;</span>win7-pro-vm<span style="color:#f92672">&lt;/Computer&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Security</span> <span style="color:#a6e22e">UserID=</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/System&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;EventData&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Data</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;param1&#34;</span><span style="color:#f92672">&gt;</span>Cryptographic Services<span style="color:#f92672">&lt;/Data&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Data</span> <span style="color:#a6e22e">Name=</span><span style="color:#e6db74">&#34;param2&#34;</span><span style="color:#f92672">&gt;</span>running<span style="color:#f92672">&lt;/Data&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;Binary&gt;</span>QwByAHkAcAB0AFMAdgBjAC8ANAAAAA==<span style="color:#f92672">&lt;/Binary&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/EventData&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/Event&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Events&gt;</span>
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

@@ -2298,6 +2298,57 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for JsonConfigBasedBoxClientService 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="jsonconfigbasedboxclientservice">JsonConfigBasedBoxClientService</h1>
+<h2 id="setting-up-a-box-app">Setting up a Box App</h2>
+<p>This processor requires a pre-configured App under the Account owning the resources being
+accessed (<a href="https://app.box.com/developers/console)">https://app.box.com/developers/console)</a>.</p>
+<p>The App should have the following configuration:</p>
+<ul>
+<li>If you create a new App, select &lsquo;Server Authentication (with JWT)&rsquo; authentication method.<br>
+If you want to use an existing App, choose one with &lsquo;OAuth 2.0 with JSON Web Tokens (Server Authentication)&rsquo; as
+Authentication method.</li>
+<li>Should have a &lsquo;Client ID&rsquo; and &lsquo;Client Secret&rsquo;.</li>
+<li>&lsquo;App Access Level&rsquo; should be &lsquo;App + Enterprise Access&rsquo;.</li>
+<li>&lsquo;Application Scopes&rsquo; should have &lsquo;Write all files and folders in Box&rsquo; enabled.</li>
+<li>&lsquo;Advanced Features&rsquo; should have &lsquo;Generate user access tokens&rsquo; and &lsquo;Make API calls using the as-user header&rsquo; enabled.</li>
+<li>Under &lsquo;Add and Manage Public Keys&rsquo; generate a Public/Private Keypair and download the configuration JSON file (under
+App Settings). The full path of this file should be set in the &lsquo;Box Config File&rsquo; property.<br>
+Note that you can only download the configuration JSON with the keypair details only once, when you generate the
+keypair. Also this is the only time Box will show you the private key.<br>
+If you want to download the configuration JSON file later (under &lsquo;App Settings&rsquo;) - or if you want to use your own
+keypair - after you download it you need to edit the file and add the keypair details manually.</li>
+<li>After all settings are done, the App needs to be reauthorized on the admin page. (&lsquo;Reauthorize App&rsquo;
+at <a href="https://app.box.com/master/custom-apps">https://app.box.com/master/custom-apps</a>.)<br>
+If the app is configured for the first time it needs to be added (&lsquo;Add App&rsquo;) before it can be authorized.</li>
+</ul>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

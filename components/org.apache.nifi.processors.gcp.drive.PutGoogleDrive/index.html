@@ -2298,6 +2298,65 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for PutGoogleDrive 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="putgoogledrive">PutGoogleDrive</h1>
+<h2 id="accessing-google-drive-from-nifi">Accessing Google Drive from NiFi</h2>
+<p>This processor uses Google Cloud credentials for authentication to access Google Drive. The following steps are required
+to prepare the Google Cloud and Google Drive accounts for the processors:</p>
+<ol>
+<li><strong>Enable Google Drive API in Google Cloud</strong>
+<ul>
+<li>Follow instructions
+at <a href="https://developers.google.com/workspace/guides/enable-apis">https://developers.google.com/workspace/guides/enable-apis</a>
+and search for &lsquo;Google Drive API&rsquo;.</li>
+</ul>
+</li>
+<li><strong>Grant access to Google Drive folder</strong>
+<ul>
+<li>In Google Cloud Console navigate to IAM &amp; Admin -&gt; Service Accounts.</li>
+<li>Take a note of the email of the service account you are going to use.</li>
+<li>Navigate to the folder in Google Drive which will be used as the base folder.</li>
+<li>Right-click on the Folder -&gt; Share.</li>
+<li>Enter the service account email.</li>
+</ul>
+</li>
+<li><strong>Find Folder ID</strong>
+<ul>
+<li>Navigate to the folder to be listed in Google Drive and enter it. The URL in your browser will include the ID at
+the end of the URL. For example, if the URL were
+<code>https://drive.google.com/drive/folders/1trTraPVCnX5_TNwO8d9P_bz278xWOmGm</code>, the Folder ID would be
+<code>1trTraPVCnX5_TNwO8d9P_bz278xWOmGm</code></li>
+</ul>
+</li>
+<li><strong>Set Folder ID in &lsquo;Folder ID&rsquo; property</strong></li>
+</ol>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

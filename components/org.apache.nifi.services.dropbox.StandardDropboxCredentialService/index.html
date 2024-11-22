@@ -2298,6 +2298,101 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for StandardDropboxCredentialService 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="standarddropboxcredentialservice">StandardDropboxCredentialService</h1>
+<h2 id="generating-credentials-for-dropbox-authentication">Generating credentials for Dropbox authentication</h2>
+<p>StandardDropboxCredentialService requires &ldquo;App Key&rdquo;, &ldquo;App Secret&rdquo;, &ldquo;Access Token&rdquo; and &ldquo;Refresh Token&rdquo;.</p>
+<p>This document describes how to generate these credentials using an existing Dropbox account.</p>
+<h3 id="generate-app-key-and-app-secret">Generate App Key and App Secret</h3>
+<ul>
+<li>Login with your Dropbox account.</li>
+<li>If you already have an app created, go to <a href="https://www.dropbox.com/developers">Dropbox Developers</a> page, click on &ldquo;App
+Console&rdquo; button and select your app. On the app&rsquo;s info page you will find the &ldquo;App key&rdquo; and &ldquo;App secret&rdquo;.<br>
+(See also <a href="https://www.dropbox.com/developers/reference/getting-started">Dropbox Getting Started</a>, App Console tab, &quot;
+Navigating the App Console&quot; chapter)</li>
+<li>If you don&rsquo;t have any apps, go to <a href="https://www.dropbox.com/developers">Dropbox Developers</a> page and click on &ldquo;Create
+app&rdquo; button. (See also <a href="https://www.dropbox.com/developers/reference/getting-started">Dropbox Getting Started</a>, App
+Console tab, &ldquo;Creating a Dropbox app&rdquo; chapter.)
+<ul>
+<li>On the next page select &ldquo;Scoped access&rdquo; and &ldquo;Full Dropbox&rdquo; as access type.</li>
+<li>Provide a name for your app.</li>
+<li>On the app&rsquo;s info page you will find the &ldquo;App key&rdquo; and &ldquo;App secret&rdquo;. (See
+also <a href="https://www.dropbox.com/developers/reference/getting-started">Dropbox Getting Started</a>, App Console tab, &quot;
+Navigating the App Console&quot; chapter.)</li>
+</ul>
+</li>
+</ul>
+<h3 id="set-required-permissions-for-your-app">Set required permissions for your app</h3>
+<p>The &ldquo;files.content.read&rdquo; permission has to be enabled for the application to be able to read the files in Dropbox.</p>
+<p>You can set permissions in <a href="https://www.dropbox.com/developers">Dropbox Developers</a> page.</p>
+<ul>
+<li>Click on &ldquo;App Console&rdquo; button and select your app.</li>
+<li>Go to &ldquo;Permissions&rdquo; tab and enable the &ldquo;files.content.read&rdquo; permission.</li>
+<li>Click &ldquo;Submit&rdquo; button.</li>
+<li>NOTE: In case you already have an Access Token and Refresh Token, those tokens have to be regenerated after the
+permission change. See &ldquo;Generate Access Token and Refresh Token&rdquo; chapter about token generation.</li>
+</ul>
+<h3 id="generate-access-token-and-refresh-token">Generate Access Token and Refresh Token</h3>
+<ul>
+<li>
+<p>Go to the following web page:</p>
+<p><a href="https://www.dropbox.com/oauth2/authorize?token">https://www.dropbox.com/oauth2/authorize?token</a>_access_type=offline&amp;response_type=code&amp;client_id=<em>your_app_key</em></p>
+</li>
+<li>
+<p>Click &ldquo;Next&rdquo; and click on &ldquo;Allow&rdquo; button on the next page.</p>
+</li>
+<li>
+<p>An access code will be generated for you, it will be displayed on the next page:</p>
+<p>&ldquo;Access Code Generated
+Enter this code into your_app_name to finish the process
+<em>your_generated_access_code</em>&rdquo;</p>
+</li>
+<li>
+<p>Execute the following command from terminal to fetch the access and refresh tokens.</p>
+<p>Make sure you execute the curl command right after the access code generation, since the code expires very quickly.<br>
+In case the curl command returns &ldquo;invalid grant&rdquo; error, please generate a new access code (see previous step)</p>
+<p>curl <a href="https://api.dropbox.com/oauth2/token">https://api.dropbox.com/oauth2/token</a> -d code=<em>your_generated_access_code</em> -d grant_type=authorization_code
+-u <em>your_app_key</em>:<em>your_app_secret</em></p>
+</li>
+<li>
+<p>The curl command results a json file which contains the &ldquo;access_token&rdquo; and &ldquo;refresh_token&rdquo;:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;access_token&#34;</span>: <span style="color:#e6db74">&#34;sl.xxxxxxxxxxx&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;expires_in&#34;</span>: <span style="color:#ae81ff">14400</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;refresh_token&#34;</span>: <span style="color:#e6db74">&#34;xxxxxx&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;scope&#34;</span>: <span style="color:#e6db74">&#34;files.content.read files.metadata.read&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;uid&#34;</span>: <span style="color:#e6db74">&#34;xxxxxx&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;account_id&#34;</span>: <span style="color:#e6db74">&#34;dbid:xxxx&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

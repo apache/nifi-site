@@ -2298,6 +2298,87 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ValidateCsv 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="validatecsv">ValidateCsv</h1>
+<h2 id="usage-information">Usage Information</h2>
+<p>The Validate CSV processor is based on the super-csv library and the concept
+of <a href="http://super-csv.github.io/super-csv/cell_processors.html">Cell Processors</a>. The corresponding java documentation
+can be found <a href="http://super-csv.github.io/super-csv/apidocs/org/supercsv/cellprocessor/ift/CellProcessor.html">here</a>.</p>
+<p>The cell processors cannot be nested (except with Optional which gives the possibility to define a CellProcessor for
+values that could be null) and must be defined in a comma-delimited string as the Schema property.</p>
+<p>The supported cell processors are:</p>
+<ul>
+<li>ParseBigDecimal</li>
+<li>ParseBool</li>
+<li>ParseChar</li>
+<li>ParseDate</li>
+<li>ParseDouble</li>
+<li>ParseInt</li>
+<li>Optional</li>
+<li>DMinMax</li>
+<li>Equals</li>
+<li>ForbidSubStr</li>
+<li>LMinMax</li>
+<li>NotNull</li>
+<li>Null</li>
+<li>RequireHashCode</li>
+<li>RequireSubStr</li>
+<li>Strlen</li>
+<li>StrMinMax</li>
+<li>StrNotNullOrEmpty</li>
+<li>StrRegEx</li>
+<li>Unique</li>
+<li>UniqueHashCode</li>
+<li>IsIncludedIn</li>
+</ul>
+<p>Here are some examples:</p>
+<p><strong>Schema property:</strong> Null, ParseDate(&ldquo;dd/MM/yyyy&rdquo;), Optional(ParseDouble())<br>
+<strong>Meaning:</strong> the input CSV has three columns, the first one can be null and has no specification, the second one must be
+a date formatted as expected, and the third one must a double or null (no value).</p>
+<p><strong>Schema property:</strong> ParseBigDecimal(), ParseBool(), ParseChar(), ParseInt(), ParseLong()<br>
+<strong>Meaning:</strong> the input CSV has five columns, the first one must be a big decimal, the second one must be a boolean, the
+third one must be a char, the fourth one must be an integer and the fifth one must be a long.</p>
+<p><strong>Schema property:</strong> Equals(), NotNull(), StrNotNullOrEmpty()<br>
+<strong>Meaning:</strong> the input CSV has three columns, all the values of the first column must be equal to each other, all the
+values of the second column must be not null, and all the values of the third column are not null/empty string values.</p>
+<p><strong>Schema property:</strong> Strlen(4), StrMinMax(3,5), StrRegex(&quot;[a-z0-9\\._]+@[a-z0-9\\.]+&quot;)<br>
+<strong>Meaning:</strong> the input CSV has three columns, all the values of the first column must be 4-characters long, all the
+values of the second column must be between 3 and 5 characters (inclusive), and all the values of the last column must
+match the provided regular expression (email address).</p>
+<p><strong>Schema property:</strong> Unique(), UniqueHashCode()<br>
+<strong>Meaning:</strong> the input CSV has two columns. All the values of the first column must be unique (all the values are stored
+in memory). All the values of the second column must be unique (only hash codes of the input values are stored to ensure
+uniqueness).</p>
+<p><strong>Schema property:</strong> ForbidSubStr(&ldquo;test&rdquo;, &ldquo;tset&rdquo;), RequireSubStr(&ldquo;test&rdquo;)<br>
+<strong>Meaning:</strong> the input CSV has two columns. None of the values in the first column must contain one of the provided
+strings. And all the values of the second column must contain the provided string.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

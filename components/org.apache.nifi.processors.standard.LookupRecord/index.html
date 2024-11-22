@@ -2298,6 +2298,150 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for LookupRecord 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="lookuprecord">LookupRecord</h1>
+<p>LookupRecord makes use of the NiFi RecordPath Domain-Specific Language (DSL) to allow the user to
+indicate which field(s), depending on the Record Update Strategy, in the Record should be updated. The Record will be
+updated using the value returned by the provided Lookup Service.</p>
+<h3 id="record-update-strategy---use-property">Record Update Strategy - Use Property</h3>
+<p>In this case, the user should add, to the Processor&rsquo;s configuration, as much User-defined Properties as required by the
+Lookup Service to form the lookup coordinates. The name of the properties should match the names expected by the Lookup
+Service.</p>
+<p>The field evaluated using the path configured in the &ldquo;Result RecordPath&rdquo; property will be the field updated with the
+value returned by the Lookup Service.</p>
+<p>Let&rsquo;s assume a Simple Key Value Lookup Service containing the following key/value pairs:</p>
+<p><code>FR =&gt; France CA =&gt; Canada</code></p>
+<p>Let&rsquo;s assume the following JSON with three records as input:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;FR&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;CA&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;JP&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>The processor is configured with &ldquo;Use Property&rdquo; as &ldquo;Record Update Strategy&rdquo;, the &ldquo;Result RecordPath&rdquo; is configured
+with &ldquo;/country&rdquo; and a user-defined property is added with the name &ldquo;key&rdquo; (as required by this Lookup Service) and the
+value &ldquo;/code&rdquo;.</p>
+<p>When triggered, the processor will look for the value associated to the &ldquo;/code&rdquo; path and will use the value as the &ldquo;key&rdquo;
+of the Lookup Service. The value returned by the Lookup Service will be used to update the value corresponding to &quot;
+/country&quot;. With the above examples, it will produce:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;France&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;FR&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;Canada&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;CA&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;JP&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h3 id="record-update-strategy---replace-existing-values">Record Update Strategy - Replace Existing Values</h3>
+<p>With this strategy, the &ldquo;Result RecordPath&rdquo; property will be ignored and the configured Lookup Service must be a single
+simple key lookup service. For each user-defined property, the value contained in the field corresponding to the record
+path will be used as the key in the Lookup Service and will be replaced by the value returned by the Lookup Service. It
+is possible to configure multiple dynamic properties to update multiple fields in one execution. This strategy only
+supports simple types replacements (strings, integers, etc).</p>
+<p>Since this strategy allows in-place replacement, it is possible to use Record Paths for fields contained in arrays.</p>
+<p>Let&rsquo;s assume a Simple Key Value Lookup Service containing the following key/value pairs:</p>
+<p><code>FR =&gt; France CA =&gt; Canada fr =&gt; French en =&gt; English</code></p>
+<p>Let&rsquo;s assume the following JSON with two records as input:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;locales&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;FR&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;fr&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;US&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;en&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;locales&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;CA&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;fr&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;JP&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;ja&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>The processor is configured with &ldquo;Replace Existing Values&rdquo; as &ldquo;Record Update Strategy&rdquo;, two user-defined properties are
+added: &ldquo;region&rdquo; =&gt; &ldquo;/locales[*]/region&rdquo; and &ldquo;language =&gt; &ldquo;/locales[*]/language&rdquo;..</p>
+<p>When triggered, the processor will loop over the user-defined properties. First, it&rsquo;ll search for the fields
+corresponding to &ldquo;/locales[*]/region&rdquo;, for each value from the record, the value will be used as the key with the
+Lookup Service and the value will be replaced by the result returned by the Lookup Service. Example: the first region
+is &ldquo;FR&rdquo; and this key is associated to the value &ldquo;France&rdquo; in the Lookup Service, so the value &ldquo;FR&rdquo; is replaced by &quot;
+France&rdquo; in the record. With the above examples, it will produce:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;locales&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;France&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;French&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;US&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;English&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;locales&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;Canada&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;French&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;region&#34;</span>: <span style="color:#e6db74">&#34;JP&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;language&#34;</span>: <span style="color:#e6db74">&#34;ja&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

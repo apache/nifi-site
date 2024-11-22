@@ -2298,6 +2298,114 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for JndiJmsConnectionFactoryProvider 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="jmsconnectionfactoryprovider">JMSConnectionFactoryProvider</h1>
+<h2 id="capabilities">Capabilities</h2>
+<p>This Controller Service allows users to reference a JMS Connection Factory that has already been established and made
+available via Java Naming and Directory Interface (JNDI) Server. Please see documentation from your JMS Vendor in order
+to understand the appropriate values to configure for this service.</p>
+<p>A Connection Factory in Java is typically obtained via JNDI in code like below. The comments have been added in to
+explain how this maps to the Controller Service&rsquo;s configuration.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Hashtable env <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Hashtable();
+</span></span><span style="display:flex;"><span>env.<span style="color:#a6e22e">put</span>(Context.<span style="color:#a6e22e">INITIAL_CONTEXT_FACTORY</span>, JNDI_INITIAL_CONTEXT_FACTORY); <span style="color:#75715e">// Value for this comes from the &#34;JNDI Initial Context Factory Class&#34; property.</span>
+</span></span><span style="display:flex;"><span>env.<span style="color:#a6e22e">put</span>(Context.<span style="color:#a6e22e">PROVIDER_URL</span>, JNDI_PROVIDER_URL); <span style="color:#75715e">// Value for this comes from the &#34;JNDI Provider URL&#34; property.</span>
+</span></span><span style="display:flex;"><span>env.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;My-Environment-Variable&#34;</span>,<span style="color:#e6db74">&#34;Environment-Variable-Value&#34;</span>); <span style="color:#75715e">// This is accomplished by added a user-defined property with name &#34;My-Environment-Variable&#34; and value &#34;Environment-Variable-Value&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Context initialContext <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> InitialContext(env);
+</span></span><span style="display:flex;"><span>ConnectionFactory connectionFactory <span style="color:#f92672">=</span> initialContext.<span style="color:#a6e22e">lookup</span>(JNDI_CONNECTION_FACTORY_NAME); <span style="color:#75715e">// Value for this comes from the &#34;JNDI Name of the Connection Factory&#34; property</span>
+</span></span></code></pre></div><p>It is also important to note that, in order for this to work, the class named by the &ldquo;JNDI Initial Context Factory
+Class&rdquo; must be available on the classpath. The JMS provider specific client classes (like the class of the Connection
+Factory object to be retrieved from JNDI) must also be available on the classpath. In NiFi, this is accomplished by
+setting the &ldquo;JNDI / JMS Client Libraries&rdquo; property to point to one or more .jar files or directories (comma-separated
+values).</p>
+<p>When the Controller Service is disabled and then re-enabled, it will perform the JNDI lookup again. Once the Connection
+Factory has been obtained, though, it will not perform another JNDI lookup until the service is disabled.</p>
+<h2 id="example-configuration">Example Configuration</h2>
+<p>As an example, the following configuration may be used to connect to Active MQ&rsquo;s JMS Broker, using the Connection
+Factory provided via their embedded JNDI server:</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Property Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JNDI Initial Context Factory Class</td>
+<td>org.apache.activemq.jndi.ActiveMQInitialContextFactory</td>
+</tr>
+<tr>
+<td>JNDI Provider URL</td>
+<td>tcp://jms-broker:61616</td>
+</tr>
+<tr>
+<td>JNDI Name of the Connection Factory</td>
+<td>ConnectionFactory</td>
+</tr>
+<tr>
+<td>JNDI / JMS Client Libraries</td>
+<td>/opt/apache-activemq-5.15.2/lib/</td>
+</tr>
+</tbody>
+</table>
+<p>The above example assumes that there exists a host that is accessible with hostname &ldquo;jms-broker&rdquo; and that is running
+Apache ActiveMQ on port 61616 and also that the jar(s) containing the
+org.apache.activemq.jndi.ActiveMQInitialContextFactory class and the other JMS client classes can be found within the
+/opt/apache-activemq-5.15.2/lib/ directory.</p>
+<h2 id="property-validation">Property Validation</h2>
+<p>The following component properties include additional validation to restrict allowed values:</p>
+<ul>
+<li>JNDI Provider URL</li>
+</ul>
+<h3 id="jndi-provider-url-validation">JNDI Provider URL Validation</h3>
+<p>The default validation for <code>JNDI Provider URL</code> allows the following URL schemes:</p>
+<ul>
+<li>file</li>
+<li>jgroups</li>
+<li>ssl</li>
+<li>t3</li>
+<li>t3s</li>
+<li>tcp</li>
+<li>udp</li>
+<li>vm</li>
+</ul>
+<p>The following Java System property can be configured to override the default allowed URL schemes:</p>
+<ul>
+<li><code>org.apache.nifi.jms.cf.jndi.provider.url.schemes.allowed</code></li>
+</ul>
+<p>The System property must contain a space-separated list of URL schemes. This property can be configured in the
+application <code>bootstrap.conf</code> as follows:</p>
+<ul>
+<li><code>java.arg.jndiJmsUrlSchemesAllowed=-Dorg.apache.nifi.jms.cf.jndi.provider.url.schemes.allowed=ssl tcp</code></li>
+</ul>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

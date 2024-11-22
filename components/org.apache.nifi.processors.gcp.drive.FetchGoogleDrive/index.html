@@ -2298,6 +2298,68 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for FetchGoogleDrive 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="fetchgoogledrive">FetchGoogleDrive</h1>
+<h2 id="accessing-google-drive-from-nifi">Accessing Google Drive from NiFi</h2>
+<p>This processor uses Google Cloud credentials for authentication to access Google Drive. The following steps are required
+to prepare the Google Cloud and Google Drive accounts for the processors:</p>
+<ol>
+<li><strong>Enable Google Drive API in Google Cloud</strong>
+<ul>
+<li>Follow instructions
+at <a href="https://developers.google.com/workspace/guides/enable-apis">https://developers.google.com/workspace/guides/enable-apis</a>
+and search for &lsquo;Google Drive API&rsquo;.</li>
+</ul>
+</li>
+<li><strong>Grant access to Google Drive folder</strong>
+<ul>
+<li>In Google Cloud Console navigate to IAM &amp; Admin -&gt; Service Accounts.</li>
+<li>Take a note of the email of the service account you are going to use.</li>
+<li>Navigate to the folder to be listed in Google Drive.</li>
+<li>Right-click on the Folder -&gt; Share.</li>
+<li>Enter the service account email.</li>
+</ul>
+</li>
+<li><strong>Find File ID</strong><br>
+Usually FetchGoogleDrive is used with ListGoogleDrive and &lsquo;drive.id&rsquo; is set.<br>
+In case &lsquo;drive.id&rsquo; is not available, you can find the Drive ID of the file in the following way:
+<ul>
+<li>Right-click on the file and select &ldquo;Get Link&rdquo;.</li>
+<li>In the pop-up window click on &ldquo;Copy Link&rdquo;.</li>
+<li>You can obtain the file ID from the URL copied to clipboard. For example, if the URL were
+<code>https://drive.google.com/file/d/16ALV9KIU_KKeNG557zyctqy2Fmzyqtq/view?usp=share_link</code>,<br>
+the File ID would be <code>16ALV9KIU_KKeNG557zyctqy2Fmzyqtq</code></li>
+</ul>
+</li>
+<li><strong>Set File ID in &lsquo;File ID&rsquo; property</strong></li>
+</ol>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">
