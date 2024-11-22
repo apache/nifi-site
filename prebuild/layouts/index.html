@@ -7,6 +7,8 @@
   not found
 {{ end }}
 
+{{ $detailsHeader := resources.Get "additional-details-header.md" }}
+
 {{ range $manifest.bundles }}
   {{ range .componentManifest.controllerServices }}
     {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
@@ -15,6 +17,14 @@
     {{ $filename := printf "components/%s/_index.md" .type }}
     {{ $resource := resources.FromString $filename $string }}
     {{ $file := $resource.RelPermalink }}
+
+    {{ if .additionalDetails }}
+      {{ $detailsMarkdownPath := printf "docs/%s/%s/%s/%s/additionalDetails.md" .group .artifact .version .type }}
+      {{ $detailsResource := resources.Get $detailsMarkdownPath }}
+      {{ $componentDetailsPath := printf "components/%s/additional-details.md" .type }}
+      {{ $componentDetailsResource := slice $detailsHeader $detailsResource | resources.Concat $componentDetailsPath }}
+      {{ $componentDetailsResource.Publish }}
+    {{ end }}
   {{ end }}
   {{ range .componentManifest.processors }}
     {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
@@ -23,6 +33,14 @@
     {{ $filename := printf "components/%s/_index.md" .type }}
     {{ $resource := resources.FromString $filename $string }}
     {{ $file := $resource.RelPermalink }}
+
+    {{ if .additionalDetails }}
+      {{ $detailsMarkdownPath := printf "docs/%s/%s/%s/%s/additionalDetails.md" .group .artifact .version .type }}
+      {{ $detailsResource := resources.Get $detailsMarkdownPath }}
+      {{ $componentDetailsPath := printf "components/%s/additional-details.md" .type }}
+      {{ $componentDetailsResource := slice $detailsHeader $detailsResource | resources.Concat $componentDetailsPath }}
+      {{ $componentDetailsResource.Publish }}
+    {{ end }}
   {{ end }}
   {{ range .componentManifest.reportingTasks }}
     {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
@@ -31,6 +49,14 @@
     {{ $filename := printf "components/%s/_index.md" .type }}
     {{ $resource := resources.FromString $filename $string }}
     {{ $file := $resource.RelPermalink }}
+
+    {{ if .additionalDetails }}
+      {{ $detailsMarkdownPath := printf "docs/%s/%s/%s/%s/additionalDetails.md" .group .artifact .version .type }}
+      {{ $detailsResource := resources.Get $detailsMarkdownPath }}
+      {{ $componentDetailsPath := printf "components/%s/additional-details.md" .type }}
+      {{ $componentDetailsResource := slice $detailsHeader $detailsResource | resources.Concat $componentDetailsPath }}
+      {{ $componentDetailsResource.Publish }}
+    {{ end }}
   {{ end }}
   {{ range .componentManifest.parameterProviders }}
     {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
@@ -39,6 +65,14 @@
     {{ $filename := printf "components/%s/_index.md" .type }}
     {{ $resource := resources.FromString $filename $string }}
     {{ $file := $resource.RelPermalink }}
+
+    {{ if .additionalDetails }}
+      {{ $detailsMarkdownPath := printf "docs/%s/%s/%s/%s/additionalDetails.md" .group .artifact .version .type }}
+      {{ $detailsResource := resources.Get $detailsMarkdownPath }}
+      {{ $componentDetailsPath := printf "components/%s/additional-details.md" .type }}
+      {{ $componentDetailsResource := slice $detailsHeader $detailsResource | resources.Concat $componentDetailsPath }}
+      {{ $componentDetailsResource.Publish }}
+    {{ end }}
   {{ end }}
   {{ range .componentManifest.flowAnalysisRules }}
     {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
@@ -47,5 +81,13 @@
     {{ $filename := printf "components/%s/_index.md" .type }}
     {{ $resource := resources.FromString $filename $string }}
     {{ $file := $resource.RelPermalink }}
+
+    {{ if .additionalDetails }}
+      {{ $detailsMarkdownPath := printf "docs/%s/%s/%s/%s/additionalDetails.md" .group .artifact .version .type }}
+      {{ $detailsResource := resources.Get $detailsMarkdownPath }}
+      {{ $componentDetailsPath := printf "components/%s/additional-details.md" .type }}
+      {{ $componentDetailsResource := slice $detailsHeader $detailsResource | resources.Concat $componentDetailsPath }}
+      {{ $componentDetailsResource.Publish }}
+    {{ end }}
   {{ end }}
 {{ end }}
