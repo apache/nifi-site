@@ -23,7 +23,7 @@ fi
 # Download Runtime Manifest JAR and extract JSON to prebuild
 echo "Downloading $MANIFEST_JAR_URL"
 curl -o $MANIFEST_JAR_PATH $MANIFEST_JAR_URL
-unzip -q -o -d $PREBUILD_DIR/assets $MANIFEST_JAR_PATH $MANIFEST_JSON $MANIFEST_DOCS_DIR
+unzip -q -o -d $PREBUILD_DIR/assets $MANIFEST_JAR_PATH $MANIFEST_JSON $MANIFEST_DOCS_DIR/*
 
 # Download Documentation Resources and extract to prebuild
 echo "Downloading $NIFI_DOCS_ZIP_URL"
