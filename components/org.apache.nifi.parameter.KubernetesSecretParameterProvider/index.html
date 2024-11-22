@@ -2298,6 +2298,81 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for KubernetesSecretParameterProvider 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="kubernetessecretparameterprovider">KubernetesSecretParameterProvider</h1>
+<h3 id="deriving-parameters-from-mounted-kubernetes-secret-files">Deriving Parameters from mounted Kubernetes Secret files</h3>
+<p>The KubernetesSecretParameterProvider maps a directory to a parameter group named after the directory, and the files
+within the directory to parameters. Each file&rsquo;s name is mapped to a parameter, and the content of the file becomes the
+value. Hidden files and nested directories are ignored.</p>
+<p>While this provider can be useful in a range of cases since it simply reads parameter values from local files, it
+particularly matches the mounted volume secret structure in Kubernetes. A full discussion of Kubernetes secrets is
+beyond the scope of this document, but a brief overview can illustrate how these secrets can be mapped to parameter
+groups.</p>
+<h3 id="kubernetes-mounted-secrets-example">Kubernetes Mounted Secrets Example</h3>
+<p>Assume a secret is configured as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">data</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">admin_username</span>: <span style="color:#ae81ff">my-username (base64-encoded)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">admin_password</span>: <span style="color:#ae81ff">my-password (base64-encoded)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">access_key</span>: <span style="color:#ae81ff">my-key (base64-encoded)</span>
+</span></span></code></pre></div><p>Assume a deployment has the following configuration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">system-credentials</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secret</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">items</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">admin_username</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">sys.admin.username</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">admin_password</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">sys.admin.password</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">access_key</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">sys.access.key</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">system-creds</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/secrets/system-credentials</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">system-credentials</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>Then, this secret will appear on disk as follows:</p>
+<pre tabindex="0"><code>$ ls /etc/secrets/system-credentials
+sys.access.key sys.admin.password sys.admin.username
+</code></pre><p>Therefore, to map this secret to a parameter group that will populate a Parameter Context named &lsquo;system-credentials&rsquo;,
+you should simply provide the following configuration to the KubernetesSecretParameterProvider:</p>
+<ul>
+<li><strong>Parameter Group Directories</strong> - /etc/secrets/system-credentials</li>
+</ul>
+<p>The &lsquo;system-credentials&rsquo; parameter context will then contain the following parameters:</p>
+<ul>
+<li><strong>sys.access.key</strong> - my-key</li>
+<li><strong>sys.admin.username</strong> - my-username</li>
+<li><strong>sys.admin.password</strong> - my-password</li>
+</ul>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

@@ -2298,6 +2298,158 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ValidateRecord 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="validaterecord">ValidateRecord</h1>
+<h2 id="examples-for-the-effect-of-force-types-from-readers-schema-property">Examples for the effect of Force Types From Reader&rsquo;s Schema property</h2>
+<p>The processor first reads the data from the incoming FlowFile using the specified Record Reader, which uses a schema.
+Then, depending on the value of the Schema Access Strategy property, the processor can either use the reader&rsquo;s schema,
+or a different schema to validate the data against. After that, the processor writes the data into the outgoing FlowFile
+using the specified Record Writer. If the data is valid, the validation schema is used by the writer. If the data is
+invalid, the writer uses the reader&rsquo;s schema. The <strong>Force Types From Reader&rsquo;s Schema</strong> property affects the first step:
+how strictly the reader&rsquo;s schema should be applied when reading the data from the incoming FlowFile. By affecting how
+the data is read, the value of the Force Types From Reader&rsquo;s Schema property also has an effect on what the output of
+the ValidateRecord processor is, and also whether the output is forwarded to the <strong>valid</strong> or the <strong>invalid</strong>
+relationship. Below are two examples where the value of this property affects the output significantly.</p>
+<p>In both examples the input is in XML format and the output is in JSON. In the examples we assume that the same schema is
+used for reading, validation and writing.</p>
+<h3 id="example-1">Example 1</h3>
+<p>Schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;field1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;field2&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Input:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;test&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field1&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;sub_field&gt;</span>content<span style="color:#f92672">&lt;/sub_field&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/field1&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field2&gt;</span>content_of_field_2<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/test&gt;</span>
+</span></span></code></pre></div><p>Output if <strong>Force Types From Reader&rsquo;s Schema = true</strong> (forwarded to the <strong>invalid</strong> relationship):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field2&#34;</span>: <span style="color:#e6db74">&#34;content_of_field_2&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Output if <strong>Force Types From Reader&rsquo;s Schema = false</strong> (forwarded to the <strong>invalid</strong> relationship):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field1&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;sub_field&#34;</span>: <span style="color:#e6db74">&#34;content&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field2&#34;</span>: <span style="color:#e6db74">&#34;content_of_field_2&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>As you can see, the FlowFile is forwarded to the invalid relationship in both cases, since the input data does not match
+the provided Avro schema. However, if <strong>Force Types From Reader&rsquo;s Schema = true</strong>, only those fields appear in the
+output that comply with the schema. If <strong>Force Types From Reader&rsquo;s Schema = false</strong>, all fields appear in the output
+regardless of whether they comply with the schema or not.</p>
+<h3 id="example-2">Example 2</h3>
+<p>Schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;test&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;field1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;field2&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Input:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;test&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field1&gt;</span>content_1<span style="color:#f92672">&lt;/field1&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field2&gt;</span>content_2<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field2&gt;</span>content_3<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/test&gt;</span>
+</span></span></code></pre></div><p>Output if <strong>Force Types From Reader&rsquo;s Schema = true</strong> (forwarded to the <strong>valid</strong> relationship):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field1&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;content_1&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field2&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;content_2&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;content_3&#34;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Output if <strong>Force Types From Reader&rsquo;s Schema = false</strong> (forwarded to the <strong>invalid</strong> relationship):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field1&#34;</span>: <span style="color:#e6db74">&#34;content_1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;field2&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;content_2&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;content_3&#34;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>The schema expects two fields (field1 and field2), both of type ARRAY. field1 only appears once in the input XML
+document. If <strong>Force Types From Reader&rsquo;s Schema = true</strong>, the processor forces this field to be in a type that complies
+with the schema. So it is put in an array with one element. Since this type coercion can be done, the output is routed
+to the <strong>valid</strong> relationship. If <strong>Force Types From Reader&rsquo;s Schema = false</strong> the processor does not try to apply type
+coercion, thus field1 appears in the output as a single value. According to the schema, the processor expects an array
+for field1, but receives a single element so the output is routed to the <strong>invalid</strong> relationship.</p>
+<p>Schema compliance (and getting routed to the <strong>valid</strong> or the <strong>invalid</strong> relationship) does not depend on what Writer
+is used to produce the output of the ValidateRecord processor. Let us suppose that we used the same schema and input as
+in <strong>Example 2</strong>, but instead of JsonRecordSetWriter, we used XMLRecordSetWriter to produce the output. Both in case of
+<strong>Force Types From Reader&rsquo;s Schema = true</strong> and <strong>Force Types From Reader&rsquo;s Schema = false</strong> the output is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;test&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field1&gt;</span>content_1<span style="color:#f92672">&lt;/field1&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field2&gt;</span>content_2<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;field2&gt;</span>content_3<span style="color:#f92672">&lt;/field2&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/test&gt;</span>
+</span></span></code></pre></div><p>However, if <strong>Force Types From Reader&rsquo;s Schema = true</strong> this output is routed to the <strong>valid</strong> relationship and if *
+<em>Force Types From Reader&rsquo;s Schema = false</em>* it is routed to the <strong>invalid</strong> relationship.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

@@ -2298,6 +2298,55 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for CalculateRecordStats 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="calculaterecordstats">CalculateRecordStats</h1>
+<p>This processor takes in a record set and counts both the overall count and counts that are defined as dynamic properties
+that map a property name to a record path. Record path counts are provided at two levels:</p>
+<ul>
+<li>The overall count of all records that successfully evaluated a record path.</li>
+<li>A breakdown of counts of unique values that matched the record path operation.</li>
+</ul>
+<p>Consider the following record structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;sport&#34;</span>: <span style="color:#e6db74">&#34;Soccer&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Smith&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>A valid mapping here would be <em>sport =&gt; /sport</em>.</p>
+<p>For a record set with JSON like that, five entries and 3 instances of soccer and two instances of football, it would set
+the following attributes:</p>
+<ul>
+<li>record_count: 5</li>
+<li>sport: 5</li>
+<li>sport.Soccer: 3</li>
+<li>sport.Football: 2</li>
+</ul>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

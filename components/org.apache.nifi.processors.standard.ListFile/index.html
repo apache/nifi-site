@@ -2298,6 +2298,138 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ListFile 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="listfile">ListFile</h1>
+<p>ListFile performs a listing of all files that it encounters in the configured directory. There are two common, broadly
+defined use cases.</p>
+<h3 id="streaming-use-case">Streaming Use Case</h3>
+<p>By default, the Processor will create a separate FlowFile for each file in the directory and add attributes for
+filename, path, etc. A common use case is to connect ListFile to the FetchFile processor. These two processors used in
+conjunction with one another provide the ability to easily monitor a directory and fetch the contents of any new file as
+it lands in an efficient streaming fashion.</p>
+<h3 id="batch-use-case">Batch Use Case</h3>
+<p>Another common use case is the desire to process all newly arriving files in a given directory, and to then perform some
+action only when all files have completed their processing. The above approach of streaming the data makes this
+difficult, because NiFi is inherently a streaming platform in that there is no &ldquo;job&rdquo; that has a beginning and an end.
+Data is simply picked up as it becomes available.</p>
+<p>To solve this, the ListFile Processor can optionally be configured with a Record Writer. When a Record Writer is
+configured, a single FlowFile will be created that will contain a Record for each file in the directory, instead of a
+separate FlowFile per file. With this pattern, in order to fetch the contents of each file, the records must be split up
+into individual FlowFiles and then fetched. So how does this help us?</p>
+<p>We can still accomplish the desired use case of waiting until all files in the directory have been processed by
+splitting apart the FlowFile and processing all the data within a Process Group. Configuring the Process Group with a
+FlowFile Concurrency of &ldquo;Single FlowFile per Node&rdquo; means that only one FlowFile will be brought into the Process Group.
+Once that happens, the FlowFile can be split apart and each part processed. Configuring the Process Group with an
+Outbound Policy of &ldquo;Batch Output&rdquo; means that none of the FlowFiles will leave the Process Group until all have finished
+processing.</p>
+<p>In this flow, we perform a listing of a directory with ListFile. The processor is configured with a Record Writer (in
+this case a CSV Writer, but any Record Writer can be used) so that only a single FlowFile is generated for the entire
+listing. That listing is then sent to the &ldquo;Process Listing&rdquo; Process Group (shown below). Only after the contents of the
+entire directory have been processed will data leave the &ldquo;Process Listing&rdquo; Process Group. At that point, when all data
+in the Process Group is ready to leave, each of the processed files will be sent to the &ldquo;Post-Processing&rdquo; Process Group.
+At the same time, the original listing is to be sent to the &ldquo;Processing Complete Notification&rdquo; Process Group. In order
+to accomplish this, the Process Group must be configured with a FlowFile Concurrency of &ldquo;Single FlowFile per Node&rdquo; and
+an Outbound Policy of &ldquo;Batch Output.&rdquo;</p>
+<p>The &ldquo;Process Listing&rdquo; Process Group a listing is received via the &ldquo;Listing&rdquo; Input Port. This is then sent directly to
+the &ldquo;Listing of Processed Data&rdquo; Output Port so that when all processing completes, the original listing will be sent out
+also.</p>
+<p>Next, the listing is broken apart into an individual FlowFile per record. Because we want to use FetchFile to fetch the
+data, we need to get the file&rsquo;s filename and path as FlowFile attributes. This can be done in a few different ways, but
+the easiest mechanism is to use the PartitionRecord processor. This Processor is configured with a Record Reader that is
+able to read the data written by ListFile (in this case, a CSV Reader). The Processor is also configured with two
+additional user-defined properties:</p>
+<ul>
+<li><code>absolute.path: /path</code></li>
+<li><code>filename: /filename</code></li>
+</ul>
+<p>As a result, each record that comes into the PartitionRecord processor will be split into an individual FlowFile (
+because the combination of the &ldquo;path&rdquo; and &ldquo;filename&rdquo; fields will be unique for each Record) and the &ldquo;filename&rdquo; and &quot;
+path&quot; record fields will become attributes on the FlowFile (using attribute names of &ldquo;absolute.path&rdquo; and &ldquo;filename&rdquo;).
+FetchFile uses default configuration, which references these attributes.</p>
+<p>Finally, we process the data - in this example, simply by compressing it with GZIP compression - and send the output to
+the &ldquo;Processed Data&rdquo; Output Port. The data will queue up here until all data is ready to leave the Process Group and
+then will be released.</p>
+<h3 id="record-schema">Record Schema</h3>
+<p>When the Processor is configured to write the listing using a Record Writer, the Records will be written using the
+following schema (in Avro format):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;nifiRecord&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;namespace&#34;</span>: <span style="color:#e6db74">&#34;org.apache.nifi&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;filename&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;path&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;directory&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;boolean&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;size&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;long&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;lastModified&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;long&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;logicalType&#34;</span>: <span style="color:#e6db74">&#34;timestamp-millis&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;permissions&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;null&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;owner&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;null&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;group&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;null&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

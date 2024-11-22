@@ -2298,6 +2298,122 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ZendeskRecordSink 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="zendeskrecordsink">ZendeskRecordSink</h1>
+<h3 id="description">Description</h3>
+<p>The sink uses the Zendesk API to ingest tickets into Zendesk, using the incoming records to construct request objects.</p>
+<h3 id="authentication">Authentication</h3>
+<p>Zendesk API uses basic authentication. Either a password or an authentication token has to be provided. In Zendesk API
+Settings, it&rsquo;s possible to generate authentication tokens, eliminating the need for users to expose their passwords.
+This approach also offers the advantage of fast token revocation when required.</p>
+<h3 id="property-values">Property values</h3>
+<p>There are multiple ways of providing property values to the request object:</p>
+<p><strong>Record Path:</strong></p>
+<p>The property value is going to be evaluated as a record path if the value is provided inside brackets starting with
+a &lsquo;%&rsquo;.</p>
+<p>Example:</p>
+<p>The incoming record look like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;record&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;This is a sample description.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;issue\_type&#34;</span>: <span style="color:#e6db74">&#34;Immediate&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;issue&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;General error&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;Immediate&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;project&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Maintenance&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We are going to provide Record Path values for the <em>Comment Body, Subject, Priority</em> and <em>Type</em> processor attributes:</p>
+<pre tabindex="0"><code>Comment Body : %{/record/description}
+Subject : %{/record/issue/name}
+Priority : %{/record/issue/type}
+Type : %{/record/project/name}
+</code></pre><p>The constructed request object that is going to be sent to the Zendesk API will look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;comment&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;body&#34;</span>: <span style="color:#e6db74">&#34;This is a sample description.&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;subject&#34;</span>: <span style="color:#e6db74">&#34;General error&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;Immediate&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;Maintenance&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Constant:</strong></p>
+<p>The property value is going to be treated as a constant if the provided value doesn&rsquo;t match with the Record Path format.</p>
+<p>Example:</p>
+<p>We are going to provide constant values for the <em>Comment Body, Subject, Priority</em> and <em>Type</em> processor attributes:</p>
+<pre tabindex="0"><code>Comment Body : Sample description
+Subject : Sample subject
+Priority : High
+Type : Sample type
+</code></pre><p>The constructed request object that is going to be sent to the Zendesk API will look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;comment&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;body&#34;</span>: <span style="color:#e6db74">&#34;Sample description&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;subject&#34;</span>: <span style="color:#e6db74">&#34;Sample subject&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;High&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;Sample type&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="additional-properties">Additional properties</h3>
+<p>The processor offers a set of frequently used Zendesk ticket attributes within its property list. However, users have
+the flexibility to include any desired number of additional properties using dynamic properties. These dynamic
+properties utilize their keys as Json Pointer, which denote the paths within the request object. Correspondingly, the
+values of these dynamic properties align with the predefined property attributes. The possible Zendesk request
+attributes can be found in
+the <a href="https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/">Zendesk API documentation</a></p>
+<p>Property Key values:</p>
+<p>The dynamic property key must be a valid Json Pointer value which has the following syntax rules:</p>
+<ul>
+<li>The path starts with <strong>/</strong>.</li>
+<li>Each segment is separated by <strong>/</strong>.</li>
+<li>Each segment can be interpreted as either an array index or an object key.</li>
+</ul>
+<p>Example:</p>
+<p>We are going to add a new dynamic property to the processor:</p>
+<pre tabindex="0"><code>/request/new_object : This is a new property
+/request/new_array/0 : This is a new array element
+</code></pre><p>The constructed request object will look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;request&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;new_object&#34;</span>: <span style="color:#e6db74">&#34;This is a new property&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;new_array&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;This is a new array element&#34;</span>
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="caching">Caching</h3>
+<p>The sink caches Zendesk tickets with the same content in order to avoid duplicate issues. The cache size and expiration
+date can be set on the sink service.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

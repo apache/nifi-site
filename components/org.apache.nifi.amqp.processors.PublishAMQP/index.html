@@ -2298,6 +2298,93 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for PublishAMQP 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="publishamqp">PublishAMQP</h1>
+<h2 id="summary">Summary</h2>
+<p>This processor publishes the contents of the incoming FlowFile to an AMQP-based messaging system. At the time of writing
+this document the supported AMQP protocol version is v0.9.1.</p>
+<p>The component is based
+on <a href="https://www.rabbitmq.com/api-guide.html">RabbitMQ Client API</a> <a href="https://www.rabbitmq.com/getstarted.html">The following guide and tutorial</a>
+may also help you to brush up on some of the AMQP basics.</p>
+<p>This processor does two things. It constructs AMQP Message by extracting FlowFile contents (both body and attributes).
+Once message is constructed it is sent to an AMQP Exchange. AMQP Properties will be extracted from the FlowFile and
+converted to <em>com.rabbitmq.client.AMQP.BasicProperties</em> to be sent along with the message. Upon success the incoming
+FlowFile is transferred to <em>success</em> Relationship and upon failure FlowFile is penalized and transferred to the
+<em>failure</em> Relationship.</p>
+<h2 id="where-did-my-message-go">Where did my message go?</h2>
+<p>In a typical AMQP exchange model, the message that is sent to an AMQP Exchange will be routed based on the <em>Routing Key</em>
+to its final destination in the <em>Queue</em>. It&rsquo;s called <strong>Binding</strong>. If due to some misconfiguration the binding between
+the <em>Exchange, Routing Key and the Queue</em> is not set up, the message will have no final destination and will return (
+i.e., the data will not make it to the queue). If that happens you will see a log in both app-log and bulletin stating
+to that effect. Fixing the binding (normally done by AMQP administrator) will resolve the issue.</p>
+<h2 id="amqp-properties">AMQP Properties</h2>
+<p>Attributes extracted from the FlowFile are considered candidates for AMQP properties if their names are prefixed with
+<em>amqp$</em> (e.g., amqp$contentType=text/xml). To enrich message with additional AMQP properties you may use *
+<em>UpdateAttribute</em>* processor between the source processor and PublishAMQP processor. The following is the list of
+available standard AMQP properties: <em>(&ldquo;amqp$contentType&rdquo;, &ldquo;amqp$contentEncoding&rdquo;, &quot;
+amqp$headers&quot; (if &lsquo;Headers Source&rsquo; is set to &lsquo;Attribute &ldquo;amqp$headers&rdquo; Value&rsquo;) , &ldquo;amqp$deliveryMode&rdquo;, &ldquo;amqp$priority&rdquo;,
+&ldquo;amqp$correlationId&rdquo;, &ldquo;amqp$replyTo&rdquo;, &ldquo;amqp$expiration&rdquo;, &ldquo;amqp$messageId&rdquo;, &ldquo;amqp$timestamp&rdquo;, &ldquo;amqp$type&rdquo;,
+&ldquo;amqp$userId&rdquo;, &ldquo;amqp$appId&rdquo;, &ldquo;amqp$clusterId&rdquo;)</em></p>
+<h3 id="amqp-message-headers-source">AMQP Message Headers Source</h3>
+<p>The headers attached to AMQP message by the processor depends on the &ldquo;Headers Source&rdquo; property value.</p>
+<ol>
+<li><strong>Attribute &ldquo;amqp$headers&rdquo; Value</strong> - The processor will read single attribute &ldquo;amqp$headers&rdquo; and split it based on &quot;
+Header Separator&quot; and then read headers in <em>key=value</em> format.</li>
+<li><strong>Attributes Matching Regex</strong> - The processor will pick flow file attributes by matching the regex provided in &quot;
+Attributes To Headers Regular Expression&quot;. The name of the attribute is used as key of header</li>
+</ol>
+<h2 id="configuration-details">Configuration Details</h2>
+<p>At the time of writing this document it only defines the essential configuration properties which are suitable for most
+cases. Other properties will be defined later as this component progresses. Configuring PublishAMQP:</p>
+<ol>
+<li><strong>Exchange Name</strong> - [OPTIONAL] the name of AMQP exchange the messages will be sent to. Usually provided by the
+administrator (e.g., &lsquo;amq.direct&rsquo;) It is an optional property. If kept empty the messages will be sent to a default
+AMQP exchange. More on AMQP Exchanges could be found <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html">here</a>.</li>
+<li><strong>Routing Key</strong> - [REQUIRED] the name of the routing key that will be used by AMQP to route messages from the
+exchange to destination queue(s). Usually provided by administrator (e.g., &lsquo;myKey&rsquo;) In the event when messages are
+sent to a default exchange this property corresponds to a destination queue name, otherwise a binding from the
+Exchange to a Queue via Routing Key must be set (usually by the AMQP administrator). More on AMQP Exchanges and
+Bindings could be found <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html">here</a>.</li>
+<li><strong>Host Name</strong> - [REQUIRED] the name of the host where AMQP broker is running. Usually provided by administrator (
+e.g., &lsquo;myhost.com&rsquo;). Defaults to &rsquo;localhost&rsquo;.</li>
+<li><strong>Port</strong> - [REQUIRED] the port number where AMQP broker is running. Usually provided by the administrator (e.g., '
+2453&rsquo;). Defaults to &lsquo;5672&rsquo;.</li>
+<li><strong>User Name</strong> - [REQUIRED] user name to connect to AMQP broker. Usually provided by the administrator (e.g., &lsquo;me&rsquo;).
+Defaults to &lsquo;guest&rsquo;.</li>
+<li><strong>Password</strong> - [REQUIRED] password to use with user name to connect to AMQP broker. Usually provided by the
+administrator. Defaults to &lsquo;guest&rsquo;.</li>
+<li><strong>Use Certificate Authentication</strong> - [OPTIONAL] Use the SSL certificate common name for authentication rather than
+user name/password. This can only be used in conjunction with SSL. Defaults to &lsquo;false&rsquo;.</li>
+<li><strong>Virtual Host</strong> - [OPTIONAL] Virtual Host name which segregates AMQP system for enhanced security. Please refer
+to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">this blog</a> for more details on Virtual Host.</li>
+</ol>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

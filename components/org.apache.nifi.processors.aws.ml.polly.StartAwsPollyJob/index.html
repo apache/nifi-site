@@ -2298,6 +2298,69 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for StartAwsPollyJob 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="amazon-polly">Amazon Polly</h1>
+<h2 id="startawspollyjob">StartAwsPollyJob</h2>
+<p>Amazon Polly is a service that turns text into lifelike speech, allowing you to create applications that talk, and build
+entirely new categories of speech-enabled products. Polly&rsquo;s Text-to-Speech (TTS) service uses advanced deep learning
+technologies to synthesize natural sounding human speech. With dozens of lifelike voices across a broad set of
+languages, you can build speech-enabled applications that work in many different countries.</p>
+<h3 id="usage">Usage</h3>
+<p>Amazon ML Processors are implemented to utilize ML services based on the official AWS API Reference. You can find
+example json payload in the documentation at the Request Syntax sections. For more details please check the
+official <a href="https://docs.aws.amazon.com/polly/latest/dg/API_Reference.html">Polly API reference</a> With this processor you
+will trigger a startSpeechSynthesisTask async call to Polly Service. You can define json payload as property or provide
+as a flow file content. Property has higher precedence. After the job is triggered the serialized json response will be
+written to the output flow file. The <code>awsTaskId</code> attribute will be populated, so it makes it easier to query job status
+by the corresponding get job status processor.</p>
+<p>JSON payload template - note that it can be simplified with the optional fields,
+check <a href="https://docs.aws.amazon.com/polly/latest/dg/API_StartSpeechSynthesisTask.html">AWS documentation for more details</a> -
+example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Engine&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;LanguageCode&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;LexiconNames&#34;</span>: [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;OutputFormat&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;OutputS3BucketName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;OutputS3KeyPrefix&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;SampleRate&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;SnsTopicArn&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;SpeechMarkTypes&#34;</span>: [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Text&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;TextType&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;VoiceId&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

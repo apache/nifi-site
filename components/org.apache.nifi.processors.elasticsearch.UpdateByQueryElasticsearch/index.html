@@ -2298,6 +2298,55 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for UpdateByQueryElasticsearch 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="updatebyqueryelasticsearch">UpdateByQueryElasticsearch</h1>
+<p>This processor executes an update operation against one or more indices using the _update_by_query handler. The query
+should be a valid Elasticsearch JSON DSL query (Lucene syntax is not supported). An optional Elasticsearch script can be
+specified to execute against the matched documents. An example query with script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;script&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;ctx._source.count++&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;lang&#34;</span>: <span style="color:#e6db74">&#34;painless&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;query&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;match&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;username.keyword&#34;</span>: <span style="color:#e6db74">&#34;john.smith&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>To update all the contents of an index, this could be used:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;query&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;match_all&#34;</span>: {}
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

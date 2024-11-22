@@ -2298,6 +2298,74 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ParseNetflowv5 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="netflowv5parser">Netflowv5Parser</h1>
+<p>Netflowv5Parser processor parses the ingress netflowv5 datagram format and transfers it either as flowfile attributes or JSON object. Netflowv5 format has predefined schema named &ldquo;template&rdquo; for parsing the netflowv5 record. More information: <a href="https://www.cisco.com/c/en/us/td/docs/net_mgmt/netflow_collection_engine/3-6/user/guide/format.html" title="RFC-netflowv5">RFC-netflowv5</a></p>
+<h2 id="netflowv5-json-output-schema">Netflowv5 JSON Output Schema</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;format&#34;</span>: <span style="color:#960050;background-color:#1e0010">string</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;header&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;count&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;sys_uptime&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;unix_secs&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;unix_nsecs&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;flow_sequence&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;engine_type&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;engine_id&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;sampling_interval&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;record&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;srcaddr&#34;</span>: <span style="color:#960050;background-color:#1e0010">string</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dstaddr&#34;</span>: <span style="color:#960050;background-color:#1e0010">string</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;nexthop&#34;</span>: <span style="color:#960050;background-color:#1e0010">string</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;input&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;output&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dPkts&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dOctets&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;first&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;last&#34;</span>: <span style="color:#960050;background-color:#1e0010">long</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;srcport&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dstport&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;pad1&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;tcp_flags&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;prot&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;tos&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;src_as&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dst_as&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;src_mask&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dst_mask&#34;</span>: <span style="color:#960050;background-color:#1e0010">short</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;pad2&#34;</span>: <span style="color:#960050;background-color:#1e0010">int</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

@@ -2298,6 +2298,81 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for IdentifyMimeType 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="identifymimetype">IdentifyMimeType</h1>
+<p>The following is a non-exhaustive list of MIME Types detected by default in NiFi:</p>
+<ul>
+<li>application/gzip</li>
+<li>application/bzip2</li>
+<li>application/flowfile-v3</li>
+<li>application/flowfile-v1</li>
+<li>application/xml</li>
+<li>video/mp4</li>
+<li>video/x-m4v</li>
+<li>video/mp4a-latm</li>
+<li>video/quicktime</li>
+<li>video/mpeg</li>
+<li>audio/wav</li>
+<li>audio/mp3</li>
+<li>image/bmp</li>
+<li>image/png</li>
+<li>image/jpg</li>
+<li>image/gif</li>
+<li>image/tif</li>
+<li>application/vnd.ms-works</li>
+<li>application/msexcel</li>
+<li>application/mspowerpoint</li>
+<li>application/msaccess</li>
+<li>application/x-ms-wmv</li>
+<li>application/pdf</li>
+<li>application/x-rpm</li>
+<li>application/tar</li>
+<li>application/x-7z-compressed</li>
+<li>application/java-archive</li>
+<li>application/zip</li>
+<li>application/x-lzh</li>
+</ul>
+<p>An example value for the Config Body property that will identify a file whose contents start with &ldquo;abcd&rdquo; as MIME Type &quot;
+custom/abcd&quot; and with extension &ldquo;.abcd&rdquo; would look like the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;mime-info&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;mime-type</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;custom/abcd&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;magic</span> <span style="color:#a6e22e">priority=</span><span style="color:#e6db74">&#34;50&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;match</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;abcd&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;string&#34;</span> <span style="color:#a6e22e">offset=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/magic&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;glob</span> <span style="color:#a6e22e">pattern=</span><span style="color:#e6db74">&#34;\*.abcd&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/mime-type&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/mime-info&gt;</span>
+</span></span></code></pre></div><p>For a more complete list of Tika&rsquo;s default types (and additional details regarding customization of the value for the
+Config Body property), please refer
+to <a href="https://tika.apache.org/1.22/detection.html#Mime_Magic_Detection">Apache Tika&rsquo;s documentation</a></p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

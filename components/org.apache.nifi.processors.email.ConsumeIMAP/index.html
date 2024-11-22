@@ -2298,6 +2298,58 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ConsumeIMAP 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="consumeimap">ConsumeIMAP</h1>
+<h2 id="description">Description:</h2>
+<p>This Processor consumes email messages via IMAP protocol and sends the content of an email message as content of the
+Flow File. Content of the incoming email message is written as raw bytes to the content of the outgoing Flow File.</p>
+<p>Different email providers may require additional Java Mail properties which could be provided as dynamic properties. For
+example, below is a sample configuration for GMail:</p>
+<p><strong>Processor&rsquo;s static properties:</strong></p>
+<ul>
+<li><strong>Host Name</strong> - imap.gmail.com</li>
+<li><strong>Port</strong> - 993</li>
+<li><strong>User Name</strong> - <em>[your user name]</em></li>
+<li><strong>Password</strong> - <em>[your password]</em></li>
+<li><strong>Folder</strong> - INBOX</li>
+</ul>
+<p><strong>Processor&rsquo;s dynamic properties:</strong></p>
+<ul>
+<li><strong>mail.imap.socketFactory.class</strong> - javax.net.ssl.SSLSocketFactory</li>
+<li><strong>mail.imap.socketFactory.fallback</strong> - false</li>
+<li><strong>mail.store.protocol</strong> - imaps</li>
+</ul>
+<p>Another useful property is <strong>mail.debug</strong> which allows Java Mail API to print protocol messages to the console helping
+you to both understand what&rsquo;s going on and debug issues.</p>
+<p>For the full list of available Java Mail properties please refer
+to <a href="https://javaee.github.io/javamail/docs/api/com/sun/mail/imap/package-summary.html">here</a></p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

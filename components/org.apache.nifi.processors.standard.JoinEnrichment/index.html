@@ -2298,6 +2298,398 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for JoinEnrichment 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="joinenrichment">JoinEnrichment</h1>
+<h3 id="introduction">Introduction</h3>
+<p>The JoinEnrichment processor is designed to be used in conjunction with the ForkEnrichment Processor. Used together, they
+provide a powerful mechanism for transforming data into a separate request payload for gathering enrichment data,
+gathering that enrichment data, optionally transforming the enrichment data, and finally joining together the original
+payload with the enrichment data.</p>
+<h3 id="typical-dataflow">Typical Dataflow</h3>
+<p>A ForkEnrichment processor that is responsible for taking in a FlowFile and producing two copies of it:
+one to the &ldquo;original&rdquo; relationship and the other to the &ldquo;enrichment&rdquo; relationship. Each copy will have its own set of
+attributes added to it.</p>
+<p>The &ldquo;original&rdquo; FlowFile being routed to the JoinEnrichment processor, while the &ldquo;enrichment&rdquo; FlowFile is
+routed in a different direction. Each of these FlowFiles will have an attribute named &ldquo;enrichment.group.id&rdquo; with the
+same value. The JoinEnrichment processor then uses this information to correlate the two FlowFiles. The
+&ldquo;enrichment.role&rdquo; attribute will also be added to each FlowFile but with a different value. The FlowFile routed to
+&ldquo;original&rdquo; will have an enrichment.role of ORIGINAL while the FlowFile routed to &ldquo;enrichment&rdquo; will have an
+enrichment.role of ENRICHMENT.</p>
+<p>The Processors that make up the &ldquo;enrichment&rdquo; path will vary from use case to use case. In this example, we
+use JoltTransformJSON processor in order to transform
+our payload from the original payload into a payload that is expected by our web service. We then use
+the InvokeHTTP processor in order to gather enrichment
+data that is relevant to our use case. Other common processors to use in this path
+include QueryRecord, UpdateRecord, ReplaceText,
+JoltTransformRecord, and ScriptedTransformRecord. It is also be a common use case to transform the response from the web
+service that is invoked via InvokeHTTP using one or more of these processors.</p>
+<p>After the enrichment data has been gathered, it does us little good unless we are able to somehow combine our enrichment
+data back with our original payload. To achieve this, we use the JoinEnrichment processor. It is responsible for
+combining records from both the &ldquo;original&rdquo; FlowFile and the &ldquo;enrichment&rdquo; FlowFile.</p>
+<p>The JoinEnrichment Processor is configured with a separate RecordReader for the &ldquo;original&rdquo; FlowFile and for the
+&ldquo;enrichment&rdquo; FlowFile. This means that the original data and the enrichment data can have entirely different schemas and
+can even be in different data formats. For example, our original payload may be CSV data, while our enrichment data is a
+JSON payload. Because we make use of RecordReaders, this is entirely okay. The Processor also requires a RecordWriter to
+use for writing out the enriched payload (i.e., the payload that contains the join of both the &ldquo;original&rdquo; and the
+&ldquo;enrichment&rdquo; data).</p>
+<p>The JoinEnrichment Processor offers different strategies for how to combine the original records with the enrichment
+data. Each of these is explained here in some detail.</p>
+<h3 id="wrapper">Wrapper</h3>
+<p>The Wrapper strategy is the default. Each record in the original payload is expected to have a corresponding record in
+the enrichment payload. The output record will be a record with two fields: <code>original</code> and <code>enrichment</code>. Each of these
+will contain the _n_th record from the corresponding FlowFile. For example, if the original FlowFile has the following
+content:</p>
+<pre tabindex="0"><code>id, name, age
+28021, John Doe, 55
+832, Jane Doe, 22
+29201, Jake Doe, 23
+555, Joseph Doe, 2
+</code></pre><p>And our enrichment FlowFile has the following content:</p>
+<pre tabindex="0"><code>id, email
+28021, john.doe@nifi.apache.org
+832, jane.doe@nifi.apache.org
+29201, jake.doe@nifi.apache.org
+</code></pre><p>This strategy would produce output the looks like this (assuming a JSON Writer):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;original&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">28021</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;enrichment&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">28021</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;john.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;original&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">832</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">22</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;enrichment&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">832</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;jane.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;original&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">29201</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jake Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;enrichment&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">29201</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;jake.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;original&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">555</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Joseph Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;enrichment&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>With this strategy, the first record of the original FlowFile is coupled together with the first record of the
+enrichment FlowFile. The second record of the original FlowFile is coupled together with the second record of the
+enrichment FlowFile, and so on. If one of the FlowFiles has more records than the other, a <code>null</code> value will be used.</p>
+<h3 id="insert-enrichment-fields">Insert Enrichment Fields</h3>
+<p>The &ldquo;Insert Enrichment Fields&rdquo; strategy inserts all the fields of the &ldquo;enrichment&rdquo; record into the original record. The
+records are correlated by their index in the FlowFile. That is, the first record in the &ldquo;enrichment&rdquo; FlowFile is
+inserted into the first record in the &ldquo;original&rdquo; FlowFile. The second record of the &ldquo;enrichment&rdquo; FlowFile is inserted
+into the second record of the &ldquo;original&rdquo; FlowFile and so on.</p>
+<p>When this strategy is selected, the &ldquo;Record Path&rdquo; property is required. The Record Path is evaluated against the &quot;
+original&quot; record. Consider, for example, the following content for the &ldquo;original&rdquo; FlowFile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;purchase&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;customer&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;loyaltyId&#34;</span>: <span style="color:#ae81ff">48202</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;firstName&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;lastName&#34;</span>: <span style="color:#e6db74">&#34;Doe&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">48.28</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;items&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;itemDescription&#34;</span>: <span style="color:#e6db74">&#34;book&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">24.14</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;quantity&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;purchase&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;customer&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;loyaltyId&#34;</span>: <span style="color:#ae81ff">5512</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;firstName&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;lastName&#34;</span>: <span style="color:#e6db74">&#34;Doe&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">121.44</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;items&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;itemDescription&#34;</span>: <span style="color:#e6db74">&#34;book&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">28.15</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;quantity&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;itemDescription&#34;</span>: <span style="color:#e6db74">&#34;inkpen&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">4.42</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;quantity&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Joined using the following enrichment content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;customerDetails&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">48202</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#e6db74">&#34;555-555-5555&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;john.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;customerDetails&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">5512</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#e6db74">&#34;555-555-5511&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;jane.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Let us then consider that a Record Path is used with a value of &ldquo;/purchase/customer&rdquo;. This would yield the following
+results:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;purchase&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;customer&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;loyaltyId&#34;</span>: <span style="color:#ae81ff">48202</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;firstName&#34;</span>: <span style="color:#e6db74">&#34;John&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;lastName&#34;</span>: <span style="color:#e6db74">&#34;Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;customerDetails&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">48202</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#e6db74">&#34;555-555-5555&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;john.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">48.28</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;items&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;itemDescription&#34;</span>: <span style="color:#e6db74">&#34;book&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">24.14</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;quantity&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;purchase&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;customer&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;loyaltyId&#34;</span>: <span style="color:#ae81ff">5512</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;firstName&#34;</span>: <span style="color:#e6db74">&#34;Jane&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;lastName&#34;</span>: <span style="color:#e6db74">&#34;Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;customerDetails&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">5512</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#e6db74">&#34;555-555-5511&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;jane.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;total&#34;</span>: <span style="color:#ae81ff">121.44</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;items&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;itemDescription&#34;</span>: <span style="color:#e6db74">&#34;book&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">28.15</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;quantity&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;itemDescription&#34;</span>: <span style="color:#e6db74">&#34;inkpen&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">4.42</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;quantity&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h3 id="sql">SQL</h3>
+<p>The SQL strategy provides an important capability that differs from the others, in that it allows for correlating the
+records in the &ldquo;original&rdquo; FlowFile and the records in the &ldquo;enrichment&rdquo; FlowFile in ways other than index based. That is,
+the SQL-based strategy doesn&rsquo;t necessarily correlate the first record of the original FlowFile with the first record of
+the enrichment FlowFile. Instead, it allows the records to be correlated using standard SQL JOIN expressions.</p>
+<p>A common use case for this is to create a payload to query some web service. The response contains identifiers with
+additional information for enrichment, but the order of the records in the enrichment may not correspond to the order of
+the records in the original.</p>
+<p>As an example, consider the following original payload, in CSV:</p>
+<pre tabindex="0"><code>id, name, age
+28021, John Doe, 55
+832, Jane Doe, 22
+29201, Jake Doe, 23
+555, Joseph Doe, 2
+</code></pre><p>Additionally, consider the following payload for the enrichment data:</p>
+<pre tabindex="0"><code>customer_id, customer_email, customer_name, customer_since
+555, joseph.doe@nifi.apache.org, Joe Doe, 08/Dec/14
+832, jane.doe@nifi.apache.org, Mrs. Doe, 14/Nov/14
+28021, john.doe@nifi.apache.org, John Doe, 22/Jan/22
+</code></pre><p>When making use of the SQL strategy, we must provide a SQL SELECT statement to combine both our original data and our
+enrichment data into a single FlowFile. To do this, we treat our original FlowFile as its own table with the name &quot;
+original&quot; while we treat the enrichment data as its own table with the name &ldquo;enrichment&rdquo;.</p>
+<p>Given this, we might combine all the data using a simple query such as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> o.<span style="color:#f92672">*</span>, e.<span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> original o
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">JOIN</span> enrichment e
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> o.id <span style="color:#f92672">=</span> e.customer_id
+</span></span></code></pre></div><p>And this would provide the following output:</p>
+<pre tabindex="0"><code>id, name, age, customer_id, customer_email, customer_name, customer_since
+28021, John Doe, 55, 28021, john.doe@nifi.apache.org, John Doe, 22/Jan/22
+832, Jane Doe, 22, 832, jane.doe@nifi.apache.org, Mrs. Doe, 14/Nov/14
+555, Joseph Doe, 2, 555, joseph.doe@nifi.apache.org, Joe Doe, 08/Dec/14
+</code></pre><p>Note that in this case, the record for Jake Doe was removed because we used a JOIN, rather than an OUTER JOIN. We could
+instead use a LEFT OUTER JOIN to ensure that we retain all records from the original FlowFile and simply provide null
+values for any missing records in the enrichment:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> o.<span style="color:#f92672">*</span>, e.<span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> original o
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">OUTER</span> <span style="color:#66d9ef">JOIN</span> enrichment e
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> o.id <span style="color:#f92672">=</span> e.customer_id
+</span></span></code></pre></div><p>Which would produce the following output:</p>
+<pre tabindex="0"><code>id, name, age, customer_id, customer_email, customer_name, customer_since
+28021, John Doe, 55, 28021, john.doe@nifi.apache.org, John Doe, 22/Jan/22
+832, Jane Doe, 22, 832, jane.doe@nifi.apache.org, Mrs. Doe, 14/Nov/14
+29201, Jake Doe, 23,,,,
+555, Joseph Doe, 2, 555, joseph.doe@nifi.apache.org, Joe Doe, 08/Dec/14
+</code></pre><p>But SQL is far more expressive than this, allowing us to perform far more powerful expressions. In this case, we
+probably don&rsquo;t want both the &ldquo;id&rdquo; and &ldquo;customer_id&rdquo; fields, or the &ldquo;name&rdquo; and &ldquo;customer_name&rdquo; fields. Let&rsquo;s consider,
+though, that the enrichment provides the customer&rsquo;s preferred name instead of their legal name. We might want to drop
+the customer_since column, as it doesn&rsquo;t make sense for our use case. We might then change our SQL to the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> o.id, o.name, e.customer_name <span style="color:#66d9ef">AS</span> preferred_name, o.age, e.customer_email <span style="color:#66d9ef">AS</span> email
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> original o
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">OUTER</span> <span style="color:#66d9ef">JOIN</span> enrichment e
+</span></span><span style="display:flex;"><span>                         <span style="color:#66d9ef">ON</span> o.id <span style="color:#f92672">=</span> e.customer_id
+</span></span></code></pre></div><p>And this will produce a more convenient output:</p>
+<pre tabindex="0"><code>id, name, preferred_name, age, email
+28021, John Doe, John Doe, 55, john.doe@nifi.apache.org
+832, Jane Doe, Mrs. Doe, 22, jane.doe@nifi.apache.org
+29201, Jake Doe,, 23,
+555, Joseph Doe, Joe Doe, 2, joseph.doe@nifi.apache.org
+</code></pre><p>So we can see tremendous power from the SQL strategy. However, there is a very important consideration that must be
+taken into account when using the SQL strategy.</p>
+<p><strong>WARNING:</strong> while the SQL strategy provides us great power, it may require significant amounts of heap. Depending on
+the query, the SQL engine may require buffering the contents of the entire &ldquo;enrichment&rdquo; FlowFile in memory, in Java&rsquo;s
+heap. Additionally, if the Processor is scheduled with multiple concurrent tasks, each of the tasks made hold the entire
+contents of the enrichment FlowFile in memory. This can lead to heap exhaustion and cause stability problems or
+OutOfMemoryErrors to occur.</p>
+<p>There are a couple of options that will help to mitigate these concerns.</p>
+<ol>
+<li>Split into smaller chunks. It is generally ill-advised to split Record-oriented data into many tiny FlowFiles, as
+NiFi tends to perform best with larger FlowFiles. The sweet spot for NiFi tends to be around 300 KB to 3 MB in size.
+So we do not want to break a large FlowFile with 100,000 records into 100,000 FlowFiles each with 1 record. It may be
+advantageous, though, before the ForkEnrichment processor to break that FlowFile into 100 FlowFiles, each 1,000
+records; or 10 FlowFiles, each 10,000 records. This typically results in a smaller amount of enrichment data so that
+we don&rsquo;t need to hold as much in memory.</li>
+<li>Before the JoinEnrichment processor, trim the enrichment data to remove any fields that are not desirable. In the
+example above, we may have used QueryRecord, UpdateRecord, JoltTransformRecord, or updated our schema in order to
+remove the &ldquo;customer_since&rdquo; field from the enrichment dataset. Because we didn&rsquo;t make use of the field, we could
+easily remove it before the JoinEnrichment in order to reduce the size of the enrichment FlowFile and thereby reduce
+the amount of data held in memory.</li>
+</ol>
+<p>It is also worth noting that the SQL strategy may result in reordering the records within the FlowFile, so it may be
+necessary to use an ORDER BY clause, etc. if the ordering is important.</p>
+<h3 id="additional-memory-considerations">Additional Memory Considerations</h3>
+<p>In addition to the warning above about using the SQL Join Strategy, there is another consideration to keep in mind in
+order to limit the amount of information that this Processor must keep in memory. While the Processor does not store the
+contents of all FlowFiles in memory, it does hold all FlowFiles&rsquo; attributes in memory. As a result, the following points
+should be kept in mind when using this Processor.</p>
+<ol>
+<li>Avoid large attributes. FlowFile attributes should not be used to hold FlowFile content. Attributes are intended to
+be small. Generally, on the order of 100-200 characters. If there are any large attributes, it is recommended that
+they be removed by using the UpdateAttribute Processor before the ForkEnrichment processor.</li>
+<li>Avoid large numbers of attributes. While it is important to avoid creating large FlowFile attributes, it is just as
+important to avoid creating large numbers of attributes. Keeping 30 small attributes on a FlowFile is perfectly fine.
+Storing 300 attributes, on the other hand, may occupy a significant amount of heap.</li>
+<li>Limit backpressure. The JoinEnrichment Processor will pull into its own memory all the incoming FlowFiles. As a
+result, it will be helpful to avoid providing a huge number of FlowFiles to the Processor at any given time. This can
+be done by setting the backpressure limits to a smaller value. For example, in our example above, the ForkEnrichment
+Processor is connected directly to the JoinEnrichment Processor. We may want to limit the backpressure on this
+connection to 500 or 1,000 instead of the default 10,000. Doing so will limit the number of FlowFiles that are
+allowed to be loaded into the JoinEnrichment Processor at one time.</li>
+</ol>
+<h3 id="more-complex-joining-strategies">More Complex Joining Strategies</h3>
+<p>This Processor offers several strategies that can be used for correlating data together and joining records from two
+different FlowFiles into a single FlowFile. However, there are times when users may require more powerful capabilities
+than what is offered. We might, for example, want to use the information in an enrichment record to determine whether to
+null out a value in the corresponding original records.</p>
+<p>For such uses cases, the recommended approach is to make use of the Wrapper strategy or the SQL strategy in order to
+combine the original and enrichment FlowFiles into a single FlowFile. Then, connect the &ldquo;joined&rdquo; relationship of this
+Processor to the most appropriate processor for further processing the data. For example, consider that we use the
+Wrapper strategy to produce output that looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;original&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">482028</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ssn&#34;</span>: <span style="color:#e6db74">&#34;555-55-5555&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#e6db74">&#34;555-555-5555&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;john.doe@nifi.apache.org&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;enrichment&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;UK&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;allowsPII&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We might then use the TransformRecord processor with a JSON RecordReader and a JSON RecordSetWriter to transform this.
+Using Groovy, our transformation may look something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.nifi.serialization.record.Record
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Record original <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Record<span style="color:#f92672">)</span> record<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;original&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Record enrichment <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Record<span style="color:#f92672">)</span> record<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;enrichment&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Boolean<span style="color:#f92672">.</span><span style="color:#a6e22e">TRUE</span> <span style="color:#f92672">!=</span> enrichment<span style="color:#f92672">?.</span><span style="color:#a6e22e">getAsBoolean</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;allowsPII&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    original<span style="color:#f92672">.</span><span style="color:#a6e22e">setValue</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ssn&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    original<span style="color:#f92672">.</span><span style="color:#a6e22e">setValue</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;phone&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    original<span style="color:#f92672">.</span><span style="color:#a6e22e">setValue</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> original
+</span></span></code></pre></div><p>Which will produce for us the following output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">482028</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;ssn&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;phone&#34;</span>: <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this way, we have used information from the enrichment record to optionally transform the original record. We then
+return the original record, dropping the enrichment record all together. In this way, we open up an infinite number of
+possibilities for transforming our original payload based on the content of the enrichment data that we have fetched
+based on that data.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

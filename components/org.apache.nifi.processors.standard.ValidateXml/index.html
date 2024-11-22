@@ -2298,6 +2298,88 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ValidateXml 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="validatecsv">ValidateCsv</h1>
+<h2 id="usage-information">Usage Information</h2>
+<p>In order to fully validate XML, a schema must be provided. The ValidateXML processor allows the schema to be specified
+in the property &lsquo;Schema File&rsquo;. The following example illustrates how an XSD schema and XML data work together.</p>
+<p>Example XSD specification</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;xs:schema</span> <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span> <span style="color:#a6e22e">targetNamespace=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#a6e22e">xmlns:tns=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span> <span style="color:#a6e22e">elementFormDefault=</span><span style="color:#e6db74">&#34;unqualified&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;bundle&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;tns:BundleType&#34;</span><span style="color:#f92672">&gt;&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xs:complexType</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;BundleType&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;node&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;tns:NodeType&#34;</span> <span style="color:#a6e22e">maxOccurs=</span><span style="color:#e6db74">&#34;unbounded&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xs:complexType</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;NodeType&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;subNode&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;tns:SubNodeType&#34;</span> <span style="color:#a6e22e">maxOccurs=</span><span style="color:#e6db74">&#34;unbounded&#34;</span> <span style="color:#a6e22e">minOccurs=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xs:complexType</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;SubNodeType&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;xs:element</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;value&#34;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;xs:string&#34;</span><span style="color:#f92672">&gt;&lt;/xs:element&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/xs:sequence&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xs:complexType&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xs:schema&gt;</span>
+</span></span></code></pre></div><p>Given the schema defined in the above XSD, the following are valid XML data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ns:bundle</span> <span style="color:#a6e22e">xmlns:ns=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;node&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;subNode&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;value&gt;</span>Hello<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/subNode&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;subNode&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;value&gt;</span>World!<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/subNode&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/node&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ns:bundle&gt;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ns:bundle</span> <span style="color:#a6e22e">xmlns:ns=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;node&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;subNode&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;value&gt;</span>Hello World!<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/subNode&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/node&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ns:bundle&gt;</span>
+</span></span></code></pre></div><p>The following are invalid XML data. The resulting validatexml.invalid.error attribute is shown.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ns:bundle</span> <span style="color:#a6e22e">xmlns:ns=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;node&gt;</span>Hello World!<span style="color:#f92672">&lt;/node&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ns:bundle&gt;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>validatexml.invalid.error: cvc-complex-type.2.3: Element &#39;node&#39; cannot have character \[children\], because the type&#39;s content type is element-only.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;ns:bundle</span> <span style="color:#a6e22e">xmlns:ns=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;node&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;value&gt;</span>Hello World!<span style="color:#f92672">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/node&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ns:bundle&gt;</span>
+</span></span></code></pre></div><pre tabindex="0"><code>validatexml.invalid.error: cvc-complex-type.2.4.a: Invalid content was found starting with element &#39;value&#39;. One of &#39;{subNode}&#39; is expected.
+</code></pre>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

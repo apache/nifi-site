@@ -2298,6 +2298,111 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for StartAwsTranscribeJob 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="amazon-transcribe">Amazon Transcribe</h1>
+<p>Automatically convert speech to text</p>
+<h3 id="usage">Usage</h3>
+<p>Amazon ML Processors are implemented to utilize ML services based on the official AWS API Reference. You can find
+example json payload in the documentation at the Request Syntax sections. For more details please check the
+official <a href="https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html">Transcribe API reference</a> With this
+processor you will trigger a startTranscriptionJob async call to AWS Transcribe Service. You can define json payload as
+property or provide as a flow file content. Property has higher precedence. After the job is triggered the serialized
+json response will be written to the output flow file. The awsTaskId attribute will be populated, so it makes it easier
+to query job status by the corresponding get job status processor.</p>
+<p>JSON payload template - note that these can be simplified with the optional fields,
+check <a href="https://docs.aws.amazon.com/transcribe/latest/APIReference/API_StartTranscriptionJob.html">AWS documentation for more details</a> -
+examples:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;ContentRedaction&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;PiiEntityTypes&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;RedactionOutput&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;RedactionType&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;IdentifyLanguage&#34;</span>: <span style="color:#960050;background-color:#1e0010">boolean</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;IdentifyMultipleLanguages&#34;</span>: <span style="color:#960050;background-color:#1e0010">boolean</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;JobExecutionSettings&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;AllowDeferredExecution&#34;</span>: <span style="color:#960050;background-color:#1e0010">boolean</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;DataAccessRoleArn&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;KMSEncryptionContext&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;string&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;LanguageCode&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;LanguageIdSettings&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;string&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;LanguageModelName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;VocabularyFilterName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;VocabularyName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;LanguageOptions&#34;</span>: [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Media&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;MediaFileUri&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;RedactedMediaFileUri&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;MediaFormat&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;MediaSampleRateHertz&#34;</span>: <span style="color:#960050;background-color:#1e0010">number</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;ModelSettings&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;LanguageModelName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;OutputBucketName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;OutputEncryptionKMSKeyId&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;OutputKey&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Settings&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ChannelIdentification&#34;</span>: <span style="color:#960050;background-color:#1e0010">boolean</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;MaxAlternatives&#34;</span>: <span style="color:#960050;background-color:#1e0010">number</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;MaxSpeakerLabels&#34;</span>: <span style="color:#960050;background-color:#1e0010">number</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ShowAlternatives&#34;</span>: <span style="color:#960050;background-color:#1e0010">boolean</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;ShowSpeakerLabels&#34;</span>: <span style="color:#960050;background-color:#1e0010">boolean</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;VocabularyFilterMethod&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;VocabularyFilterName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;VocabularyName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Subtitles&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Formats&#34;</span>: [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;OutputStartIndex&#34;</span>: <span style="color:#960050;background-color:#1e0010">number</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;Tags&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Key&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;Value&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;TranscriptionJobName&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

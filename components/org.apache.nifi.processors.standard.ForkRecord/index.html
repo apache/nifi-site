@@ -2298,6 +2298,475 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ForkRecord 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="forkrecord">ForkRecord</h1>
+<p>ForkRecord allows the user to fork a record into multiple records. To do that, the user must specify one or
+multiple RecordPath (as dynamic properties of the processor) pointing to a field of type ARRAY containing RECORD elements.</p>
+<p>The processor accepts two modes:</p>
+<ul>
+<li>Split mode - in this mode, the generated records will have the same schema as the input. For every element in the
+array, one record will be generated and the array will only contain this element.</li>
+<li>Extract mode - in this mode, the generated records will be the elements contained in the array. Besides, it is also
+possible to add in each record all the fields of the parent records from the root level to the record element being
+forked. However it supposes the fields to add are defined in the schema of the Record Writer controller service.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="extract-mode">EXTRACT mode</h3>
+<p>To better understand how this Processor works, we will lay out a few examples. For the sake of these examples, let&rsquo;s
+assume that our input data is JSON formatted and looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">43</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;345 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Her City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;22222&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">45</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">6578.45</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">46</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">34567.21</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h4 id="example-1---extracting-without-parent-fields">Example 1 - Extracting without parent fields</h4>
+<p>For this case, we want to create one record per <code>account</code> and we don&rsquo;t care about the other fields. We&rsquo;ll add a dynamic
+property &ldquo;path&rdquo; set to <code>/accounts</code>. The resulting flow file will contain 4 records and will look like (assuming the
+Record Writer schema is correctly set):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">43</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">45</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">6578.45</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">46</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">34567.21</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h4 id="example-2---extracting-with-parent-fields">Example 2 - Extracting with parent fields</h4>
+<p>Now, if we set the property &ldquo;Include parent fields&rdquo; to true, this will recursively include the parent fields into the
+output records assuming the Record Writer schema allows it. In case multiple fields have the same name (like we have in
+this example for <code>id</code>), the child field will have the priority over all the parent fields sharing the same name. In this
+case, the <code>id</code> of the array <code>accounts</code> will be saved in the forked records. The resulting flow file will contain 4
+records and will look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">43</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;345 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Her City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;22222&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">45</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">6578.45</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;345 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Her City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;22222&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">46</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">34567.21</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h4 id="example-3---multi-nested-arrays">Example 3 - Multi-nested arrays</h4>
+<p>Now let&rsquo;s say that the input record contains multi-nested arrays like the below example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;transactions&#34;</span>: [
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">5</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">150.31</span>
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">6</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">-15.31</span>
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">43</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;transactions&#34;</span>: [
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">7</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">36.78</span>
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">-21.34</span>
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>``</p>
+<p>If we want to have one record per <code>transaction</code> for each <code>account</code>, then the Record Path should be set to
+<code>/accounts[*]/transactions</code>. If we have the following schema for our Record Reader:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;bank&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;address&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;city&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;state&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;zipCode&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;country&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;accounts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;items&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;accounts&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;balance&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;double&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;transactions&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&#34;type&#34;</span>: {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;items&#34;</span>: {
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;transactions&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;amount&#34;</span>,
+</span></span><span style="display:flex;"><span>                      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;double&#34;</span>
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                  ]
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>              }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And if we have the following schema for our Record Writer:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;record&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;bank&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;fields&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;id&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;int&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;name&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;address&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;city&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;state&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;zipCode&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;country&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;string&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;amount&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;double&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;balance&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;double&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Then, if we include the parent fields, we&rsquo;ll have 4 records as below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">5</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">150.31</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">6</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">-15.31</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">7</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">36.78</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">8</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;amount&#34;</span>: <span style="color:#ae81ff">-21.34</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h3 id="split-mode">SPLIT mode</h3>
+<h4 id="example">Example</h4>
+<p>Assuming we have the below data and we added a property &ldquo;path&rdquo; set to <code>/accounts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">43</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;345 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Her City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;22222&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">45</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">6578.45</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">46</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">34567.21</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>Then we&rsquo;ll get 4 records as below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">4750.89</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;John Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;123 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;My City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;MS&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;11111&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">43</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">48212.38</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;345 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Her City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;22222&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">45</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">6578.45</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Jane Doe&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;address&#34;</span>: <span style="color:#e6db74">&#34;345 My Street&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Her City&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;state&#34;</span>: <span style="color:#e6db74">&#34;NY&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;zipCode&#34;</span>: <span style="color:#e6db74">&#34;22222&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;country&#34;</span>: <span style="color:#e6db74">&#34;USA&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;accounts&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#ae81ff">46</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;balance&#34;</span>: <span style="color:#ae81ff">34567.21</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div>
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

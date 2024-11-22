@@ -2298,6 +2298,142 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for EvaluateXQuery 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="evaluatexquery">EvaluateXQuery</h1>
+<p><strong>Examples:</strong></p>
+<p>This processor produces one attribute or FlowFile per XQueryResult. If only one attribute or FlowFile is desired, the
+following examples demonstrate how this can be achieved using the XQuery language. The examples below reference the
+following sample XML:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml-stylesheet type=&#34;text/xsl&#34; href=&#34;foo.xsl&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;ns:fruitbasket</span> <span style="color:#a6e22e">xmlns:ns=</span><span style="color:#e6db74">&#34;http://namespace/1&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit</span> <span style="color:#a6e22e">taste=</span><span style="color:#e6db74">&#34;crisp&#34;</span><span style="color:#f92672">&gt;</span>           <span style="color:#75715e">&lt;!-- Apples are my favorite--&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>apple<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color&gt;</span>red<span style="color:#f92672">&lt;/color&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>apple<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color&gt;</span>green<span style="color:#f92672">&lt;/color&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>banana<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color&gt;</span>yellow<span style="color:#f92672">&lt;/color&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit</span> <span style="color:#a6e22e">taste=</span><span style="color:#e6db74">&#34;sweet&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>orange<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color&gt;</span>orange<span style="color:#f92672">&lt;/color&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>blueberry<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color&gt;</span>blue<span style="color:#f92672">&lt;/color&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit</span> <span style="color:#a6e22e">taste=</span><span style="color:#e6db74">&#34;tart&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>raspberry<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color&gt;</span>red<span style="color:#f92672">&lt;/color&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;fruit&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;name&gt;</span>none<span style="color:#f92672">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;color/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/fruit&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/ns:fruitbasket&gt;</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; nodes individually (7 Results):</p>
+<ul>
+<li>//fruit]</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return only the first &ldquo;fruit&rdquo; node (1 Result):</p>
+<ul>
+<li>//fruit[1]</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return only the last &ldquo;fruit&rdquo; node (1 Result):</p>
+<ul>
+<li>//fruit[count(//fruit)]</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; nodes, wrapped in a &ldquo;basket&rdquo; tag (1 Result):</p>
+<ul>
+<li><basket>{//fruit}</basket></li>
+</ul>
+</li>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; names individually (7 Results):</p>
+<ul>
+<li>//fruit/text()</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return only the first &ldquo;fruit&rdquo; name (1 Result):</p>
+<ul>
+<li>//fruit[1]/text()</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return only the last &ldquo;fruit&rdquo; name (1 Result):</p>
+<ul>
+<li>//fruit[count(//fruit)]/text()</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; names as a comma separated list (1 Result):</p>
+<ul>
+<li>string-join((for $x in //fruit return $x/name/text()), &lsquo;, &lsquo;)</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; colors and names as a comma separated list (1 Result):</p>
+<ul>
+<li>string-join((for $y in (for $x in //fruit return string-join(($x/color/text() , $x/name/text()), &rsquo; &lsquo;)) return
+$y), &lsquo;, &lsquo;)</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; colors and names as a comma separated list (1 Result):</p>
+<ul>
+<li>string-join((for $y in (for $x in //fruit return string-join(($x/color/text() , $x/name/text()), &rsquo; &lsquo;)) return
+$y), &lsquo;, &lsquo;)</li>
+</ul>
+</li>
+<li>
+<p>XQuery to return all &ldquo;fruit&rdquo; colors and names as a new line separated list (1 Result):</p>
+<ul>
+<li>string-join((for $y in (for $x in //fruit return string-join(($x/color/text() , $x/name/text()), &rsquo; &lsquo;)) return
+$y), &lsquo;\n&rsquo;)</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

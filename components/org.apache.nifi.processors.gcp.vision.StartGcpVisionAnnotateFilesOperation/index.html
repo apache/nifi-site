@@ -2298,6 +2298,103 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for StartGcpVisionAnnotateFilesOperation 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="google-vision">Google Vision</h1>
+<h2 id="google-cloud-vision---start-annotate-files-operation">Google Cloud Vision - Start Annotate Files Operation</h2>
+<p>Prerequisites</p>
+<ul>
+<li>Make sure Vision API is enabled and the account you are using has the right to use it</li>
+<li>Make sure the input file(s) are available in a GCS bucket</li>
+</ul>
+<h3 id="usage">Usage</h3>
+<p>StartGcpVisionAnnotateFilesOperation is designed to trigger file annotation operations. This processor should be used in
+pair with the GetGcpVisionAnnotateFilesOperationStatus Processor. Outgoing FlowFiles contain the raw response to the
+request returned by the Vision server. The response is in JSON format and contains the result and additional metadata as
+written in the Google Vision API Reference documents.</p>
+<h3 id="payload">Payload</h3>
+<p>The JSON Payload is a request in JSON format as documented in
+the <a href="https://cloud.google.com/vision/docs/reference/rest/v1/files/asyncBatchAnnotate">Google Vision REST API reference document</a>.
+Payload can be fed to the processor via the <code>JSON Payload</code> property or as a FlowFile content. The property has higher
+precedence over FlowFile content. Please make sure to delete the default value of the property if you want to use
+FlowFile content payload. A JSON payload template example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;requests&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;inputConfig&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;gcsSource&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;gs://${gcs.bucket}/${filename}&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;mimeType&#34;</span>: <span style="color:#e6db74">&#34;application/pdf&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;features&#34;</span>: [
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;${vision-feature-type}&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;maxResults&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      ],
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;outputConfig&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;gcsDestination&#34;</span>: {
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&#34;uri&#34;</span>: <span style="color:#e6db74">&#34;gs://${output-bucket}/${filename}/&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;batchSize&#34;</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="features-types">Features types</h3>
+<ul>
+<li>TEXT_DETECTION: Optical character recognition (OCR) for an image; text recognition and conversion to machine-coded
+text. Identifies and extracts UTF-8 text in an image.</li>
+<li>DOCUMENT_TEXT_DETECTION: Optical character recognition (OCR) for a file (PDF/TIFF) or dense text image; dense text
+recognition and conversion to machine-coded text.</li>
+</ul>
+<p>You can find more details at <a href="https://cloud.google.com/vision/docs/features-list">Google Vision Feature List</a></p>
+<h3 id="example-how-to-set-up-a-simple-annotate-image-flow">Example: How to set up a simple Annotate Image Flow</h3>
+<p>Prerequisites</p>
+<ul>
+<li>Create an input and output bucket</li>
+<li>Input files should be available in a GCS bucket</li>
+<li>This bucket must not contain anything else but the input files</li>
+<li>Set the bucket property of ListGCSBucket processor to your input bucket name</li>
+<li>Keep the default value of JSON PAYLOAD property in StartGcpVisionAnnotateFilesOperation</li>
+<li>Set the Output Bucket property to your output bucket name in StartGcpVisionAnnotateFilesOperation</li>
+<li>Setup GCP Credentials Provider Service for all GCP related processor</li>
+</ul>
+<p>Execution steps:</p>
+<ul>
+<li>ListGCSBucket processor will return a list of files in the bucket at the first run.</li>
+<li>ListGCSBucket will return only new items at subsequent runs.</li>
+<li>StartGcpVisionAnnotateFilesOperation processor will trigger GCP Vision file annotation jobs based on the JSON payload.</li>
+<li>StartGcpVisionAnnotateFilesOperation processor will populate the <code>operationKey</code> flow file attribute.</li>
+<li>GetGcpVisionAnnotateFilesOperationStatus processor will periodically query status of the job.</li>
+</ul>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

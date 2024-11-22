@@ -2298,6 +2298,70 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for ControlRate 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="controlrate">ControlRate</h1>
+<p>This processor throttles throughput of FlowFiles based on a configured rate. The rate can be specified as either a
+direct data rate (bytes per time period), or by counting FlowFiles or a specific attribute value. In all cases, the time
+period for measurement is specified in the Time Duration property.</p>
+<p>The processor operates in one of four available modes. The mode is determined by the Rate Control Criteria property.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Rate</td>
+<td>The FlowFile content size is accumulated for all FlowFiles passing through this processor. FlowFiles are throttled to ensure a maximum overall data rate (bytes per time period) is not exceeded. The Maximum Rate property specifies the maximum bytes allowed per Time Duration.</td>
+</tr>
+<tr>
+<td>FlowFile Count</td>
+<td>FlowFiles are counted regardless of content size. No more than the specified number of FlowFiles pass through this processor in the given Time Duration. The Maximum Rate property specifies the maximum number of FlowFiles allowed per Time Duration.</td>
+</tr>
+<tr>
+<td>Attribute Value</td>
+<td>The value of an attribute is accumulated to determine overall rate. The Rate Controlled Attribute property specifies the attribute whose value will be accumulated. The value of the specified attribute is expected to be an integer. This mode is independent of overall FlowFile size and count.</td>
+</tr>
+<tr>
+<td>Data Rate or FlowFile Count</td>
+<td>This mode provides a combination of Data Rate and FlowFile Count. Both rates are accumulated and FlowFiles are throttled if either rate is exceeded. Both Maximum Data Rate and Maximum FlowFile Rate properties must be specified to determine content size and FlowFile count per Time Duration.</td>
+</tr>
+</tbody>
+</table>
+<p>If the Grouping Attribute property is specified, all rates are accumulated separately for unique values of the specified
+attribute. For example, assume Grouping Attribute property is specified and its value is &ldquo;city&rdquo;. All FlowFiles
+containing a &ldquo;city&rdquo; attribute with value &ldquo;Albuquerque&rdquo; will have an accumulated rate calculated. A separate rate will be
+calculated for all FlowFiles containing a &ldquo;city&rdquo; attribute with a value &ldquo;Boston&rdquo;. In other words, separate rate
+calculations will be accumulated for all unique values of the Grouping Attribute.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

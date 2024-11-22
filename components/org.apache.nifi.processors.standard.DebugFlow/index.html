@@ -2298,6 +2298,52 @@
     <dd>false</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for DebugFlow 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="debugflow">DebugFlow</h1>
+<p>When triggered, the processor loops through the appropriate response list. A response is produced the configured number
+of times for each pass through its response list, as long as the processor is running.</p>
+<p>Triggered by a FlowFile, the processor can produce the following responses.</p>
+<ol>
+<li>transfer FlowFile to success relationship.</li>
+<li>transfer FlowFile to failure relationship.</li>
+<li>rollback the FlowFile without penalty.</li>
+<li>rollback the FlowFile and yield the context.</li>
+<li>rollback the FlowFile with penalty.</li>
+<li>throw an exception.</li>
+</ol>
+<p>Triggered without a FlowFile, the processor can produce the following responses.</p>
+<ol>
+<li>do nothing and return.</li>
+<li>throw an exception.</li>
+<li>yield the context.</li>
+</ol>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">

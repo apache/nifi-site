@@ -2298,6 +2298,103 @@
     <dd>true</dd>
 </dl>
 
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for StandardHashiCorpVaultClientService 2.0.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="standardhashicorpvaultclientservice">StandardHashiCorpVaultClientService</h1>
+<h2 id="configuring-the-bootstrap-hashicorp-vault-configuration-file">Configuring the Bootstrap HashiCorp Vault Configuration File</h2>
+<p>The ./conf/bootstrap-hashicorp-vault.conf file that comes with Apache NiFi is a convenient way to configure this
+controller service in a manner consistent with the HashiCorpVault sensitive property provider. Since this file is
+already used for configuring the Vault client for protecting sensitive properties in the NiFi configuration files (see
+the Administrator&rsquo;s Guide), it&rsquo;s a natural starting point for configuring the controller service as well.</p>
+<p>An example configuration of this properties file is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-properties" data-lang="properties"><span style="display:flex;"><span><span style="color:#75715e"># HTTP or HTTPS URI for HashiCorp Vault is required to enable the Sensitive Properties Provider</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.uri</span><span style="color:#f92672">=</span><span style="color:#e6db74">https://127.0.0.1:8200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Optional file supports authentication properties described in the Spring Vault Environment Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://docs.spring.io/spring-vault/docs/2.3.x/reference/html/#vault.core.environment-vault-configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># All authentication properties must be included in bootstrap-hashicorp-vault.conf when this property is not specified.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Properties in bootstrap-hashicorp-vault.conf take precedence when the same values are defined in both files.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Token Authentication is the default when the &#39;vault.authentication&#39; property is not specified.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.authentication.properties.file</span><span style="color:#f92672">=</span><span style="color:#e6db74">[full/path/to/vault-auth.properties]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Optional Timeout properties</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.connection.timeout</span><span style="color:#f92672">=</span><span style="color:#e6db74">5 secs</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.read.timeout</span><span style="color:#f92672">=</span><span style="color:#e6db74">15 secs</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Optional TLS properties</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.enabledCipherSuites</span><span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.enabledProtocols</span><span style="color:#f92672">=</span><span style="color:#e6db74">TLSv1.3</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.key-store</span><span style="color:#f92672">=</span><span style="color:#e6db74">[path/to/keystore.p12]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.key-store-type</span><span style="color:#f92672">=</span><span style="color:#e6db74">PKCS12</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.key-store-password</span><span style="color:#f92672">=</span><span style="color:#e6db74">[keystore password]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.trust-store</span><span style="color:#f92672">=</span><span style="color:#e6db74">[path/to/truststore.p12]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.trust-store-type</span><span style="color:#f92672">=</span><span style="color:#e6db74">PKCS12</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vault.ssl.trust-store-password</span><span style="color:#f92672">=</span><span style="color:#e6db74">[truststore password]</span>
+</span></span></code></pre></div><p>In order to use this file in the StandardHashiCorpVaultClientService, specify the following properties:</p>
+<ul>
+<li><strong>Configuration Strategy</strong> - Properties Files</li>
+<li><strong>Vault Properties Files</strong> - ./conf/bootstrap-hashicorp-vault.conf</li>
+</ul>
+<p>If your bootstrap configuration includes the vault.authentication.properties.file containing additional authentication
+properties, this file will also need to be added to the Vault Properties Files property as a comma-separated value.</p>
+<h3 id="configuring-the-client-using-direct-properties">Configuring the Client using Direct Properties</h3>
+<p>However, if you want to specify or override properties directly in the controller service, you may do this by specifying
+a Configuration Strategy of &lsquo;Direct Properties&rsquo;. This can be useful if you are reusing an SSLContextService or want to
+parameterize the Vault configuration properties. Authentication-related properties can also be added as sensitive
+dynamic properties, as seen in the examples below.</p>
+<h3 id="vault-authentication">Vault Authentication</h3>
+<p>Under the hood, the controller service uses Spring Vault, and directly supports the property keys specified
+in <a href="https://docs.spring.io/spring-vault/docs/2.3.x/reference/html/#vault.core.environment-vault-configuration">Spring Vault&rsquo;s documentation</a>.
+Following are some common examples of authentication with Vault.</p>
+<h4 id="token-authentication">Token Authentication</h4>
+<p>The simplest authentication scheme uses a rotating token, which is enabled by default in Vault. To specify this
+mechanism, select &ldquo;TOKEN&rdquo; from the &ldquo;Vault Authentication&rdquo; property (the default). However, since the token should rotate
+by nature, it is a best practice to use the &lsquo;Properties Files&rsquo; Configuration Strategy, and keep the token value in an
+external properties file, indicating this filename in the &lsquo;Vault Properties Files&rsquo; property. Then an external process
+can rotate the token in the file without updating NiFi configuration. In order to pick up the changed token, the
+controller service must be disabled and re-enabled.</p>
+<p>For testing purposes, however, it may be more convenient to specify the token directly in the controller service. To do
+so, add a new Sensitive property named &lsquo;vault.token&rsquo; and enter the token as the value.</p>
+<h4 id="certificate-authentication">Certificate Authentication</h4>
+<p>Certificate authentication must be enabled in the Vault server before it can be used from NiFi, but it uses the same TLS
+settings as the actual client connection, so no additional authentication properties are required. While these TLS
+settings can be provided in an external properties file, we will demonstrate configuring an SSLContextService instead.</p>
+<p>First, create an SSLContextService controller service and configure the Filename, Password, and Type for both the
+Keystore and Truststore. Enable it, and assign it as the SSL Context Service in the Vault controller service. Then,
+simply specify &ldquo;CERT&rdquo; as the &ldquo;Vault Authentication&rdquo; property value.</p>
+<h4 id="other-authentication-methods">Other Authentication Methods</h4>
+<p>To configure the other authentication methods, see the Spring Vault documentation linked above. All relevant properties
+should be added either to the external properties files referenced in the &ldquo;Vault Properties Files&rdquo; property if using
+the &lsquo;Properties Files&rsquo; Configuration Strategy, or added as custom properties with the same name if using the &lsquo;Direct
+Properties&rsquo; Configuration Strategy. For example, for the Azure authentication mechanism, properties will have to be
+added for &lsquo;vault.azure-msi.azure-path&rsquo;, &lsquo;vault.azure-msi.role&rsquo;, and &lsquo;vault.azure-msi.identity-token-service&rsquo;.</p>
+
+        </div>
+    </li>
+</ul>
+
+
+
 <div class="uk-margin uk-flex">
     <div class="component-section-header uk-width-3-4">Properties</div>
     <div class="uk-width-1-4 uk-text-right">
