@@ -998,6 +998,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.GetFileResource/">GetFileResource</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.GetFTP/">GetFTP</a>
                 </li>
                 
@@ -1946,6 +1950,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">PropertiesFileLookupService</a>
                 </li>
                 
@@ -2281,13 +2289,13 @@
           
 
 
-<h3>SplitExcel 2.0.0</h3>
+<h3>SplitExcel 2.1.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-poi-nar</dd>
     <dt>Description</dt>
-    <dd>Splits a multi sheet Microsoft Excel spreadsheet into multiple Microsoft Excel spreadsheets where each sheet from the original file is converted to an individual spreadsheet in its own flow file.  This processor is currently only capable of processing .xlsx (XSSF 2007 OOXML file format) Excel documents and not older .xls (HSSF &#39;97(-2007) file format) documents. NOTE: All original cell styles are dropped when splitting into multiple Microsoft Excel spreadsheets.</dd>
+    <dd>This processor splits a multi sheet Microsoft Excel spreadsheet into multiple Microsoft Excel spreadsheets where each sheet from the original file is converted to an individual spreadsheet in its own flow file. Currently this processor is only capable of processing .xlsx (XSSF 2007 OOXML file format) Excel documents and not older .xls (HSSF &#39;97(-2007) file format) documents. Please note all original cell styles are dropped and formulas are removed leaving only the calculated values. Even a single sheet Microsoft Excel spreadsheet is converted to its own flow file with all the original cell styles dropped and formulas removed.</dd>
     <dt>Tags</dt>
     <dd>split, text</dd>
     <dt>Input Requirement</dt>
@@ -2446,13 +2454,13 @@
         <tbody>
         
         <tr>
-            <td>split</td>
-            <td class="uk-text-lighter">The individual Excel &#39;segments&#39; of the original Excel FlowFile will be routed to this relationship.</td>
+            <td>original</td>
+            <td class="uk-text-lighter">The original FlowFile that was split into segments. If the FlowFile fails processing, nothing will be sent to this relationship</td>
         </tr>
         
         <tr>
-            <td>original</td>
-            <td class="uk-text-lighter">The original FlowFile that was split into segments. If the FlowFile fails processing, nothing will be sent to this relationship</td>
+            <td>split</td>
+            <td class="uk-text-lighter">The individual Excel &#39;segments&#39; of the original Excel FlowFile will be routed to this relationship.</td>
         </tr>
         
         <tr>

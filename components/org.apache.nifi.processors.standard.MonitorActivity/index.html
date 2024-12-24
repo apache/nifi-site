@@ -998,6 +998,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.GetFileResource/">GetFileResource</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.GetFTP/">GetFTP</a>
                 </li>
                 
@@ -1946,6 +1950,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">PropertiesFileLookupService</a>
                 </li>
                 
@@ -2281,7 +2289,7 @@
           
 
 
-<h3>MonitorActivity 2.0.0</h3>
+<h3>MonitorActivity 2.1.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2727,7 +2735,7 @@
         </thead>
         <tbody>
         <tr>
-            <td>LOCAL, CLUSTER</td>
+            <td>CLUSTER, LOCAL</td>
             <td class="uk-text-lighter">MonitorActivity stores the last timestamp at each node as state, so that it can examine activity at cluster wide. If &#39;Copy Attribute&#39; is set to true, then flow file attributes are also persisted. In local scope, it stores last known activity timestamp if the flow is inactive.</td>
         </tr>
         </tbody>
@@ -2752,13 +2760,13 @@
         <tbody>
         
         <tr>
-            <td>inactive</td>
-            <td class="uk-text-lighter">This relationship is used to transfer an Inactivity indicator when no FlowFiles are routed to &#39;success&#39; for Threshold Duration amount of time</td>
+            <td>success</td>
+            <td class="uk-text-lighter">All incoming FlowFiles are routed to success</td>
         </tr>
         
         <tr>
-            <td>success</td>
-            <td class="uk-text-lighter">All incoming FlowFiles are routed to success</td>
+            <td>inactive</td>
+            <td class="uk-text-lighter">This relationship is used to transfer an Inactivity indicator when no FlowFiles are routed to &#39;success&#39; for Threshold Duration amount of time</td>
         </tr>
         
         <tr>

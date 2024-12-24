@@ -998,6 +998,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.GetFileResource/">GetFileResource</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.GetFTP/">GetFTP</a>
                 </li>
                 
@@ -1946,6 +1950,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">PropertiesFileLookupService</a>
                 </li>
                 
@@ -2281,7 +2289,7 @@
           
 
 
-<h3>UpdateAttribute 2.0.0</h3>
+<h3>UpdateAttribute 2.1.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2303,7 +2311,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for UpdateAttribute 2.0.0</a>
+        <a class="uk-accordion-title" href>Additional Details for UpdateAttribute 2.1.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2379,16 +2387,15 @@ processor.</p>
 <p>The preceding examples illustrate how to make changes to every FlowFile that goes through the processor. However, the
 UpdateAttribute processor may also be used to make conditional changes.</p>
 <p>To change attributes based on some condition, use the Advanced User Interface (UI) in the processor by clicking the *
-<em>Advanced</em>* button in the lower right corner.</p>
-<p>Clicking the Advanced button displays the Advanced UI. In the Advanced UI, Conditions and their associated Actions are
+<em>Advanced</em>* menu item in the Canvas context menu.</p>
+<p>Clicking the Advanced menu item displays the Advanced UI. In the Advanced UI, Conditions and their associated Actions are
 entered as &ldquo;Rules&rdquo;. Each rule basically says, &ldquo;If these conditions are met, then do this action.&rdquo; One or more conditions
 may be used in a given rule, and they all must be met in order for the designated action(s) to be taken.</p>
 <p><strong>Adding Rules</strong></p>
-<p>To add rules and their associated conditions and actions, click on the buttons with the plus symbol located to the right
-of the &ldquo;Rules&rdquo;, &ldquo;Conditions&rdquo;, and &ldquo;Actions&rdquo; labels.</p>
-<p>Upon adding a rule with its condition(s) and action(s), it is important to save it by clicking the <strong>Save</strong> button in
-the lower right corner. If you do not do so and attempt to add or navigate to another rule, an error message will
-appear, asking you if you want to save your changes.</p>
+<p>To add the first rule, click on the &ldquo;Create Rule&rdquo; button in center of the screen. The Edit Rule form will display where
+the name, comments, conditions, and actions for the rule can be entered. Once the rule is defined, click the <strong>Add</strong>
+button. Additional rules can be added by clicking the button with the plus symbol located to the top right of the
+Rule listing.</p>
 <p><strong>Example Rules</strong></p>
 <p>This example has two rules: CheckForLargeFiles and CheckForGiantFiles. The CheckForLargeFiles rule has these conditions:</p>
 <ul>
@@ -2409,9 +2416,9 @@ appear, asking you if you want to save your changes.</p>
 </ul>
 <p><strong>Adding another Rule</strong></p>
 <p>Continuing with this example, we can add another rule to check for files that are larger than one gigabyte. When we add
-this second rule, we can use the previous rule as a template, so to speak, by taking advantage of the &ldquo;Copy from
-existing rule&rdquo; option in the New Rule window. Simply start typing the name of an existing rule, and it will show up in a
-dropdown menu below the entry field.</p>
+this second rule, we can use the previous rule as a template, so to speak, by taking advantage of the &ldquo;Clone Rule&rdquo; option
+in the menu for the Rule that you wan to clone. This will open with new Rule form with the exisitng Rules criteria
+pre-populated.</p>
 <p>In this example, the CheckForGiantFiles rule has these conditions:</p>
 <ul>
 <li><code>${filename:equals('fileOfInterest')}</code></li>
@@ -2446,8 +2453,8 @@ not &ldquo;User&rdquo;, &ldquo;HOST&rdquo;, &ldquo;update&rdquo;, or &ldquo;upda
 <p>The delete attributes function does not produce a Provenance Event if the <strong>alternate.identified</strong> Attribute is deleted.</p>
 <p><strong>FlowFile Policy</strong></p>
 <p>Another setting in the Advanced UI is the FlowFile Policy. It is located in the upper-left corner of the UI, and it
-defines the processor&rsquo;s behavior when multiple rules match. It may be changed using the dropdown menu. By default, the
-FlowFile Policy is set to &ldquo;use clone&rdquo;.</p>
+defines the processor&rsquo;s behavior when multiple rules match. It may be changed using the slide toggle. By default, the
+FlowFile Policy is set to use a clone of the original FlowFile for each matching rule.</p>
 <p>If the FlowFile policy is set to &ldquo;use clone&rdquo;, and multiple rules match, then a copy of the incoming FlowFile is created,
 such that the number of outgoing FlowFiles is equal to the number of rules that match. In other words, if two rules (A
 and B) both match, then there will be two outgoing FlowFiles, one for Rule A and one for Rule B. This can be useful in
@@ -2457,13 +2464,14 @@ copies of the file available, one to route for the A path, and one to route for 
 there is only one outgoing FlowFile with all the attribute changes applied. In this case, the order of the rules matters
 and the action for each rule that matches will be applied in that order. If multiple rules contain actions that update
 the same attribute, the action from the last matching rule will take precedence. Notably, you can drag and drop the
-rules into a certain order within the Rules list.</p>
+rules into a certain order within the Rules list once the FlowFile Policy is set to &ldquo;use original&rdquo; and the user has
+toggled the &ldquo;Reorder rules&rdquo; control. While in this reordering mode, other Rule modifications are not allowed.</p>
 <p><strong>Filtering Rules</strong></p>
 <p>The Advanced UI supports the creation of an arbitrarily large number of rules. In order to manage large rule sets, the
 listing of rules may be filtered using the Filter mechanism in the lower left corner. Rules may be filtered by any text
 in the name, condition, or action.</p>
 <p><strong>Closing the Advanced UI</strong></p>
-<p>Once all changes have been saved in the Advanced UI, the UI can be closed using the X in the top right corner.</p>
+<p>Once all changes have been saved in the Advanced UI, you can navigate back to the Canvas using the navigation at the top.</p>
 <p><strong>Stateful Usage</strong></p>
 <p>By selecting &ldquo;store state locally&rdquo; option for the &ldquo;Store State&rdquo; property UpdateAttribute will not only store the
 evaluated properties as attributes of the FlowFile but also as stateful variables to be referenced in a recursive

@@ -998,6 +998,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.GetFileResource/">GetFileResource</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.GetFTP/">GetFTP</a>
                 </li>
                 
@@ -1946,6 +1950,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">PropertiesFileLookupService</a>
                 </li>
                 
@@ -2281,7 +2289,7 @@
           
 
 
-<h3>InvokeHTTP 2.0.0</h3>
+<h3>InvokeHTTP 2.1.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2466,14 +2474,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Proxy Configuration Service</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Proxy Configuration Controller Service to proxy network requests. Supported proxies: HTTP &#43; AuthN, SOCKS In case of SOCKS, it is not guaranteed that the selected SOCKS Version will be used by the processor.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Proxy Configuration Controller Service to proxy network requests. Supported proxies: SOCKS, HTTP &#43; AuthN In case of SOCKS, it is not guaranteed that the selected SOCKS Version will be used by the processor.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Proxy Configuration Service</dd>
                     <dt>Description</dt>
-                    <dd>Specifies the Proxy Configuration Controller Service to proxy network requests. Supported proxies: HTTP &#43; AuthN, SOCKS In case of SOCKS, it is not guaranteed that the selected SOCKS Version will be used by the processor.</dd>
+                    <dd>Specifies the Proxy Configuration Controller Service to proxy network requests. Supported proxies: SOCKS, HTTP &#43; AuthN In case of SOCKS, it is not guaranteed that the selected SOCKS Version will be used by the processor.</dd>
                     <dt>API Name</dt>
                     <dd>proxy-configuration-service</dd>
                     
@@ -2999,7 +3007,16 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">org.apache.nifi.proxy.StandardProxyConfigurationService</a></div>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4135,7 +4152,16 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4679,14 +4705,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Response Header Request Attributes Enabled</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enable adding HTTP response headers as attributes to FlowFiles transferred to the Original relationship.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enable adding HTTP response headers as attributes to FlowFiles transferred to the Original, Retry or No Retry relationships.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Response Header Request Attributes Enabled</dd>
                     <dt>Description</dt>
-                    <dd>Enable adding HTTP response headers as attributes to FlowFiles transferred to the Original relationship.</dd>
+                    <dd>Enable adding HTTP response headers as attributes to FlowFiles transferred to the Original, Retry or No Retry relationships.</dd>
                     <dt>API Name</dt>
                     <dd>Response Header Request Attributes Enabled</dd>
                     
@@ -4716,6 +4742,52 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Response Header Request Attributes Prefix</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Prefix to HTTP response headers when included as attributes to FlowFiles transferred to the Original, Retry or No Retry relationships.  It is recommended to end with a separator character like &#39;.&#39; or &#39;-&#39;.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Response Header Request Attributes Prefix</dd>
+                    <dt>Description</dt>
+                    <dd>Prefix to HTTP response headers when included as attributes to FlowFiles transferred to the Original, Retry or No Retry relationships.  It is recommended to end with a separator character like &#39;.&#39; or &#39;-&#39;.</dd>
+                    <dt>API Name</dt>
+                    <dd>Response Header Request Attributes Prefix</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Response Header Request Attributes Enabled</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [true]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -4903,7 +4975,7 @@
                     
                     
                     <dt>Service Interface</dt>
-                    <dd>org.apache.nifi.ssl.SSLContextService</dd>
+                    <dd>org.apache.nifi.ssl.SSLContextProvider</dd>
 
                     
 
@@ -5230,6 +5302,15 @@
                         
                         
                         
+                        <div><a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">org.apache.nifi.ssl.PEMEncodedSSLContextProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5441,6 +5522,8 @@
                         
                         
                         
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardSSLContextService/">org.apache.nifi.ssl.StandardSSLContextService</a></div>
                         
                         
@@ -5612,8 +5695,8 @@
         <tbody>
         
         <tr>
-            <td>No Retry</td>
-            <td class="uk-text-lighter">Request FlowFiles transferred when receiving HTTP responses with a status code between 400 an 499.</td>
+            <td>Failure</td>
+            <td class="uk-text-lighter">Request FlowFiles transferred when receiving socket communication errors.</td>
         </tr>
         
         <tr>
@@ -5622,18 +5705,18 @@
         </tr>
         
         <tr>
-            <td>Failure</td>
-            <td class="uk-text-lighter">Request FlowFiles transferred when receiving socket communication errors.</td>
-        </tr>
-        
-        <tr>
-            <td>Retry</td>
-            <td class="uk-text-lighter">Request FlowFiles transferred when receiving HTTP responses with a status code between 500 and 599.</td>
+            <td>No Retry</td>
+            <td class="uk-text-lighter">Request FlowFiles transferred when receiving HTTP responses with a status code between 400 an 499.</td>
         </tr>
         
         <tr>
             <td>Response</td>
             <td class="uk-text-lighter">Response FlowFiles transferred when receiving HTTP responses with a status code between 200 and 299.</td>
+        </tr>
+        
+        <tr>
+            <td>Retry</td>
+            <td class="uk-text-lighter">Request FlowFiles transferred when receiving HTTP responses with a status code between 500 and 599.</td>
         </tr>
         
         </tbody>
