@@ -11,7 +11,15 @@ menu:
 
 
 ## [Cloudera](https://cloudera.com)
-Cloudera offers several capabilities for data ingestion and data flow design to enable universal data distribution from Edge to AI. Cloudera Flow Management (CFM) is a no-code data ingestion and management solution powered by Apache NiFi. With NiFi’s intuitive graphical interface and processors, CFM delivers highly scalable data movement, transformation, and management capabilities to the enterprise. Cloudera DataFlow is a cloud-native data service powered by Apache NiFi that facilitates universal data distribution by streamlining the end-to-end process of data movement. Cloudera Edge Management manages, controls, and monitors data collection and processing at the edge with a low code authorship experience addressing data management challenges with streaming and IoT use cases and is powered by Apache MiNiFi (an Apache NiFi subproject).
+
+Cloudera offers several capabilities for data ingestion and data flow design to enable universal data distribution from
+Edge to AI. Cloudera Flow Management (CFM) is a no-code data ingestion and management solution powered by Apache NiFi.
+With NiFi’s intuitive graphical interface and processors, CFM delivers highly scalable data movement, transformation,
+and management capabilities to the enterprise. Cloudera DataFlow is a cloud-native data service powered by Apache NiFi
+that facilitates universal data distribution by streamlining the end-to-end process of data movement. Cloudera Edge
+Management manages, controls, and monitors data collection and processing at the edge with a low code authorship
+experience addressing data management challenges with streaming and IoT use cases and is powered by Apache MiNiFi (an
+Apache NiFi subproject).
 
 ## [Datavolo](https://datavolo.io)
 
