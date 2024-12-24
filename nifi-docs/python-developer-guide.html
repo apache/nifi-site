@@ -462,6 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#inner-classes">ProcessorDetails and Java inner classes</a></li>
 <li><a href="#logging">Logging in NiFi</a></li>
 <li><a href="#lifecycle">Lifecycle Methods</a></li>
+<li><a href="#state-manager">State Manager</a></li>
 </ul>
 </li>
 <li><a href="#documenting_use_cases">Documenting Use Cases</a>
@@ -1042,6 +1043,68 @@ by implementing the following method:</p>
 that there are no longer any invocations of the <code>transform</code> method running when this method is called.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="state-manager"><a class="anchor" href="#state-manager"></a>State Manager</h3>
+<div class="paragraph">
+<p>The <code>context</code> object that is the parameter of the <code>transform()</code>, <code>create()</code>, <code>onScheduled()</code> and <code>onStopped()</code> methods
+provides access to State Manager through the <code>getStateManager()</code> method. State Manager is responsible for providing
+a simple API for storing and retrieving state. For information on State Manager, refer to the NiFi Developer&#8217;s Guide.</p>
+</div>
+<div class="paragraph">
+<p>The Python StateManager object returned by <code>context.getStateManager()</code> provides access to the underlying Java StateManager.
+With the Python StateManager, the state is handled in the form of Python dictionaries (as opposed to Java Maps).
+Just like in Java, StateManager can handle both <code>LOCAL</code> and <code>CLUSTER</code> state.</p>
+</div>
+<div class="paragraph">
+<p>Should an error occur accessing the state using the StateManager&#8217;s methods, a StateException is thrown that can be caught and
+handled in the Python Processor&#8217;s code. This enables the Python developer to implement the Processor in such a way that
+when a state-related error occurs, the Processor can continue its operation without disruption.
+If a StateException is thrown by StateManager but not caught in the Processor&#8217;s code, the ProcessSession is rolled back
+and an error is logged.</p>
+</div>
+<div class="paragraph">
+<p>Below is an example Processor that uses StateManager. This example assumes that the Processor is executed on
+primary node only, and only on one thread.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>from nifiapi.componentstate import Scope, StateManager, StateException
+from nifiapi.flowfilesource import FlowFileSource, FlowFileSourceResult
+
+
+class CreateFlowFile(FlowFileSource):
+    class Java:
+        implements = ['org.apache.nifi.python.processor.FlowFileSource']
+
+    class ProcessorDetails:
+        version = '0.0.1-SNAPSHOT'
+        description = '''A Python processor that creates FlowFiles and uses StateManager.'''
+        tags = ['test', 'python', 'source', 'state']
+
+    def __init__(self, **kwargs):
+        pass
+
+    def onScheduled(self, context):
+        try:
+            self.state = context.getStateManager().getState(Scope.CLUSTER).toMap()
+        except StateException as e:
+            self.logger.warn('Failed to read processor state. ' + str(e))
+            self.state = dict()
+
+    def create(self, context):
+        old_value = int(self.state.get('FlowFileNumber', '0'))
+        new_value = old_value + 1
+        new_state = {'FlowFileNumber': str(new_value)}
+        try:
+            context.getStateManager().setState(new_state, Scope.CLUSTER)
+            self.state = new_state
+        except StateException as e:
+            self.logger.warn('Failed to save state. ' + str(e))
+
+        return FlowFileSourceResult(relationship='success', attributes=new_state, contents=None)</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1442,7 +1505,7 @@ in order to debug the Processor.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-04 08:22:42 -0500
+Last updated 2024-12-20 14:10:11 -0500
 </div>
 </div>
 </body>

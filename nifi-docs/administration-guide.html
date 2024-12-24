@@ -670,6 +670,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#nifi_diagnostics">NiFi diagnostics</a>
 <ul class="sectlevel2">
 <li><a href="#automatic-diagnostics-on-restart-and-shutdown">Automatic diagnostics on restart and shutdown</a></li>
+<li><a href="#automatic-heap-dump-on-out-of-memory-errors">Automatic heap dump on Out of Memory Errors</a></li>
 </ul>
 </li>
 <li><a href="#jmx_metrics">JMX Metrics</a></li>
@@ -1305,33 +1306,52 @@ the same type, an Exception will be thrown and the Processor will not be added t
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keystore</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filename of the Keystore that contains the server&#8217;s private key.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File path to the key store containing the server private key and certificate entry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keystore.certificate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File path to <code>PEM</code> certificate chain file containing one or more X.509 certificates each having a <code>BEGIN CERTIFICATE</code> header and <code>END CERTIFICATE</code> footer.
+                                          The first certificate entry is the server certificate corresponding to the server private key.
+                                          This property requires setting <code>nifi.security.keystoreType</code> to <code>PEM</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keystore.privateKey</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File path to <code>PEM</code> key file containing the server private key corresponding to the <code>PEM</code> server certificate entry.
+                                          Supported formats include PKCS1 with <code>BEGIN RSA PRIVATE KEY</code> as the header, and PKCS8 with <code>BEGIN PRIVATE KEY</code> as the header.
+                                          Supported key algorithms include RSA, Ed25519, and ECDSA with NIST curves P-256, P-384, and P-521.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keystoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The type of Keystore. Must be <code>PKCS12</code> or <code>JKS</code> or <code>BCFKS</code>.  PKCS12 is the preferred type, BCFKS and PKCS12 files will be loaded with BouncyCastle provider.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of key store. Supported types include <code>BCFKS</code>, <code>JKS</code>, <code>PEM</code>, and <code>PKCS12</code>.
+                                          The <code>PEM</code> type requires configuring the <code>nifi.security.keystore.privateKey</code> and <code>nifi.security.keystore.certificate</code> properties.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keystorePasswd</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The password for the Keystore.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password for the key store. This property will be used as the key password when <code>nifi.security.keyPasswd</code> is not configured.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keyPasswd</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The password for the certificate in the Keystore. If not set, the value of <code>nifi.security.keystorePasswd</code> will be used.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password for the server private key entry in the key store. The <code>nifi.security.keystorePasswd</code> property will be used when this property is not configured.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.truststore</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filename of the Truststore that will be used to authorize those connecting to NiFi.  A secured instance with no Truststore will refuse all incoming connections.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File path to the trust store containing one or more certificates of trusted authorities for TLS connections.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.truststore.certificate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File path to <code>PEM</code> trust store file containing one or more X.509 certificates each having a <code>BEGIN CERTIFICATE</code> header and <code>END CERTIFICATE</code> footer.
+                                          This property requires setting <code>nifi.security.truststoreType</code> to <code>PEM</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.truststoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The type of the Truststore. Must be <code>PKCS12</code> or <code>JKS</code> or <code>BCFKS</code>.  PKCS12 is the preferred type, BCFKS and PKCS12 files will be loaded with BouncyCastle provider.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of trust store. Supported types include <code>BCFKS</code>, <code>JKS</code>, <code>PEM</code>, and <code>PKCS12</code>.
+                                          The <code>PEM</code> type requires configuring the <code>nifi.security.truststore.certificate</code> property.</p></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.truststorePasswd</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The password for the Truststore.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password for the trust store.</p></td>
 </tr>
 </tfoot>
 </table>
@@ -1868,7 +1888,8 @@ identification is the Subject Claim named <code>sub</code>, which contains the C
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.oidc.discovery.url</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <a href="http://openid.net/specs/openid-connect-discovery-1_0.html" target="_blank" rel="noopener">Discovery Configuration URL</a> for the OpenID Connect Provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <a href="http://openid.net/specs/openid-connect-discovery-1_0.html" target="_blank" rel="noopener">Discovery Configuration URL</a>
+                                                              for the OpenID Connect Provider. Supports URLs with <code>https</code> or <code>file</code> schemes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.oidc.connect.timeout</code></p></td>
@@ -8494,6 +8515,21 @@ nifi.nar.library.provider.hdfs2.source.directory=/other/dir/for/customNars</pre>
 <p>In the case of a lengthy diagnostic, NiFi may terminate before the command execution ends. In this case, the <code>graceful.shutdown.seconds</code> property should be set to a higher value in the <code>bootstrap.conf</code> configuration file.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="automatic-heap-dump-on-out-of-memory-errors"><a class="anchor" href="#automatic-heap-dump-on-out-of-memory-errors"></a>Automatic heap dump on Out of Memory Errors</h3>
+<div class="paragraph">
+<p>It is possible to set properties in <code>bootstrap.conf</code> to configure NiFi to generate a heap dump when an Out of Memory (OOM) error occurs. This can be helpful to analyze for memory leaks. An example of properties to be added to <code>bootstrap.conf</code> follows:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>java.arg.heapDumpPath=-XX:HeapDumpPath=./work
+java.arg.heapDumpOnOutOfMemory=-XX:+HeapDumpOnOutOfMemoryError</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These property values (as set in the example) will cause a heap dump to be generated into the <code>./work</code> directory. The location of the heap dump is configurable by changing the location of the <code>-XX:HeapDumpPath=</code> argument.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -8548,7 +8584,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-04 08:22:42 -0500
+Last updated 2024-12-20 14:10:11 -0500
 </div>
 </div>
 </body>
