@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CURRENT_VERSION=2.0.0
+CURRENT_VERSION=$(grep 'currentProjectVersion = ' config.toml | cut -d \" -f 2)
 
 RESOURCES_DIR=resources
 PREBUILD_DIR=prebuild
