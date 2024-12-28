@@ -16,7 +16,7 @@
 -->
 # Apache NiFi Website
 
-<img src="https://nifi.apache.org/assets/images/apache-nifi-logo.svg" width="300" alt="Apache NiFi"/>
+<img src="https://nifi.apache.org/images/apache-nifi-logo.svg" width="300" alt="Apache NiFi"/>
 
 ### Status
 
