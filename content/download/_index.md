@@ -77,7 +77,7 @@ The Apache NiFi Team strongly encourages users to upgrade to NiFi 2.
 - Released: {{< param currentProjectVersionReleased >}}
 
 #### Sources
- {{< download-links label="Source" extension=source-release.zip >}}
+ {{< download-links label="Source" extension="-source-release.zip" >}}
 #### Binaries
  {{< download-links label="MiNiFi" project=minifi extension=-bin.zip >}}
  {{< download-links label="MiNiFi Toolkit" project=minifi qualifier=toolkit extension=-bin.zip >}}
