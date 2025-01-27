@@ -1,5 +1,7 @@
-{{ $groups := getJSON .Site.Params.apacheFoundationGroupsUrl }}
-{{ $people := getJSON .Site.Params.apacheFoundationPeopleNameUrl }}
+{{ $resourceGroups := resources.GetRemote .Site.Params.apacheFoundationGroupsUrl }}
+{{ $groups := $resourceGroups | transform.Unmarshal }}
+{{ $resourcePeople := resources.GetRemote .Site.Params.apacheFoundationPeopleNameUrl }}
+{{ $people := $resourcePeople | transform.Unmarshal }}
 
 {{- $project := "nifi" -}}
 {{- with .Get "project" -}}
