@@ -5,7 +5,7 @@ CURRENT_VERSION=$(grep 'currentProjectVersion = ' config.toml | cut -d \" -f 2)
 RESOURCES_DIR=resources
 PREBUILD_DIR=prebuild
 
-MAVEN_BASE_URL=https://repo1.maven.org/maven2
+MAVEN_BASE_URL=https://repository.apache.org/content/repositories/releases
 
 MANIFEST_JAR_URL="$MAVEN_BASE_URL/org/apache/nifi/nifi-runtime-manifest/$CURRENT_VERSION/nifi-runtime-manifest-$CURRENT_VERSION.jar"
 MANIFEST_JAR_PATH=$RESOURCES_DIR/nifi-runtime-manifest.jar
