@@ -2054,6 +2054,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.database.dialect.service.StandardDatabaseDialectService/">StandardDatabaseDialectService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.services.dropbox.StandardDropboxCredentialService/">StandardDropboxCredentialService</a>
                 </li>
                 
@@ -2269,6 +2273,10 @@
                   <a href="/components/org.apache.nifi.flowanalysis.rules.DisallowComponentType/">DisallowComponentType</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
+                </li>
+                
               </ul>
             </div>
           </li>
@@ -2289,7 +2297,7 @@
           
 
 
-<h3>RetryFlowFile 2.1.0</h3>
+<h3>RetryFlowFile 2.2.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2615,6 +2623,11 @@
         <tbody>
         
         <tr>
+            <td>retry</td>
+            <td class="uk-text-lighter">Input FlowFile has not exceeded the configured maximum retry count, pass this relationship back to the input Processor to create a limited feedback loop.</td>
+        </tr>
+        
+        <tr>
             <td>failure</td>
             <td class="uk-text-lighter">The processor is configured such that a non-numerical value on &#39;Retry Attribute&#39; results in a failure instead of resetting that value to &#39;1&#39;. This will immediately terminate the limited feedback loop. Might also include when &#39;Maximum Retries&#39; contains attribute expression language that does not resolve to an Integer.</td>
         </tr>
@@ -2622,11 +2635,6 @@
         <tr>
             <td>retries_exceeded</td>
             <td class="uk-text-lighter">Input FlowFile has exceeded the configured maximum retry count, do not pass this relationship back to the input Processor to terminate the limited feedback loop.</td>
-        </tr>
-        
-        <tr>
-            <td>retry</td>
-            <td class="uk-text-lighter">Input FlowFile has not exceeded the configured maximum retry count, pass this relationship back to the input Processor to create a limited feedback loop.</td>
         </tr>
         
         </tbody>

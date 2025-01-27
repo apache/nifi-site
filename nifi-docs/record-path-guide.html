@@ -484,6 +484,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#count">count</a></li>
 <li><a href="#mapof">mapOf</a></li>
 <li><a href="#recordof">recordOf</a></li>
+<li><a href="#arrayof">arrayOf</a></li>
 </ul>
 </li>
 <li><a href="#filter_functions">Filter Functions</a>
@@ -2413,6 +2414,71 @@ Every odd argument, the first one of each pair, is used as field name and coerce
 Every even argument, the second one of each pair, is used as field value.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="arrayof"><a class="anchor" href="#arrayof"></a>arrayOf</h3>
+<div class="paragraph">
+<p>Creates an array from multiple values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{
+    "id": "1234",
+    "elements": [{
+        "name": "book",
+        "color": "red"
+    }, {
+        "name": "computer",
+        "color": "black"
+    }]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We could make use of the <code>arrayOf</code> function, in conjunction with the <code>unescapeJson</code> function to append a new element to the <code>elements</code> array.
+Given this example input, a RecordPath of <code>arrayOf(/elements[*], unescapeJson('{"name":"phone","color":"blue"}'))</code> would return the following array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>[{
+    "name": "book",
+    "color": "red"
+}, {
+    "name": "computer",
+    "color": "black"
+}, {
+    "name": "phone",
+    "color": "blue"
+}]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We may also use the <code>arrayOf</code> function for appending multiple elements to an array. Given the input record:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{
+  "name": "John Doe",
+  "friends": ["Jane", "Jack", "Jill"]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A RecordPath of <code>arrayOf(/friends[*], 'Joe', 'Jim', 'Jeremy')</code> would return the following array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>["Jane", "Jack", "Jill", "Joe", "Jim", "Jeremy"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also simply create an array from arbitrary values, such as <code>arrayOf('good-bye', 'adios', 'au revoir')</code> which would return the following array:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>["good-bye", "adios", "au revoir"]</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2652,7 +2718,7 @@ only of white space (spaces, tabs, carriage returns, and new-line characters).</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-20 14:10:11 -0500
+Last updated 2025-01-24 16:40:11 +0100
 </div>
 </div>
 </body>

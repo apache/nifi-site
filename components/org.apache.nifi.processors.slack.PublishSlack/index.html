@@ -2054,6 +2054,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.database.dialect.service.StandardDatabaseDialectService/">StandardDatabaseDialectService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.services.dropbox.StandardDropboxCredentialService/">StandardDropboxCredentialService</a>
                 </li>
                 
@@ -2269,6 +2273,10 @@
                   <a href="/components/org.apache.nifi.flowanalysis.rules.DisallowComponentType/">DisallowComponentType</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
+                </li>
+                
               </ul>
             </div>
           </li>
@@ -2289,7 +2297,7 @@
           
 
 
-<h3>PublishSlack 2.1.0</h3>
+<h3>PublishSlack 2.2.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2314,7 +2322,7 @@ a file attachment.
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PublishSlack 2.1.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PublishSlack 2.2.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2672,6 +2680,33 @@ the Slack application, go to the Channel that you would like to consume from and
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Methods Endpoint Url Prefix</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Customization of the Slack Client. Set the methodsEndpointUrlPrefix. If you need to set a different URL prefix for Slack API Methods calls, you can set the one. Default value: https://slack.com/api/</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Methods Endpoint Url Prefix</dd>
+                    <dt>Description</dt>
+                    <dd>Customization of the Slack Client. Set the methodsEndpointUrlPrefix. If you need to set a different URL prefix for Slack API Methods calls, you can set the one. Default value: https://slack.com/api/</dd>
+                    <dt>API Name</dt>
+                    <dd>Methods Endpoint Url Prefix</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Publish Strategy</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how the Processor will send the message or file to Slack.</div>
             </a>
@@ -2766,6 +2801,11 @@ the Slack application, go to the Channel that you would like to consume from and
         <tbody>
         
         <tr>
+            <td>failure</td>
+            <td class="uk-text-lighter">FlowFiles are routed to &#39;failure&#39; if unable to be sent to Slack for any other reason</td>
+        </tr>
+        
+        <tr>
             <td>success</td>
             <td class="uk-text-lighter">FlowFiles are routed to success after being successfully sent to Slack</td>
         </tr>
@@ -2773,11 +2813,6 @@ the Slack application, go to the Channel that you would like to consume from and
         <tr>
             <td>rate limited</td>
             <td class="uk-text-lighter">FlowFiles are routed to &#39;rate limited&#39; if the Rate Limit has been exceeded</td>
-        </tr>
-        
-        <tr>
-            <td>failure</td>
-            <td class="uk-text-lighter">FlowFiles are routed to &#39;failure&#39; if unable to be sent to Slack for any other reason</td>
         </tr>
         
         </tbody>
