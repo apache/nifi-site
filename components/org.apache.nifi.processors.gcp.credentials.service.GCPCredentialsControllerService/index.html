@@ -2054,6 +2054,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.database.dialect.service.StandardDatabaseDialectService/">StandardDatabaseDialectService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.services.dropbox.StandardDropboxCredentialService/">StandardDropboxCredentialService</a>
                 </li>
                 
@@ -2269,6 +2273,10 @@
                   <a href="/components/org.apache.nifi.flowanalysis.rules.DisallowComponentType/">DisallowComponentType</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
+                </li>
+                
               </ul>
             </div>
           </li>
@@ -2289,7 +2297,7 @@
           
 
 
-<h3>GCPCredentialsControllerService 2.1.0</h3>
+<h3>GCPCredentialsControllerService 2.2.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2431,6 +2439,97 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Delegation Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Delegation Strategy determines which account is used when calls are made with the GCP Credential.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Delegation Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>The Delegation Strategy determines which account is used when calls are made with the GCP Credential.</dd>
+                    <dt>API Name</dt>
+                    <dd>Delegation Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Service Account</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Service Account
+                                <span uk-icon="info" uk-tooltip="The service account should access data using it&#39;s own identity and permissions."></span></li>
+                            
+                            <li>
+                                Delegated Account
+                                <span uk-icon="info" uk-tooltip="The service account should access data on behalf of a specified user account. This setting requires domain-wide delgation to be enabled for the service account for the scopes that it will be used in."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Delegation User</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">This user will be impersonated by the service account for api calls. API calls made using this credential will appear as if they are coming from delegate user with the delegate user&#39;s access. Any scopes supplied from processors to this credential must have domain-wide delegation setup with the service account.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Delegation User</dd>
+                    <dt>Description</dt>
+                    <dd>This user will be impersonated by the service account for api calls. API calls made using this credential will appear as if they are coming from delegate user with the delegate user&#39;s access. Any scopes supplied from processors to this credential must have domain-wide delegation setup with the service account.</dd>
+                    <dt>API Name</dt>
+                    <dd>Delegation User</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Delegation Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Delegated Account]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Proxy Configuration Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Proxy Configuration Controller Service to proxy network requests. Supported proxies: HTTP &#43; AuthN</div>
             </a>
@@ -2452,6 +2551,11 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3180,7 +3284,7 @@
           </a>
         </p>
         <p>
-          Copyright &copy; 2024 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

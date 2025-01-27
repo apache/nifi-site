@@ -2054,6 +2054,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.database.dialect.service.StandardDatabaseDialectService/">StandardDatabaseDialectService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.services.dropbox.StandardDropboxCredentialService/">StandardDropboxCredentialService</a>
                 </li>
                 
@@ -2269,6 +2273,10 @@
                   <a href="/components/org.apache.nifi.flowanalysis.rules.DisallowComponentType/">DisallowComponentType</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
+                </li>
+                
               </ul>
             </div>
           </li>
@@ -2289,7 +2297,7 @@
           
 
 
-<h3>MergeContent 2.1.0</h3>
+<h3>MergeContent 2.2.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2311,7 +2319,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for MergeContent 2.1.0</a>
+        <a class="uk-accordion-title" href>Additional Details for MergeContent 2.2.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2385,7 +2393,7 @@ FlowFile.</p>
 example, the user can specify the minimum number of FlowFiles that must be packaged together before merging will be
 performed. The minimum number of bytes can also be configured. Additionally, a maximum number of FlowFiles and bytes may
 be specified.</p>
-<p>There are also two other conditions that will result in the contents of a Bin being merged together. The Max Bin Age
+<p>There are two other conditions that will result in the contents of a Bin being merged together. The Max Bin Age
 property specifies the maximum amount of time that FlowFiles can be binned together before the bin is merged. This
 property should almost always be set, as it provides a means to set a timeout on a bin, so that even if data stops
 flowing to the Processor for a while (due to a problem with an upstream system, a source processor being stopped, etc.)
@@ -2402,6 +2410,23 @@ relationship. It is not necessary that all FlowFiles have this value, but at lea
 this value or the bin will never be complete. If all the necessary FlowFiles are not binned together by the point at
 which the bin times amount (as specified by the <Max Bin Age> property), then the FlowFiles will all be routed to the '
 failure&rsquo; relationship instead of being merged together.</p>
+<p>Finally, a bin can be merged if the <Bin Termination Check> property is configured and a FlowFile is received that
+satisfies the specified condition. The condition is specified as an Expression Language expression. If any FlowFile
+result in the expression returning a value of true, then the bin will be merged, regardless of how much data is in
+the bin or how old the bin is. This incoming FlowFile that triggers the bin to be merged can either be added as the
+last entry in the bin, as the first entry in a new bin, or output as its own bin, depending on the value of the
+<FlowFile Insertion Strategy> property.</p>
+<p>A bin of FlowFiles, then, is merged when any one of the following conditions is met:</p>
+<ul>
+<li>The bin has reached the maximum number of bytes, as configured by the <Max Group Size> property.</li>
+<li>The bin has reached the maximum number of FlowFiles, as configured by the <Maximum Number of Entries> property.</li>
+<li>The bin has reached both the minimum number of bytes, as configured by the <Min Group Size> property,
+AND the minimum number of FlowFiles, as configured by the <Minimum Number of Entries> property.</li>
+<li>The bin has reached the maximum age, as configured by the <Max Bin Age> property.</li>
+<li>The maximum number of bins has been reached, as configured by the <Maximum number of Bins> property, and a new bin must be created.</li>
+<li>The <Bin Termination Check> property is configured and a FlowFile is received that satisfies the specified condition.</li>
+</ul>
+<h3 id="reason-for-merge">Reason for Merge</h3>
 <p>Whenever the contents of a Bin are merged, an attribute with the name &ldquo;merge.reason&rdquo; will be added to the merged
 FlowFile. The below table provides a listing of all possible values for this attribute with an explanation of each.</p>
 <table>
@@ -2431,6 +2456,10 @@ FlowFile. The below table provides a listing of all possible values for this att
 <tr>
 <td>BIN_MANAGER_FULL</td>
 <td>If an incoming FlowFile does not fit into any of the existing Bins (either due to the Maximum thresholds set, or due to the Correlation Attribute being used, etc.), then a new Bin must be created for the incoming FlowFiles. If the number of active Bins is already equal to the <Maximum number of Bins> property, the oldest Bin will be merged in order to make room for the new Bin. In that case, the Bin Manager is said to be full, and this value will be used.</td>
+</tr>
+<tr>
+<td>BIN_TERMINATION_SIGNAL</td>
+<td>A FlowFile signaled that the Bin should be terminated by satisfying the configured <Bin Termination Check> property.</td>
 </tr>
 </tbody>
 </table>
@@ -2518,6 +2547,62 @@ the attribute and without disturbing existing flows.</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Bin Termination Check</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies an Expression Language Expression that is to be evaluated against each FlowFile. If the result of the expression is &#39;true&#39;, the
+bin that the FlowFile corresponds to will be terminated, even if the bin has not met the minimum number of entries or minimum size.
+Note that if the FlowFile that triggers the termination of the bin is itself larger than the Maximum Bin Size, it will be placed into its
+own bin without triggering the termination of any other bin. When using this property, it is recommended to use Prioritizers in the flow&#39;s
+connections to ensure that the ordering is as desired.
+</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Bin Termination Check</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies an Expression Language Expression that is to be evaluated against each FlowFile. If the result of the expression is &#39;true&#39;, the
+bin that the FlowFile corresponds to will be terminated, even if the bin has not met the minimum number of entries or minimum size.
+Note that if the FlowFile that triggers the termination of the bin is itself larger than the Maximum Bin Size, it will be placed into its
+own bin without triggering the termination of any other bin. When using this property, it is recommended to use Prioritizers in the flow&#39;s
+connections to ensure that the ordering is as desired.
+</dd>
+                    <dt>API Name</dt>
+                    <dd>Bin Termination Check</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Merge Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Bin-Packing Algorithm]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2781,6 +2866,72 @@ the attribute and without disturbing existing flows.</p>
                                 </span>
                                 
                                 [Binary Concatenation]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">FlowFile Insertion Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If a given FlowFile terminates the bin based on the &lt;Bin Termination Check&gt; property, specifies where the FlowFile should be included in the bin.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>FlowFile Insertion Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>If a given FlowFile terminates the bin based on the &lt;Bin Termination Check&gt; property, specifies where the FlowFile should be included in the bin.</dd>
+                    <dt>API Name</dt>
+                    <dd>FlowFile Insertion Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Last in Bin</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Last in Bin
+                                <span uk-icon="info" uk-tooltip="Insert the FlowFile at the end of the Bin that is terminated"></span></li>
+                            
+                            <li>
+                                First in New Bin
+                                <span uk-icon="info" uk-tooltip="Insert the FlowFile at the beginning of a newly created Bin"></span></li>
+                            
+                            <li>
+                                Isolated
+                                <span uk-icon="info" uk-tooltip="Insert the FlowFile into a new Bin and terminate the Bin immediately with the FlowFile as the only content"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Bin Termination Check</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
                                 
                             </li>
                             
@@ -3496,6 +3647,11 @@ the attribute and without disturbing existing flows.</p>
         <tbody>
         
         <tr>
+            <td>failure</td>
+            <td class="uk-text-lighter">If the bundle cannot be created, all FlowFiles that would have been used to created the bundle will be transferred to failure</td>
+        </tr>
+        
+        <tr>
             <td>original</td>
             <td class="uk-text-lighter">The FlowFiles that were used to create the bundle</td>
         </tr>
@@ -3503,11 +3659,6 @@ the attribute and without disturbing existing flows.</p>
         <tr>
             <td>merged</td>
             <td class="uk-text-lighter">The FlowFile containing the merged content</td>
-        </tr>
-        
-        <tr>
-            <td>failure</td>
-            <td class="uk-text-lighter">If the bundle cannot be created, all FlowFiles that would have been used to created the bundle will be transferred to failure</td>
         </tr>
         
         </tbody>
@@ -3729,7 +3880,7 @@ For textual data, &#34;Demarcator&#34; should be set to a newline (\n), set by p
           </a>
         </p>
         <p>
-          Copyright &copy; 2024 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>
