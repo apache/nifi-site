@@ -20,4 +20,4 @@ menu:
 
 - [Flow Design System Releases]({{< relref "documentation/guides/fds-releases" >}})
 - [Maven Plugin Releases]({{< relref "documentation/guides/maven-plugin-releases" >}})
-- [Releases]({{< relref "documentation/guides/releases" >}})
+- [Releases](https://cwiki.apache.org/confluence/display/NIFI/Apache+NiFi+Releases) {{< external-icon >}}
