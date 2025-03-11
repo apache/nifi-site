@@ -643,6 +643,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ConsumeBoxEnterpriseEvents/">ConsumeBoxEnterpriseEvents</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ConsumeBoxEvents/">ConsumeBoxEvents</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.ConsumeElasticsearch/">ConsumeElasticsearch</a>
                 </li>
                 
@@ -879,6 +887,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileRepresentation/">FetchBoxFileRepresentation</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.FetchDistributedMapCache/">FetchDistributedMapCache</a>
                 </li>
                 
@@ -987,6 +1003,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.GetBoxFileCollaborators/">GetBoxFileCollaborators</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.GetBoxGroupMembers/">GetBoxGroupMembers</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.dynamodb.GetDynamoDB/">GetDynamoDB</a>
                 </li>
                 
@@ -1028,6 +1052,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.GetS3ObjectMetadata/">GetS3ObjectMetadata</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.s3.GetS3ObjectTags/">GetS3ObjectTags</a>
                 </li>
                 
                 <li >
@@ -1819,6 +1847,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.box.controllerservices.DeveloperBoxClientService/">DeveloperBoxClientService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.DistributedMapCacheLookupService/">DistributedMapCacheLookupService</a>
                 </li>
                 
@@ -2278,6 +2310,10 @@
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictFlowFileExpiration/">RestrictFlowFileExpiration</a>
+                </li>
+                
               </ul>
             </div>
           </li>
@@ -2298,7 +2334,7 @@
           
 
 
-<h3>JsonConfigBasedBoxClientService 2.2.0</h3>
+<h3>JsonConfigBasedBoxClientService 2.3.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2320,7 +2356,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for JsonConfigBasedBoxClientService 2.2.0</a>
+        <a class="uk-accordion-title" href>Additional Details for JsonConfigBasedBoxClientService 2.3.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2348,7 +2384,7 @@ Authentication method.</li>
 <li>Should have a &lsquo;Client ID&rsquo; and &lsquo;Client Secret&rsquo;.</li>
 <li>&lsquo;App Access Level&rsquo; should be &lsquo;App + Enterprise Access&rsquo;.</li>
 <li>&lsquo;Application Scopes&rsquo; should have &lsquo;Write all files and folders in Box&rsquo; enabled.</li>
-<li>&lsquo;Advanced Features&rsquo; should have &lsquo;Generate user access tokens&rsquo; and &lsquo;Make API calls using the as-user header&rsquo; enabled.</li>
+<li>If &lsquo;App Actor&rsquo; is &lsquo;Impersonated User&rsquo;, &lsquo;Advanced Features&rsquo; should have &lsquo;Generate user access tokens&rsquo; and &lsquo;Make API calls using the as-user header&rsquo; enabled.</li>
 <li>Under &lsquo;Add and Manage Public Keys&rsquo; generate a Public/Private Keypair and download the configuration JSON file (under
 App Settings). The full path of this file should be set in the &lsquo;Box Config File&rsquo; property.<br>
 Note that you can only download the configuration JSON with the keypair details only once, when you generate the
@@ -2396,6 +2432,51 @@ If the app is configured for the first time it needs to be added (&lsquo;Add App
 </div>
 <div>
     <ul uk-accordion="multiple: true" id="property-descriptors">
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">App Actor</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies on behalf of whom Box API calls will be made.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>App Actor</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies on behalf of whom Box API calls will be made.</dd>
+                    <dt>API Name</dt>
+                    <dd>App Actor</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>impersonated-user</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Service Account
+                                <span uk-icon="info" uk-tooltip="Make Box API calls with a service account associated with the app"></span></li>
+                            
+                            <li>
+                                Impersonated User
+                                <span uk-icon="info" uk-tooltip="Make Box API call on behalf of the specified Box user with as-user header"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
@@ -2454,14 +2535,14 @@ If the app is configured for the first time it needs to be added (&lsquo;Add App
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Account ID</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The ID of the Box account who owns the accessed resource. Same as &#39;User Id&#39; under &#39;App Info&#39; in the App &#39;General Settings&#39;.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The ID of the Box account which the app will act on behalf of.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Account ID</dd>
                     <dt>Description</dt>
-                    <dd>The ID of the Box account who owns the accessed resource. Same as &#39;User Id&#39; under &#39;App Info&#39; in the App &#39;General Settings&#39;.</dd>
+                    <dd>The ID of the Box account which the app will act on behalf of.</dd>
                     <dt>API Name</dt>
                     <dd>box-account-id</dd>
                     
@@ -2473,6 +2554,25 @@ If the app is configured for the first time it needs to be added (&lsquo;Add App
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>App Actor</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [impersonated-user]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2501,6 +2601,11 @@ If the app is configured for the first time it needs to be added (&lsquo;Add App
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

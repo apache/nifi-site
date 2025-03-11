@@ -7214,7 +7214,8 @@ Providing three total network interfaces, including  <code>nifi.web.https.networ
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.proxy.host</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A comma separated list of allowed HTTP Host header values to consider when NiFi is running securely and will be receiving requests to a different host[:port] than it is bound to.
 For example, when running in a Docker container or behind a proxy (e.g. localhost:18443, proxyhost:443). By default, this value is blank meaning NiFi should only allow requests sent to the
-host[:port] that NiFi is bound to.</p></td>
+host[:port] that NiFi is bound to.
+Requests containing an invalid port in the Host or authority header return an HTTP 421 Misdirected Request status.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.proxy.context.path</code></p></td>
@@ -8584,7 +8585,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-24 16:40:11 +0100
+Last updated 2025-03-07 15:44:40 +0100
 </div>
 </div>
 </body>

@@ -643,6 +643,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ConsumeBoxEnterpriseEvents/">ConsumeBoxEnterpriseEvents</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ConsumeBoxEvents/">ConsumeBoxEvents</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.ConsumeElasticsearch/">ConsumeElasticsearch</a>
                 </li>
                 
@@ -879,6 +887,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileRepresentation/">FetchBoxFileRepresentation</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.FetchDistributedMapCache/">FetchDistributedMapCache</a>
                 </li>
                 
@@ -987,6 +1003,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.GetBoxFileCollaborators/">GetBoxFileCollaborators</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.GetBoxGroupMembers/">GetBoxGroupMembers</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.dynamodb.GetDynamoDB/">GetDynamoDB</a>
                 </li>
                 
@@ -1028,6 +1052,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.GetS3ObjectMetadata/">GetS3ObjectMetadata</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.s3.GetS3ObjectTags/">GetS3ObjectTags</a>
                 </li>
                 
                 <li >
@@ -1819,6 +1847,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.box.controllerservices.DeveloperBoxClientService/">DeveloperBoxClientService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.DistributedMapCacheLookupService/">DistributedMapCacheLookupService</a>
                 </li>
                 
@@ -2278,6 +2310,10 @@
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictFlowFileExpiration/">RestrictFlowFileExpiration</a>
+                </li>
+                
               </ul>
             </div>
           </li>
@@ -2298,7 +2334,7 @@
           
 
 
-<h3>ExcelReader 2.2.0</h3>
+<h3>ExcelReader 2.3.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2320,7 +2356,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ExcelReader 2.2.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ExcelReader 2.3.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2388,8 +2424,10 @@ fields that it has encountered and the type of each field. Once all data has bee
 encompasses all fields that have been encountered.</p>
 <p>A common concern when inferring schemas is how to handle the condition of two values that have different types. For
 example, consider a FlowFile with the following two records:</p>
-<p><code>name, age John, 8 Jane, Ten</code></p>
-<p>It is clear that the &ldquo;name&rdquo; field will be inferred as a STRING type. However, how should we handle the &ldquo;age&rdquo; field?
+<pre tabindex="0"><code>name, age
+John, 8
+Jane, Ten
+</code></pre><p>It is clear that the &ldquo;name&rdquo; field will be inferred as a STRING type. However, how should we handle the &ldquo;age&rdquo; field?
 Should the field be an CHOICE between INT and STRING? Should we prefer LONG over INT? Should we just use a STRING?
 Should the field be considered nullable?</p>
 <p>To help understand how this Record Reader infers schemas, we have the following list of rules that are followed in the
@@ -2446,7 +2484,10 @@ Processors handle the data.</p>
 <h2 id="examples">Examples</h2>
 <h3 id="example-1">Example 1</h3>
 <p>As an example, consider a FlowFile whose contents are an Excel spreadsheet whose only sheet consists of the following:</p>
-<pre tabindex="0"><code>id, name, balance, join_date, notes   1, John, 48.23, 04/03/2007 &#34;Our very   first customer!&#34;   2, Jane, 1245.89, 08/22/2009,   3, Frank Franklin, &#34;48481.29&#34;, 04/04/2016,
+<pre tabindex="0"><code>id, name, balance, join_date, notes
+1, John, 48.23, 04/03/2007, &#34;Our very   first customer!&#34;
+2, Jane, 1245.89, 08/22/2009,	  
+3, Frank Franklin, &#34;48481.29&#34;, 04/04/2016,
 </code></pre><p>Additionally, let&rsquo;s consider that this Controller Service is configured to skip the first line and is configured with
 the Schema Registry pointing to an AvroSchemaRegistry which contains the following schema:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
@@ -2795,7 +2836,7 @@ consists of 3 different records. The first record will contain the following val
                             
                             <li>
                                 Use Starting Row
-                                <span uk-icon="info" uk-tooltip="The configured first row of the Excel file is a header line that contains the names of the columns. The schema will be derived by using the column names in the header and the following 10 rows to determine the type(s) of each column"></span></li>
+                                <span uk-icon="info" uk-tooltip="The configured first row of the Excel file is a header line that contains the names of the columns. The schema will be derived by using the column names in the header of the first sheet and the following 10 rows to determine the type(s) of each column while the configured header rows of subsequent sheets are skipped."></span></li>
                             
                             <li>
                                 Infer Schema
@@ -3539,6 +3580,11 @@ consists of 3 different records. The first record will contain the following val
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3729,6 +3775,11 @@ consists of 3 different records. The first record will contain the following val
                         
                         
                         <div><a href="/components/org.apache.nifi.db.schemaregistry.DatabaseTableSchemaRegistry/">org.apache.nifi.db.schemaregistry.DatabaseTableSchemaRegistry</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

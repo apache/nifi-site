@@ -1816,9 +1816,9 @@ configuration and does not include Sensitive Values in exported Flow Definitions
 <h5 id="automatically-retry"><a class="anchor" href="#automatically-retry"></a>Automatically Retry</h5>
 <div class="paragraph">
 <p>Users can also configure whether or not FlowFiles routed to a given Relationship should be retried. If a FlowFile is routed to any Relationship that is configured to be retried,
-the FlowFile will be re-queued and the Processor will attempt to process it again. If the Processor routes the FlowFile to a retriable Relationship again (either the same Relationship
+the FlowFile will be re-queued and the Processor will attempt to process it again. If the Processor routes the FlowFile to a retryable Relationship again (either the same Relationship
 or another that is configured to be retried), it will be re-queued again, up to the number of
-times specified by the user. If the Processor routes the FlowFile to a retriable Relationship after the specified number of retries, the FlowFile will be transferred to
+times specified by the user. If the Processor routes the FlowFile to a retryable Relationship after the specified number of retries, the FlowFile will be transferred to
 the Connection(s) that include that Relationship - or auto-terminated, as configured.
 If the Processor routes the FlowFile to any Relationship that is not configured to be retried, it will be routed to that Relationship immediately.</p>
 </div>
@@ -1827,7 +1827,7 @@ If the Processor routes the FlowFile to any Relationship that is not configured 
 A user configures the <code>failure</code> Relationship to retry 10 times and also be configured to auto-terminate. In this
 case, if an incoming FlowFile is routed to the <code>failure</code> Relationship,
 it will be retried up to 10 times. After 10 attempts, if it is routed to <code>failure</code> again, it will be auto-terminated. However, if at any point it is
-routed to <code>success</code>, it will immediatley be transferred to the Connection(s) that include the <code>success</code> Relationship and not retried any further.</p>
+routed to <code>success</code>, it will immediately be transferred to the Connection(s) that include the <code>success</code> Relationship and not retried any further.</p>
 </div>
 <div class="sect5">
 <h6 id="number-of-retry-attempts"><a class="anchor" href="#number-of-retry-attempts"></a>Number of Retry Attempts</h6>
@@ -5774,7 +5774,7 @@ the <a href="administration-guide.html">System Administrator&#8217;s Guide</a>.<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-24 16:40:11 +0100
+Last updated 2025-03-07 15:44:40 +0100
 </div>
 </div>
 </body>
