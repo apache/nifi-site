@@ -63,6 +63,25 @@ Severity ratings represent the determination of project members based on an eval
 # Published Vulnerabilities
 
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
+ 
+{{< vulnerability
+id="CVE-2025-27017"
+title="Potential Insertion of MongoDB Password in Provenance Record"
+published="2025-03-11"
+severity="Medium"
+products="Apache NiFi"
+affectedVersions="1.13.0 to 2.2.0"
+fixedVersion="2.3.0"
+jira="NIFI-14272"
+pullRequest="9723"
+reporter="Robert Creese" >}}
+
+Apache NiFi 1.13.0 through 2.2.0 includes the username and password used to authenticate with MongoDB in the NiFi
+provenance events that MongoDB components generate during processing. An authorized user with read access to the
+provenance events of those processors may see the credentials information. Upgrading to Apache NiFi 2.3.0 is the
+recommended mitigation, which removes the credentials from provenance event records.
+
+{{</ vulnerability >}}
 
 {{< vulnerability
 id="CVE-2024-56512"
