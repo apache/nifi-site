@@ -108,5 +108,11 @@ along with other technologies like Apache Hadoop and Apache Spark.
 Xebia is a Dutch service company in the data science and engineering space. The company helps customers ingest and
 process data in real time from the most disparate devices, including trains.
 
+## [EmbedIT](https://www.embedit.com)
+
+EmbedIT uses Apache NiFi to manage processes/orchestration within internal and customer data flows in 
+conjunction with SQL systems (Oracle, MS SQL, ...), NoSQL systems (Apache Cassandra, ...), transport 
+layer (Kafka, Rabbit MQ, ...) for on-prem and cloud solutions.
+
 _Submit a [Pull Request](https://github.com/apache/nifi-site/pulls) or send a short description of your organization and
 usage to [Users Mailing List](https://nifi.apache.org/mailing_lists.html) to be added._
