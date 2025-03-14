@@ -110,9 +110,9 @@ process data in real time from the most disparate devices, including trains.
 
 ## [EmbedIT](https://www.embedit.com)
 
-EmbedIT as part of PPF group (with strong support of HomeCredit) uses Apache NiFi to manage processes/orchestration
-within internal and customer data flows in conjunction with SQL systems (Oracle, MS SQL, ...), NoSQL systems 
-(Apache Cassandra, ...), transport layer (Kafka, Rabbit MQ, ...) for on-prem and cloud solutions.
+EmbedIT as part of PPF group uses Apache NiFi to manage processes/orchestration within internal and customer data 
+flows in conjunction with SQL systems (Oracle, MS SQL, ...), NoSQL systems (Apache Cassandra, ...), transport layer
+(Kafka, Rabbit MQ, ...) for on-prem and cloud solutions.
 
 _Submit a [Pull Request](https://github.com/apache/nifi-site/pulls) or send a short description of your organization and
 usage to [Users Mailing List](https://nifi.apache.org/mailing_lists.html) to be added._
