@@ -21,12 +21,6 @@ Management manages, controls, and monitors data collection and processing at the
 experience addressing data management challenges with streaming and IoT use cases and is powered by Apache MiNiFi (an
 Apache NiFi subproject).
 
-## [Snowflake](https://www.snowflake.com)
-
-Snowflake acquired Datavolo which was a startup founded by the original team that brought NiFi to the Apache Software
-Foundation. More about the acquisition and motivation can be found 
-[here](https://www.snowflake.com/en/news/press-releases/snowflake-agrees-to-acquire-open-data-integration-platform-datavolo/).
-
 ## [Deep.BI](https://www.deep.bi)
 
 Deep.BI helps enterprises leverage next generation data and AI pipelines to process hundreds of thousands of real-time
@@ -38,6 +32,13 @@ to build robust cybersecurity solutions for critical applications.
 The Dove IO Data Platform allows customers to process multimedia data, providing real-time identification of objects,
 people, text, scenes, and activities in audio, image and video formatted data. The platform leverages NiFi to empower
 customers to build workflows surrounding custom data inputs and transformations.
+
+## [EmbedIT](https://www.embedit.com)
+
+EmbedIT as part of [PPF Group](https://www.embedit.com/about-us#ppf-group) uses Apache NiFi to manage processes and
+orchestration within internal and customer data flows in conjunction with SQL systems (such as Oracle and MS SQL), NoSQL
+systems (such as Apache Cassandra), and event streaming (including Kafka and Rabbit MQ) for on-premise and cloud
+solutions.
 
 ## [Happy Money](https://happymoney.com)
 
@@ -96,6 +97,11 @@ Uses Apache NiFi to power active monitoring. As various network devices are bein
 protocol is used for communication. Apache NiFi is in active query mode to periodically query these devices.
 Transformation of the SNMP responses and their transfer to HDFS and Elastic are built using Apache NiFi as well.
 
+## [Snowflake](https://www.snowflake.com)
+
+Snowflake [acquired Datavolo](https://www.snowflake.com/en/news/press-releases/snowflake-agrees-to-acquire-open-data-integration-platform-datavolo/)
+which was a startup founded by the original team that brought NiFi to the Apache Software Foundation.
+
 ## [Think Big, A Teradata Company](https://www.thinkbiganalytics.com)
             
 Think Big's open-source data lake management platform [Kylo](https://kylo.io) offers a turn-key, enterprise-ready data
@@ -107,12 +113,6 @@ along with other technologies like Apache Hadoop and Apache Spark.
 
 Xebia is a Dutch service company in the data science and engineering space. The company helps customers ingest and
 process data in real time from the most disparate devices, including trains.
-
-## [EmbedIT](https://www.embedit.com)
-
-EmbedIT as part of PPF group uses Apache NiFi to manage processes/orchestration within internal and customer data 
-flows in conjunction with SQL systems (Oracle, MS SQL, ...), NoSQL systems (Apache Cassandra, ...), transport layer
-(Kafka, Rabbit MQ, ...) for on-prem and cloud solutions.
 
 _Submit a [Pull Request](https://github.com/apache/nifi-site/pulls) or send a short description of your organization and
 usage to [Users Mailing List](https://nifi.apache.org/mailing_lists.html) to be added._
