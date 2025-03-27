@@ -52,6 +52,13 @@ Hastings Group is a fast growing, agile, digitally focused general insurance pro
 van, bike and home insurance market. We have strong relationships with all major price comparison websites (PCWs) and
 utilise Apache NiFi to process and ingest millions of items of data.
 
+## [Ksolves](https://www.ksolves.com/)
+
+Ksolves is a 360-degree software solution provider and well-known in the industry for our expertise in Big Data
+(based on Apache solutions), Data Science, Salesforce, DevOps, Java and Microservices, OpenShift, Penetration Testing,
+etc. We provide DFM (Data Flow Manager) solution for NiFi Cluster Management, Data Flow Deployment with Our One-Click,
+UI-Driven CI/CD Tool.
+
 ## [Kuehne+Nagel](https://kuehne-nagel.com/)
 
 Kuehne+Nagel is a global transport and logistics company founded in 1890. We use NiFi as a processing and orchestration
