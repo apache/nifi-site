@@ -478,6 +478,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#json_web_token">JSON Web Tokens</a></li>
+<li><a href="#x509_client_certificates">X.509 Client Certificates</a>
+<ul class="sectlevel3">
+<li><a href="#proxied-entities-chain">Proxied Entities Chain</a></li>
+<li><a href="#proxied-entity-groups">Proxied Entity Groups</a></li>
+</ul>
+</li>
 <li><a href="#csrf-protection">Cross-Site Request Forgery Protection</a></li>
 </ul>
 </li>
@@ -598,6 +604,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#core_properties">Core Properties<br></a></li>
 <li><a href="#state-management">State Management<br></a></li>
 <li><a href="#database-settings">Database Settings</a></li>
+<li><a href="#flow-action-reporter">Flow Action Reporter</a></li>
 <li><a href="#flowfile-repository">FlowFile Repository</a></li>
 <li><a href="#write-ahead-flowfile-repository">Write Ahead FlowFile Repository</a></li>
 <li><a href="#volatile-flowfile-repository">Volatile FlowFile Repository</a></li>
@@ -2122,6 +2129,123 @@ configured local State Provider and runs a scheduled command to delete revoked i
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="x509_client_certificates"><a class="anchor" href="#x509_client_certificates"></a>X.509 Client Certificates</h3>
+<div class="paragraph">
+<p>NiFi supports authentication using mutual TLS with X.509 client certificates as part of the standard configuration when
+running with HTTPS enabled. Client certificate authentication is required for communication between NiFi nodes in a
+clustered deployment and cannot be disabled.</p>
+</div>
+<div class="paragraph">
+<p>NiFi sends a certificate request during the TLS handshake as described in
+<a href="https://www.rfc-editor.org/rfc/rfc8446#section-4.3.2">RFC 8446 Section 4.3.2</a> for TLS 1.3. When configured for
+authentication using a Login Identity Provider or Single Sign-On, NiFi sends a certificate request but does
+not require the client to respond. In absence of other authentication strategies, NiFi requires the client to present a
+certificate during the TLS handshake process. The NiFi security trust store properties define the certificate
+authorities accepted as issuers of client certificates.</p>
+</div>
+<div class="sect3">
+<h4 id="proxied-entities-chain"><a class="anchor" href="#proxied-entities-chain"></a>Proxied Entities Chain</h4>
+<div class="paragraph">
+<p>NiFi supports proxied entity access in conjunction with X.509 client certificate authentication. Clients that present
+trusted certificates for mutual TLS authentication can send proxied identity information through specified
+HTTP request headers. The client certificate subject principal must be authorized to send a proxy request, based on the
+configured Authorizer.</p>
+</div>
+<div class="paragraph">
+<p>Authorized proxies can present one or more proxied identities using an HTTP request header and a value delimited using
+angle bracket characters.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>X-ProxiedEntitiesChain</code></p>
+</li>
+<li>
+<p>Value: <code>&lt;user-identity&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Multiple proxied entities can be specified to indicate a chain of proxy services.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>X-ProxiedEntitiesChain</code></p>
+</li>
+<li>
+<p>Value: <code>&lt;user-identity&gt;&lt;proxy-server-identity&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Proxied identities that contain characters outside of US-ASCII must be encoded using Base64 and wrapped with additional
+angle brackets.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>X-ProxiedEntitiesChain</code></p>
+</li>
+<li>
+<p>Value: <code>&lt;&lt;dXNlci1pZGVudGl0eQ&gt;&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>NiFi includes an HTTP response header on successful authentication of HTTP requests with proxied entities.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>X-ProxiedEntitiesAccepted</code></p>
+</li>
+<li>
+<p>Value: <code>true</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>NiFi includes an HTTP response header on failed authentication of proxied entities describing the error.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>X-ProxiedEntitiesDetails</code></p>
+</li>
+<li>
+<p>Value: error message</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="proxied-entity-groups"><a class="anchor" href="#proxied-entity-groups"></a>Proxied Entity Groups</h4>
+<div class="paragraph">
+<p>NiFi supports passing group membership information together with proxied identity information from clients that present
+authorized X.509 client certificates.</p>
+</div>
+<div class="paragraph">
+<p>Authorized proxies can pass one or more group names using an HTTP request header and values delimited using angle
+bracket characters.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Header Name: <code>X-ProxiedEntityGroups</code></p>
+</li>
+<li>
+<p>Value: <code>&lt;first-group&gt;&lt;second-group&gt;</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Proxied group names follow the same encoding standards as proxied entities, requiring Base64 encoding for characters
+outside of US-ASCII.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="csrf-protection"><a class="anchor" href="#csrf-protection"></a>Cross-Site Request Forgery Protection</h3>
@@ -6113,6 +6237,28 @@ for components to persist state. See the <a href="#state_management">State Manag
 </table>
 </div>
 <div class="sect2">
+<h3 id="flow-action-reporter"><a class="anchor" href="#flow-action-reporter"></a>Flow Action Reporter</h3>
+<div class="paragraph">
+<p>The Flow Action Reporter is a framework interface that supports exporting flow configuration changes using a custom implementation class.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Property</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flow.action.reporter.implementation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The class implementing <code>org.apache.nifi.action.FlowActionReporter</code> from <code>nifi-framework-api</code>. The default value is not specified.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="flowfile-repository"><a class="anchor" href="#flowfile-repository"></a>FlowFile Repository</h3>
 <div class="paragraph">
 <p>The FlowFile repository keeps track of the attributes and current state of each FlowFile in the system. By default,
@@ -8585,7 +8731,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-07 15:44:40 +0100
+Last updated 2025-04-28 19:41:42 +0200
 </div>
 </div>
 </body>

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
-  <meta name="keywords" content="apache,nifi,data,distribution">
+  <meta name="keywords" content="Apache,Consume,Kafka,Message,Publish">
   <title>Kafka3ConnectionService - Apache NiFi</title>
   <meta property="og:title" content="Kafka3ConnectionService">
   <meta property="og:type" content="article">
@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li class="uk-text-bold" id="component-selected">
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,15 +2382,15 @@
           
 
 
-<h3>Kafka3ConnectionService 2.3.0</h3>
+<h3>Kafka3ConnectionService 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
-    <dd>org.apache.nifi | nifi-kafka-3-service-nar</dd>
+    <dd>org.apache.nifi | nifi-kafka-service-aws-nar</dd>
     <dt>Description</dt>
     <dd>Provides and manages connections to Kafka Brokers for producer or consumer operations.</dd>
     <dt>Tags</dt>
-    <dd></dd>
+    <dd>Apache, Consume, Kafka, Message, Publish</dd>
     <dt>Input Requirement</dt>
     <dd>
         
@@ -2553,6 +2601,18 @@ Corresponds to Kafka isolation.level property.
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3163,8 +3223,6 @@ Corresponds to Kafka isolation.level property.
                         
                         
                         
-                        
-                        
                     </dd>
 
                     
@@ -3308,6 +3366,10 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                                 SCRAM-SHA-512
                                 <span uk-icon="info" uk-tooltip="Salted Challenge Response Authentication Mechanism using SHA-256 with username and password"></span></li>
                             
+                            <li>
+                                AWS_MSK_IAM
+                                <span uk-icon="info" uk-tooltip="Allows to use AWS IAM for authentication and authorization against Amazon MSK clusters that have AWS IAM enabled as an authentication mechanism. The IAM credentials will be found using the AWS Default Credentials Provider Chain."></span></li>
+                            
                         </ul>
                     </dd>
                     
@@ -3318,6 +3380,25 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Security Protocol</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SASL_PLAINTEXT, SASL_SSL]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3358,7 +3439,7 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                                 
                                 </span>
                                 
-                                [PLAIN, SCRAM-SHA-512, SCRAM-SHA-256]
+                                [PLAIN, SCRAM-SHA-256, SCRAM-SHA-512]
                                 
                             </li>
                             
@@ -3404,7 +3485,7 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                                 
                                 </span>
                                 
-                                [PLAIN, SCRAM-SHA-512, SCRAM-SHA-256]
+                                [PLAIN, SCRAM-SHA-256, SCRAM-SHA-512]
                                 
                             </li>
                             
@@ -3491,6 +3572,16 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

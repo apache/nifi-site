@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.3.0
+  version: 2.4.0
 paths:
   /access/logout:
     delete:
@@ -3505,14 +3505,29 @@ paths:
         required: true
         schema:
           type: string
-      - description: Set of included metrics registries
+          enum:
+          - prometheus
+          - json
+      - description: Set of included metrics registries. Duplicate the parameter to
+          include multiple registries. All registries are included by default.
         in: query
         name: includedRegistries
         schema:
           type: array
+          enum:
+          - NIFI
+          - JVM
+          - BULLETIN
+          - CONNECTION
+          - CLUSTER
           items:
             type: string
             enum:
+            - NIFI
+            - JVM
+            - BULLETIN
+            - CONNECTION
+            - CLUSTER
             - NIFI
             - JVM
             - BULLETIN

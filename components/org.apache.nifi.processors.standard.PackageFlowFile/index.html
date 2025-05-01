@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,7 +2382,7 @@
           
 
 
-<h3>PackageFlowFile 2.3.0</h3>
+<h3>PackageFlowFile 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2387,19 +2435,49 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Maximum Batch Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Maximum number of FlowFiles to package into one output FlowFile using a best effort, non guaranteed approach. Multiple input queues can produce unexpected batching behavior.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Maximum number of FlowFiles to package into one output FlowFile.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Maximum Batch Size</dd>
                     <dt>Description</dt>
-                    <dd>Maximum number of FlowFiles to package into one output FlowFile using a best effort, non guaranteed approach. Multiple input queues can produce unexpected batching behavior.</dd>
+                    <dd>Maximum number of FlowFiles to package into one output FlowFile.</dd>
                     <dt>API Name</dt>
                     <dd>max-batch-size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Maximum Batch Content Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Maximum combined content size of FlowFiles to package into one output FlowFile. Note, that FlowFiles whose content exceeds this limit are packaged separately.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Maximum Batch Content Size</dd>
+                    <dt>Description</dt>
+                    <dd>Maximum combined content size of FlowFiles to package into one output FlowFile. Note, that FlowFiles whose content exceeds this limit are packaged separately.</dd>
+                    <dt>API Name</dt>
+                    <dd>Maximum Batch Content Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>1 GB</dd>
                     
                     
                     
@@ -2505,7 +2583,12 @@
                     <dd>
                         
                         <div class="uk-margin-top">org.apache.nifi.processors.standard.PackageFlowFile</div>
-                        <pre class="use-case-configuration">    &#34;Maximum Batch Size&#34; &gt; 1 can help improve performance by batching many flowfiles together into 1 larger file that is transmitted by InvokeHTTP.
+                        <pre class="use-case-configuration">    &#34;Maximum Batch Size&#34; &gt; 1 can improve storage or transmission efficiency by batching many FlowFiles together into 1 larger file.
+    &#34;Maximum Batch Content Size&#34; can be used to enforce a soft upper limit on the overall package size.
+
+    Note, that the Batch properties only restrict the maximum amount of FlowFiles to incorporate into a single package.
+    In case less FlowFiles are queued than the properties allow for,
+    the processor will not wait for the limits to be reached but create smaller packages instead.
 
     Connect the success relationship of PackageFlowFile to the input of InvokeHTTP.
 </pre>
@@ -2545,7 +2628,12 @@
                     <dd>
                         
                         <div class="uk-margin-top">org.apache.nifi.processors.standard.PackageFlowFile</div>
-                        <pre class="use-case-configuration">    &#34;Maximum Batch Size&#34; &gt; 1 can improve storage efficiency by batching many FlowFiles together into 1 larger file that is stored.
+                        <pre class="use-case-configuration">    &#34;Maximum Batch Size&#34; &gt; 1 can improve storage or transmission efficiency by batching many FlowFiles together into 1 larger file.
+    &#34;Maximum Batch Content Size&#34; can be used to enforce a soft upper limit on the overall package size.
+
+    Note, that the Batch properties only restrict the maximum amount of FlowFiles to incorporate into a single package.
+    In case less FlowFiles are queued than the properties allow for,
+    the processor will not wait for the limits to be reached but create smaller packages instead.
 
     Connect the success relationship to the input of any NiFi egress processor for offline storage.
 </pre>

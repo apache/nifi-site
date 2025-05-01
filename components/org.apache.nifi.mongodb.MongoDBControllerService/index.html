@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,7 +2382,7 @@
           
 
 
-<h3>MongoDBControllerService 2.3.0</h3>
+<h3>MongoDBControllerService 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2423,85 +2471,12 @@
                     <dt>Description</dt>
                     <dd>MongoURI, typically of the form: mongodb://host1[:port1][,host2[:port2],...]</dd>
                     <dt>API Name</dt>
-                    <dd>mongo-uri</dd>
+                    <dd>Mongo URI</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Write Concern</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The write concern to use</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Write Concern</dd>
-                    <dt>Description</dt>
-                    <dd>The write concern to use</dd>
-                    <dt>API Name</dt>
-                    <dd>mongo-write-concern</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>ACKNOWLEDGED</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                ACKNOWLEDGED
-                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement, using the default write concern configured on the server"></span></li>
-                            
-                            <li>
-                                UNACKNOWLEDGED
-                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will return as soon as the message is written to the socket. Exceptions are raised for network issues, but not server errors"></span></li>
-                            
-                            <li>
-                                FSYNCED
-                                <span uk-icon="info" uk-tooltip="Deprecated.  Use of &#34;JOURNALED&#34; is preferred"></span></li>
-                            
-                            <li>
-                                JOURNALED
-                                <span uk-icon="info" uk-tooltip="Write operations wait for the server to group commit to the journal file on disk"></span></li>
-                            
-                            <li>
-                                REPLICA_ACKNOWLEDGED
-                                <span uk-icon="info" uk-tooltip="Deprecated.  Use of &#34;W2&#34; is preferred"></span></li>
-                            
-                            <li>
-                                MAJORITY
-                                <span uk-icon="info" uk-tooltip="Exceptions are raised for network issues, and server errors; waits on a majority of servers for the write operation"></span></li>
-                            
-                            <li>
-                                W1
-                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement from a single member"></span></li>
-                            
-                            <li>
-                                W2
-                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement from two members"></span></li>
-                            
-                            <li>
-                                W3
-                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement from three members"></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -2550,7 +2525,7 @@
                     <dt>Description</dt>
                     <dd>The SSL Context Service used to provide client certificate information for TLS/SSL connections.</dd>
                     <dt>API Name</dt>
-                    <dd>ssl-context-service</dd>
+                    <dd>SSL Context Service</dd>
                     
                     
                     
@@ -2561,6 +2536,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3184,6 +3169,79 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Write Concern</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The write concern to use</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Write Concern</dd>
+                    <dt>Description</dt>
+                    <dd>The write concern to use</dd>
+                    <dt>API Name</dt>
+                    <dd>Write Concern</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>ACKNOWLEDGED</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                ACKNOWLEDGED
+                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement, using the default write concern configured on the server"></span></li>
+                            
+                            <li>
+                                UNACKNOWLEDGED
+                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will return as soon as the message is written to the socket. Exceptions are raised for network issues, but not server errors"></span></li>
+                            
+                            <li>
+                                FSYNCED
+                                <span uk-icon="info" uk-tooltip="Deprecated.  Use of &#34;JOURNALED&#34; is preferred"></span></li>
+                            
+                            <li>
+                                JOURNALED
+                                <span uk-icon="info" uk-tooltip="Write operations wait for the server to group commit to the journal file on disk"></span></li>
+                            
+                            <li>
+                                REPLICA_ACKNOWLEDGED
+                                <span uk-icon="info" uk-tooltip="Deprecated.  Use of &#34;W2&#34; is preferred"></span></li>
+                            
+                            <li>
+                                MAJORITY
+                                <span uk-icon="info" uk-tooltip="Exceptions are raised for network issues, and server errors; waits on a majority of servers for the write operation"></span></li>
+                            
+                            <li>
+                                W1
+                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement from a single member"></span></li>
+                            
+                            <li>
+                                W2
+                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement from two members"></span></li>
+                            
+                            <li>
+                                W3
+                                <span uk-icon="info" uk-tooltip="Write operations that use this write concern will wait for acknowledgement from three members"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                 </dl>
             </div>

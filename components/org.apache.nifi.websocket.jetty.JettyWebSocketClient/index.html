@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,7 +2382,7 @@
           
 
 
-<h3>JettyWebSocketClient 2.3.0</h3>
+<h3>JettyWebSocketClient 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2396,7 +2444,7 @@
                     <dt>Description</dt>
                     <dd>The charset for Basic Authentication header base64 string.</dd>
                     <dt>API Name</dt>
-                    <dd>authentication-charset</dd>
+                    <dd>Authentication Header Charset</dd>
                     
                     <dt>Default Value</dt>
                     <dd>US-ASCII</dd>
@@ -2426,7 +2474,7 @@
                     <dt>Description</dt>
                     <dd>The number of times to try and establish a connection.</dd>
                     <dt>API Name</dt>
-                    <dd>connection-attempt-timeout</dd>
+                    <dd>Connection Attempt Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3</dd>
@@ -2456,7 +2504,7 @@
                     <dt>Description</dt>
                     <dd>The timeout to connect the WebSocket URI.</dd>
                     <dt>API Name</dt>
-                    <dd>connection-timeout</dd>
+                    <dd>Connection Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3 sec</dd>
@@ -2486,7 +2534,7 @@
                     <dt>Description</dt>
                     <dd>Configures a custom HTTP Authorization Header as described in RFC 7235 Section 4.2. Setting a custom Authorization Header excludes configuring the User Name and User Password properties for Basic Authentication.</dd>
                     <dt>API Name</dt>
-                    <dd>custom-authorization</dd>
+                    <dd>Custom Authorization</dd>
                     
                     
                     
@@ -2494,6 +2542,60 @@
                     <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
                     <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">HTTP Proxy Host</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The host name of the HTTP Proxy.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>HTTP Proxy Host</dd>
+                    <dt>Description</dt>
+                    <dd>The host name of the HTTP Proxy.</dd>
+                    <dt>API Name</dt>
+                    <dd>HTTP Proxy Host</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">HTTP Proxy Port</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The port number of the HTTP Proxy.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>HTTP Proxy Port</dd>
+                    <dt>Description</dt>
+                    <dd>The port number of the HTTP Proxy.</dd>
+                    <dt>API Name</dt>
+                    <dd>HTTP Proxy Port</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
@@ -2513,7 +2615,7 @@
                     <dt>Description</dt>
                     <dd>The size of the input (read from network layer) buffer size.</dd>
                     <dt>API Name</dt>
-                    <dd>input-buffer-size</dd>
+                    <dd>Input Buffer Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>4 kb</dd>
@@ -2543,7 +2645,7 @@
                     <dt>Description</dt>
                     <dd>The maximum size of a binary message during parsing/generating.</dd>
                     <dt>API Name</dt>
-                    <dd>max-binary-message-size</dd>
+                    <dd>Max Binary Message Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>64 kb</dd>
@@ -2573,7 +2675,7 @@
                     <dt>Description</dt>
                     <dd>The maximum size of a text message during parsing/generating.</dd>
                     <dt>API Name</dt>
-                    <dd>max-text-message-size</dd>
+                    <dd>Max Text Message Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>64 kb</dd>
@@ -2593,51 +2695,24 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">HTTP Proxy Host</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The host name of the HTTP Proxy.</div>
+                <span class="">Password</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The user password for Basic Authentication.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>HTTP Proxy Host</dd>
+                    <dd>Password</dd>
                     <dt>Description</dt>
-                    <dd>The host name of the HTTP Proxy.</dd>
+                    <dd>The user password for Basic Authentication.</dd>
                     <dt>API Name</dt>
-                    <dd>proxy-host</dd>
+                    <dd>Password</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">HTTP Proxy Port</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The port number of the HTTP Proxy.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>HTTP Proxy Port</dd>
-                    <dt>Description</dt>
-                    <dd>The port number of the HTTP Proxy.</dd>
-                    <dt>API Name</dt>
-                    <dd>proxy-port</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
+                    <dd>true</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
@@ -2657,7 +2732,7 @@
                     <dt>Description</dt>
                     <dd>The interval between session maintenance activities. A WebSocket session established with a WebSocket server can be terminated due to different reasons including restarting the WebSocket server or timing out inactive sessions. This session maintenance activity is periodically executed in order to reconnect those lost sessions, so that a WebSocket client can reuse the same session id transparently after it reconnects successfully.  The maintenance activity is executed until corresponding processors or this controller service is stopped.</dd>
                     <dt>API Name</dt>
-                    <dd>session-maintenance-interval</dd>
+                    <dd>Session Maintenance Interval</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 sec</dd>
@@ -2687,7 +2762,7 @@
                     <dt>Description</dt>
                     <dd>The SSL Context Service to use in order to secure the server. If specified, the server will accept only WSS requests; otherwise, the server will accept only WS requests</dd>
                     <dt>API Name</dt>
-                    <dd>ssl-context-service</dd>
+                    <dd>SSL Context Service</dd>
                     
                     
                     
@@ -2698,6 +2773,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3328,17 +3413,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">User Name</span>
+                <span class="">Username</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The user name for Basic Authentication.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>User Name</dd>
+                    <dd>Username</dd>
                     <dt>Description</dt>
                     <dd>The user name for Basic Authentication.</dd>
                     <dt>API Name</dt>
-                    <dd>user-name</dd>
+                    <dd>Username</dd>
                     
                     
                     
@@ -3346,33 +3431,6 @@
                     <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">User Password</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The user password for Basic Authentication.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>User Password</dd>
-                    <dt>Description</dt>
-                    <dd>The user password for Basic Authentication.</dd>
-                    <dt>API Name</dt>
-                    <dd>user-password</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
@@ -3392,7 +3450,7 @@
                     <dt>Description</dt>
                     <dd>The WebSocket URI this client connects to.</dd>
                     <dt>API Name</dt>
-                    <dd>websocket-uri</dd>
+                    <dd>WebSocket URI</dd>
                     
                     
                     

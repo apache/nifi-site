@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,7 +2382,7 @@
           
 
 
-<h3>ListenTrapSNMP 2.3.0</h3>
+<h3>ListenTrapSNMP 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2356,7 +2404,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ListenTrapSNMP 2.3.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ListenTrapSNMP 2.4.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2374,24 +2422,23 @@
 -->
 <h1 id="listentrapsnmp">ListenTrapSNMP</h1>
 <h2 id="summary">Summary</h2>
-<p>This processor listens to SNMP traps and creates a flowfile from the trap PDU. The versions SNMPv1, SNMPv2c and SNMPv3
-are supported. The component is based on <a href="http://www.snmp4j.org/">SNMP4J</a>.</p>
-<p>SNMPv3 has user-based security. The USM Users Source property allows users to choose between three different ways to
-provide the USM user database. An example json file containing two users:</p>
+<p>The ListenTrapSNMP processor listens for incoming SNMP traps and generates a FlowFile from the received Protocol Data Unit (PDU). It supports SNMPv1, SNMPv2c, and SNMPv3, utilizing the SNMP4J library.</p>
+<p>When configured to use SNMPv3, SNMPv1 and SNMPv2c are automatically disabled. As a result, traps using SNMPv1 or SNMPv2c message models will not be received or processed. This is done to enforce a higher level of security, as SNMPv1 and SNMPv2c transmit community strings in plaintext, making them vulnerable to interception and unauthorized access.</p>
+<p>For SNMPv3, security is based on a User-Based Security Model (USM). The &lsquo;USM Users Input Method&rsquo; property allows users to configure the USM user database in different ways. Below is an example JSON file defining two users as &ldquo;Json Content&rdquo;:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;securityName&#34;</span>: <span style="color:#e6db74">&#34;user1&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authProtocol&#34;</span>: <span style="color:#e6db74">&#34;MD5&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authPassphrase&#34;</span>: <span style="color:#e6db74">&#34;abc12345&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privProtocol&#34;</span>: <span style="color:#e6db74">&#34;DES&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>: <span style="color:#e6db74">&#34;abc12345&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authProtocol&#34;</span>: <span style="color:#e6db74">&#34;HMAC384SHA512&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authPassphrase&#34;</span>: <span style="color:#e6db74">&#34;authPassphrase1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privProtocol&#34;</span>: <span style="color:#e6db74">&#34;AES192&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>: <span style="color:#e6db74">&#34;privPassphrase1&#34;</span>
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;securityName&#34;</span>: <span style="color:#e6db74">&#34;newUser2&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authProtocol&#34;</span>: <span style="color:#e6db74">&#34;MD5&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authPassphrase&#34;</span>: <span style="color:#e6db74">&#34;abc12345&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;securityName&#34;</span>: <span style="color:#e6db74">&#34;user2&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authProtocol&#34;</span>: <span style="color:#e6db74">&#34;HMAC192SHA256&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authPassphrase&#34;</span>: <span style="color:#e6db74">&#34;authPassphrase2&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privProtocol&#34;</span>: <span style="color:#e6db74">&#34;AES256&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>: <span style="color:#e6db74">&#34;abc12345&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>: <span style="color:#e6db74">&#34;privPassphrase2&#34;</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
 </span></span></code></pre></div>
@@ -2604,19 +2651,19 @@ provide the USM user database. An example json file containing two users:</p>
                         <ul>
                             
                             <li>
-                                <span>SNMP Version</span>
+                                <span>SNMP Security Level</span>
                                 <span class="uk-text-light">is set to any
                                 
                                   of
                                 
                                 </span>
                                 
-                                [SNMPv3]
+                                [noAuthNoPriv]
                                 
                             </li>
                             
                             <li>
-                                <span>USM Users Source</span>
+                                <span>USM Users Input Method</span>
                                 <span class="uk-text-light">is set to any
                                 
                                   of
@@ -2628,14 +2675,14 @@ provide the USM user database. An example json file containing two users:</p>
                             </li>
                             
                             <li>
-                                <span>SNMP Security Level</span>
+                                <span>SNMP Version</span>
                                 <span class="uk-text-light">is set to any
                                 
                                   of
                                 
                                 </span>
                                 
-                                [noAuthNoPriv]
+                                [SNMPv3]
                                 
                             </li>
                             
@@ -2674,7 +2721,7 @@ provide the USM user database. An example json file containing two users:</p>
                         <ul>
                             
                             <li>
-                                <span>USM Users Source</span>
+                                <span>USM Users Input Method</span>
                                 <span class="uk-text-light">is set to any
                                 
                                   of
@@ -2732,7 +2779,7 @@ provide the USM user database. An example json file containing two users:</p>
                         <ul>
                             
                             <li>
-                                <span>USM Users Source</span>
+                                <span>USM Users Input Method</span>
                                 <span class="uk-text-light">is set to any
                                 
                                   of
@@ -2764,15 +2811,15 @@ provide the USM user database. An example json file containing two users:</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">USM Users Source</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The ways to provide USM User data</div>
+                <span class="property-required">USM Users Input Method</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how USM user data is provided.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>USM Users Source</dd>
+                    <dd>USM Users Input Method</dd>
                     <dt>Description</dt>
-                    <dd>The ways to provide USM User data</dd>
+                    <dd>Specifies how USM user data is provided.</dd>
                     <dt>API Name</dt>
                     <dd>snmp-usm-users-source</dd>
                     
@@ -2782,12 +2829,12 @@ provide the USM user database. An example json file containing two users:</p>
                         <ul>
                             
                             <li>
-                                Json Content
-                                <span uk-icon="info" uk-tooltip="The JSON containing the USM users"></span></li>
-                            
-                            <li>
                                 Json File Path
                                 <span uk-icon="info" uk-tooltip="The path of the JSON file containing the USM users"></span></li>
+                            
+                            <li>
+                                Json Content
+                                <span uk-icon="info" uk-tooltip="The JSON containing the USM users"></span></li>
                             
                             <li>
                                 Security Names

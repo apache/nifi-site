@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,7 +2382,7 @@
           
 
 
-<h3>GetBoxFileCollaborators 2.3.0</h3>
+<h3>GetBoxFileCollaborators 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2407,6 +2455,11 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3019,6 +3072,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3058,6 +3116,60 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Roles</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A comma-separated list of collaboration roles to retrieve. Available roles: editor, viewer, previewer, uploader, previewer uploader, viewer uploader, co-owner, owner. If not specified, no filtering by role will be applied.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Roles</dd>
+                    <dt>Description</dt>
+                    <dd>A comma-separated list of collaboration roles to retrieve. Available roles: editor, viewer, previewer, uploader, previewer uploader, viewer uploader, co-owner, owner. If not specified, no filtering by role will be applied.</dd>
+                    <dt>API Name</dt>
+                    <dd>Roles</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Statuses</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A comma-separated list of collaboration statuses to retrieve. Available statuses: accepted, pending, rejected. If not specified, no filtering by status will be applied.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Statuses</dd>
+                    <dt>Description</dt>
+                    <dd>A comma-separated list of collaboration statuses to retrieve. Available statuses: accepted, pending, rejected. If not specified, no filtering by status will be applied.</dd>
+                    <dt>API Name</dt>
+                    <dd>Statuses</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -3143,6 +3255,26 @@
         <tr>
             <td>box.collaborations.&lt;status&gt;.groups.emails</td>
             <td class="uk-text-lighter">Comma-separated list of group collaborator emails by status</td>
+        </tr>
+        
+        <tr>
+            <td>box.collaborations.&lt;status&gt;.&lt;role&gt;.users.ids</td>
+            <td class="uk-text-lighter">Comma-separated list of user collaborator IDs by status and role. Only present when both Roles and Statuses properties are set.</td>
+        </tr>
+        
+        <tr>
+            <td>box.collaborations.&lt;status&gt;.&lt;role&gt;.users.logins</td>
+            <td class="uk-text-lighter">Comma-separated list of user collaborator logins by status and role. Only present when both Roles and Statuses properties are set.</td>
+        </tr>
+        
+        <tr>
+            <td>box.collaborations.&lt;status&gt;.&lt;role&gt;.groups.ids</td>
+            <td class="uk-text-lighter">Comma-separated list of group collaborator IDs by status and role. Only present when both Roles and Statuses properties are set.</td>
+        </tr>
+        
+        <tr>
+            <td>box.collaborations.&lt;status&gt;.&lt;role&gt;.groups.emails</td>
+            <td class="uk-text-lighter">Comma-separated list of group collaborator emails by status and role. Only present when both Roles and Statuses properties are set.</td>
         </tr>
         
         <tr>

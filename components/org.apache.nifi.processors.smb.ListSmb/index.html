@@ -719,6 +719,14 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxFileMetadataInstance/">CreateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.CreateBoxMetadataTemplate/">CreateBoxMetadataTemplate</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CryptographicHashContent/">CryptographicHashContent</a>
                 </li>
                 
@@ -744,6 +752,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.DeleteAzureDataLakeStorage/">DeleteAzureDataLakeStorage</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.DeleteBoxFileMetadataInstance/">DeleteBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -871,6 +883,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.ExtractStructuredBoxFileMetadata/">ExtractStructuredBoxFileMetadata</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ExtractText/">ExtractText</a>
                 </li>
                 
@@ -888,6 +904,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.FetchBoxFileInfo/">FetchBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.FetchBoxFileMetadataInstance/">FetchBoxFileMetadataInstance</a>
                 </li>
                 
                 <li >
@@ -1144,6 +1164,18 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.box.ListBoxFile/">ListBoxFile</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileInfo/">ListBoxFileInfo</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataInstances/">ListBoxFileMetadataInstances</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.box.ListBoxFileMetadataTemplates/">ListBoxFileMetadataTemplates</a>
                 </li>
                 
                 <li >
@@ -1687,6 +1719,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.box.UpdateBoxFileMetadataInstance/">UpdateBoxFileMetadataInstance</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.elasticsearch.UpdateByQueryElasticsearch/">UpdateByQueryElasticsearch</a>
                 </li>
                 
@@ -1752,6 +1788,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">AmazonMSKConnectionService</a>
                 </li>
                 
                 <li >
@@ -1944,6 +1984,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.json.JsonTreeReader/">JsonTreeReader</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">JWTBearerOAuth2AccessTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2307,6 +2351,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RestrictBackpressureSettings/">RestrictBackpressureSettings</a>
                 </li>
                 
@@ -2334,13 +2382,13 @@
           
 
 
-<h3>ListSmb 2.3.0</h3>
+<h3>ListSmb 2.4.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-smb-nar</dd>
     <dt>Description</dt>
-    <dd>Lists concrete files shared via SMB protocol. Each listed file may result in one flowfile, the metadata being written as flowfile attributes. Or - in case the &#39;Record Writer&#39; property is set - the entire result is written as records to a single flowfile. This Processor is designed to run on Primary Node only in a cluster. If the primary node changes, the new Primary Node will pick up where the previous node left off without duplicating all of the data.</dd>
+    <dd>Lists concrete files shared via SMB protocol. Each listed file may result in one FlowFile, the metadata being written as FlowFile attributes. Or - in case the &#39;Record Writer&#39; property is set - the entire result is written as records to a single FlowFile. This Processor is designed to run on Primary Node only in a cluster. If the primary node changes, the new Primary Node will pick up where the previous node left off without duplicating all of the data.</dd>
     <dt>Tags</dt>
     <dd>list, samba, smb, cifs, files</dd>
     <dt>Input Requirement</dt>
@@ -2451,6 +2499,25 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Listing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [entities]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2690,7 +2757,17 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.hazelcast.services.cacheclient.HazelcastMapCacheClient/">org.apache.nifi.hazelcast.services.cacheclient.HazelcastMapCacheClient</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3105,6 +3182,25 @@
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Listing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [entities]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3135,19 +3231,65 @@
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Listing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [entities]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">File Name Suffix Filter</span>
+                <span class="">File Filter</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only files whose names match the given regular expression will be listed.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>File Filter</dd>
+                    <dt>Description</dt>
+                    <dd>Only files whose names match the given regular expression will be listed.</dd>
+                    <dt>API Name</dt>
+                    <dd>file-filter</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Ignore Files with Suffix</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Files ending with the given suffix will be omitted. Can be used to make sure that files that are still uploading are not listed multiple times, by having those files have a suffix and remove the suffix once the upload finishes. This is highly recommended when using &#39;Tracking Entities&#39; or &#39;Tracking Timestamps&#39; listing strategies.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>File Name Suffix Filter</dd>
+                    <dd>Ignore Files with Suffix</dd>
                     <dt>Description</dt>
                     <dd>Files ending with the given suffix will be omitted. Can be used to make sure that files that are still uploading are not listed multiple times, by having those files have a suffix and remove the suffix once the upload finishes. This is highly recommended when using &#39;Tracking Entities&#39; or &#39;Tracking Timestamps&#39; listing strategies.</dd>
                     <dt>API Name</dt>
@@ -3161,6 +3303,120 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Initial Listing Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how to handle existing files on the SMB share when the processor is started for the first time (or its state has been cleared).</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Initial Listing Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies how to handle existing files on the SMB share when the processor is started for the first time (or its state has been cleared).</dd>
+                    <dt>API Name</dt>
+                    <dd>initial-listing-strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>ALL_FILES</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                All Files
+                                <span uk-icon="info" uk-tooltip="Lists all existing files"></span></li>
+                            
+                            <li>
+                                New Files
+                                <span uk-icon="info" uk-tooltip="Lists only newly created files"></span></li>
+                            
+                            <li>
+                                From Timestamp
+                                <span uk-icon="info" uk-tooltip="Lists only files created after the specified timestamp (inclusively)"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Listing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [timestamps]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Initial Listing Timestamp</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The timestamp from which the files will be listed when the processor is started for the first time (or its state has been cleared). The value can be specified as an epoch timestamp in milliseconds or as a UTC datetime in a format such as 2025-02-01T00:00:00Z</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Initial Listing Timestamp</dd>
+                    <dt>Description</dt>
+                    <dd>The timestamp from which the files will be listed when the processor is started for the first time (or its state has been cleared). The value can be specified as an epoch timestamp in milliseconds or as a UTC datetime in a format such as 2025-02-01T00:00:00Z</dd>
+                    <dt>API Name</dt>
+                    <dd>initial-listing-timestamp</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Initial Listing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [FROM_TIMESTAMP]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3328,6 +3584,33 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Path Filter</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only files whose paths (up to the file&#39;s parent directory) match the given regular expression will be listed.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Path Filter</dd>
+                    <dt>Description</dt>
+                    <dd>Only files whose paths (up to the file&#39;s parent directory) match the given regular expression will be listed.</dd>
+                    <dt>API Name</dt>
+                    <dd>path-filter</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Record Writer</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Record Writer to use for creating the listing. If not specified, one FlowFile will be created for each entity that is listed. If the Record Writer is specified, all entities will be written to a single FlowFile instead of adding attributes to individual FlowFiles.</div>
             </a>
@@ -3349,6 +3632,11 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3623,6 +3911,11 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.json.JsonRecordSetWriter/">org.apache.nifi.json.JsonRecordSetWriter</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4008,6 +4301,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
