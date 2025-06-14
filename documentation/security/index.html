@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode585s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode586s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Security</h1>
 <p>Apache NiFi welcomes the responsible reporting of security vulnerabilities. Project Management Committee members will
 collaborate and respond to potential vulnerabilities, providing an assessment of the concern and a plan of action to
@@ -577,12 +577,13 @@ policy for general guidelines applicable disclosure of security issues for Apach
 <li>Send a message to the project mailing lists disclosing a security vulnerability to the public</li>
 <li>Send a message to the project Slack instance disclosing a security vulnerability to the public</li>
 </ul>
-<h2 id="reporting-guidelines">Reporting Guidelines</h2>
-<p>Configuring dangerous operating system commands or custom scripts is not a project security vulnerability.
-Authenticated and authorized users are responsible for the security of operating system commands and custom
-code.</p>
-<p>Apache NiFi provides a framework for developing processing pipelines using standard and custom
-components. The framework supports configurable permissions that enable authorized users to execute code
+<h2 id="security-model">Security Model</h2>
+<p>Apache NiFi provides a framework for developing processing pipelines using standard and custom components. Authenticated
+and authorized users are responsible for the security of operating system commands and custom code. Privileged users are
+also responsible for designing processing pipelines with security measures appropriate to the level of trust expected
+for systems and services providing input to such processing pipelines.</p>
+<p>Configuring dangerous operating system commands or custom scripts is not a project security vulnerability.</p>
+<p>The framework supports configurable permissions that enable authorized users to execute code
 using several standard components. Components such as ExecuteProcess and ExecuteStreamCommand support
 running operating system commands, while other scripted components support executing custom code using
 different programming languages. Configuring these components with untrusted commands or arguments is
