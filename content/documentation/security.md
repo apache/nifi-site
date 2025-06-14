@@ -24,14 +24,16 @@ Do not perform the following actions after discovering a potential security conc
 - Send a message to the project mailing lists disclosing a security vulnerability to the public
 - Send a message to the project Slack instance disclosing a security vulnerability to the public
 
-## Reporting Guidelines
+## Security Model
+
+Apache NiFi provides a framework for developing processing pipelines using standard and custom components. Authenticated
+and authorized users are responsible for the security of operating system commands and custom code. Privileged users are
+also responsible for designing processing pipelines with security measures appropriate to the level of trust expected
+for systems and services providing input to such processing pipelines.
 
 Configuring dangerous operating system commands or custom scripts is not a project security vulnerability.
-Authenticated and authorized users are responsible for the security of operating system commands and custom
-code.
 
-Apache NiFi provides a framework for developing processing pipelines using standard and custom
-components. The framework supports configurable permissions that enable authorized users to execute code
+The framework supports configurable permissions that enable authorized users to execute code
 using several standard components. Components such as ExecuteProcess and ExecuteStreamCommand support
 running operating system commands, while other scripted components support executing custom code using
 different programming languages. Configuring these components with untrusted commands or arguments is
