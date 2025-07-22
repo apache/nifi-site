@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Apache NiFi Team">
 <title>NiFi System Administrator&#8217;s Guide</title>
 <style>
@@ -2357,7 +2357,10 @@ these provided users, groups, and access policies.</p>
 <p>Legacy Authorized Users File - The full path to an existing <em>authorized-users.xml</em> that will be automatically be used to load the users and groups into the Users File.</p>
 </li>
 <li>
-<p>Initial User Identity - The identity of a users and systems to seed the Users File. The name of each property must be unique, for example: "Initial User Identity A", "Initial User Identity B", "Initial User Identity C" or "Initial User Identity 1", "Initial User Identity 2", "Initial User Identity 3"</p>
+<p>Initial User Identity - The identity of a user or system to seed the Users File. The name of each property must be unique, for example: "Initial User Identity A", "Initial User Identity B", "Initial User Identity C" or "Initial User Identity 1", "Initial User Identity 2", "Initial User Identity 3"</p>
+</li>
+<li>
+<p>Initial Group Identity - The identity of a user group to seed the Users File. The name of each property must be unique, for example: "Initial Group Identity A", "Initial Group Identity B", "Initial Group Identity C" or "Initial Group Identity 1", "Initial Group Identity 2", "Initial Group Identity 3"</p>
 </li>
 </ul>
 </div>
@@ -2726,11 +2729,15 @@ Any identity mapping rules specified in <em>nifi.properties</em> are not applied
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Initial Admin Identity</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The identity of an initial admin user that will be granted access to the UI and given the ability to create additional users, groups, and policies. The value of this property could be a DN when using certificates or LDAP, or a Kerberos principal. This property will only be used when there are no other policies defined. If this property is specified then a Legacy Authorized Users File can not be specified.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The identity of an initial admin user that will be granted access to the UI and given the ability to create additional users, groups, and policies. The value of this property could be a DN when using certificates or LDAP, or a Kerberos principal. This property will only be used when there are no other policies defined. If this property is specified then a Legacy Authorized Users File can not be specified. If the property <code>Initial Admin Group</code> is specified as well, the initial admin user will be a member of that group, in case the configured user group provider supports updating the group.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Initial Admin Group</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The identity of an initial admin group that will be granted access to the UI and given the ability to create additional users, groups, and policies. The value of this property could be a DN when using certificates or LDAP, or a Kerberos principal. This property will only be used when there are no other policies defined. If this property is specified then a Legacy Authorized Users File can not be specified.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Legacy Authorized Users File</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The full path to an existing <em>authorized-users.xml</em> that will be automatically converted to the new authorizations model. If this property is specified then an Initial Admin Identity can not be specified, and this property will only be used when there are no other users, groups, and policies defined.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The full path to an existing <em>authorized-users.xml</em> that will be automatically converted to the new authorizations model. If this property is specified then an Initial Admin Identity or Initial Admin Group can not be specified, and this property will only be used when there are no other users, groups, and policies defined.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Node Identity</code></p></td>
@@ -2751,7 +2758,7 @@ Any identity mapping rules specified in <em>nifi.properties</em> are not applied
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The identities configured in the Initial Admin Identity, the Node Identity properties, or discovered in a Legacy Authorized Users File must be available in the configured User Group Provider.
+The identities configured in the Initial Admin Identity, Initial Admin Group, the Node Identity properties, or discovered in a Legacy Authorized Users File must be available in the configured User Group Provider.
 </td>
 </tr>
 </table>
@@ -2876,7 +2883,8 @@ Any identity mapping rules specified in <em>nifi.properties</em> will also be ap
 <div class="sect3">
 <h4 id="initial-admin-identity"><a class="anchor" href="#initial-admin-identity"></a>Initial Admin Identity  (New NiFi Instance)</h4>
 <div class="paragraph">
-<p>If you are setting up a secured NiFi instance for the first time, you must manually designate an “Initial Admin Identity” in the <em>authorizers.xml</em> file.  This initial admin user is granted access to the UI and given the ability to create additional users, groups, and policies. The value of this property could be a DN (when using certificates or LDAP) or a Kerberos principal.  If you are the NiFi administrator, add yourself as the “Initial Admin Identity”.</p>
+<p>If you are setting up a secured NiFi instance for the first time, you must manually designate an “Initial Admin Identity” in the <em>authorizers.xml</em> file.  This initial admin user is granted access to the UI and given the ability to create additional users, groups, and policies. The value of this property could be a DN (when using certificates or LDAP) or a Kerberos principal.  If you are the NiFi administrator, add yourself as the “Initial Admin Identity”.
+Alternatively, specifying an “Initial Admin Group” grants administrative access to a group of users, mitigating dependence on a single person or the need for a shared account.</p>
 </div>
 <div class="paragraph">
 <p>After you have edited and saved the <em>authorizers.xml</em> file, restart NiFi.  The “Initial Admin Identity” user and administrative policies are added to the <em>users.xml</em> and <em>authorizations.xml</em> files during restart. Once NiFi starts, the “Initial Admin Identity” user is able to access the UI and begin managing users, groups, and policies.</p>
@@ -3559,7 +3567,7 @@ member: cn=User 2,ou=users,o=nifi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-NiFi fails to restart if values exist for both the <code>Initial Admin Identity</code> and <code>Legacy Authorized Users File</code> properties.  You can specify only one of these values to initialize authorizations.
+NiFi fails to restart if values exist for both the <code>Initial Admin Identity</code> (or <code>Initial Admin Group</code>) and <code>Legacy Authorized Users File</code> properties.  You can specify only one of these values to initialize authorizations.
 </td>
 </tr>
 </table>
@@ -6106,7 +6114,7 @@ This cleanup mechanism takes into account only automatically created archived <e
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowcontroller.autoResumeState</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates whether -upon restart- the components on the NiFi graph should return to their last state. The default value is <code>true</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates whether -upon restart- the components on the NiFi graph should return to their last state. When running in cluster, all nodes should have the same value. The default value is <code>true</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowcontroller.graceful.shutdown.period</code></p></td>
@@ -6481,7 +6489,7 @@ For example, if <code>nifi.content.repository.archive.max.usage.percentage</code
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.repository.archive.cleanup.frequency</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The frequency with which to schedule the content archive clean up task. The default value is <code>1 Second</code>. A value lower than <code>1 Second</code> is not allowed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The frequency with which to schedule the content archive clean up task. The default value is <code>1 Minute</code>. A value lower than <code>1 Second</code> is not allowed.</p></td>
 </tr>
 </tbody>
 </table>
@@ -6507,7 +6515,8 @@ For example, if <code>nifi.content.repository.archive.max.usage.percentage</code
 <code>org.apache.nifi.provenance.WriteAheadProvenanceRepository</code>.
 To store provenance events in memory instead of on disk (in which case all events will be lost on restart, and events will be evicted in a first-in-first-out order),
 set this property to <code>org.apache.nifi.provenance.VolatileProvenanceRepository</code>. This leaves a configurable number of Provenance Events in the Java heap, so the number
-of events that can be retained is very limited.</p></td>
+of events that can be retained is very limited.
+Alternatively, to disable provenance event storage entirely and reduce resource usage, set this property to <code>org.apache.nifi.provenance.NoOpProvenanceRepository</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.provenance.repository.rollover.events</code></p></td>
@@ -8731,7 +8740,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-28 19:41:42 +0200
+Last updated 2025-07-19 14:22:31 +0200
 </div>
 </div>
 </body>

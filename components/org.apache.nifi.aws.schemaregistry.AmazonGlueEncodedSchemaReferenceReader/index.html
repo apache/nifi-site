@@ -2,19 +2,19 @@
 <html lang="en">
   
 <head>
-  <title>PropertiesFileLookupService - Apache NiFi</title>
+  <title>AmazonGlueEncodedSchemaReferenceReader - Apache NiFi</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
-  <meta name="keywords" content="cache,enrich,join,key,lookup,properties,reloadable,value">
-  <title>PropertiesFileLookupService - Apache NiFi</title>
-  <meta property="og:title" content="PropertiesFileLookupService">
+  <meta name="keywords" content="avro,aws,glue,registry,schema">
+  <title>AmazonGlueEncodedSchemaReferenceReader - Apache NiFi</title>
+  <meta property="og:title" content="AmazonGlueEncodedSchemaReferenceReader">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://nifi.apache.org/components/org.apache.nifi.lookup.PropertiesFileLookupService/">
+  <meta property="og:url" content="https://nifi.apache.org/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">
   <meta property="og:description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
   <meta property="og:site_name" content="Apache NiFi">
   <meta property="og:image" content="https://nifi.apache.org/images/project-brand.jpg?version=1">
-  <meta name="twitter:title" content="PropertiesFileLookupService">
+  <meta name="twitter:title" content="AmazonGlueEncodedSchemaReferenceReader">
   <meta name="twitter:description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="apachenifi">
@@ -1786,7 +1786,7 @@
                   <a href="/components/org.apache.nifi.services.azure.storage.ADLSCredentialsControllerServiceLookup/">ADLSCredentialsControllerServiceLookup</a>
                 </li>
                 
-                <li >
+                <li class="uk-text-bold" id="component-selected">
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -2034,7 +2034,7 @@
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
-                <li class="uk-text-bold" id="component-selected">
+                <li >
                   <a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">PropertiesFileLookupService</a>
                 </li>
                 
@@ -2386,15 +2386,15 @@
           
 
 
-<h3>PropertiesFileLookupService 2.5.0</h3>
+<h3>AmazonGlueEncodedSchemaReferenceReader 2.5.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
-    <dd>org.apache.nifi | nifi-lookup-services-nar</dd>
+    <dd>org.apache.nifi | nifi-aws-nar</dd>
     <dt>Description</dt>
-    <dd>A reloadable properties file-based lookup service</dd>
+    <dd>Reads Schema Identifier according to AWS Glue Schema encoding as a header consisting of a two byte markers and a 16 byte UUID</dd>
     <dt>Tags</dt>
-    <dd>cache, enrich, join, key, lookup, properties, reloadable, value</dd>
+    <dd>avro, aws, glue, registry, schema</dd>
     <dt>Input Requirement</dt>
     <dd>
         
@@ -2436,33 +2436,6 @@
 <div>
     <ul uk-accordion="multiple: true" id="property-descriptors">
         
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Configuration File</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A configuration file</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Configuration File</dd>
-                    <dt>Description</dt>
-                    <dd>A configuration file</dd>
-                    <dt>API Name</dt>
-                    <dd>configuration-file</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
     </ul>
 </div>
 
@@ -2472,26 +2445,6 @@
 
 
 
-
-<div class="component-section-header uk-margin">Restrictions</div>
-<div>
-    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
-        <thead>
-        <tr>
-            <th class="uk-width-1-4">Required Permission</th>
-            <th class="uk-width-3-4">Explanation</th>
-        </tr>
-        </thead>
-        <tbody>
-        
-        <tr>
-            <td>read filesystem</td>
-            <td class="uk-text-lighter">Provides operator the ability to read from any file that NiFi has access to.</td>
-        </tr>
-        
-        </tbody>
-    </table>
-</div>
 
 
 

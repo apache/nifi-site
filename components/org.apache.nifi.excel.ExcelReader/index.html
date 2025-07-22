@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
-  <meta name="keywords" content="cell,excel,parse,reader,record,row,spreadsheet,values,xlsx">
+  <meta name="keywords" content="cell,excel,parse,reader,record,row,spreadsheet,values,xls,xlsx">
   <title>ExcelReader - Apache NiFi</title>
   <meta property="og:title" content="ExcelReader">
   <meta property="og:type" content="article">
@@ -1787,6 +1787,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueSchemaRegistry/">AmazonGlueSchemaRegistry</a>
                 </li>
                 
@@ -2382,15 +2386,15 @@
           
 
 
-<h3>ExcelReader 2.4.0</h3>
+<h3>ExcelReader 2.5.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-poi-nar</dd>
     <dt>Description</dt>
-    <dd>Parses a Microsoft Excel document returning each row in each sheet as a separate record. This reader allows for inferring a schema from all the required sheets or providing an explicit schema for interpreting the values.See Controller Service&#39;s Usage for further documentation. This reader is currently only capable of processing .xlsx (XSSF 2007 OOXML file format) Excel documents and not older .xls (HSSF &#39;97(-2007) file format) documents.</dd>
+    <dd>Parses a Microsoft Excel document returning each row in each sheet as a separate record. This reader allows for inferring a schema from all the required sheets or providing an explicit schema for interpreting the values.See Controller Service&#39;s Usage for further documentation. This reader is capable of processing both password and non password protected .xlsx (XSSF 2007 OOXML file format) and older .xls (HSSF &#39;97(-2007) file format) Excel documents.</dd>
     <dt>Tags</dt>
-    <dd>cell, excel, parse, reader, record, row, spreadsheet, values, xlsx</dd>
+    <dd>cell, excel, parse, reader, record, row, spreadsheet, values, xls, xlsx</dd>
     <dt>Input Requirement</dt>
     <dd>
         
@@ -2404,7 +2408,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ExcelReader 2.4.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ExcelReader 2.5.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2439,8 +2443,8 @@ attempt to coerce the data into the type specified by the schema. If the field c
 type, an Exception will be thrown.</p>
 <p>The following rules apply when attempting to coerce a field value from one data type to another:</p>
 <ul>
-<li>Any data type can be coerced into a String type.</li>
-<li>Any numeric data type (Byte, Short, Int, Long, Float, Double) can be coerced into any other numeric data type.</li>
+<li>Excel stores all numeric types as a Double which can be coerced to any other numeric data type (Byte, Short, Int, Long, Float).</li>
+<li>Any data type can be coerced into a String type. Please note since Excel stores all numbers as a Double, a large number coerced to a String will result in a string representation of the number in scientific notation. If this is not desired, then coerce the number to a Long numeric type.</li>
 <li>Any numeric value can be coerced into a Date, Time, or Timestamp type, by assuming that the Long value is the number
 of milliseconds since epoch (Midnight GMT, January 1, 1970).</li>
 <li>A String value can be coerced into a Date, Time, or Timestamp type, if its format matches the configured &ldquo;Date
@@ -2732,6 +2736,51 @@ consists of 3 different records. The first record will contain the following val
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Input File Type</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies type of Excel input file.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Input File Type</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies type of Excel input file.</dd>
+                    <dt>API Name</dt>
+                    <dd>Input File Type</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>XLSX</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                XLS
+                                <span uk-icon="info" uk-tooltip="XLS 1997-2007 file format"></span></li>
+                            
+                            <li>
+                                XLSX
+                                <span uk-icon="info" uk-tooltip="XLSX 2007-present OOXML file format"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Password</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The password for a password protected Excel spreadsheet</div>
             </a>
@@ -2850,6 +2899,70 @@ consists of 3 different records. The first record will contain the following val
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Row Evaluation Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A strategy to select how many rows after the starting row to use for determining the schema.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Row Evaluation Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>A strategy to select how many rows after the starting row to use for determining the schema.</dd>
+                    <dt>API Name</dt>
+                    <dd>Row Evaluation Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>STANDARD</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Standard
+                                <span uk-icon="info" uk-tooltip="Use 10 rows after the starting row."></span></li>
+                            
+                            <li>
+                                All Rows
+                                <span uk-icon="info" uk-tooltip="Use all the rows after the starting row."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Schema Access Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Use Starting Row]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Schema Access Strategy</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how to obtain the schema that is to be used for interpreting the data.</div>
             </a>
@@ -2884,7 +2997,7 @@ consists of 3 different records. The first record will contain the following val
                             
                             <li>
                                 Use Starting Row
-                                <span uk-icon="info" uk-tooltip="The configured first row of the Excel file is a header line that contains the names of the columns. The schema will be derived by using the column names in the header of the first sheet and the following 10 rows to determine the type(s) of each column while the configured header rows of subsequent sheets are skipped."></span></li>
+                                <span uk-icon="info" uk-tooltip="The configured first row of the Excel file is a header line that contains the names of the columns. The schema will be derived by using the column names in the header of the first sheet and dependent on the strategy chosen either the subsequent 10 rows or all of the subsequent rows. However the configured header rows of subsequent sheets are skipped. NOTE: If there are duplicate column names then each subsequent duplicate column name is given a one up number. For example, column names &#34;Name&#34;, &#34;Name&#34; will be changed to &#34;Name&#34;, &#34;Name_1&#34;."></span></li>
                             
                             <li>
                                 Infer Schema
@@ -3031,6 +3144,13 @@ consists of 3 different records. The first record will contain the following val
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader</a></div>
                         
                         
                         
@@ -3699,6 +3819,11 @@ consists of 3 different records. The first record will contain the following val
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

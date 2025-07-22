@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Apache NiFi Team">
 <title>Apache NiFi User Guide</title>
 <style>
@@ -627,6 +627,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#system-properties">System Properties</a></li>
 </ul>
 </li>
+<li><a href="#noOp-provenance">NoOp Provenance Repository</a></li>
 </ul>
 </li>
 <li><a href="#experimental_warning">Experimental Warning</a></li>
@@ -5715,6 +5716,44 @@ recommendations should be noted when using the Write Ahead configuration:</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="noOp-provenance"><a class="anchor" href="#noOp-provenance"></a>NoOp Provenance Repository</h3>
+<div class="paragraph">
+<p>The NoOp Provenance Repository does not store any provenance events.
+This is useful when provenance tracking is disabled or minimized, such as during testing or in resource-constrained environments.
+When using this implementation, no provenance data is persisted, and all query and lineage requests return empty results.</p>
+</div>
+<div class="paragraph">
+<p>The <code>NoOp Provenance Repository</code> implementation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Saves no events or indexes.</p>
+</li>
+<li>
+<p>Always returns empty results for queries.</p>
+</li>
+<li>
+<p>Does not perform lineage computations.</p>
+</li>
+<li>
+<p>Is designed for testing or when provenance is not needed.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To configure NiFi to use the <code>NoOp Provenance Repository</code>, set in <code>nifi.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">nifi.provenance.repository.implementation=org.apache.nifi.provenance.NoOpProvenanceRepository</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> Disabling provenance storage will disable features relying on provenance data, such as lineage queries and event searches.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -5774,7 +5813,7 @@ the <a href="administration-guide.html">System Administrator&#8217;s Guide</a>.<
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-28 19:41:42 +0200
+Last updated 2025-07-19 14:22:31 +0200
 </div>
 </div>
 </body>

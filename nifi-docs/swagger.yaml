@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.4.0
+  version: 2.5.0
 paths:
   /access/logout:
     delete:
@@ -1797,7 +1797,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /flow: []
+      - Read - /controller: []
       summary: Gets the listing of available flow registry clients
       tags:
       - Controller
@@ -1827,6 +1827,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
+      - Read - /controller: []
       - Write - /controller: []
       summary: Creates a new flow registry client
       tags:
@@ -1879,7 +1880,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Write - /controller: []
+      - Write - /controller/registry-clients/{id}: []
       summary: Deletes a flow registry client
       tags:
       - Controller
@@ -1911,7 +1912,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /controller: []
+      - Read - /controller/registry-clients/{id}: []
       summary: Gets a flow registry client
       tags:
       - Controller
@@ -1950,7 +1951,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Write - /controller: []
+      - Write - /controller/registry-clients/{id}: []
       summary: Updates a flow registry client
       tags:
       - Controller
@@ -1994,7 +1995,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /controller/registry-clients/{uuid}: []
+      - Read - /controller/registry-clients/{id}: []
       summary: Gets a flow registry client property descriptor
       tags:
       - Controller
@@ -2020,7 +2021,7 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /flow: []
+      - Read - /controller: []
       summary: Retrieves the types of flow  that this NiFi supports
       tags:
       - Controller
