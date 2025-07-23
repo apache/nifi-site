@@ -28,7 +28,7 @@ servers.
 
 # Form Factors
 
-MiNiFi is available as either a native binary for Linux or as platform-independent Java distribution.
+MiNiFi is available as either a native binary for Linux/Windows/macOS or as platform-independent Java distribution.
 
 The native version is a reimplementation of NiFi core concepts in C++, supporting a subset of standard processors while
 limiting the impact on system resources.
