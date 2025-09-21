@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>ConsumeAMQP 2.5.0</h3>
+<h3>ConsumeAMQP 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2409,7 +2417,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeAMQP 2.5.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeAMQP 2.6.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2551,7 +2559,7 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dt>Description</dt>
                     <dd> If false (Non-Auto-Acknowledge), the messages will be acknowledged by the processor after transferring the FlowFiles to success and committing the NiFi session. Non-Auto-Acknowledge mode provides &#39;at-least-once&#39; delivery semantics. If true (Auto-Acknowledge), messages that are delivered to the AMQP Client will be auto-acknowledged by the AMQP Broker just after sending them out. This generally will provide better throughput but will also result in messages being lost upon restart/crash of the AMQP Broker, NiFi or the processor. Auto-Acknowledge mode provides &#39;at-most-once&#39; delivery semantics and it is recommended only if loosing messages is acceptable.</dd>
                     <dt>API Name</dt>
-                    <dd>auto.acknowledge</dd>
+                    <dd>Auto-Acknowledge Messages</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2596,7 +2604,7 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dt>Description</dt>
                     <dd>The maximum number of messages that should be processed in a single session. Once this many messages have been received (or once no more messages are readily available), the messages received will be transferred to the &#39;success&#39; relationship and the messages will be acknowledged to the AMQP Broker. Setting this value to a larger number could result in better performance, particularly for very small messages, but can also result in more messages being duplicated upon sudden restart of NiFi.</dd>
                     <dt>API Name</dt>
-                    <dd>batch.size</dd>
+                    <dd>Batch Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10</dd>
@@ -2688,55 +2696,6 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Header Output Format</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Defines how to output headers from the received message</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Header Output Format</dd>
-                    <dt>Description</dt>
-                    <dd>Defines how to output headers from the received message</dd>
-                    <dt>API Name</dt>
-                    <dd>header.format</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>Comma-Separated String</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Comma-Separated String
-                                <span uk-icon="info" uk-tooltip="Put all headers as a string with the specified separator in the attribute &#39;amqp$headers&#39;."></span></li>
-                            
-                            <li>
-                                JSON String
-                                <span uk-icon="info" uk-tooltip="Format all headers as JSON string and output in the attribute &#39;amqp$headers&#39;. It will include keys with null value as well."></span></li>
-                            
-                            <li>
-                                FlowFile Attributes
-                                <span uk-icon="info" uk-tooltip="Put each header as attribute of the flow file with a prefix specified in the properties"></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="property-required">Header Key Prefix</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Text to be prefixed to header keys as the are added to the FlowFile attributes. Processor will append &#39;.&#39; to the value of this property</div>
             </a>
@@ -2747,7 +2706,7 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dt>Description</dt>
                     <dd>Text to be prefixed to header keys as the are added to the FlowFile attributes. Processor will append &#39;.&#39; to the value of this property</dd>
                     <dt>API Name</dt>
-                    <dd>header.key.prefix</dd>
+                    <dd>Header Key Prefix</dd>
                     
                     <dt>Default Value</dt>
                     <dd>consume.amqp</dd>
@@ -2786,6 +2745,55 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Header Output Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Defines how to output headers from the received message</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Header Output Format</dd>
+                    <dt>Description</dt>
+                    <dd>Defines how to output headers from the received message</dd>
+                    <dt>API Name</dt>
+                    <dd>Header Output Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Comma-Separated String</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Comma-Separated String
+                                <span uk-icon="info" uk-tooltip="Put all headers as a string with the specified separator in the attribute &#39;amqp$headers&#39;."></span></li>
+                            
+                            <li>
+                                JSON String
+                                <span uk-icon="info" uk-tooltip="Format all headers as JSON string and output in the attribute &#39;amqp$headers&#39;. It will include keys with null value as well."></span></li>
+                            
+                            <li>
+                                FlowFile Attributes
+                                <span uk-icon="info" uk-tooltip="Put each header as attribute of the flow file with a prefix specified in the properties"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Header Separator</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The character that is used to separate key-value for header in String. The value must be only one character.</div>
             </a>
@@ -2796,7 +2804,7 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dt>Description</dt>
                     <dd>The character that is used to separate key-value for header in String. The value must be only one character.</dd>
                     <dt>API Name</dt>
-                    <dd>header.separator</dd>
+                    <dd>Header Separator</dd>
                     
                     <dt>Default Value</dt>
                     <dd>,</dd>
@@ -2962,7 +2970,7 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dt>Description</dt>
                     <dd>The maximum number of unacknowledged messages for the consumer. If consumer has this number of unacknowledged messages, AMQP broker will no longer send new messages until consumer acknowledges some of the messages already delivered to it.Allowed values: from 0 to 65535. 0 means no limit</dd>
                     <dt>API Name</dt>
-                    <dd>prefetch.count</dd>
+                    <dd>Prefetch Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0</dd>
@@ -3019,7 +3027,7 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dt>Description</dt>
                     <dd>If true Remove Curly Braces, Curly Braces in the header will be automatically remove.</dd>
                     <dt>API Name</dt>
-                    <dd>remove.curly.braces</dd>
+                    <dd>Remove Curly Braces</dd>
                     
                     <dt>Default Value</dt>
                     <dd>False</dd>
@@ -3094,6 +3102,11 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3646,7 +3659,12 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                         
                         
                         
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
+                        
+                        
                         
                         
                         

@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>AzureStorageCredentialsControllerService_v12 2.5.0</h3>
+<h3>AzureStorageCredentialsControllerService_v12 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2439,6 +2447,52 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Account Key</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The storage account key. This is an admin-like password providing access to every container in this account. It is recommended one uses Shared Access Signature (SAS) token, Managed Identity or Service Principal instead for fine-grained control with policies.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Account Key</dd>
+                    <dt>Description</dt>
+                    <dd>The storage account key. This is an admin-like password providing access to every container in this account. It is recommended one uses Shared Access Signature (SAS) token, Managed Identity or Service Principal instead for fine-grained control with policies.</dd>
+                    <dt>API Name</dt>
+                    <dd>Account Key</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Credentials Type</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [ACCOUNT_KEY]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Credentials Type</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Credentials type to be used for authenticating to Azure</div>
             </a>
@@ -2449,7 +2503,7 @@
                     <dt>Description</dt>
                     <dd>Credentials type to be used for authenticating to Azure</dd>
                     <dt>API Name</dt>
-                    <dd>credentials-type</dd>
+                    <dd>Credentials Type</dd>
                     
                     <dt>Default Value</dt>
                     <dd>SAS_TOKEN</dd>
@@ -2492,6 +2546,36 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Endpoint Suffix</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Storage accounts in public Azure always use a common FQDN suffix. Override this endpoint suffix with a different suffix in certain circumstances (like Azure Stack or non-public Azure regions).</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Endpoint Suffix</dd>
+                    <dt>Description</dt>
+                    <dd>Storage accounts in public Azure always use a common FQDN suffix. Override this endpoint suffix with a different suffix in certain circumstances (like Azure Stack or non-public Azure regions).</dd>
+                    <dt>API Name</dt>
+                    <dd>Endpoint Suffix</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>blob.core.windows.net</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Managed Identity Client ID</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Client ID of the managed identity. The property is required when User Assigned Managed Identity is used for authentication. It must be empty in case of System Assigned Managed Identity.</div>
             </a>
@@ -2502,7 +2586,7 @@
                     <dt>Description</dt>
                     <dd>Client ID of the managed identity. The property is required when User Assigned Managed Identity is used for authentication. It must be empty in case of System Assigned Managed Identity.</dd>
                     <dt>API Name</dt>
-                    <dd>managed-identity-client-id</dd>
+                    <dd>Managed Identity Client ID</dd>
                     
                     
                     
@@ -2559,6 +2643,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3219,6 +3313,52 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">SAS Token</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Shared Access Signature token (the leading &#39;?&#39; may be included)</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>SAS Token</dd>
+                    <dt>Description</dt>
+                    <dd>Shared Access Signature token (the leading &#39;?&#39; may be included)</dd>
+                    <dt>API Name</dt>
+                    <dd>SAS Token</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Credentials Type</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SAS_TOKEN]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Service Principal Client ID</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Client ID (or Application ID) of the Client/Application having the Service Principal.</div>
             </a>
@@ -3229,7 +3369,7 @@
                     <dt>Description</dt>
                     <dd>Client ID (or Application ID) of the Client/Application having the Service Principal.</dd>
                     <dt>API Name</dt>
-                    <dd>service-principal-client-id</dd>
+                    <dd>Service Principal Client ID</dd>
                     
                     
                     
@@ -3275,7 +3415,7 @@
                     <dt>Description</dt>
                     <dd>Password of the Client/Application.</dd>
                     <dt>API Name</dt>
-                    <dd>service-principal-client-secret</dd>
+                    <dd>Service Principal Client Secret</dd>
                     
                     
                     
@@ -3321,7 +3461,7 @@
                     <dt>Description</dt>
                     <dd>Tenant ID of the Azure Active Directory hosting the Service Principal.</dd>
                     <dt>API Name</dt>
-                    <dd>service-principal-tenant-id</dd>
+                    <dd>Service Principal Tenant ID</dd>
                     
                     
                     
@@ -3357,52 +3497,6 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Account Key</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The storage account key. This is an admin-like password providing access to every container in this account. It is recommended one uses Shared Access Signature (SAS) token, Managed Identity or Service Principal instead for fine-grained control with policies.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Account Key</dd>
-                    <dt>Description</dt>
-                    <dd>The storage account key. This is an admin-like password providing access to every container in this account. It is recommended one uses Shared Access Signature (SAS) token, Managed Identity or Service Principal instead for fine-grained control with policies.</dd>
-                    <dt>API Name</dt>
-                    <dd>storage-account-key</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Credentials Type</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [ACCOUNT_KEY]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="property-required">Storage Account Name</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The storage account name.</div>
             </a>
@@ -3413,7 +3507,7 @@
                     <dt>Description</dt>
                     <dd>The storage account name.</dd>
                     <dt>API Name</dt>
-                    <dd>storage-account-name</dd>
+                    <dd>Storage Account Name</dd>
                     
                     
                     
@@ -3423,82 +3517,6 @@
                     <dd>true</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Endpoint Suffix</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Storage accounts in public Azure always use a common FQDN suffix. Override this endpoint suffix with a different suffix in certain circumstances (like Azure Stack or non-public Azure regions).</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Endpoint Suffix</dd>
-                    <dt>Description</dt>
-                    <dd>Storage accounts in public Azure always use a common FQDN suffix. Override this endpoint suffix with a different suffix in certain circumstances (like Azure Stack or non-public Azure regions).</dd>
-                    <dt>API Name</dt>
-                    <dd>storage-endpoint-suffix</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>blob.core.windows.net</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">SAS Token</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Shared Access Signature token (the leading &#39;?&#39; may be included)</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>SAS Token</dd>
-                    <dt>Description</dt>
-                    <dd>Shared Access Signature token (the leading &#39;?&#39; may be included)</dd>
-                    <dt>API Name</dt>
-                    <dd>storage-sas-token</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Credentials Type</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [SAS_TOKEN]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
                     
                 </dl>
             </div>

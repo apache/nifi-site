@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>AWSCredentialsProviderControllerService 2.5.0</h3>
+<h3>AWSCredentialsProviderControllerService 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2449,7 +2457,7 @@
                     <dt>Description</dt>
                     <dd></dd>
                     <dt>API Name</dt>
-                    <dd>Access Key</dd>
+                    <dd>Access Key ID</dd>
                     
                     
                     
@@ -2457,51 +2465,6 @@
                     <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
                     <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Use Anonymous Credentials</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, uses Anonymous credentials</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Use Anonymous Credentials</dd>
-                    <dt>Description</dt>
-                    <dd>If true, uses Anonymous credentials</dd>
-                    <dt>API Name</dt>
-                    <dd>anonymous-credentials</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
@@ -2538,50 +2501,6 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Assume Role Session Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The AWS Role Session Name for cross account access. This is used in conjunction with Assume Role ARN.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Assume Role Session Name</dd>
-                    <dt>Description</dt>
-                    <dd>The AWS Role Session Name for cross account access. This is used in conjunction with Assume Role ARN.</dd>
-                    <dt>API Name</dt>
-                    <dd>Assume Role Session Name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Assume Role ARN</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  value specified
-                                
-                                </span>
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="">Assume Role External ID</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">External ID for cross-account access. This is used in conjunction with Assume Role ARN.</div>
             </a>
@@ -2592,7 +2511,7 @@
                     <dt>Description</dt>
                     <dd>External ID for cross-account access. This is used in conjunction with Assume Role ARN.</dd>
                     <dt>API Name</dt>
-                    <dd>assume-role-external-id</dd>
+                    <dd>Assume Role External ID</dd>
                     
                     
                     
@@ -2636,7 +2555,7 @@
                     <dt>Description</dt>
                     <dd>Proxy configuration for cross-account access, if needed within your environment. This will configure a proxy to request for temporary access keys into another AWS account.</dd>
                     <dt>API Name</dt>
-                    <dd>assume-role-proxy-configuration-service</dd>
+                    <dd>Assume Role Proxy Configuration Service</dd>
                     
                     
                     
@@ -2647,6 +2566,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3305,6 +3234,97 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Assume Role Session Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The AWS Role Session Name for cross account access. This is used in conjunction with Assume Role ARN.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Assume Role Session Name</dd>
+                    <dt>Description</dt>
+                    <dd>The AWS Role Session Name for cross account access. This is used in conjunction with Assume Role ARN.</dd>
+                    <dt>API Name</dt>
+                    <dd>Assume Role Session Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assume Role ARN</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Assume Role Session Time</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Session time for role based session (between 900 and 3600 seconds). This is used in conjunction with Assume Role ARN.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Assume Role Session Time</dd>
+                    <dt>Description</dt>
+                    <dd>Session time for role based session (between 900 and 3600 seconds). This is used in conjunction with Assume Role ARN.</dd>
+                    <dt>API Name</dt>
+                    <dd>Assume Role Session Time</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>3600</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assume Role ARN</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Assume Role SSL Context Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">SSL Context Service used when connecting to the STS Endpoint.</div>
             </a>
@@ -3315,7 +3335,7 @@
                     <dt>Description</dt>
                     <dd>SSL Context Service used when connecting to the STS Endpoint.</dd>
                     <dt>API Name</dt>
-                    <dd>assume-role-ssl-context-service</dd>
+                    <dd>Assume Role SSL Context Service</dd>
                     
                     
                     
@@ -3326,6 +3346,11 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3878,7 +3903,12 @@
                         
                         
                         
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
+                        
+                        
                         
                         
                         
@@ -3998,7 +4028,7 @@
                     <dt>Description</dt>
                     <dd>The default AWS Security Token Service (STS) endpoint (&#34;sts.amazonaws.com&#34;) works for all accounts that are not for China (Beijing) region or GovCloud. You only need to set this property to &#34;sts.cn-north-1.amazonaws.com.cn&#34; when you are requesting session credentials for services in China(Beijing) region or to &#34;sts.us-gov-west-1.amazonaws.com&#34; for GovCloud.</dd>
                     <dt>API Name</dt>
-                    <dd>assume-role-sts-endpoint</dd>
+                    <dd>Assume Role STS Endpoint Override</dd>
                     
                     
                     
@@ -4042,7 +4072,7 @@
                     <dt>Description</dt>
                     <dd>The AWS Security Token Service (STS) region</dd>
                     <dt>API Name</dt>
-                    <dd>assume-role-sts-region</dd>
+                    <dd>Assume Role STS Region</dd>
                     
                     <dt>Default Value</dt>
                     <dd>us-west-2</dd>
@@ -4125,6 +4155,10 @@
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-east-1"></span></li>
                             
                             <li>
+                                Asia Pacific (New Zealand)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-6"></span></li>
+                            
+                            <li>
                                 US East (Ohio)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-east-2"></span></li>
                             
@@ -4173,12 +4207,12 @@
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : eu-central-1"></span></li>
                             
                             <li>
-                                US ISO WEST
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-iso-west-1"></span></li>
-                            
-                            <li>
                                 EU (Germany)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
+                            
+                            <li>
+                                US ISO WEST
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-iso-west-1"></span></li>
                             
                             <li>
                                 Europe (Zurich)
@@ -4272,7 +4306,7 @@
                     <dt>Description</dt>
                     <dd>The AWS STS library uses Signature Version 4 by default. This property allows you to plug in your own custom signer implementation.</dd>
                     <dt>API Name</dt>
-                    <dd>assume-role-sts-signer-override</dd>
+                    <dd>Assume Role STS Signer Override</dd>
                     
                     <dt>Default Value</dt>
                     <dd>Default Signature</dd>
@@ -4365,7 +4399,7 @@
                     <dt>Description</dt>
                     <dd>Fully qualified class name of the custom signer class. The signer must implement com.amazonaws.auth.Signer interface.</dd>
                     <dt>API Name</dt>
-                    <dd>custom-signer-class-name</dd>
+                    <dd>Custom Signer Class Name</dd>
                     
                     
                     
@@ -4411,7 +4445,7 @@
                     <dt>Description</dt>
                     <dd>Comma-separated list of paths to files and/or directories which contain the custom signer&#39;s JAR file and its dependencies (if any).</dd>
                     <dt>API Name</dt>
-                    <dd>custom-signer-module-location</dd>
+                    <dd>Custom Signer Module Location</dd>
                     
                     
                     
@@ -4447,17 +4481,71 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Use Default Credentials</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, uses the Default Credential chain, including EC2 instance profiles or roles, environment variables, default user credentials, etc.</div>
+                <span class="">Profile Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The AWS profile name for credentials from the profile configuration file.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Use Default Credentials</dd>
+                    <dd>Profile Name</dd>
                     <dt>Description</dt>
-                    <dd>If true, uses the Default Credential chain, including EC2 instance profiles or roles, environment variables, default user credentials, etc.</dd>
+                    <dd>The AWS profile name for credentials from the profile configuration file.</dd>
                     <dt>API Name</dt>
-                    <dd>default-credentials</dd>
+                    <dd>Profile Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Secret Access Key</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter"></div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Secret Access Key</dd>
+                    <dt>Description</dt>
+                    <dd></dd>
+                    <dt>API Name</dt>
+                    <dd>Secret Access Key</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Use Anonymous Credentials</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, uses Anonymous credentials</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Use Anonymous Credentials</dd>
+                    <dt>Description</dt>
+                    <dd>If true, uses Anonymous credentials</dd>
+                    <dt>API Name</dt>
+                    <dd>Use Anonymous Credentials</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -4492,75 +4580,36 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Profile Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The AWS profile name for credentials from the profile configuration file.</div>
+                <span class="">Use Default Credentials</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, uses the Default Credential chain, including EC2 instance profiles or roles, environment variables, default user credentials, etc.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Profile Name</dd>
+                    <dd>Use Default Credentials</dd>
                     <dt>Description</dt>
-                    <dd>The AWS profile name for credentials from the profile configuration file.</dd>
+                    <dd>If true, uses the Default Credential chain, including EC2 instance profiles or roles, environment variables, default user credentials, etc.</dd>
                     <dt>API Name</dt>
-                    <dd>profile-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Secret Access Key</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter"></div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Secret Access Key</dd>
-                    <dt>Description</dt>
-                    <dd></dd>
-                    <dt>API Name</dt>
-                    <dd>Secret Key</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Assume Role Session Time</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Session time for role based session (between 900 and 3600 seconds). This is used in conjunction with Assume Role ARN.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Assume Role Session Time</dd>
-                    <dt>Description</dt>
-                    <dd>Session time for role based session (between 900 and 3600 seconds). This is used in conjunction with Assume Role ARN.</dd>
-                    <dt>API Name</dt>
-                    <dd>Session Time</dd>
+                    <dd>Use Default Credentials</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>3600</dd>
+                    <dd>false</dd>
                     
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
@@ -4569,23 +4618,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Assume Role ARN</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  value specified
-                                
-                                </span>
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
                     
                 </dl>
             </div>

@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>GetAzureEventHub 2.5.0</h3>
+<h3>GetAzureEventHub 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2449,7 +2457,7 @@
                     <dt>Description</dt>
                     <dd>The name of the consumer group to use when pulling events</dd>
                     <dt>API Name</dt>
-                    <dd>Event Hub Consumer Group</dd>
+                    <dd>Consumer Group</dd>
                     
                     <dt>Default Value</dt>
                     <dd>$Default</dd>
@@ -2462,33 +2470,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Message Enqueue Time</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A timestamp (ISO-8601 Instant) formatted as YYYY-MM-DDThhmmss.sssZ (2016-01-01T01:01:01.000Z) from which messages should have been enqueued in the Event Hub to start reading from</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Message Enqueue Time</dd>
-                    <dt>Description</dt>
-                    <dd>A timestamp (ISO-8601 Instant) formatted as YYYY-MM-DDThhmmss.sssZ (2016-01-01T01:01:01.000Z) from which messages should have been enqueued in the Event Hub to start reading from</dd>
-                    <dt>API Name</dt>
-                    <dd>Event Hub Message Enqueue Time</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -2550,17 +2531,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Partition Receiver Timeout</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The amount of time in milliseconds a Partition Receiver should wait to receive the Fetch Size before returning. The default is 60000</div>
+                <span class="">Message Enqueue Time</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A timestamp (ISO-8601 Instant) formatted as YYYY-MM-DDThhmmss.sssZ (2016-01-01T01:01:01.000Z) from which messages should have been enqueued in the Event Hub to start reading from</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Partition Receiver Timeout</dd>
+                    <dd>Message Enqueue Time</dd>
                     <dt>Description</dt>
-                    <dd>The amount of time in milliseconds a Partition Receiver should wait to receive the Fetch Size before returning. The default is 60000</dd>
+                    <dd>A timestamp (ISO-8601 Instant) formatted as YYYY-MM-DDThhmmss.sssZ (2016-01-01T01:01:01.000Z) from which messages should have been enqueued in the Event Hub to start reading from</dd>
                     <dt>API Name</dt>
-                    <dd>Partition Receiver Timeout (millseconds)</dd>
+                    <dd>Message Enqueue Time</dd>
                     
                     
                     
@@ -2587,7 +2568,34 @@
                     <dt>Description</dt>
                     <dd>The number of events that a receiver should fetch from an Event Hubs partition before returning. The default is 100</dd>
                     <dt>API Name</dt>
-                    <dd>Partition Recivier Fetch Size</dd>
+                    <dd>Partition Receiver Fetch Size</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Partition Receiver Timeout</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The amount of time in milliseconds a Partition Receiver should wait to receive the Fetch Size before returning. The default is 60000</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Partition Receiver Timeout</dd>
+                    <dt>Description</dt>
+                    <dd>The amount of time in milliseconds a Partition Receiver should wait to receive the Fetch Size before returning. The default is 60000</dd>
+                    <dt>API Name</dt>
+                    <dd>Partition Receiver Timeout</dd>
                     
                     
                     
@@ -2625,6 +2633,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3338,6 +3356,33 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Shared Access Policy Key</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The key of the shared access policy. Either the primary or the secondary key can be used.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Shared Access Policy Key</dd>
+                    <dt>Description</dt>
+                    <dd>The key of the shared access policy. Either the primary or the secondary key can be used.</dd>
+                    <dt>API Name</dt>
+                    <dd>Shared Access Policy Key</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Shared Access Policy Name</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the shared access policy. This policy must have Listen claims.</div>
             </a>
@@ -3356,33 +3401,6 @@
                     <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Shared Access Policy Key</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The key of the shared access policy. Either the primary or the secondary key can be used.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Shared Access Policy Key</dd>
-                    <dt>Description</dt>
-                    <dd>The key of the shared access policy. Either the primary or the secondary key can be used.</dd>
-                    <dt>API Name</dt>
-                    <dd>Shared Access Policy Primary Key</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
@@ -3447,7 +3465,7 @@
                     <dt>Description</dt>
                     <dd>Choose whether or not to use the managed identity of Azure VM/VMSS</dd>
                     <dt>API Name</dt>
-                    <dd>use-managed-identity</dd>
+                    <dd>Use Azure Managed Identity</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>

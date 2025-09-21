@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>PutAzureCosmosDBRecord 2.5.0</h3>
+<h3>PutAzureCosmosDBRecord 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2439,6 +2447,33 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Cosmos DB Access Key</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Cosmos DB Access Key from Azure Portal (Settings-&gt;Keys). Choose a read-write key to enable database or container creation at run time</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Cosmos DB Access Key</dd>
+                    <dt>Description</dt>
+                    <dd>Cosmos DB Access Key from Azure Portal (Settings-&gt;Keys). Choose a read-write key to enable database or container creation at run time</dd>
+                    <dt>API Name</dt>
+                    <dd>Cosmos DB Access Key</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Cosmos DB Conflict Handling Strategy</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Choose whether to ignore or upsert when conflict error occurs during insertion</div>
             </a>
@@ -2449,7 +2484,7 @@
                     <dt>Description</dt>
                     <dd>Choose whether to ignore or upsert when conflict error occurs during insertion</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-conflict-handling-strategy</dd>
+                    <dd>Cosmos DB Conflict Handling Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>IGNORE</dd>
@@ -2494,7 +2529,7 @@
                     <dt>Description</dt>
                     <dd>If configured, the controller service used to obtain the connection string and access key</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-connection-service</dd>
+                    <dd>Cosmos DB Connection Service</dd>
                     
                     
                     
@@ -3130,6 +3165,16 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3156,7 +3201,7 @@
                     <dt>Description</dt>
                     <dd>Choose from five consistency levels on the consistency spectrum. Refer to Cosmos DB documentation for their differences</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-consistency-level</dd>
+                    <dd>Cosmos DB Consistency Level</dd>
                     
                     <dt>Default Value</dt>
                     <dd>SESSION</dd>
@@ -3213,7 +3258,7 @@
                     <dt>Description</dt>
                     <dd>The unique identifier for the container</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-container-id</dd>
+                    <dd>Cosmos DB Container ID</dd>
                     
                     
                     
@@ -3223,33 +3268,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Cosmos DB Access Key</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Cosmos DB Access Key from Azure Portal (Settings-&gt;Keys). Choose a read-write key to enable database or container creation at run time</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Cosmos DB Access Key</dd>
-                    <dt>Description</dt>
-                    <dd>Cosmos DB Access Key from Azure Portal (Settings-&gt;Keys). Choose a read-write key to enable database or container creation at run time</dd>
-                    <dt>API Name</dt>
-                    <dd>azure-cosmos-db-key</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -3267,7 +3285,7 @@
                     <dt>Description</dt>
                     <dd>The database name or id. This is used as the namespace for document collections or containers</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-name</dd>
+                    <dd>Cosmos DB Name</dd>
                     
                     
                     
@@ -3294,7 +3312,7 @@
                     <dt>Description</dt>
                     <dd>The partition key used to distribute data among servers</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-partition-key</dd>
+                    <dd>Cosmos DB Partition Key</dd>
                     
                     
                     
@@ -3321,7 +3339,7 @@
                     <dt>Description</dt>
                     <dd>Cosmos DB URI, typically in the form of https://{databaseaccount}.documents.azure.com:443/ Note this host URL is for Cosmos DB with Core SQL API from Azure Portal (Overview-&gt;URI)</dd>
                     <dt>API Name</dt>
-                    <dd>azure-cosmos-db-uri</dd>
+                    <dd>Cosmos DB URI</dd>
                     
                     
                     
@@ -3348,7 +3366,7 @@
                     <dt>Description</dt>
                     <dd>The number of records to group together for one single insert operation against Cosmos DB</dd>
                     <dt>API Name</dt>
-                    <dd>insert-batch-size</dd>
+                    <dd>Insert Batch Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>20</dd>
@@ -3378,7 +3396,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for parsing incoming data and determining the data&#39;s schema</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -3478,6 +3496,11 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.cef.CEFReader/">org.apache.nifi.cef.CEFReader</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3946,6 +3969,13 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">org.apache.nifi.services.protobuf.StandardProtobufReader</a></div>
                         
                         
                         

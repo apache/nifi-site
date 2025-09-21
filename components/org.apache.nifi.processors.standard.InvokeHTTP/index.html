@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>InvokeHTTP 2.5.0</h3>
+<h3>InvokeHTTP 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2654,6 +2662,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4131,6 +4149,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider</a></div>
                         
                         
@@ -4370,6 +4393,11 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4872,14 +4900,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Response Generation Required</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enable generation and transfer of a FlowFile to the Response relationship regardless of HTTP response received.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enable generation and transfer of a FlowFile to the Response relationship regardless of HTTP response status code received.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Response Generation Required</dd>
                     <dt>Description</dt>
-                    <dd>Enable generation and transfer of a FlowFile to the Response relationship regardless of HTTP response received.</dd>
+                    <dd>Enable generation and transfer of a FlowFile to the Response relationship regardless of HTTP response status code received.</dd>
                     <dt>API Name</dt>
                     <dd>Response Generation Required</dd>
                     
@@ -5534,7 +5562,15 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">org.apache.nifi.ssl.PEMEncodedSSLContextProvider</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -5759,6 +5795,8 @@
                         
                         
                         
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardSSLContextService/">org.apache.nifi.ssl.StandardSSLContextService</a></div>
                         
                         
@@ -5948,7 +5986,10 @@
         
         <tr>
             <td>Response</td>
-            <td class="uk-text-lighter">Response FlowFiles transferred when receiving HTTP responses with a status code between 200 and 299.</td>
+            <td class="uk-text-lighter">Response FlowFiles transferred when receiving HTTP responses with a status code between 200 and 299.
+Enabling [Response Generation Required] changes routing behavior, sending unsuccessful responses to their corresponding relationships
+and also sending FlowFiles to the Response relationship as well, regardless of status code received.
+</td>
         </tr>
         
         <tr>

@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>ConsumeKinesisStream 2.5.0</h3>
+<h3>ConsumeKinesisStream 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2409,7 +2417,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeKinesisStream 2.5.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeKinesisStream 2.6.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2541,13 +2549,13 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">AWS Credentials Provider Service</span>
+                <span class="property-required">AWS Credentials Provider service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Controller Service that is used to obtain AWS credentials provider</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>AWS Credentials Provider Service</dd>
+                    <dd>AWS Credentials Provider service</dd>
                     <dt>Description</dt>
                     <dd>The Controller Service that is used to obtain AWS credentials provider</dd>
                     <dt>API Name</dt>
@@ -2612,6 +2620,16 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                         
                         
                         <div><a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3347,6 +3365,68 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">FlowFile Handling On Schema Difference</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The strategy used when records in a Kinesis Stream change their schema in a single batch.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>FlowFile Handling On Schema Difference</dd>
+                    <dt>Description</dt>
+                    <dd>The strategy used when records in a Kinesis Stream change their schema in a single batch.</dd>
+                    <dt>API Name</dt>
+                    <dd>FlowFile Handling On Schema Difference</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>CREATE_FLOW_FILE</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Create FlowFile
+                                <span uk-icon="info" uk-tooltip="Create a new FlowFile for each record with a different schema. The previous FlowFile will be completed with the records that have the previous schema. Emitted FlowFiles will contain continuous record sequences."></span></li>
+                            
+                            <li>
+                                Group Records By Schema
+                                <span uk-icon="info" uk-tooltip="Group records with the same schema into a single FlowFile. If a record with a different schema is encountered, a new FlowFile will be created for the new schema. Emitted FlowFiles may contain non-sequential records. This strategy is useful when the schema changes frequently and highest performance is required."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Record Writer</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Graceful Shutdown Timeout</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Kinesis Client Library graceful shutdown timeout</div>
             </a>
@@ -3509,6 +3589,16 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4281,6 +4371,11 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.csv.CSVReader/">org.apache.nifi.csv.CSVReader</a></div>
                         
                         
@@ -4734,6 +4829,13 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                         
                         
                         
+                        <div><a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">org.apache.nifi.services.protobuf.StandardProtobufReader</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4901,6 +5003,11 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                         
                         
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5484,6 +5591,11 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.xml.XMLRecordSetWriter/">org.apache.nifi.xml.XMLRecordSetWriter</a></div>
                         
                         
@@ -5535,40 +5647,12 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                         <ul>
                             
                             <li>
-                                AWS China global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-cn-global"></span></li>
-                            
-                            <li>
-                                AWS GovCloud (US) global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-us-gov-global"></span></li>
-                            
-                            <li>
                                 AWS GovCloud (US-East)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-east-1"></span></li>
                             
                             <li>
                                 AWS GovCloud (US-West)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-west-1"></span></li>
-                            
-                            <li>
-                                AWS ISO (US) global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-global"></span></li>
-                            
-                            <li>
-                                AWS ISOB (US) global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-b-global"></span></li>
-                            
-                            <li>
-                                AWS ISOE (Europe) global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-e-global"></span></li>
-                            
-                            <li>
-                                AWS ISOF global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-f-global"></span></li>
-                            
-                            <li>
-                                AWS Standard global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-global"></span></li>
                             
                             <li>
                                 Africa (Cape Town)
@@ -5597,6 +5681,10 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                             <li>
                                 Asia Pacific (Mumbai)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : ap-south-1"></span></li>
+                            
+                            <li>
+                                Asia Pacific (New Zealand)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-6"></span></li>
                             
                             <li>
                                 Asia Pacific (Osaka)
@@ -5737,6 +5825,34 @@ When <code>Use Content</code> is picked the original content of the Kinesis Reco
                             <li>
                                 US West (Oregon)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-west-2"></span></li>
+                            
+                            <li>
+                                aws global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-global"></span></li>
+                            
+                            <li>
+                                aws-cn global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-cn-global"></span></li>
+                            
+                            <li>
+                                aws-iso global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-global"></span></li>
+                            
+                            <li>
+                                aws-iso-b global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-b-global"></span></li>
+                            
+                            <li>
+                                aws-iso-e global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-e-global"></span></li>
+                            
+                            <li>
+                                aws-iso-f global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-f-global"></span></li>
+                            
+                            <li>
+                                aws-us-gov global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-us-gov-global"></span></li>
                             
                         </ul>
                     </dd>

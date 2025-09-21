@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>AmazonMSKConnectionService 2.5.0</h3>
+<h3>AmazonMSKConnectionService 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2473,26 +2481,140 @@ If Kafka does not acknowledge the message within this time period, the service w
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">AWS Profile Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Amazon Web Services Profile to select when multiple profiles are available.</div>
+                <span class="property-required">AWS Assume Role ARN</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The AWS Role ARN for cross-account access when using AWS MSK IAM. Used with Assume Role Session Name.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>AWS Profile Name</dd>
+                    <dd>AWS Assume Role ARN</dd>
                     <dt>Description</dt>
-                    <dd>The Amazon Web Services Profile to select when multiple profiles are available.</dd>
+                    <dd>The AWS Role ARN for cross-account access when using AWS MSK IAM. Used with Assume Role Session Name.</dd>
                     <dt>API Name</dt>
-                    <dd>aws.profile.name</dd>
+                    <dd>AWS Assume Role ARN</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>AWS Role Source</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SPECIFIED_ROLE]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">AWS Assume Role Session Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The AWS Role Session Name for cross-account access. Used in conjunction with Assume Role ARN.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>AWS Assume Role Session Name</dd>
+                    <dt>Description</dt>
+                    <dd>The AWS Role Session Name for cross-account access. Used in conjunction with Assume Role ARN.</dd>
+                    <dt>API Name</dt>
+                    <dd>AWS Assume Role Session Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
                     <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>AWS Role Source</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SPECIFIED_ROLE]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">AWS Role Source</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Select how AWS credentials are sourced for AWS MSK IAM: Default Profile searches standard locations, Specified Profile selects a named profile, or Specified Role configures a Role ARN and Session Name.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>AWS Role Source</dd>
+                    <dt>Description</dt>
+                    <dd>Select how AWS credentials are sourced for AWS MSK IAM: Default Profile searches standard locations, Specified Profile selects a named profile, or Specified Role configures a Role ARN and Session Name.</dd>
+                    <dt>API Name</dt>
+                    <dd>AWS Role Source</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>DEFAULT_PROFILE</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Default Profile
+                                <span uk-icon="info" uk-tooltip="Use the default AWS credentials provider chain to locate credentials."></span></li>
+                            
+                            <li>
+                                Specified Profile
+                                <span uk-icon="info" uk-tooltip="Use the configured AWS Profile Name from the default credentials file."></span></li>
+                            
+                            <li>
+                                Specified Role
+                                <span uk-icon="info" uk-tooltip="Assume a specific AWS Role using the configured Role ARN and Session Name."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                     <dt>Dependencies</dt>
                     <dd>
@@ -2507,6 +2629,52 @@ If Kafka does not acknowledge the message within this time period, the service w
                                 </span>
                                 
                                 [AWS_MSK_IAM]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">AWS Profile Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Amazon Web Services Profile to select when multiple profiles are available.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>AWS Profile Name</dd>
+                    <dt>Description</dt>
+                    <dd>The Amazon Web Services Profile to select when multiple profiles are available.</dd>
+                    <dt>API Name</dt>
+                    <dd>aws.profile.name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>AWS Role Source</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SPECIFIED_PROFILE]
                                 
                             </li>
                             
@@ -2951,6 +3119,11 @@ Corresponds to Kafka isolation.level property.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.kerberos.KerberosKeytabUserService/">org.apache.nifi.kerberos.KerberosKeytabUserService</a></div>
                         
                         
@@ -2966,6 +3139,11 @@ Corresponds to Kafka isolation.level property.
                         
                         
                         <div><a href="/components/org.apache.nifi.kerberos.KerberosTicketCacheUserService/">org.apache.nifi.kerberos.KerberosTicketCacheUserService</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3686,6 +3864,11 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider</a></div>
                         
                         
@@ -3925,6 +4108,11 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                         
                         
                         <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4889,7 +5077,17 @@ entire &#39;send&#39; call. Corresponds to Kafka max.block.ms property
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
+                        
+                        
                         
                         
                         

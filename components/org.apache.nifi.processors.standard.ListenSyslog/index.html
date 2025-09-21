@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>ListenSyslog 2.5.0</h3>
+<h3>ListenSyslog 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2585,55 +2593,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Max Number of TCP Connections</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum number of concurrent connections to accept Syslog messages in TCP mode.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Max Number of TCP Connections</dd>
-                    <dt>Description</dt>
-                    <dd>The maximum number of concurrent connections to accept Syslog messages in TCP mode.</dd>
-                    <dt>API Name</dt>
-                    <dd>Max Number of TCP Connections</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>2</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Protocol</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [TCP]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
                     
                 </dl>
             </div>
@@ -2907,7 +2866,7 @@
                     <dt>Description</dt>
                     <dd>Whether or not to have TCP socket keep alive turned on. Timing details depend on operating system properties.</dd>
                     <dt>API Name</dt>
-                    <dd>socket-keep-alive</dd>
+                    <dd>Socket Keep Alive</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2982,6 +2941,11 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3534,7 +3498,12 @@
                         
                         
                         
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
+                        
+                        
                         
                         
                         
@@ -3620,6 +3589,55 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Protocol</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [TCP]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Worker Threads</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Number of threads responsible for decoding and queuing incoming syslog messages</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Worker Threads</dd>
+                    <dt>Description</dt>
+                    <dd>Number of threads responsible for decoding and queuing incoming syslog messages</dd>
+                    <dt>API Name</dt>
+                    <dd>Worker Threads</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>2</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                     <dt>Dependencies</dt>
                     <dd>

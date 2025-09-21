@@ -1856,6 +1856,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentProtobufMessageNameResolver/">ConfluentProtobufMessageNameResolver</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.confluent.schemaregistry.ConfluentSchemaRegistry/">ConfluentSchemaRegistry</a>
                 </li>
                 
@@ -2184,6 +2188,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">StandardProtobufReader</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">StandardProxyConfigurationService</a>
                 </li>
                 
@@ -2387,7 +2395,7 @@
           
 
 
-<h3>ConsumeAzureEventHub 2.5.0</h3>
+<h3>ConsumeAzureEventHub 2.6.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2439,6 +2447,36 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Batch Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The number of messages to process within a NiFi session. This parameter affects throughput and consistency. NiFi commits its session and Event Hubs checkpoints after processing this number of messages. If NiFi session is committed, but fails to create an Event Hubs checkpoint, then it is possible that the same messages will be received again. The higher number, the higher throughput, but possibly less consistent.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Batch Size</dd>
+                    <dt>Description</dt>
+                    <dd>The number of messages to process within a NiFi session. This parameter affects throughput and consistency. NiFi commits its session and Event Hubs checkpoints after processing this number of messages. If NiFi session is committed, but fails to create an Event Hubs checkpoint, then it is possible that the same messages will be received again. The higher number, the higher throughput, but possibly less consistent.</dd>
+                    <dt>API Name</dt>
+                    <dd>Batch Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>10</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Checkpoint Strategy</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies which strategy to use for storing and retrieving partition ownership and checkpoint information for each partition.</div>
             </a>
@@ -2449,7 +2487,7 @@
                     <dt>Description</dt>
                     <dd>Specifies which strategy to use for storing and retrieving partition ownership and checkpoint information for each partition.</dd>
                     <dt>API Name</dt>
-                    <dd>checkpoint-strategy</dd>
+                    <dd>Checkpoint Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>AZURE_BLOB_STORAGE</dd>
@@ -2484,20 +2522,20 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Batch Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The number of messages to process within a NiFi session. This parameter affects throughput and consistency. NiFi commits its session and Event Hubs checkpoints after processing this number of messages. If NiFi session is committed, but fails to create an Event Hubs checkpoint, then it is possible that the same messages will be received again. The higher number, the higher throughput, but possibly less consistent.</div>
+                <span class="property-required">Consumer Group</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the consumer group to use.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Batch Size</dd>
+                    <dd>Consumer Group</dd>
                     <dt>Description</dt>
-                    <dd>The number of messages to process within a NiFi session. This parameter affects throughput and consistency. NiFi commits its session and Event Hubs checkpoints after processing this number of messages. If NiFi session is committed, but fails to create an Event Hubs checkpoint, then it is possible that the same messages will be received again. The higher number, the higher throughput, but possibly less consistent.</dd>
+                    <dd>The name of the consumer group to use.</dd>
                     <dt>API Name</dt>
-                    <dd>event-hub-batch-size</dd>
+                    <dd>Consumer Group</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>10</dd>
+                    <dd>$Default</dd>
                     
                     
                     
@@ -2514,20 +2552,44 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Consumer Group</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the consumer group to use.</div>
+                <span class="property-required">Event Hub Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the event hub to pull messages from.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Consumer Group</dd>
+                    <dd>Event Hub Name</dd>
                     <dt>Description</dt>
-                    <dd>The name of the consumer group to use.</dd>
+                    <dd>The name of the event hub to pull messages from.</dd>
                     <dt>API Name</dt>
-                    <dd>event-hub-consumer-group</dd>
+                    <dd>Event Hub Name</dd>
                     
-                    <dt>Default Value</dt>
-                    <dd>$Default</dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Event Hub Namespace</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The namespace that the Azure Event Hubs is assigned to. This is generally equal to &lt;Event Hub Names&gt;-ns.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Event Hub Namespace</dd>
+                    <dt>Description</dt>
+                    <dd>The namespace that the Azure Event Hubs is assigned to. This is generally equal to &lt;Event Hub Names&gt;-ns.</dd>
+                    <dt>API Name</dt>
+                    <dd>Event Hub Namespace</dd>
                     
                     
                     
@@ -2554,7 +2616,7 @@
                     <dt>Description</dt>
                     <dd>Specify where to start receiving messages if offset is not yet stored in the checkpoint store.</dd>
                     <dt>API Name</dt>
-                    <dd>event-hub-initial-offset</dd>
+                    <dd>Initial Offset</dd>
                     
                     <dt>Default Value</dt>
                     <dd>end-of-stream</dd>
@@ -2599,64 +2661,10 @@
                     <dt>Description</dt>
                     <dd>The amount of time this consumer should wait to receive the Batch Size before returning.</dd>
                     <dt>API Name</dt>
-                    <dd>event-hub-message-receive-timeout</dd>
+                    <dd>Message Receive Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1 min</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Event Hub Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the event hub to pull messages from.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Event Hub Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the event hub to pull messages from.</dd>
-                    <dt>API Name</dt>
-                    <dd>event-hub-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Event Hub Namespace</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The namespace that the Azure Event Hubs is assigned to. This is generally equal to &lt;Event Hub Names&gt;-ns.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Event Hub Namespace</dd>
-                    <dt>Description</dt>
-                    <dd>The namespace that the Azure Event Hubs is assigned to. This is generally equal to &lt;Event Hub Names&gt;-ns.</dd>
-                    <dt>API Name</dt>
-                    <dd>event-hub-namespace</dd>
                     
                     
                     
@@ -2683,7 +2691,7 @@
                     <dt>Description</dt>
                     <dd></dd>
                     <dt>API Name</dt>
-                    <dd>event-hub-prefetch-count</dd>
+                    <dd>Prefetch Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>300</dd>
@@ -2696,60 +2704,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Shared Access Policy Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the shared access policy. This policy must have Listen claims.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Shared Access Policy Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the shared access policy. This policy must have Listen claims.</dd>
-                    <dt>API Name</dt>
-                    <dd>event-hub-shared-access-policy-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Shared Access Policy Key</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The key of the shared access policy. Either the primary or the secondary key can be used.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Shared Access Policy Key</dd>
-                    <dt>Description</dt>
-                    <dd>The key of the shared access policy. Either the primary or the secondary key can be used.</dd>
-                    <dt>API Name</dt>
-                    <dd>event-hub-shared-access-policy-primary-key</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -2778,6 +2732,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3448,7 +3412,7 @@
                     <dt>Description</dt>
                     <dd>The Record Reader to use for reading received messages. The event hub name can be referred by Expression Language &#39;${eventhub.name}&#39; to access a schema.</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -3548,6 +3512,11 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.cef.CEFReader/">org.apache.nifi.cef.CEFReader</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4022,6 +3991,13 @@
                         
                         
                         
+                        <div><a href="/components/org.apache.nifi.services.protobuf.StandardProtobufReader/">org.apache.nifi.services.protobuf.StandardProtobufReader</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4138,7 +4114,7 @@
                     <dt>Description</dt>
                     <dd>The Record Writer to use for serializing Records to an output FlowFile. The event hub name can be referred by Expression Language &#39;${eventhub.name}&#39; to access a schema. If not specified, each message will create a FlowFile.</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -4189,6 +4165,11 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4772,6 +4753,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.xml.XMLRecordSetWriter/">org.apache.nifi.xml.XMLRecordSetWriter</a></div>
                         
                         
@@ -4855,6 +4841,60 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Shared Access Policy Key</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The key of the shared access policy. Either the primary or the secondary key can be used.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Shared Access Policy Key</dd>
+                    <dt>Description</dt>
+                    <dd>The key of the shared access policy. Either the primary or the secondary key can be used.</dd>
+                    <dt>API Name</dt>
+                    <dd>Shared Access Policy Key</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Shared Access Policy Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the shared access policy. This policy must have Listen claims.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Shared Access Policy Name</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the shared access policy. This policy must have Listen claims.</dd>
+                    <dt>API Name</dt>
+                    <dd>Shared Access Policy Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Storage Account Key</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Azure Storage account key to store event hub consumer group state.</div>
             </a>
@@ -4865,7 +4905,7 @@
                     <dt>Description</dt>
                     <dd>The Azure Storage account key to store event hub consumer group state.</dd>
                     <dt>API Name</dt>
-                    <dd>storage-account-key</dd>
+                    <dd>Storage Account Key</dd>
                     
                     
                     
@@ -4911,7 +4951,7 @@
                     <dt>Description</dt>
                     <dd>Name of the Azure Storage account to store event hub consumer group state.</dd>
                     <dt>API Name</dt>
-                    <dd>storage-account-name</dd>
+                    <dd>Storage Account Name</dd>
                     
                     
                     
@@ -4957,7 +4997,7 @@
                     <dt>Description</dt>
                     <dd>Name of the Azure Storage container to store the event hub consumer group state. If not specified, event hub name is used.</dd>
                     <dt>API Name</dt>
-                    <dd>storage-container-name</dd>
+                    <dd>Storage Container Name</dd>
                     
                     
                     
@@ -5003,7 +5043,7 @@
                     <dt>Description</dt>
                     <dd>The Azure Storage SAS token to store Event Hub consumer group state. Always starts with a ? character.</dd>
                     <dt>API Name</dt>
-                    <dd>storage-sas-token</dd>
+                    <dd>Storage SAS Token</dd>
                     
                     
                     
@@ -5094,7 +5134,7 @@
                     <dt>Description</dt>
                     <dd>Choose whether or not to use the managed identity of Azure VM/VMSS</dd>
                     <dt>API Name</dt>
-                    <dd>use-managed-identity</dd>
+                    <dd>Use Azure Managed Identity</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -5144,7 +5184,7 @@
         </thead>
         <tbody>
         <tr>
-            <td>CLUSTER, LOCAL</td>
+            <td>LOCAL, CLUSTER</td>
             <td class="uk-text-lighter">Local state is used to store the client id. Cluster state is used to store partition ownership and checkpoint information when component state is configured as the checkpointing strategy.</td>
         </tr>
         </tbody>
