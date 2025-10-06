@@ -100,8 +100,9 @@ The Apache NiFi Team strongly encourages users to upgrade to NiFi 2.
 #### Sources
 {{< cpp-download-links version="previous" label="Source" extension=source.tar.gz >}}
 #### Binaries
-{{< cpp-download-links version="previous" label="MiNiFi C++ Linux binaries" extension=bin-linux.tar.gz >}}
-{{< cpp-download-links version="previous" label="MiNiFi C++ Windows installer" extension=windows.msi >}}
+{{< cpp-download-links version="previous" label="MiNiFi C++ Linux x86_64" extension=bin-linux-x86_64.tar.gz >}}
+{{< cpp-download-links version="previous" label="MiNiFi C++ Linux arm64" extension=bin-linux-arm64.tar.gz >}}
+{{< cpp-download-links version="previous" label="MiNiFi C++ Windows x86_64" extension=windows.msi >}}
 
 </li>
 <li>
