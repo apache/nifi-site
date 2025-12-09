@@ -74,6 +74,22 @@
       {{ $componentDetailsResource.Publish }}
     {{ end }}
   {{ end }}
+  {{ range .componentManifest.flowRegistryClients }}
+    {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
+    {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "flow-registry-clients") }}
+    {{ $string := jsonify $metadata }}
+    {{ $filename := printf "components/%s/_index.md" .type }}
+    {{ $resource := resources.FromString $filename $string }}
+    {{ $file := $resource.RelPermalink }}
+
+    {{ if .additionalDetails }}
+      {{ $detailsMarkdownPath := printf "docs/%s/%s/%s/%s/additionalDetails.md" .group .artifact .version .type }}
+      {{ $detailsResource := resources.Get $detailsMarkdownPath }}
+      {{ $componentDetailsPath := printf "components/%s/additional-details.md" .type }}
+      {{ $componentDetailsResource := slice $detailsHeader $detailsResource | resources.Concat $componentDetailsPath }}
+      {{ $componentDetailsResource.Publish }}
+    {{ end }}
+  {{ end }}
   {{ range .componentManifest.flowAnalysisRules }}
     {{ $simpleClassName := replaceRE `.+?\.?([^\.]+)$` "$1" .type }}
     {{ $metadata := merge . (dict "title" $simpleClassName "componentType" "flow-analysis-rules") }}
