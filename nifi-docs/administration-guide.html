@@ -453,6 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#logging_configuration">Logging Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#standard-log-files">Standard Log Files</a></li>
+<li><a href="#mapped-diagnostic-context-properties">Mapped Diagnostic Context Properties</a></li>
 <li><a href="#deprecation-logging">Deprecation Logging</a></li>
 </ul>
 </li>
@@ -494,7 +495,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#fileusergroupprovider">FileUserGroupProvider</a></li>
 <li><a href="#ldapusergroupprovider">LdapUserGroupProvider</a></li>
-<li><a href="#azuregraphusergroupprovider">AzureGraphUserGroupProvider</a></li>
 <li><a href="#composite-implementations">Composite Implementations</a></li>
 <li><a href="#fileaccesspolicyprovider">FileAccessPolicyProvider</a></li>
 <li><a href="#standardmanagedauthorizer">StandardManagedAuthorizer</a></li>
@@ -697,7 +697,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Requires Java 21</p>
 </li>
 <li>
-<p>Use of Python-based Processors (beta feature) requires Python 3.9, 3.10, 3.11, or 3.12</p>
+<p>Use of Python-based Processors (beta feature) requires Python 3.10, 3.11, or 3.12</p>
 </li>
 <li>
 <p>Supported Operating Systems:</p>
@@ -1188,6 +1188,46 @@ standard <code>logback.xml</code> configuration with default appender and level 
 </table>
 </div>
 <div class="sect2">
+<h3 id="mapped-diagnostic-context-properties"><a class="anchor" href="#mapped-diagnostic-context-properties"></a>Mapped Diagnostic Context Properties</h3>
+<div class="paragraph">
+<p>Logging for extension components such as Processors and Controller Services include variables in the
+<a href="https://www.slf4j.org/api/org/slf4j/MDC.html">Mapped Diagnostic Context</a> that provide additional information about
+the component location. <a href="https://logback.qos.ch/manual/layouts.html#mdc">MDC</a> values can be added to log messages
+with custom layout configuration.</p>
+</div>
+<div class="paragraph">
+<p>Component logs provide the following MDC named values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>processGroupId</code> contains the UUID of the Process Group</p>
+</li>
+<li>
+<p><code>processGroupIdPath</code> contains the hierarchy of UUIDs for Process Groups with separators</p>
+</li>
+<li>
+<p><code>processGroupName</code> contains the name of the Process Group</p>
+</li>
+<li>
+<p><code>processGroupNamePath</code> contains of the hierarchy of names for Process Groups with separators</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MDC named values can be added to a Logback pattern layout using the <code>mdc</code> conversion word.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;pattern&gt;%date %level [%thread] %mdc{processGroupId} %logger{40} %msg%n&lt;/pattern&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Logs from classes other than extension components do not have MDC named values. Logs formatted using the pattern layout
+will include an empty space when an MDC named value is not found.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="deprecation-logging"><a class="anchor" href="#deprecation-logging"></a>Deprecation Logging</h3>
 <div class="paragraph">
 <p>The <code>nifi-deprecation.log</code> contains warning messages describing components and features that will be removed in
@@ -1225,7 +1265,7 @@ The <code>name</code> attribute must start with <code>deprecation</code>, follow
 <div class="paragraph">
 <p>NiFi is a Java-based application. NiFi 2.0 introduces support for a Python-based Processor API. This capability is still
 considered to be in "Beta" mode and should not be used in production. By default, support for Python-based Processors is disabled. In order to enable it,
-Python 3.9, 3.10, 3.11, or 3.12 must be installed on the NiFi node.</p>
+Python 3.10, 3.11, or 3.12 must be installed on the NiFi node.</p>
 </div>
 <div class="paragraph">
 <p>The following properties may be used to configure the Python 3 installation and process management. These properties are all located under the
@@ -1389,7 +1429,7 @@ may be logging in with credentials. See <a href="#user_authentication">User Auth
 </div>
 <div class="paragraph">
 <p>Now that the User Interface has been secured, we can easily secure Site-to-Site connections and inner-cluster communications, as well. This is
-accomplished by setting the <code>nifi.remote.input.secure</code> and <code>nifi.cluster.protocol.is.secure</code> properties, respectively, to <code>true</code>. These communications
+accomplished by setting the <code>nifi.remote.input.secure</code> property to <code>true</code>. These communications
 will always REQUIRE two way SSL as the nodes will use their configured keystore/truststore for authentication.</p>
 </div>
 <div class="paragraph">
@@ -1476,10 +1516,10 @@ may be set:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.eclipse.org/jetty/javadoc/jetty-9/org/eclipse/jetty/util/ssl/SslContextFactory.html#setIncludeCipherSuites(java.lang.String...)">SslContextFactory.setIncludeCipherSuites()</a></p>
+<p><a href="https://www.eclipse.org/jetty/javadoc/jetty-12/org/eclipse/jetty/util/ssl/SslContextFactory.Server.html">SslContextFactory.setIncludeCipherSuites()</a></p>
 </li>
 <li>
-<p><a href="https://www.eclipse.org/jetty/javadoc/jetty-9/org/eclipse/jetty/util/ssl/SslContextFactory.html#setExcludeCipherSuites(java.lang.String...)">SslContextFactory.setExcludeCipherSuites()</a></p>
+<p><a href="https://www.eclipse.org/jetty/javadoc/jetty-12/org/eclipse/jetty/util/ssl/SslContextFactory.Server.html">SslContextFactory.setExcludeCipherSuites()</a></p>
 </li>
 </ul>
 </div>
@@ -1525,6 +1565,18 @@ NiFi will require client certificates for authenticating users over HTTPS if no 
 <p>A user cannot anonymously authenticate with a secured instance of NiFi unless <code>nifi.security.allow.anonymous.authentication</code> is set to <code>true</code>.
 If this is the case, NiFi must also be configured with an Authorizer that supports authorizing an anonymous user. Currently, NiFi does not ship
 with any Authorizers that support this. There is a feature request here to help support it (<a href="https://issues.apache.org/jira/browse/NIFI-2730" target="_blank" rel="noopener">NIFI-2730</a>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Allowing anonymous authentication is deprecated for removal in subsequent releases.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>There are three scenarios to consider when setting <code>nifi.security.allow.anonymous.authentication</code>. When the user is directly calling an endpoint
@@ -1749,6 +1801,18 @@ For changes to <em>nifi.properties</em> and <em>login-identity-providers.xml</em
 </div>
 <div class="sect2">
 <h3 id="kerberos_login_identity_provider"><a class="anchor" href="#kerberos_login_identity_provider"></a>Kerberos</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Kerberos Provider is deprecated for removal in subsequent releases.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Below is an example and description of configuring a Login Identity Provider that integrates with a Kerberos Key Distribution Center (KDC) to authenticate users.</p>
 </div>
@@ -2532,108 +2596,6 @@ Any identity mapping rules specified in <em>nifi.properties</em> will also be ap
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="azuregraphusergroupprovider"><a class="anchor" href="#azuregraphusergroupprovider"></a>AzureGraphUserGroupProvider</h4>
-<div class="paragraph">
-<p>The AzureGraphUserGroupProvider fetches users and groups from Azure Active Directory (AAD) using the Microsoft Graph API.</p>
-</div>
-<div class="paragraph">
-<p>A subset of groups are fetched based on filter conditions (<code>Group Filter Prefix</code>, <code>Group Filter Suffix</code>, <code>Group Filter Substring</code>, and <code>Group Filter List Inclusion</code>) evaluated against the <em>displayName</em> property of the Azure AD group. Member users are then loaded from these groups. At least one filter condition should be specified.</p>
-</div>
-<div class="paragraph">
-<p>This provider requires an Azure app registration with:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Microsoft Graph Group.Read.All and User.Read.All API permissions with admin consent</p>
-</li>
-<li>
-<p>A client secret or application password</p>
-</li>
-<li>
-<p>ID token claims for upn and/or email</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>See <a href="https://docs.microsoft.com/en-us/graph/auth-v2-service" target="_blank" rel="noopener">here</a> and <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-daemon-app-registration" target="_blank" rel="noopener">here</a> for more information on how to create a valid app registration.</p>
-</div>
-<div class="paragraph">
-<p>The AzureGraphUserGroupProvider has the following properties:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Refresh Delay</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Duration of delay between each user and group refresh. Default is <code>5 mins</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authority Endpoint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The endpoint of the Azure AD login. This can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Endpoints. For example, the global authority endpoint is <code><a href="https://login.microsoftonline.com" class="bare">https://login.microsoftonline.com</a></code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Graph Endpoint</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The endpoint of the Azure Graph API, with the version identifier attached. The base url can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Endpoints. For example, the global graph endpoint is <code><a href="https://graph.microsoft.com/v1.0" class="bare">https://graph.microsoft.com/v1.0</a></code>, which is also the default setting.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Graph Scope</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The url for the Graph api scope.  See <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/scopes-oidc" class="bare">https://learn.microsoft.com/en-us/azure/active-directory/develop/scopes-oidc</a> for an explanation of scopes.  This usually only needs to be changed if you are connecting to a different <code>Graph Endpoint</code>.  The Azure global default scope is <code><a href="https://graph.microsoft.com/.default" class="bare">https://graph.microsoft.com/.default</a></code>, which is also the default setting.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Directory ID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tenant ID or Directory ID of the Azure AD tenant. This can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Directory (tenant) ID.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Application ID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Client ID or Application ID of the Azure app registration. This can be found in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Overview &#8594; Application (client) ID.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Client Secret</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A client secret from the Azure app registration. Secrets can be created in the Azure portal under Azure Active Directory &#8594; App registrations &#8594; [application name] &#8594; Certificates &amp; secrets &#8594; Client secrets &#8594; [+] New client secret.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Group Filter Prefix</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prefix filter for Azure AD groups. Matches against the group displayName to retrieve only groups with names starting with the provided prefix.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Group Filter Suffix</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Suffix filter for Azure AD groups. Matches against the group displayName to retrieve only groups with names ending with the provided suffix.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Group Filter Substring</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Substring filter for Azure AD groups. Matches against the group displayName to retrieve only groups with names containing the provided substring.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Group Filter List Inclusion</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Comma-separated list of Azure AD groups. If no string-based matching filter (i.e., prefix, suffix, and substring) is specified, set this property to avoid fetching all groups and users in the Azure AD tenant.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Page Size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Page size to use with the Microsoft Graph API. Set to 0 to disable paging API calls. Default: 50, Max: 999.</p></td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Claim for Username</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The property of the user directory object mapped to the NiFi user name field. Default is 'upn'. 'email' is another option when <code>nifi.security.user.oidc.fallback.claims.identifying.user</code> is set to 'upn'.</p></td>
-</tr>
-</tfoot>
-</table>
-<div class="paragraph">
-<p>Like LdapUserGroupProvider, the AzureGraphUserGroupProvider configuration is commented out in the <em>authorizers.xml</em> file. Refer to the comment for a starter configuration.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4585,7 +4547,7 @@ empty. NiFi writes the generated value to <code>nifi.properties</code> and logs 
 </ul>
 </div>
 <div class="paragraph">
-<p>For more information about each utility, see the <a href="toolkit-guide.html">NiFi Toolkit Guide</a>.</p>
+<p>For more information about each utility, see the <a href="toolkit-guide.html#apache-nifi-toolkit-guide">NiFi Toolkit Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -4699,7 +4661,13 @@ nodes and waits for each node to respond, indicating that it has made the change
 <div class="sect3">
 <h4 id="disconnect-nodes"><a class="anchor" href="#disconnect-nodes"></a>Disconnect Nodes</h4>
 <div class="paragraph">
-<p>A DFM may manually disconnect a node from the cluster. A node may also become disconnected for other reasons, such as due to a lack of heartbeat. The Cluster Coordinator will show a bulletin on the User Interface when a node is disconnected. The DFM will not be able to make any changes to the dataflow until the issue of the disconnected node is resolved. The DFM or the Administrator will need to troubleshoot the issue with the node and resolve it before any new changes can be made to the dataflow. However, it is worth noting that just because a node is disconnected does not mean that it is not working.  This may happen for a few reasons, for example when the node is unable to communicate with the Cluster Coordinator due to network problems.</p>
+<p>A DFM may manually disconnect a node from the cluster. A node may also become disconnected for other reasons, such as due to a lack of heartbeat. The Cluster Coordinator will show a bulletin on the User Interface when a node is disconnected. Until the issue with the node is resolved, the DFM will have limited ability to make changes to the remaining cluster&#8217;s dataflow. Changing component state or adding a component is allowed, but removing a component is not.</p>
+</div>
+<div class="paragraph">
+<p>A node that was disconnected maybe fully working.  This may happen for a few reasons, for example when the node is unable to communicate with the Cluster Coordinator due to network problems.</p>
+</div>
+<div class="paragraph">
+<p>It should be noted that a disconnected node&#8217;s dataflow is allowed to be changed.  Any changes should be done with caution, however, as they will be reverted when the node is re-attached to the cluster.  In addition, if reverting the changes will cause a loss of data then it will not be allowed to rejoin the cluster.  This can occur if a new dataflow has since been made on the disconnected node.</p>
 </div>
 <div class="paragraph">
 <p>To manually disconnect a node, select the "Disconnect" icon (<span class="image"><img src="./images/iconDisconnect.png" alt="Disconnect Icon"></span>) from the node&#8217;s row.</p>
@@ -4800,7 +4768,7 @@ Not all nodes in a "Disconnected" state can be offloaded. If the node is disconn
 </ul>
 </div>
 <div class="paragraph">
-<p>For more information, see the <a href="toolkit-guide.html#nifi_CLI">NiFi CLI</a> section in the <a href="toolkit-guide.html">NiFi Toolkit Guide</a>.</p>
+<p>For more information, see the <a href="toolkit-guide.html#nifi_CLI">NiFi CLI</a> section in the <a href="toolkit-guide.html#apache-nifi-toolkit-guide">NiFi Toolkit Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -7394,7 +7362,7 @@ blank meaning all requests containing a proxy context path are rejected. Configu
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.request.log.format</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The parameterized format for HTTP request log messages.
 The format property supports the modifiers and codes described in the Jetty
-<a href="https://www.eclipse.org/jetty/javadoc/jetty-9/org/eclipse/jetty/server/CustomRequestLog.html" target="_blank" rel="noopener">CustomRequestLog</a>.</p>
+<a href="https://www.eclipse.org/jetty/javadoc/jetty-12/org/eclipse/jetty/server/CustomRequestLog.html" target="_blank" rel="noopener">CustomRequestLog</a>.</p>
 <p class="tableblock">The default value uses the Combined Log Format, which follows the
 <a href="https://en.wikipedia.org/wiki/Common_Log_Format" target="_blank" rel="noopener">Common Log Format</a> with the addition of <code>Referer</code> and <code>User-Agent</code>
 request headers. The default value is:</p>
@@ -7482,14 +7450,6 @@ is allowed to return. The default value is empty, blocking all MBeans. Configuri
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.user.login.identity.provider</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This indicates what type of login identity provider to use. It can be set to the identifier from a provider in the file specified in <code>nifi.login.identity.provider.configuration.file</code>. Setting this property will trigger NiFi to support username/password authentication. The default value is <code>single-user-provider</code>.</p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.ocsp.responder.url</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This is the URL for the Online Certificate Status Protocol (OCSP) responder if one is being used. It is blank by default.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.ocsp.responder.certificate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This is the location of the OCSP responder certificate if one is being used. It is blank by default.</p></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -7574,10 +7534,6 @@ These mappings are applied to any legacy groups referenced in the <em>authorizer
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.cluster.protocol.heartbeat.missable.max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of heartbeats a Cluster Coordinator can miss for a node in the cluster before the Cluster Coordinator updates the node status to Disconnected. The default value is <code>8</code>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.cluster.protocol.is.secure</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This indicates whether cluster communications are secure. The default value is <code>false</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -8733,7 +8689,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-18 18:23:01 +0200
+Last updated 2025-12-06 20:53:59 +0100
 </div>
 </div>
 </body>

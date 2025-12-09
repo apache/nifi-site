@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>SiteToSiteMetricsReportingTask 2.6.0</h3>
+<h3>SiteToSiteMetricsReportingTask 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for SiteToSiteMetricsReportingTask 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for SiteToSiteMetricsReportingTask 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2703,6 +2763,36 @@ specify the output format and data with the assumption that the input schema is 
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Application ID</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Application ID to be included in the metrics</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Application ID</dd>
+                    <dt>Description</dt>
+                    <dd>The Application ID to be included in the metrics</dd>
+                    <dt>API Name</dt>
+                    <dd>Application ID</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>nifi</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Communications Timeout</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how long to wait to a response from the destination before deciding that an error has occurred and canceling the transaction</div>
             </a>
@@ -2805,6 +2895,36 @@ specify the output format and data with the assumption that the input schema is 
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Hostname</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Hostname of this NiFi instance to be included in the metrics</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Hostname</dd>
+                    <dt>Description</dt>
+                    <dd>The Hostname of this NiFi instance to be included in the metrics</dd>
+                    <dt>API Name</dt>
+                    <dd>Hostname</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>${hostname(true)}</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Include Null Values</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Indicate if null values should be included in records. Default will be false</div>
             </a>
@@ -2815,7 +2935,7 @@ specify the output format and data with the assumption that the input schema is 
                     <dt>Description</dt>
                     <dd>Indicate if null values should be included in records. Default will be false</dd>
                     <dt>API Name</dt>
-                    <dd>include-null-values</dd>
+                    <dd>Include Null Values</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2907,6 +3027,51 @@ specify the output format and data with the assumption that the input schema is 
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Output Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The output format that will be used for the metrics. If Record Format is selected, a Record Writer must be provided. If Ambari Format is selected, the Record Writer property should be empty.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Output Format</dd>
+                    <dt>Description</dt>
+                    <dd>The output format that will be used for the metrics. If Record Format is selected, a Record Writer must be provided. If Ambari Format is selected, the Record Writer property should be empty.</dd>
+                    <dt>API Name</dt>
+                    <dd>Output Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>ambari-format</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Ambari Format
+                                <span uk-icon="info" uk-tooltip="Metrics will be formatted according to the Ambari Metrics API. See Additional Details in Usage documentation."></span></li>
+                            
+                            <li>
+                                Record Format
+                                <span uk-icon="info" uk-tooltip="Metrics will be formatted using the Record Writer property of this reporting task. See Additional Details in Usage documentation to have the description of the default schema."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Proxy Configuration Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Proxy Configuration Controller Service to proxy network requests.</div>
             </a>
@@ -2917,7 +3082,7 @@ specify the output format and data with the assumption that the input schema is 
                     <dt>Description</dt>
                     <dd>Specifies the Proxy Configuration Controller Service to proxy network requests.</dd>
                     <dt>API Name</dt>
-                    <dd>proxy-configuration-service</dd>
+                    <dd>Proxy Configuration Service</dd>
                     
                     
                     
@@ -2928,6 +3093,29 @@ specify the output format and data with the assumption that the input schema is 
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3608,7 +3796,7 @@ specify the output format and data with the assumption that the input schema is 
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for writing out the records.</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -3658,7 +3846,15 @@ specify the output format and data with the assumption that the input schema is 
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3995,7 +4191,22 @@ specify the output format and data with the assumption that the input schema is 
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4282,156 +4493,6 @@ specify the output format and data with the assumption that the input schema is 
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Application ID</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Application ID to be included in the metrics</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Application ID</dd>
-                    <dt>Description</dt>
-                    <dd>The Application ID to be included in the metrics</dd>
-                    <dt>API Name</dt>
-                    <dd>s2s-metrics-application-id</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>nifi</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Output Format</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The output format that will be used for the metrics. If Record Format is selected, a Record Writer must be provided. If Ambari Format is selected, the Record Writer property should be empty.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Output Format</dd>
-                    <dt>Description</dt>
-                    <dd>The output format that will be used for the metrics. If Record Format is selected, a Record Writer must be provided. If Ambari Format is selected, the Record Writer property should be empty.</dd>
-                    <dt>API Name</dt>
-                    <dd>s2s-metrics-format</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>ambari-format</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Ambari Format
-                                <span uk-icon="info" uk-tooltip="Metrics will be formatted according to the Ambari Metrics API. See Additional Details in Usage documentation."></span></li>
-                            
-                            <li>
-                                Record Format
-                                <span uk-icon="info" uk-tooltip="Metrics will be formatted using the Record Writer property of this reporting task. See Additional Details in Usage documentation to have the description of the default schema."></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Hostname</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Hostname of this NiFi instance to be included in the metrics</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Hostname</dd>
-                    <dt>Description</dt>
-                    <dd>The Hostname of this NiFi instance to be included in the metrics</dd>
-                    <dt>API Name</dt>
-                    <dd>s2s-metrics-hostname</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>${hostname(true)}</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Transport Protocol</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies which transport protocol to use for Site-to-Site communication.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Transport Protocol</dd>
-                    <dt>Description</dt>
-                    <dd>Specifies which transport protocol to use for Site-to-Site communication.</dd>
-                    <dt>API Name</dt>
-                    <dd>s2s-transport-protocol</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>RAW</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                RAW
-                                </li>
-                            
-                            <li>
-                                HTTP
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="">SSL Context Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The SSL Context Service to use when communicating with the destination. If not specified, communications will not be secure.</div>
             </a>
@@ -4453,6 +4514,19 @@ specify the output format and data with the assumption that the input schema is 
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5013,6 +5087,16 @@ specify the output format and data with the assumption that the input schema is 
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
                         
                         
@@ -5101,6 +5185,51 @@ specify the output format and data with the assumption that the input schema is 
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Transport Protocol</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies which transport protocol to use for Site-to-Site communication.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Transport Protocol</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies which transport protocol to use for Site-to-Site communication.</dd>
+                    <dt>API Name</dt>
+                    <dd>Transport Protocol</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>RAW</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                RAW
+                                </li>
+                            
+                            <li>
+                                HTTP
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                 </dl>
             </div>

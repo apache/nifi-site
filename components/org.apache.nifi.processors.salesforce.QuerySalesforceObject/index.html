@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>QuerySalesforceObject 2.6.0</h3>
+<h3>QuerySalesforceObject 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for QuerySalesforceObject 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for QuerySalesforceObject 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2521,7 +2581,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>The ending timestamp of the time window will be adjusted earlier by the amount configured in this property. For example, with a property value of 10 seconds, an ending timestamp of 12:30:45 would be changed to 12:30:35.</dd>
                     <dt>API Name</dt>
-                    <dd>age-delay</dd>
+                    <dd>Age Delay</dd>
                     
                     
                     
@@ -2577,7 +2637,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>The name of a TIMESTAMP field that will be used to filter records using a bounded time window.The processor will return only those records with a timestamp value newer than the timestamp recorded after the last processor run.</dd>
                     <dt>API Name</dt>
-                    <dd>age-field</dd>
+                    <dd>Age Field</dd>
                     
                     
                     
@@ -2613,6 +2673,36 @@ necessary.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">API Version</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The version number of the Salesforce REST API appended to the URL after the services/data path. See Salesforce documentation for supported versions</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>API Version</dd>
+                    <dt>Description</dt>
+                    <dd>The version number of the Salesforce REST API appended to the URL after the services/data path. See Salesforce documentation for supported versions</dd>
+                    <dt>API Name</dt>
+                    <dd>API Version</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>54.0</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Create Zero Record FlowFiles</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether or not to create a FlowFile when the Salesforce REST API does not return any records</div>
             </a>
@@ -2623,7 +2713,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Specifies whether or not to create a FlowFile when the Salesforce REST API does not return any records</dd>
                     <dt>API Name</dt>
-                    <dd>create-zero-record-files</dd>
+                    <dd>Create Zero Record FlowFiles</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2687,7 +2777,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Specify the SOQL query to run.</dd>
                     <dt>API Name</dt>
-                    <dd>custom-soql-query</dd>
+                    <dd>Custom SOQL Query</dd>
                     
                     
                     
@@ -2733,7 +2823,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>A custom expression to be added in the WHERE clause of the query</dd>
                     <dt>API Name</dt>
-                    <dd>custom-where-condition</dd>
+                    <dd>Custom WHERE Condition</dd>
                     
                     
                     
@@ -2779,7 +2869,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Comma-separated list of field names requested from the sObject to be queried. When this field is left empty, all fields are queried.</dd>
                     <dt>API Name</dt>
-                    <dd>field-names</dd>
+                    <dd>Field Names</dd>
                     
                     
                     
@@ -2825,7 +2915,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>If true, the processor will include deleted records (IsDeleted = true) in the query results. When enabled, the processor will use the &#39;queryAll&#39; API.</dd>
                     <dt>API Name</dt>
-                    <dd>include-deleted-records</dd>
+                    <dd>Include Deleted Records</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2889,7 +2979,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>This property specifies the start time that the processor applies when running the first query.</dd>
                     <dt>API Name</dt>
-                    <dd>initial-age-filter</dd>
+                    <dd>Initial Age Start Time</dd>
                     
                     
                     
@@ -2945,7 +3035,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Service providing OAuth2 Access Tokens for authenticating using the HTTP Authorization Header</dd>
                     <dt>API Name</dt>
-                    <dd>oauth2-access-token-provider</dd>
+                    <dd>OAuth2 Access Token Provider</dd>
                     
                     
                     
@@ -2956,6 +3046,14 @@ necessary.</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3486,6 +3584,21 @@ necessary.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
                         
                         
@@ -3619,7 +3732,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Choose to provide the query by parameters or a full custom query.</dd>
                     <dt>API Name</dt>
-                    <dd>query-type</dd>
+                    <dd>Query Type</dd>
                     
                     <dt>Default Value</dt>
                     <dd>property-based-query</dd>
@@ -3664,7 +3777,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Maximum time allowed for reading a response from the Salesforce REST API</dd>
                     <dt>API Name</dt>
-                    <dd>read-timeout</dd>
+                    <dd>Read Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>15 s</dd>
@@ -3694,7 +3807,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>Service used for writing records returned from the Salesforce REST API</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -3744,7 +3857,15 @@ necessary.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4081,7 +4202,22 @@ necessary.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4387,36 +4523,6 @@ necessary.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">API Version</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The version number of the Salesforce REST API appended to the URL after the services/data path. See Salesforce documentation for supported versions</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>API Version</dd>
-                    <dt>Description</dt>
-                    <dd>The version number of the Salesforce REST API appended to the URL after the services/data path. See Salesforce documentation for supported versions</dd>
-                    <dt>API Name</dt>
-                    <dd>salesforce-api-version</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>54.0</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="property-required">Salesforce Instance URL</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The URL of the Salesforce instance including the domain without additional path information, such as https://MyDomainName.my.salesforce.com</div>
             </a>
@@ -4427,7 +4533,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>The URL of the Salesforce instance including the domain without additional path information, such as https://MyDomainName.my.salesforce.com</dd>
                     <dt>API Name</dt>
-                    <dd>salesforce-url</dd>
+                    <dd>Salesforce Instance URL</dd>
                     
                     
                     
@@ -4454,7 +4560,7 @@ necessary.</p>
                     <dt>Description</dt>
                     <dd>The Salesforce sObject to be queried</dd>
                     <dt>API Name</dt>
-                    <dd>sobject-name</dd>
+                    <dd>sObject Name</dd>
                     
                     
                     

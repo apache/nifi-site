@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutSmbFile 2.6.0</h3>
+<h3>PutSmbFile 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2635,7 +2695,7 @@
                     <dt>Description</dt>
                     <dd>Enables accessing Distributed File System (DFS) and following DFS links during SMB operations.</dd>
                     <dt>API Name</dt>
-                    <dd>enable-dfs</dd>
+                    <dd>Enable DFS</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2685,7 +2745,7 @@
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
+                    <dd>Environment variables and FlowFile Attributes</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -2739,7 +2799,7 @@
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
+                    <dd>Environment variables and FlowFile Attributes</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -2814,7 +2874,7 @@
                     <dt>Description</dt>
                     <dd>The SMB dialect is negotiated between the client and the server by default to the highest common version supported by both end. In some rare cases, the client-server communication may fail with the automatically negotiated dialect. This property can be used to set the dialect explicitly (e.g. to downgrade to a lower version), when those situations would occur.</dd>
                     <dt>API Name</dt>
-                    <dd>smb-dialect</dd>
+                    <dd>SMB Dialect</dd>
                     
                     <dt>Default Value</dt>
                     <dd>AUTO</dd>
@@ -2902,7 +2962,7 @@
                     <dt>Description</dt>
                     <dd>Timeout for read and write operations.</dd>
                     <dt>API Name</dt>
-                    <dd>timeout</dd>
+                    <dd>Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>5 sec</dd>
@@ -2932,7 +2992,7 @@
                     <dt>Description</dt>
                     <dd>Turns on/off encrypted communication between the client and the server. The property&#39;s behavior is SMB dialect dependent: SMB 2.x does not support encryption and the property has no effect. In case of SMB 3.x, it is a hint/request to the server to turn encryption on if the server also supports it.</dd>
                     <dt>API Name</dt>
-                    <dd>use-encryption</dd>
+                    <dd>Use Encryption</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>

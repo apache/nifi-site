@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>GrokReader 2.6.0</h3>
+<h3>GrokReader 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for GrokReader 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for GrokReader 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2844,7 +2904,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Specifies the format of a log line in Grok format. This allows the Record Reader to understand how to parse each log line. The property supports one or more Grok expressions. The Reader attempts to parse input lines according to the configured order of the expressions.If a line in the log file does not match any expressions, the line will be assumed to belong to the previous log message.If other Grok patterns are referenced by this expression, they need to be supplied in the Grok Pattern File property.</dd>
                     <dt>API Name</dt>
-                    <dd>Grok Expression</dd>
+                    <dd>Grok Expressions</dd>
                     
                     
                     
@@ -2871,7 +2931,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Grok Patterns to use for parsing logs. If not specified, a built-in default Pattern file will be used. If specified, all patterns specified will override the default patterns. See the Controller Service&#39;s Additional Details for a list of pre-defined patterns.</dd>
                     <dt>API Name</dt>
-                    <dd>Grok Pattern File</dd>
+                    <dd>Grok Patterns</dd>
                     
                     
                     
@@ -2898,7 +2958,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>If a line of text is encountered and it does not match the given Grok Expression, and it is not part of a stack trace, this property specifies how the text should be processed.</dd>
                     <dt>API Name</dt>
-                    <dd>no-match-behavior</dd>
+                    <dd>No Match Behavior</dd>
                     
                     <dt>Default Value</dt>
                     <dd>append-to-previous-message</dd>
@@ -2947,7 +3007,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Specifies how to obtain the schema that is to be used for interpreting the data.</dd>
                     <dt>API Name</dt>
-                    <dd>schema-access-strategy</dd>
+                    <dd>Schema Access Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>string-fields-from-grok-expression</dd>
@@ -3000,7 +3060,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Specifies the name of the branch to use when looking up the schema in the Schema Registry property. If the chosen Schema Registry does not support branching, this value will be ignored.</dd>
                     <dt>API Name</dt>
-                    <dd>schema-branch</dd>
+                    <dd>Schema Branch</dd>
                     
                     
                     
@@ -3046,7 +3106,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Specifies the name of the schema to lookup in the Schema Registry property</dd>
                     <dt>API Name</dt>
-                    <dd>schema-name</dd>
+                    <dd>Schema Name</dd>
                     
                     <dt>Default Value</dt>
                     <dd>${schema.name}</dd>
@@ -3095,7 +3155,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Service implementation responsible for reading FlowFile attributes or content to determine the Schema Reference Identifier</dd>
                     <dt>API Name</dt>
-                    <dd>schema-reference-reader</dd>
+                    <dd>Schema Reference Reader</dd>
                     
                     
                     
@@ -3120,7 +3180,15 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3743,6 +3811,21 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3788,7 +3871,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for the Schema Registry</dd>
                     <dt>API Name</dt>
-                    <dd>schema-registry</dd>
+                    <dd>Schema Registry</dd>
                     
                     
                     
@@ -3799,6 +3882,11 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3848,6 +3936,9 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                         
                         
                         <div><a href="/components/org.apache.nifi.schemaregistry.services.AvroSchemaRegistry/">org.apache.nifi.schemaregistry.services.AvroSchemaRegistry</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4442,6 +4533,21 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -4487,7 +4593,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>The text of an Avro-formatted Schema</dd>
                     <dt>API Name</dt>
-                    <dd>schema-text</dd>
+                    <dd>Schema Text</dd>
                     
                     <dt>Default Value</dt>
                     <dd>${avro.schema}</dd>
@@ -4536,7 +4642,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
                     <dt>Description</dt>
                     <dd>Specifies the version of the schema to lookup in the Schema Registry. If not specified then the latest version of the schema will be retrieved.</dd>
                     <dt>API Name</dt>
-                    <dd>schema-version</dd>
+                    <dd>Schema Version</dd>
                     
                     
                     

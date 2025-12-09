@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2067,12 +2087,20 @@
                   <a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">RedisDistributedMapCacheClientService</a>
                 </li>
                 
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
                 <li class="uk-text-bold" id="component-selected">
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>RestLookupService 2.6.0</h3>
+<h3>RestLookupService 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for RestLookupService 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for RestLookupService 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2517,6 +2577,893 @@ previous example record paths, and environment properties:</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Authentication Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Authentication strategy to use with REST service.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Authentication Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>Authentication strategy to use with REST service.</dd>
+                    <dt>API Name</dt>
+                    <dd>Authentication Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>NONE</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                None
+                                <span uk-icon="info" uk-tooltip="No Authentication"></span></li>
+                            
+                            <li>
+                                Basic
+                                <span uk-icon="info" uk-tooltip="Basic Authentication"></span></li>
+                            
+                            <li>
+                                OAuth2
+                                <span uk-icon="info" uk-tooltip="OAuth2 Authentication"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Basic Authentication Password</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The password to be used by the client to authenticate against the Remote URL.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Basic Authentication Password</dd>
+                    <dt>Description</dt>
+                    <dd>The password to be used by the client to authenticate against the Remote URL.</dd>
+                    <dt>API Name</dt>
+                    <dd>Basic Authentication Password</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Authentication Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [BASIC]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Basic Authentication Username</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The username to be used by the client to authenticate against the Remote URL.  Cannot include control characters (0-31), &#39;:&#39;, or DEL (127).</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Basic Authentication Username</dd>
+                    <dt>Description</dt>
+                    <dd>The username to be used by the client to authenticate against the Remote URL.  Cannot include control characters (0-31), &#39;:&#39;, or DEL (127).</dd>
+                    <dt>API Name</dt>
+                    <dd>Basic Authentication Username</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Authentication Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [BASIC]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Connection Timeout</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Max wait time for connection to remote service.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Connection Timeout</dd>
+                    <dt>Description</dt>
+                    <dd>Max wait time for connection to remote service.</dd>
+                    <dt>API Name</dt>
+                    <dd>Connection Timeout</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>5 secs</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">OAuth2 Access Token Provider</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enables managed retrieval of OAuth2 Bearer Token applied to HTTP requests using the Authorization Header.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>OAuth2 Access Token Provider</dd>
+                    <dt>Description</dt>
+                    <dd>Enables managed retrieval of OAuth2 Bearer Token applied to HTTP requests using the Authorization Header.</dd>
+                    <dt>API Name</dt>
+                    <dd>OAuth2 Access Token Provider</dd>
+                    
+                    
+                    
+                    <dt>Service Interface</dt>
+                    <dd>org.apache.nifi.oauth2.OAuth2AccessTokenProvider</dd>
+
+                    
+
+                    <dt>Service Implementations</dt>
+                    <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </dd>
+
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Authentication Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [OAUTH2]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Proxy Configuration Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Proxy Configuration Controller Service to proxy network requests. In case of SOCKS, it is not guaranteed that the selected SOCKS Version will be used by the processor.</div>
             </a>
@@ -2527,7 +3474,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>Specifies the Proxy Configuration Controller Service to proxy network requests. In case of SOCKS, it is not guaranteed that the selected SOCKS Version will be used by the processor.</dd>
                     <dt>API Name</dt>
-                    <dd>proxy-configuration-service</dd>
+                    <dd>Proxy Configuration Service</dd>
                     
                     
                     
@@ -2538,6 +3485,29 @@ previous example record paths, and environment properties:</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3189,934 +4159,6 @@ previous example record paths, and environment properties:</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Authentication Strategy</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Authentication strategy to use with REST service.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Authentication Strategy</dd>
-                    <dt>Description</dt>
-                    <dd>Authentication strategy to use with REST service.</dd>
-                    <dt>API Name</dt>
-                    <dd>rest-lookup-authentication-strategy</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>NONE</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                None
-                                <span uk-icon="info" uk-tooltip="No Authentication"></span></li>
-                            
-                            <li>
-                                Basic
-                                <span uk-icon="info" uk-tooltip="Basic Authentication"></span></li>
-                            
-                            <li>
-                                OAuth2
-                                <span uk-icon="info" uk-tooltip="OAuth2 Authentication"></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Basic Authentication Password</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The password to be used by the client to authenticate against the Remote URL.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Basic Authentication Password</dd>
-                    <dt>Description</dt>
-                    <dd>The password to be used by the client to authenticate against the Remote URL.</dd>
-                    <dt>API Name</dt>
-                    <dd>rest-lookup-basic-auth-password</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Authentication Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [BASIC]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Basic Authentication Username</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The username to be used by the client to authenticate against the Remote URL.  Cannot include control characters (0-31), &#39;:&#39;, or DEL (127).</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Basic Authentication Username</dd>
-                    <dt>Description</dt>
-                    <dd>The username to be used by the client to authenticate against the Remote URL.  Cannot include control characters (0-31), &#39;:&#39;, or DEL (127).</dd>
-                    <dt>API Name</dt>
-                    <dd>rest-lookup-basic-auth-username</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Authentication Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [BASIC]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Connection Timeout</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Max wait time for connection to remote service.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Connection Timeout</dd>
-                    <dt>Description</dt>
-                    <dd>Max wait time for connection to remote service.</dd>
-                    <dt>API Name</dt>
-                    <dd>rest-lookup-connection-timeout</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>5 secs</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Use Digest Authentication</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to communicate with the website using Digest Authentication. &#39;Basic Authentication Username&#39; and &#39;Basic Authentication Password&#39; are used for authentication.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Use Digest Authentication</dd>
-                    <dt>Description</dt>
-                    <dd>Whether to communicate with the website using Digest Authentication. &#39;Basic Authentication Username&#39; and &#39;Basic Authentication Password&#39; are used for authentication.</dd>
-                    <dt>API Name</dt>
-                    <dd>rest-lookup-digest-auth</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Authentication Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [BASIC]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">OAuth2 Access Token Provider</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enables managed retrieval of OAuth2 Bearer Token applied to HTTP requests using the Authorization Header.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>OAuth2 Access Token Provider</dd>
-                    <dt>Description</dt>
-                    <dd>Enables managed retrieval of OAuth2 Bearer Token applied to HTTP requests using the Authorization Header.</dd>
-                    <dt>API Name</dt>
-                    <dd>rest-lookup-oauth2-access-token-provider</dd>
-                    
-                    
-                    
-                    <dt>Service Interface</dt>
-                    <dd>org.apache.nifi.oauth2.OAuth2AccessTokenProvider</dd>
-
-                    
-
-                    <dt>Service Implementations</dt>
-                    <dd>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <div><a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider</a></div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </dd>
-
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Authentication Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [OAUTH2]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="property-required">Read Timeout</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Max wait time for response from remote service.</div>
             </a>
@@ -4127,7 +4169,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>Max wait time for response from remote service.</dd>
                     <dt>API Name</dt>
-                    <dd>rest-lookup-read-timeout</dd>
+                    <dd>Read Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>15 secs</dd>
@@ -4157,7 +4199,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>An optional record path that can be used to define where in a record to get the real data to merge into the record set to be enriched. See documentation for examples of when this might be useful.</dd>
                     <dt>API Name</dt>
-                    <dd>rest-lookup-record-path</dd>
+                    <dd>Record Path</dd>
                     
                     
                     
@@ -4184,7 +4226,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>The record reader to use for loading the payload and handling it as a record set.</dd>
                     <dt>API Name</dt>
-                    <dd>rest-lookup-record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -4229,7 +4271,15 @@ previous example record paths, and environment properties:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4567,6 +4617,11 @@ previous example record paths, and environment properties:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -4575,6 +4630,16 @@ previous example record paths, and environment properties:</p>
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4886,7 +4951,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>Whether to return all responses or throw errors for unsuccessful HTTP status codes.</dd>
                     <dt>API Name</dt>
-                    <dd>rest-lookup-response-handling-strategy</dd>
+                    <dd>Response Handling Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>RETURNED</dd>
@@ -4931,7 +4996,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>The SSL Context Service used to provide client certificate information for TLS/SSL connections.</dd>
                     <dt>API Name</dt>
-                    <dd>rest-lookup-ssl-context-service</dd>
+                    <dd>SSL Context Service</dd>
                     
                     
                     
@@ -4942,6 +5007,19 @@ previous example record paths, and environment properties:</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5502,6 +5580,16 @@ previous example record paths, and environment properties:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
                         
                         
@@ -5607,7 +5695,7 @@ previous example record paths, and environment properties:</p>
                     <dt>Description</dt>
                     <dd>The URL for the REST endpoint. Expression language is evaluated against the lookup key/value pairs, not flowfile attributes.</dd>
                     <dt>API Name</dt>
-                    <dd>rest-lookup-url</dd>
+                    <dd>URL</dd>
                     
                     
                     
@@ -5617,6 +5705,70 @@ previous example record paths, and environment properties:</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Use Digest Authentication</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to communicate with the website using Digest Authentication. &#39;Basic Authentication Username&#39; and &#39;Basic Authentication Password&#39; are used for authentication.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Use Digest Authentication</dd>
+                    <dt>Description</dt>
+                    <dd>Whether to communicate with the website using Digest Authentication. &#39;Basic Authentication Username&#39; and &#39;Basic Authentication Password&#39; are used for authentication.</dd>
+                    <dt>API Name</dt>
+                    <dd>Use Digest Authentication</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Authentication Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [BASIC]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>

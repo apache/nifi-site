@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>ExecuteSQL 2.6.0</h3>
+<h3>ExecuteSQL 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>Compression type to use when writing Avro files. Default is None.</dd>
                     <dt>API Name</dt>
-                    <dd>compression-format</dd>
+                    <dd>Compression Format</dd>
                     
                     <dt>Default Value</dt>
                     <dd>NONE</dd>
@@ -2574,6 +2634,14 @@ The strategy applies when handling queries that do not produce results.
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3213,6 +3281,21 @@ The strategy applies when handling queries that do not produce results.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3239,7 +3322,7 @@ The strategy applies when handling queries that do not produce results.
                     <dt>Description</dt>
                     <dd>When a DECIMAL/NUMBER value is written as a &#39;decimal&#39; Avro logical type, a specific &#39;precision&#39; denoting number of available digits is required. Generally, precision is defined by column data type definition or database engines default. However undefined precision (0) can be returned from some database engines. &#39;Default Decimal Precision&#39; is used when writing those undefined precision numbers.</dd>
                     <dt>API Name</dt>
-                    <dd>dbf-default-precision</dd>
+                    <dd>Default Decimal Precision</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10</dd>
@@ -3269,7 +3352,7 @@ The strategy applies when handling queries that do not produce results.
                     <dt>Description</dt>
                     <dd>When a DECIMAL/NUMBER value is written as a &#39;decimal&#39; Avro logical type, a specific &#39;scale&#39; denoting number of available decimal digits is required. Generally, scale is defined by column data type definition or database engines default. However when undefined precision (0) is returned, scale can also be uncertain with some database engines. &#39;Default Decimal Scale&#39; is used when writing those undefined numbers. If a value has more decimals than specified scale, then the value will be rounded-up, e.g. 1.53 becomes 2 with scale 0, and 1.5 with scale 1.</dd>
                     <dt>API Name</dt>
-                    <dd>dbf-default-scale</dd>
+                    <dd>Default Decimal Scale</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0</dd>
@@ -3278,141 +3361,6 @@ The strategy applies when handling queries that do not produce results.
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Normalize Table/Column Names</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to change non-Avro-compatible characters in column names to Avro-compatible characters. For example, colons and periods will be changed to underscores in order to build a valid Avro record.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Normalize Table/Column Names</dd>
-                    <dt>Description</dt>
-                    <dd>Whether to change non-Avro-compatible characters in column names to Avro-compatible characters. For example, colons and periods will be changed to underscores in order to build a valid Avro record.</dd>
-                    <dt>API Name</dt>
-                    <dd>dbf-normalize</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Use Avro Logical Types</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to use Avro Logical Types for DECIMAL/NUMBER, DATE, TIME and TIMESTAMP columns. If disabled, written as string. If enabled, Logical types are used and written as its underlying type, specifically, DECIMAL/NUMBER as logical &#39;decimal&#39;: written as bytes with additional precision and scale meta data, DATE as logical &#39;date-millis&#39;: written as int denoting days since Unix epoch (1970-01-01), TIME as logical &#39;time-millis&#39;: written as int denoting milliseconds since Unix epoch, and TIMESTAMP as logical &#39;timestamp-millis&#39;: written as long denoting milliseconds since Unix epoch. If a reader of written Avro records also knows these logical types, then these values can be deserialized with more context depending on reader implementation.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Use Avro Logical Types</dd>
-                    <dt>Description</dt>
-                    <dd>Whether to use Avro Logical Types for DECIMAL/NUMBER, DATE, TIME and TIMESTAMP columns. If disabled, written as string. If enabled, Logical types are used and written as its underlying type, specifically, DECIMAL/NUMBER as logical &#39;decimal&#39;: written as bytes with additional precision and scale meta data, DATE as logical &#39;date-millis&#39;: written as int denoting days since Unix epoch (1970-01-01), TIME as logical &#39;time-millis&#39;: written as int denoting milliseconds since Unix epoch, and TIMESTAMP as logical &#39;timestamp-millis&#39;: written as long denoting milliseconds since Unix epoch. If a reader of written Avro records also knows these logical types, then these values can be deserialized with more context depending on reader implementation.</dd>
-                    <dt>API Name</dt>
-                    <dd>dbf-user-logical-types</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Set Auto Commit</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enables or disables the auto commit functionality of the DB connection. Default value is &#39;true&#39;. The default value can be used with most of the JDBC drivers and this functionality doesn&#39;t have any impact in most of the cases since this processor is used to read data. However, for some JDBC drivers such as PostgreSQL driver, it is required to disable the auto committing functionality to limit the number of result rows fetching at a time. When auto commit is enabled, postgreSQL driver loads whole result set to memory at once. This could lead for a large amount of memory usage when executing queries which fetch large data sets. More Details of this behaviour in PostgreSQL driver can be found in https://jdbc.postgresql.org//documentation/head/query.html. </div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Set Auto Commit</dd>
-                    <dt>Description</dt>
-                    <dd>Enables or disables the auto commit functionality of the DB connection. Default value is &#39;true&#39;. The default value can be used with most of the JDBC drivers and this functionality doesn&#39;t have any impact in most of the cases since this processor is used to read data. However, for some JDBC drivers such as PostgreSQL driver, it is required to disable the auto committing functionality to limit the number of result rows fetching at a time. When auto commit is enabled, postgreSQL driver loads whole result set to memory at once. This could lead for a large amount of memory usage when executing queries which fetch large data sets. More Details of this behaviour in PostgreSQL driver can be found in https://jdbc.postgresql.org//documentation/head/query.html. </dd>
-                    <dt>API Name</dt>
-                    <dd>esql-auto-commit</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>true</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -3434,7 +3382,7 @@ The strategy applies when handling queries that do not produce results.
                     <dt>Description</dt>
                     <dd>The number of result rows to be fetched from the result set at a time. This is a hint to the database driver and may not be honored and/or exact. If the value specified is zero, then the hint is ignored.</dd>
                     <dt>API Name</dt>
-                    <dd>esql-fetch-size</dd>
+                    <dd>Fetch Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0</dd>
@@ -3464,37 +3412,7 @@ The strategy applies when handling queries that do not produce results.
                     <dt>Description</dt>
                     <dd>The maximum number of result rows that will be included in a single FlowFile. This will allow you to break up very large result sets into multiple FlowFiles. If the value specified is zero, then all rows are returned in a single FlowFile.</dd>
                     <dt>API Name</dt>
-                    <dd>esql-max-rows</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>0</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Output Batch Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The number of output FlowFiles to queue before committing the process session. When set to zero, the session will be committed when all result set rows have been processed and the output FlowFiles are ready for transfer to the downstream relationship. For large result sets, this can cause a large burst of FlowFiles to be transferred at the end of processor execution. If this property is set, then when the specified number of FlowFiles are ready for transfer, then the session will be committed, thus releasing the FlowFiles to the downstream relationship. NOTE: The fragment.count attribute will not be set on FlowFiles when this property is set.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Output Batch Size</dd>
-                    <dt>Description</dt>
-                    <dd>The number of output FlowFiles to queue before committing the process session. When set to zero, the session will be committed when all result set rows have been processed and the output FlowFiles are ready for transfer to the downstream relationship. For large result sets, this can cause a large burst of FlowFiles to be transferred at the end of processor execution. If this property is set, then when the specified number of FlowFiles are ready for transfer, then the session will be committed, thus releasing the FlowFiles to the downstream relationship. NOTE: The fragment.count attribute will not be set on FlowFiles when this property is set.</dd>
-                    <dt>API Name</dt>
-                    <dd>esql-output-batch-size</dd>
+                    <dd>Max Rows Per Flow File</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0</dd>
@@ -3544,6 +3462,180 @@ The strategy applies when handling queries that do not produce results.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Normalize Table and Column Names</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to change non-Avro-compatible characters in column names to Avro-compatible characters. For example, colons and periods will be changed to underscores in order to build a valid Avro record.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Normalize Table and Column Names</dd>
+                    <dt>Description</dt>
+                    <dd>Whether to change non-Avro-compatible characters in column names to Avro-compatible characters. For example, colons and periods will be changed to underscores in order to build a valid Avro record.</dd>
+                    <dt>API Name</dt>
+                    <dd>Normalize Table and Column Names</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Output Batch Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The number of output FlowFiles to queue before committing the process session. When set to zero, the session will be committed when all result set rows have been processed and the output FlowFiles are ready for transfer to the downstream relationship. For large result sets, this can cause a large burst of FlowFiles to be transferred at the end of processor execution. If this property is set, then when the specified number of FlowFiles are ready for transfer, then the session will be committed, thus releasing the FlowFiles to the downstream relationship. NOTE: The fragment.count attribute will not be set on FlowFiles when this property is set.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Output Batch Size</dd>
+                    <dt>Description</dt>
+                    <dd>The number of output FlowFiles to queue before committing the process session. When set to zero, the session will be committed when all result set rows have been processed and the output FlowFiles are ready for transfer to the downstream relationship. For large result sets, this can cause a large burst of FlowFiles to be transferred at the end of processor execution. If this property is set, then when the specified number of FlowFiles are ready for transfer, then the session will be committed, thus releasing the FlowFiles to the downstream relationship. NOTE: The fragment.count attribute will not be set on FlowFiles when this property is set.</dd>
+                    <dt>API Name</dt>
+                    <dd>Output Batch Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>0</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Set Auto Commit</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enables or disables the auto commit functionality of the DB connection. Default value is &#39;true&#39;. The default value can be used with most of the JDBC drivers and this functionality doesn&#39;t have any impact in most of the cases since this processor is used to read data. However, for some JDBC drivers such as PostgreSQL driver, it is required to disable the auto committing functionality to limit the number of result rows fetching at a time. When auto commit is enabled, postgreSQL driver loads whole result set to memory at once. This could lead for a large amount of memory usage when executing queries which fetch large data sets. More Details of this behaviour in PostgreSQL driver can be found in https://jdbc.postgresql.org//documentation/head/query.html. </div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Set Auto Commit</dd>
+                    <dt>Description</dt>
+                    <dd>Enables or disables the auto commit functionality of the DB connection. Default value is &#39;true&#39;. The default value can be used with most of the JDBC drivers and this functionality doesn&#39;t have any impact in most of the cases since this processor is used to read data. However, for some JDBC drivers such as PostgreSQL driver, it is required to disable the auto committing functionality to limit the number of result rows fetching at a time. When auto commit is enabled, postgreSQL driver loads whole result set to memory at once. This could lead for a large amount of memory usage when executing queries which fetch large data sets. More Details of this behaviour in PostgreSQL driver can be found in https://jdbc.postgresql.org//documentation/head/query.html. </dd>
+                    <dt>API Name</dt>
+                    <dd>Set Auto Commit</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>true</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">SQL Post-Query</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A semicolon-delimited list of queries executed after the main SQL query is executed. Example like setting session properties after main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>SQL Post-Query</dd>
+                    <dt>Description</dt>
+                    <dd>A semicolon-delimited list of queries executed after the main SQL query is executed. Example like setting session properties after main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</dd>
+                    <dt>API Name</dt>
+                    <dd>SQL Post-Query</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">SQL Pre-Query</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A semicolon-delimited list of queries executed before the main SQL query is executed. For example, set session properties before main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>SQL Pre-Query</dd>
+                    <dt>Description</dt>
+                    <dd>A semicolon-delimited list of queries executed before the main SQL query is executed. For example, set session properties before main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</dd>
+                    <dt>API Name</dt>
+                    <dd>SQL Pre-Query</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">SQL Query</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The SQL query to execute. The query can be empty, a constant value, or built from attributes using Expression Language. If this property is specified, it will be used regardless of the content of incoming flowfiles. If this property is empty, the content of the incoming flow file is expected to contain a valid SQL select query, to be issued by the processor to the database. Note that Expression Language is not evaluated for flow file contents.</div>
             </a>
@@ -3571,53 +3663,44 @@ The strategy applies when handling queries that do not produce results.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">SQL Post-Query</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A semicolon-delimited list of queries executed after the main SQL query is executed. Example like setting session properties after main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</div>
+                <span class="property-required">Use Avro Logical Types</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to use Avro Logical Types for DECIMAL/NUMBER, DATE, TIME and TIMESTAMP columns. If disabled, written as string. If enabled, Logical types are used and written as its underlying type, specifically, DECIMAL/NUMBER as logical &#39;decimal&#39;: written as bytes with additional precision and scale meta data, DATE as logical &#39;date-millis&#39;: written as int denoting days since Unix epoch (1970-01-01), TIME as logical &#39;time-millis&#39;: written as int denoting milliseconds since Unix epoch, and TIMESTAMP as logical &#39;timestamp-millis&#39;: written as long denoting milliseconds since Unix epoch. If a reader of written Avro records also knows these logical types, then these values can be deserialized with more context depending on reader implementation.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>SQL Post-Query</dd>
+                    <dd>Use Avro Logical Types</dd>
                     <dt>Description</dt>
-                    <dd>A semicolon-delimited list of queries executed after the main SQL query is executed. Example like setting session properties after main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</dd>
+                    <dd>Whether to use Avro Logical Types for DECIMAL/NUMBER, DATE, TIME and TIMESTAMP columns. If disabled, written as string. If enabled, Logical types are used and written as its underlying type, specifically, DECIMAL/NUMBER as logical &#39;decimal&#39;: written as bytes with additional precision and scale meta data, DATE as logical &#39;date-millis&#39;: written as int denoting days since Unix epoch (1970-01-01), TIME as logical &#39;time-millis&#39;: written as int denoting milliseconds since Unix epoch, and TIMESTAMP as logical &#39;timestamp-millis&#39;: written as long denoting milliseconds since Unix epoch. If a reader of written Avro records also knows these logical types, then these values can be deserialized with more context depending on reader implementation.</dd>
                     <dt>API Name</dt>
-                    <dd>sql-post-query</dd>
+                    <dd>Use Avro Logical Types</dd>
                     
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">SQL Pre-Query</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A semicolon-delimited list of queries executed before the main SQL query is executed. For example, set session properties before main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>SQL Pre-Query</dd>
-                    <dt>Description</dt>
-                    <dd>A semicolon-delimited list of queries executed before the main SQL query is executed. For example, set session properties before main query. It&#39;s possible to include semicolons in the statements themselves by escaping them with a backslash (&#39;\;&#39;). Results/outputs from these queries will be suppressed if there are no errors.</dd>
-                    <dt>API Name</dt>
-                    <dd>sql-pre-query</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
+                    <dd>true</dd>
                     
                 </dl>
             </div>

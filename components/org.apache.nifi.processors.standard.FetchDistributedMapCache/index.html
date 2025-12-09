@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,13 +2455,13 @@
           
 
 
-<h3>FetchDistributedMapCache 2.6.0</h3>
+<h3>FetchDistributedMapCache 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Computes cache key(s) from FlowFile attributes, for each incoming FlowFile, and fetches the value(s) from the Distributed Map Cache associated with each key. If configured without a destination attribute, the incoming FlowFile&#39;s content is replaced with the binary data received by the Distributed Map Cache. If there is no value stored under that key then the flow file will be routed to &#39;not-found&#39;. Note that the processor will always attempt to read the entire cached value into memory before placing it in it&#39;s destination. This could be potentially problematic if the cached value is very large.</dd>
+    <dd>Computes cache key(s) from FlowFile attributes, for each incoming FlowFile, and fetches the value(s) from the Map Cache associated with each key. If configured without a destination attribute, the incoming FlowFile&#39;s content is replaced with the binary data received by the Map Cache. If there is no value stored under that key then the flow file will be routed to &#39;not-found&#39;. Note that the processor will always attempt to read the entire cached value into memory before placing it in it&#39;s destination. This could be potentially problematic if the cached value is very large.</dd>
     <dt>Tags</dt>
     <dd>cache, distributed, fetch, map</dd>
     <dt>Input Requirement</dt>
@@ -2528,6 +2588,14 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -2917,7 +2985,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">org.apache.nifi.redis.service.RedisDistributedMapCacheClientService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3299,7 +3382,7 @@
         
         <tr>
             <td>user-defined</td>
-            <td class="uk-text-lighter">If the &#39;Put Cache Value In Attribute&#39; property is set then whatever it is set to will become the attribute key and the value would be whatever the response was from the Distributed Map Cache. If multiple cache entry identifiers are selected, multiple attributes will be written, using the evaluated value of this property, appended by a period (.) and the name of the cache entry identifier. For example, if the Cache Entry Identifier property is set to &#39;id,name&#39;, and the user-defined property is named &#39;fetched&#39;, then two attributes will be written, fetched.id and fetched.name, containing their respective values.</td>
+            <td class="uk-text-lighter">If the &#39;Put Cache Value In Attribute&#39; property is set then whatever it is set to will become the attribute key and the value would be whatever the response was from the Map Cache. If multiple cache entry identifiers are selected, multiple attributes will be written, using the evaluated value of this property, appended by a period (.) and the name of the cache entry identifier. For example, if the Cache Entry Identifier property is set to &#39;id,name&#39;, and the user-defined property is named &#39;fetched&#39;, then two attributes will be written, fetched.id and fetched.name, containing their respective values.</td>
         </tr>
         
         </tbody>
@@ -3316,11 +3399,11 @@
 <ul>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService/">org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService</a>
+        <a href="/components/org.apache.nifi.distributed.cache.client.MapCacheClientService/">org.apache.nifi.distributed.cache.client.MapCacheClientService</a>
     </li>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer/">org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer</a>
+        <a href="/components/org.apache.nifi.distributed.cache.server.map.MapCacheServer/">org.apache.nifi.distributed.cache.server.map.MapCacheServer</a>
     </li>
     
     <li>

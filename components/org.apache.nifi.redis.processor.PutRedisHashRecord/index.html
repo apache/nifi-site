@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutRedisHashRecord 2.6.0</h3>
+<h3>PutRedisHashRecord 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the character set to use when storing record field values as strings. All fields will be converted to strings using this character set before being stored in Redis.</dd>
                     <dt>API Name</dt>
-                    <dd>charset</dd>
+                    <dd>Character Set</dd>
                     
                     <dt>Default Value</dt>
                     <dd>UTF-8</dd>
@@ -2487,7 +2547,7 @@
                     <dt>Description</dt>
                     <dd>This property denotes a RecordPath that will be evaluated against each incoming Record and the Record that results from evaluating the RecordPath will be sent to Redis instead of sending the entire incoming Record. The property defaults to the root &#39;/&#39; which corresponds to a &#39;flat&#39; record (all fields/values at the top level of  the Record.</dd>
                     <dt>API Name</dt>
-                    <dd>data-record-path</dd>
+                    <dd>Data Record Path</dd>
                     
                     <dt>Default Value</dt>
                     <dd>/</dd>
@@ -2517,7 +2577,7 @@
                     <dt>Description</dt>
                     <dd>Specifies a RecordPath to evaluate against each Record in order to determine the hash value associated with all the record fields/values (see &#39;hset&#39; in Redis documentation for more details). The RecordPath must point at exactly one field or an error will occur.</dd>
                     <dt>API Name</dt>
-                    <dd>hash-value-record-path</dd>
+                    <dd>Hash Value Record Path</dd>
                     
                     
                     
@@ -2544,7 +2604,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for parsing incoming data and determining the data&#39;s schema</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -2589,7 +2649,15 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -2927,6 +2995,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -2935,6 +3008,16 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3246,7 +3329,7 @@
                     <dt>Description</dt>
                     <dd></dd>
                     <dt>API Name</dt>
-                    <dd>redis-connection-pool</dd>
+                    <dd>Redis Connection Pool</dd>
                     
                     
                     
@@ -3635,7 +3718,30 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisConnectionPoolService/">org.apache.nifi.redis.service.RedisConnectionPoolService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

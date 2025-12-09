@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>StandardS3EncryptionService 2.6.0</h3>
+<h3>StandardS3EncryptionService 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for StandardS3EncryptionService 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for StandardS3EncryptionService 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2559,17 +2619,17 @@ material, and that material must be base64 encoded.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Key ID or Key Material</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">For None and Server-side S3: not used. For Server-side KMS and Client-side KMS: the KMS Key ID must be configured. For Server-side Customer Key and Client-side Customer Key: the Key Material must be specified in Base64 encoded form. In case of Server-side Customer Key, the key must be an AES-256 key. In case of Client-side Customer Key, it can be an AES-256, AES-192 or AES-128 key.</div>
+                <span class="property-required">Key Material</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The key material used for Server-side or Client-side Customer Key encryption. The Key Material must be specified in Base64 encoded form. In case of Server-side Customer Key, the key must be an AES-256 key. In case of Client-side Customer Key, it can be an AES-256, AES-192 or AES-128 key.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Key ID or Key Material</dd>
+                    <dd>Key Material</dd>
                     <dt>Description</dt>
-                    <dd>For None and Server-side S3: not used. For Server-side KMS and Client-side KMS: the KMS Key ID must be configured. For Server-side Customer Key and Client-side Customer Key: the Key Material must be specified in Base64 encoded form. In case of Server-side Customer Key, the key must be an AES-256 key. In case of Client-side Customer Key, it can be an AES-256, AES-192 or AES-128 key.</dd>
+                    <dd>The key material used for Server-side or Client-side Customer Key encryption. The Key Material must be specified in Base64 encoded form. In case of Server-side Customer Key, the key must be an AES-256 key. In case of Client-side Customer Key, it can be an AES-256, AES-192 or AES-128 key.</dd>
                     <dt>API Name</dt>
-                    <dd>Key ID or Key Material</dd>
+                    <dd>Key Material</dd>
                     
                     
                     
@@ -2578,7 +2638,26 @@ material, and that material must be base64 encoded.</p>
                     <dt>Sensitive</dt>
                     <dd>true</dd>
                     <dt>Required</dt>
-                    <dd>false</dd>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Encryption Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [CSE_C, SSE_C]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2586,208 +2665,45 @@ material, and that material must be base64 encoded.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">KMS Region</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Region of the AWS Key Management Service. Only used in case of Client-side KMS.</div>
+                <span class="property-required">KMS Key ID</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The ID (ARN) of the KMS key used for Server-side or Client-side KMS encryption.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>KMS Region</dd>
+                    <dd>KMS Key ID</dd>
                     <dt>Description</dt>
-                    <dd>The Region of the AWS Key Management Service. Only used in case of Client-side KMS.</dd>
+                    <dd>The ID (ARN) of the KMS key used for Server-side or Client-side KMS encryption.</dd>
                     <dt>API Name</dt>
-                    <dd>KMS Region</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>us-west-2</dd>
+                    <dd>KMS Key ID</dd>
                     
                     
-                    <dt>Allowable Values</dt>
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>true</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
                     <dd>
                         <ul>
                             
                             <li>
-                                AWS GovCloud (US)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-west-1"></span></li>
-                            
-                            <li>
-                                AWS GovCloud (US-East)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-east-1"></span></li>
-                            
-                            <li>
-                                US East (N. Virginia)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-east-1"></span></li>
-                            
-                            <li>
-                                US East (Ohio)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-east-2"></span></li>
-                            
-                            <li>
-                                US West (N. California)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-west-1"></span></li>
-                            
-                            <li>
-                                US West (Oregon)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-west-2"></span></li>
-                            
-                            <li>
-                                EU (Ireland)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-west-1"></span></li>
-                            
-                            <li>
-                                EU (London)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-west-2"></span></li>
-                            
-                            <li>
-                                EU (Paris)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-west-3"></span></li>
-                            
-                            <li>
-                                EU (Frankfurt)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-central-1"></span></li>
-                            
-                            <li>
-                                EU (Zurich)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-central-2"></span></li>
-                            
-                            <li>
-                                EU (Stockholm)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-north-1"></span></li>
-                            
-                            <li>
-                                EU (Milan)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-south-1"></span></li>
-                            
-                            <li>
-                                EU (Spain)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-south-2"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Hong Kong)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-east-1"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Taipei)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-east-2"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Mumbai)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-south-1"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Hyderabad)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-south-2"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Singapore)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-1"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Sydney)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-2"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Jakarta)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-3"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Melbourne)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-4"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Malaysia)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-5"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Thailand)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-southeast-7"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Tokyo)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-northeast-1"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Seoul)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-northeast-2"></span></li>
-                            
-                            <li>
-                                Asia Pacific (Osaka)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ap-northeast-3"></span></li>
-                            
-                            <li>
-                                South America (Sao Paulo)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : sa-east-1"></span></li>
-                            
-                            <li>
-                                China (Beijing)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : cn-north-1"></span></li>
-                            
-                            <li>
-                                China (Ningxia)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : cn-northwest-1"></span></li>
-                            
-                            <li>
-                                Canada (Central)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ca-central-1"></span></li>
-                            
-                            <li>
-                                Canada West (Calgary)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : ca-west-1"></span></li>
-                            
-                            <li>
-                                Middle East (UAE)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : me-central-1"></span></li>
-                            
-                            <li>
-                                Middle East (Bahrain)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : me-south-1"></span></li>
-                            
-                            <li>
-                                Africa (Cape Town)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : af-south-1"></span></li>
-                            
-                            <li>
-                                US ISO East
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-iso-east-1"></span></li>
-                            
-                            <li>
-                                US ISOB East (Ohio)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-isob-east-1"></span></li>
-                            
-                            <li>
-                                US ISO West
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-iso-west-1"></span></li>
-                            
-                            <li>
-                                US ISOF East1 (California)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-isof-east-1"></span></li>
-                            
-                            <li>
-                                US ISOF South1 (Alpine)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-isof-south-1"></span></li>
-                            
-                            <li>
-                                Israel (Tel Aviv)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : il-central-1"></span></li>
-                            
-                            <li>
-                                Mexico (Central)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : mx-central-1"></span></li>
-                            
-                            <li>
-                                EU ISOE West
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eu-isoe-west-1"></span></li>
+                                <span>Encryption Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [CSE_KMS, SSE_KMS]
+                                
+                            </li>
                             
                         </ul>
                     </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
                     
                 </dl>
             </div>

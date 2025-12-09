@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>SearchElasticsearch 2.6.0</h3>
+<h3>SearchElasticsearch 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for SearchElasticsearch 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for SearchElasticsearch 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2534,17 +2594,111 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Query Attribute</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If set, the executed query will be set on each result flowfile in the specified attribute.</div>
+                <span class="property-required">Aggregation Results Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Format of Aggregation output.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Query Attribute</dd>
+                    <dd>Aggregation Results Format</dd>
                     <dt>Description</dt>
-                    <dd>If set, the executed query will be set on each result flowfile in the specified attribute.</dd>
+                    <dd>Format of Aggregation output.</dd>
                     <dt>API Name</dt>
-                    <dd>el-query-attribute</dd>
+                    <dd>Aggregation Results Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>FULL</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                FULL
+                                <span uk-icon="info" uk-tooltip="Contains full Elasticsearch Aggregation, including Buckets and Metadata."></span></li>
+                            
+                            <li>
+                                BUCKETS_ONLY
+                                <span uk-icon="info" uk-tooltip="Bucket Content only."></span></li>
+                            
+                            <li>
+                                METADATA_ONLY
+                                <span uk-icon="info" uk-tooltip="Aggregation Metadata only."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Aggregation Results Split</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a flowfile containing all aggregations or one flowfile for each individual aggregation.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Aggregation Results Split</dd>
+                    <dt>Description</dt>
+                    <dd>Output a flowfile containing all aggregations or one flowfile for each individual aggregation.</dd>
+                    <dt>API Name</dt>
+                    <dd>Aggregation Results Split</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>splitUp-no</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                PER_HIT
+                                <span uk-icon="info" uk-tooltip="Flowfile per hit."></span></li>
+                            
+                            <li>
+                                PER_RESPONSE
+                                <span uk-icon="info" uk-tooltip="Flowfile per response."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Aggregations</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">One or more query aggregations (or &#34;aggs&#34;), in JSON syntax. Ex: {&#34;items&#34;: {&#34;terms&#34;: {&#34;field&#34;: &#34;product&#34;, &#34;size&#34;: 10}}}</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Aggregations</dd>
+                    <dt>Description</dt>
+                    <dd>One or more query aggregations (or &#34;aggs&#34;), in JSON syntax. Ex: {&#34;items&#34;: {&#34;terms&#34;: {&#34;field&#34;: &#34;product&#34;, &#34;size&#34;: 10}}}</dd>
+                    <dt>API Name</dt>
+                    <dd>Aggregations</dd>
                     
                     
                     
@@ -2554,6 +2708,25 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Query Definition Style</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [build]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2571,7 +2744,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>An Elasticsearch client service to use for running queries.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-client-service</dd>
+                    <dd>Client Service</dd>
                     
                     
                     
@@ -2582,6 +2755,14 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3217,6 +3398,21 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3226,6 +3422,52 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Fields</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Fields of indexed documents to be retrieved, in JSON syntax. Ex: [&#34;user.id&#34;, &#34;http.response.*&#34;, {&#34;field&#34;: &#34;@timestamp&#34;, &#34;format&#34;: &#34;epoch_millis&#34;}]</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Fields</dd>
+                    <dt>Description</dt>
+                    <dd>Fields of indexed documents to be retrieved, in JSON syntax. Ex: [&#34;user.id&#34;, &#34;http.response.*&#34;, {&#34;field&#34;: &#34;@timestamp&#34;, &#34;format&#34;: &#34;epoch_millis&#34;}]</dd>
+                    <dt>API Name</dt>
+                    <dd>Fields</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Query Definition Style</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [build]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3243,7 +3485,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>The name of the index to use.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-fetch-index</dd>
+                    <dd>Index</dd>
                     
                     
                     
@@ -3260,89 +3502,21 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Aggregation Results Format</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Format of Aggregation output.</div>
+                <span class="property-required">Max JSON Field String Length</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum allowed length of a string value when parsing a JSON document or attribute.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Aggregation Results Format</dd>
+                    <dd>Max JSON Field String Length</dd>
                     <dt>Description</dt>
-                    <dd>Format of Aggregation output.</dd>
+                    <dd>The maximum allowed length of a string value when parsing a JSON document or attribute.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-format-aggregations</dd>
+                    <dd>Max JSON Field String Length</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>FULL</dd>
+                    <dd>20 MB</dd>
                     
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                FULL
-                                <span uk-icon="info" uk-tooltip="Contains full Elasticsearch Aggregation, including Buckets and Metadata."></span></li>
-                            
-                            <li>
-                                BUCKETS_ONLY
-                                <span uk-icon="info" uk-tooltip="Bucket Content only."></span></li>
-                            
-                            <li>
-                                METADATA_ONLY
-                                <span uk-icon="info" uk-tooltip="Aggregation Metadata only."></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Search Results Format</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Format of Hits output.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Search Results Format</dd>
-                    <dt>Description</dt>
-                    <dd>Format of Hits output.</dd>
-                    <dt>API Name</dt>
-                    <dd>el-rest-format-hits</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>FULL</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                FULL
-                                <span uk-icon="info" uk-tooltip="Contains full Elasticsearch Hit, including Document Source and Metadata."></span></li>
-                            
-                            <li>
-                                SOURCE_ONLY
-                                <span uk-icon="info" uk-tooltip="Document Source only (where present)."></span></li>
-                            
-                            <li>
-                                METADATA_ONLY
-                                <span uk-icon="info" uk-tooltip="Hit Metadata only."></span></li>
-                            
-                        </ul>
-                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
@@ -3368,7 +3542,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>Output a &#34;hits&#34; flowfile even if no hits found for query. If true, an empty &#34;hits&#34; flowfile will be output even if &#34;aggregations&#34; are output.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-output-no-hits</dd>
+                    <dd>Output No Hits</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -3413,7 +3587,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>Pagination &#34;keep_alive&#34; period. Period Elasticsearch will keep the scroll/pit cursor alive in between requests (this is not the time expected for all pages to be returned, but the maximum allowed time for requests between page retrievals).</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-pagination-keep-alive</dd>
+                    <dd>Pagination Keep Alive</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 mins</dd>
@@ -3462,7 +3636,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>Pagination method to use. Not all types are available for all Elasticsearch versions, check the Elasticsearch docs to confirm which are applicable and recommended for your service.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-pagination-type</dd>
+                    <dd>Pagination Type</dd>
                     
                     <dt>Default Value</dt>
                     <dd>pagination-scroll</dd>
@@ -3511,7 +3685,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>A query in JSON syntax, not Lucene syntax. Ex: {&#34;query&#34;:{&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}}. If the query is empty, a default JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-query</dd>
+                    <dd>Query</dd>
                     
                     
                     
@@ -3547,6 +3721,33 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Query Attribute</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If set, the executed query will be set on each result flowfile in the specified attribute.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Query Attribute</dd>
+                    <dt>Description</dt>
+                    <dd>If set, the executed query will be set on each result flowfile in the specified attribute.</dd>
+                    <dt>API Name</dt>
+                    <dd>Query Attribute</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Query Clause</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A &#34;query&#34; clause in JSON syntax, not Lucene syntax. Ex: {&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}. If the query is empty, a default JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</div>
             </a>
@@ -3557,7 +3758,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>A &#34;query&#34; clause in JSON syntax, not Lucene syntax. Ex: {&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}. If the query is empty, a default JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-query-clause</dd>
+                    <dd>Query Clause</dd>
                     
                     
                     
@@ -3603,7 +3804,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>How the JSON Query will be defined for use by the processor.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-query-definition-style</dd>
+                    <dd>Query Definition Style</dd>
                     
                     <dt>Default Value</dt>
                     <dd>full</dd>
@@ -3638,20 +3839,20 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Aggregation Results Split</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a flowfile containing all aggregations or one flowfile for each individual aggregation.</div>
+                <span class="property-required">Restart On Finish</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether the processor should start another search with the same query once a paginated search has completed.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Aggregation Results Split</dd>
+                    <dd>Restart On Finish</dd>
                     <dt>Description</dt>
-                    <dd>Output a flowfile containing all aggregations or one flowfile for each individual aggregation.</dd>
+                    <dd>Whether the processor should start another search with the same query once a paginated search has completed.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-split-up-aggregations</dd>
+                    <dd>Restart On Finish</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>splitUp-no</dd>
+                    <dd>true</dd>
                     
                     
                     <dt>Allowable Values</dt>
@@ -3659,12 +3860,107 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                         <ul>
                             
                             <li>
-                                PER_HIT
-                                <span uk-icon="info" uk-tooltip="Flowfile per hit."></span></li>
+                                true
+                                </li>
                             
                             <li>
-                                PER_RESPONSE
-                                <span uk-icon="info" uk-tooltip="Flowfile per response."></span></li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Script Fields</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Fields to created using script evaluation at query runtime, in JSON syntax. Ex: {&#34;test1&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * 2&#34;}}, &#34;test2&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * params.factor&#34;, &#34;params&#34;: {&#34;factor&#34;: 2.0}}}}</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Script Fields</dd>
+                    <dt>Description</dt>
+                    <dd>Fields to created using script evaluation at query runtime, in JSON syntax. Ex: {&#34;test1&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * 2&#34;}}, &#34;test2&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * params.factor&#34;, &#34;params&#34;: {&#34;factor&#34;: 2.0}}}}</dd>
+                    <dt>API Name</dt>
+                    <dd>Script Fields</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Query Definition Style</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [build]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Search Results Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Format of Hits output.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Search Results Format</dd>
+                    <dt>Description</dt>
+                    <dd>Format of Hits output.</dd>
+                    <dt>API Name</dt>
+                    <dd>Search Results Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>FULL</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                FULL
+                                <span uk-icon="info" uk-tooltip="Contains full Elasticsearch Hit, including Document Source and Metadata."></span></li>
+                            
+                            <li>
+                                SOURCE_ONLY
+                                <span uk-icon="info" uk-tooltip="Document Source only (where present)."></span></li>
+                            
+                            <li>
+                                METADATA_ONLY
+                                <span uk-icon="info" uk-tooltip="Hit Metadata only."></span></li>
                             
                         </ul>
                     </dd>
@@ -3693,7 +3989,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>Output a flowfile containing all hits or one flowfile for each individual hit or one flowfile containing all hits from all paged responses.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-split-up-hits</dd>
+                    <dd>Search Results Split</dd>
                     
                     <dt>Default Value</dt>
                     <dd>splitUp-no</dd>
@@ -3732,136 +4028,17 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Type</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of this document (used by Elasticsearch for indexing and searching).</div>
+                <span class="">Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum number of documents to retrieve in the query. If the query is paginated, this &#34;size&#34; applies to each page of the query, not the &#34;size&#34; of the entire result set.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Type</dd>
+                    <dd>Size</dd>
                     <dt>Description</dt>
-                    <dd>The type of this document (used by Elasticsearch for indexing and searching).</dd>
+                    <dd>The maximum number of documents to retrieve in the query. If the query is paginated, this &#34;size&#34; applies to each page of the query, not the &#34;size&#34; of the entire result set.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-type</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Aggregations</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">One or more query aggregations (or &#34;aggs&#34;), in JSON syntax. Ex: {&#34;items&#34;: {&#34;terms&#34;: {&#34;field&#34;: &#34;product&#34;, &#34;size&#34;: 10}}}</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Aggregations</dd>
-                    <dt>Description</dt>
-                    <dd>One or more query aggregations (or &#34;aggs&#34;), in JSON syntax. Ex: {&#34;items&#34;: {&#34;terms&#34;: {&#34;field&#34;: &#34;product&#34;, &#34;size&#34;: 10}}}</dd>
-                    <dt>API Name</dt>
-                    <dd>es-rest-query-aggs</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Query Definition Style</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [build]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Fields</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Fields of indexed documents to be retrieved, in JSON syntax. Ex: [&#34;user.id&#34;, &#34;http.response.*&#34;, {&#34;field&#34;: &#34;@timestamp&#34;, &#34;format&#34;: &#34;epoch_millis&#34;}]</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Fields</dd>
-                    <dt>Description</dt>
-                    <dd>Fields of indexed documents to be retrieved, in JSON syntax. Ex: [&#34;user.id&#34;, &#34;http.response.*&#34;, {&#34;field&#34;: &#34;@timestamp&#34;, &#34;format&#34;: &#34;epoch_millis&#34;}]</dd>
-                    <dt>API Name</dt>
-                    <dd>es-rest-query-fields</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Query Definition Style</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [build]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Script Fields</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Fields to created using script evaluation at query runtime, in JSON syntax. Ex: {&#34;test1&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * 2&#34;}}, &#34;test2&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * params.factor&#34;, &#34;params&#34;: {&#34;factor&#34;: 2.0}}}}</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Script Fields</dd>
-                    <dt>Description</dt>
-                    <dd>Fields to created using script evaluation at query runtime, in JSON syntax. Ex: {&#34;test1&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * 2&#34;}}, &#34;test2&#34;: {&#34;script&#34;: {&#34;lang&#34;: &#34;painless&#34;, &#34;source&#34;: &#34;doc[&#39;price&#39;].value * params.factor&#34;, &#34;params&#34;: {&#34;factor&#34;: 2.0}}}}</dd>
-                    <dt>API Name</dt>
-                    <dd>es-rest-query-script-fields</dd>
+                    <dd>Size</dd>
                     
                     
                     
@@ -3907,7 +4084,7 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dt>Description</dt>
                     <dd>Sort results by one or more fields, in JSON syntax. Ex: [{&#34;price&#34; : {&#34;order&#34; : &#34;asc&#34;, &#34;mode&#34; : &#34;avg&#34;}}, {&#34;post_date&#34; : {&#34;format&#34;: &#34;strict_date_optional_time_nanos&#34;}}]</dd>
                     <dt>API Name</dt>
-                    <dd>es-rest-query-sort</dd>
+                    <dd>Sort</dd>
                     
                     
                     
@@ -3943,17 +4120,17 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum number of documents to retrieve in the query. If the query is paginated, this &#34;size&#34; applies to each page of the query, not the &#34;size&#34; of the entire result set.</div>
+                <span class="">Type</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of this document (used by Elasticsearch for indexing and searching).</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Size</dd>
+                    <dd>Type</dd>
                     <dt>Description</dt>
-                    <dd>The maximum number of documents to retrieve in the query. If the query is paginated, this &#34;size&#34; applies to each page of the query, not the &#34;size&#34; of the entire result set.</dd>
+                    <dd>The type of this document (used by Elasticsearch for indexing and searching).</dd>
                     <dt>API Name</dt>
-                    <dd>es-rest-size</dd>
+                    <dd>Type</dd>
                     
                     
                     
@@ -3963,100 +4140,6 @@ Elasticsearch has changed, the same data will be retrieved multiple times.</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Query Definition Style</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [build]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Max JSON Field String Length</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum allowed length of a string value when parsing a JSON document or attribute.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Max JSON Field String Length</dd>
-                    <dt>Description</dt>
-                    <dd>The maximum allowed length of a string value when parsing a JSON document or attribute.</dd>
-                    <dt>API Name</dt>
-                    <dd>Max JSON Field String Length</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>20 MB</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Restart On Finish?</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether the processor should start another search with the same query once a paginated search has completed.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Restart On Finish?</dd>
-                    <dt>Description</dt>
-                    <dd>Whether the processor should start another search with the same query once a paginated search has completed.</dd>
-                    <dt>API Name</dt>
-                    <dd>restart-on-finish</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>true</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
                     
                 </dl>
             </div>

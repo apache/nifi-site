@@ -455,9 +455,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#flowfiletransformresult">FlowFileTransformResult</a></li>
 </ul>
 </li>
-<li><a href="#record-transform">RecordTransform</a></li>
+<li><a href="#record-transform">RecordTransform</a>
+<ul class="sectlevel3">
+<li><a href="#working-with-nested-records">Working with Nested Records</a></li>
+</ul>
+</li>
 <li><a href="#flowfile-source">FlowFileSource</a></li>
-<li><a href="#property-descriptors">PropertyDescriptors</a></li>
+<li><a href="#property-descriptors">PropertyDescriptors</a>
+<ul class="sectlevel3">
+<li><a href="#dependent-properties">Dependent Properties</a></li>
+<li><a href="#referencing-controller-services">Referencing Controller Services</a></li>
+</ul>
+</li>
 <li><a href="#relationships">Relationships</a></li>
 <li><a href="#inner-classes">ProcessorDetails and Java inner classes</a></li>
 <li><a href="#logging">Logging in NiFi</a></li>
@@ -492,7 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>This guide is intended to provide an introduction and some guidance to developing extensions for Apache NiFi using Python.
-This guide is not intended to be an alternative to the <a href="developer-guide.adoc">NiFi Developers Guide</a> document but rather
+This guide is not intended to be an alternative to the <a href="developer-guide.html#nifi-developers-guide">NiFi Developers Guide</a> document but rather
 a supplement to it. The normal Developer Guide is far more in depth and discusses more topics. However, that guide is
 targeted toward Java developers. The philosophies and guidance offered in that guide, generally, still hold for Python extensions, though.</p>
 </div>
@@ -814,6 +823,37 @@ for each country. In this case, we would return a Python dictionary for the <cod
 If the partition has more than one field in the dictionary, all fields in the dictionary must be the same value for two Records in order for
 the Records to be written to the same output FlowFile.</p>
 </div>
+<div class="sect3">
+<h4 id="working-with-nested-records"><a class="anchor" href="#working-with-nested-records"></a>Working with Nested Records</h4>
+<div class="paragraph">
+<p>Manipulating just a small portion of an incoming record is a very common use case for <code>RecordTransform</code> processors. A
+practical approach is to rely on a dictionary traversal helper such as the <a href="https://pypi.org/project/glom/">glom</a> library.
+Python processors can declare third-party dependencies via the <code>dependencies</code> attribute on <code>ProcessorDetails</code>; NiFi downloads
+those packages when the processor is first loaded.</p>
+</div>
+<div class="paragraph">
+<p>The sample <code>HashRecordField</code> processor illustrates the pattern. It expects the processor configuration to supply a glom-style path
+(for example <code>customer.address.street</code> or <code>items.0.price</code>). That string can be passed directly to <code>glom(&#8230;&#8203;)</code> to read values and
+<code>assign(&#8230;&#8203;)</code> to update them without hand-coding dictionary traversal logic:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>from glom import assign, glom
+
+_MISSING = object()
+path_spec = 'my.example'  # Glom-style path
+value = glom(record, path_spec, default=_MISSING)
+if value not in (None, _MISSING) and not isinstance(value, (dict, list)):
+    hashed = hashlib.sha256(str(value).encode('utf-8')).hexdigest()
+    assign(record, path_spec, hashed, missing=lambda: None)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>HashRecordField</code> processor expects the Record Path property to contain a glom-style string such as <code>customer.address.street</code> or
+<code>items.0.price</code>. Supplying the same string to <code>glom(&#8230;&#8203;)</code> and <code>assign(&#8230;&#8203;)</code> makes it easy to read and update nested fields while
+<code>RecordTransformResult</code> persists the modified record using the configured Record Writer.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="flowfile-source"><a class="anchor" href="#flowfile-source"></a>FlowFileSource</h3>
@@ -938,6 +978,78 @@ To accomplish this, we implement the following method:</p>
 <div class="paragraph">
 <p>If this method is not implemented and a user adds a property other than those that are explicitly supported, the Processor will become
 invalid. Of course, we might also specify explicit validators that can be used, etc.</p>
+</div>
+<div class="sect3">
+<h4 id="dependent-properties"><a class="anchor" href="#dependent-properties"></a>Dependent Properties</h4>
+<div class="paragraph">
+<p>Python-based processors can express property dependencies in the same way as Java processors. The
+<code>nifiapi.properties.PropertyDependency</code> class mirrors the Java builder&#8217;s <code>dependsOn(&#8230;&#8203;)</code> method and is exposed via the
+<code>dependencies</code> keyword argument on <code>PropertyDescriptor</code>.</p>
+</div>
+<div class="paragraph">
+<p>NiFi&#8217;s discovery logic inspects the processor source code using Python&#8217;s abstract syntax tree. When declaring a
+dependency, the referenced descriptor must therefore appear as a simple name, not as an attribute such as
+<code>self.output_mode</code>. The common pattern is to assign the descriptor to a local variable, reference that variable inside
+<code>PropertyDependency</code>, and only then assign the descriptor to an instance field for later reuse.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>from nifiapi.properties import PropertyDescriptor, PropertyDependency
+
+output_mode = PropertyDescriptor(
+    name='Output Mode',
+    allowable_values=['text', 'json'],
+    default_value='text',
+    required=True,
+)
+
+uppercase = PropertyDescriptor(
+    name='Uppercase',
+    allowable_values=['true', 'false'],
+    default_value='false',
+    dependencies=[PropertyDependency(output_mode, 'text')],
+)
+
+json_field = PropertyDescriptor(
+    name='JSON Field Name',
+    required=True,
+    dependencies=[PropertyDependency(output_mode, 'json')],
+)
+
+# Optionally assign to instance attributes for reuse
+self.output_mode = output_mode
+self.uppercase = uppercase
+self.json_field = json_field</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At runtime the NiFi UI hides or disables dependent properties until the prerequisite property is configured with one of the specified
+values, and the framework applies the same rules during validation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="referencing-controller-services"><a class="anchor" href="#referencing-controller-services"></a>Referencing Controller Services</h4>
+<div class="paragraph">
+<p>Python processors can reference existing Java controller services using the same mechanism as Java processors. Set the
+<code>controller_service_definition</code> parameter on a <code>PropertyDescriptor</code> to the fully qualified class name of the controller service
+interface that should be exposed in the drop-down. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>self.lookup_service = PropertyDescriptor(
+    name='Lookup Service',
+    description='String lookup service used to enrich incoming records.',
+    required=True,
+    controller_service_definition='org.apache.nifi.lookup.StringLookupService'
+)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Within the processor implementation the configured service instance can be retrieved via the usual property accessors, for
+example <code>context.getProperty(self.lookup_service.name).asControllerService()</code>. NiFi ensures that only controller services
+implementing the referenced interface are eligible for selection. While simple class names work when type names are unique, using
+the fully qualified interface name avoids ambiguity when multiple controller services share the same simple name.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1213,7 +1325,7 @@ because we know that the ListFile Processor will produce these attributes for us
 <h2 id="requirements"><a class="anchor" href="#requirements"></a>Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Python API requires that Python 3.9, 3.10, 3.11, or 3.12 is available on the machine hosting NiFi.</p>
+<p>The Python API requires that Python 3.10, 3.11, or 3.12 is available on the machine hosting NiFi.</p>
 </div>
 <div class="paragraph">
 <p>Each Processor may have its own list of requirements / dependencies. These are made available to the Processor by creating a separate
@@ -1505,7 +1617,7 @@ in order to debug the Processor.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-18 18:23:01 +0200
+Last updated 2025-12-06 20:53:59 +0100
 </div>
 </div>
 </body>

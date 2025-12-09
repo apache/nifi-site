@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>ConsumeWindowsEventLog 2.6.0</h3>
+<h3>ConsumeWindowsEventLog 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeWindowsEventLog 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeWindowsEventLog 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2529,7 +2589,7 @@ from <a href="https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-no
                     <dt>Description</dt>
                     <dd>The Windows Event Log Channel to listen to.</dd>
                     <dt>API Name</dt>
-                    <dd>channel</dd>
+                    <dd>Channel</dd>
                     
                     <dt>Default Value</dt>
                     <dd>System</dd>
@@ -2549,17 +2609,17 @@ from <a href="https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-no
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Inactive duration to reconnect</span>
+                <span class="property-required">Inactive Duration to Reconnect</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If no new event logs are processed for the specified time period, this processor will try reconnecting to recover from a state where any further messages cannot be consumed. Such situation can happen if Windows Event Log service is restarted, or ERROR_EVT_QUERY_RESULT_STALE (15011) is returned. Setting no duration, e.g. &#39;0 ms&#39; disables auto-reconnection.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Inactive duration to reconnect</dd>
+                    <dd>Inactive Duration to Reconnect</dd>
                     <dt>Description</dt>
                     <dd>If no new event logs are processed for the specified time period, this processor will try reconnecting to recover from a state where any further messages cannot be consumed. Such situation can happen if Windows Event Log service is restarted, or ERROR_EVT_QUERY_RESULT_STALE (15011) is returned. Setting no duration, e.g. &#39;0 ms&#39; disables auto-reconnection.</dd>
                     <dt>API Name</dt>
-                    <dd>inactiveDurationToReconnect</dd>
+                    <dd>Inactive Duration to Reconnect</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 mins</dd>
@@ -2589,7 +2649,7 @@ from <a href="https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-no
                     <dt>Description</dt>
                     <dd>The individual Event Log XMLs are rendered to a buffer.  This specifies the maximum size in bytes that the buffer will be allowed to grow to. (Limiting the maximum size of an individual Event XML.)</dd>
                     <dt>API Name</dt>
-                    <dd>maxBuffer</dd>
+                    <dd>Maximum Buffer Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1048576</dd>
@@ -2609,17 +2669,17 @@ from <a href="https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-no
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Maximum queue size</span>
+                <span class="property-required">Maximum Queue Size</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Events are received asynchronously and must be output as FlowFiles when the processor is triggered.  This specifies the maximum number of events to queue for transformation into FlowFiles.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Maximum queue size</dd>
+                    <dd>Maximum Queue Size</dd>
                     <dt>Description</dt>
                     <dd>Events are received asynchronously and must be output as FlowFiles when the processor is triggered.  This specifies the maximum number of events to queue for transformation into FlowFiles.</dd>
                     <dt>API Name</dt>
-                    <dd>maxQueue</dd>
+                    <dd>Maximum Queue Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1024</dd>
@@ -2649,7 +2709,7 @@ from <a href="https://blogs.technet.microsoft.com/janelewis/2010/04/30/giving-no
                     <dt>Description</dt>
                     <dd>XPath Query to filter events. (See https://msdn.microsoft.com/en-us/library/windows/desktop/dd996910(v=vs.85).aspx for examples.)</dd>
                     <dt>API Name</dt>
-                    <dd>query</dd>
+                    <dd>XPath Query</dd>
                     
                     <dt>Default Value</dt>
                     <dd>*</dd>

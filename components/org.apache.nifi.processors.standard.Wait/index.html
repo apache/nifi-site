@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,13 +2455,13 @@
           
 
 
-<h3>Wait 2.6.0</h3>
+<h3>Wait 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Routes incoming FlowFiles to the &#39;wait&#39; relationship until a matching release signal is stored in the distributed cache from a corresponding Notify processor. When a matching release signal is identified, a waiting FlowFile is routed to the &#39;success&#39; relationship. The release signal entry is then removed from the cache. The attributes of the FlowFile that produced the release signal are copied to the waiting FlowFile if the Attribute Cache Regex property of the corresponding Notify processor is set properly. If there are multiple release signals in the cache identified by the Release Signal Identifier, and the Notify processor is configured to copy the FlowFile attributes to the cache, then the FlowFile passing the Wait processor receives the union of the attributes of the FlowFiles that produced the release signals in the cache (identified by Release Signal Identifier). Waiting FlowFiles will be routed to &#39;expired&#39; if they exceed the Expiration Duration. If you need to wait for more than one signal, specify the desired number of signals via the &#39;Target Signal Count&#39; property. This is particularly useful with processors that split a source FlowFile into multiple fragments, such as SplitText. In order to wait for all fragments to be processed, connect the &#39;original&#39; relationship to a Wait processor, and the &#39;splits&#39; relationship to a corresponding Notify processor. Configure the Notify and Wait processors to use the &#39;${fragment.identifier}&#39; as the value of &#39;Release Signal Identifier&#39;, and specify &#39;${fragment.count}&#39; as the value of &#39;Target Signal Count&#39; in the Wait processor.It is recommended to use a prioritizer (for instance First In First Out) when using the &#39;wait&#39; relationship as a loop.</dd>
+    <dd>Routes incoming FlowFiles to the &#39;wait&#39; relationship until a matching release signal is stored in the cache from a corresponding Notify processor. When a matching release signal is identified, a waiting FlowFile is routed to the &#39;success&#39; relationship. The release signal entry is then removed from the cache. The attributes of the FlowFile that produced the release signal are copied to the waiting FlowFile if the Attribute Cache Regex property of the corresponding Notify processor is set properly. If there are multiple release signals in the cache identified by the Release Signal Identifier, and the Notify processor is configured to copy the FlowFile attributes to the cache, then the FlowFile passing the Wait processor receives the union of the attributes of the FlowFiles that produced the release signals in the cache (identified by Release Signal Identifier). Waiting FlowFiles will be routed to &#39;expired&#39; if they exceed the Expiration Duration. If you need to wait for more than one signal, specify the desired number of signals via the &#39;Target Signal Count&#39; property. This is particularly useful with processors that split a source FlowFile into multiple fragments, such as SplitText. In order to wait for all fragments to be processed, connect the &#39;original&#39; relationship to a Wait processor, and the &#39;splits&#39; relationship to a corresponding Notify processor. Configure the Notify and Wait processors to use the &#39;${fragment.identifier}&#39; as the value of &#39;Release Signal Identifier&#39;, and specify &#39;${fragment.count}&#39; as the value of &#39;Target Signal Count&#39; in the Wait processor.It is recommended to use a prioritizer (for instance First In First Out) when using the &#39;wait&#39; relationship as a loop.</dd>
     <dt>Tags</dt>
     <dd>cache, distributed, hold, map, release, signal, wait</dd>
     <dt>Input Requirement</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for Wait 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for Wait 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2825,7 +2885,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>Specifies how to handle attributes copied from FlowFiles entering the Notify processor</dd>
                     <dt>API Name</dt>
-                    <dd>attribute-copy-mode</dd>
+                    <dd>Attribute Copy Mode</dd>
                     
                     <dt>Default Value</dt>
                     <dd>keeporiginal</dd>
@@ -2870,7 +2930,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>The Controller Service that is used to check for release signals from a corresponding Notify processor</dd>
                     <dt>API Name</dt>
-                    <dd>distributed-cache-service</dd>
+                    <dd>Distributed Cache Service</dd>
                     
                     
                     
@@ -2881,6 +2941,14 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3268,7 +3336,22 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">org.apache.nifi.redis.service.RedisDistributedMapCacheClientService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3546,7 +3629,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>Indicates the duration after which waiting FlowFiles will be routed to the &#39;expired&#39; relationship</dd>
                     <dt>API Name</dt>
-                    <dd>expiration-duration</dd>
+                    <dd>Expiration Duration</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 min</dd>
@@ -3576,7 +3659,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>A value, or the results of an Attribute Expression Language statement, which will be evaluated against a FlowFile in order to determine the releasable FlowFile count. This specifies how many FlowFiles can be released when a target count reaches target signal count. Zero (0) has a special meaning, any number of FlowFiles can be released as long as signal count matches target.</dd>
                     <dt>API Name</dt>
-                    <dd>releasable-flowfile-count</dd>
+                    <dd>Releasable FlowFile Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1</dd>
@@ -3606,7 +3689,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>A value that specifies the key to a specific release signal cache. To decide whether the FlowFile that is being processed by the Wait processor should be sent to the &#39;success&#39; or the &#39;wait&#39; relationship, the processor checks the signals in the cache specified by this key.</dd>
                     <dt>API Name</dt>
-                    <dd>release-signal-id</dd>
+                    <dd>Release Signal Identifier</dd>
                     
                     
                     
@@ -3633,7 +3716,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>Within the cache (specified by the Release Signal Identifier) the signals may belong to different counters. If this property is specified, the processor checks the number of signals in the cache that belong to this particular counter. If not specified, the processor checks the total number of signals in the cache.</dd>
                     <dt>API Name</dt>
-                    <dd>signal-counter-name</dd>
+                    <dd>Signal Counter Name</dd>
                     
                     
                     
@@ -3660,7 +3743,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>The number of signals that need to be in the cache (specified by the Release Signal Identifier) in order for the FlowFile processed by the Wait processor to be sent to the ‘success’ relationship. If the number of signals in the cache has reached this number, the FlowFile is routed to the &#39;success&#39; relationship and the number of signals in the cache is decreased by this value. If Signal Counter Name is specified, this processor checks a particular counter, otherwise checks against the total number of signals in the cache.</dd>
                     <dt>API Name</dt>
-                    <dd>target-signal-count</dd>
+                    <dd>Target Signal Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1</dd>
@@ -3690,7 +3773,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>Specify the maximum number of incoming FlowFiles that can be buffered to check whether it can move forward. The more buffer can provide the better performance, as it reduces the number of interactions with cache service by grouping FlowFiles by signal identifier. Only a signal identifier can be processed at a processor execution.</dd>
                     <dt>API Name</dt>
-                    <dd>wait-buffer-count</dd>
+                    <dd>Wait Buffer Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1</dd>
@@ -3720,7 +3803,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>Specifies how to handle a FlowFile waiting for a notify signal</dd>
                     <dt>API Name</dt>
-                    <dd>wait-mode</dd>
+                    <dd>Wait Mode</dd>
                     
                     <dt>Default Value</dt>
                     <dd>wait</dd>
@@ -3765,7 +3848,7 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
                     <dt>Description</dt>
                     <dd>If configured, after a signal identifier got processed but did not meet the release criteria, the signal identifier is penalized and FlowFiles having the signal identifier will not be processed again for the specified period of time, so that the signal identifier will not block others to be processed. This can be useful for use cases where a Wait processor is expected to process multiple signal identifiers, and each signal identifier has multiple FlowFiles, and also the order of releasing FlowFiles is important within a signal identifier. The FlowFile order can be configured with Prioritizers. IMPORTANT: There is a limitation of number of queued signals can be processed, and Wait processor may not be able to check all queued signal ids. See additional details for the best practice.</dd>
                     <dt>API Name</dt>
-                    <dd>wait-penalty-duration</dd>
+                    <dd>Wait Penalty Duration</dd>
                     
                     
                     
@@ -3866,11 +3949,11 @@ B&quot; and &ldquo;C&rdquo; as well.)</p>
 <ul>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService/">org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService</a>
+        <a href="/components/org.apache.nifi.distributed.cache.client.MapCacheClientService/">org.apache.nifi.distributed.cache.client.MapCacheClientService</a>
     </li>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer/">org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer</a>
+        <a href="/components/org.apache.nifi.distributed.cache.server.map.MapCacheServer/">org.apache.nifi.distributed.cache.server.map.MapCacheServer</a>
     </li>
     
     <li>

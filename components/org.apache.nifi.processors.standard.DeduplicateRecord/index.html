@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>DeduplicateRecord 2.6.0</h3>
+<h3>DeduplicateRecord 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>The desired false positive probability when using the BloomFilter type. Using a value of .05 for example, guarantees a five-percent probability that the result is a false positive. The closer to 1 this value is set, the more precise the result at the expense of more storage space utilization.</dd>
                     <dt>API Name</dt>
-                    <dd>bloom-filter-certainty</dd>
+                    <dd>Bloom Filter Certainty</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0.10</dd>
@@ -2477,6 +2537,68 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Cache Entry Identifier</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">For each record, check whether the cache identifier exists in the distributed map cache. If it doesn&#39;t exist and this property is true, put the identifier to the cache.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Cache Entry Identifier</dd>
+                    <dt>Description</dt>
+                    <dd>For each record, check whether the cache identifier exists in the distributed map cache. If it doesn&#39;t exist and this property is true, put the identifier to the cache.</dd>
+                    <dt>API Name</dt>
+                    <dd>Cache Entry Identifier</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Distributed Map Cache Client</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Cache Identifier</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">An optional expression language field that overrides the record&#39;s computed cache key. This field has an additional attribute available: ${record.hash.value}, which contains the cache key derived from dynamic properties (if set) or record fields.</div>
             </a>
@@ -2487,7 +2609,7 @@
                     <dt>Description</dt>
                     <dd>An optional expression language field that overrides the record&#39;s computed cache key. This field has an additional attribute available: ${record.hash.value}, which contains the cache key derived from dynamic properties (if set) or record fields.</dd>
                     <dt>API Name</dt>
-                    <dd>cache-identifier</dd>
+                    <dd>Cache Identifier</dd>
                     
                     
                     
@@ -2533,7 +2655,7 @@
                     <dt>Description</dt>
                     <dd>The strategy to use for detecting and routing duplicate records. The option for detecting duplicates across a single FlowFile operates in-memory, whereas detection spanning multiple FlowFiles utilises a distributed map cache.</dd>
                     <dt>API Name</dt>
-                    <dd>deduplication-strategy</dd>
+                    <dd>Deduplication Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>single</dd>
@@ -2568,17 +2690,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Distributed Map Cache client</span>
+                <span class="">Distributed Map Cache Client</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">This property is required when the deduplication strategy is set to &#39;multiple files.&#39; The map cache will for each record, atomically check whether the cache key exists and if not, set it.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Distributed Map Cache client</dd>
+                    <dd>Distributed Map Cache Client</dd>
                     <dt>Description</dt>
                     <dd>This property is required when the deduplication strategy is set to &#39;multiple files.&#39; The map cache will for each record, atomically check whether the cache key exists and if not, set it.</dd>
                     <dt>API Name</dt>
-                    <dd>distributed-map-cache</dd>
+                    <dd>Distributed Map Cache Client</dd>
                     
                     
                     
@@ -2589,6 +2711,14 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -2978,7 +3108,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">org.apache.nifi.redis.service.RedisDistributedMapCacheClientService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3275,7 +3420,7 @@
                     <dt>Description</dt>
                     <dd>An estimation of the total number of unique records to be processed. The more accurate this number is will lead to fewer false negatives on a BloomFilter.</dd>
                     <dt>API Name</dt>
-                    <dd>filter-capacity-hint</dd>
+                    <dd>Filter Capacity Hint</dd>
                     
                     <dt>Default Value</dt>
                     <dd>25000</dd>
@@ -3324,7 +3469,7 @@
                     <dt>Description</dt>
                     <dd>The filter used to determine whether a record has been seen before based on the matching RecordPath criteria. If hash set is selected, a Java HashSet object will be used to deduplicate all encountered records. If the bloom filter option is selected, a bloom filter will be used. The bloom filter option is less memory intensive, but has a chance of having false positives.</dd>
                     <dt>API Name</dt>
-                    <dd>filter-type</dd>
+                    <dd>Filter Type</dd>
                     
                     <dt>Default Value</dt>
                     <dd>hash-set</dd>
@@ -3388,7 +3533,7 @@
                     <dt>Description</dt>
                     <dd>If a FlowFile sent to either the duplicate or non-duplicate relationships contains no records, a value of `false` in this property causes the FlowFile to be dropped. Otherwise, the empty FlowFile is emitted.</dd>
                     <dt>API Name</dt>
-                    <dd>include-zero-record-flowfiles</dd>
+                    <dd>Include Zero Record FlowFiles</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>
@@ -3416,68 +3561,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Cache the Entry Identifier</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">For each record, check whether the cache identifier exists in the distributed map cache. If it doesn&#39;t exist and this property is true, put the identifier to the cache.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Cache the Entry Identifier</dd>
-                    <dt>Description</dt>
-                    <dd>For each record, check whether the cache identifier exists in the distributed map cache. If it doesn&#39;t exist and this property is true, put the identifier to the cache.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-cache-identifier</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Distributed Map Cache client</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  value specified
-                                
-                                </span>
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
                     
                 </dl>
             </div>
@@ -3495,7 +3578,7 @@
                     <dt>Description</dt>
                     <dd>The algorithm used to hash the cache key.</dd>
                     <dt>API Name</dt>
-                    <dd>record-hashing-algorithm</dd>
+                    <dd>Record Hashing Algorithm</dd>
                     
                     <dt>Default Value</dt>
                     <dd>SHA-256</dd>
@@ -3544,7 +3627,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for reading incoming data</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -3589,7 +3672,15 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3927,6 +4018,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -3935,6 +4031,16 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4246,7 +4352,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for writing out the records</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -4296,7 +4402,15 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4633,7 +4747,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5077,11 +5206,11 @@
 <ul>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService/">org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService</a>
+        <a href="/components/org.apache.nifi.distributed.cache.client.MapCacheClientService/">org.apache.nifi.distributed.cache.client.MapCacheClientService</a>
     </li>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer/">org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer</a>
+        <a href="/components/org.apache.nifi.distributed.cache.server.map.MapCacheServer/">org.apache.nifi.distributed.cache.server.map.MapCacheServer</a>
     </li>
     
     <li>

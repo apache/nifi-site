@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>HikariCPConnectionPool 2.6.0</h3>
+<h3>HikariCPConnectionPool 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>A database connection URL used to connect to a database. May contain database system name, host, port, database name and some parameters. The exact syntax of a database connection URL is specified by your DBMS.</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-connection-url</dd>
+                    <dd>Database Connection URL</dd>
                     
                     
                     
@@ -2484,7 +2544,7 @@
                     <dt>Description</dt>
                     <dd>The fully-qualified class name of the JDBC driver. Example: com.mysql.jdbc.Driver</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-driver-classname</dd>
+                    <dd>Database Driver Class Name</dd>
                     
                     
                     
@@ -2501,17 +2561,44 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Database Driver Location(s)</span>
+                <span class="">Database Driver Locations</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Comma-separated list of files/folders and/or URLs containing the driver JAR and its dependencies (if any). For example &#39;/var/tmp/mariadb-java-client-1.1.7.jar&#39;</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Database Driver Location(s)</dd>
+                    <dd>Database Driver Locations</dd>
                     <dt>Description</dt>
                     <dd>Comma-separated list of files/folders and/or URLs containing the driver JAR and its dependencies (if any). For example &#39;/var/tmp/mariadb-java-client-1.1.7.jar&#39;</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-driver-locations</dd>
+                    <dd>Database Driver Locations</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Database User</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Database user name</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Database User</dd>
+                    <dt>Description</dt>
+                    <dd>Database user name</dd>
+                    <dt>API Name</dt>
+                    <dd>Database User</dd>
                     
                     
                     
@@ -2538,7 +2625,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Kerberos User Controller Service that should be used for authenticating with Kerberos</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-kerberos-user-service</dd>
+                    <dd>Kerberos User Service</dd>
                     
                     
                     
@@ -2549,6 +2636,14 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3188,6 +3283,21 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3214,7 +3324,7 @@
                     <dt>Description</dt>
                     <dd>The maximum lifetime of a connection. After this time is exceeded the connection will fail the next activation, passivation or validation test. A value of zero or less means the connection has an infinite lifetime.</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-max-conn-lifetime</dd>
+                    <dd>Max Connection Lifetime</dd>
                     
                     <dt>Default Value</dt>
                     <dd>-1</dd>
@@ -3244,7 +3354,7 @@
                     <dt>Description</dt>
                     <dd>This property controls the maximum size that the pool is allowed to reach, including both idle and in-use connections. Basically this value will determine the maximum number of actual connections to the database backend. A reasonable value for this is best determined by your execution environment. When the pool reaches this size, and no idle connections are available, the service will block for up to connectionTimeout milliseconds before timing out.</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-max-total-conns</dd>
+                    <dd>Max Total Connections</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10</dd>
@@ -3274,7 +3384,7 @@
                     <dt>Description</dt>
                     <dd>The maximum amount of time that the pool will wait (when there are no available connections)  for a connection to be returned before failing, or 0 &lt;time units&gt; to wait indefinitely. </dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-max-wait-time</dd>
+                    <dd>Max Wait Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>500 millis</dd>
@@ -3304,7 +3414,7 @@
                     <dt>Description</dt>
                     <dd>This property controls the minimum number of idle connections that HikariCP tries to maintain in the pool. If the idle connections dip below this value and total connections in the pool are less than &#39;Max Total Connections&#39;, HikariCP will make a best effort to add additional connections quickly and efficiently. It is recommended that this property to be set equal to &#39;Max Total Connections&#39;.</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-min-idle-conns</dd>
+                    <dd>Minimum Idle Connections</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10</dd>
@@ -3334,7 +3444,7 @@
                     <dt>Description</dt>
                     <dd>The password for the database user</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-password</dd>
+                    <dd>Password</dd>
                     
                     
                     
@@ -3342,33 +3452,6 @@
                     <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
                     <dd>true</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Database User</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Database user name</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Database User</dd>
-                    <dt>Description</dt>
-                    <dd>Database user name</dd>
-                    <dt>API Name</dt>
-                    <dd>hikaricp-username</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
@@ -3388,7 +3471,7 @@
                     <dt>Description</dt>
                     <dd>Validation Query used to validate connections before returning them. When connection is invalid, it gets dropped and new valid connection will be returned. NOTE: Using validation might have some performance penalty.</dd>
                     <dt>API Name</dt>
-                    <dd>hikaricp-validation-query</dd>
+                    <dd>Validation Query</dd>
                     
                     
                     

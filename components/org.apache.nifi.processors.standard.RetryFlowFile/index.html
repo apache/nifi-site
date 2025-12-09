@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>RetryFlowFile 2.6.0</h3>
+<h3>RetryFlowFile 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2447,17 +2507,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Fail on Non-numerical Overwrite</span>
+                <span class="property-required">Fail on Nonnumerical Overwrite</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the FlowFile already has the attribute defined in &#39;Retry Attribute&#39; that is *not* a number, fail the FlowFile instead of resetting that value to &#39;1&#39;</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Fail on Non-numerical Overwrite</dd>
+                    <dd>Fail on Nonnumerical Overwrite</dd>
                     <dt>Description</dt>
                     <dd>If the FlowFile already has the attribute defined in &#39;Retry Attribute&#39; that is *not* a number, fail the FlowFile instead of resetting that value to &#39;1&#39;</dd>
                     <dt>API Name</dt>
-                    <dd>Fail on Non-numerical Overwrite</dd>
+                    <dd>Fail on Nonnumerical Overwrite</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2502,7 +2562,7 @@
                     <dt>Description</dt>
                     <dd>The maximum number of times a FlowFile can be retried before being passed to the &#39;retries_exceeded&#39; relationship</dd>
                     <dt>API Name</dt>
-                    <dd>maximum-retries</dd>
+                    <dd>Maximum Retries</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3</dd>
@@ -2532,7 +2592,7 @@
                     <dt>Description</dt>
                     <dd>If set to &#39;true&#39;, this Processor will penalize input FlowFiles before passing them to the &#39;retry&#39; relationship. This does not apply to the &#39;retries_exceeded&#39; relationship.</dd>
                     <dt>API Name</dt>
-                    <dd>penalize-retries</dd>
+                    <dd>Penalize Retries</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>
@@ -2577,7 +2637,7 @@
                     <dt>Description</dt>
                     <dd>The name of the attribute that contains the current retry count for the FlowFile. WARNING: If the name matches an attribute already on the FlowFile that does not contain a numerical value, the processor will either overwrite that attribute with &#39;1&#39; or fail based on configuration.</dd>
                     <dt>API Name</dt>
-                    <dd>retry-attribute</dd>
+                    <dd>Retry Attribute</dd>
                     
                     <dt>Default Value</dt>
                     <dd>flowfile.retries</dd>
@@ -2607,7 +2667,7 @@
                     <dt>Description</dt>
                     <dd>Defines how the Processor behaves if the retry FlowFile has a different retry UUID than the instance that received the FlowFile. This generally means that the attribute was not reset after being successfully retried by a previous instance of this processor.</dd>
                     <dt>API Name</dt>
-                    <dd>reuse-mode</dd>
+                    <dd>Reuse Mode</dd>
                     
                     <dt>Default Value</dt>
                     <dd>fail</dd>

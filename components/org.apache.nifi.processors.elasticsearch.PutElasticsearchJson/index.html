@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutElasticsearchJson 2.6.0</h3>
+<h3>PutElasticsearchJson 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2600,6 +2660,66 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Batch Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The preferred number of FlowFiles to send over in a single batch</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Batch Size</dd>
+                    <dt>Description</dt>
+                    <dd>The preferred number of FlowFiles to send over in a single batch</dd>
+                    <dt>API Name</dt>
+                    <dd>Batch Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>100</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Character Set</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the character set of the document data.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Character Set</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies the character set of the document data.</dd>
+                    <dt>API Name</dt>
+                    <dd>Character Set</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>UTF-8</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Client Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">An Elasticsearch client service to use for running queries.</div>
             </a>
@@ -2610,7 +2730,7 @@ invalid combinations of index operation and Bulk action fields.</p>
                     <dt>Description</dt>
                     <dd>An Elasticsearch client service to use for running queries.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-client-service</dd>
+                    <dd>Client Service</dd>
                     
                     
                     
@@ -2621,6 +2741,14 @@ invalid combinations of index operation and Bulk action fields.</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3256,6 +3384,21 @@ invalid combinations of index operation and Bulk action fields.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3265,6 +3408,60 @@ invalid combinations of index operation and Bulk action fields.</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Dynamic Templates</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The dynamic_templates for the document. Must be parsable as a JSON Object. Requires Elasticsearch 7&#43;</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Dynamic Templates</dd>
+                    <dt>Description</dt>
+                    <dd>The dynamic_templates for the document. Must be parsable as a JSON Object. Requires Elasticsearch 7&#43;</dd>
+                    <dt>API Name</dt>
+                    <dd>Dynamic Templates</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Identifier Attribute</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the FlowFile attribute containing the identifier for the document. If the Index Operation is &#34;index&#34;, this property may be left empty or evaluate to an empty value, in which case the document&#39;s identifier will be auto-generated by Elasticsearch. For all other Index Operations, the attribute must evaluate to a non-empty value.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Identifier Attribute</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the FlowFile attribute containing the identifier for the document. If the Index Operation is &#34;index&#34;, this property may be left empty or evaluate to an empty value, in which case the document&#39;s identifier will be auto-generated by Elasticsearch. For all other Index Operations, the attribute must evaluate to a non-empty value.</dd>
+                    <dt>API Name</dt>
+                    <dd>Identifier Attribute</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -3282,7 +3479,7 @@ invalid combinations of index operation and Bulk action fields.</p>
                     <dt>Description</dt>
                     <dd>The name of the index to use.</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-fetch-index</dd>
+                    <dd>Index</dd>
                     
                     
                     
@@ -3299,22 +3496,70 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Type</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of this document (used by Elasticsearch for indexing and searching).</div>
+                <span class="property-required">Index Operation</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of the operation used to index (create, delete, index, update, upsert)</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Type</dd>
+                    <dd>Index Operation</dd>
                     <dt>Description</dt>
-                    <dd>The type of this document (used by Elasticsearch for indexing and searching).</dd>
+                    <dd>The type of the operation used to index (create, delete, index, update, upsert)</dd>
                     <dt>API Name</dt>
-                    <dd>el-rest-type</dd>
+                    <dd>Index Operation</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>index</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Log Error Responses</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, errors will be logged to the NiFi logs at the error log level. Otherwise, they will only be logged if debug logging is enabled on NiFi as a whole. The purpose of this option is to give the user the ability to debug failed operations without having to turn on debug logging.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Log Error Responses</dd>
+                    <dt>Description</dt>
+                    <dd>If this is enabled, errors will be logged to the NiFi logs at the error log level. Otherwise, they will only be logged if debug logging is enabled on NiFi as a whole. The purpose of this option is to give the user the ability to debug failed operations without having to turn on debug logging.</dd>
+                    <dt>API Name</dt>
+                    <dd>Log Error Responses</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -3356,75 +3601,36 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Character Set</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the character set of the document data.</div>
+                <span class="">Output Error Responses</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of flowfiles to the &#34;successful&#34; or &#34;errors&#34; relationships</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Character Set</dd>
+                    <dd>Output Error Responses</dd>
                     <dt>Description</dt>
-                    <dd>Specifies the character set of the document data.</dd>
+                    <dd>If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of flowfiles to the &#34;successful&#34; or &#34;errors&#34; relationships</dd>
                     <dt>API Name</dt>
-                    <dd>put-es-json-charset</dd>
+                    <dd>Output Error Responses</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>UTF-8</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Dynamic Templates</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The dynamic_templates for the document. Must be parsable as a JSON Object. Requires Elasticsearch 7&#43;</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Dynamic Templates</dd>
-                    <dt>Description</dt>
-                    <dd>The dynamic_templates for the document. Must be parsable as a JSON Object. Requires Elasticsearch 7&#43;</dd>
-                    <dt>API Name</dt>
-                    <dd>put-es-json-dynamic_templates</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
                     <dd>false</dd>
                     
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Identifier Attribute</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the FlowFile attribute containing the identifier for the document. If the Index Operation is &#34;index&#34;, this property may be left empty or evaluate to an empty value, in which case the document&#39;s identifier will be auto-generated by Elasticsearch. For all other Index Operations, the attribute must evaluate to a non-empty value.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Identifier Attribute</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the FlowFile attribute containing the identifier for the document. If the Index Operation is &#34;index&#34;, this property may be left empty or evaluate to an empty value, in which case the document&#39;s identifier will be auto-generated by Elasticsearch. For all other Index Operations, the attribute must evaluate to a non-empty value.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-es-json-id-attr</dd>
                     
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
@@ -3450,7 +3656,7 @@ invalid combinations of index operation and Bulk action fields.</p>
                     <dt>Description</dt>
                     <dd>The script for the document update/upsert. Only applies to Update/Upsert operations. Must be parsable as JSON Object. If left blank, the FlowFile content will be used for document update/upsert</dd>
                     <dt>API Name</dt>
-                    <dd>put-es-json-script</dd>
+                    <dd>Script</dd>
                     
                     
                     
@@ -3468,16 +3674,16 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Scripted Upsert</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to add the scripted_upsert flag to the Upsert Operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the Upsert Document provided (from FlowFile content) will be empty, but sure to set the Client Service controller service&#39;s Suppress Null/Empty Values to Never Suppress or no &#34;upsert&#34; doc will be, included in the request to Elasticsearch and the operation will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to add the scripted_upsert flag to the Upsert Operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the Upsert Document provided (from FlowFile content) will be empty, but sure to set the Client Service controller service&#39;s Suppress Null and Empty Values to Never Suppress or no &#34;upsert&#34; doc will be, included in the request to Elasticsearch and the operation will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Scripted Upsert</dd>
                     <dt>Description</dt>
-                    <dd>Whether to add the scripted_upsert flag to the Upsert Operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the Upsert Document provided (from FlowFile content) will be empty, but sure to set the Client Service controller service&#39;s Suppress Null/Empty Values to Never Suppress or no &#34;upsert&#34; doc will be, included in the request to Elasticsearch and the operation will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error</dd>
+                    <dd>Whether to add the scripted_upsert flag to the Upsert Operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the Upsert Document provided (from FlowFile content) will be empty, but sure to set the Client Service controller service&#39;s Suppress Null and Empty Values to Never Suppress or no &#34;upsert&#34; doc will be, included in the request to Elasticsearch and the operation will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error</dd>
                     <dt>API Name</dt>
-                    <dd>put-es-json-scripted-upsert</dd>
+                    <dd>Scripted Upsert</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -3497,17 +3703,17 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Treat &#34;Not Found&#34; as Success</span>
+                <span class="">Treat Not Found as Success</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, &#34;not_found&#34; Elasticsearch Document associated Records will be routed to the &#34;successful&#34; relationship, otherwise to the &#34;errors&#34; relationship. If Output Error Responses is &#34;true&#34; then &#34;not_found&#34; responses from Elasticsearch will be sent to the error_responses relationship.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Treat &#34;Not Found&#34; as Success</dd>
+                    <dd>Treat Not Found as Success</dd>
                     <dt>Description</dt>
                     <dd>If true, &#34;not_found&#34; Elasticsearch Document associated Records will be routed to the &#34;successful&#34; relationship, otherwise to the &#34;errors&#34; relationship. If Output Error Responses is &#34;true&#34; then &#34;not_found&#34; responses from Elasticsearch will be sent to the error_responses relationship.</dd>
                     <dt>API Name</dt>
-                    <dd>put-es-not_found-is-error</dd>
+                    <dd>Treat Not Found as Success</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>
@@ -3542,145 +3748,22 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Output Error Responses</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of flowfiles to the &#34;successful&#34; or &#34;errors&#34; relationships</div>
+                <span class="">Type</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of this document (used by Elasticsearch for indexing and searching).</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Output Error Responses</dd>
+                    <dd>Type</dd>
                     <dt>Description</dt>
-                    <dd>If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of flowfiles to the &#34;successful&#34; or &#34;errors&#34; relationships</dd>
+                    <dd>The type of this document (used by Elasticsearch for indexing and searching).</dd>
                     <dt>API Name</dt>
-                    <dd>put-es-output-error-responses</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Batch Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The preferred number of FlowFiles to send over in a single batch</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Batch Size</dd>
-                    <dt>Description</dt>
-                    <dd>The preferred number of FlowFiles to send over in a single batch</dd>
-                    <dt>API Name</dt>
-                    <dd>put-es-record-batch-size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>100</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Index Operation</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of the operation used to index (create, delete, index, update, upsert)</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Index Operation</dd>
-                    <dt>Description</dt>
-                    <dd>The type of the operation used to index (create, delete, index, update, upsert)</dd>
-                    <dt>API Name</dt>
-                    <dd>put-es-record-index-op</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>index</dd>
+                    <dd>Type</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Log Error Responses</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, errors will be logged to the NiFi logs at the error log level. Otherwise, they will only be logged if debug logging is enabled on NiFi as a whole. The purpose of this option is to give the user the ability to debug failed operations without having to turn on debug logging.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Log Error Responses</dd>
-                    <dt>Description</dt>
-                    <dd>If this is enabled, errors will be logged to the NiFi logs at the error log level. Otherwise, they will only be logged if debug logging is enabled on NiFi as a whole. The purpose of this option is to give the user the ability to debug failed operations without having to turn on debug logging.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-es-record-log-error-responses</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>

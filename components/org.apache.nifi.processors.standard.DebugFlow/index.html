@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
-  <meta name="keywords" content="FlowFile,debug,flow,processor,test,utility">
+  <meta name="keywords" content="FlowFile,debug,flow,processor,state,test,utility">
   <title>DebugFlow - Apache NiFi</title>
   <meta property="og:title" content="DebugFlow">
   <meta property="og:type" content="article">
@@ -669,6 +669,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.kafka.processors.ConsumeKafka/">ConsumeKafka</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
                 </li>
                 
                 <li >
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,15 +2455,15 @@
           
 
 
-<h3>DebugFlow 2.6.0</h3>
+<h3>DebugFlow 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>The DebugFlow processor aids testing and debugging the FlowFile framework by allowing various responses to be explicitly triggered in response to the receipt of a FlowFile or a timer event without a FlowFile if using timer or cron based scheduling.  It can force responses needed to exercise or test various failure modes that can occur when a processor runs.</dd>
+    <dd>The DebugFlow processor aids testing and debugging the FlowFile framework by allowing various responses to be explicitly triggered in response to the receipt of a FlowFile or a timer event without a FlowFile if using timer or cron based scheduling.  It can force responses needed to exercise or test various failure modes that can occur when a processor runs. It can also generate large numbers of component state entries for testing state management limits.</dd>
     <dt>Tags</dt>
-    <dd>FlowFile, debug, flow, processor, test, utility</dd>
+    <dd>FlowFile, debug, flow, processor, state, test, utility</dd>
     <dt>Input Requirement</dt>
     <dd>
         
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for DebugFlow 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for DebugFlow 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2641,17 +2701,17 @@ of times for each pass through its response list, as long as the processor is ru
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Fail When @OnScheduled called</span>
+                <span class="property-required">Fail When @OnScheduled Called</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether or not the Processor should throw an Exception when the methods annotated with @OnScheduled are called</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Fail When @OnScheduled called</dd>
+                    <dd>Fail When @OnScheduled Called</dd>
                     <dt>Description</dt>
                     <dd>Specifies whether or not the Processor should throw an Exception when the methods annotated with @OnScheduled are called</dd>
                     <dt>API Name</dt>
-                    <dd>Fail When @OnScheduled called</dd>
+                    <dd>Fail When @OnScheduled Called</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2686,17 +2746,17 @@ of times for each pass through its response list, as long as the processor is ru
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Fail When @OnStopped called</span>
+                <span class="property-required">Fail When @OnStopped Called</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether or not the Processor should throw an Exception when the methods annotated with @OnStopped are called</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Fail When @OnStopped called</dd>
+                    <dd>Fail When @OnStopped Called</dd>
                     <dt>Description</dt>
                     <dd>Specifies whether or not the Processor should throw an Exception when the methods annotated with @OnStopped are called</dd>
                     <dt>API Name</dt>
-                    <dd>Fail When @OnStopped called</dd>
+                    <dd>Fail When @OnStopped Called</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2731,17 +2791,17 @@ of times for each pass through its response list, as long as the processor is ru
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Fail When @OnUnscheduled called</span>
+                <span class="property-required">Fail When @OnUnscheduled Called</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether or not the Processor should throw an Exception when the methods annotated with @OnUnscheduled are called</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Fail When @OnUnscheduled called</dd>
+                    <dd>Fail When @OnUnscheduled Called</dd>
                     <dt>Description</dt>
                     <dd>Specifies whether or not the Processor should throw an Exception when the methods annotated with @OnUnscheduled are called</dd>
                     <dt>API Name</dt>
-                    <dd>Fail When @OnUnscheduled called</dd>
+                    <dd>Fail When @OnUnscheduled Called</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2986,6 +3046,36 @@ of times for each pass through its response list, as long as the processor is ru
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Generate State Entries</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If set to a positive integer, the processor will ensure that exactly this many state entries exist on each trigger, updating their values with random data. This is useful for testing component state limits. Set to 0 to disable state generation.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Generate State Entries</dd>
+                    <dt>Description</dt>
+                    <dd>If set to a positive integer, the processor will ensure that exactly this many state entries exist on each trigger, updating their values with random data. This is useful for testing component state limits. Set to 0 to disable state generation.</dd>
+                    <dt>API Name</dt>
+                    <dd>Generate State Entries</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>0</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Ignore Interrupts When Paused</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the Processor&#39;s thread(s) are sleeping (due to one of the &#34;Pause Time&#34; properties above), and the thread is interrupted, this indicates whether the Processor should ignore the interrupt and continue sleeping or if it should allow itself to be interrupted.</div>
             </a>
@@ -3181,6 +3271,51 @@ of times for each pass through its response list, as long as the processor is ru
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">State Scope</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The scope to use when storing component state entries</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>State Scope</dd>
+                    <dt>Description</dt>
+                    <dd>The scope to use when storing component state entries</dd>
+                    <dt>API Name</dt>
+                    <dd>State Scope</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>LOCAL</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                LOCAL
+                                </li>
+                            
+                            <li>
+                                CLUSTER
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Write Iterations</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Number of times to write to the FlowFile</div>
             </a>
@@ -3214,6 +3349,24 @@ of times for each pass through its response list, as long as the processor is ru
 
 
 
+
+<div class="component-section-header uk-margin">State Management</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Scopes</th>
+            <th class="uk-width-3-4">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>LOCAL, CLUSTER</td>
+            <td class="uk-text-lighter">When &#39;Generate State Entries&#39; is set to a positive integer, the processor will generate that many state entries with random values. This is useful for testing component state storage and display limits. State entries are stored with keys like &#39;debug_state_key_00000&#39; with randomly generated values.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 

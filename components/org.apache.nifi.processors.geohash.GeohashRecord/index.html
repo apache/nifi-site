@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>GeohashRecord 2.6.0</h3>
+<h3>GeohashRecord 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for GeohashRecord 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for GeohashRecord 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2501,7 +2561,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>In the ENCODE mode, this property specifies the desired format for encoding geohash; in the DECODE mode, this property specifies the format of geohash provided</dd>
                     <dt>API Name</dt>
-                    <dd>geohash-format</dd>
+                    <dd>Geohash Format</dd>
                     
                     <dt>Default Value</dt>
                     <dd>BASE32</dd>
@@ -2550,7 +2610,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>The integer precision level(1-12) desired for encoding geohash</dd>
                     <dt>API Name</dt>
-                    <dd>geohash-level</dd>
+                    <dd>Geohash Level</dd>
                     
                     
                     
@@ -2596,7 +2656,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>In the ENCODE mode, this property specifies the record path to put the geohash value; in the DECODE mode, this property specifies the record path to retrieve the geohash value</dd>
                     <dt>API Name</dt>
-                    <dd>geohash-record-path</dd>
+                    <dd>Geohash Record Path</dd>
                     
                     
                     
@@ -2623,7 +2683,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>In the ENCODE mode, this property specifies the record path to retrieve the latitude values. Latitude values should be in the range of [-90, 90]; invalid values will be logged at warn level. In the DECODE mode, this property specifies the record path to put the latitude value</dd>
                     <dt>API Name</dt>
-                    <dd>latitude-record-path</dd>
+                    <dd>Latitude Record Path</dd>
                     
                     
                     
@@ -2650,7 +2710,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>In the ENCODE mode, this property specifies the record path to retrieve the longitude values; Longitude values should be in the range of [-180, 180]; invalid values will be logged at warn level. In the DECODE mode, this property specifies the record path to put the longitude value</dd>
                     <dt>API Name</dt>
-                    <dd>longitude-record-path</dd>
+                    <dd>Longitude Record Path</dd>
                     
                     
                     
@@ -2677,7 +2737,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>Specifies whether to encode latitude/longitude to geohash or decode geohash to latitude/longitude</dd>
                     <dt>API Name</dt>
-                    <dd>mode</dd>
+                    <dd>Mode</dd>
                     
                     <dt>Default Value</dt>
                     <dd>ENCODE</dd>
@@ -2722,7 +2782,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>Specifies the record reader service to use for reading incoming data</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -2767,7 +2827,15 @@ Geohash values given.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3105,6 +3173,11 @@ Geohash values given.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -3113,6 +3186,16 @@ Geohash values given.</p>
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3424,7 +3507,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>Specifies the record writer service to use for writing data</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -3474,7 +3557,15 @@ Geohash values given.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3811,7 +3902,22 @@ Geohash values given.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4108,7 +4214,7 @@ Geohash values given.</p>
                     <dt>Description</dt>
                     <dd>Specifies how to route flowfiles after encoding or decoding being performed. SKIP will enrich those records that can be enriched and skip the rest. The SKIP strategy will route a flowfile to failure only if unable to parse the data. Otherwise, it will route the enriched flowfile to success, and the original input to original. SPLIT will separate the records that have been enriched from those that have not and send them to matched, while unenriched records will be sent to unmatched; the original input flowfile will be sent to original. The SPLIT strategy will route a flowfile to failure only if unable to parse the data. REQUIRE will route a flowfile to success only if all of its records are enriched, and the original input will be sent to original. The REQUIRE strategy will route the original input flowfile to failure if any of its records cannot be enriched or unable to be parsed</dd>
                     <dt>API Name</dt>
-                    <dd>routing-strategy</dd>
+                    <dd>Routing Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>SKIP</dd>

@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>LookupRecord 2.6.0</h3>
+<h3>LookupRecord 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for LookupRecord 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for LookupRecord 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2589,6 +2649,36 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Cache Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how many lookup values/records should be cached.Setting this property to zero means no caching will be done and the table will be queried for each lookup value in each record. If the lookup table changes often or the most recent data must be retrieved, do not use the cache.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Cache Size</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies how many lookup values/records should be cached.Setting this property to zero means no caching will be done and the table will be queried for each lookup value in each record. If the lookup table changes often or the most recent data must be retrieved, do not use the cache.</dd>
+                    <dt>API Name</dt>
+                    <dd>Cache Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>0</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Lookup Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Lookup Service to use in order to lookup a value in each Record</div>
             </a>
@@ -2599,7 +2689,7 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                     <dt>Description</dt>
                     <dd>The Lookup Service to use in order to lookup a value in each Record</dd>
                     <dt>API Name</dt>
-                    <dd>lookup-service</dd>
+                    <dd>Lookup Service</dd>
                     
                     
                     
@@ -2610,6 +2700,16 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -2786,9 +2886,9 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
-                        
-                        
                         <div><a href="/components/org.apache.nifi.elasticsearch.ElasticSearchLookupService/">org.apache.nifi.elasticsearch.ElasticSearchLookupService</a></div>
+                        
+                        
                         
                         
                         
@@ -2961,8 +3061,6 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
-                        
-                        
                         <div><a href="/components/org.apache.nifi.mongodb.MongoDBLookupService/">org.apache.nifi.mongodb.MongoDBLookupService</a></div>
                         
                         
@@ -2975,7 +3073,19 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">org.apache.nifi.lookup.PropertiesFileLookupService</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3030,7 +3140,12 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.script.ScriptedLookupService/">org.apache.nifi.lookup.script.ScriptedLookupService</a></div>
+                        
+                        
                         
                         
                         
@@ -3271,43 +3386,11 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
-                        
-                        
                     </dd>
 
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Cache Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how many lookup values/records should be cached.Setting this property to zero means no caching will be done and the table will be queried for each lookup value in each record. If the lookup table changes often or the most recent data must be retrieved, do not use the cache.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Cache Size</dd>
-                    <dt>Description</dt>
-                    <dd>Specifies how many lookup values/records should be cached.Setting this property to zero means no caching will be done and the table will be queried for each lookup value in each record. If the lookup table changes often or the most recent data must be retrieved, do not use the cache.</dd>
-                    <dt>API Name</dt>
-                    <dd>record-path-lookup-miss-result-cache-size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>0</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -3329,7 +3412,7 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for reading incoming data</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -3374,7 +3457,15 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3712,6 +3803,11 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -3720,6 +3816,16 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4021,6 +4127,51 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Record Result Contents</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">When a result is obtained that contains a Record, this property determines whether the Record itself is inserted at the configured path or if the contents of the Record (i.e., the sub-fields) will be inserted at the configured path.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Record Result Contents</dd>
+                    <dt>Description</dt>
+                    <dd>When a result is obtained that contains a Record, this property determines whether the Record itself is inserted at the configured path or if the contents of the Record (i.e., the sub-fields) will be inserted at the configured path.</dd>
+                    <dt>API Name</dt>
+                    <dd>Record Result Contents</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>insert-entire-record</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Insert Entire Record
+                                <span uk-icon="info" uk-tooltip="The entire Record that is retrieved from the Lookup Service will be inserted into the destination path."></span></li>
+                            
+                            <li>
+                                Insert Record Fields
+                                <span uk-icon="info" uk-tooltip="All of the fields in the Record that is retrieved from the Lookup Service will be inserted into the destination path."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Record Update Strategy</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">This property defines the strategy to use when updating the record with the value returned by the Lookup Service.</div>
             </a>
@@ -4031,7 +4182,7 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                     <dt>Description</dt>
                     <dd>This property defines the strategy to use when updating the record with the value returned by the Lookup Service.</dd>
                     <dt>API Name</dt>
-                    <dd>record-update-strategy</dd>
+                    <dd>Record Update Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>use-property</dd>
@@ -4076,7 +4227,7 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for writing out the records</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -4126,7 +4277,15 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4463,7 +4622,22 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4750,51 +4924,6 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Record Result Contents</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">When a result is obtained that contains a Record, this property determines whether the Record itself is inserted at the configured path or if the contents of the Record (i.e., the sub-fields) will be inserted at the configured path.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Record Result Contents</dd>
-                    <dt>Description</dt>
-                    <dd>When a result is obtained that contains a Record, this property determines whether the Record itself is inserted at the configured path or if the contents of the Record (i.e., the sub-fields) will be inserted at the configured path.</dd>
-                    <dt>API Name</dt>
-                    <dd>result-contents</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>insert-entire-record</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Insert Entire Record
-                                <span uk-icon="info" uk-tooltip="The entire Record that is retrieved from the Lookup Service will be inserted into the destination path."></span></li>
-                            
-                            <li>
-                                Insert Record Fields
-                                <span uk-icon="info" uk-tooltip="All of the fields in the Record that is retrieved from the Lookup Service will be inserted into the destination path."></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="">Result RecordPath</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A RecordPath that points to the field whose value should be updated with whatever value is returned from the Lookup Service. If not specified, the value that is returned from the Lookup Service will be ignored, except for determining whether the FlowFile should be routed to the &#39;matched&#39; or &#39;unmatched&#39; Relationship.</div>
             </a>
@@ -4805,7 +4934,7 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                     <dt>Description</dt>
                     <dd>A RecordPath that points to the field whose value should be updated with whatever value is returned from the Lookup Service. If not specified, the value that is returned from the Lookup Service will be ignored, except for determining whether the FlowFile should be routed to the &#39;matched&#39; or &#39;unmatched&#39; Relationship.</dd>
                     <dt>API Name</dt>
-                    <dd>result-record-path</dd>
+                    <dd>Result RecordPath</dd>
                     
                     
                     
@@ -4878,7 +5007,7 @@ France&rdquo; in the record. With the above examples, it will produce:</p>
                     <dt>Description</dt>
                     <dd>Specifies how to route records after a Lookup has completed</dd>
                     <dt>API Name</dt>
-                    <dd>routing-strategy</dd>
+                    <dd>Routing Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>route-to-success</dd>

@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutDropbox 2.6.0</h3>
+<h3>PutDropbox 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>Defines the size of a chunk. Used when a FlowFile&#39;s size exceeds &#39;Chunked Upload Threshold&#39; and content is uploaded in smaller chunks. It is recommended to specify chunked upload size smaller than &#39;Chunked Upload Threshold&#39; and as multiples of 4 MB. Maximum allowed value is 150 MB.</dd>
                     <dt>API Name</dt>
-                    <dd>chunked-upload-size</dd>
+                    <dd>Chunked Upload Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>8 MB</dd>
@@ -2487,7 +2547,7 @@
                     <dt>Description</dt>
                     <dd>The maximum size of the content which is uploaded at once. FlowFiles larger than this threshold are uploaded in chunks. Maximum allowed value is 150 MB.</dd>
                     <dt>API Name</dt>
-                    <dd>chunked-upload-threshold</dd>
+                    <dd>Chunked Upload Threshold</dd>
                     
                     <dt>Default Value</dt>
                     <dd>150 MB</dd>
@@ -2517,7 +2577,7 @@
                     <dt>Description</dt>
                     <dd>Indicates what should happen when a file with the same name already exists in the specified Dropbox folder.</dd>
                     <dt>API Name</dt>
-                    <dd>conflict-resolution-strategy</dd>
+                    <dd>Conflict Resolution Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>fail</dd>
@@ -2566,7 +2626,7 @@
                     <dt>Description</dt>
                     <dd>Controller Service used to obtain Dropbox credentials (App Key, App Secret, Access Token, Refresh Token). See controller service&#39;s Additional Details for more information.</dd>
                     <dt>API Name</dt>
-                    <dd>dropbox-credential-service</dd>
+                    <dd>Dropbox Credential Service</dd>
                     
                     
                     
@@ -2577,6 +2637,29 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3238,7 +3321,7 @@
                     <dt>Description</dt>
                     <dd>The full name of the file to upload.</dd>
                     <dt>API Name</dt>
-                    <dd>file-name</dd>
+                    <dd>Filename</dd>
                     
                     <dt>Default Value</dt>
                     <dd>${filename}</dd>
@@ -3268,7 +3351,7 @@
                     <dt>Description</dt>
                     <dd>The path of the Dropbox folder to upload files to. The folder will be created if it does not exist yet.</dd>
                     <dt>API Name</dt>
-                    <dd>folder</dd>
+                    <dd>Folder</dd>
                     
                     <dt>Default Value</dt>
                     <dd>/</dd>
@@ -3298,7 +3381,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Proxy Configuration Controller Service to proxy network requests.</dd>
                     <dt>API Name</dt>
-                    <dd>proxy-configuration-service</dd>
+                    <dd>Proxy Configuration Service</dd>
                     
                     
                     
@@ -3309,6 +3392,29 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutDatabaseRecord 2.6.0</h3>
+<h3>PutDatabaseRecord 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2444,6 +2504,119 @@
 </div>
 <div>
     <ul uk-accordion="multiple: true" id="property-descriptors">
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Allow Multiple SQL Statements</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the Statement Type is &#39;SQL&#39; (as set in the statement.type attribute), this field indicates whether to split the field value by a semicolon and execute each statement separately. If any statement causes an error, the entire set of statements will be rolled back. If the Statement Type is not &#39;SQL&#39;, this field is ignored.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Allow Multiple SQL Statements</dd>
+                    <dt>Description</dt>
+                    <dd>If the Statement Type is &#39;SQL&#39; (as set in the statement.type attribute), this field indicates whether to split the field value by a semicolon and execute each statement separately. If any statement causes an error, the entire set of statements will be rolled back. If the Statement Type is not &#39;SQL&#39;, this field is ignored.</dd>
+                    <dt>API Name</dt>
+                    <dd>Allow Multiple SQL Statements</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Statement Type</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Use Record Path, Use statement.type Attribute]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Binary String Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The format to be applied when decoding string values to binary.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Binary String Format</dd>
+                    <dt>Description</dt>
+                    <dd>The format to be applied when decoding string values to binary.</dd>
+                    <dt>API Name</dt>
+                    <dd>Binary String Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>UTF-8</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                UTF-8
+                                <span uk-icon="info" uk-tooltip="String values for binary columns contain the original value as text via UTF-8 character encoding"></span></li>
+                            
+                            <li>
+                                Hexadecimal
+                                <span uk-icon="info" uk-tooltip="String values for binary columns contain the original value in hexadecimal format"></span></li>
+                            
+                            <li>
+                                Base64
+                                <span uk-icon="info" uk-tooltip="String values for binary columns contain the original value in Base64 encoded format"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
@@ -2596,6 +2769,705 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Database Connection Pooling Service</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Controller Service that is used to obtain a connection to the database for sending records.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Database Connection Pooling Service</dd>
+                    <dt>Description</dt>
+                    <dd>The Controller Service that is used to obtain a connection to the database for sending records.</dd>
+                    <dt>API Name</dt>
+                    <dd>Database Connection Pooling Service</dd>
+                    
+                    
+                    
+                    <dt>Service Interface</dt>
+                    <dd>org.apache.nifi.dbcp.DBCPService</dd>
+
+                    
+
+                    <dt>Service Implementations</dt>
+                    <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.dbcp.DBCPConnectionPool/">org.apache.nifi.dbcp.DBCPConnectionPool</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.dbcp.DBCPConnectionPoolLookup/">org.apache.nifi.dbcp.DBCPConnectionPoolLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.dbcp.HikariCPConnectionPool/">org.apache.nifi.dbcp.HikariCPConnectionPool</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </dd>
+
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Database Dialect Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Database Dialect Service for generating statements specific to a particular service or vendor.</div>
             </a>
@@ -2617,6 +3489,29 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3287,6 +4182,39 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Database Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the database (or the name of the catalog, depending on the destination system) that the statement should update. This may not apply
+for the database that you are updating. In this case, leave the field empty. Note that if the  property is set and the database is case-sensitive,
+the catalog name must match the database&#39;s catalog name exactly.
+</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Database Name</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the database (or the name of the catalog, depending on the destination system) that the statement should update. This may not apply
+for the database that you are updating. In this case, leave the field empty. Note that if the  property is set and the database is case-sensitive,
+the catalog name must match the database&#39;s catalog name exactly.
+</dd>
+                    <dt>API Name</dt>
+                    <dd>Database Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Database Session AutoCommit</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The autocommit mode to set on the database connection being used. If set to false, the operation(s) will be explicitly committed or rolled back (based on success or failure respectively). If set to true, the driver/database automatically handles the commit/rollback.</div>
             </a>
@@ -3297,7 +4225,7 @@
                     <dt>Description</dt>
                     <dd>The autocommit mode to set on the database connection being used. If set to false, the operation(s) will be explicitly committed or rolled back (based on success or failure respectively). If set to true, the driver/database automatically handles the commit/rollback.</dd>
                     <dt>API Name</dt>
-                    <dd>database-session-autocommit</dd>
+                    <dd>Database Session AutoCommit</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -3348,7 +4276,7 @@ The Generic Type supports most cases but selecting a specific type enables optim
 or additional features.
 </dd>
                     <dt>API Name</dt>
-                    <dd>db-type</dd>
+                    <dd>Database Type</dd>
                     
                     <dt>Default Value</dt>
                     <dd>Generic</dd>
@@ -3457,828 +4385,6 @@ or additional features.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Allow Multiple SQL Statements</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the Statement Type is &#39;SQL&#39; (as set in the statement.type attribute), this field indicates whether to split the field value by a semicolon and execute each statement separately. If any statement causes an error, the entire set of statements will be rolled back. If the Statement Type is not &#39;SQL&#39;, this field is ignored.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Allow Multiple SQL Statements</dd>
-                    <dt>Description</dt>
-                    <dd>If the Statement Type is &#39;SQL&#39; (as set in the statement.type attribute), this field indicates whether to split the field value by a semicolon and execute each statement separately. If any statement causes an error, the entire set of statements will be rolled back. If the Statement Type is not &#39;SQL&#39;, this field is ignored.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-allow-multiple-statements</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Statement Type</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [Use Record Path, Use statement.type Attribute]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Binary String Format</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The format to be applied when decoding string values to binary.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Binary String Format</dd>
-                    <dt>Description</dt>
-                    <dd>The format to be applied when decoding string values to binary.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-binary-format</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>UTF-8</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                UTF-8
-                                <span uk-icon="info" uk-tooltip="String values for binary columns contain the original value as text via UTF-8 character encoding"></span></li>
-                            
-                            <li>
-                                Hexadecimal
-                                <span uk-icon="info" uk-tooltip="String values for binary columns contain the original value in hexadecimal format"></span></li>
-                            
-                            <li>
-                                Base64
-                                <span uk-icon="info" uk-tooltip="String values for binary columns contain the original value in Base64 encoded format"></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Database Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the database (or the name of the catalog, depending on the destination system) that the statement should update. This may not apply
-for the database that you are updating. In this case, leave the field empty. Note that if the  property is set and the database is case-sensitive,
-the catalog name must match the database&#39;s catalog name exactly.
-</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Database Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the database (or the name of the catalog, depending on the destination system) that the statement should update. This may not apply
-for the database that you are updating. In this case, leave the field empty. Note that if the  property is set and the database is case-sensitive,
-the catalog name must match the database&#39;s catalog name exactly.
-</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-catalog-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Database Connection Pooling Service</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Controller Service that is used to obtain a connection to the database for sending records.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Database Connection Pooling Service</dd>
-                    <dt>Description</dt>
-                    <dd>The Controller Service that is used to obtain a connection to the database for sending records.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-dcbp-service</dd>
-                    
-                    
-                    
-                    <dt>Service Interface</dt>
-                    <dd>org.apache.nifi.dbcp.DBCPService</dd>
-
-                    
-
-                    <dt>Service Implementations</dt>
-                    <dd>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <div><a href="/components/org.apache.nifi.dbcp.DBCPConnectionPool/">org.apache.nifi.dbcp.DBCPConnectionPool</a></div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        <div><a href="/components/org.apache.nifi.dbcp.DBCPConnectionPoolLookup/">org.apache.nifi.dbcp.DBCPConnectionPoolLookup</a></div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <div><a href="/components/org.apache.nifi.dbcp.HikariCPConnectionPool/">org.apache.nifi.dbcp.HikariCPConnectionPool</a></div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </dd>
-
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="">Field Containing SQL</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the Statement Type is &#39;SQL&#39; (as set in the statement.type attribute), this field indicates which field in the record(s) contains the SQL statement to execute. The value of the field must be a single SQL statement. If the Statement Type is not &#39;SQL&#39;, this field is ignored.</div>
             </a>
@@ -4289,7 +4395,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>If the Statement Type is &#39;SQL&#39; (as set in the statement.type attribute), this field indicates which field in the record(s) contains the SQL statement to execute. The value of the field must be a single SQL statement. If the Statement Type is not &#39;SQL&#39;, this field is ignored.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-field-containing-sql</dd>
+                    <dd>Field Containing SQL</dd>
                     
                     
                     
@@ -4318,36 +4424,6 @@ the catalog name must match the database&#39;s catalog name exactly.
                             
                         </ul>
                     </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Maximum Batch Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies maximum number of sql statements to be included in each batch sent to the database. Zero means the batch size is not limited, and all statements are put into a single batch which can cause high memory usage issues for a very large number of statements.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Maximum Batch Size</dd>
-                    <dt>Description</dt>
-                    <dd>Specifies maximum number of sql statements to be included in each batch sent to the database. Zero means the batch size is not limited, and all statements are put into a single batch which can cause high memory usage issues for a very large number of statements.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-max-batch-size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>1000</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -4365,7 +4441,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>The maximum amount of time allowed for a running SQL statement , zero means there is no limit. Max time less than 1 second will be equal to zero.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-query-timeout</dd>
+                    <dd>Max Wait Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0 seconds</dd>
@@ -4385,6 +4461,36 @@ the catalog name must match the database&#39;s catalog name exactly.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Maximum Batch Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies maximum number of sql statements to be included in each batch sent to the database. Zero means the batch size is not limited, and all statements are put into a single batch which can cause high memory usage issues for a very large number of statements.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Maximum Batch Size</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies maximum number of sql statements to be included in each batch sent to the database. Zero means the batch size is not limited, and all statements are put into a single batch which can cause high memory usage issues for a very large number of statements.</dd>
+                    <dt>API Name</dt>
+                    <dd>Maximum Batch Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>1000</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Quote Column Identifiers</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enabling this option will cause all column names to be quoted, allowing you to use reserved words as column names in your tables.</div>
             </a>
@@ -4395,7 +4501,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>Enabling this option will cause all column names to be quoted, allowing you to use reserved words as column names in your tables.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-quoted-identifiers</dd>
+                    <dd>Quote Column Identifiers</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -4440,7 +4546,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>Enabling this option will cause the table name to be quoted to support the use of special characters in the table name.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-quoted-table-identifiers</dd>
+                    <dd>Quote Table Identifiers</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -4485,7 +4591,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for parsing incoming data and determining the data&#39;s schema.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -4530,7 +4636,15 @@ the catalog name must match the database&#39;s catalog name exactly.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4868,6 +4982,11 @@ the catalog name must match the database&#39;s catalog name exactly.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -4876,6 +4995,16 @@ the catalog name must match the database&#39;s catalog name exactly.
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5177,6 +5306,51 @@ the catalog name must match the database&#39;s catalog name exactly.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Rollback On Failure</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specify how to handle error. By default (false), if an error occurs while processing a FlowFile, the FlowFile will be routed to &#39;failure&#39; or &#39;retry&#39; relationship based on error type, and processor can continue with next FlowFile. Instead, you may want to rollback currently processed FlowFiles and stop further processing immediately. In that case, you can do so by enabling this &#39;Rollback On Failure&#39; property.  If enabled, failed FlowFiles will stay in the input relationship without penalizing it and being processed repeatedly until it gets processed successfully or removed by other means. It is important to set adequate &#39;Yield Duration&#39; to avoid retrying too frequently.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Rollback On Failure</dd>
+                    <dt>Description</dt>
+                    <dd>Specify how to handle error. By default (false), if an error occurs while processing a FlowFile, the FlowFile will be routed to &#39;failure&#39; or &#39;retry&#39; relationship based on error type, and processor can continue with next FlowFile. Instead, you may want to rollback currently processed FlowFiles and stop further processing immediately. In that case, you can do so by enabling this &#39;Rollback On Failure&#39; property.  If enabled, failed FlowFiles will stay in the input relationship without penalizing it and being processed repeatedly until it gets processed successfully or removed by other means. It is important to set adequate &#39;Yield Duration&#39; to avoid retrying too frequently.</dd>
+                    <dt>API Name</dt>
+                    <dd>Rollback On Failure</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Schema Name</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the schema that the table belongs to. This may not apply for the database that you are updating. In this case, leave the field empty. Note that if the property is set and the database is case-sensitive, the schema name must match the database&#39;s schema name exactly.</div>
             </a>
@@ -5187,7 +5361,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>The name of the schema that the table belongs to. This may not apply for the database that you are updating. In this case, leave the field empty. Note that if the property is set and the database is case-sensitive, the schema name must match the database&#39;s schema name exactly.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-schema-name</dd>
+                    <dd>Schema Name</dd>
                     
                     
                     
@@ -5214,7 +5388,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>Specifies the type of SQL Statement to generate. Please refer to the database documentation for a description of the behavior of each operation. Please note that some Database Types may not support certain Statement Types. If &#39;Use statement.type Attribute&#39; is chosen, then the value is taken from the statement.type attribute in the FlowFile. The &#39;Use statement.type Attribute&#39; option is the only one that allows the &#39;SQL&#39; statement type. If &#39;SQL&#39; is specified, the value of the field specified by the &#39;Field Containing SQL&#39; property is expected to be a valid SQL statement on the target database, and will be executed as-is.</dd>
                     <dt>API Name</dt>
-                    <dd>put-db-record-statement-type</dd>
+                    <dd>Statement Type</dd>
                     
                     
                     <dt>Allowable Values</dt>
@@ -5247,263 +5421,6 @@ the catalog name must match the database&#39;s catalog name exactly.
                             
                             <li>
                                 Use Record Path
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Table Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the table that the statement should affect. Note that if the database is case-sensitive, the table name must match the database&#39;s table name exactly.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Table Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the table that the statement should affect. Note that if the database is case-sensitive, the table name must match the database&#39;s table name exactly.</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-table-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Translate Field Names</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, the Processor will attempt to translate field names into the appropriate column names for the table specified. If false, the field names must match the column names exactly, or the column will not be updated</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Translate Field Names</dd>
-                    <dt>Description</dt>
-                    <dd>If true, the Processor will attempt to translate field names into the appropriate column names for the table specified. If false, the field names must match the column names exactly, or the column will not be updated</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-translate-field-names</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>true</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Unmatched Column Behavior</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If an incoming record does not have a field mapping for all of the database table&#39;s columns, this property specifies how to handle the situation</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Unmatched Column Behavior</dd>
-                    <dt>Description</dt>
-                    <dd>If an incoming record does not have a field mapping for all of the database table&#39;s columns, this property specifies how to handle the situation</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-unmatched-column-behavior</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>Fail on Unmatched Columns</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Ignore Unmatched Columns
-                                <span uk-icon="info" uk-tooltip="Any column in the database that does not have a field in the document will be assumed to not be required.  No notification will be logged"></span></li>
-                            
-                            <li>
-                                Warn on Unmatched Columns
-                                <span uk-icon="info" uk-tooltip="Any column in the database that does not have a field in the document will be assumed to not be required.  A warning will be logged"></span></li>
-                            
-                            <li>
-                                Fail on Unmatched Columns
-                                <span uk-icon="info" uk-tooltip="A flow will fail if any column in the database that does not have a field in the document.  An error will be logged"></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Unmatched Field Behavior</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If an incoming record has a field that does not map to any of the database table&#39;s columns, this property specifies how to handle the situation</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Unmatched Field Behavior</dd>
-                    <dt>Description</dt>
-                    <dd>If an incoming record has a field that does not map to any of the database table&#39;s columns, this property specifies how to handle the situation</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-unmatched-field-behavior</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>Ignore Unmatched Fields</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Ignore Unmatched Fields
-                                <span uk-icon="info" uk-tooltip="Any field in the document that cannot be mapped to a column in the database is ignored"></span></li>
-                            
-                            <li>
-                                Fail on Unmatched Fields
-                                <span uk-icon="info" uk-tooltip="If the document has any field that cannot be mapped to a column in the database, the FlowFile will be routed to the failure relationship"></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Update Keys</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A comma-separated list of column names that uniquely identifies a row in the database for UPDATE statements. If the Statement Type is UPDATE and this property is not set, the table&#39;s Primary Keys are used. In this case, if no Primary Key exists, the conversion to SQL will fail if Unmatched Column Behaviour is set to FAIL. This property is ignored if the Statement Type is INSERT</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Update Keys</dd>
-                    <dt>Description</dt>
-                    <dd>A comma-separated list of column names that uniquely identifies a row in the database for UPDATE statements. If the Statement Type is UPDATE and this property is not set, the table&#39;s Primary Keys are used. In this case, if no Primary Key exists, the conversion to SQL will fail if Unmatched Column Behaviour is set to FAIL. This property is ignored if the Statement Type is INSERT</dd>
-                    <dt>API Name</dt>
-                    <dd>put-db-record-update-keys</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Statement Type</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [SQL, UPDATE, UPSERT, Use Record Path, Use statement.type Attribute]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Rollback On Failure</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specify how to handle error. By default (false), if an error occurs while processing a FlowFile, the FlowFile will be routed to &#39;failure&#39; or &#39;retry&#39; relationship based on error type, and processor can continue with next FlowFile. Instead, you may want to rollback currently processed FlowFiles and stop further processing immediately. In that case, you can do so by enabling this &#39;Rollback On Failure&#39; property.  If enabled, failed FlowFiles will stay in the input relationship without penalizing it and being processed repeatedly until it gets processed successfully or removed by other means. It is important to set adequate &#39;Yield Duration&#39; to avoid retrying too frequently.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Rollback On Failure</dd>
-                    <dt>Description</dt>
-                    <dd>Specify how to handle error. By default (false), if an error occurs while processing a FlowFile, the FlowFile will be routed to &#39;failure&#39; or &#39;retry&#39; relationship based on error type, and processor can continue with next FlowFile. Instead, you may want to rollback currently processed FlowFiles and stop further processing immediately. In that case, you can do so by enabling this &#39;Rollback On Failure&#39; property.  If enabled, failed FlowFiles will stay in the input relationship without penalizing it and being processed repeatedly until it gets processed successfully or removed by other means. It is important to set adequate &#39;Yield Duration&#39; to avoid retrying too frequently.</dd>
-                    <dt>API Name</dt>
-                    <dd>rollback-on-failure</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
                                 </li>
                             
                         </ul>
@@ -5569,6 +5486,33 @@ the catalog name must match the database&#39;s catalog name exactly.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Table Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the table that the statement should affect. Note that if the database is case-sensitive, the table name must match the database&#39;s table name exactly.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Table Name</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the table that the statement should affect. Note that if the database is case-sensitive, the table name must match the database&#39;s table name exactly.</dd>
+                    <dt>API Name</dt>
+                    <dd>Table Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Table Schema Cache Size</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how many Table Schemas should be cached</div>
             </a>
@@ -5579,7 +5523,7 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dt>Description</dt>
                     <dd>Specifies how many Table Schemas should be cached</dd>
                     <dt>API Name</dt>
-                    <dd>table-schema-cache-size</dd>
+                    <dd>Table Schema Cache Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>100</dd>
@@ -5592,6 +5536,191 @@ the catalog name must match the database&#39;s catalog name exactly.
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Translate Field Names</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, the Processor will attempt to translate field names into the appropriate column names for the table specified. If false, the field names must match the column names exactly, or the column will not be updated</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Translate Field Names</dd>
+                    <dt>Description</dt>
+                    <dd>If true, the Processor will attempt to translate field names into the appropriate column names for the table specified. If false, the field names must match the column names exactly, or the column will not be updated</dd>
+                    <dt>API Name</dt>
+                    <dd>Translate Field Names</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>true</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Unmatched Column Behavior</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If an incoming record does not have a field mapping for all of the database table&#39;s columns, this property specifies how to handle the situation</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Unmatched Column Behavior</dd>
+                    <dt>Description</dt>
+                    <dd>If an incoming record does not have a field mapping for all of the database table&#39;s columns, this property specifies how to handle the situation</dd>
+                    <dt>API Name</dt>
+                    <dd>Unmatched Column Behavior</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Fail on Unmatched Columns</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Ignore Unmatched Columns
+                                <span uk-icon="info" uk-tooltip="Any column in the database that does not have a field in the document will be assumed to not be required.  No notification will be logged"></span></li>
+                            
+                            <li>
+                                Warn on Unmatched Columns
+                                <span uk-icon="info" uk-tooltip="Any column in the database that does not have a field in the document will be assumed to not be required.  A warning will be logged"></span></li>
+                            
+                            <li>
+                                Fail on Unmatched Columns
+                                <span uk-icon="info" uk-tooltip="A flow will fail if any column in the database that does not have a field in the document.  An error will be logged"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Unmatched Field Behavior</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If an incoming record has a field that does not map to any of the database table&#39;s columns, this property specifies how to handle the situation</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Unmatched Field Behavior</dd>
+                    <dt>Description</dt>
+                    <dd>If an incoming record has a field that does not map to any of the database table&#39;s columns, this property specifies how to handle the situation</dd>
+                    <dt>API Name</dt>
+                    <dd>Unmatched Field Behavior</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Ignore Unmatched Fields</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Ignore Unmatched Fields
+                                <span uk-icon="info" uk-tooltip="Any field in the document that cannot be mapped to a column in the database is ignored"></span></li>
+                            
+                            <li>
+                                Fail on Unmatched Fields
+                                <span uk-icon="info" uk-tooltip="If the document has any field that cannot be mapped to a column in the database, the FlowFile will be routed to the failure relationship"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Update Keys</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A comma-separated list of column names that uniquely identifies a row in the database for UPDATE statements. If the Statement Type is UPDATE and this property is not set, the table&#39;s Primary Keys are used. In this case, if no Primary Key exists, the conversion to SQL will fail if Unmatched Column Behaviour is set to FAIL. This property is ignored if the Statement Type is INSERT</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Update Keys</dd>
+                    <dt>Description</dt>
+                    <dd>A comma-separated list of column names that uniquely identifies a row in the database for UPDATE statements. If the Statement Type is UPDATE and this property is not set, the table&#39;s Primary Keys are used. In this case, if no Primary Key exists, the conversion to SQL will fail if Unmatched Column Behaviour is set to FAIL. This property is ignored if the Statement Type is INSERT</dd>
+                    <dt>API Name</dt>
+                    <dd>Update Keys</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Statement Type</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SQL, UPDATE, UPSERT, Use Record Path, Use statement.type Attribute]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>

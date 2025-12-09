@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>HandleHttpRequest 2.6.0</h3>
+<h3>HandleHttpRequest 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for HandleHttpRequest 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for HandleHttpRequest 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2876,7 +2936,7 @@ which is unique to the request.</p>
                     <dt>Description</dt>
                     <dd>The size of the queue for Http Request Containers</dd>
                     <dt>API Name</dt>
-                    <dd>container-queue-size</dd>
+                    <dd>Container Queue Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>50</dd>
@@ -2974,6 +3034,29 @@ which is unique to the request.</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3761,7 +3844,7 @@ which is unique to the request.</p>
                     <dt>Description</dt>
                     <dd>The threshold size, at which the contents of an incoming file would be written to disk. Only applies for requests with Content-Type: multipart/form-data. It is used to prevent denial of service type of attacks, to prevent filling up the heap or disk space.</dd>
                     <dt>API Name</dt>
-                    <dd>multipart-read-buffer-size</dd>
+                    <dd>Multipart Read Buffer Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>512 KB</dd>
@@ -3791,7 +3874,7 @@ which is unique to the request.</p>
                     <dt>Description</dt>
                     <dd>The max size of the request. Only applies for requests with Content-Type: multipart/form-data, and is used to prevent denial of service type of attacks, to prevent filling up the heap or disk space</dd>
                     <dt>API Name</dt>
-                    <dd>multipart-request-max-size</dd>
+                    <dd>Multipart Request Max Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1 MB</dd>
@@ -3811,17 +3894,17 @@ which is unique to the request.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Parameters to Attributes List</span>
+                <span class="">Parameters to Attributes</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A comma-separated list of HTTP parameters or form data to output as attributes</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Parameters to Attributes List</dd>
+                    <dd>Parameters to Attributes</dd>
                     <dt>Description</dt>
                     <dd>A comma-separated list of HTTP parameters or form data to output as attributes</dd>
                     <dt>API Name</dt>
-                    <dd>parameters-to-attributes</dd>
+                    <dd>Parameters to Attributes</dd>
                     
                     
                     
@@ -3883,7 +3966,7 @@ which is unique to the request.</p>
                     
                     
                     <dt>Service Interface</dt>
-                    <dd>org.apache.nifi.ssl.RestrictedSSLContextService</dd>
+                    <dd>org.apache.nifi.ssl.SSLContextProvider</dd>
 
                     
 
@@ -4248,6 +4331,27 @@ which is unique to the request.</p>
                         
                         
                         
+                        <div><a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">org.apache.nifi.ssl.PEMEncodedSSLContextProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4462,6 +4566,12 @@ which is unique to the request.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.ssl.StandardSSLContextService/">org.apache.nifi.ssl.StandardSSLContextService</a></div>
                         
                         
                         

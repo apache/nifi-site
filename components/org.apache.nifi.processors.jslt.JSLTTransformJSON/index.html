@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>JSLTTransformJSON 2.6.0</h3>
+<h3>JSLTTransformJSON 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2447,25 +2507,22 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Transform Cache Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Compiling a JSLT Transform can be fairly expensive. Ideally, this will be done only once. However, if the Expression Language is used in the transform, we may need a new Transform for each FlowFile. This value controls how many of those Transforms we cache in memory in order to avoid having to compile the Transform each time.</div>
+                <span class="property-required">JSLT Transformation</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">JSLT Transformation for transform of JSON data. Any NiFi Expression Language present will be evaluated first to get the final transform to be applied. The JSLT Tutorial provides an overview of supported expressions: https://github.com/schibsted/jslt/blob/master/tutorial.md</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Transform Cache Size</dd>
+                    <dd>JSLT Transformation</dd>
                     <dt>Description</dt>
-                    <dd>Compiling a JSLT Transform can be fairly expensive. Ideally, this will be done only once. However, if the Expression Language is used in the transform, we may need a new Transform for each FlowFile. This value controls how many of those Transforms we cache in memory in order to avoid having to compile the Transform each time.</dd>
+                    <dd>JSLT Transformation for transform of JSON data. Any NiFi Expression Language present will be evaluated first to get the final transform to be applied. The JSLT Tutorial provides an overview of supported expressions: https://github.com/schibsted/jslt/blob/master/tutorial.md</dd>
                     <dt>API Name</dt>
-                    <dd>jslt-transform-cache-size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>1</dd>
+                    <dd>JSLT Transformation</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
+                    <dd>Environment variables and FlowFile Attributes</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -2487,7 +2544,7 @@
                     <dt>Description</dt>
                     <dd>Apply pretty-print formatting to the output of the JSLT transform</dd>
                     <dt>API Name</dt>
-                    <dd>jslt-transform-pretty_print</dd>
+                    <dd>Pretty Print</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2522,20 +2579,20 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Transform Result Filter</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A filter for output JSON results using a JSLT expression. This property supports changing the default filter, which removes JSON objects with null values, empty objects and empty arrays from the output JSON. This JSLT must return true for each JSON object to be included and false for each object to be removed. Using a filter value of &#34;true&#34; to disables filtering.</div>
+                <span class="property-required">Transform Cache Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Compiling a JSLT Transform can be fairly expensive. Ideally, this will be done only once. However, if the Expression Language is used in the transform, we may need a new Transform for each FlowFile. This value controls how many of those Transforms we cache in memory in order to avoid having to compile the Transform each time.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Transform Result Filter</dd>
+                    <dd>Transform Cache Size</dd>
                     <dt>Description</dt>
-                    <dd>A filter for output JSON results using a JSLT expression. This property supports changing the default filter, which removes JSON objects with null values, empty objects and empty arrays from the output JSON. This JSLT must return true for each JSON object to be included and false for each object to be removed. Using a filter value of &#34;true&#34; to disables filtering.</dd>
+                    <dd>Compiling a JSLT Transform can be fairly expensive. Ideally, this will be done only once. However, if the Expression Language is used in the transform, we may need a new Transform for each FlowFile. This value controls how many of those Transforms we cache in memory in order to avoid having to compile the Transform each time.</dd>
                     <dt>API Name</dt>
-                    <dd>jslt-transform-result-filter</dd>
+                    <dd>Transform Cache Size</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>. != null and . != {} and . != []</dd>
+                    <dd>1</dd>
                     
                     
                     
@@ -2552,22 +2609,25 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">JSLT Transformation</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">JSLT Transformation for transform of JSON data. Any NiFi Expression Language present will be evaluated first to get the final transform to be applied. The JSLT Tutorial provides an overview of supported expressions: https://github.com/schibsted/jslt/blob/master/tutorial.md</div>
+                <span class="property-required">Transform Result Filter</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A filter for output JSON results using a JSLT expression. This property supports changing the default filter, which removes JSON objects with null values, empty objects and empty arrays from the output JSON. This JSLT must return true for each JSON object to be included and false for each object to be removed. Using a filter value of &#34;true&#34; to disables filtering.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>JSLT Transformation</dd>
+                    <dd>Transform Result Filter</dd>
                     <dt>Description</dt>
-                    <dd>JSLT Transformation for transform of JSON data. Any NiFi Expression Language present will be evaluated first to get the final transform to be applied. The JSLT Tutorial provides an overview of supported expressions: https://github.com/schibsted/jslt/blob/master/tutorial.md</dd>
+                    <dd>A filter for output JSON results using a JSLT expression. This property supports changing the default filter, which removes JSON objects with null values, empty objects and empty arrays from the output JSON. This JSLT must return true for each JSON object to be included and false for each object to be removed. Using a filter value of &#34;true&#34; to disables filtering.</dd>
                     <dt>API Name</dt>
-                    <dd>jslt-transform-transformation</dd>
+                    <dd>Transform Result Filter</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>. != null and . != {} and . != []</dd>
                     
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dd>Not Supported</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -2589,7 +2649,7 @@
                     <dt>Description</dt>
                     <dd>Whether to apply the JSLT transformation to the entire FlowFile contents or each JSON object in the root-level array</dd>
                     <dt>API Name</dt>
-                    <dd>jslt-transform-transformation-strategy</dd>
+                    <dd>Transformation Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>EACH_OBJECT</dd>

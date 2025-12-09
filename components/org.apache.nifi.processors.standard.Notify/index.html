@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,13 +2455,13 @@
           
 
 
-<h3>Notify 2.6.0</h3>
+<h3>Notify 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Caches a release signal identifier in the distributed cache, optionally along with the FlowFile&#39;s attributes.  Any flow files held at a corresponding Wait processor will be released once this signal in the cache is discovered.</dd>
+    <dd>Caches a release signal identifier in the cache, optionally along with the FlowFile&#39;s attributes.  Any flow files held at a corresponding Wait processor will be released once this signal in the cache is discovered.</dd>
     <dt>Tags</dt>
     <dd>cache, distributed, map, notify, release, signal</dd>
     <dt>Input Requirement</dt>
@@ -2447,17 +2507,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Attribute Cache Regex</span>
+                <span class="">Attribute Cache Regular Expression</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Any attributes whose names match this regex will be stored in the distributed cache to be copied to any FlowFiles released from a corresponding Wait processor.  Note that the uuid attribute will not be cached regardless of this value.  If blank, no attributes will be cached.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Attribute Cache Regex</dd>
+                    <dd>Attribute Cache Regular Expression</dd>
                     <dt>Description</dt>
                     <dd>Any attributes whose names match this regex will be stored in the distributed cache to be copied to any FlowFiles released from a corresponding Wait processor.  Note that the uuid attribute will not be cached regardless of this value.  If blank, no attributes will be cached.</dd>
                     <dt>API Name</dt>
-                    <dd>attribute-cache-regex</dd>
+                    <dd>Attribute Cache Regular Expression</dd>
                     
                     
                     
@@ -2484,7 +2544,7 @@
                     <dt>Description</dt>
                     <dd>The Controller Service that is used to cache release signals in order to release files queued at a corresponding Wait processor</dd>
                     <dt>API Name</dt>
-                    <dd>distributed-cache-service</dd>
+                    <dd>Distributed Cache Service</dd>
                     
                     
                     
@@ -2495,6 +2555,14 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -2882,7 +2950,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">org.apache.nifi.redis.service.RedisDistributedMapCacheClientService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3160,7 +3243,7 @@
                     <dt>Description</dt>
                     <dd>A value, or the results of an Attribute Expression Language statement, which will be evaluated against a FlowFile in order to determine the release signal cache key</dd>
                     <dt>API Name</dt>
-                    <dd>release-signal-id</dd>
+                    <dd>Release Signal Identifier</dd>
                     
                     
                     
@@ -3187,7 +3270,7 @@
                     <dt>Description</dt>
                     <dd>Specify the maximum number of incoming flow files that can be buffered until signals are notified to cache service. The more buffer can provide the better performance, as it reduces the number of interactions with cache service by grouping signals by signal identifier when multiple incoming flow files share the same signal identifier.</dd>
                     <dt>API Name</dt>
-                    <dd>signal-buffer-count</dd>
+                    <dd>Signal Buffer Count</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1</dd>
@@ -3217,7 +3300,7 @@
                     <dt>Description</dt>
                     <dd>A value, or the results of an Attribute Expression Language statement, which will be evaluated against a FlowFile in order to determine the signal counter delta. Specify how much the counter should increase. For example, if multiple signal events are processed at upstream flow in batch oriented way, the number of events processed can be notified with this property at once. Zero (0) has a special meaning, it clears target count back to 0, which is especially useful when used with Wait Releasable FlowFile Count = Zero (0) mode, to provide &#39;open-close-gate&#39; type of flow control. One (1) can open a corresponding Wait processor, and Zero (0) can negate it as if closing a gate.</dd>
                     <dt>API Name</dt>
-                    <dd>signal-counter-delta</dd>
+                    <dd>Signal Counter Delta</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1</dd>
@@ -3247,7 +3330,7 @@
                     <dt>Description</dt>
                     <dd>A value, or the results of an Attribute Expression Language statement, which will be evaluated against a FlowFile in order to determine the signal counter name. Signal counter name is useful when a corresponding Wait processor needs to know the number of occurrences of different types of events, such as success or failure, or destination data source names, etc.</dd>
                     <dt>API Name</dt>
-                    <dd>signal-counter-name</dd>
+                    <dd>Signal Counter Name</dd>
                     
                     <dt>Default Value</dt>
                     <dd>default</dd>
@@ -3336,11 +3419,11 @@
 <ul>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService/">org.apache.nifi.distributed.cache.client.DistributedMapCacheClientService</a>
+        <a href="/components/org.apache.nifi.distributed.cache.client.MapCacheClientService/">org.apache.nifi.distributed.cache.client.MapCacheClientService</a>
     </li>
     
     <li>
-        <a href="/components/org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer/">org.apache.nifi.distributed.cache.server.map.DistributedMapCacheServer</a>
+        <a href="/components/org.apache.nifi.distributed.cache.server.map.MapCacheServer/">org.apache.nifi.distributed.cache.server.map.MapCacheServer</a>
     </li>
     
     <li>

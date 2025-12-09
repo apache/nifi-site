@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutGridFS 2.6.0</h3>
+<h3>PutGridFS 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutGridFS 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutGridFS 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2506,7 +2566,7 @@ matching that criteria exists before attempting to write the flowfile contents.<
                     <dt>Description</dt>
                     <dd>The GridFS bucket where the files will be stored. If left blank, it will use the default value &#39;fs&#39; that the MongoDB client driver uses.</dd>
                     <dt>API Name</dt>
-                    <dd>gridfs-bucket-name</dd>
+                    <dd>Bucket Name</dd>
                     
                     
                     
@@ -2516,6 +2576,36 @@ matching that criteria exists before attempting to write the flowfile contents.<
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Chunk Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Controls the maximum size of each chunk of a file uploaded into GridFS.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Chunk Size</dd>
+                    <dt>Description</dt>
+                    <dd>Controls the maximum size of each chunk of a file uploaded into GridFS.</dd>
+                    <dt>API Name</dt>
+                    <dd>Chunk Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>256 KB</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                 </dl>
             </div>
@@ -2533,7 +2623,7 @@ matching that criteria exists before attempting to write the flowfile contents.<
                     <dt>Description</dt>
                     <dd>The MongoDB client service to use for database connections.</dd>
                     <dt>API Name</dt>
-                    <dd>gridfs-client-service</dd>
+                    <dd>Client Service</dd>
                     
                     
                     
@@ -2544,6 +2634,14 @@ matching that criteria exists before attempting to write the flowfile contents.<
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3179,95 +3277,26 @@ matching that criteria exists before attempting to write the flowfile contents.<
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Mongo Database Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the database to use</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Mongo Database Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the database to use</dd>
-                    <dt>API Name</dt>
-                    <dd>gridfs-database-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">File Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the file in the bucket that is the target of this processor. GridFS file names do not include path information because GridFS does not sort files into folders within a bucket.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>File Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the file in the bucket that is the target of this processor. GridFS file names do not include path information because GridFS does not sort files into folders within a bucket.</dd>
-                    <dt>API Name</dt>
-                    <dd>gridfs-file-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Chunk Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Controls the maximum size of each chunk of a file uploaded into GridFS.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Chunk Size</dd>
-                    <dt>Description</dt>
-                    <dd>Controls the maximum size of each chunk of a file uploaded into GridFS.</dd>
-                    <dt>API Name</dt>
-                    <dd>putgridfs-chunk-size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>256 KB</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -3289,7 +3318,7 @@ matching that criteria exists before attempting to write the flowfile contents.<
                     <dt>Description</dt>
                     <dd>When enabled, this option will ensure that uniqueness is enforced on the bucket. It will do so by creating a MongoDB index that matches your selection. It should ideally be configured once when the bucket is created for the first time because it could take a long time to build on an existing bucket wit a lot of data.</dd>
                     <dt>API Name</dt>
-                    <dd>putgridfs-enforce-uniqueness</dd>
+                    <dd>Enforce Uniqueness</dd>
                     
                     <dt>Default Value</dt>
                     <dd>none</dd>
@@ -3332,6 +3361,60 @@ matching that criteria exists before attempting to write the flowfile contents.<
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">File Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the file in the bucket that is the target of this processor. GridFS file names do not include path information because GridFS does not sort files into folders within a bucket.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>File Name</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the file in the bucket that is the target of this processor. GridFS file names do not include path information because GridFS does not sort files into folders within a bucket.</dd>
+                    <dt>API Name</dt>
+                    <dd>File Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">File Properties Prefix</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Attributes that have this prefix will be added to the file stored in GridFS as metadata.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>File Properties Prefix</dd>
+                    <dt>Description</dt>
+                    <dd>Attributes that have this prefix will be added to the file stored in GridFS as metadata.</dd>
+                    <dt>API Name</dt>
+                    <dd>File Properties Prefix</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Hash Attribute</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If uniquness enforcement is enabled and the file hash is part of the constraint, this must be set to an attribute that exists on all incoming flowfiles.</div>
             </a>
@@ -3342,7 +3425,7 @@ matching that criteria exists before attempting to write the flowfile contents.<
                     <dt>Description</dt>
                     <dd>If uniquness enforcement is enabled and the file hash is part of the constraint, this must be set to an attribute that exists on all incoming flowfiles.</dd>
                     <dt>API Name</dt>
-                    <dd>putgridfs-hash-attribute</dd>
+                    <dd>Hash Attribute</dd>
                     
                     <dt>Default Value</dt>
                     <dd>hash.value</dd>
@@ -3362,17 +3445,17 @@ matching that criteria exists before attempting to write the flowfile contents.<
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">File Properties Prefix</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Attributes that have this prefix will be added to the file stored in GridFS as metadata.</div>
+                <span class="property-required">Mongo Database Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the database to use</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>File Properties Prefix</dd>
+                    <dd>Mongo Database Name</dd>
                     <dt>Description</dt>
-                    <dd>Attributes that have this prefix will be added to the file stored in GridFS as metadata.</dd>
+                    <dd>The name of the database to use</dd>
                     <dt>API Name</dt>
-                    <dd>putgridfs-properties-prefix</dd>
+                    <dd>Mongo Database Name</dd>
                     
                     
                     
@@ -3381,7 +3464,7 @@ matching that criteria exists before attempting to write the flowfile contents.<
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
-                    <dd>false</dd>
+                    <dd>true</dd>
                     
                 </dl>
             </div>

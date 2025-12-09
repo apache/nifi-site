@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>ConsumeTwitter 2.6.0</h3>
+<h3>ConsumeTwitter 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>The number of minutes (up to 5 minutes) of streaming data to be requested after a disconnect. Only available for project with academic research access. See https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/integrate/recovery-and-redundancy-features</dd>
                     <dt>API Name</dt>
-                    <dd>backfill-minutes</dd>
+                    <dd>Backfill Minutes</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0</dd>
@@ -2487,7 +2547,7 @@
                     <dt>Description</dt>
                     <dd>The number of reconnection tries the processor will attempt in the event of a disconnection of the stream for any reason, before throwing an exception. To start a stream after this exception occur and the connection is fixed, please stop and restart the processor. If the valueof this property is 0, then backoff will never occur and the processor will always need to be restartedif the stream fails.</dd>
                     <dt>API Name</dt>
-                    <dd>backoff-attempts</dd>
+                    <dd>Backoff Attempts</dd>
                     
                     <dt>Default Value</dt>
                     <dd>5</dd>
@@ -2517,7 +2577,7 @@
                     <dt>Description</dt>
                     <dd>The duration to backoff before requesting a new stream ifthe current one fails for any reason. Will increase by factor of 2 every time a restart fails</dd>
                     <dt>API Name</dt>
-                    <dd>backoff-time</dd>
+                    <dd>Backoff Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1 mins</dd>
@@ -2547,7 +2607,7 @@
                     <dt>Description</dt>
                     <dd>The base path that the processor will use for making HTTP requests. The default value should be sufficient for most use cases.</dd>
                     <dt>API Name</dt>
-                    <dd>base-path</dd>
+                    <dd>Base Path</dd>
                     
                     <dt>Default Value</dt>
                     <dd>https://api.twitter.com</dd>
@@ -2577,7 +2637,7 @@
                     <dt>Description</dt>
                     <dd>The maximum size of the number of Tweets to be written to a single FlowFile. Will write fewer Tweets based on the number available in the queue at the time of processor invocation.</dd>
                     <dt>API Name</dt>
-                    <dd>batch-size</dd>
+                    <dd>Batch Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1000</dd>
@@ -2607,7 +2667,7 @@
                     <dt>Description</dt>
                     <dd>The Bearer Token provided by Twitter.</dd>
                     <dt>API Name</dt>
-                    <dd>bearer-token</dd>
+                    <dd>Bearer Token</dd>
                     
                     
                     
@@ -2634,7 +2694,7 @@
                     <dt>Description</dt>
                     <dd>The maximum time in which client should establish a connection with the Twitter API before a time out. Setting the value to 0 disables connection timeouts.</dd>
                     <dt>API Name</dt>
-                    <dd>connect-timeout</dd>
+                    <dd>Connect Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 secs</dd>
@@ -2664,7 +2724,7 @@
                     <dt>Description</dt>
                     <dd>A comma-separated list of expansions for objects in the returned tweet. See https://developer.twitter.com/en/docs/twitter-api/expansions for proper usage. Possible field values include: author_id, referenced_tweets.id, referenced_tweets.id.author_id, entities.mentions.username, attachments.poll_ids, attachments.media_keys ,in_reply_to_user_id, geo.place_id</dd>
                     <dt>API Name</dt>
-                    <dd>expansions</dd>
+                    <dd>Expansions</dd>
                     
                     
                     
@@ -2691,7 +2751,7 @@
                     <dt>Description</dt>
                     <dd>The maximum duration to backoff to start attempting a new stream.It is recommended that this number be much higher than the &#39;Backoff Time&#39; property</dd>
                     <dt>API Name</dt>
-                    <dd>maximum-backoff-time</dd>
+                    <dd>Maximum Backoff Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>5 mins</dd>
@@ -2721,7 +2781,7 @@
                     <dt>Description</dt>
                     <dd>A comma-separated list of media fields to be returned as part of the tweet. Refer to https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/media for proper usage. Possible field values include: alt_text, duration_ms, height, media_key, non_public_metrics, organic_metrics, preview_image_url, promoted_metrics, public_metrics, type, url, width</dd>
                     <dt>API Name</dt>
-                    <dd>media-fields</dd>
+                    <dd>Media Fields</dd>
                     
                     
                     
@@ -2748,7 +2808,7 @@
                     <dt>Description</dt>
                     <dd>A comma-separated list of place fields to be returned as part of the tweet. Refer to https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/place for proper usage. Possible field values include: contained_within, country, country_code, full_name, geo, id, name, place_type</dd>
                     <dt>API Name</dt>
-                    <dd>place-fields</dd>
+                    <dd>Place Fields</dd>
                     
                     
                     
@@ -2775,7 +2835,7 @@
                     <dt>Description</dt>
                     <dd>A comma-separated list of poll fields to be returned as part of the tweet. Refer to https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/poll for proper usage. Possible field values include: duration_minutes, end_datetime, id, options, voting_status</dd>
                     <dt>API Name</dt>
-                    <dd>poll-fields</dd>
+                    <dd>Poll Fields</dd>
                     
                     
                     
@@ -2802,7 +2862,7 @@
                     <dt>Description</dt>
                     <dd>Maximum size of internal queue for streamed messages</dd>
                     <dt>API Name</dt>
-                    <dd>queue-size</dd>
+                    <dd>Queue Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10000</dd>
@@ -2832,7 +2892,7 @@
                     <dt>Description</dt>
                     <dd>The maximum time of inactivity between receiving tweets from Twitter through the API before a timeout. Setting the value to 0 disables read timeouts.</dd>
                     <dt>API Name</dt>
-                    <dd>read-timeout</dd>
+                    <dd>Read Timeout</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 secs</dd>
@@ -2862,7 +2922,7 @@
                     <dt>Description</dt>
                     <dd>The source from which the processor will consume Tweets.</dd>
                     <dt>API Name</dt>
-                    <dd>stream-endpoint</dd>
+                    <dd>Stream Endpoint</dd>
                     
                     <dt>Default Value</dt>
                     <dd>Sample Endpoint</dd>
@@ -2907,7 +2967,7 @@
                     <dt>Description</dt>
                     <dd>A comma-separated list of tweet fields to be returned as part of the tweet. Refer to https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet for proper usage. Possible field values include: attachments, author_id, context_annotations, conversation_id, created_at, entities, geo, id, in_reply_to_user_id, lang, non_public_metrics, organic_metrics, possibly_sensitive, promoted_metrics, public_metrics, referenced_tweets, reply_settings, source, text, withheld</dd>
                     <dt>API Name</dt>
-                    <dd>tweet-fields</dd>
+                    <dd>Tweet Fields</dd>
                     
                     
                     
@@ -2934,7 +2994,7 @@
                     <dt>Description</dt>
                     <dd>A comma-separated list of user fields to be returned as part of the tweet. Refer to https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user for proper usage. Possible field values include: created_at, description, entities, id, location, name, pinned_tweet_id, profile_image_url, protected, public_metrics, url, username, verified, withheld</dd>
                     <dt>API Name</dt>
-                    <dd>user-fields</dd>
+                    <dd>User Fields</dd>
                     
                     
                     

@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>ListenHTTP 2.6.0</h3>
+<h3>ListenHTTP 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2409,7 +2469,7 @@ GET is supported on &lt;service_URI&gt;/healthcheck. If the service is available
 The health check functionality can be configured to be accessible via a different port.
 For details, see the documentation of the &#34;Listening Port for health check requests&#34; property.
 A Record Reader and Record Writer property can be enabled on the processor to process incoming requests as records.
-Record processing is not allowed for multipart requests and request in FlowFileV3 format (minifi).
+Record processing is not allowed for multipart requests or requests in FlowFileV3 format (minifi).
 If the incoming request contains a FlowFileV3 package format, the data will be unpacked automatically into individual
 FlowFile(s) contained within the package; the original FlowFile names are restored.
 </dd>
@@ -2458,6 +2518,36 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Authorized Issuer DN Pattern</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A Regular Expression to apply against the Issuer&#39;s Distinguished Name of incoming connections. If the Pattern does not match the Issuer DN, the processor will respond with a status of HTTP 403 Forbidden.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Authorized Issuer DN Pattern</dd>
+                    <dt>Description</dt>
+                    <dd>A Regular Expression to apply against the Issuer&#39;s Distinguished Name of incoming connections. If the Pattern does not match the Issuer DN, the processor will respond with a status of HTTP 403 Forbidden.</dd>
+                    <dt>API Name</dt>
+                    <dd>Authorized Issuer DN Pattern</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>.*</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Authorized Subject DN Pattern</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A Regular Expression to apply against the Subject&#39;s Distinguished Name of incoming connections. If the Pattern does not match the Subject DN, the the processor will respond with a status of HTTP 403 Forbidden.</div>
             </a>
@@ -2468,7 +2558,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>A Regular Expression to apply against the Subject&#39;s Distinguished Name of incoming connections. If the Pattern does not match the Subject DN, the the processor will respond with a status of HTTP 403 Forbidden.</dd>
                     <dt>API Name</dt>
-                    <dd>Authorized DN Pattern</dd>
+                    <dd>Authorized Subject DN Pattern</dd>
                     
                     <dt>Default Value</dt>
                     <dd>.*</dd>
@@ -2481,36 +2571,6 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Authorized Issuer DN Pattern</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A Regular Expression to apply against the Issuer&#39;s Distinguished Name of incoming connections. If the Pattern does not match the Issuer DN, the processor will respond with a status of HTTP 403 Forbidden.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Authorized Issuer DN Pattern</dd>
-                    <dt>Description</dt>
-                    <dd>A Regular Expression to apply against the Issuer&#39;s Distinguished Name of incoming connections. If the Pattern does not match the Issuer DN, the processor will respond with a status of HTTP 403 Forbidden.</dd>
-                    <dt>API Name</dt>
-                    <dd>authorized-issuer-dn-pattern</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>.*</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -2558,7 +2618,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>Client Authentication policy for TLS connections. Required when SSL Context Service configured.</dd>
                     <dt>API Name</dt>
-                    <dd>client-authentication</dd>
+                    <dd>Client Authentication</dd>
                     
                     <dt>Default Value</dt>
                     <dd>AUTO</dd>
@@ -2618,44 +2678,17 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Listening Port for Health Check Requests</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The port to listen on for incoming health check requests. If set, it must be different from the Listening Port. Configure this port if the processor is set to use two-way SSL and a load balancer that does not support client authentication for health check requests is used. Only /&lt;base_path&gt;/healthcheck service is available via this port and only GET and HEAD requests are supported. If the processor is set not to use SSL, SSL will not be used on this port, either. If the processor is set to use one-way SSL, one-way SSL will be used on this port. If the processor is set to use two-way SSL, one-way SSL will be used on this port (client authentication not required).</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Listening Port for Health Check Requests</dd>
-                    <dt>Description</dt>
-                    <dd>The port to listen on for incoming health check requests. If set, it must be different from the Listening Port. Configure this port if the processor is set to use two-way SSL and a load balancer that does not support client authentication for health check requests is used. Only /&lt;base_path&gt;/healthcheck service is available via this port and only GET and HEAD requests are supported. If the processor is set not to use SSL, SSL will not be used on this port, either. If the processor is set to use one-way SSL, one-way SSL will be used on this port. If the processor is set to use two-way SSL, one-way SSL will be used on this port (client authentication not required).</dd>
-                    <dt>API Name</dt>
-                    <dd>health-check-port</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">HTTP Headers to receive as Attributes (Regex)</span>
+                <span class="">HTTP Headers for Attributes</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the Regular Expression that determines the names of HTTP Headers that should be passed along as FlowFile attributes</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>HTTP Headers to receive as Attributes (Regex)</dd>
+                    <dd>HTTP Headers for Attributes</dd>
                     <dt>Description</dt>
                     <dd>Specifies the Regular Expression that determines the names of HTTP Headers that should be passed along as FlowFile attributes</dd>
                     <dt>API Name</dt>
-                    <dd>HTTP Headers to receive as Attributes (Regex)</dd>
+                    <dd>HTTP Headers for Attributes</dd>
                     
                     
                     
@@ -2765,6 +2798,33 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Listening Port for Health Check Requests</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The port to listen on for incoming health check requests. If set, it must be different from the Listening Port. Configure this port if the processor is set to use two-way SSL and a load balancer that does not support client authentication for health check requests is used. Only /&lt;base_path&gt;/healthcheck service is available via this port and only GET and HEAD requests are supported. If the processor is set not to use SSL, SSL will not be used on this port, either. If the processor is set to use one-way SSL, one-way SSL will be used on this port. If the processor is set to use two-way SSL, one-way SSL will be used on this port (client authentication not required).</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Listening Port for Health Check Requests</dd>
+                    <dt>Description</dt>
+                    <dd>The port to listen on for incoming health check requests. If set, it must be different from the Listening Port. Configure this port if the processor is set to use two-way SSL and a load balancer that does not support client authentication for health check requests is used. Only /&lt;base_path&gt;/healthcheck service is available via this port and only GET and HEAD requests are supported. If the processor is set not to use SSL, SSL will not be used on this port, either. If the processor is set to use one-way SSL, one-way SSL will be used on this port. If the processor is set to use two-way SSL, one-way SSL will be used on this port (client authentication not required).</dd>
+                    <dt>API Name</dt>
+                    <dd>Listening Port for Health Check Requests</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Max Unconfirmed Flowfile Time</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum amount of time to wait for a FlowFile to be confirmed before it is removed from the cache</div>
             </a>
@@ -2805,7 +2865,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>The maximum number of threads to be used by the embedded Jetty server. The value can be set between 8 and 1000. The value of this property affects the performance of the flows and the operating system, therefore the default value should only be changed in justified cases. A value that is less than the default value may be suitable if only a small number of HTTP clients connect to the server. A greater value may be suitable if a large number of HTTP clients are expected to make requests to the server simultaneously.</dd>
                     <dt>API Name</dt>
-                    <dd>max-thread-pool-size</dd>
+                    <dd>Maximum Thread Pool Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>200</dd>
@@ -2835,7 +2895,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>The threshold size, at which the contents of an incoming file would be written to disk. Only applies for requests with Content-Type: multipart/form-data. It is used to prevent denial of service type of attacks, to prevent filling up the heap or disk space.</dd>
                     <dt>API Name</dt>
-                    <dd>multipart-read-buffer-size</dd>
+                    <dd>Multipart Read Buffer Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>512 KB</dd>
@@ -2865,7 +2925,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>The max size of the request. Only applies for requests with Content-Type: multipart/form-data, and is used to prevent denial of service type of attacks, to prevent filling up the heap or disk space</dd>
                     <dt>API Name</dt>
-                    <dd>multipart-request-max-size</dd>
+                    <dd>Multipart Request Max Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>1 MB</dd>
@@ -2895,7 +2955,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>The Record Reader to use parsing the incoming FlowFile into Records</dd>
                     <dt>API Name</dt>
-                    <dd>record-reader</dd>
+                    <dd>Record Reader</dd>
                     
                     
                     
@@ -2940,7 +3000,15 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroReader/">org.apache.nifi.avro.AvroReader</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3278,6 +3346,11 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.services.protobuf.ProtobufReader/">org.apache.nifi.services.protobuf.ProtobufReader</a></div>
                         
                         
@@ -3286,6 +3359,16 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                         
                         
                         <div><a href="/components/org.apache.nifi.lookup.ReaderLookup/">org.apache.nifi.lookup.ReaderLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3597,7 +3680,7 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                     <dt>Description</dt>
                     <dd>The Record Writer to use for serializing Records after they have been transformed</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -3647,7 +3730,15 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -3984,7 +4075,22 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4715,7 +4821,30 @@ FlowFile(s) contained within the package; the original FlowFile names are restor
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">org.apache.nifi.ssl.PEMEncodedSSLContextProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5107,12 +5236,12 @@ The MergeContent and PackageFlowFile processors can generate FlowFileV3 formatte
         
         <li class="description">
             <a class="uk-accordion-title" href>
-                <div class="uk-margin-remove uk-text-truncate uk-text-light">Limit the date flow rate that is accepted</div>
+                <div class="uk-margin-remove uk-text-truncate uk-text-light">Limit the data flow rate that is accepted</div>
             </a>
             <div class="uk-accordion-content uk-padding-small">
                 <dl class="uk-description-list">
                     <dt>Description</dt>
-                    <dd>Limit the date flow rate that is accepted</dd>
+                    <dd>Limit the data flow rate that is accepted</dd>
                     
                     <dt>Notes</dt>
                     <dd>When ListenHTTP cannot output FlowFiles due to back pressure, it will send HTTP 503 Service Unavailable

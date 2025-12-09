@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>ListFile 2.6.0</h3>
+<h3>ListFile 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ListFile 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ListFile 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2587,7 +2647,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Specify how initial listing should be handled. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-initial-listing-target</dd>
+                    <dd>Entity Tracking Initial Listing Target</dd>
                     
                     <dt>Default Value</dt>
                     <dd>all</dd>
@@ -2632,7 +2692,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>The configured value will be appended to the cache key so that listing state can be tracked per NiFi node rather than cluster wide when tracking state is scoped to LOCAL. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-node-identifier</dd>
+                    <dd>Entity Tracking Node Identifier</dd>
                     
                     <dt>Default Value</dt>
                     <dd>${hostname()}</dd>
@@ -2662,7 +2722,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Listed entities are stored in the specified cache storage so that this processor can resume listing across NiFi restart or in case of primary node change. &#39;Tracking Entities&#39; strategy require tracking information of all listed entities within the last &#39;Tracking Time Window&#39;. To support large number of entities, the strategy uses DistributedMapCache instead of managed state. Cache key format is &#39;ListedEntities::{processorId}(::{nodeId})&#39;. If it tracks per node listed entities, then the optional &#39;::{nodeId}&#39; part is added to manage state separately. E.g. cluster wide cache key = &#39;ListedEntities::8dda2321-0164-1000-50fa-3042fe7d6a7b&#39;, per node cache key = &#39;ListedEntities::8dda2321-0164-1000-50fa-3042fe7d6a7b::nifi-node3&#39; The stored cache content is Gzipped JSON string. The cache key will be deleted when target listing configuration is changed. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-state-cache</dd>
+                    <dd>Entity Tracking State Cache</dd>
                     
                     
                     
@@ -2673,6 +2733,14 @@ following schema (in Avro format):</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3062,7 +3130,22 @@ following schema (in Avro format):</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">org.apache.nifi.redis.service.RedisDistributedMapCacheClientService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3340,7 +3423,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Specify how long this processor should track already-listed entities. &#39;Tracking Entities&#39; strategy can pick any entity whose timestamp is inside the specified time window. For example, if set to &#39;30 minutes&#39;, any entity having timestamp in recent 30 minutes will be the listing target when this processor runs. A listed entity is considered &#39;new/updated&#39; and a FlowFile is emitted if one of following condition meets: 1. does not exist in the already-listed entities, 2. has newer timestamp than the cached entity, 3. has different size than the cached entity. If a cached entity&#39;s timestamp becomes older than specified time window, that entity will be removed from the cached already-listed entities. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-time-window</dd>
+                    <dd>Entity Tracking Time Window</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3 hours</dd>
@@ -3562,7 +3645,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Specify how to determine new/updated entities. See each strategy descriptions for detail.</dd>
                     <dt>API Name</dt>
-                    <dd>listing-strategy</dd>
+                    <dd>Listing Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>timestamps</dd>
@@ -3611,7 +3694,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>The maximum amount of time that listing any single directory is expected to take. If the listing for the directory specified by the &#39;Input Directory&#39; property, or the listing of any subdirectory (if &#39;Recurse&#39; is set to true) takes longer than this amount of time, a warning bulletin will be generated for each directory listing that exceeds this amount of time.</dd>
                     <dt>API Name</dt>
-                    <dd>max-listing-time</dd>
+                    <dd>Max Directory Listing Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3 mins</dd>
@@ -3641,7 +3724,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>The maximum amount of time that any single disk operation is expected to take. If any disk operation takes longer than this amount of time, a warning bulletin will be generated for each operation that exceeds this amount of time.</dd>
                     <dt>API Name</dt>
-                    <dd>max-operation-time</dd>
+                    <dd>Max Disk Operation Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>10 secs</dd>
@@ -3654,36 +3737,6 @@ following schema (in Avro format):</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Maximum Number of Files to Track</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the &#39;Track Performance&#39; property is set to &#39;true&#39;, this property indicates the maximum number of files whose performance metrics should be held onto. A smaller value for this property will result in less heap utilization, while a larger value may provide more accurate insights into how the disk access operations are performing</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Maximum Number of Files to Track</dd>
-                    <dt>Description</dt>
-                    <dd>If the &#39;Track Performance&#39; property is set to &#39;true&#39;, this property indicates the maximum number of files whose performance metrics should be held onto. A smaller value for this property will result in less heap utilization, while a larger value may provide more accurate insights into how the disk access operations are performing</dd>
-                    <dt>API Name</dt>
-                    <dd>max-performance-metrics</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>100000</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
                     
                 </dl>
             </div>
@@ -3738,6 +3791,36 @@ following schema (in Avro format):</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Maximum Number of Files to Track</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If the &#39;Track Performance&#39; property is set to &#39;true&#39;, this property indicates the maximum number of files whose performance metrics should be held onto. A smaller value for this property will result in less heap utilization, while a larger value may provide more accurate insights into how the disk access operations are performing</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Maximum Number of Files to Track</dd>
+                    <dt>Description</dt>
+                    <dd>If the &#39;Track Performance&#39; property is set to &#39;true&#39;, this property indicates the maximum number of files whose performance metrics should be held onto. A smaller value for this property will result in less heap utilization, while a larger value may provide more accurate insights into how the disk access operations are performing</dd>
+                    <dt>API Name</dt>
+                    <dd>Maximum Number of Files to Track</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>100000</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                 </dl>
             </div>
@@ -3842,7 +3925,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Specifies the Record Writer to use for creating the listing. If not specified, one FlowFile will be created for each entity that is listed. If the Record Writer is specified, all entities will be written to a single FlowFile instead of adding attributes to individual FlowFiles.</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -3892,7 +3975,15 @@ following schema (in Avro format):</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4229,7 +4320,22 @@ following schema (in Avro format):</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4571,7 +4677,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Specify timestamp precision at the target system. Since this processor uses timestamp of entities to decide which should be listed, it is crucial to use the right timestamp precision.</dd>
                     <dt>API Name</dt>
-                    <dd>target-system-timestamp-precision</dd>
+                    <dd>Target System Timestamp Precision</dd>
                     
                     <dt>Default Value</dt>
                     <dd>auto-detect</dd>
@@ -4624,7 +4730,7 @@ following schema (in Avro format):</p>
                     <dt>Description</dt>
                     <dd>Whether or not the Processor should track the performance of disk access operations. If true, all accesses to disk will be recorded, including the file being accessed, the information being obtained, and how long it takes. This is then logged periodically at a DEBUG level. While the amount of data will be capped, this option may still consume a significant amount of heap (controlled by the &#39;Maximum Number of Files to Track&#39; property), but it can be very useful for troubleshooting purposes if performance is poor is degraded.</dd>
                     <dt>API Name</dt>
-                    <dd>track-performance</dd>
+                    <dd>Track Performance</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>

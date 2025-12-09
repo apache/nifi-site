@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>MongoDBLookupService 2.6.0</h3>
+<h3>MongoDBLookupService 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2450,60 +2510,6 @@ The query is limited to the first result (findOne in the Mongo documentation). I
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Mongo Collection Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the collection to use</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Mongo Collection Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the collection to use</dd>
-                    <dt>API Name</dt>
-                    <dd>mongo-collection-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Mongo Database Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the database to use</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Mongo Database Name</dd>
-                    <dt>Description</dt>
-                    <dd>The name of the database to use</dd>
-                    <dt>API Name</dt>
-                    <dd>mongo-db-name</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="property-required">Client Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A MongoDB controller service to use with this lookup service.</div>
             </a>
@@ -2514,7 +2520,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>A MongoDB controller service to use with this lookup service.</dd>
                     <dt>API Name</dt>
-                    <dd>mongo-lookup-client-service</dd>
+                    <dd>Client Service</dd>
                     
                     
                     
@@ -2525,6 +2531,14 @@ The query is limited to the first result (findOne in the Mongo documentation). I
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3160,11 +3174,107 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Lookup Value Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The field whose value will be returned when the lookup key(s) match a record. If not specified then the entire MongoDB result document minus the _id field will be returned as a record.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Lookup Value Field</dd>
+                    <dt>Description</dt>
+                    <dd>The field whose value will be returned when the lookup key(s) match a record. If not specified then the entire MongoDB result document minus the _id field will be returned as a record.</dd>
+                    <dt>API Name</dt>
+                    <dd>Lookup Value Field</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Mongo Collection Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the collection to use</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Mongo Collection Name</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the collection to use</dd>
+                    <dt>API Name</dt>
+                    <dd>Mongo Collection Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Mongo Database Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the database to use</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Mongo Database Name</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the database to use</dd>
+                    <dt>API Name</dt>
+                    <dd>Mongo Database Name</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables and FlowFile Attributes</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
@@ -3186,34 +3296,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>Specifies a projection for limiting which fields will be returned.</dd>
                     <dt>API Name</dt>
-                    <dd>mongo-lookup-projection</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Lookup Value Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The field whose value will be returned when the lookup key(s) match a record. If not specified then the entire MongoDB result document minus the _id field will be returned as a record.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Lookup Value Field</dd>
-                    <dt>Description</dt>
-                    <dd>The field whose value will be returned when the lookup key(s) match a record. If not specified then the entire MongoDB result document minus the _id field will be returned as a record.</dd>
-                    <dt>API Name</dt>
-                    <dd>mongo-lookup-value-field</dd>
+                    <dd>Projection</dd>
                     
                     
                     
@@ -3240,7 +3323,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>Specifies how to obtain the schema that is to be used for interpreting the data.</dd>
                     <dt>API Name</dt>
-                    <dd>schema-access-strategy</dd>
+                    <dd>Schema Access Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>infer</dd>
@@ -3289,7 +3372,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>Specifies the name of the branch to use when looking up the schema in the Schema Registry property. If the chosen Schema Registry does not support branching, this value will be ignored.</dd>
                     <dt>API Name</dt>
-                    <dd>schema-branch</dd>
+                    <dd>Schema Branch</dd>
                     
                     
                     
@@ -3335,7 +3418,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>Specifies the name of the schema to lookup in the Schema Registry property</dd>
                     <dt>API Name</dt>
-                    <dd>schema-name</dd>
+                    <dd>Schema Name</dd>
                     
                     <dt>Default Value</dt>
                     <dd>${schema.name}</dd>
@@ -3384,7 +3467,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>Specifies the Controller Service to use for the Schema Registry</dd>
                     <dt>API Name</dt>
-                    <dd>schema-registry</dd>
+                    <dd>Schema Registry</dd>
                     
                     
                     
@@ -3395,6 +3478,11 @@ The query is limited to the first result (findOne in the Mongo documentation). I
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3444,6 +3532,9 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                         
                         
                         <div><a href="/components/org.apache.nifi.schemaregistry.services.AvroSchemaRegistry/">org.apache.nifi.schemaregistry.services.AvroSchemaRegistry</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -4038,6 +4129,21 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -4083,7 +4189,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>The text of an Avro-formatted Schema</dd>
                     <dt>API Name</dt>
-                    <dd>schema-text</dd>
+                    <dd>Schema Text</dd>
                     
                     <dt>Default Value</dt>
                     <dd>${avro.schema}</dd>
@@ -4132,7 +4238,7 @@ The query is limited to the first result (findOne in the Mongo documentation). I
                     <dt>Description</dt>
                     <dd>Specifies the version of the schema to lookup in the Schema Registry. If not specified then the latest version of the schema will be retrieved.</dd>
                     <dt>API Name</dt>
-                    <dd>schema-version</dd>
+                    <dd>Schema Version</dd>
                     
                     
                     

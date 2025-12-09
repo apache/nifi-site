@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>TransformXml 2.6.0</h3>
+<h3>TransformXml 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2447,20 +2507,20 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Cache size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Maximum number of stylesheets to cache. Zero disables the cache.</div>
+                <span class="property-required">Cache Duration</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The cache TTL (time-to-live) or how long to keep stylesheets in the cache after last access.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Cache size</dd>
+                    <dd>Cache Duration</dd>
                     <dt>Description</dt>
-                    <dd>Maximum number of stylesheets to cache. Zero disables the cache.</dd>
+                    <dd>The cache TTL (time-to-live) or how long to keep stylesheets in the cache after last access.</dd>
                     <dt>API Name</dt>
-                    <dd>cache-size</dd>
+                    <dd>Cache Duration</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>10</dd>
+                    <dd>60 secs</dd>
                     
                     
                     
@@ -2477,20 +2537,20 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Cache TTL after last access</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The cache TTL (time-to-live) or how long to keep stylesheets in the cache after last access.</div>
+                <span class="property-required">Cache Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Maximum number of stylesheets to cache. Zero disables the cache.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Cache TTL after last access</dd>
+                    <dd>Cache Size</dd>
                     <dt>Description</dt>
-                    <dd>The cache TTL (time-to-live) or how long to keep stylesheets in the cache after last access.</dd>
+                    <dd>Maximum number of stylesheets to cache. Zero disables the cache.</dd>
                     <dt>API Name</dt>
-                    <dd>cache-ttl-after-last-access</dd>
+                    <dd>Cache Size</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>60 secs</dd>
+                    <dd>10</dd>
                     
                     
                     
@@ -2517,7 +2577,7 @@
                     <dt>Description</dt>
                     <dd>Whether or not to indent the output.</dd>
                     <dt>API Name</dt>
-                    <dd>indent-output</dd>
+                    <dd>Indent</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>
@@ -2552,17 +2612,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Secure processing</span>
+                <span class="property-required">Secure Processing</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether or not to mitigate various XML-related attacks like XXE (XML External Entity) attacks.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Secure processing</dd>
+                    <dd>Secure Processing</dd>
                     <dt>Description</dt>
                     <dd>Whether or not to mitigate various XML-related attacks like XXE (XML External Entity) attacks.</dd>
                     <dt>API Name</dt>
-                    <dd>secure-processing</dd>
+                    <dd>Secure Processing</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>
@@ -2597,17 +2657,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">XSLT file name</span>
+                <span class="">XSLT File Name</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Provides the name (including full path) of the XSLT file to apply to the FlowFile XML content.One of the &#39;XSLT file name&#39; and &#39;XSLT Lookup&#39; properties must be defined.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>XSLT file name</dd>
+                    <dd>XSLT File Name</dd>
                     <dt>Description</dt>
                     <dd>Provides the name (including full path) of the XSLT file to apply to the FlowFile XML content.One of the &#39;XSLT file name&#39; and &#39;XSLT Lookup&#39; properties must be defined.</dd>
                     <dt>API Name</dt>
-                    <dd>XSLT file name</dd>
+                    <dd>XSLT File Name</dd>
                     
                     
                     
@@ -2634,7 +2694,7 @@
                     <dt>Description</dt>
                     <dd>Controller lookup used to store XSLT definitions. One of the &#39;XSLT file name&#39; and &#39;XSLT Lookup&#39; properties must be defined. WARNING: note that the lookup controller service should not be used to store large XSLT files.</dd>
                     <dt>API Name</dt>
-                    <dd>xslt-controller</dd>
+                    <dd>XSLT Lookup</dd>
                     
                     
                     
@@ -2645,6 +2705,12 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3002,7 +3068,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">org.apache.nifi.lookup.PropertiesFileLookupService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3294,6 +3375,8 @@
                         
                         
                         
+                        
+                        
                     </dd>
 
                     
@@ -3310,17 +3393,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">XSLT Lookup key</span>
+                <span class="">XSLT Lookup Key</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Key used to retrieve the XSLT definition from the XSLT lookup controller. This property must be set when using the XSLT controller property.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>XSLT Lookup key</dd>
+                    <dd>XSLT Lookup Key</dd>
                     <dt>Description</dt>
                     <dd>Key used to retrieve the XSLT definition from the XSLT lookup controller. This property must be set when using the XSLT controller property.</dd>
                     <dt>API Name</dt>
-                    <dd>xslt-controller-key</dd>
+                    <dd>XSLT Lookup Key</dd>
                     
                     
                     

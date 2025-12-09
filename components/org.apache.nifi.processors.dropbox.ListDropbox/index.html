@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>ListDropbox 2.6.0</h3>
+<h3>ListDropbox 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>Controller Service used to obtain Dropbox credentials (App Key, App Secret, Access Token, Refresh Token). See controller service&#39;s Additional Details for more information.</dd>
                     <dt>API Name</dt>
-                    <dd>dropbox-credential-service</dd>
+                    <dd>Dropbox Credential Service</dd>
                     
                     
                     
@@ -2468,6 +2528,29 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3129,7 +3212,7 @@
                     <dt>Description</dt>
                     <dd>Specify how initial listing should be handled. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-initial-listing-target</dd>
+                    <dd>Entity Tracking Initial Listing Target</dd>
                     
                     <dt>Default Value</dt>
                     <dd>all</dd>
@@ -3193,7 +3276,7 @@
                     <dt>Description</dt>
                     <dd>Listed entities are stored in the specified cache storage so that this processor can resume listing across NiFi restart or in case of primary node change. &#39;Tracking Entities&#39; strategy require tracking information of all listed entities within the last &#39;Tracking Time Window&#39;. To support large number of entities, the strategy uses DistributedMapCache instead of managed state. Cache key format is &#39;ListedEntities::{processorId}(::{nodeId})&#39;. If it tracks per node listed entities, then the optional &#39;::{nodeId}&#39; part is added to manage state separately. E.g. cluster wide cache key = &#39;ListedEntities::8dda2321-0164-1000-50fa-3042fe7d6a7b&#39;, per node cache key = &#39;ListedEntities::8dda2321-0164-1000-50fa-3042fe7d6a7b::nifi-node3&#39; The stored cache content is Gzipped JSON string. The cache key will be deleted when target listing configuration is changed. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-state-cache</dd>
+                    <dd>Entity Tracking State Cache</dd>
                     
                     
                     
@@ -3204,6 +3287,14 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3593,7 +3684,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.redis.service.RedisDistributedMapCacheClientService/">org.apache.nifi.redis.service.RedisDistributedMapCacheClientService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3890,7 +3996,7 @@
                     <dt>Description</dt>
                     <dd>Specify how long this processor should track already-listed entities. &#39;Tracking Entities&#39; strategy can pick any entity whose timestamp is inside the specified time window. For example, if set to &#39;30 minutes&#39;, any entity having timestamp in recent 30 minutes will be the listing target when this processor runs. A listed entity is considered &#39;new/updated&#39; and a FlowFile is emitted if one of following condition meets: 1. does not exist in the already-listed entities, 2. has newer timestamp than the cached entity, 3. has different size than the cached entity. If a cached entity&#39;s timestamp becomes older than specified time window, that entity will be removed from the cached already-listed entities. Used by &#39;Tracking Entities&#39; strategy.</dd>
                     <dt>API Name</dt>
-                    <dd>et-time-window</dd>
+                    <dd>Entity Tracking Time Window</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3 hours</dd>
@@ -3939,7 +4045,7 @@
                     <dt>Description</dt>
                     <dd>The Dropbox identifier or path of the folder from which to pull list of files. &#39;Folder&#39; should match the following regular expression pattern: /.*|id:.* . Example for folder identifier: id:odTlUvbpIEAAAAAAAAAGGQ. Example for folder path: /Team1/Task1.</dd>
                     <dt>API Name</dt>
-                    <dd>folder</dd>
+                    <dd>Folder</dd>
                     
                     <dt>Default Value</dt>
                     <dd>/</dd>
@@ -3969,7 +4075,7 @@
                     <dt>Description</dt>
                     <dd>Specify how to determine new/updated entities. See each strategy descriptions for detail.</dd>
                     <dt>API Name</dt>
-                    <dd>listing-strategy</dd>
+                    <dd>Listing Strategy</dd>
                     
                     <dt>Default Value</dt>
                     <dd>timestamps</dd>
@@ -4022,7 +4128,7 @@
                     <dt>Description</dt>
                     <dd>The minimum age a file must be in order to be considered; any files newer than this will be ignored.</dd>
                     <dt>API Name</dt>
-                    <dd>min-age</dd>
+                    <dd>Minimum File Age</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0 sec</dd>
@@ -4052,7 +4158,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Proxy Configuration Controller Service to proxy network requests.</dd>
                     <dt>API Name</dt>
-                    <dd>proxy-configuration-service</dd>
+                    <dd>Proxy Configuration Service</dd>
                     
                     
                     
@@ -4063,6 +4169,29 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4724,7 +4853,7 @@
                     <dt>Description</dt>
                     <dd>Specifies the Record Writer to use for creating the listing. If not specified, one FlowFile will be created for each entity that is listed. If the Record Writer is specified, all entities will be written to a single FlowFile instead of adding attributes to individual FlowFiles.</dd>
                     <dt>API Name</dt>
-                    <dd>record-writer</dd>
+                    <dd>Record Writer</dd>
                     
                     
                     
@@ -4774,7 +4903,15 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.avro.AvroRecordSetWriter/">org.apache.nifi.avro.AvroRecordSetWriter</a></div>
+                        
+                        
+                        
                         
                         
                         
@@ -5111,7 +5248,22 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.RecordSetWriterLookup/">org.apache.nifi.lookup.RecordSetWriterLookup</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5408,7 +5560,7 @@
                     <dt>Description</dt>
                     <dd>Indicates whether to list files from subfolders of the Dropbox folder.</dd>
                     <dt>API Name</dt>
-                    <dd>recursive-search</dd>
+                    <dd>Search Recursively</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>

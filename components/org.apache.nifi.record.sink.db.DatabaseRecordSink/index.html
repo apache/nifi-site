@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>DatabaseRecordSink 2.6.0</h3>
+<h3>DatabaseRecordSink 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2457,7 +2517,7 @@
                     <dt>Description</dt>
                     <dd>The name of the catalog that the statement should update. This may not apply for the database that you are updating. In this case, leave the field empty</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-catalog-name</dd>
+                    <dd>Catalog Name</dd>
                     
                     
                     
@@ -2484,7 +2544,7 @@
                     <dt>Description</dt>
                     <dd>The Controller Service that is used to obtain a connection to the database for sending records.</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-dcbp-service</dd>
+                    <dd>Database Connection Pooling Service</dd>
                     
                     
                     
@@ -2495,6 +2555,14 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3134,6 +3202,21 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3160,7 +3243,7 @@
                     <dt>Description</dt>
                     <dd>The maximum amount of time allowed for a running SQL statement , zero means there is no limit. Max time less than 1 second will be equal to zero.</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-query-timeout</dd>
+                    <dd>Max Wait Time</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0 seconds</dd>
@@ -3190,7 +3273,7 @@
                     <dt>Description</dt>
                     <dd>Enabling this option will cause all column names to be quoted, allowing you to use reserved words as column names in your tables.</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-quoted-identifiers</dd>
+                    <dd>Quote Column Identifiers</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -3235,7 +3318,7 @@
                     <dt>Description</dt>
                     <dd>Enabling this option will cause the table name to be quoted to support the use of special characters in the table name.</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-quoted-table-identifiers</dd>
+                    <dd>Quote Table Identifiers</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -3280,7 +3363,7 @@
                     <dt>Description</dt>
                     <dd>The name of the schema that the table belongs to. This may not apply for the database that you are updating. In this case, leave the field empty</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-schema-name</dd>
+                    <dd>Schema Name</dd>
                     
                     
                     
@@ -3307,7 +3390,7 @@
                     <dt>Description</dt>
                     <dd>The name of the table that the statement should affect.</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-table-name</dd>
+                    <dd>Table Name</dd>
                     
                     
                     
@@ -3334,7 +3417,7 @@
                     <dt>Description</dt>
                     <dd>If true, the Processor will attempt to translate field names into the appropriate column names for the table specified. If false, the field names must match the column names exactly, or the column will not be updated</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-translate-field-names</dd>
+                    <dd>Translate Field Names</dd>
                     
                     <dt>Default Value</dt>
                     <dd>true</dd>
@@ -3379,7 +3462,7 @@
                     <dt>Description</dt>
                     <dd>If an incoming record does not have a field mapping for all of the database table&#39;s columns, this property specifies how to handle the situation</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-unmatched-column-behavior</dd>
+                    <dd>Unmatched Column Behavior</dd>
                     
                     <dt>Default Value</dt>
                     <dd>Fail on Unmatched Columns</dd>
@@ -3428,7 +3511,7 @@
                     <dt>Description</dt>
                     <dd>If an incoming record has a field that does not map to any of the database table&#39;s columns, this property specifies how to handle the situation</dd>
                     <dt>API Name</dt>
-                    <dd>db-record-sink-unmatched-field-behavior</dd>
+                    <dd>Unmatched Field Behavior</dd>
                     
                     <dt>Default Value</dt>
                     <dd>Ignore Unmatched Fields</dd>

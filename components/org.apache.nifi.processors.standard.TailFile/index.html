@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>TailFile 2.6.0</h3>
+<h3>TailFile 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for TailFile 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for TailFile 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2558,44 +2618,26 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">State Location</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies where the state is located either local or cluster so that state can be stored appropriately in order to ensure that all data is consumed without duplicating data upon restart of NiFi</div>
+                <span class="">Base Directory</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Base directory used to look for files to tail. This property is required when using Multifile mode.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>State Location</dd>
+                    <dd>Base Directory</dd>
                     <dt>Description</dt>
-                    <dd>Specifies where the state is located either local or cluster so that state can be stored appropriately in order to ensure that all data is consumed without duplicating data upon restart of NiFi</dd>
+                    <dd>Base directory used to look for files to tail. This property is required when using Multifile mode.</dd>
                     <dt>API Name</dt>
-                    <dd>File Location</dd>
+                    <dd>Base Directory</dd>
                     
-                    <dt>Default Value</dt>
-                    <dd>Local</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Local
-                                <span uk-icon="info" uk-tooltip="State is stored locally. Each node in a cluster will tail a different file."></span></li>
-                            
-                            <li>
-                                Remote
-                                <span uk-icon="info" uk-tooltip="State is located on a remote resource. This Processor will store state across the cluster so that it can be run on Primary Node Only and a new Primary Node can pick up where the last one left off."></span></li>
-                            
-                        </ul>
-                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
-                    <dd>true</dd>
+                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -2603,17 +2645,17 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">File(s) to Tail</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Path of the file to tail in case of single file mode. If using multifile mode, regular expression to find files to tail in the base directory. In case recursivity is set to true, the regular expression will be used to match the path starting from the base directory (see additional details for examples).</div>
+                <span class="property-required">Files to Tail</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Path of the file to tail in case of single file mode. If using multifile mode, regular expression to find files to tail in the base directory. In case recursive is set to true, the regular expression will be used to match the path starting from the base directory (see additional details for examples).</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>File(s) to Tail</dd>
+                    <dd>Files to Tail</dd>
                     <dt>Description</dt>
-                    <dd>Path of the file to tail in case of single file mode. If using multifile mode, regular expression to find files to tail in the base directory. In case recursivity is set to true, the regular expression will be used to match the path starting from the base directory (see additional details for examples).</dd>
+                    <dd>Path of the file to tail in case of single file mode. If using multifile mode, regular expression to find files to tail in the base directory. In case recursive is set to true, the regular expression will be used to match the path starting from the base directory (see additional details for examples).</dd>
                     <dt>API Name</dt>
-                    <dd>File to Tail</dd>
+                    <dd>Files to Tail</dd>
                     
                     
                     
@@ -2705,7 +2747,7 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
                         <ul>
                             
                             <li>
-                                <span>Tailing mode</span>
+                                <span>Tailing Mode</span>
                                 <span class="uk-text-light">is set to any
                                 
                                   of
@@ -2718,6 +2760,36 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
                             
                         </ul>
                     </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Lookup Frequency</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only used in Multiple files mode. It specifies the minimum duration the processor will wait before listing again the files to tail.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Lookup Frequency</dd>
+                    <dt>Description</dt>
+                    <dd>Only used in Multiple files mode. It specifies the minimum duration the processor will wait before listing again the files to tail.</dd>
+                    <dt>API Name</dt>
+                    <dd>Lookup Frequency</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>10 minutes</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -2772,6 +2844,36 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Maximum Age</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only used in Multiple files mode. It specifies the necessary minimum duration to consider that no new messages will be appended in a file regarding its last modification date. This should not be set too low to avoid duplication of data in case new messages are appended at a lower frequency.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Maximum Age</dd>
+                    <dt>Description</dt>
+                    <dd>Only used in Multiple files mode. It specifies the necessary minimum duration to consider that no new messages will be appended in a file regarding its last modification date. This should not be set too low to avoid duplication of data in case new messages are appended at a lower frequency.</dd>
+                    <dt>API Name</dt>
+                    <dd>Maximum Age</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>24 hours</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Post-Rollover Tail Period</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">When a file is rolled over, the processor will continue tailing the rolled over file until it has not been modified for this amount of time. This allows for another process to rollover a file, and then flush out any buffered data. Note that when this value is set, and the tailed file rolls over, the new file will not be tailed until the old file has not been modified for the configured amount of time. Additionally, when using this capability, in order to avoid data duplication, this period must be set longer than the Processor&#39;s Run Schedule, and the Processor must not be stopped after the file being tailed has been rolled over and before the data has been fully consumed. Otherwise, the data may be duplicated, as the entire file may be written out as the contents of a single FlowFile.</div>
             </a>
@@ -2802,17 +2904,17 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Pre-Allocated Buffer Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Sets the amount of memory that is pre-allocated for each tailed file.</div>
+                <span class="property-required">Preallocated Buffer Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Sets the amount of memory that is preallocated for each tailed file.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Pre-Allocated Buffer Size</dd>
+                    <dd>Preallocated Buffer Size</dd>
                     <dt>Description</dt>
-                    <dd>Sets the amount of memory that is pre-allocated for each tailed file.</dd>
+                    <dd>Sets the amount of memory that is preallocated for each tailed file.</dd>
                     <dt>API Name</dt>
-                    <dd>pre-allocated-buffer-size</dd>
+                    <dd>Preallocated Buffer Size</dd>
                     
                     <dt>Default Value</dt>
                     <dd>65536 B</dd>
@@ -2832,17 +2934,62 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Reread when NUL encountered</span>
+                <span class="property-required">Recursive Lookup</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">When using Multiple files mode, this property defines if files must be listed recursively or not in the base directory.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Recursive Lookup</dd>
+                    <dt>Description</dt>
+                    <dd>When using Multiple files mode, this property defines if files must be listed recursively or not in the base directory.</dd>
+                    <dt>API Name</dt>
+                    <dd>Recursive Lookup</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Reread on NUL Encountered</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this option is set to &#39;true&#39;, when a NUL character is read, the processor will yield and try to read the same part again later. (Note: Yielding may delay the processing of other files tailed by this processor, not just the one with the NUL character.) The purpose of this flag is to allow users to handle cases where reading a file may return temporary NUL values. NFS for example may send file contents out of order. In this case the missing parts are temporarily replaced by NUL values. CAUTION! If the file contains legitimate NUL values, setting this flag causes this processor to get stuck indefinitely. For this reason users should refrain from using this feature if they can help it and try to avoid having the target file on a file system where reads are unreliable.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Reread when NUL encountered</dd>
+                    <dd>Reread on NUL Encountered</dd>
                     <dt>Description</dt>
                     <dd>If this option is set to &#39;true&#39;, when a NUL character is read, the processor will yield and try to read the same part again later. (Note: Yielding may delay the processing of other files tailed by this processor, not just the one with the NUL character.) The purpose of this flag is to allow users to handle cases where reading a file may return temporary NUL values. NFS for example may send file contents out of order. In this case the missing parts are temporarily replaced by NUL values. CAUTION! If the file contains legitimate NUL values, setting this flag causes this processor to get stuck indefinitely. For this reason users should refrain from using this feature if they can help it and try to avoid having the target file on a file system where reads are unreliable.</dd>
                     <dt>API Name</dt>
-                    <dd>reread-on-nul</dd>
+                    <dd>Reread on NUL Encountered</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2904,47 +3051,20 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Base directory</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Base directory used to look for files to tail. This property is required when using Multifile mode.</div>
+                <span class="property-required">State Location</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies where the state is located either local or cluster so that state can be stored appropriately in order to ensure that all data is consumed without duplicating data upon restart of NiFi</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Base directory</dd>
+                    <dd>State Location</dd>
                     <dt>Description</dt>
-                    <dd>Base directory used to look for files to tail. This property is required when using Multifile mode.</dd>
+                    <dd>Specifies where the state is located either local or cluster so that state can be stored appropriately in order to ensure that all data is consumed without duplicating data upon restart of NiFi</dd>
                     <dt>API Name</dt>
-                    <dd>tail-base-directory</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Tailing mode</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Mode to use: single file will tail only one file, multiple file will look for a list of file. In Multiple mode the Base directory is required.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Tailing mode</dd>
-                    <dt>Description</dt>
-                    <dd>Mode to use: single file will tail only one file, multiple file will look for a list of file. In Multiple mode the Base directory is required.</dd>
-                    <dt>API Name</dt>
-                    <dd>tail-mode</dd>
+                    <dd>State Location</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>Single file</dd>
+                    <dd>Local</dd>
                     
                     
                     <dt>Allowable Values</dt>
@@ -2952,12 +3072,12 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
                         <ul>
                             
                             <li>
-                                Single file
-                                <span uk-icon="info" uk-tooltip="In this mode, only the one file indicated in the &#39;Files to tail&#39; property will be watched by the processor. In this mode, the file may not exist when starting the processor."></span></li>
+                                Local
+                                <span uk-icon="info" uk-tooltip="State is stored locally. Each node in a cluster will tail a different file."></span></li>
                             
                             <li>
-                                Multiple files
-                                <span uk-icon="info" uk-tooltip="In this mode, the &#39;Files to tail&#39; property accepts a regular expression and the processor will look for files in &#39;Base directory&#39; to list the files to tail by the processor."></span></li>
+                                Remote
+                                <span uk-icon="info" uk-tooltip="State is located on a remote resource. This Processor will store state across the cluster so that it can be run on Primary Node Only and a new Primary Node can pick up where the last one left off."></span></li>
                             
                         </ul>
                     </dd>
@@ -2976,80 +3096,20 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Lookup frequency</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only used in Multiple files mode. It specifies the minimum duration the processor will wait before listing again the files to tail.</div>
+                <span class="property-required">Tailing Mode</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Mode to use: single file will tail only one file, multiple file will look for a list of file. In Multiple mode the Base directory is required.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Lookup frequency</dd>
+                    <dd>Tailing Mode</dd>
                     <dt>Description</dt>
-                    <dd>Only used in Multiple files mode. It specifies the minimum duration the processor will wait before listing again the files to tail.</dd>
+                    <dd>Mode to use: single file will tail only one file, multiple file will look for a list of file. In Multiple mode the Base directory is required.</dd>
                     <dt>API Name</dt>
-                    <dd>tailfile-lookup-frequency</dd>
+                    <dd>Tailing Mode</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>10 minutes</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Maximum age</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only used in Multiple files mode. It specifies the necessary minimum duration to consider that no new messages will be appended in a file regarding its last modification date. This should not be set too low to avoid duplication of data in case new messages are appended at a lower frequency.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Maximum age</dd>
-                    <dt>Description</dt>
-                    <dd>Only used in Multiple files mode. It specifies the necessary minimum duration to consider that no new messages will be appended in a file regarding its last modification date. This should not be set too low to avoid duplication of data in case new messages are appended at a lower frequency.</dd>
-                    <dt>API Name</dt>
-                    <dd>tailfile-maximum-age</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>24 hours</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Recursive lookup</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">When using Multiple files mode, this property defines if files must be listed recursively or not in the base directory.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Recursive lookup</dd>
-                    <dt>Description</dt>
-                    <dd>When using Multiple files mode, this property defines if files must be listed recursively or not in the base directory.</dd>
-                    <dt>API Name</dt>
-                    <dd>tailfile-recursive-lookup</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
+                    <dd>Single file</dd>
                     
                     
                     <dt>Allowable Values</dt>
@@ -3057,12 +3117,12 @@ FlowFile, even if another message hasn&rsquo;t been encountered.</p>
                         <ul>
                             
                             <li>
-                                true
-                                </li>
+                                Single file
+                                <span uk-icon="info" uk-tooltip="In this mode, only the one file indicated in the &#39;Files to tail&#39; property will be watched by the processor. In this mode, the file may not exist when starting the processor."></span></li>
                             
                             <li>
-                                false
-                                </li>
+                                Multiple files
+                                <span uk-icon="info" uk-tooltip="In this mode, the &#39;Files to tail&#39; property accepts a regular expression and the processor will look for files in &#39;Base directory&#39; to list the files to tail by the processor."></span></li>
                             
                         </ul>
                     </dd>

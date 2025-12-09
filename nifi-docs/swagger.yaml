@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.6.0
+  version: 2.7.0
 security:
 - HTTPBearerJWT: []
 - CookieSecureAuthorizationBearer: []
@@ -361,6 +361,47 @@ paths:
       - Write - /controller-services/{uuid}: []
       - Read - any referenced Controller Services if this request changes the reference - /controller-services/{uuid}: []
       summary: Updates a controller service
+      tags:
+      - Controller Services
+  /controller-services/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins
+      parameters:
+      - description: The controller service id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The clear bulletin request specifying the timestamp from which
+          to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /controller-services/{uuid}: []
+      summary: Clears bulletins for a controller service
       tags:
       - Controller Services
   /controller-services/{id}/config/analysis:
@@ -1203,6 +1244,46 @@ paths:
       summary: Updates a flow analysis rule
       tags:
       - Controller
+  /controller/flow-analysis-rules/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearFlowAnalysisRuleBulletins
+      parameters:
+      - description: The flow analysis rule id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The request to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /flow-analysis-rules/{uuid}: []
+      summary: Clears bulletins for a flow analysis rule
+      tags:
+      - Controller
   /controller/flow-analysis-rules/{id}/config/analysis:
     post:
       operationId: analyzeFlowAnalysisRuleConfiguration
@@ -1800,6 +1881,46 @@ paths:
       summary: Creates a new parameter provider
       tags:
       - Controller
+  /controller/parameter-providers/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearParameterProviderBulletins
+      parameters:
+      - description: The parameter provider id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The request to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /parameter-providers/{uuid}: []
+      summary: Clears bulletins for a parameter provider
+      tags:
+      - Controller
   /controller/registry-clients:
     get:
       operationId: getFlowRegistryClients
@@ -1978,6 +2099,219 @@ paths:
       security:
       - Write - /controller/registry-clients/{id}: []
       summary: Updates a flow registry client
+      tags:
+      - Controller
+  /controller/registry-clients/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearRegistryClientBulletins
+      parameters:
+      - description: The registry client id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The request to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /controller/registry-clients/{uuid}: []
+      summary: Clears bulletins for a registry client
+      tags:
+      - Controller
+  /controller/registry-clients/{id}/config/analysis:
+    post:
+      operationId: analyzeFlowRegistryClientConfiguration
+      parameters:
+      - description: The registry client id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfigurationAnalysisEntity"
+        description: The configuration analysis request.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfigurationAnalysisEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /controller: []
+      summary: "Performs analysis of the component's configuration, providing information\
+        \ about which attributes are referenced."
+      tags:
+      - Controller
+  /controller/registry-clients/{id}/config/verification-requests:
+    post:
+      description: "Initiates verification of a Registry Client configuration. The\
+        \ request returns immediately with a request entity while verification runs\
+        \ asynchronously. The client should poll /controller/registry-clients/{clientId}/config/verification-requests/{requestId}\
+        \ for status and DELETE the request once verification completes."
+      operationId: submitRegistryClientConfigVerificationRequest
+      parameters:
+      - description: The registry client id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyConfigRequestEntity"
+        description: The registry client configuration verification request.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyConfigRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /controller: []
+      summary: Performs verification of the Registry Client's configuration
+      tags:
+      - Controller
+  /controller/registry-clients/{id}/config/verification-requests/{requestId}:
+    delete:
+      description: "Deletes the Verification Request with the given ID. After a request\
+        \ is created, it is expected that the client will properly clean up the request\
+        \ by DELETE'ing it, once the Verification process has completed. If the request\
+        \ is deleted before the request completes, then the Verification request will\
+        \ finish the step that it is currently performing and then will cancel any\
+        \ subsequent steps."
+      operationId: deleteRegistryClientVerificationRequest
+      parameters:
+      - description: The ID of the Registry Client
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Verification Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyConfigRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can remove it: []
+      summary: Deletes the Verification Request with the given ID
+      tags:
+      - Controller
+    get:
+      description: "Returns the Verification Request with the given ID. Once a Verification\
+        \ Request has been created, that request can subsequently be retrieved via\
+        \ this endpoint, and the request that is fetched will contain the updated\
+        \ state, such as percent complete, the current state of the request, and any\
+        \ failures. "
+      operationId: getRegistryClientVerificationRequest
+      parameters:
+      - description: The ID of the Registry Client
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Verification Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyConfigRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can get it: []
+      summary: Returns the Verification Request with the given ID
       tags:
       - Controller
   /controller/registry-clients/{id}/descriptors:
@@ -3360,6 +3694,58 @@ paths:
         group
       tags:
       - Flow
+  /flow/flow-registry-client-definition/{group}/{artifact}/{version}/{type}:
+    get:
+      description: "Note: This endpoint is subject to change as NiFi and it's REST\
+        \ API evolve."
+      operationId: getFlowRegistryClientDefinition
+      parameters:
+      - description: The bundle group
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+      - description: The bundle artifact
+        in: path
+        name: artifact
+        required: true
+        schema:
+          type: string
+      - description: The bundle version
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: The flow registry client type
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FlowRegistryClientDefinition"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The flow registry client definition for the coordinates could
+            not be located.
+      security:
+      - Read - /flow: []
+      summary: Retrieves the Flow Registry Client Definition for the specified component
+        type.
+      tags:
+      - Flow
   /flow/history:
     get:
       description: "Note: This endpoint is subject to change as NiFi and it's REST\
@@ -3545,6 +3931,31 @@ paths:
       summary: Gets status for an input port
       tags:
       - Flow
+  /flow/listen-ports:
+    get:
+      operationId: getListenPorts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListenPortsEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /flow: []
+      summary: Gets all listen ports configured on this NiFi that the current user
+        has access to
+      tags:
+      - Flow
   /flow/metrics/{producer}:
     get:
       operationId: getFlowMetrics
@@ -3589,6 +4000,15 @@ paths:
         name: rootFieldName
         schema:
           type: string
+      - description: Flow metrics reporting strategy limits collected metrics
+        in: query
+        name: flowMetricsReportingStrategy
+        schema:
+          type: string
+          default: ALL_COMPONENTS
+          enum:
+          - ALL_PROCESS_GROUPS
+          - ALL_COMPONENTS
       responses:
         "200":
           content:
@@ -3943,6 +4363,49 @@ paths:
       security:
       - Read - /flow: []
       summary: Gets the breadcrumbs for a process group
+      tags:
+      - Flow
+  /flow/process-groups/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_1
+      parameters:
+      - description: The process group id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsForGroupRequestEntity"
+        description: "The request to clear bulletins. If the components in the request\
+          \ are not specified, all authorized components will be considered."
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsForGroupResultsEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /flow: []
+      - Write - /process-groups/{uuid} - For the process group: []
+      - Write - /{component-type}/{uuid} - For every component having bulletins cleared: []
+      summary: Clears bulletins for components in the specified Process Group.
       tags:
       - Flow
   /flow/process-groups/{id}/controller-services:
@@ -5572,6 +6035,46 @@ paths:
       summary: Updates an input port
       tags:
       - InputPorts
+  /input-ports/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_2
+      parameters:
+      - description: The input port id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The request to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /input-ports/{uuid}: []
+      summary: Clears bulletins for an input port
+      tags:
+      - InputPorts
   /input-ports/{id}/run-status:
     put:
       operationId: updateRunStatus_2
@@ -5858,6 +6361,46 @@ paths:
       security:
       - Write - /output-ports/{uuid}: []
       summary: Updates an output port
+      tags:
+      - OutputPorts
+  /output-ports/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_3
+      parameters:
+      - description: The output port id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The request to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /output-ports/{uuid}: []
+      summary: Clears bulletins for an output port
       tags:
       - OutputPorts
   /output-ports/{id}/run-status:
@@ -6673,6 +7216,47 @@ paths:
       - Write - /parameter-providers/{uuid}: []
       - Read - any referenced Controller Services if this request changes the reference - /controller-services/{uuid}: []
       summary: Updates a parameter provider
+      tags:
+      - ParameterProviders
+  /parameter-providers/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_4
+      parameters:
+      - description: The parameter provider id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The clear bulletin request specifying the timestamp from which
+          to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /parameter-providers/{uuid}: []
+      summary: Clears bulletins for a parameter provider
       tags:
       - ParameterProviders
   /parameter-providers/{id}/config/analysis:
@@ -8924,6 +9508,47 @@ paths:
       summary: Updates a processor
       tags:
       - Processors
+  /processors/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_5
+      parameters:
+      - description: The processor id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The clear bulletin request specifying the timestamp from which
+          to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /processors/{uuid}: []
+      summary: Clears bulletins for a processor
+      tags:
+      - Processors
   /processors/{id}/config/analysis:
     post:
       operationId: analyzeConfiguration_2
@@ -10014,6 +10639,46 @@ paths:
       summary: Updates a remote process group
       tags:
       - RemoteProcessGroups
+  /remote-process-groups/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_6
+      parameters:
+      - description: The remote process group id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The clear bulletin request.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /remote-process-groups/{uuid}: []
+      summary: Clears bulletins for a remote process group
+      tags:
+      - RemoteProcessGroups
   /remote-process-groups/{id}/input-ports/{port-id}:
     put:
       description: "Note: This endpoint is subject to change as NiFi and it's REST\
@@ -10403,6 +11068,47 @@ paths:
       - Write - /reporting-tasks/{uuid}: []
       - Read - any referenced Controller Services if this request changes the reference - /controller-services/{uuid}: []
       summary: Updates a reporting task
+      tags:
+      - ReportingTasks
+  /reporting-tasks/{id}/bulletins/clear-requests:
+    post:
+      operationId: clearBulletins_7
+      parameters:
+      - description: The reporting task id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClearBulletinsRequestEntity"
+        description: The clear bulletin request specifying the timestamp from which
+          to clear bulletins.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClearBulletinsResultEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /reporting-tasks/{uuid}: []
+      summary: Clears bulletins for a reporting task
       tags:
       - ReportingTasks
   /reporting-tasks/{id}/config/analysis:
@@ -12634,9 +13340,16 @@ components:
         sourceType:
           type: string
           description: The type of the source component
+        stackTrace:
+          type: string
+          description: "The stack trace associated with the bulletin, if any."
         timestamp:
           type: string
           description: When this bulletin was generated.
+        timestampIso:
+          type: string
+          description: When this bulletin was generated in ISO format with full date
+            and milliseconds.
     BulletinEntity:
       type: object
       description: The bulletins for this component.
@@ -12659,6 +13372,10 @@ components:
         timestamp:
           type: string
           description: When this bulletin was generated.
+        timestampIso:
+          type: string
+          description: When this bulletin was generated in ISO format with full date
+            and milliseconds.
       xml:
         name: bulletinEntity
     Bundle:
@@ -12688,6 +13405,66 @@ components:
         version:
           type: string
           description: The version of the bundle.
+    ClearBulletinsForGroupRequestEntity:
+      type: object
+      properties:
+        components:
+          type: array
+          description: "Optional component IDs for which to clear bulletins. If not\
+            \ specified, all authorized descendant components will be used."
+          items:
+            type: string
+            description: "Optional component IDs for which to clear bulletins. If\
+              \ not specified, all authorized descendant components will be used."
+          uniqueItems: true
+        fromTimestamp:
+          type: string
+          description: The timestamp from which to clear bulletins (inclusive). This
+            field is required.
+        id:
+          type: string
+          description: The id of the ProcessGroup
+      required:
+      - fromTimestamp
+      xml:
+        name: clearBulletinsForGroupRequestEntity
+    ClearBulletinsForGroupResultsEntity:
+      type: object
+      properties:
+        bulletinsCleared:
+          type: integer
+          format: int32
+          description: The total number of bulletins that were cleared.
+      xml:
+        name: clearBulletinsForGroupResultsEntity
+    ClearBulletinsRequestEntity:
+      type: object
+      properties:
+        fromTimestamp:
+          type: string
+          description: The timestamp from which to clear bulletins (inclusive). This
+            field is required.
+      required:
+      - fromTimestamp
+      xml:
+        name: clearBulletinsRequestEntity
+    ClearBulletinsResultEntity:
+      type: object
+      properties:
+        bulletins:
+          type: array
+          description: The current bulletins for the component after clearing.
+          items:
+            $ref: "#/components/schemas/BulletinEntity"
+        bulletinsCleared:
+          type: integer
+          format: int32
+          description: The number of bulletins that were cleared.
+        componentId:
+          type: string
+          description: The id of the component for which bulletins were cleared.
+      xml:
+        name: clearBulletinsResultEntity
     ClientIdParameter:
       type: object
       properties:
@@ -12811,6 +13588,11 @@ components:
           description: Flow Analysis Rules provided in this bundle
           items:
             $ref: "#/components/schemas/FlowAnalysisRuleDefinition"
+        flowRegistryClients:
+          type: array
+          description: Flow Registry Clients provided in this bundle
+          items:
+            $ref: "#/components/schemas/FlowRegistryClientDefinition"
         parameterProviders:
           type: array
           description: Parameter Providers provided in this bundle
@@ -15548,6 +16330,106 @@ components:
           - INVALID
           - VALIDATING
           readOnly: true
+    FlowRegistryClientDefinition:
+      type: object
+      description: Flow Registry Clients provided in this bundle
+      properties:
+        additionalDetails:
+          type: boolean
+          description: Indicates if the component has additional details documentation
+        artifact:
+          type: string
+          description: The artifact name of the bundle that provides the referenced
+            type.
+        buildInfo:
+          $ref: "#/components/schemas/BuildInfo"
+        deprecated:
+          type: boolean
+          description: Whether or not the component has been deprecated
+        deprecationAlternatives:
+          type: array
+          description: "If this component has been deprecated, this optional field\
+            \ provides alternatives to use"
+          items:
+            type: string
+            description: "If this component has been deprecated, this optional field\
+              \ provides alternatives to use"
+          uniqueItems: true
+        deprecationReason:
+          type: string
+          description: "If this component has been deprecated, this optional field\
+            \ can be used to provide an explanation"
+        dynamicProperties:
+          type: array
+          description: Describes the dynamic properties supported by this component
+          items:
+            $ref: "#/components/schemas/DynamicProperty"
+        explicitRestrictions:
+          type: array
+          description: Explicit restrictions that indicate a require permission to
+            use the component
+          items:
+            $ref: "#/components/schemas/Restriction"
+          uniqueItems: true
+        group:
+          type: string
+          description: The group name of the bundle that provides the referenced type.
+        propertyDescriptors:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/PropertyDescriptor"
+          description: Descriptions of configuration properties applicable to this
+            component.
+        providedApiImplementations:
+          type: array
+          description: "If this type represents a provider for an interface, this\
+            \ lists the APIs it implements"
+          items:
+            $ref: "#/components/schemas/DefinedType"
+        restricted:
+          type: boolean
+          description: Whether or not the component has a general restriction
+        restrictedExplanation:
+          type: string
+          description: An optional description of the general restriction
+        seeAlso:
+          type: array
+          description: The names of other component types that may be related
+          items:
+            type: string
+            description: The names of other component types that may be related
+          uniqueItems: true
+        stateful:
+          $ref: "#/components/schemas/Stateful"
+        supportsDynamicProperties:
+          type: boolean
+          description: Whether or not this component makes use of dynamic (user-set)
+            properties.
+        supportsSensitiveDynamicProperties:
+          type: boolean
+          description: Whether or not this component makes use of sensitive dynamic
+            (user-set) properties.
+        systemResourceConsiderations:
+          type: array
+          description: The system resource considerations for the given component
+          items:
+            $ref: "#/components/schemas/SystemResourceConsideration"
+        tags:
+          type: array
+          description: The tags associated with this type
+          items:
+            type: string
+            description: The tags associated with this type
+          uniqueItems: true
+        type:
+          type: string
+          description: The fully-qualified class type
+        typeDescription:
+          type: string
+          description: The description of the type.
+        version:
+          type: string
+          description: The version of the bundle that provides the referenced type.
     FlowRegistryClientEntity:
       type: object
       properties:
@@ -15983,6 +16865,58 @@ components:
           description: The nodes in the lineage.
           items:
             $ref: "#/components/schemas/ProvenanceNodeDTO"
+    ListenPortDTO:
+      type: object
+      description: A list of ingress ports that are currently configured
+      properties:
+        applicationProtocols:
+          type: array
+          description: "Supported application protocols, if applicable"
+          items:
+            type: string
+            description: "Supported application protocols, if applicable"
+        componentClass:
+          type: string
+          description: The class type of the component providing the listen port
+        componentId:
+          type: string
+          description: The id of the component providing the listen port
+        componentName:
+          type: string
+          description: The name of the component providing the listen port
+        componentType:
+          type: string
+          description: "The type of component providing the listen port (e.g., Processor,\
+            \ ControllerService)"
+        parentGroupId:
+          type: string
+          description: "The id of the process group containing the component providing\
+            \ the listen port, if applicable"
+        parentGroupName:
+          type: string
+          description: "The name of the process group containing the component providing\
+            \ the listen port, if applicable"
+        portName:
+          type: string
+          description: The name of the the listen port. Useful context for components
+            that provide multiple ports.
+        portNumber:
+          type: integer
+          format: int32
+          description: The ingress port number
+        transportProtocol:
+          type: string
+          description: The ingress transport protocol (TCP or UDP)
+    ListenPortsEntity:
+      type: object
+      properties:
+        listenPorts:
+          type: array
+          description: A list of ingress ports that are currently configured
+          items:
+            $ref: "#/components/schemas/ListenPortDTO"
+      xml:
+        name: listenPortsEntity
     ListingRequestDTO:
       type: object
       properties:
@@ -18519,6 +19453,17 @@ components:
         persistsState:
           type: boolean
           description: Whether the processor persists state.
+        physicalState:
+          type: string
+          description: "The physical state of the processor, including transition\
+            \ states"
+          enum:
+          - RUNNING
+          - STOPPED
+          - DISABLED
+          - STARTING
+          - STOPPING
+          - RUN_ONCE
         position:
           $ref: "#/components/schemas/PositionDTO"
         relationships:
@@ -18808,6 +19753,17 @@ components:
           $ref: "#/components/schemas/PermissionsDTO"
         permissions:
           $ref: "#/components/schemas/PermissionsDTO"
+        physicalState:
+          type: string
+          description: "The physical state of the processor, including transition\
+            \ states"
+          enum:
+          - RUNNING
+          - STOPPED
+          - DISABLED
+          - STARTING
+          - STOPPING
+          - RUN_ONCE
         position:
           $ref: "#/components/schemas/PositionDTO"
         revision:
@@ -19162,6 +20118,8 @@ components:
           description: The description of the expression language scope supported
             by this property
           readOnly: true
+        listenPortDefinition:
+          $ref: "#/components/schemas/PropertyListenPortDefinition"
         name:
           type: string
           description: The name of the property key
@@ -19251,6 +20209,24 @@ components:
           description: Previous values for a given property.
           items:
             $ref: "#/components/schemas/PreviousValueDTO"
+    PropertyListenPortDefinition:
+      type: object
+      description: Indicates that this property defines a listen port
+      properties:
+        applicationProtocols:
+          type: array
+          description: The application protocols that this listen port could support
+            (if any)
+          items:
+            type: string
+            description: The application protocols that this listen port could support
+              (if any)
+        transportProtocol:
+          type: string
+          description: The transport protocol used by this listen port
+          enum:
+          - TCP
+          - UDP
     PropertyResourceDefinition:
       type: object
       description: Indicates that this property references external resources
@@ -22256,6 +23232,25 @@ components:
           type: integer
           format: int64
           description: The z index of the connection.
+    VersionedListenPortDefinition:
+      type: object
+      description: "Returns the Listen Port Definition for the port this property\
+        \ specifies, if applicable"
+      properties:
+        applicationProtocols:
+          type: array
+          description: The application protocol(s) that the listen port could support
+            (if any)
+          items:
+            type: string
+            description: The application protocol(s) that the listen port could support
+              (if any)
+        transportProtocol:
+          type: string
+          description: The transport protocol used by the listen port
+          enum:
+          - TCP
+          - UDP
     VersionedParameter:
       type: object
       description: The parameters in the context
@@ -22723,6 +23718,8 @@ components:
           type: boolean
           description: Whether or not the property provides the identifier of a Controller
             Service
+        listenPortDefinition:
+          $ref: "#/components/schemas/VersionedListenPortDefinition"
         name:
           type: string
           description: The name of the property

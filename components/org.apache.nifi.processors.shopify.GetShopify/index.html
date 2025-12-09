@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>GetShopify 2.6.0</h3>
+<h3>GetShopify 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for GetShopify 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for GetShopify 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2537,7 +2597,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>Access Token to authenticate requests</dd>
                     <dt>API Name</dt>
-                    <dd>access-token</dd>
+                    <dd>Access Token</dd>
                     
                     
                     
@@ -2564,7 +2624,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>The Shopify REST API version</dd>
                     <dt>API Name</dt>
-                    <dd>api-version</dd>
+                    <dd>API Version</dd>
                     
                     <dt>Default Value</dt>
                     <dd>2022-10</dd>
@@ -2708,7 +2768,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>The ending timestamp of the time window will be adjusted earlier by the amount configured in this property. For example, with a property value of 10 seconds, an ending timestamp of 12:30:45 would be changed to 12:30:35. Set this property to avoid missing objects when the clock of your local machines and Shopify servers&#39; clock are not in sync.</dd>
                     <dt>API Name</dt>
-                    <dd>incremental-delay</dd>
+                    <dd>Incremental Delay</dd>
                     
                     <dt>Default Value</dt>
                     <dd>3 sec</dd>
@@ -2757,7 +2817,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>This property specifies the start time when running the first request. Represents an ISO 8601-encoded date and time string. For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is represented as &#34;2019-09-07T15:50:00Z&#34;.</dd>
                     <dt>API Name</dt>
-                    <dd>incremental-initial-start-time</dd>
+                    <dd>Incremental Initial Start Time</dd>
                     
                     
                     
@@ -2786,6 +2846,51 @@ which date-time fields are incremented for which resources.</p>
                             
                         </ul>
                     </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Incremental Loading</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The processor can incrementally load the queried objects so that each object is queried exactly once. For each query, the processor queries objects which were created or modified after the previous run time but before the current time.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Incremental Loading</dd>
+                    <dt>Description</dt>
+                    <dd>The processor can incrementally load the queried objects so that each object is queried exactly once. For each query, the processor queries objects which were created or modified after the previous run time but before the current time.</dd>
+                    <dt>API Name</dt>
+                    <dd>Incremental Loading</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>true</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                 </dl>
             </div>
@@ -2850,51 +2955,6 @@ which date-time fields are incremented for which resources.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Incremental Loading</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The processor can incrementally load the queried objects so that each object is queried exactly once. For each query, the processor queries objects which were created or modified after the previous run time but before the current time.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Incremental Loading</dd>
-                    <dt>Description</dt>
-                    <dd>The processor can incrementally load the queried objects so that each object is queried exactly once. For each query, the processor queries objects which were created or modified after the previous run time but before the current time.</dd>
-                    <dt>API Name</dt>
-                    <dd>is-incremental</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>true</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="property-required">Object Category</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Shopify object category</div>
             </a>
@@ -2905,7 +2965,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>Shopify object category</dd>
                     <dt>API Name</dt>
-                    <dd>object-category</dd>
+                    <dd>Object Category</dd>
                     
                     
                     <dt>Allowable Values</dt>
@@ -3182,7 +3242,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>The maximum number of results to request for each invocation of the Processor</dd>
                     <dt>API Name</dt>
-                    <dd>result-limit</dd>
+                    <dd>Result Limit</dd>
                     
                     
                     
@@ -3270,7 +3330,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>The domain of the Shopify store, e.g. nifistore.myshopify.com</dd>
                     <dt>API Name</dt>
-                    <dd>store-domain</dd>
+                    <dd>Store Domain</dd>
                     
                     
                     
@@ -3366,7 +3426,7 @@ which date-time fields are incremented for which resources.</p>
                     <dt>Description</dt>
                     <dd>Controller service for HTTP client operations</dd>
                     <dt>API Name</dt>
-                    <dd>web-client-service-provider</dd>
+                    <dd>Web Client Service Provider</dd>
                     
                     
                     
@@ -3377,6 +3437,29 @@ which date-time fields are incremented for which resources.</p>
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

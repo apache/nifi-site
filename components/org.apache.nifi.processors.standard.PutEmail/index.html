@@ -672,6 +672,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.kinesis.ConsumeKinesis/">ConsumeKinesis</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.stream.ConsumeKinesisStream/">ConsumeKinesisStream</a>
                 </li>
                 
@@ -1440,6 +1444,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.iceberg.PutIcebergRecord/">PutIcebergRecord</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.aws.kinesis.firehose.PutKinesisFirehose/">PutKinesisFirehose</a>
                 </li>
                 
@@ -1788,6 +1796,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.azure.ADLSIcebergFileIOProvider/">ADLSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.aws.schemaregistry.AmazonGlueEncodedSchemaReferenceReader/">AmazonGlueEncodedSchemaReferenceReader</a>
                 </li>
                 
@@ -1817,6 +1829,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">AWSCredentialsProviderControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.aws.rds.AwsRdsIamDatabasePasswordProvider/">AwsRdsIamDatabasePasswordProvider</a>
                 </li>
                 
                 <li >
@@ -2036,6 +2052,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.parquet.ParquetIcebergWriter/">ParquetIcebergWriter</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">PEMEncodedSSLContextProvider</a>
                 </li>
                 
@@ -2068,11 +2088,19 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.catalog.RESTIcebergCatalog/">RESTIcebergCatalog</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.lookup.RestLookupService/">RestLookupService</a>
                 </li>
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">S3FileResourceService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.aws.S3IcebergFileIOProvider/">S3IcebergFileIOProvider</a>
                 </li>
                 
                 <li >
@@ -2354,6 +2382,38 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                
+                <li >
+                  <a href="/components/org.apache.nifi.azure.devops.AzureDevOpsFlowRegistryClient/">AzureDevOpsFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.atlassian.bitbucket.BitbucketFlowRegistryClient/">BitbucketFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.github.GitHubFlowRegistryClient/">GitHubFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.gitlab.GitLabFlowRegistryClient/">GitLabFlowRegistryClient</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.registry.flow.NifiRegistryFlowRegistryClient/">NifiRegistryFlowRegistryClient</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               
@@ -2395,7 +2455,7 @@
           
 
 
-<h3>PutEmail 2.6.0</h3>
+<h3>PutEmail 2.7.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2417,7 +2477,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutEmail 2.6.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutEmail 2.7.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2585,17 +2645,17 @@ In case the curl command returns an error, please try again from step 1.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="">Attributes to Send as Headers (Regex)</span>
+                <span class="">Attributes to Send as Headers Regular Expression</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A Regular Expression that is matched against all FlowFile attribute names. Any attribute whose name matches the regex will be added to the Email messages as a Header. If not specified, no FlowFile attributes will be added as headers.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Attributes to Send as Headers (Regex)</dd>
+                    <dd>Attributes to Send as Headers Regular Expression</dd>
                     <dt>Description</dt>
                     <dd>A Regular Expression that is matched against all FlowFile attribute names. Any attribute whose name matches the regex will be added to the Email messages as a Header. If not specified, no FlowFile attributes will be added as headers.</dd>
                     <dt>API Name</dt>
-                    <dd>attribute-name-regex</dd>
+                    <dd>Attributes to Send as Headers Regular Expression</dd>
                     
                     
                     
@@ -2622,7 +2682,7 @@ In case the curl command returns an error, please try again from step 1.</p>
                     <dt>Description</dt>
                     <dd>How to authorize sending email on the user&#39;s behalf.</dd>
                     <dt>API Name</dt>
-                    <dd>authorization-mode</dd>
+                    <dd>Authorization Mode</dd>
                     
                     <dt>Default Value</dt>
                     <dd>password-based-authorization-mode</dd>
@@ -2741,17 +2801,17 @@ In case the curl command returns an error, please try again from step 1.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Flow file content as message</span>
+                <span class="property-required">FlowFile Content as Message</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether or not the FlowFile content should be the message of the email. If true, the &#39;Message&#39; property is ignored.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Flow file content as message</dd>
+                    <dd>FlowFile Content as Message</dd>
                     <dt>Description</dt>
                     <dd>Specifies whether or not the FlowFile content should be the message of the email. If true, the &#39;Message&#39; property is ignored.</dd>
                     <dt>API Name</dt>
-                    <dd>email-ff-content-as-message</dd>
+                    <dd>FlowFile Content as Message</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
@@ -2853,7 +2913,7 @@ In case the curl command returns an error, please try again from step 1.</p>
                     <dt>Description</dt>
                     <dd>Specifies the character set of the FlowFile contents for reading input FlowFile contents to generate the message body or as an attachment to the message. If not set, UTF-8 will be the default value.</dd>
                     <dt>API Name</dt>
-                    <dd>input-character-set</dd>
+                    <dd>Input Character Set</dd>
                     
                     <dt>Default Value</dt>
                     <dd>UTF-8</dd>
@@ -2910,7 +2970,7 @@ In case the curl command returns an error, please try again from step 1.</p>
                     <dt>Description</dt>
                     <dd>OAuth2 service that can provide access tokens.</dd>
                     <dt>API Name</dt>
-                    <dd>oauth2-access-token-provider</dd>
+                    <dd>OAuth2 Access Token Provider</dd>
                     
                     
                     
@@ -3213,7 +3273,30 @@ In case the curl command returns an error, please try again from step 1.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3783,17 +3866,17 @@ In case the curl command returns an error, please try again from step 1.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">SMTP STARTTLS</span>
+                <span class="property-required">SMTP START TLS</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Flag indicating whether Opportunistic TLS should be enabled using STARTTLS command</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>SMTP STARTTLS</dd>
+                    <dd>SMTP START TLS</dd>
                     <dt>Description</dt>
                     <dd>Flag indicating whether Opportunistic TLS should be enabled using STARTTLS command</dd>
                     <dt>API Name</dt>
-                    <dd>SMTP TLS</dd>
+                    <dd>SMTP START TLS</dd>
                     
                     <dt>Default Value</dt>
                     <dd>false</dd>
