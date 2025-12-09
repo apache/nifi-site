@@ -103,6 +103,22 @@
 
         <ul uk-accordion="collapsible: false">
           <li>
+            <a class="uk-accordion-title" href>Flow Registry Clients</a>
+            <div class="uk-accordion-content">
+              {{ $flowRegistryClients := where .Site.Pages "Params.componentType" "flow-registry-clients" }}
+              <ul class="uk-list uk-list-collapse uk-text-light uk-text-truncate component-items">
+                {{ range $flowRegistryClients }}
+                <li {{ if eq .Title $pageTitle }}class="uk-text-bold" id="component-selected"{{ end }}>
+                  <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </li>
+                {{ end }}
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+        <ul uk-accordion="collapsible: false">
+          <li>
             <a class="uk-accordion-title" href>Flow Analysis Rules</a>
             <div class="uk-accordion-content">
               {{ $flowAnalysisRules := where .Site.Pages "Params.componentType" "flow-analysis-rules" }}
