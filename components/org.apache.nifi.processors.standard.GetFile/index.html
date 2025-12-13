@@ -2455,13 +2455,15 @@
           
 
 
-<h3>GetFile 2.7.0</h3>
+<h3>GetFile 2.7.1</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Creates FlowFiles from files in a directory.  NiFi will ignore files it doesn&#39;t have at least read permissions for.</dd>
+    <dd>    Reads files from a directory and streams them into the contents of new FlowFiles.
+    NiFi will ignore files it doesn&#39;t have at least read permissions for.
+</dd>
     <dt>Tags</dt>
     <dd>files, filesystem, get, ingest, ingress, input, local, source</dd>
     <dt>Input Requirement</dt>
@@ -2640,14 +2642,22 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Keep Source File</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, the file is not deleted after it has been copied to the Content Repository; this causes the file to be picked up continually and is useful for testing purposes.  If not keeping original NiFi will need write permissions on the directory it is pulling from otherwise it will ignore the file.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, the file is not deleted after it has been copied to the Content Repository;
+this causes the file to be picked up continually and is useful for testing purposes.
+If not keeping the source file, NiFi will need write permissions on the directory
+where the file is located in order to delete it; otherwise the file will be ignored.
+</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Keep Source File</dd>
                     <dt>Description</dt>
-                    <dd>If true, the file is not deleted after it has been copied to the Content Repository; this causes the file to be picked up continually and is useful for testing purposes.  If not keeping original NiFi will need write permissions on the directory it is pulling from otherwise it will ignore the file.</dd>
+                    <dd>If true, the file is not deleted after it has been copied to the Content Repository;
+this causes the file to be picked up continually and is useful for testing purposes.
+If not keeping the source file, NiFi will need write permissions on the directory
+where the file is located in order to delete it; otherwise the file will be ignored.
+</dd>
                     <dt>API Name</dt>
                     <dd>Keep Source File</dd>
                     
@@ -2826,19 +2836,21 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Polling Interval</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Indicates how long to wait before performing a directory listing</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Indicates the amount of time between performing directory listings to find new files
+that appear in the Input Directory</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Polling Interval</dd>
                     <dt>Description</dt>
-                    <dd>Indicates how long to wait before performing a directory listing</dd>
+                    <dd>Indicates the amount of time between performing directory listings to find new files
+that appear in the Input Directory</dd>
                     <dt>API Name</dt>
                     <dd>Polling Interval</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>0 sec</dd>
+                    <dd>30 sec</dd>
                     
                     
                     
