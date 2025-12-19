@@ -65,6 +65,29 @@ Severity ratings represent the determination of project members based on an eval
 # Published Vulnerabilities
 
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
+
+{{< vulnerability
+id="CVE-2025-66524"
+title="Deserialization of Untrusted Data in GetAsanaObject Processor"
+published="2025-12-19"
+severity="High"
+products="Apache NiFi"
+affectedVersions="1.20.0 to 2.6.0"
+fixedVersion="2.7.0"
+jira="NIFI-15292"
+pullRequest="10599"
+reporter="Jaeyeong Lee" >}}
+
+Apache NiFi 1.20.0 through 2.6.0 include the GetAsanaObject Processor, which requires integration with a configurable
+Distribute Map Cache Client Service for storing and retrieving state information. The GetAsanaObject Processor used
+generic Java Object serialization and deserialization without filtering. Unfiltered Java object deserialization does not
+provide protection against crafted state information stored in the cache server configured for GetAsanaObject.
+Exploitation requires an Apache NiFi system running with the GetAsanaObject Processor, and direct access to the
+configured cache server. Upgrading to Apache NiFi 2.7.0 is the recommended mitigation, which replaces Java Object
+serialization with JSON serialization. Removing the GetAsanaObject Processor located in the nifi-asana-processors-nar
+bundle also prevents exploitation.
+
+{{</ vulnerability >}}
  
 {{< vulnerability
 id="CVE-2025-27017"
