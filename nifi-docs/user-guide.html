@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Apache NiFi Team">
 <title>Apache NiFi User Guide</title>
 <style>
@@ -627,6 +627,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#system-properties">System Properties</a></li>
 </ul>
 </li>
+<li><a href="#noOp-provenance">NoOp Provenance Repository</a></li>
 </ul>
 </li>
 <li><a href="#experimental_warning">Experimental Warning</a></li>
@@ -647,7 +648,7 @@ high throughput, and priority-based queuing. NiFi provides fine-grained data pro
 cloned, modified, sent, and ultimately dropped upon reaching its configured end-state.</p>
 </div>
 <div class="paragraph">
-<p>See the <a href="administration-guide.html">System Administrator’s Guide</a> for information about system requirements, installation, and configuration. Once NiFi is installed,
+<p>See the <a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a> for information about system requirements, installation, and configuration. Once NiFi is installed,
 use a supported web browser to view the UI.</p>
 </div>
 </div>
@@ -822,7 +823,7 @@ in the document.</p>
 <p>When the application is started, the user is able to navigate to the UI by going to the default address of
 <code><a href="https://localhost:8443/nifi" class="bare">https://localhost:8443/nifi</a></code> in a web browser. The default configuration generates a username and password
 with full system administration privileges.
-For information on securing the system, see the <a href="administration-guide.html">System Administrator’s Guide</a>.</p>
+For information on securing the system, see the <a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.</p>
 </div>
 <div class="paragraph">
 <p>When a DFM navigates to the UI for the first time, a blank canvas is provided on which a dataflow can be built:</p>
@@ -998,7 +999,7 @@ of restrictions. If permission is granted regardless of restrictions, the user c
 </table>
 <div class="paragraph">
 <p>If you are unable to view or modify a NiFi resource, contact your System Administrator or see Configuring Users and Access Policies in the
-<a href="administration-guide.html">System Administrator’s Guide</a> for more information.</p>
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a> for more information.</p>
 </div>
 </div>
 </div>
@@ -1007,7 +1008,7 @@ of restrictions. If permission is granted regardless of restrictions, the user c
 <div class="sectionbody">
 <div class="paragraph">
 <p>If NiFi is configured to run securely, users will be able to request access to the DataFlow. For information on configuring NiFi to run
-securely, see the <a href="administration-guide.html">System Administrator’s Guide</a>. If NiFi supports anonymous access, users will be given access
+securely, see the <a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>. If NiFi supports anonymous access, users will be given access
 accordingly and given an option to log in.</p>
 </div>
 <div class="paragraph">
@@ -1184,7 +1185,7 @@ in the Root Process Group. If the Input Port is dragged onto the Root Process Gr
 to receive data from remote instances of NiFi via <a href="#site-to-site">Site-to-Site</a>. In this case, the Input Port can be configured
 to restrict access to appropriate users, if NiFi is configured to run securely. For information on configuring NiFi to run
 securely, see the
-<a href="administration-guide.html">System Administrator’s Guide</a>.</p>
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.</p>
 </div>
 <div id="output_port" class="paragraph">
 <p><span class="image"><img src="./images/iconOutputPort.png" alt="Output Port" width="32"></span>
@@ -1198,7 +1199,7 @@ remote instances of NiFi via <a href="#site-to-site">Site-to-Site</a>. In this c
 of NiFi pull data from the port, that data is removed from the queues of the incoming Connections. If NiFi is configured
 to run securely, the Output Port can be configured to restrict access to appropriate users. For information on configuring
 NiFi to run securely, see the
-<a href="administration-guide.html">System Administrator’s Guide</a>.</p>
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.</p>
 </div>
 <div id="process_group" class="paragraph">
 <p><span class="image"><img src="./images/iconProcessGroup.png" alt="Process Group" width="32"></span>
@@ -1816,9 +1817,9 @@ configuration and does not include Sensitive Values in exported Flow Definitions
 <h5 id="automatically-retry"><a class="anchor" href="#automatically-retry"></a>Automatically Retry</h5>
 <div class="paragraph">
 <p>Users can also configure whether or not FlowFiles routed to a given Relationship should be retried. If a FlowFile is routed to any Relationship that is configured to be retried,
-the FlowFile will be re-queued and the Processor will attempt to process it again. If the Processor routes the FlowFile to a retriable Relationship again (either the same Relationship
+the FlowFile will be re-queued and the Processor will attempt to process it again. If the Processor routes the FlowFile to a retryable Relationship again (either the same Relationship
 or another that is configured to be retried), it will be re-queued again, up to the number of
-times specified by the user. If the Processor routes the FlowFile to a retriable Relationship after the specified number of retries, the FlowFile will be transferred to
+times specified by the user. If the Processor routes the FlowFile to a retryable Relationship after the specified number of retries, the FlowFile will be transferred to
 the Connection(s) that include that Relationship - or auto-terminated, as configured.
 If the Processor routes the FlowFile to any Relationship that is not configured to be retried, it will be routed to that Relationship immediately.</p>
 </div>
@@ -1827,7 +1828,7 @@ If the Processor routes the FlowFile to any Relationship that is not configured 
 A user configures the <code>failure</code> Relationship to retry 10 times and also be configured to auto-terminate. In this
 case, if an incoming FlowFile is routed to the <code>failure</code> Relationship,
 it will be retried up to 10 times. After 10 attempts, if it is routed to <code>failure</code> again, it will be auto-terminated. However, if at any point it is
-routed to <code>success</code>, it will immediatley be transferred to the Connection(s) that include the <code>success</code> Relationship and not retried any further.</p>
+routed to <code>success</code>, it will immediately be transferred to the Connection(s) that include the <code>success</code> Relationship and not retried any further.</p>
 </div>
 <div class="sect5">
 <h6 id="number-of-retry-attempts"><a class="anchor" href="#number-of-retry-attempts"></a>Number of Retry Attempts</h6>
@@ -2378,7 +2379,7 @@ If a Parameter Context is unset from a Process Group, it does <strong>NOT</stron
 </tbody>
 </table>
 <div class="paragraph">
-<p>When referencing a Parameter from within <a href="expression-language-guide.html">Expression Language</a>, the Parameter reference is evaluated first. As an example, to replace <code>xxx</code> with <code>zzz</code> for the <code>abc</code> Parameter:</p>
+<p>When referencing a Parameter from within <a href="expression-language-guide.html#apache-nifi-expression-language-guide">Expression Language</a>, the Parameter reference is evaluated first. As an example, to replace <code>xxx</code> with <code>zzz</code> for the <code>abc</code> Parameter:</p>
 </div>
 <div class="paragraph">
 <p><code>${ #{abc}:replace('xxx', 'zzz') }</code></p>
@@ -2606,7 +2607,7 @@ The "access parameter contexts" policies are inherited from the "access the cont
 <div class="sect2">
 <h3 id="Using_Custom_Properties"><a class="anchor" href="#Using_Custom_Properties"></a>Using Custom Properties with Expression Language</h3>
 <div class="paragraph">
-<p>You can use NiFi Expression Language to reference FlowFile attributes, compare them to other values, and manipulate their values when you are creating and configuring dataflows. For more information on Expression Language, see the <a href="expression-language-guide.html">Expression Language Guide</a>.</p>
+<p>You can use NiFi Expression Language to reference FlowFile attributes, compare them to other values, and manipulate their values when you are creating and configuring dataflows. For more information on Expression Language, see the <a href="expression-language-guide.html#apache-nifi-expression-language-guide">Expression Language Guide</a>.</p>
 </div>
 <div class="paragraph">
 <p>In addition to using FlowFile attributes, system properties, and environment properties within Expression
@@ -3302,7 +3303,7 @@ one NiFi instance or data producing application to nodes in another NiFi instanc
    to allow only specific users, and only those users will be able to see that the port even exists. For information on configuring the Certificates,
    see the
 <a href="administration-guide.html#security_configuration">Security Configuration</a> section of the
-<a href="administration-guide.html">System Administrator’s Guide</a>.</p>
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.</p>
 </li>
 </ul>
 </div>
@@ -3416,7 +3417,7 @@ the ports shown will be the Input Ports of the remote group, as this implies tha
 <td class="content">
 If the remote instance is configured to use secure data transmission, you will see only ports that you are authorized to
 communicate with. For information on configuring NiFi to run securely, see the
-<a href="administration-guide.html">System Administrator’s Guide</a>.
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.
 </td>
 </tr>
 </table>
@@ -3482,7 +3483,7 @@ value entered is not valid, the Remote Process Group will not be valid and will 
 <td class="content">
 For information on how to enable and configure Site-to-Site on a NiFi instance, see the
 <a href="administration-guide.html#site_to_site_properties">Site-to-Site Properties</a> section of the
-<a href="administration-guide.html">System Administrator’s Guide</a>.
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.
 </td>
 </tr>
 </table>
@@ -3496,7 +3497,7 @@ For information on how to enable and configure Site-to-Site on a NiFi instance, 
 <td class="content">
 For information on how to configure access policies, see the
 <a href="administration-guide.html#access-policies">Access Policies</a> section of the
-<a href="administration-guide.html">System Administrator’s Guide</a>.
+<a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.
 </td>
 </tr>
 </table>
@@ -4732,12 +4733,12 @@ and Java-specific metrics, such as memory size and utilization, as well as Garba
 <div class="paragraph">
 <p>While the Summary table and the canvas show numeric statistics pertaining to the performance of a component over the
 past five minutes, it is often useful to have a view of historical statistics as well. This information is available
-by right-clicking on a component and choosing the "Status History" menu option or by clicking on the Status History in the Summary page (see <a href="#Summary_Page">Summary Page</a>
+by right-clicking on a component and choosing the "View Status History" menu option or by clicking on the Status History in the Summary page (see <a href="#Summary_Page">Summary Page</a>
 for more information).</p>
 </div>
 <div class="paragraph">
 <p>The amount of historical information that is stored is configurable in the NiFi properties but defaults to <code>24 hours</code>. For specific
-configuration information reference the Component Status Repository of the <a href="administration-guide.html">System Administrator’s Guide</a>.
+configuration information reference the Component Status Repository of the <a href="administration-guide.html#nifi-system-administrators-guide">System Administrator’s Guide</a>.
 When the Status History dialog is opened, it provides a graph of historical statistics:</p>
 </div>
 <div class="imageblock">
@@ -4765,7 +4766,10 @@ representation of the statistics being graphed. The following information is pro
 the type of Processor is displayed. For a Connection, the source and destination names and IDs are shown.</p>
 </li>
 <li>
-<p><strong>Start</strong>: The earliest time shown on the graph.</p>
+<p><strong>Start</strong>: The earliest time shown on the graph. This is a selectable value providing common options for how much of the historical data the user is interested in.
+Options become available as data supports it, but the "All" option is always available. When "All" is selected it specifies that the earliest time in the graph will be the
+beginning of all available data. Other options, only available as data becomes available, specify the last N amount of time ago
+(5 minutes, 10 minutes, 30 minutes, hour).</p>
 </li>
 <li>
 <p><strong>End</strong>: The latest time shown on the graph.</p>
@@ -5715,6 +5719,44 @@ recommendations should be noted when using the Write Ahead configuration:</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="noOp-provenance"><a class="anchor" href="#noOp-provenance"></a>NoOp Provenance Repository</h3>
+<div class="paragraph">
+<p>The NoOp Provenance Repository does not store any provenance events.
+This is useful when provenance tracking is disabled or minimized, such as during testing or in resource-constrained environments.
+When using this implementation, no provenance data is persisted, and all query and lineage requests return empty results.</p>
+</div>
+<div class="paragraph">
+<p>The <code>NoOp Provenance Repository</code> implementation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Saves no events or indexes.</p>
+</li>
+<li>
+<p>Always returns empty results for queries.</p>
+</li>
+<li>
+<p>Does not perform lineage computations.</p>
+</li>
+<li>
+<p>Is designed for testing or when provenance is not needed.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To configure NiFi to use the <code>NoOp Provenance Repository</code>, set in <code>nifi.properties</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">nifi.provenance.repository.implementation=org.apache.nifi.provenance.NoOpProvenanceRepository</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> Disabling provenance storage will disable features relying on provenance data, such as lineage queries and event searches.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -5759,22 +5801,22 @@ adjust the flow as needed to fix the problem. While NiFi does not have an "undo"
 dataflow that will fix the problem.</p>
 </div>
 <div class="paragraph">
-<p>Select Node Status History to view instance specific metrics from the last 24 hours or if the instance runs for less time, then
+<p>Select Node Status History to view instance-specific metrics from the last 24 hours or longer if the status repository implementation
+supports it. If the instance runs for less than the maximum configured time, then metrics will be available for the period of time
 since it has been started. The status history can help the DFM in troubleshooting performance issues and provides a general
-view on the health of the node. The status history includes information about the memory usage and disk usage among other things.</p>
+view on the health of the node. The status history includes information about the memory and disk usage, CPU utilzation and garbage collection.</p>
 </div>
 <div class="paragraph">
-<p>Two other tools in the Global Menu are Controller Settings and Users. The Controller Settings page provides the ability to change
-the name of the NiFi instance, add comments describing the NiFi instance, and set the maximum number of threads that are available
+<p>Two other tools in the Global Menu are Controller Settings and Users. The Controller Settings page provides the ability to set the maximum number of threads that are available
 to the application. It also provides tabs where DFMs may add and configure <a href="#Controller_Services">Controller Services</a> and <a href="#Reporting_Tasks">Reporting Tasks</a>. The Users page is used to manage user access, which is described in
-the <a href="administration-guide.html">System Administrator&#8217;s Guide</a>.</p>
+the <a href="administration-guide.html#nifi-system-administrators-guide">System Administrator&#8217;s Guide</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-24 16:40:11 +0100
+Last updated 2025-12-16 10:30:59 -0600
 </div>
 </div>
 </body>

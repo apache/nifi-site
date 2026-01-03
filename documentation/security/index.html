@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode564s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode21s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Security</h1>
 <p>Apache NiFi welcomes the responsible reporting of security vulnerabilities. Project Management Committee members will
 collaborate and respond to potential vulnerabilities, providing an assessment of the concern and a plan of action to
@@ -577,12 +577,13 @@ policy for general guidelines applicable disclosure of security issues for Apach
 <li>Send a message to the project mailing lists disclosing a security vulnerability to the public</li>
 <li>Send a message to the project Slack instance disclosing a security vulnerability to the public</li>
 </ul>
-<h2 id="reporting-guidelines">Reporting Guidelines</h2>
-<p>Configuring dangerous operating system commands or custom scripts is not a project security vulnerability.
-Authenticated and authorized users are responsible for the security of operating system commands and custom
-code.</p>
-<p>Apache NiFi provides a framework for developing processing pipelines using standard and custom
-components. The framework supports configurable permissions that enable authorized users to execute code
+<h2 id="security-model">Security Model</h2>
+<p>Apache NiFi provides a framework for developing processing pipelines using standard and custom components. Authenticated
+and authorized users are responsible for the security of operating system commands and custom code. Privileged users are
+also responsible for designing processing pipelines with security measures appropriate to the level of trust expected
+for systems and services providing input to such processing pipelines.</p>
+<p>Configuring dangerous operating system commands or custom scripts is not a project security vulnerability.</p>
+<p>The framework supports configurable permissions that enable authorized users to execute code
 using several standard components. Components such as ExecuteProcess and ExecuteStreamCommand support
 running operating system commands, while other scripted components support executing custom code using
 different programming languages. Configuring these components with untrusted commands or arguments is
@@ -614,6 +615,94 @@ contrary to best practices, but it does not constitute of security issue for rem
 </ul>
 <h1 id="published-vulnerabilities">Published Vulnerabilities</h1>
 <p>The following announcements include published vulnerabilities that apply directly to Apache NiFi components.</p>
+<div class="vulnerability-container">
+  <h3 id="CVE-2025-66524">CVE-2025-66524</h3>
+
+  <ul>
+    <li>Title: Deserialization of Untrusted Data in GetAsanaObject Processor</li>
+    <li>Published: 2025-12-19</li>
+    <li>Severity: High</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.20.0 to 2.6.0</li>
+    <li>Fixed Versions: 2.7.0</li>
+    <li>Reporter: Jaeyeong Lee</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2025-66524" target="_blank">CVE-2025-66524</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66524" target="_blank">CVE-2025-66524</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-15292" target="_blank">NIFI-15292</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/10599" target="_blank">10599</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.20.0 through 2.6.0 include the GetAsanaObject Processor, which requires integration with a configurable
+Distribute Map Cache Client Service for storing and retrieving state information. The GetAsanaObject Processor used
+generic Java Object serialization and deserialization without filtering. Unfiltered Java object deserialization does not
+provide protection against crafted state information stored in the cache server configured for GetAsanaObject.
+Exploitation requires an Apache NiFi system running with the GetAsanaObject Processor, and direct access to the
+configured cache server. Upgrading to Apache NiFi 2.7.0 is the recommended mitigation, which replaces Java Object
+serialization with JSON serialization. Removing the GetAsanaObject Processor located in the nifi-asana-processors-nar
+bundle also prevents exploitation.
+
+
+  </p>
+</div>
+<div class="vulnerability-container">
+  <h3 id="CVE-2025-27017">CVE-2025-27017</h3>
+
+  <ul>
+    <li>Title: Potential Insertion of MongoDB Password in Provenance Record</li>
+    <li>Published: 2025-03-11</li>
+    <li>Severity: Medium</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.13.0 to 2.2.0</li>
+    <li>Fixed Versions: 2.3.0</li>
+    <li>Reporter: Robert Creese</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2025-27017" target="_blank">CVE-2025-27017</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-27017" target="_blank">CVE-2025-27017</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-14272" target="_blank">NIFI-14272</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/9723" target="_blank">9723</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.13.0 through 2.2.0 includes the username and password used to authenticate with MongoDB in the NiFi
+provenance events that MongoDB components generate during processing. An authorized user with read access to the
+provenance events of those processors may see the credentials information. Upgrading to Apache NiFi 2.3.0 is the
+recommended mitigation, which removes the credentials from provenance event records.
+
+
+  </p>
+</div>
 <div class="vulnerability-container">
   <h3 id="CVE-2024-56512">CVE-2024-56512</h3>
 
@@ -2313,7 +2402,7 @@ pull request when merging changes. Users running a prior release should upgrade 
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>
@@ -2327,7 +2416,7 @@ pull request when merging changes. Users running a prior release should upgrade 
           <li><a href="https://issues.apache.org/jira/browse/NIFI">Issues</a></li>
           <li><a href="https://github.com/apache/nifi">Source</a></li>
           <li><a href="https://www.linkedin.com/company/apache-nifi/">LinkedIn</a></li>
-          <li><a href="https://join.slack.com/t/apachenifi/shared_invite/zt-2ccusmst2-l2KrTzJLrGcHOO0V7~XD4g">Slack</a></li>
+          <li><a href="https://join.slack.com/t/apachenifi/shared_invite/zt-11njbtkdx-ZRU8FKYSWoEHRJetidy0zA">Slack</a></li>
           <li><a href="https://nifi.apache.org/documentation/security/">Security</a></li>
         </ul>
       </div>

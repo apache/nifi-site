@@ -563,10 +563,10 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode569s0hbhb-commit-and-release-signing">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode35s0hbhb-commit-and-release-signing">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Commit and Release Signing</h1>
 <p>The purpose of this document is to capture and describe the steps involved in generating and verifying cryptographic signatures of official releases of Apache NiFi, as well as configuring cryptographic signatures of individual code commits.  It is written for contributors, committers, and users of Apache NiFi (and related applications).</p>
-<h2 id="a-nametable-of-contentstable-of-contentsa"><a name="table-of-contents">Table of Contents</a></h2>
+<h2 id="table-of-contents"><a name="table-of-contents">Table of Contents</a></h2>
 <ul>
 <li><a href="#the-objective">The Objective</a></li>
 <li><a href="#background-material">Background Material</a></li>
@@ -587,9 +587,9 @@
 <li><a href="#transfer-a-secret-key">Transfer a secret key</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 </ul>
-<h2 id="a-namethe-objectivethe-objectivea"><a name="the-objective">The Objective</a></h2>
+<h2 id="the-objective"><a name="the-objective">The Objective</a></h2>
 <p>Our aim is to instruct users on how to sign their commits, verify other&rsquo;s signatures, and do the same for official releases of Apache NiFi.</p>
-<h2 id="a-namebackground-materialbackground-materiala"><a name="background-material">Background Material</a></h2>
+<h2 id="background-material"><a name="background-material">Background Material</a></h2>
 <ul>
 <li>These documents are helpful for general environmental setup to perform GPG signing and signature verification:
 <ul>
@@ -606,14 +606,14 @@
 </ul>
 </li>
 </ul>
-<h2 id="a-nametermstermsa"><a name="terms">Terms</a></h2>
+<h2 id="terms"><a name="terms">Terms</a></h2>
 <ul>
 <li><strong>Asymmetric Cryptography</strong> - a type of cryptography which relies on <em>key pairs</em> &ndash; a <em>public</em> and <em>private</em> key which are mathematically-related such that no other component key matches. This cryptography offers the following actions: <strong>encrypt</strong>, <strong>decrypt</strong>, <strong>sign</strong>, and <strong>verify</strong></li>
 <li><strong>Cryptographic Signature</strong> - a series of bytes which are the result of a signing operation such that only the possessor of a specific private key could have generated this signature. A valid signature indicates that the possessor of said key performed the operation (non-repudiable)</li>
 <li><strong>GNU Privacy Guard (GnuPG or GPG)</strong> - an open-source implementation of encryption software compatible with the OpenPGP standard specified by <a href="https://tools.ietf.org/html/rfc4880">RFC 4880</a></li>
 <li><strong>Pretty Good Privacy (PGP)</strong> - an encryption program written by Phil Zimmermann to provide cryptographic protection (via confidentiality and integrity/authenticity) over data. It follows the OpenPGP standard as specified by <a href="https://tools.ietf.org/html/rfc4880">RFC 4880</a></li>
 </ul>
-<h2 id="a-namevariable-reference-substitutionsvariable-reference-substitutionsa"><a name="variable-reference-substitutions">Variable Reference Substitutions</a></h2>
+<h2 id="variable-reference-substitutions"><a name="variable-reference-substitutions">Variable Reference Substitutions</a></h2>
 <p>Throughout this guide, references must be made to names and values that will vary from release to release.  For clarity
 those variable values have been written like Bash variable references.  When a term like
 &ldquo;<code>/tmp/src/nifi-${NIFI_VERSION}</code>&rdquo; is seen in an instruction or email template it should be replaced with
@@ -643,7 +643,7 @@ NiFi 1.7.0 RC2 release details.</em></p>
 or 0.x). The next version should be the next incremental version if the release is based on a minor version development branch (e.g
 support/nifi-1.1.x or support/nifi-0.7.4). If this is the first incremental release (e.g. 1.2.1) for a minor release line the support
 branch may need to be created.</em></p>
-<h2 id="a-namedownload-gpgdownload-gpga"><a name="download-gpg">Download GPG</a></h2>
+<h2 id="download-gpg"><a name="download-gpg">Download GPG</a></h2>
 <p>To get started, you should download the appropriate software for your operating system (links and version compatibility as of July 10, 2018). Follow the configuration instructions that come with your tool of choice:</p>
 <h3 id="mac-os-x--macos">Mac OS X / macOS</h3>
 <ul>
@@ -659,7 +659,7 @@ branch may need to be created.</em></p>
 <ul>
 <li><a href="https://gpg4win.org">Gpg4win</a> &ndash; Windows 7+ &ndash; a GUI-based suite of GPG tools</li>
 </ul>
-<h2 id="a-namesetting-up-your-keysetting-up-your-keya"><a name="setting-up-your-key">Setting up your key</a></h2>
+<h2 id="setting-up-your-key"><a name="setting-up-your-key">Setting up your key</a></h2>
 <p><em>All following commands will use the command-line syntax to perform these operations unless otherwise noted. For instructions on performing these operations in a GUI-environment, refer to the resources listed above.</em></p>
 <p>To begin, run the <code>gpg</code> command with the <code>--gen-key</code> or <code>--full-generate-key</code> flag. You will be prompted for various information, and can accept the defaults other than <strong>name</strong> and <strong>email</strong>. The tool will prompt for a passphrase, and the key pair will be identified by the <strong>user id</strong> (<strong>name</strong> + <strong>email</strong>) and a <strong>key fingerprint</strong>.</p>
 <p>Example:</p>
@@ -745,12 +745,12 @@ sub   rsa2048 2018-07-10 [E] [expires: 2020-07-09]
 <li><code>ultimate</code> &ndash; you have no doubt that this key belongs to the owner (likely because you generated it)</li>
 </ol>
 <p>Your generated key is granted <code>ultimate</code> trust by default, because you just generated it. See <a href="https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication">Web of Trust</a> and <a href="https://www.gnupg.org/gph/en/manual/x334.html">GNU Privacy Handbook</a> for more information and helpful diagrams.</p>
-<h2 id="a-namepublish-your-keypublish-your-keya"><a name="publish-your-key">Publish your key</a></h2>
+<h2 id="publish-your-key"><a name="publish-your-key">Publish your key</a></h2>
 <p>To allow other users to encrypt data with your key, verify signatures made by your key, etc., you should publish your <strong>PUBLIC</strong> key. <em>Never share your <strong>PRIVATE</strong> (sometimes referred to as <strong>SECRET</strong>) key</em>. You can publish your public key to a <em>key server</em>, post it on your website, etc. The tools provide multiple ways to perform this task via <code>--export</code> and <code>--send-keys</code>. Refer to the references above for more information on this process.</p>
 <pre tabindex="0"><code># Send the public key to a remote key server
 🔓 0s @ 15:20:53 $ gpg --send-keys 0x555DB64A
 gpg: sending key 71456940555DB64A to hkps://hkps.pool.sks-keyservers.net
-</code></pre><h2 id="a-nameimport-another-gpg-keyimport-another-gpg-keya"><a name="import-another-gpg-key">Import another GPG key</a></h2>
+</code></pre><h2 id="import-another-gpg-key"><a name="import-another-gpg-key">Import another GPG key</a></h2>
 <p>For the key ecosystem to function, you&rsquo;ll want to import other public keys. These can come from key servers, public keys encoded as ASCII sent directly to you, or <code>KEYS</code> files posted on servers (such as <a href="https://dist.apache.org/repos/dist/release/nifi/KEYS">https://dist.apache.org/repos/dist/release/nifi/KEYS</a>).</p>
 <pre tabindex="0"><code># Download the KEYS file
 🔓 4s @ 15:21:35 $ wget https://archive.apache.org/dist/nifi/KEYS
@@ -777,7 +777,7 @@ gpg: public key of ultimately trusted key 125A4E6851BF2B79 not found
 gpg: public key of ultimately trusted key 76D78F0500D026C4 not found
 gpg: marginals needed: 3  completes needed: 1  trust model: pgp
 gpg: depth: 0  valid:   6  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 6u
-</code></pre><h2 id="a-nameverify-a-keyverify-a-keya"><a name="verify-a-key">Verify a key</a></h2>
+</code></pre><h2 id="verify-a-key"><a name="verify-a-key">Verify a key</a></h2>
 <p>When you first import an external key, the key is untrusted (<strong>validity</strong> level <code>never</code>). To mark a key as trusted, you will perform <em>key verification</em>, either <em>directly</em> or via <em>web of trust</em>.</p>
 <h3 id="direct-verification">Direct Verification</h3>
 <p>For entities you can contact directly via a trusted mechanism (voice call, in-person, etc.), you can exchange the <strong>key fingerprint</strong> personally and verify that the fingerprint they present matches what you have imported. Once verified, you can sign the key. Here I am imitating another user, using a previously-generated key (<code>0x2F7DEF69</code>) to sign the &ldquo;imported&rdquo; key that was generated above.</p>
@@ -809,7 +809,7 @@ Really sign? (y/N) y
 gpg: RSA/SHA512 signature from: &#34;3C6EF65B2F7DEF69 Andy LoPresto &lt;alopresto@apache.org&gt;&#34;
 </code></pre><h3 id="web-of-trust">Web of Trust</h3>
 <p>If it is infeasible to contact the key bearer directly, you can delegate that trust to a third-party who you already trust. For example, if you cannot directly contact Joe Witt, but you already trust Andy LoPresto (i.e. you have verified Andy&rsquo;s key and believe Andy would verify keys he trusts), you can sign Joe&rsquo;s key if Andy has already done so. You can choose to employ a lower level of validity (<code>marginal</code> vs. <code>full</code>) in that case depending on your transitive <strong>ownertrust</strong> in Andy&rsquo;s verification. See <a href="https://www.linux.com/learn/pgp-web-trust-core-concepts-behind-trusted-communication">Web of Trust</a> and <a href="https://www.gnupg.org/gph/en/manual/x334.html">GNU Privacy Handbook</a> for more information and helpful diagrams.</p>
-<h2 id="a-nameset-up-git-with-your-keyset-up-git-with-your-keya"><a name="set-up-git-with-your-key">Set up Git with your key</a></h2>
+<h2 id="set-up-git-with-your-key"><a name="set-up-git-with-your-key">Set up Git with your key</a></h2>
 <p>To sign commits via <code>git</code>, update your <code>~/.gitconfig</code> file. You can also do this by running <code>git --config ...</code> commands. This example file (not complete) is configured for our <em>NiFi Test User <a href="mailto:test@nifi.apache.org">test@nifi.apache.org</a></em> (<code>0x555DB64A</code>) user.</p>
 <pre tabindex="0"><code># ~/.gitconfig
 [user]
@@ -822,7 +822,7 @@ gpg: RSA/SHA512 signature from: &#34;3C6EF65B2F7DEF69 Andy LoPresto &lt;aloprest
 [gpg]
     program = /path/to/bin/gpg
 </code></pre><p>See <a href="https://help.github.com/articles/telling-git-about-your-gpg-key/">Telling Git About Your GPG Key</a> for more on setting this up.</p>
-<h2 id="a-namesign-commitssign-commitsa"><a name="sign-commits">Sign commits</a></h2>
+<h2 id="sign-commits"><a name="sign-commits">Sign commits</a></h2>
 <p>Now when you commit work via git, you will run the command <code>git commit -S</code> to tell git to sign the commit. After doing that, <code>git log --show-signature</code> will show the signature:</p>
 <pre tabindex="0"><code>🔓 0s @ 16:13:38 $ git log -1 --show-signature
 commit bef91008bb86de9b541fbe1fd82ed37eef1784d5 (HEAD -&gt; master, apache/master)
@@ -839,7 +839,7 @@ Date:   Mon Jul 9 18:42:56 2018 -0700
 
     Signed-off-by: Pierre Villard &lt;pierre.villard.fr@gmail.com&gt;
 </code></pre><p>See <a href="http://gitready.com/advanced/2014/11/02/gpg-sign-releases.html">git-sign-tag-instructs</a>, <a href="https://help.github.com/articles/signing-commits-using-gpg/">github-help-gpg</a>, and <a href="https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work">git-gpg</a> for more information on setting this up.</p>
-<h2 id="a-nameverifying-a-signatureverifying-a-signaturea"><a name="verifying-a-signature">Verifying a signature</a></h2>
+<h2 id="verifying-a-signature"><a name="verifying-a-signature">Verifying a signature</a></h2>
 <p>When viewing commits by other authors, each may have a signature. The validity of the signature depends on your trust of the signer&rsquo;s key.</p>
 <p><em>NOTE: sometimes, the <strong>author</strong> and <strong>signer</strong> of a commit are different, especially in NiFi&rsquo;s RTC context.</em> The <em>author</em> is who wrote the code/content in the change, while the <em>signer</em> is the <em>committer</em> who actually merged the code to the <code>master</code> branch.</p>
 <p>For example, I have imported and trust Matt&rsquo;s key but do not trust Bryan&rsquo;s key. Here are two commits, both <em>authored</em> by Matt, but one (<code>06e8f88</code>) he committed himself (thus also <em>signed</em> by his key), and one (<code>26ea785</code>) that Bryan commited for him (and <em>signed</em> with Bryan&rsquo;s key).</p>
@@ -920,9 +920,9 @@ Date:   Tue Jun 5 12:47:36 2018 -0400
 
     Signed-off-by: Bryan Bende &lt;bbende@apache.org&gt;
 </code></pre><p>See <a href="https://blog.github.com/2016-04-05-gpg-signature-verification/">GitHub Blog: GPG Signature Verification</a> for more information on setting this up.</p>
-<h2 id="a-nameset-up-github-with-your-keyset-up-github-with-your-keya"><a name="set-up-github-with-your-key">Set up GitHub with your key</a></h2>
+<h2 id="set-up-github-with-your-key"><a name="set-up-github-with-your-key">Set up GitHub with your key</a></h2>
 <p>See <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account">Adding a new GPG key to your GitHub account</a>.</p>
-<h2 id="a-namesigning-a-release-artifactsigning-a-release-artifacta"><a name="signing-a-release-artifact">Signing a release artifact</a></h2>
+<h2 id="signing-a-release-artifact"><a name="signing-a-release-artifact">Signing a release artifact</a></h2>
 <p>When signing a release artifact (an <a href="https://nifi.apache.org/release-guide.html">RM duty</a> only), you should generate detached GPG signatures (i.e. in a separate file, ASCII-armored (aka Base64-encoded)). These signatures should be named <code>file-being-signed.xyz.asc</code> and should be signed using the <code>SHA-512</code> hash algorithm. See <a href="https://www.apache.org/dev/openpgp.html#key-gen-avoid-sha1">Configure GPG to always prefer stronger hashes</a> to configure this preference permanently.</p>
 <pre tabindex="0"><code>       $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-source-release.zip  # produces nifi-${NIFI_VERSION}-source-release.zip.asc
        $ gpg -a -b --digest-algo=SHA512 nifi-${NIFI_VERSION}-bin.zip             # produces nifi-${NIFI_VERSION}-bin.zip.asc
@@ -946,7 +946,7 @@ kJ2nIoN1c4Kkv1+menhoU37JWcqDHrYWe3cZ0GRMQLp1Mqt8MbN7dLF7YcKN3yNA
 1GuwDc/VKXzv2AoDYPI36wPpho8jUIzEZtiRhiZ3vm+tkFnwGKc=
 =gPIi
 -----END PGP SIGNATURE-----
-</code></pre><h2 id="a-nameverifying-a-release-signatureverifying-a-release-signaturea"><a name="verifying-a-release-signature">Verifying a release signature</a></h2>
+</code></pre><h2 id="verifying-a-release-signature"><a name="verifying-a-release-signature">Verifying a release signature</a></h2>
 <p>For an official Apache NiFi release, the source release archive (<em>nifi-${NIFI_VERSION}-source-release.zip</em>) will be accompanied by multiple checksum files and a GPG signature. The user who generated the GPG signature (the Release Manager) will have specified the user ID (name and email) used to sign it, and will have ensured their public key is present in the <code>KEYS</code> file listed in the vote email. Following the steps in the email, download the <code>KEYS</code> file and import it into your GPG keyring (it may report that no keys changed if you already had all of the published keys imported). Refer to <a href="#import-another-gpg-key">Import another GPG key</a> for more details if necessary.</p>
 <pre tabindex="0"><code># Verifying a good signature
 🔓 0s @ 16:38:08 $ gpg --verify -v nifi-1.7.0-source-release.zip.asc
@@ -978,7 +978,7 @@ gpg: using pgp trust model
 gpg: BAD signature from &#34;Andy LoPresto &lt;alopresto@apache.org&gt;&#34; [full]
 gpg: binary signature, digest algorithm SHA512, key algorithm rsa4096
 </code></pre><p>In this case, you should contact the RM and report this finding.</p>
-<h2 id="a-nametransfer-a-secret-keytransfer-a-secret-keya"><a name="transfer-a-secret-key">Transfer a secret key</a></h2>
+<h2 id="transfer-a-secret-key"><a name="transfer-a-secret-key">Transfer a secret key</a></h2>
 <p>Transferring a secret key requires careful consideration to maintain security.
 The most vulnerable part of the system is the passphrase that encrypts the private key.
 The security of an encrypted private key is based on the strength of the associated passphrase, so it is vital to store the private key securely at all times.</p>
@@ -999,7 +999,7 @@ To restore <code>ultimate</code> trust, you need to edit the key <code>gpg --edi
 <pre tabindex="0"><code>gpg --export-ownertrust &gt; trustlevel.txt
 </code></pre><p>Run the following command to import the trust level information:</p>
 <pre tabindex="0"><code>gpg --import-ownertrust &lt; trustlevel.txt
-</code></pre><h2 id="a-nametroubleshootingtroubleshootinga"><a name="troubleshooting">Troubleshooting</a></h2>
+</code></pre><h2 id="troubleshooting"><a name="troubleshooting">Troubleshooting</a></h2>
 <ul>
 <li>IDE integration may require configuring <code>gpg</code> to use <code>no-tty</code> in <code>~/.gnupg/gpg.conf</code>. See <a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/206502489-Git-GPG-commit-signing-commit-s-from-IDE-in-effective-way">Git GPG signing from IDE</a> or <a href="https://stackoverflow.com/questions/46863981/how-to-sign-git-commits-from-within-an-ide-like-intellij">How to sign git commits from within an IDE like IntelliJ?</a>.</li>
 </ul>
@@ -1019,7 +1019,7 @@ To restore <code>ultimate</code> trust, you need to edit the key <code>gpg --edi
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>
@@ -1033,7 +1033,7 @@ To restore <code>ultimate</code> trust, you need to edit the key <code>gpg --edi
           <li><a href="https://issues.apache.org/jira/browse/NIFI">Issues</a></li>
           <li><a href="https://github.com/apache/nifi">Source</a></li>
           <li><a href="https://www.linkedin.com/company/apache-nifi/">LinkedIn</a></li>
-          <li><a href="https://join.slack.com/t/apachenifi/shared_invite/zt-2ccusmst2-l2KrTzJLrGcHOO0V7~XD4g">Slack</a></li>
+          <li><a href="https://join.slack.com/t/apachenifi/shared_invite/zt-11njbtkdx-ZRU8FKYSWoEHRJetidy0zA">Slack</a></li>
           <li><a href="https://nifi.apache.org/documentation/security/">Security</a></li>
         </ul>
       </div>
