@@ -31,9 +31,9 @@ jobs:
           ref: asf-site
           path: ${{ env.PUBLISH_DIRECTORY }}
       - name: Install Hugo
-        run: |
-          sudo apt-get update
-          sudo apt-get install hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.154.2'
       - name: Prepare
         working-directory: ${{ env.PUBLISH_DIRECTORY }}
         run: |
