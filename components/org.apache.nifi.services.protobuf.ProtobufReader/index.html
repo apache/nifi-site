@@ -2507,122 +2507,122 @@ originally specified type. The following tables show which proto field type will
 after the conversion.</p>
 <h3 id="scalar-value-types">Scalar Value Types</h3>
 <table>
-<thead>
-<tr>
-<th>Proto Type</th>
-<th>Proto Wire Type</th>
-<th>NiFi Data Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>double</td>
-<td>fixed64</td>
-<td>double</td>
-</tr>
-<tr>
-<td>float</td>
-<td>fixed32</td>
-<td>float</td>
-</tr>
-<tr>
-<td>int32</td>
-<td>varint</td>
-<td>int</td>
-</tr>
-<tr>
-<td>int64</td>
-<td>varint</td>
-<td>long</td>
-</tr>
-<tr>
-<td>uint32</td>
-<td>varint</td>
-<td>long</td>
-</tr>
-<tr>
-<td>uint64</td>
-<td>varint</td>
-<td>bigint</td>
-</tr>
-<tr>
-<td>sint32</td>
-<td>varint</td>
-<td>long</td>
-</tr>
-<tr>
-<td>sint64</td>
-<td>varint</td>
-<td>long</td>
-</tr>
-<tr>
-<td>fixed32</td>
-<td>fixed32</td>
-<td>long</td>
-</tr>
-<tr>
-<td>fixed64</td>
-<td>fixed64</td>
-<td>bigint</td>
-</tr>
-<tr>
-<td>sfixed32</td>
-<td>varint</td>
-<td>int</td>
-</tr>
-<tr>
-<td>sfixed64</td>
-<td>varint</td>
-<td>long</td>
-</tr>
-<tr>
-<td>bool</td>
-<td>varint</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td>string</td>
-<td>length delimited</td>
-<td>string</td>
-</tr>
-<tr>
-<td>bytes</td>
-<td>length delimited</td>
-<td>array[byte]</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Proto Type</th>
+          <th>Proto Wire Type</th>
+          <th>NiFi Data Type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>double</td>
+          <td>fixed64</td>
+          <td>double</td>
+      </tr>
+      <tr>
+          <td>float</td>
+          <td>fixed32</td>
+          <td>float</td>
+      </tr>
+      <tr>
+          <td>int32</td>
+          <td>varint</td>
+          <td>int</td>
+      </tr>
+      <tr>
+          <td>int64</td>
+          <td>varint</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>uint32</td>
+          <td>varint</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>uint64</td>
+          <td>varint</td>
+          <td>bigint</td>
+      </tr>
+      <tr>
+          <td>sint32</td>
+          <td>varint</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>sint64</td>
+          <td>varint</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>fixed32</td>
+          <td>fixed32</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>fixed64</td>
+          <td>fixed64</td>
+          <td>bigint</td>
+      </tr>
+      <tr>
+          <td>sfixed32</td>
+          <td>varint</td>
+          <td>int</td>
+      </tr>
+      <tr>
+          <td>sfixed64</td>
+          <td>varint</td>
+          <td>long</td>
+      </tr>
+      <tr>
+          <td>bool</td>
+          <td>varint</td>
+          <td>boolean</td>
+      </tr>
+      <tr>
+          <td>string</td>
+          <td>length delimited</td>
+          <td>string</td>
+      </tr>
+      <tr>
+          <td>bytes</td>
+          <td>length delimited</td>
+          <td>array[byte]</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="composite-value-types">Composite Value Types</h3>
 <table>
-<thead>
-<tr>
-<th>Proto Type</th>
-<th>Proto Wire Type</th>
-<th>NiFi Data Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>message</td>
-<td>length delimited</td>
-<td>record</td>
-</tr>
-<tr>
-<td>enum</td>
-<td>varint</td>
-<td>enum</td>
-</tr>
-<tr>
-<td>map</td>
-<td>length delimited</td>
-<td>map</td>
-</tr>
-<tr>
-<td>oneof</td>
-<td>-</td>
-<td>choice</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Proto Type</th>
+          <th>Proto Wire Type</th>
+          <th>NiFi Data Type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>message</td>
+          <td>length delimited</td>
+          <td>record</td>
+      </tr>
+      <tr>
+          <td>enum</td>
+          <td>varint</td>
+          <td>enum</td>
+      </tr>
+      <tr>
+          <td>map</td>
+          <td>length delimited</td>
+          <td>map</td>
+      </tr>
+      <tr>
+          <td>oneof</td>
+          <td>-</td>
+          <td>choice</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="schemas-and-type-coercion">Schemas and Type Coercion</h2>
 <p>When a record is parsed from incoming data, it is separated into fields. Each of these fields is then looked up against
@@ -4528,7 +4528,7 @@ message NestedMessage {
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

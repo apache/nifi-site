@@ -2503,58 +2503,58 @@ Uses DynamoDB for check pointing and coordination, and (optional) CloudWatch for
 <p>You must add the following permissions to the IAM role or user configured in <em>AWS Credentials Provider Service</em>.</p>
 <p>Cloudwatch permissions are needed only when <em>Metrics Publishing</em> is set to <em>CloudWatch</em>.</p>
 <table>
-<thead>
-<tr>
-<th>Service</th>
-<th>Actions</th>
-<th>Resources (ARNs)</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Amazon Kinesis Data Streams</td>
-<td>DescribeStream<br>DescribeStreamSummary<br>RegisterStreamConsumer</td>
-<td>Kinesis data stream from which <code>ConsumeKinesis</code> will process the data.<br><code>arn:aws:kinesis:{Region}:{Account}:stream/{Stream Name}</code></td>
-<td>Before attempting to read records, the consumer checks if the data stream exists, if it&rsquo;s active, and if the shards are contained in the data stream. Registers consumers to a shard.</td>
-</tr>
-<tr>
-<td>Amazon Kinesis Data Streams</td>
-<td>GetRecords<br>GetShardIterator<br>ListShards</td>
-<td>Kinesis data stream from which <code>ConsumeKinesis</code> will process the data.<br><code>arn:aws:kinesis:{Region}:{Account}:stream/{Stream Name}</code></td>
-<td>Reads records from a shard.</td>
-</tr>
-<tr>
-<td>Amazon Kinesis Data Streams</td>
-<td>SubscribeToShard<br>DescribeStreamConsumer</td>
-<td>Kinesis data stream from which <code>ConsumeKinesis</code> will process the data. Add this action only if you use enhanced fan-out (EFO) consumers.<br><code>arn:aws:kinesis:{Region}:{Account}:stream/{Stream Name}/consumer/*</code></td>
-<td>Subscribes to a shard for enhanced fan-out (EFO) consumers.</td>
-</tr>
-<tr>
-<td>Amazon DynamoDB</td>
-<td>CreateTable<br>DescribeTable<br>UpdateTable<br>Scan<br>GetItem<br>PutItem<br>UpdateItem<br>DeleteItem</td>
-<td>Lease table (metadata table in DynamoDB created by <code>ConsumeKinesis</code>.<br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}</code></td>
-<td>These actions are required for <code>ConsumeKinesis</code> to manage the lease table created in DynamoDB.</td>
-</tr>
-<tr>
-<td>Amazon DynamoDB</td>
-<td>CreateTable<br>DescribeTable<br>Scan<br>GetItem<br>PutItem<br>UpdateItem<br>DeleteItem</td>
-<td>Worker metrics and coordinator state table (metadata tables in DynamoDB) created by <code>ConsumeKinesis</code>.<br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}-WorkerMetricStats</code><br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}-CoordinatorState</code></td>
-<td>These actions are required for <code>ConsumeKinesis</code> to manage the worker metrics and coordinator state metadata tables in DynamoDB.</td>
-</tr>
-<tr>
-<td>Amazon DynamoDB</td>
-<td>Query</td>
-<td>Global secondary index on the lease table.<br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}/index/*</code></td>
-<td>This action is required for <code>ConsumeKinesis</code> to read the global secondary index of the lease table created in DynamoDB.</td>
-</tr>
-<tr>
-<td>Amazon CloudWatch</td>
-<td>PutMetricData</td>
-<td><code>*</code></td>
-<td>Upload metrics to CloudWatch that are useful for monitoring the application. The asterisk (*) is used because there is no specific resource in CloudWatch on which the PutMetricData action is invoked.</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Service</th>
+          <th>Actions</th>
+          <th>Resources (ARNs)</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Amazon Kinesis Data Streams</td>
+          <td>DescribeStream<br>DescribeStreamSummary<br>RegisterStreamConsumer</td>
+          <td>Kinesis data stream from which <code>ConsumeKinesis</code> will process the data.<br><code>arn:aws:kinesis:{Region}:{Account}:stream/{Stream Name}</code></td>
+          <td>Before attempting to read records, the consumer checks if the data stream exists, if it&rsquo;s active, and if the shards are contained in the data stream. Registers consumers to a shard.</td>
+      </tr>
+      <tr>
+          <td>Amazon Kinesis Data Streams</td>
+          <td>GetRecords<br>GetShardIterator<br>ListShards</td>
+          <td>Kinesis data stream from which <code>ConsumeKinesis</code> will process the data.<br><code>arn:aws:kinesis:{Region}:{Account}:stream/{Stream Name}</code></td>
+          <td>Reads records from a shard.</td>
+      </tr>
+      <tr>
+          <td>Amazon Kinesis Data Streams</td>
+          <td>SubscribeToShard<br>DescribeStreamConsumer</td>
+          <td>Kinesis data stream from which <code>ConsumeKinesis</code> will process the data. Add this action only if you use enhanced fan-out (EFO) consumers.<br><code>arn:aws:kinesis:{Region}:{Account}:stream/{Stream Name}/consumer/*</code></td>
+          <td>Subscribes to a shard for enhanced fan-out (EFO) consumers.</td>
+      </tr>
+      <tr>
+          <td>Amazon DynamoDB</td>
+          <td>CreateTable<br>DescribeTable<br>UpdateTable<br>Scan<br>GetItem<br>PutItem<br>UpdateItem<br>DeleteItem</td>
+          <td>Lease table (metadata table in DynamoDB created by <code>ConsumeKinesis</code>.<br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}</code></td>
+          <td>These actions are required for <code>ConsumeKinesis</code> to manage the lease table created in DynamoDB.</td>
+      </tr>
+      <tr>
+          <td>Amazon DynamoDB</td>
+          <td>CreateTable<br>DescribeTable<br>Scan<br>GetItem<br>PutItem<br>UpdateItem<br>DeleteItem</td>
+          <td>Worker metrics and coordinator state table (metadata tables in DynamoDB) created by <code>ConsumeKinesis</code>.<br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}-WorkerMetricStats</code><br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}-CoordinatorState</code></td>
+          <td>These actions are required for <code>ConsumeKinesis</code> to manage the worker metrics and coordinator state metadata tables in DynamoDB.</td>
+      </tr>
+      <tr>
+          <td>Amazon DynamoDB</td>
+          <td>Query</td>
+          <td>Global secondary index on the lease table.<br><code>arn:aws:dynamodb:{Region}:{Account}:table/{Application Name}/index/*</code></td>
+          <td>This action is required for <code>ConsumeKinesis</code> to read the global secondary index of the lease table created in DynamoDB.</td>
+      </tr>
+      <tr>
+          <td>Amazon CloudWatch</td>
+          <td>PutMetricData</td>
+          <td><code>*</code></td>
+          <td>Upload metrics to CloudWatch that are useful for monitoring the application. The asterisk (*) is used because there is no specific resource in CloudWatch on which the PutMetricData action is invoked.</td>
+      </tr>
+  </tbody>
 </table>
 <p>The following is an example policy document for <code>ConsumeKinesis</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
@@ -2639,30 +2639,30 @@ AWS account number, Kinesis data stream name, and <code>ConsumeKinesis</code> <e
 <h2 id="consumer-type">Consumer Type</h2>
 <p>Comparison of different Consumer Types from <a href="https://docs.aws.amazon.com/streams/latest/dev/enhanced-consumers.html">Amazon Kinesis Streams documentation</a>:</p>
 <table>
-<thead>
-<tr>
-<th>Characteristics</th>
-<th>Shared throughput consumers without enhanced fan-out</th>
-<th>Enhanced fan-out consumers</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Read throughput</td>
-<td>Fixed at a total of 2 MB/sec per shard. If there are multiple consumers reading from the same shard, they all share this throughput. The sum of the throughputs they receive from the shard doesn&rsquo;t exceed 2 MB/sec.</td>
-<td>Scales as consumers register to use enhanced fan-out. Each consumer registered to use enhanced fan-out receives its own read throughput per shard, up to 2 MB/sec, independently of other consumers.</td>
-</tr>
-<tr>
-<td>Message propagation delay</td>
-<td>An average of around 200 ms if you have one consumer reading from the stream. This average goes up to around 1000 ms if you have five consumers.</td>
-<td>Typically an average of 70 ms whether you have one consumer or five consumers.</td>
-</tr>
-<tr>
-<td>Cost</td>
-<td>Not applicable</td>
-<td>There is a data retrieval cost and a consumer-shard hour cost. For more information, see <a href="https://aws.amazon.com/kinesis/data-streams/pricing/?nc=sn&amp;loc=3">Amazon Kinesis Data Streams Pricing</a>.</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Characteristics</th>
+          <th>Shared throughput consumers without enhanced fan-out</th>
+          <th>Enhanced fan-out consumers</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Read throughput</td>
+          <td>Fixed at a total of 2 MB/sec per shard. If there are multiple consumers reading from the same shard, they all share this throughput. The sum of the throughputs they receive from the shard doesn&rsquo;t exceed 2 MB/sec.</td>
+          <td>Scales as consumers register to use enhanced fan-out. Each consumer registered to use enhanced fan-out receives its own read throughput per shard, up to 2 MB/sec, independently of other consumers.</td>
+      </tr>
+      <tr>
+          <td>Message propagation delay</td>
+          <td>An average of around 200 ms if you have one consumer reading from the stream. This average goes up to around 1000 ms if you have five consumers.</td>
+          <td>Typically an average of 70 ms whether you have one consumer or five consumers.</td>
+      </tr>
+      <tr>
+          <td>Cost</td>
+          <td>Not applicable</td>
+          <td>There is a data retrieval cost and a consumer-shard hour cost. For more information, see <a href="https://aws.amazon.com/kinesis/data-streams/pricing/?nc=sn&amp;loc=3">Amazon Kinesis Data Streams Pricing</a>.</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="record-processing">Record processing</h2>
 <p>When <em>Processing Strategy</em> property is set to <em>RECORD</em>, <em>ConsumeKinesis</em> operates in Record mode.
@@ -6605,7 +6605,7 @@ In addition, the processor may cache some amount of data for each shard when the
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

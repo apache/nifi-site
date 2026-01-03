@@ -2607,18 +2607,18 @@ and an Exception will be thrown.</p>
 <h2 id="examples-1">Examples</h2>
 <p>As an example, consider that this Controller Service is configured with the following properties:</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Grok Expression</td>
-<td><code>%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} \[%{DATA:thread}\] %{DATA:class} %{GREEDYDATA:message}</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Grok Expression</td>
+          <td><code>%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} \[%{DATA:thread}\] %{DATA:class} %{GREEDYDATA:message}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p>Additionally, let&rsquo;s consider a FlowFile whose contents consists of the following:</p>
 <pre tabindex="0"><code>2016-08-04 13:26:32,473 INFO [Leader Election Notification Thread-1] o.a.n.c.l.e.CuratorLeaderElectionManager org.apache.nifi.controller.leader.election.CuratorLeaderElectionManager$ElectionListener@1fa27ea5 has been interrupted; no longer leader for role &#39;Cluster Coordinator&#39;
@@ -2651,108 +2651,108 @@ Caused by: org.apache.nifi.exception.UnitTestException: Testing to ensure we are
 </code></pre><p>In this case, the result will be that this FlowFile consists of 3 different records. The first record will contain the
 following values:</p>
 <table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Field Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>timestamp</td>
-<td>2016-08-04 13:26:32,473</td>
-</tr>
-<tr>
-<td>level</td>
-<td>INFO</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>Leader Election Notification Thread-1</td>
-</tr>
-<tr>
-<td>class</td>
-<td>o.a.n.c.l.e.CuratorLeaderElectionManager</td>
-</tr>
-<tr>
-<td>message</td>
-<td>org.apache.nifi.controller.leader.election.CuratorLeaderElectionManager/$ElectionListener@1fa27ea5 has been interrupted; no longer leader for role &lsquo;Cluster Coordinator&rsquo;</td>
-</tr>
-<tr>
-<td>STACK_TRACE</td>
-<td><em>null</em></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Field Name</th>
+          <th>Field Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>timestamp</td>
+          <td>2016-08-04 13:26:32,473</td>
+      </tr>
+      <tr>
+          <td>level</td>
+          <td>INFO</td>
+      </tr>
+      <tr>
+          <td>thread</td>
+          <td>Leader Election Notification Thread-1</td>
+      </tr>
+      <tr>
+          <td>class</td>
+          <td>o.a.n.c.l.e.CuratorLeaderElectionManager</td>
+      </tr>
+      <tr>
+          <td>message</td>
+          <td>org.apache.nifi.controller.leader.election.CuratorLeaderElectionManager/$ElectionListener@1fa27ea5 has been interrupted; no longer leader for role &lsquo;Cluster Coordinator&rsquo;</td>
+      </tr>
+      <tr>
+          <td>STACK_TRACE</td>
+          <td><em>null</em></td>
+      </tr>
+  </tbody>
 </table>
 <p>The second record will contain the following values:</p>
 <table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Field Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>timestamp</td>
-<td>2016-08-04 13:26:32,474</td>
-</tr>
-<tr>
-<td>level</td>
-<td>ERROR</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>Leader Election Notification Thread-2</td>
-</tr>
-<tr>
-<td>class</td>
-<td>o.apache.nifi.controller.FlowController</td>
-</tr>
-<tr>
-<td>message</td>
-<td>One  <br>Two  <br>Three</td>
-</tr>
-<tr>
-<td>STACK_TRACE</td>
-<td>org.apache.nifi.exception.UnitTestException: Testing to ensure we are able to capture stack traces<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_45]<br>	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308) [na:1.8.0_45]<br>        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access/$301(ScheduledThreadPoolExecutor.java:180) [na:1.8.0_45]<br>        at java.util.concurrent.ScheduledThreadPoolExecutor/$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294) [na:1.8.0_45]<br>        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_45]<br>        at java.util.concurrent.ThreadPoolExecutor/$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_45]<br>        at java.lang.Thread.run(Thread.java:745) [na:1.8.0_45]<br>Caused by: org.apache.nifi.exception.UnitTestException: Testing to ensure we are able to capture stack traces<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    &hellip; 12 common frames omitted</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Field Name</th>
+          <th>Field Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>timestamp</td>
+          <td>2016-08-04 13:26:32,474</td>
+      </tr>
+      <tr>
+          <td>level</td>
+          <td>ERROR</td>
+      </tr>
+      <tr>
+          <td>thread</td>
+          <td>Leader Election Notification Thread-2</td>
+      </tr>
+      <tr>
+          <td>class</td>
+          <td>o.apache.nifi.controller.FlowController</td>
+      </tr>
+      <tr>
+          <td>message</td>
+          <td>One  <br>Two  <br>Three</td>
+      </tr>
+      <tr>
+          <td>STACK_TRACE</td>
+          <td>org.apache.nifi.exception.UnitTestException: Testing to ensure we are able to capture stack traces<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [na:1.8.0_45]<br>	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308) [na:1.8.0_45]<br>        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access/$301(ScheduledThreadPoolExecutor.java:180) [na:1.8.0_45]<br>        at java.util.concurrent.ScheduledThreadPoolExecutor/$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294) [na:1.8.0_45]<br>        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_45]<br>        at java.util.concurrent.ThreadPoolExecutor/$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_45]<br>        at java.lang.Thread.run(Thread.java:745) [na:1.8.0_45]<br>Caused by: org.apache.nifi.exception.UnitTestException: Testing to ensure we are able to capture stack traces<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    at org.apache.nifi.cluster.coordination.node.NodeClusterCoordinator.getElectedActiveCoordinatorAddress(NodeClusterCoordinator.java:185)<br>    &hellip; 12 common frames omitted</td>
+      </tr>
+  </tbody>
 </table>
 <p>The third record will contain the following values:</p>
 <table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Field Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>timestamp</td>
-<td>2016-08-04 13:26:35,475</td>
-</tr>
-<tr>
-<td>level</td>
-<td>WARN</td>
-</tr>
-<tr>
-<td>thread</td>
-<td>Curator-Framework-0</td>
-</tr>
-<tr>
-<td>class</td>
-<td>org.apache.curator.ConnectionState</td>
-</tr>
-<tr>
-<td>message</td>
-<td>Connection attempt unsuccessful after 3008 (greater than max timeout of 3000). Resetting connection and trying again with a new connection.</td>
-</tr>
-<tr>
-<td>STACK_TRACE</td>
-<td><em>null</em></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Field Name</th>
+          <th>Field Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>timestamp</td>
+          <td>2016-08-04 13:26:35,475</td>
+      </tr>
+      <tr>
+          <td>level</td>
+          <td>WARN</td>
+      </tr>
+      <tr>
+          <td>thread</td>
+          <td>Curator-Framework-0</td>
+      </tr>
+      <tr>
+          <td>class</td>
+          <td>org.apache.curator.ConnectionState</td>
+      </tr>
+      <tr>
+          <td>message</td>
+          <td>Connection attempt unsuccessful after 3008 (greater than max timeout of 3000). Resetting connection and trying again with a new connection.</td>
+      </tr>
+      <tr>
+          <td>STACK_TRACE</td>
+          <td><em>null</em></td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="default-patterns">Default Patterns</h2>
 <p>The following patterns are available in the default Grok Pattern File:</p>
@@ -4736,7 +4736,7 @@ COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

@@ -2504,261 +2504,261 @@ service supports sensitive dynamic properties providing a way to specify custom 
 with a key prefixed by <code>CLAIM.</code>) as well as custom form parameters for the request against the access token API
 (using dynamic properties with a key prefixed by <code>FORM.</code>).</p>
 <p>Below are some configuration examples for some well known SaaS solutions.</p>
-<h3 id="google-identity-sourcehttpsdevelopersgooglecomidentityprotocolsoauth2service-accounthttprest">Google Identity (<a href="https://developers.google.com/identity/protocols/oauth2/service-account#httprest">source</a>)</h3>
+<h3 id="google-identity-source">Google Identity (<a href="https://developers.google.com/identity/protocols/oauth2/service-account#httprest">source</a>)</h3>
 <table>
-<thead>
-<tr>
-<th>Property name/key</th>
-<th>Property value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Token Endpoint</td>
-<td><code>https://oauth2.googleapis.com/token</code></td>
-</tr>
-<tr>
-<td>Signing Algorithm</td>
-<td><code>RS256</code></td>
-</tr>
-<tr>
-<td>Issuer</td>
-<td>The email address of the service account</td>
-</tr>
-<tr>
-<td>Subject</td>
-<td>(optional) The email address of the user for which the application is requesting delegated access</td>
-</tr>
-<tr>
-<td>Audience</td>
-<td><code>https://oauth2.googleapis.com/token</code></td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>A space-delimited list of the permissions that the application requests</td>
-</tr>
-<tr>
-<td>JWT ID</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>Set JWT Header x5t</td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td>Key ID</td>
-<td>The key ID of the service account key</td>
-</tr>
-<tr>
-<td>Grant Type</td>
-<td><code>urn:ietf:params:oauth:grant-type:jwt-bearer</code></td>
-</tr>
-<tr>
-<td>Assertion Parameter Name</td>
-<td><code>assertion</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property name/key</th>
+          <th>Property value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Token Endpoint</td>
+          <td><code>https://oauth2.googleapis.com/token</code></td>
+      </tr>
+      <tr>
+          <td>Signing Algorithm</td>
+          <td><code>RS256</code></td>
+      </tr>
+      <tr>
+          <td>Issuer</td>
+          <td>The email address of the service account</td>
+      </tr>
+      <tr>
+          <td>Subject</td>
+          <td>(optional) The email address of the user for which the application is requesting delegated access</td>
+      </tr>
+      <tr>
+          <td>Audience</td>
+          <td><code>https://oauth2.googleapis.com/token</code></td>
+      </tr>
+      <tr>
+          <td>Scope</td>
+          <td>A space-delimited list of the permissions that the application requests</td>
+      </tr>
+      <tr>
+          <td>JWT ID</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>Set JWT Header x5t</td>
+          <td><code>false</code></td>
+      </tr>
+      <tr>
+          <td>Key ID</td>
+          <td>The key ID of the service account key</td>
+      </tr>
+      <tr>
+          <td>Grant Type</td>
+          <td><code>urn:ietf:params:oauth:grant-type:jwt-bearer</code></td>
+      </tr>
+      <tr>
+          <td>Assertion Parameter Name</td>
+          <td><code>assertion</code></td>
+      </tr>
+  </tbody>
 </table>
-<h3 id="salesforce-sourcehttpshelpsalesforcecomsarticleviewidxcloudremoteaccess_oauth_jwt_flowhtmtype5">Salesforce (<a href="https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_oauth_jwt_flow.htm&amp;type=5">source</a>)</h3>
+<h3 id="salesforce-source">Salesforce (<a href="https://help.salesforce.com/s/articleView?id=xcloud.remoteaccess_oauth_jwt_flow.htm&amp;type=5">source</a>)</h3>
 <table>
-<thead>
-<tr>
-<th>Property name/key</th>
-<th>Property value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Token Endpoint</td>
-<td><code>https://my-instance.develop.my.salesforce.com/services/oauth2/token</code></td>
-</tr>
-<tr>
-<td>Signing Algorithm</td>
-<td><code>RS256</code></td>
-</tr>
-<tr>
-<td>Issuer</td>
-<td>The issuer must contain the OAuth <code>client_id</code> (Consumer Key) of the connected app for which you registered the certificate</td>
-</tr>
-<tr>
-<td>Subject</td>
-<td>(optional) If you’re implementing this flow for an Experience Cloud site, the subject must contain the user’s username</td>
-</tr>
-<tr>
-<td>Audience</td>
-<td>The audience identifies the authorization server as an intended audience. It can be <code>https://login.salesforce.com</code> or <code>https://test.salesforce.com</code> for sandboxes</td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>JWT ID</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>Set JWT Header x5t</td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td>Key ID</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>Grant Type</td>
-<td><code>urn:ietf:params:oauth:grant-type:jwt-bearer</code></td>
-</tr>
-<tr>
-<td>Assertion Parameter Name</td>
-<td><code>assertion</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property name/key</th>
+          <th>Property value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Token Endpoint</td>
+          <td><code>https://my-instance.develop.my.salesforce.com/services/oauth2/token</code></td>
+      </tr>
+      <tr>
+          <td>Signing Algorithm</td>
+          <td><code>RS256</code></td>
+      </tr>
+      <tr>
+          <td>Issuer</td>
+          <td>The issuer must contain the OAuth <code>client_id</code> (Consumer Key) of the connected app for which you registered the certificate</td>
+      </tr>
+      <tr>
+          <td>Subject</td>
+          <td>(optional) If you’re implementing this flow for an Experience Cloud site, the subject must contain the user’s username</td>
+      </tr>
+      <tr>
+          <td>Audience</td>
+          <td>The audience identifies the authorization server as an intended audience. It can be <code>https://login.salesforce.com</code> or <code>https://test.salesforce.com</code> for sandboxes</td>
+      </tr>
+      <tr>
+          <td>Scope</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>JWT ID</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>Set JWT Header x5t</td>
+          <td><code>false</code></td>
+      </tr>
+      <tr>
+          <td>Key ID</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>Grant Type</td>
+          <td><code>urn:ietf:params:oauth:grant-type:jwt-bearer</code></td>
+      </tr>
+      <tr>
+          <td>Assertion Parameter Name</td>
+          <td><code>assertion</code></td>
+      </tr>
+  </tbody>
 </table>
-<h3 id="microsoft-sourcehttpslearnmicrosoftcomen-usentraidentity-platformv2-oauth2-client-creds-grant-flowsecond-case-access-token-request-with-a-certificate">Microsoft (<a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate">source</a>)</h3>
+<h3 id="microsoft-source">Microsoft (<a href="https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-client-creds-grant-flow#second-case-access-token-request-with-a-certificate">source</a>)</h3>
 <table>
-<thead>
-<tr>
-<th>Property name/key</th>
-<th>Property value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Token Endpoint</td>
-<td><code>https://login.microsoftonline.com/&lt;tenantId&gt;/oauth2/v2.0/token</code></td>
-</tr>
-<tr>
-<td>Signing Algorithm</td>
-<td><code>PS256</code></td>
-</tr>
-<tr>
-<td>Issuer</td>
-<td>Use the GUID application ID</td>
-</tr>
-<tr>
-<td>Subject</td>
-<td>Use the same value as issuer</td>
-</tr>
-<tr>
-<td>Audience</td>
-<td><code>https://login.microsoftonline.com/&lt;tenantId&gt;/oauth2/v2.0/token</code></td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>JWT ID</td>
-<td><code>${UUID()}</code></td>
-</tr>
-<tr>
-<td>Set JWT Header x5t</td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td>SSL Context Service</td>
-<td>SSL Context Service to provide the public certificate in order to have its thumbprint in the JWT header</td>
-</tr>
-<tr>
-<td>Key ID</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>Grant Type</td>
-<td><code>client_credentials</code></td>
-</tr>
-<tr>
-<td>Assertion Parameter Name</td>
-<td><code>client_assertion</code></td>
-</tr>
-<tr>
-<td><code>FORM.client_id</code></td>
-<td>The application ID that&rsquo;s assigned to your app</td>
-</tr>
-<tr>
-<td><code>FORM.tenant</code></td>
-<td>The directory tenant the application plans to operate against, in GUID or domain-name format</td>
-</tr>
-<tr>
-<td><code>FORM.scope</code></td>
-<td>The value passed for the scope parameter in this request should be the resource identifier (application ID URI) of the resource you want, suffixed with <code>.default</code>. All scopes included must be for a single resource. Including scopes for multiple resources will result in an error. For the Microsoft Graph example, the value is <code>https://graph.microsoft.com/.default</code></td>
-</tr>
-<tr>
-<td><code>FORM.client_assertion_type</code></td>
-<td><code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property name/key</th>
+          <th>Property value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Token Endpoint</td>
+          <td><code>https://login.microsoftonline.com/&lt;tenantId&gt;/oauth2/v2.0/token</code></td>
+      </tr>
+      <tr>
+          <td>Signing Algorithm</td>
+          <td><code>PS256</code></td>
+      </tr>
+      <tr>
+          <td>Issuer</td>
+          <td>Use the GUID application ID</td>
+      </tr>
+      <tr>
+          <td>Subject</td>
+          <td>Use the same value as issuer</td>
+      </tr>
+      <tr>
+          <td>Audience</td>
+          <td><code>https://login.microsoftonline.com/&lt;tenantId&gt;/oauth2/v2.0/token</code></td>
+      </tr>
+      <tr>
+          <td>Scope</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>JWT ID</td>
+          <td><code>${UUID()}</code></td>
+      </tr>
+      <tr>
+          <td>Set JWT Header x5t</td>
+          <td><code>true</code></td>
+      </tr>
+      <tr>
+          <td>SSL Context Service</td>
+          <td>SSL Context Service to provide the public certificate in order to have its thumbprint in the JWT header</td>
+      </tr>
+      <tr>
+          <td>Key ID</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>Grant Type</td>
+          <td><code>client_credentials</code></td>
+      </tr>
+      <tr>
+          <td>Assertion Parameter Name</td>
+          <td><code>client_assertion</code></td>
+      </tr>
+      <tr>
+          <td><code>FORM.client_id</code></td>
+          <td>The application ID that&rsquo;s assigned to your app</td>
+      </tr>
+      <tr>
+          <td><code>FORM.tenant</code></td>
+          <td>The directory tenant the application plans to operate against, in GUID or domain-name format</td>
+      </tr>
+      <tr>
+          <td><code>FORM.scope</code></td>
+          <td>The value passed for the scope parameter in this request should be the resource identifier (application ID URI) of the resource you want, suffixed with <code>.default</code>. All scopes included must be for a single resource. Including scopes for multiple resources will result in an error. For the Microsoft Graph example, the value is <code>https://graph.microsoft.com/.default</code></td>
+      </tr>
+      <tr>
+          <td><code>FORM.client_assertion_type</code></td>
+          <td><code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></td>
+      </tr>
+  </tbody>
 </table>
-<h3 id="box-sourcehttpsdeveloperboxcomguidesauthenticationjwtwithout-sdk3-create-jwt-assertion">Box (<a href="https://developer.box.com/guides/authentication/jwt/without-sdk/#3-create-jwt-assertion">source</a>)</h3>
+<h3 id="box-source">Box (<a href="https://developer.box.com/guides/authentication/jwt/without-sdk/#3-create-jwt-assertion">source</a>)</h3>
 <table>
-<thead>
-<tr>
-<th>Property name/key</th>
-<th>Property value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Token Endpoint</td>
-<td><code>https://api.box.com/oauth2/token</code></td>
-</tr>
-<tr>
-<td>Signing Algorithm</td>
-<td><code>RS256</code>, <code>RS384</code>, or <code>RS512</code></td>
-</tr>
-<tr>
-<td>Issuer</td>
-<td>The Box Application&rsquo;s OAuth client ID</td>
-</tr>
-<tr>
-<td>Subject</td>
-<td>The Box Enterprise ID if this app is to act on behalf of the Service Account of that application, or the User ID if this app wants to act on behalf of another user.</td>
-</tr>
-<tr>
-<td>Audience</td>
-<td><code>https://api.box.com/oauth2/token</code></td>
-</tr>
-<tr>
-<td>Scope</td>
-<td>not set</td>
-</tr>
-<tr>
-<td>JWT ID</td>
-<td><code>${UUID()}</code></td>
-</tr>
-<tr>
-<td>Set JWT Header x5t</td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td>Key ID</td>
-<td>The ID of the public key used to sign the JWT. Not required, though essential when multiple key pairs are defined for an application.</td>
-</tr>
-<tr>
-<td>Grant Type</td>
-<td><code>urn:ietf:params:oauth:grant-type:jwt-bearer</code></td>
-</tr>
-<tr>
-<td>Assertion Parameter Name</td>
-<td><code>assertion</code></td>
-</tr>
-<tr>
-<td>JWT Expiration Time</td>
-<td><code>1 minute</code> (cannot be more than 60 seconds)</td>
-</tr>
-<tr>
-<td><code>CLAIM.box_sub_type</code></td>
-<td><code>enterprise</code> or <code>user</code> depending on the type of token being requested in the <code>sub</code> claim</td>
-</tr>
-<tr>
-<td><code>FORM.client_id</code></td>
-<td>Client ID</td>
-</tr>
-<tr>
-<td><code>FORM.client_secret</code></td>
-<td>Client Secret</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property name/key</th>
+          <th>Property value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Token Endpoint</td>
+          <td><code>https://api.box.com/oauth2/token</code></td>
+      </tr>
+      <tr>
+          <td>Signing Algorithm</td>
+          <td><code>RS256</code>, <code>RS384</code>, or <code>RS512</code></td>
+      </tr>
+      <tr>
+          <td>Issuer</td>
+          <td>The Box Application&rsquo;s OAuth client ID</td>
+      </tr>
+      <tr>
+          <td>Subject</td>
+          <td>The Box Enterprise ID if this app is to act on behalf of the Service Account of that application, or the User ID if this app wants to act on behalf of another user.</td>
+      </tr>
+      <tr>
+          <td>Audience</td>
+          <td><code>https://api.box.com/oauth2/token</code></td>
+      </tr>
+      <tr>
+          <td>Scope</td>
+          <td>not set</td>
+      </tr>
+      <tr>
+          <td>JWT ID</td>
+          <td><code>${UUID()}</code></td>
+      </tr>
+      <tr>
+          <td>Set JWT Header x5t</td>
+          <td><code>false</code></td>
+      </tr>
+      <tr>
+          <td>Key ID</td>
+          <td>The ID of the public key used to sign the JWT. Not required, though essential when multiple key pairs are defined for an application.</td>
+      </tr>
+      <tr>
+          <td>Grant Type</td>
+          <td><code>urn:ietf:params:oauth:grant-type:jwt-bearer</code></td>
+      </tr>
+      <tr>
+          <td>Assertion Parameter Name</td>
+          <td><code>assertion</code></td>
+      </tr>
+      <tr>
+          <td>JWT Expiration Time</td>
+          <td><code>1 minute</code> (cannot be more than 60 seconds)</td>
+      </tr>
+      <tr>
+          <td><code>CLAIM.box_sub_type</code></td>
+          <td><code>enterprise</code> or <code>user</code> depending on the type of token being requested in the <code>sub</code> claim</td>
+      </tr>
+      <tr>
+          <td><code>FORM.client_id</code></td>
+          <td>Client ID</td>
+      </tr>
+      <tr>
+          <td><code>FORM.client_secret</code></td>
+          <td>Client Secret</td>
+      </tr>
+  </tbody>
 </table>
 
         </div>
@@ -5467,7 +5467,7 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

@@ -2510,18 +2510,18 @@ Delimiter field. When needed, &lsquo;-&rsquo; and &lsquo;&ndash;&rsquo; can be p
 character.</p>
 <p>Consider that we want to list all files in a directory which is different from the working directory:</p>
 <table>
-<thead>
-<tr>
-<th>Command Path</th>
-<th>Command Arguments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ls</td>
-<td>-lah;/path/to/dir</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Command Path</th>
+          <th>Command Arguments</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ls</td>
+          <td>-lah;/path/to/dir</td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>NOTE:</strong> the command should be on <code>$PATH</code> or it should be in the working directory, otherwise path also should be
 specified.</p>
@@ -2530,22 +2530,22 @@ specified.</p>
 command.argument.<commandIndex>&rsquo; will be appended to the command in ascending order.</p>
 <p>The above example with dynamic properties would look like this:</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>command.argument.0</td>
-<td>-lah</td>
-</tr>
-<tr>
-<td>command.argument.1</td>
-<td>/path/to/dir</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>command.argument.0</td>
+          <td>-lah</td>
+      </tr>
+      <tr>
+          <td>command.argument.1</td>
+          <td>/path/to/dir</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="configuring-environment-variables">Configuring environment variables</h3>
 <p>In addition to specifying command arguments using the Command Argument field or Dynamic Properties, users can also use
@@ -2559,18 +2559,18 @@ FlowFile will looke like this if we run <code>mvn</code> command with <code>--ve
 Maven home: /path/to/maven/home Java version: 11.0.18, vendor: Eclipse Adoptium, runtime: /path/to/default/java/home 
 Default locale: en_US, platform encoding: UTF-8 OS name: &#34;mac os x&#34;, version: &#34;13.1&#34;, arch: &#34;x86_64&#34;, family: &#34;mac&#34;
 </code></pre><table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>JAVA_HOME</td>
-<td>path/to/another/java/home</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>JAVA_HOME</td>
+          <td>path/to/another/java/home</td>
+      </tr>
+  </tbody>
 </table>
 <p>After specifying the <code>JAVA_HOME</code> property, you can notice that maven is using a different runtime:</p>
 <pre tabindex="0"><code>Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63) 
@@ -2589,30 +2589,30 @@ list all <code>POST</code> requests from an Apache HTTPD log:</p>
 127.0.0.1 - - [03/May/2023:14:30:42 +0000] &#34;GET /example-page HTTP/1.1&#34; 200 4825 &#34;-&#34; &#34;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0&#34;
 </code></pre><p>Processor configuration:</p>
 <table>
-<thead>
-<tr>
-<th>Working Directory</th>
-<th>Command Path</th>
-<th>Command Arguments Strategy</th>
-<th>Command Arguments</th>
-<th>Argument Delimiter</th>
-<th>Ignore STDIN</th>
-<th>Output Destination Attribute</th>
-<th>Max Attribute Length</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>grep</td>
-<td>Command Arguments Property</td>
-<td>POST</td>
-<td>;</td>
-<td>false</td>
-<td></td>
-<td>256</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Working Directory</th>
+          <th>Command Path</th>
+          <th>Command Arguments Strategy</th>
+          <th>Command Arguments</th>
+          <th>Argument Delimiter</th>
+          <th>Ignore STDIN</th>
+          <th>Output Destination Attribute</th>
+          <th>Max Attribute Length</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td>grep</td>
+          <td>Command Arguments Property</td>
+          <td>POST</td>
+          <td>;</td>
+          <td>false</td>
+          <td></td>
+          <td>256</td>
+      </tr>
+  </tbody>
 </table>
 <p>With this the emitted FlowFile on the &ldquo;output stream&rdquo; relationship should be:</p>
 <pre tabindex="0"><code>127.0.0.1 - - [03/May/2023:14:05:32 +0000] &#34;POST /submit-form HTTP/1.1&#34; 302 0 &#34;http://localhost/example-page&#34; &#34;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:88.0) Gecko/20100101 Firefox/88.0&#34;
@@ -3179,7 +3179,7 @@ list all <code>POST</code> requests from an Apache HTTPD log:</p>
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

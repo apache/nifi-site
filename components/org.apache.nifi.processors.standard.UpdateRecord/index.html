@@ -2549,26 +2549,26 @@ consider the following set of Properties are configured for the Processor and th
 <h3 id="example-1---replace-with-literal">Example 1 - Replace with Literal</h3>
 <p>Here, we will replace the name of each Record with the name &lsquo;Jeremy&rsquo; and set the gender to &lsquo;M&rsquo;:</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Replacement Value Strategy</td>
-<td>Literal Value</td>
-</tr>
-<tr>
-<td>/name</td>
-<td>Jeremy</td>
-</tr>
-<tr>
-<td>/gender</td>
-<td>M</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Replacement Value Strategy</td>
+          <td>Literal Value</td>
+      </tr>
+      <tr>
+          <td>/name</td>
+          <td>Jeremy</td>
+      </tr>
+      <tr>
+          <td>/gender</td>
+          <td>M</td>
+      </tr>
+  </tbody>
 </table>
 <p>This will yield the following output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
@@ -2611,22 +2611,22 @@ field, as that&rsquo;s where the field is located in the schema.</p>
 <p>This example will replace the value in one field of the Record with the value from another field. For this example,
 consider the following set of Properties:</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Replacement Value Strategy</td>
-<td>Record Path Value</td>
-</tr>
-<tr>
-<td>/name</td>
-<td>/siblings[0]/name</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Replacement Value Strategy</td>
+          <td>Record Path Value</td>
+      </tr>
+      <tr>
+          <td>/name</td>
+          <td>/siblings[0]/name</td>
+      </tr>
+  </tbody>
 </table>
 <p>This will yield the following output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
@@ -2670,22 +2670,22 @@ relative to the field being updated. This example does just that. For each of th
 we will replace the sibling&rsquo;s name with their id&rsquo;s. To do so, we will configure the processor with the following
 properties:</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Replacement Value Strategy</td>
-<td>Record Path Value</td>
-</tr>
-<tr>
-<td>/siblings[*]/name</td>
-<td>../id</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Replacement Value Strategy</td>
+          <td>Record Path Value</td>
+      </tr>
+      <tr>
+          <td>/siblings[*]/name</td>
+          <td>../id</td>
+      </tr>
+  </tbody>
 </table>
 <p>Note that the RecordPath that was given for the value starts with <code>..</code>, which is a reference to the parent. We do this
 because the field that we are going to update is the &ldquo;name&rdquo; field of the sibling. To get to the associated &ldquo;id&rdquo; field,
@@ -2729,22 +2729,22 @@ output:</p>
 the field is found. The value that it uses references the Expression Language, so for this example, let&rsquo;s assume that
 the incoming FlowFile has an attribute named &ldquo;replacement.id&rdquo; that has a value of &ldquo;91&rdquo;:</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Replacement Value Strategy</td>
-<td>Literal Value</td>
-</tr>
-<tr>
-<td>//id</td>
-<td>${replacement.id}</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Replacement Value Strategy</td>
+          <td>Literal Value</td>
+      </tr>
+      <tr>
+          <td>//id</td>
+          <td>${replacement.id}</td>
+      </tr>
+  </tbody>
 </table>
 <p>This will yield the following output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
@@ -2787,22 +2787,22 @@ INT. This is okay because the RecordReaders and RecordWriters should handle thes
 found. This is done by referencing the &lsquo;field.value&rsquo; variable in the Expression Language. We can also access the
 field.name variable and the field.type variable.</p>
 <table>
-<thead>
-<tr>
-<th>Property Name</th>
-<th>Property Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Replacement Value Strategy</td>
-<td>Literal Value</td>
-</tr>
-<tr>
-<td>//name</td>
-<td>${field.value:toUpper()}</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Property Name</th>
+          <th>Property Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Replacement Value Strategy</td>
+          <td>Literal Value</td>
+      </tr>
+      <tr>
+          <td>//name</td>
+          <td>${field.value:toUpper()}</td>
+      </tr>
+  </tbody>
 </table>
 <p>This will yield the following output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
@@ -4634,7 +4634,7 @@ The value is an Expression Language expression that references the `field.value`
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>

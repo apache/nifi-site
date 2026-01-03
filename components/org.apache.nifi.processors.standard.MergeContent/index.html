@@ -2588,38 +2588,38 @@ AND the minimum number of FlowFiles, as configured by the <Minimum Number of Ent
 <p>Whenever the contents of a Bin are merged, an attribute with the name &ldquo;merge.reason&rdquo; will be added to the merged
 FlowFile. The below table provides a listing of all possible values for this attribute with an explanation of each.</p>
 <table>
-<thead>
-<tr>
-<th>Attribute Value</th>
-<th>Explanation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MAX_BYTES_THRESHOLD_REACHED</td>
-<td>The bin has reached the maximum number of bytes, as configured by the <Max Group Size> property. When this threshold is reached, the contents of the Bin will be merged together, even if the Minimum Number of Entries has not yet been reached.</td>
-</tr>
-<tr>
-<td>MAX_ENTRIES_THRESHOLD_REACHED</td>
-<td>The bin has reached the maximum number of FlowFiles, as configured by the <Maximum Number of Entries> property. When this threshold is reached, the contents of the Bin will be merged together, even if the minimum number of bytes (Min Group Size) has not yet been reached.</td>
-</tr>
-<tr>
-<td>MIN_THRESHOLDS_REACHED</td>
-<td>The bin has reached both the minimum number of bytes, as configured by the <Min Group Size> property, AND the minimum number of FlowFiles, as configured by the <Minimum Number of Entries> property. The bin has not reached the maximum number of bytes (Max Group Size) OR the maximum number of FlowFiles (Maximum Number of Entries).</td>
-</tr>
-<tr>
-<td>TIMEOUT</td>
-<td>The Bin has reached the maximum age, as configured by the <Max Bin Age> property. If this threshold is reached, the contents of the Bin will be merged together, even if the Bin has not yet reached either of the minimum thresholds. Note that the age here is determined by when the Bin was created, NOT the age of the FlowFiles that reside within those Bins. As a result, if the Processor is stopped until it has 1 million FlowFiles queued, each one being 10 days old, but the Max Bin Age is set to &ldquo;1 day,&rdquo; the Max Bin Age will not be met for at least one full day, even though the FlowFiles themselves are much older than this threshold. If the Processor is stopped and restarted, all Bins are destroyed and recreated, and the timer is reset.</td>
-</tr>
-<tr>
-<td>BIN_MANAGER_FULL</td>
-<td>If an incoming FlowFile does not fit into any of the existing Bins (either due to the Maximum thresholds set, or due to the Correlation Attribute being used, etc.), then a new Bin must be created for the incoming FlowFiles. If the number of active Bins is already equal to the <Maximum number of Bins> property, the oldest Bin will be merged in order to make room for the new Bin. In that case, the Bin Manager is said to be full, and this value will be used.</td>
-</tr>
-<tr>
-<td>BIN_TERMINATION_SIGNAL</td>
-<td>A FlowFile signaled that the Bin should be terminated by satisfying the configured <Bin Termination Check> property.</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute Value</th>
+          <th>Explanation</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>MAX_BYTES_THRESHOLD_REACHED</td>
+          <td>The bin has reached the maximum number of bytes, as configured by the <Max Group Size> property. When this threshold is reached, the contents of the Bin will be merged together, even if the Minimum Number of Entries has not yet been reached.</td>
+      </tr>
+      <tr>
+          <td>MAX_ENTRIES_THRESHOLD_REACHED</td>
+          <td>The bin has reached the maximum number of FlowFiles, as configured by the <Maximum Number of Entries> property. When this threshold is reached, the contents of the Bin will be merged together, even if the minimum number of bytes (Min Group Size) has not yet been reached.</td>
+      </tr>
+      <tr>
+          <td>MIN_THRESHOLDS_REACHED</td>
+          <td>The bin has reached both the minimum number of bytes, as configured by the <Min Group Size> property, AND the minimum number of FlowFiles, as configured by the <Minimum Number of Entries> property. The bin has not reached the maximum number of bytes (Max Group Size) OR the maximum number of FlowFiles (Maximum Number of Entries).</td>
+      </tr>
+      <tr>
+          <td>TIMEOUT</td>
+          <td>The Bin has reached the maximum age, as configured by the <Max Bin Age> property. If this threshold is reached, the contents of the Bin will be merged together, even if the Bin has not yet reached either of the minimum thresholds. Note that the age here is determined by when the Bin was created, NOT the age of the FlowFiles that reside within those Bins. As a result, if the Processor is stopped until it has 1 million FlowFiles queued, each one being 10 days old, but the Max Bin Age is set to &ldquo;1 day,&rdquo; the Max Bin Age will not be met for at least one full day, even though the FlowFiles themselves are much older than this threshold. If the Processor is stopped and restarted, all Bins are destroyed and recreated, and the timer is reset.</td>
+      </tr>
+      <tr>
+          <td>BIN_MANAGER_FULL</td>
+          <td>If an incoming FlowFile does not fit into any of the existing Bins (either due to the Maximum thresholds set, or due to the Correlation Attribute being used, etc.), then a new Bin must be created for the incoming FlowFiles. If the number of active Bins is already equal to the <Maximum number of Bins> property, the oldest Bin will be merged in order to make room for the new Bin. In that case, the Bin Manager is said to be full, and this value will be used.</td>
+      </tr>
+      <tr>
+          <td>BIN_TERMINATION_SIGNAL</td>
+          <td>A FlowFile signaled that the Bin should be terminated by satisfying the configured <Bin Termination Check> property.</td>
+      </tr>
+  </tbody>
 </table>
 <p>Note that the attribute value is minimally named, while the textual description is far more verbose. This is done for a
 few reasons. Firstly, storing a large value for the attribute can be more costly, utilizing more heap space and
@@ -4038,7 +4038,7 @@ For textual data, &#34;Demarcator&#34; should be set to a newline (\n), set by p
           </a>
         </p>
         <p>
-          Copyright &copy; 2025 The Apache Software Foundation under the terms of the
+          Copyright &copy; 2026 The Apache Software Foundation under the terms of the
           <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>
         </p>
         <p>
