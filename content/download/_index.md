@@ -113,9 +113,9 @@ The Apache NiFi Team strongly encourages users to upgrade to NiFi 2.
 
 Apache NiFi Registry has been **deprecated** following a
 [community vote](https://lists.apache.org/thread/3gs4nl28yngsdmxd6xglzmbh5jqbscl3)
-and is planned for removal in Apache NiFi 3.0.
-NiFi 2.x introduced Git-based Flow Registry Clients (GitHub, GitLab, Bitbucket, Azure DevOps)
-as alternatives. Users are encouraged to migrate to these Git-based clients.
+in February 2026 and is planned for removal in Apache NiFi 3.0.
+NiFi 2 introduced Git-based Flow Registry Clients as alternatives.
+The Apache NiFi Team strongly encourages uses to migrate to these Git-based implementations.
 
 </div>
 

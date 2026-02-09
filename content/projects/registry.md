@@ -13,24 +13,23 @@ menu:
 
 <p class="description">A subproject of Apache NiFi to store and manage shared resources.</p>
 
-<div class="uk-alert-warning" uk-alert>
-<h3>Deprecation Notice</h3>
-<p>
-Apache NiFi Registry has been <strong>deprecated</strong> following a
-<a href="https://lists.apache.org/thread/3gs4nl28yngsdmxd6xglzmbh5jqbscl3">community vote</a>
+<div class="uk-card uk-card-default uk-card-body uk-margin-bottom">
+
+## Deprecation Notice
+
+Apache NiFi Registry has been **deprecated** following a
+[community vote](https://lists.apache.org/thread/3gs4nl28yngsdmxd6xglzmbh5jqbscl3) in Feburary 2026
 and is planned for removal in Apache NiFi 3.0.
-</p>
-<p>
-NiFi 2.x introduced Git-based Flow Registry Clients for
-<strong>GitHub, GitLab, Bitbucket, and Azure DevOps</strong>,
+
+NiFi 2 introduced Git-based Flow Registry Clients for
+GitHub, GitLab, Bitbucket, and Azure DevOps,
 providing direct integration with existing version control infrastructure.
-Users are encouraged to migrate to these alternatives.
-</p>
-<p>
-This decision is <strong>reversible</strong> — if sufficient contributors step forward to actively maintain
-NiFi Registry, the deprecation status can be reconsidered.
-There is no known timeline for NiFi 3.0, giving users significant time to plan migrations.
-</p>
+The Apache NiFi Team strongly encourages users to migrate to these alternatives.
+
+This decision is reversible if sufficient contributors step forward to actively maintain
+NiFi Registry, which would allow the deprecation status to be reconsidered.
+The timeline for NiFi 3.0 is not yet established, providing significant time for migration planning.
+
 </div>
 
 # Features
