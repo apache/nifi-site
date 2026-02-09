@@ -13,6 +13,26 @@ menu:
 
 <p class="description">A subproject of Apache NiFi to store and manage shared resources.</p>
 
+<div class="uk-alert-warning" uk-alert>
+<h3>Deprecation Notice</h3>
+<p>
+Apache NiFi Registry has been <strong>deprecated</strong> following a
+<a href="https://lists.apache.org/thread/3gs4nl28yngsdmxd6xglzmbh5jqbscl3">community vote</a>
+and is planned for removal in Apache NiFi 3.0.
+</p>
+<p>
+NiFi 2.x introduced Git-based Flow Registry Clients for
+<strong>GitHub, GitLab, Bitbucket, and Azure DevOps</strong>,
+providing direct integration with existing version control infrastructure.
+Users are encouraged to migrate to these alternatives.
+</p>
+<p>
+This decision is <strong>reversible</strong> — if sufficient contributors step forward to actively maintain
+NiFi Registry, the deprecation status can be reconsidered.
+There is no known timeline for NiFi 3.0, giving users significant time to plan migrations.
+</p>
+</div>
+
 # Features
 
 Registry - a subproject of Apache NiFi - is a complementary application that provides a central location for storage and
