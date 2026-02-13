@@ -605,6 +605,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#state-management">State Management<br></a></li>
 <li><a href="#database-settings">Database Settings</a></li>
 <li><a href="#flow-action-reporter">Flow Action Reporter</a></li>
+<li><a href="#component-metric-reporter">Component Metric Reporter</a></li>
 <li><a href="#flowfile-repository">FlowFile Repository</a></li>
 <li><a href="#write-ahead-flowfile-repository">Write Ahead FlowFile Repository</a></li>
 <li><a href="#volatile-flowfile-repository">Volatile FlowFile Repository</a></li>
@@ -6239,6 +6240,28 @@ for components to persist state. See the <a href="#state_management">State Manag
 </table>
 </div>
 <div class="sect2">
+<h3 id="component-metric-reporter"><a class="anchor" href="#component-metric-reporter"></a>Component Metric Reporter</h3>
+<div class="paragraph">
+<p>The Component Metric Reporter is a framework interface that supports exporting processing metrics including Counters and Gauges using a custom implementation class.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Property</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.component.metric.reporter.implementation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The class implementing <code>org.apache.nifi.controller.metrics.ComponentMetricReporter</code> from <code>nifi-framework-api</code>. The default value is not specified.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="flowfile-repository"><a class="anchor" href="#flowfile-repository"></a>FlowFile Repository</h3>
 <div class="paragraph">
 <p>The FlowFile repository keeps track of the attributes and current state of each FlowFile in the system. By default,
@@ -8689,7 +8712,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-12-16 10:30:59 -0600
+Last updated 2026-02-12 23:00:45 +0100
 </div>
 </div>
 </body>

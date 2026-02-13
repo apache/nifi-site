@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -2160,10 +2160,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
@@ -2455,7 +2451,7 @@
           
 
 
-<h3>ExecuteSQL 2.7.2</h3>
+<h3>ExecuteSQL 2.8.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -3291,11 +3287,6 @@ The strategy applies when handling queries that do not produce results.
                         
                         
                         
-                        
-                        
-                        
-                        
-                        
                     </dd>
 
                     
@@ -3402,17 +3393,17 @@ The strategy applies when handling queries that do not produce results.
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Max Rows Per Flow File</span>
+                <span class="property-required">Max Rows Per FlowFile</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum number of result rows that will be included in a single FlowFile. This will allow you to break up very large result sets into multiple FlowFiles. If the value specified is zero, then all rows are returned in a single FlowFile.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Max Rows Per Flow File</dd>
+                    <dd>Max Rows Per FlowFile</dd>
                     <dt>Description</dt>
                     <dd>The maximum number of result rows that will be included in a single FlowFile. This will allow you to break up very large result sets into multiple FlowFiles. If the value specified is zero, then all rows are returned in a single FlowFile.</dd>
                     <dt>API Name</dt>
-                    <dd>Max Rows Per Flow File</dd>
+                    <dd>Max Rows Per FlowFile</dd>
                     
                     <dt>Default Value</dt>
                     <dd>0</dd>
@@ -3881,22 +3872,22 @@ The strategy applies when handling queries that do not produce results.
         
         <tr>
             <td>executesql.row.count</td>
-            <td class="uk-text-lighter">Contains the number of rows returned by the query. If &#39;Max Rows Per Flow File&#39; is set, then this number will reflect the number of rows in the Flow File instead of the entire result set.</td>
+            <td class="uk-text-lighter">Contains the number of rows returned by the query. If &#39;Max Rows Per FlowFile&#39; is set, then this number will reflect the number of rows in the FlowFile instead of the entire result set.</td>
         </tr>
         
         <tr>
             <td>executesql.query.duration</td>
-            <td class="uk-text-lighter">Combined duration of the query execution time and fetch time in milliseconds. If &#39;Max Rows Per Flow File&#39; is set, then this number will reflect only the fetch time for the rows in the Flow File instead of the entire result set.</td>
+            <td class="uk-text-lighter">Combined duration of the query execution time and fetch time in milliseconds. If &#39;Max Rows Per FlowFile&#39; is set, then this number will reflect only the fetch time for the rows in the FlowFile instead of the entire result set.</td>
         </tr>
         
         <tr>
             <td>executesql.query.executiontime</td>
-            <td class="uk-text-lighter">Duration of the query execution time in milliseconds. This number will reflect the query execution time regardless of the &#39;Max Rows Per Flow File&#39; setting.</td>
+            <td class="uk-text-lighter">Duration of the query execution time in milliseconds. This number will reflect the query execution time regardless of the &#39;Max Rows Per FlowFile&#39; setting.</td>
         </tr>
         
         <tr>
             <td>executesql.query.fetchtime</td>
-            <td class="uk-text-lighter">Duration of the result set fetch time in milliseconds. If &#39;Max Rows Per Flow File&#39; is set, then this number will reflect only the fetch time for the rows in the Flow File instead of the entire result set.</td>
+            <td class="uk-text-lighter">Duration of the result set fetch time in milliseconds. If &#39;Max Rows Per FlowFile&#39; is set, then this number will reflect only the fetch time for the rows in the FlowFile instead of the entire result set.</td>
         </tr>
         
         <tr>
@@ -3906,22 +3897,22 @@ The strategy applies when handling queries that do not produce results.
         
         <tr>
             <td>executesql.error.message</td>
-            <td class="uk-text-lighter">If processing an incoming flow file causes an Exception, the Flow File is routed to failure and this attribute is set to the exception message.</td>
+            <td class="uk-text-lighter">If processing an incoming flow file causes an Exception, the FlowFile is routed to failure and this attribute is set to the exception message.</td>
         </tr>
         
         <tr>
             <td>fragment.identifier</td>
-            <td class="uk-text-lighter">If &#39;Max Rows Per Flow File&#39; is set then all FlowFiles from the same query result set will have the same value for the fragment.identifier attribute. This can then be used to correlate the results.</td>
+            <td class="uk-text-lighter">If &#39;Max Rows Per FlowFile&#39; is set then all FlowFiles from the same query result set will have the same value for the fragment.identifier attribute. This can then be used to correlate the results.</td>
         </tr>
         
         <tr>
             <td>fragment.count</td>
-            <td class="uk-text-lighter">If &#39;Max Rows Per Flow File&#39; is set then this is the total number of  FlowFiles produced by a single ResultSet. This can be used in conjunction with the fragment.identifier attribute in order to know how many FlowFiles belonged to the same incoming ResultSet. If Output Batch Size is set, then this attribute will not be populated.</td>
+            <td class="uk-text-lighter">If &#39;Max Rows Per FlowFile&#39; is set then this is the total number of  FlowFiles produced by a single ResultSet. This can be used in conjunction with the fragment.identifier attribute in order to know how many FlowFiles belonged to the same incoming ResultSet. If Output Batch Size is set, then this attribute will not be populated.</td>
         </tr>
         
         <tr>
             <td>fragment.index</td>
-            <td class="uk-text-lighter">If &#39;Max Rows Per Flow File&#39; is set then the position of this FlowFile in the list of outgoing FlowFiles that were all derived from the same result set FlowFile. This can be used in conjunction with the fragment.identifier attribute to know which FlowFiles originated from the same query result set and in what order  FlowFiles were produced</td>
+            <td class="uk-text-lighter">If &#39;Max Rows Per FlowFile&#39; is set then the position of this FlowFile in the list of outgoing FlowFiles that were all derived from the same result set FlowFile. This can be used in conjunction with the fragment.identifier attribute to know which FlowFiles originated from the same query result set and in what order  FlowFiles were produced</td>
         </tr>
         
         <tr>

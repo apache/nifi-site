@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.7.2
+  version: 2.8.0
 security:
 - HTTPBearerJWT: []
 - CookieSecureAuthorizationBearer: []
@@ -3531,8 +3531,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CurrentUserEntity"
-      security:
-      - Read - /flow: []
       summary: Retrieves the user identity of the user making the request
       tags:
       - Flow
@@ -3982,6 +3980,7 @@ paths:
           - BULLETIN
           - CONNECTION
           - CLUSTER
+          - VERSION_INFO
       - description: Regular Expression Pattern to be applied against the sample name
           field
         in: query
@@ -14551,14 +14550,14 @@ components:
           type: integer
           format: int32
           description: "The HTTP(S) Port on which this instance is listening for Remote\
-            \ Transfers of Flow Files. If this instance is not configured to receive\
-            \ Flow Files from remote instances, this will be null."
+            \ Transfers of FlowFiles. If this instance is not configured to receive\
+            \ FlowFiles from remote instances, this will be null."
         remoteSiteListeningPort:
           type: integer
           format: int32
           description: "The Socket Port on which this instance is listening for Remote\
-            \ Transfers of Flow Files. If this instance is not configured to receive\
-            \ Flow Files from remote instances, this will be null."
+            \ Transfers of FlowFiles. If this instance is not configured to receive\
+            \ FlowFiles from remote instances, this will be null."
         runningCount:
           type: integer
           format: int32
@@ -19482,6 +19481,7 @@ components:
           - RUNNING
           - STOPPED
           - DISABLED
+          - RUN_ONCE
         style:
           type: object
           additionalProperties:
@@ -20334,6 +20334,9 @@ components:
         eventTime:
           type: string
           description: The timestamp of the event.
+        eventTimestamp:
+          type: string
+          description: Event Timestamp formatted using ISO8601
         eventType:
           type: string
           description: The type of the event.
@@ -20474,6 +20477,10 @@ components:
           type: string
           description: The identifier of the node that this event/flowfile originated
             from.
+        componentType:
+          type: string
+          description: "If the type is EVENT, this is the type of the component that\
+            \ generated the event."
         eventType:
           type: string
           description: "If the type is EVENT, this is the type of event."

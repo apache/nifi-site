@@ -2,19 +2,19 @@
 <html lang="en">
   
 <head>
-  <title>ReplaceText - Apache NiFi</title>
+  <title>UpdateGauge - Apache NiFi</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
-  <meta name="keywords" content="Change,Modify,Regex,Regular Expression,Replace,Text,Update">
-  <title>ReplaceText - Apache NiFi</title>
-  <meta property="og:title" content="ReplaceText">
+  <meta name="keywords" content="gauge,instrumentation,metrics">
+  <title>UpdateGauge - Apache NiFi</title>
+  <meta property="og:title" content="UpdateGauge">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://nifi.apache.org/components/org.apache.nifi.processors.standard.ReplaceText/">
+  <meta property="og:url" content="https://nifi.apache.org/components/org.apache.nifi.processors.standard.UpdateGauge/">
   <meta property="og:description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
   <meta property="og:site_name" content="Apache NiFi">
   <meta property="og:image" content="https://nifi.apache.org/images/project-brand.jpg?version=1">
-  <meta name="twitter:title" content="ReplaceText">
+  <meta name="twitter:title" content="UpdateGauge">
   <meta name="twitter:description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="apachenifi">
@@ -1567,7 +1567,7 @@
                   <a href="/components/org.apache.nifi.processors.standard.RenameRecordField/">RenameRecordField</a>
                 </li>
                 
-                <li class="uk-text-bold" id="component-selected">
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.ReplaceText/">ReplaceText</a>
                 </li>
                 
@@ -1739,7 +1739,7 @@
                   <a href="/components/org.apache.nifi.processors.standard.UpdateDatabaseTable/">UpdateDatabaseTable</a>
                 </li>
                 
-                <li >
+                <li class="uk-text-bold" id="component-selected">
                   <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
                 </li>
                 
@@ -2451,15 +2451,17 @@
           
 
 
-<h3>ReplaceText 2.8.0</h3>
+<h3>UpdateGauge 2.8.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Updates the content of a FlowFile by searching for some textual value in the FlowFile content (via Regular Expression/regex, or literal value) and replacing the section of the content that matches with some alternate value. It can also be used to append or prepend text to the contents of a FlowFile.</dd>
+    <dd>Record the configured value of the named Gauge for each FlowFile processed.
+Supports instrumentation, debugging, and troubleshooting using Expression Language with FlowFile attributes.
+</dd>
     <dt>Tags</dt>
-    <dd>Change, Modify, Regex, Regular Expression, Replace, Text, Update</dd>
+    <dd>gauge, instrumentation, metrics</dd>
     <dt>Input Requirement</dt>
     <dd>
         REQUIRED
@@ -2503,247 +2505,17 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Character Set</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Character Set in which the file is encoded</div>
+                <span class="property-required">Gauge Name</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Name of the Gauge to be recorded for each FlowFile processed</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Character Set</dd>
+                    <dd>Gauge Name</dd>
                     <dt>Description</dt>
-                    <dd>The Character Set in which the file is encoded</dd>
+                    <dd>Name of the Gauge to be recorded for each FlowFile processed</dd>
                     <dt>API Name</dt>
-                    <dd>Character Set</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>UTF-8</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Evaluation Mode</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Run the &#39;Replacement Strategy&#39; against each line separately (Line-by-Line) or buffer the entire file into memory (Entire Text) and run against that.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Evaluation Mode</dd>
-                    <dt>Description</dt>
-                    <dd>Run the &#39;Replacement Strategy&#39; against each line separately (Line-by-Line) or buffer the entire file into memory (Entire Text) and run against that.</dd>
-                    <dt>API Name</dt>
-                    <dd>Evaluation Mode</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>Line-by-Line</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Line-by-Line
-                                </li>
-                            
-                            <li>
-                                Entire text
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="">Line-by-Line Evaluation Mode</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Run the &#39;Replacement Strategy&#39; against each line separately (Line-by-Line) for all lines in the FlowFile, First Line (Header) alone, Last Line (Footer) alone, Except the First Line (Header) or Except the Last Line (Footer).</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Line-by-Line Evaluation Mode</dd>
-                    <dt>Description</dt>
-                    <dd>Run the &#39;Replacement Strategy&#39; against each line separately (Line-by-Line) for all lines in the FlowFile, First Line (Header) alone, Last Line (Footer) alone, Except the First Line (Header) or Except the Last Line (Footer).</dd>
-                    <dt>API Name</dt>
-                    <dd>Line-by-Line Evaluation Mode</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>All</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                All
-                                </li>
-                            
-                            <li>
-                                First-Line
-                                </li>
-                            
-                            <li>
-                                Last-Line
-                                </li>
-                            
-                            <li>
-                                Except-First-Line
-                                </li>
-                            
-                            <li>
-                                Except-Last-Line
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>false</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Maximum Buffer Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the maximum amount of data to buffer (per file or per line, depending on the Evaluation Mode) in order to apply the replacement. If &#39;Entire Text&#39; (in Evaluation Mode) is selected and the FlowFile is larger than this value, the FlowFile will be routed to &#39;failure&#39;. In &#39;Line-by-Line&#39; Mode, if a single line is larger than this value, the FlowFile will be routed to &#39;failure&#39;. A default value of 1 MB is provided, primarily for &#39;Entire Text&#39; mode. In &#39;Line-by-Line&#39; Mode, a value such as 8 KB or 16 KB is suggested. This value is ignored if the &lt;Replacement Strategy&gt; property is set to one of: Append, Prepend, Always Replace</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Maximum Buffer Size</dd>
-                    <dt>Description</dt>
-                    <dd>Specifies the maximum amount of data to buffer (per file or per line, depending on the Evaluation Mode) in order to apply the replacement. If &#39;Entire Text&#39; (in Evaluation Mode) is selected and the FlowFile is larger than this value, the FlowFile will be routed to &#39;failure&#39;. In &#39;Line-by-Line&#39; Mode, if a single line is larger than this value, the FlowFile will be routed to &#39;failure&#39;. A default value of 1 MB is provided, primarily for &#39;Entire Text&#39; mode. In &#39;Line-by-Line&#39; Mode, a value such as 8 KB or 16 KB is suggested. This value is ignored if the &lt;Replacement Strategy&gt; property is set to one of: Append, Prepend, Always Replace</dd>
-                    <dt>API Name</dt>
-                    <dd>Maximum Buffer Size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>1 MB</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Replacement Strategy</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The strategy for how and what to replace within the FlowFile&#39;s text content.</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Replacement Strategy</dd>
-                    <dt>Description</dt>
-                    <dd>The strategy for how and what to replace within the FlowFile&#39;s text content.</dd>
-                    <dt>API Name</dt>
-                    <dd>Replacement Strategy</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>Regex Replace</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Prepend
-                                <span uk-icon="info" uk-tooltip="Insert the Replacement Value at the beginning of the FlowFile or the beginning of each line (depending on the Evaluation Mode). For &#34;Line-by-Line&#34; Evaluation Mode, the value will be prepended to each line. Similarly, for &#34;First-Line&#34;, &#34;Last-Line&#34;, &#34;Except-Last-Line&#34; and &#34;Except-First-Line&#34; Evaluation Modes,the value will be prepended to header alone, footer alone, all lines except header and all lines except footer respectively. For &#34;Entire Text&#34; evaluation mode,the value will be prepended to the entire text."></span></li>
-                            
-                            <li>
-                                Append
-                                <span uk-icon="info" uk-tooltip="Insert the Replacement Value at the end of the FlowFile or the end of each line (depending on the Evaluation Mode). For &#34;Line-by-Line&#34; Evaluation Mode, the value will be appended to each line. Similarly, for &#34;First-Line&#34;, &#34;Last-Line&#34;, &#34;Except-Last-Line&#34; and &#34;Except-First-Line&#34; Evaluation Modes,the value will be appended to header alone, footer alone, all lines except header and all lines except footer respectively. For &#34;Entire Text&#34; evaluation mode,the value will be appended to the entire text."></span></li>
-                            
-                            <li>
-                                Surround
-                                <span uk-icon="info" uk-tooltip="Prepends text before the start of the FlowFile (or the start of each line, depending on the configuration of the Evaluation Mode property) as well as appending text to the end of the FlowFile (or the end of each line, depending on the configuration of the Evaluation Mode property)"></span></li>
-                            
-                            <li>
-                                Regex Replace
-                                <span uk-icon="info" uk-tooltip="Interpret the Search Value as a Regular Expression and replace all matches with the Replacement Value. The Replacement Value may reference Capturing Groups used in the Search Value by using a dollar-sign followed by the Capturing Group number, such as $1 or $2. If the Search Value is set to .* then everything is replaced without even evaluating the Regular Expression."></span></li>
-                            
-                            <li>
-                                Literal Replace
-                                <span uk-icon="info" uk-tooltip="Search for all instances of the Search Value and replace the matches with the Replacement Value."></span></li>
-                            
-                            <li>
-                                Always Replace
-                                <span uk-icon="info" uk-tooltip="Always replaces the entire line or the entire contents of the FlowFile (depending on the value of the &lt;Evaluation Mode&gt; property) and does not bother searching for any value. When this strategy is chosen, the &lt;Search Value&gt; property is ignored."></span></li>
-                            
-                            <li>
-                                Substitute Variables
-                                <span uk-icon="info" uk-tooltip="Substitute variable references (specified in ${var} form) using FlowFile attributes for looking up the replacement value by variable name. When this strategy is chosen, both the &lt;Search Value&gt; and &lt;Replacement Value&gt; properties are ignored."></span></li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Replacement Value</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The value to insert using the &#39;Replacement Strategy&#39;. Using &#34;Regex Replace&#34; back-references to Regular Expression capturing groups are supported, but back-references that reference capturing groups that do not exist in the regular expression will be treated as literal value. Back References may also be referenced using the Expression Language, as &#39;$1&#39;, &#39;$2&#39;, etc. The single-tick marks MUST be included, as these variables are not &#34;Standard&#34; attribute names (attribute names must be quoted unless they contain only numbers, letters, and _).</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Replacement Value</dd>
-                    <dt>Description</dt>
-                    <dd>The value to insert using the &#39;Replacement Strategy&#39;. Using &#34;Regex Replace&#34; back-references to Regular Expression capturing groups are supported, but back-references that reference capturing groups that do not exist in the regular expression will be treated as literal value. Back References may also be referenced using the Expression Language, as &#39;$1&#39;, &#39;$2&#39;, etc. The single-tick marks MUST be included, as these variables are not &#34;Standard&#34; attribute names (attribute names must be quoted unless they contain only numbers, letters, and _).</dd>
-                    <dt>API Name</dt>
-                    <dd>Replacement Value</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>$1</dd>
+                    <dd>Gauge Name</dd>
                     
                     
                     
@@ -2754,45 +2526,23 @@
                     <dt>Required</dt>
                     <dd>true</dd>
                     
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Replacement Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [Always Replace, Append, Literal Replace, Prepend, Regex Replace]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
                 </dl>
             </div>
         </li>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Search Value</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Search Value to search for in the FlowFile content. Only used for &#39;Literal Replace&#39; and &#39;Regex Replace&#39; matching strategies</div>
+                <span class="property-required">Gauge Value</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Numeric value of the Gauge to be recorded for each FlowFile processed</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Search Value</dd>
+                    <dd>Gauge Value</dd>
                     <dt>Description</dt>
-                    <dd>The Search Value to search for in the FlowFile content. Only used for &#39;Literal Replace&#39; and &#39;Regex Replace&#39; matching strategies</dd>
+                    <dd>Numeric value of the Gauge to be recorded for each FlowFile processed</dd>
                     <dt>API Name</dt>
-                    <dd>Search Value</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>(?s)(^.*$)</dd>
+                    <dd>Gauge Value</dd>
                     
                     
                     
@@ -2802,117 +2552,6 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Replacement Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [Literal Replace, Regex Replace]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Text to Append</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The text to append to the end of the FlowFile, or each line, depending on the configured value of the Evaluation Mode property</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Text to Append</dd>
-                    <dt>Description</dt>
-                    <dd>The text to append to the end of the FlowFile, or each line, depending on the configured value of the Evaluation Mode property</dd>
-                    <dt>API Name</dt>
-                    <dd>Text to Append</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Replacement Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [Surround]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Text to Prepend</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The text to prepend to the start of the FlowFile, or each line, depending on the configured value of the Evaluation Mode property</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Text to Prepend</dd>
-                    <dt>Description</dt>
-                    <dd>The text to prepend to the start of the FlowFile, or each line, depending on the configured value of the Evaluation Mode property</dd>
-                    <dt>API Name</dt>
-                    <dd>Text to Prepend</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables and FlowFile Attributes</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                    <dt>Dependencies</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                <span>Replacement Strategy</span>
-                                <span class="uk-text-light">is set to any
-                                
-                                  of
-                                
-                                </span>
-                                
-                                [Surround]
-                                
-                            </li>
-                            
-                        </ul>
-                    </dd>
                     
                 </dl>
             </div>
@@ -2925,26 +2564,6 @@
 
 
 
-
-<div class="component-section-header uk-margin">System Resource Considerations</div>
-<div>
-    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
-        <thead>
-        <tr>
-            <th class="uk-width-1-4">Resource</th>
-            <th class="uk-width-3-4">Description</th>
-        </tr>
-        </thead>
-        <tbody>
-        
-        <tr>
-            <td>MEMORY</td>
-            <td class="uk-text-lighter">An instance of this component can cause high usage of this system resource.  Multiple instances or high concurrency settings may result a degradation of performance.</td>
-        </tr>
-        
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -2962,13 +2581,8 @@
         <tbody>
         
         <tr>
-            <td>failure</td>
-            <td class="uk-text-lighter">FlowFiles that could not be updated are routed to this relationship</td>
-        </tr>
-        
-        <tr>
             <td>success</td>
-            <td class="uk-text-lighter">FlowFiles that have been successfully processed are routed to this relationship. This includes both FlowFiles that had text replaced and those that did not.</td>
+            <td class="uk-text-lighter">FlowFile processing completed with Gauge Value recorded</td>
         </tr>
         
         </tbody>
@@ -2980,139 +2594,6 @@
 
 
 
-
-<div class="uk-margin">
-    <div class="component-section-header">Use Cases</div>
-</div>
-<div>
-    <ul uk-accordion="multiple: true" id="use-cases">
-        
-        <li class="description">
-            <a class="uk-accordion-title" href>
-                <div class="uk-margin-remove uk-text-truncate uk-text-light">Append text to the end of every line in a FlowFile</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small">
-                <dl class="uk-description-list">
-                    <dt>Description</dt>
-                    <dd>Append text to the end of every line in a FlowFile</dd>
-                    
-                    
-                    <dt>Keywords</dt>
-                    <dd>raw text, append, line</dd>
-                    
-                    <dt>Configuration</dt>
-                    <dd><pre class="use-case-configuration">&#34;Evaluation Mode&#34; = &#34;Line-by-Line&#34;
-&#34;Replacement Strategy&#34; = &#34;Append&#34;
-
-&#34;Replacement Value&#34; is set to whatever text should be appended to the line.
-For example, to insert the text `&lt;fin&gt;` at the end of every line, we would set &#34;Replacement Value&#34; to `&lt;fin&gt;`.
-We can also use Expression Language. So to insert the filename at the end of every line, we set &#34;Replacement Value&#34; to `${filename}`
-</pre></dd>
-                </dl>
-            </div>
-        </li>
-        
-        <li class="description">
-            <a class="uk-accordion-title" href>
-                <div class="uk-margin-remove uk-text-truncate uk-text-light">Prepend text to the beginning of every line in a FlowFile</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small">
-                <dl class="uk-description-list">
-                    <dt>Description</dt>
-                    <dd>Prepend text to the beginning of every line in a FlowFile</dd>
-                    
-                    
-                    <dt>Keywords</dt>
-                    <dd>raw text, prepend, line</dd>
-                    
-                    <dt>Configuration</dt>
-                    <dd><pre class="use-case-configuration">&#34;Evaluation Mode&#34; = &#34;Line-by-Line&#34;
-&#34;Replacement Strategy&#34; = &#34;Prepend&#34;
-
-&#34;Replacement Value&#34; is set to whatever text should be prepended to the line.
-For example, to insert the text `&lt;start&gt;` at the beginning of every line, we would set &#34;Replacement Value&#34; to `&lt;start&gt;`.
-We can also use Expression Language. So to insert the filename at the beginning of every line, we set &#34;Replacement Value&#34; to `${filename}`
-</pre></dd>
-                </dl>
-            </div>
-        </li>
-        
-        <li class="description">
-            <a class="uk-accordion-title" href>
-                <div class="uk-margin-remove uk-text-truncate uk-text-light">Replace every occurrence of a literal string in the FlowFile with a different value</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small">
-                <dl class="uk-description-list">
-                    <dt>Description</dt>
-                    <dd>Replace every occurrence of a literal string in the FlowFile with a different value</dd>
-                    
-                    
-                    <dt>Keywords</dt>
-                    <dd>replace, string, text, literal</dd>
-                    
-                    <dt>Configuration</dt>
-                    <dd><pre class="use-case-configuration">&#34;Evaluation Mode&#34; = &#34;Line-by-Line&#34;
-&#34;Replacement Strategy&#34; = &#34;Literal Replace&#34;
-&#34;Search Value&#34; is set to whatever text is in the FlowFile that needs to be replaced.
-&#34;Replacement Value&#34; is set to the text that should replace the current text.
-
-For example, to replace the word &#34;spider&#34; with &#34;arachnid&#34; we set &#34;Search Value&#34; to `spider` and set &#34;Replacement Value&#34; to `arachnid`.
-</pre></dd>
-                </dl>
-            </div>
-        </li>
-        
-        <li class="description">
-            <a class="uk-accordion-title" href>
-                <div class="uk-margin-remove uk-text-truncate uk-text-light">Transform every occurrence of a literal string in a FlowFile</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small">
-                <dl class="uk-description-list">
-                    <dt>Description</dt>
-                    <dd>Transform every occurrence of a literal string in a FlowFile</dd>
-                    
-                    
-                    <dt>Keywords</dt>
-                    <dd>replace, transform, raw text</dd>
-                    
-                    <dt>Configuration</dt>
-                    <dd><pre class="use-case-configuration">&#34;Evaluation Mode&#34; = &#34;Line-by-Line&#34;
-&#34;Replacement Strategy&#34; = &#34;Regex Replace&#34;
-&#34;Search Value&#34; is set to a regular expression that matches the text that should be transformed in a capturing group.
-&#34;Replacement Value&#34; is set to a NiFi Expression Language expression that references `$1` (in quotes to escape the reference name).
-
-For example, if we wanted to lowercase any occurrence of WOLF, TIGER, or LION, we would use a &#34;Search Value&#34; of `(WOLF|TIGER|LION)` and a &#34;Replacement Value&#34; of `${&#39;$1&#39;:toLower()}`.
-If we want to replace any identifier with a hash of that identifier, we might use a &#34;Search Value&#34; of `identifier: (.*)` and a &#34;Replacement Value&#34; of `identifier: ${&#39;$1&#39;:hash(&#39;sha256&#39;)}`
-</pre></dd>
-                </dl>
-            </div>
-        </li>
-        
-        <li class="description">
-            <a class="uk-accordion-title" href>
-                <div class="uk-margin-remove uk-text-truncate uk-text-light">Completely replace the contents of a FlowFile to a specific text</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small">
-                <dl class="uk-description-list">
-                    <dt>Description</dt>
-                    <dd>Completely replace the contents of a FlowFile to a specific text</dd>
-                    
-                    
-                    <dt>Keywords</dt>
-                    <dd>replace, raw text</dd>
-                    
-                    <dt>Configuration</dt>
-                    <dd><pre class="use-case-configuration">&#34;Evaluation Mode&#34; = &#34;Entire text&#34;
-&#34;Replacement Strategy&#34; = &#34;Always Replace&#34;
-
-&#34;Replacement Value&#34; is set to the new text that should be written to the FlowFile. This text might include NiFi Expression Language to reference one or more attributes.
-</pre></dd>
-                </dl>
-            </div>
-        </li>
-        
-    </ul>
-</div>
 
 
 

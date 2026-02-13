@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -2160,10 +2160,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
@@ -2455,7 +2451,7 @@
           
 
 
-<h3>ConsumeKinesis 2.7.2</h3>
+<h3>ConsumeKinesis 2.8.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2482,7 +2478,7 @@ Uses DynamoDB for check pointing and coordination, and (optional) CloudWatch for
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeKinesis 2.7.2</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeKinesis 2.8.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2947,11 +2943,6 @@ Ensure that the credentials provided have access to Kinesis, DynamoDB and (optio
                         
                         
                         <div><a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService</a></div>
-                        
-                        
-                        
-                        
-                        
                         
                         
                         
@@ -4536,11 +4527,6 @@ Using a larger value may increase the throughput, but will do so at the expense 
                         
                         
                         
-                        
-                        
-                        
-                        
-                        
                         <div><a href="/components/org.apache.nifi.proxy.StandardProxyConfigurationService/">org.apache.nifi.proxy.StandardProxyConfigurationService</a></div>
                         
                         
@@ -5117,11 +5103,6 @@ it might hinder performance of the processor.
                         
                         
                         <div><a href="/components/org.apache.nifi.record.script.ScriptedReader/">org.apache.nifi.record.script.ScriptedReader</a></div>
-                        
-                        
-                        
-                        
-                        
                         
                         
                         
@@ -6063,11 +6044,6 @@ it might hinder performance of the processor.
                         
                         
                         
-                        
-                        
-                        
-                        
-                        
                         <div><a href="/components/org.apache.nifi.xml.XMLRecordSetWriter/">org.apache.nifi.xml.XMLRecordSetWriter</a></div>
                         
                         
@@ -6136,6 +6112,10 @@ it might hinder performance of the processor.
                     <dt>Allowable Values</dt>
                     <dd>
                         <ul>
+                            
+                            <li>
+                                AWS European Sovereign Cloud (Germany)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
                             
                             <li>
                                 AWS GovCloud (US-East)
@@ -6220,10 +6200,6 @@ it might hinder performance of the processor.
                             <li>
                                 China (Ningxia)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : cn-northwest-1"></span></li>
-                            
-                            <li>
-                                EU (Germany)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
                             
                             <li>
                                 EU ISOE West
@@ -6524,42 +6500,42 @@ In addition, the processor may cache some amount of data for each shard when the
         
         <tr>
             <td>aws.kinesis.stream.name</td>
-            <td class="uk-text-lighter">The name of the Kinesis Stream from which all Kinesis Records in the Flow File were read</td>
+            <td class="uk-text-lighter">The name of the Kinesis Stream from which all Kinesis Records in the FlowFile were read</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.shard.id</td>
-            <td class="uk-text-lighter">Shard ID from which all Kinesis Records in the Flow File were read</td>
+            <td class="uk-text-lighter">Shard ID from which all Kinesis Records in the FlowFile were read</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.partition.key</td>
-            <td class="uk-text-lighter">Partition key of the last Kinesis Record in the Flow File</td>
+            <td class="uk-text-lighter">Partition key of the last Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.first.sequence.number</td>
-            <td class="uk-text-lighter">A Sequence Number of the first Kinesis Record in the Flow File</td>
+            <td class="uk-text-lighter">A Sequence Number of the first Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.first.subsequence.number</td>
-            <td class="uk-text-lighter">A SubSequence Number of the first Kinesis Record in the Flow File. Generated by KPL when aggregating records into a single Kinesis Record</td>
+            <td class="uk-text-lighter">A SubSequence Number of the first Kinesis Record in the FlowFile. Generated by KPL when aggregating records into a single Kinesis Record</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.last.sequence.number</td>
-            <td class="uk-text-lighter">A Sequence Number of the last Kinesis Record in the Flow File</td>
+            <td class="uk-text-lighter">A Sequence Number of the last Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.last.subsequence.number</td>
-            <td class="uk-text-lighter">A SubSequence Number of the last Kinesis Record in the Flow File. Generated by KPL when aggregating records into a single Kinesis Record</td>
+            <td class="uk-text-lighter">A SubSequence Number of the last Kinesis Record in the FlowFile. Generated by KPL when aggregating records into a single Kinesis Record</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.approximate.arrival.timestamp.ms</td>
-            <td class="uk-text-lighter">Approximate arrival timestamp of the last Kinesis Record in the Flow File</td>
+            <td class="uk-text-lighter">Approximate arrival timestamp of the last Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>

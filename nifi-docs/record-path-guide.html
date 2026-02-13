@@ -498,6 +498,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#isblank">isBlank</a></li>
 </ul>
 </li>
+<li><a href="#math_functions">Math Functions</a>
+<ul class="sectlevel2">
+<li><a href="#tonumber">toNumber</a></li>
+<li><a href="#multiply">multiply</a></li>
+<li><a href="#divide">divide</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2715,10 +2722,225 @@ only of white space (spaces, tabs, carriage returns, and new-line characters).</
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="math_functions"><a class="anchor" href="#math_functions"></a>Math Functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Math functions accept the following number types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Byte</p>
+</li>
+<li>
+<p>Short</p>
+</li>
+<li>
+<p>Integer</p>
+</li>
+<li>
+<p>Long</p>
+</li>
+<li>
+<p>Float</p>
+</li>
+<li>
+<p>Double</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following non-number types are also accepted if they can be coerced to a number:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>String</p>
+</li>
+<li>
+<p>Date</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Unless otherwise specified, the calculated result is either a Long or Double:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If any argument is a Float or Double, the result is a Double</p>
+</li>
+<li>
+<p>Otherwise, the result is a Long</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Math functions do not handle overflow.</p>
+</div>
+<div class="paragraph">
+<p>Examples below use the schema:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{
+    "type": "record",
+    "name": "logs",
+    "fields": [
+        { "name": "flags", "type": "byte" },
+        { "name": "seq", "type" : "short"},
+        { "name": "txns", "type" : "int"},
+        { "name": "timestamp", "type" : "long"},
+        { "name": "temp", "type" : "float"},
+        { "name": "load", "type" : "double"},
+        { "name": "timestampMillis", "type" : "string"},
+        { "name": "date", "type" : "date"},
+    ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and the record:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{
+    "flags" : 7,
+    "seq": 1024,
+    "txns": 125000,
+    "timestamp": 1768967368,
+    "temp": 55.0,
+    "load": 5.67,
+    "timestampMillis": "1768967368000",
+    "date": "2026-01-21",
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tonumber"><a class="anchor" href="#tonumber"></a>toNumber</h3>
+<div class="paragraph">
+<p>Coerces a String or Date value to a number. If the argument is already a number it is returned unmodified, preserving the original type.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toNumber(456)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">456</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toNumber(/flags)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toNumber(/load)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5.67</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toNumber('7.89')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.89</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toNumber(/timestampMillis)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1768967368000</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>toNumber(/date)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1768953600000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="multiply"><a class="anchor" href="#multiply"></a>multiply</h3>
+<div class="paragraph">
+<p>Calculates the product of two numbers.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiply(2, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiply('2.0', 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiply(/flags, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiply(2, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">110.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiply(/load, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">311.85</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="divide"><a class="anchor" href="#divide"></a>divide</h3>
+<div class="paragraph">
+<p>Calculates the quotient of two numbers.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>divide(2, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>divide(3, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>divide(3, '2.0')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>divide(/txns, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2272.7272727272725</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>divide(/timestampMillis, 300000)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5896557</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-12-16 10:30:59 -0600
+Last updated 2026-02-12 23:00:45 +0100
 </div>
 </div>
 </body>

@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -2160,10 +2160,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
@@ -2455,13 +2451,17 @@
           
 
 
-<h3>GenerateRecord 2.7.2</h3>
+<h3>GenerateRecord 2.8.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>This processor creates FlowFiles with records having random value for the specified fields. GenerateRecord is useful for testing, configuration, and simulation. It uses either user-defined properties to define a record schema or a provided schema and generates the specified number of records using random data for the fields in the schema.</dd>
+    <dd>This processor creates FlowFiles with records having random value for the specified fields. GenerateRecord is useful
+for testing, configuration, and simulation. It uses one of three methods to define a record schema: (1) a provided Avro Schema Text,
+(2) a Predefined Schema template such as Person, Order, Event, Sensor, Product, Stock Trade, or Complete Example covering all data types,
+or (3) user-defined dynamic properties. The processor generates the specified number of records using random data for the fields in the schema.
+</dd>
     <dt>Tags</dt>
     <dd>fake, generate, random, test</dd>
     <dt>Input Requirement</dt>
@@ -2508,14 +2508,18 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Null Value Percentage</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The percent probability (0-100%) that a generated value for any nullable field will be null. Set this property to zero to have no null values, or 100 to have all null values.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The percent probability (0-100%) that a generated value for any nullable field will be null.
+Set this property to zero to have no null values, or 100 to have all null values.
+</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Null Value Percentage</dd>
                     <dt>Description</dt>
-                    <dd>The percent probability (0-100%) that a generated value for any nullable field will be null. Set this property to zero to have no null values, or 100 to have all null values.</dd>
+                    <dd>The percent probability (0-100%) that a generated value for any nullable field will be null.
+Set this property to zero to have no null values, or 100 to have all null values.
+</dd>
                     <dt>API Name</dt>
                     <dd>Null Value Percentage</dd>
                     
@@ -2557,14 +2561,20 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Nullable Fields</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether the generated fields will be nullable. Note that this property is ignored if Schema Text is set. Also it only affects the schema of the generated data, not whether any values will be null. If this property is true, see &#39;Null Value Percentage&#39; to set the probability that any generated field will be null.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether the generated fields will be nullable. Note that this property is ignored if Schema Text is set.
+Also it only affects the schema of the generated data, not whether any values will be null.
+If this property is true, see &#39;Null Value Percentage&#39; to set the probability that any generated field will be null.
+</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Nullable Fields</dd>
                     <dt>Description</dt>
-                    <dd>Whether the generated fields will be nullable. Note that this property is ignored if Schema Text is set. Also it only affects the schema of the generated data, not whether any values will be null. If this property is true, see &#39;Null Value Percentage&#39; to set the probability that any generated field will be null.</dd>
+                    <dd>Whether the generated fields will be nullable. Note that this property is ignored if Schema Text is set.
+Also it only affects the schema of the generated data, not whether any values will be null.
+If this property is true, see &#39;Null Value Percentage&#39; to set the probability that any generated field will be null.
+</dd>
                     <dt>API Name</dt>
                     <dd>Nullable Fields</dd>
                     
@@ -2624,6 +2634,76 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Predefined Schema</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Select a predefined schema template for quick record generation. Predefined schemas provide ready-to-use
+templates with multiple fields covering various data types including nested records, arrays, maps, dates, timestamps, etc.
+Only one of Schema Text, Predefined Schema, or user-defined dynamic properties should be configured.
+Note: This feature is intended for quick testing purposes only. Predefined schemas may change between NiFi versions.
+</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Predefined Schema</dd>
+                    <dt>Description</dt>
+                    <dd>Select a predefined schema template for quick record generation. Predefined schemas provide ready-to-use
+templates with multiple fields covering various data types including nested records, arrays, maps, dates, timestamps, etc.
+Only one of Schema Text, Predefined Schema, or user-defined dynamic properties should be configured.
+Note: This feature is intended for quick testing purposes only. Predefined schemas may change between NiFi versions.
+</dd>
+                    <dt>API Name</dt>
+                    <dd>Predefined Schema</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Person
+                                <span uk-icon="info" uk-tooltip="A person with name, contact information, and address (schema.org/Person)"></span></li>
+                            
+                            <li>
+                                Order
+                                <span uk-icon="info" uk-tooltip="An e-commerce order with line items, amounts, and timestamps (schema.org/Order)"></span></li>
+                            
+                            <li>
+                                Event
+                                <span uk-icon="info" uk-tooltip="A timestamped event with metadata and keywords (schema.org/Event)"></span></li>
+                            
+                            <li>
+                                Sensor
+                                <span uk-icon="info" uk-tooltip="An IoT sensor reading with geo coordinates and measurements"></span></li>
+                            
+                            <li>
+                                Product
+                                <span uk-icon="info" uk-tooltip="A product catalog entry with pricing and inventory (schema.org/Product)"></span></li>
+                            
+                            <li>
+                                Stock Trade
+                                <span uk-icon="info" uk-tooltip="A stock market trade with pricing and volume"></span></li>
+                            
+                            <li>
+                                Complete Example
+                                <span uk-icon="info" uk-tooltip="A comprehensive schema demonstrating all supported data types including nested records, arrays, and maps"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
                     
                 </dl>
             </div>
@@ -3303,11 +3383,6 @@
                         
                         
                         
-                        
-                        
-                        
-                        
-                        
                         <div><a href="/components/org.apache.nifi.xml.XMLRecordSetWriter/">org.apache.nifi.xml.XMLRecordSetWriter</a></div>
                         
                         
@@ -3339,14 +3414,18 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Schema Text</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The text of an Avro-formatted Schema used to generate record data. If this property is set, any user-defined properties are ignored.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The text of an Avro-formatted Schema used to generate record data.
+Only one of Schema Text, Predefined Schema, or user-defined dynamic properties should be configured.
+</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Schema Text</dd>
                     <dt>Description</dt>
-                    <dd>The text of an Avro-formatted Schema used to generate record data. If this property is set, any user-defined properties are ignored.</dd>
+                    <dd>The text of an Avro-formatted Schema used to generate record data.
+Only one of Schema Text, Predefined Schema, or user-defined dynamic properties should be configured.
+</dd>
                     <dt>API Name</dt>
                     <dd>Schema Text</dd>
                     

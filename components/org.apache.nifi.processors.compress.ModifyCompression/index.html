@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -2160,10 +2160,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
@@ -2455,7 +2451,7 @@
           
 
 
-<h3>ModifyCompression 2.7.2</h3>
+<h3>ModifyCompression 2.8.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2811,6 +2807,70 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Unknown MIME Type Routing</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The destination relationship for input FlowFiles when the MIME type does not match a known compression type.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Unknown MIME Type Routing</dd>
+                    <dt>Description</dt>
+                    <dd>The destination relationship for input FlowFiles when the MIME type does not match a known compression type.</dd>
+                    <dt>API Name</dt>
+                    <dd>Unknown MIME Type Routing</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>failure</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                success
+                                </li>
+                            
+                            <li>
+                                failure
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Input Compression Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [use mime.type attribute]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
