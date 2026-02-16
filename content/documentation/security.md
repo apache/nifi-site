@@ -67,6 +67,29 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-25903"
+title="Deserialization of Untrusted Data in GetAsanaObject Processor"
+published="2026-02-16"
+severity="High"
+products="Apache NiFi"
+affectedVersions="1.1.0 to 2.7.2"
+fixedVersion="2.8.0"
+jira="NIFI-15567"
+pullRequest="10871"
+reporter="David Handermann" >}}
+
+Apache NiFi 1.1.0 through 2.7.2 are missing authorization when updating configuration properties on extension components
+that have specific Required Permissions based on the Restricted annotation. The Restricted annotation indicates
+additional privileges required to add the annotated component to the flow configuration, but framework authorization did
+not check restricted status when updating a component previously added. The missing authorization requires a more
+privileged user to add a restricted component to the flow configuration, but permits a less privileged user to make
+property configuration changes. Apache NiFi installations that do not implement different levels of authorization for
+Restricted components are not subject to this vulnerability because the framework enforces write permissions as the
+security boundary. Upgrading to Apache NiFi 2.8.0 is the recommended mitigation.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2025-66524"
 title="Deserialization of Untrusted Data in GetAsanaObject Processor"
 published="2025-12-19"
