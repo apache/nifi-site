@@ -68,7 +68,7 @@ The following announcements include published vulnerabilities that apply directl
 
 {{< vulnerability
 id="CVE-2026-25903"
-title="Deserialization of Untrusted Data in GetAsanaObject Processor"
+title="Missing Authorization of Restricted Permissions for Component Updates"
 published="2026-02-16"
 severity="High"
 products="Apache NiFi"
