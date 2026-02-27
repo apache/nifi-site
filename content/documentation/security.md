@@ -39,6 +39,11 @@ running operating system commands, while other scripted components support execu
 different programming languages. Configuring these components with untrusted commands or arguments is
 contrary to best practices, but it does not constitute of security issue for remediation.
 
+The application implements process management and diagnostic operations using the HTTP protocol, with the default
+configuration binding to the localhost address. Privileged administrators can configure process management on an
+alternative address, which can alter the security posture of the application. It is the responsibility of privileged
+administrators to implement other protection strategies when changing the default bind address.
+
 ## Reporting Process
 
 - Notify the project on initial discovery of a potential security vulnerability
