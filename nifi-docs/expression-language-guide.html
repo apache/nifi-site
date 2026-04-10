@@ -473,6 +473,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#not">not</a></li>
 <li><a href="#ifelse">ifElse</a></li>
 <li><a href="#isjson">isJson</a></li>
+<li><a href="#isvalidinstant">isValidInstant</a></li>
+<li><a href="#isvaliddate">isValidDate</a></li>
 </ul>
 </li>
 <li><a href="#strings">String Manipulation</a>
@@ -486,6 +488,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#substringafter">substringAfter</a></li>
 <li><a href="#substringafterlast">substringAfterLast</a></li>
 <li><a href="#getdelimitedfield">getDelimitedField</a></li>
+<li><a href="#compactdelimitedlist">compactDelimitedList</a></li>
+<li><a href="#trimdelimitedlist">trimDelimitedList</a></li>
+<li><a href="#unique">unique</a></li>
 <li><a href="#append">append</a></li>
 <li><a href="#prepend">prepend</a></li>
 <li><a href="#replace">replace</a></li>
@@ -560,6 +565,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#toinstant">toInstant</a></li>
 <li><a href="#tomicros">toMicros</a></li>
 <li><a href="#tonanos">toNanos</a></li>
+<li><a href="#plusduration">plusDuration</a></li>
+<li><a href="#minusduration">minusDuration</a></li>
+<li><a href="#plusinstantduration">plusInstantDuration</a></li>
+<li><a href="#minusinstantduration">minusInstantDuration</a></li>
 <li><a href="#now">now</a></li>
 </ul>
 </li>
@@ -1506,6 +1515,115 @@ the following results:</p>
 </tbody>
 </table>
 </div>
+<div class="sect2 function">
+<h3 id="isvalidinstant"><a class="anchor" href="#isvalidinstant"></a>isValidInstant</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">The <code>isValidInstant</code> function returns <code>true</code> when the Subject can be parsed as a valid ISO-8601 instant or RFC-1123 date-time, and <code>false</code> otherwise.
+This function is useful for validating values before calling <code>toInstant()</code>. Unlike <code>toInstant()</code>, this function does not throw an error when parsing fails.</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>: No arguments</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Boolean</span></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. isValidInstant Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${eventTime:isValidInstant()}</code> where <code>eventTime</code> = <code>2026-08-04T10:15:30Z</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${eventTime:isValidInstant()}</code> where <code>eventTime</code> = <code>2026-08-04T10:15:30+05:30</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${eventTime:isValidInstant()}</code> where <code>eventTime</code> = <code>Tue, 04 Aug 2026 10:15:30 GMT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${eventTime:isValidInstant()}</code> where <code>eventTime</code> = <code>not-a-date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${eventTime:isValidInstant():ifElse('valid-instant', 'invalid-instant')}</code> where <code>eventTime</code> = <code>2026-08-04T10:15:30Z</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>valid-instant</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
+<h3 id="isvaliddate"><a class="anchor" href="#isvaliddate"></a>isValidDate</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">The <code>isValidDate</code> function returns <code>true</code> when the Subject can be parsed as a valid date using the specified format and optional timezone, and <code>false</code> otherwise.
+Validation is calendar-aware, so values that match the format pattern but do not represent a real date, such as <code>31-02-2026</code>, return <code>false</code>.
+This function is useful for validating values before calling <code>toDate()</code>. Unlike <code>toDate()</code>, this function does not throw an error when parsing fails.</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>format</strong> (required): The date format to use for parsing. The format must be a valid <code>java.time.format.DateTimeFormatter</code> pattern, such as <code>dd-MM-yyyy</code>.</p>
+</li>
+<li>
+<p><strong>timezone</strong> (optional): The timezone to apply when resolving date-time fields, such as <code>UTC</code> or <code>America/New_York</code>. When not provided, the system default timezone is used.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Boolean</span></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. isValidDate Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${myDate:isValidDate('dd-MM-yyyy')}</code> where <code>myDate</code> = <code>04-08-2026</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${myDate:isValidDate('dd-MM-yyyy')}</code> where <code>myDate</code> = <code>31-02-2026</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${myDate:isValidDate('dd-MM-yyyy')}</code> where <code>myDate</code> = <code>not-a-date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${myDate:isValidDate('yyyy-MM-dd HH:mm:ss', 'UTC')}</code> where <code>myDate</code> = <code>2026-08-04 10:15:30</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${myDate:isValidDate('dd-MM-yyyy'):ifElse('valid', 'invalid')}</code> where <code>myDate</code> = <code>04-08-2026</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>valid</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1623,7 +1741,7 @@ the following results:</p>
 then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Substring Examples</caption>
+<caption class="title">Table 6. Substring Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1680,7 +1798,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. SubstringBefore Examples</caption>
+<caption class="title">Table 7. SubstringBefore Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1737,7 +1855,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. SubstringBeforeLast Examples</caption>
+<caption class="title">Table 8. SubstringBeforeLast Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1794,7 +1912,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. SubstringAfter Examples</caption>
+<caption class="title">Table 9. SubstringAfter Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1851,7 +1969,7 @@ then the following Expressions will result in the following values:</p>
 	then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. SubstringAfterLast Examples</caption>
+<caption class="title">Table 10. SubstringAfterLast Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1928,7 +2046,7 @@ or <code>false</code>.</span></p>
     then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. GetDelimitedField Examples</caption>
+<caption class="title">Table 11. GetDelimitedField Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1960,6 +2078,190 @@ or <code>false</code>.</span></p>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2 function">
+<h3 id="compactdelimitedlist"><a class="anchor" href="#compactdelimitedlist"></a>compactDelimitedList</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Splits the Subject using the specified delimiter, removes all empty tokens, and rejoins the remaining tokens using the same delimiter.
+The order of non-empty tokens is preserved. This is useful for normalizing
+delimited attributes that contain leading, trailing, or repeated delimiters.</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>delimiter</em></span> : <span class="argDesc">The delimiter used to split and rejoin the Subject.
+This may be a single character or a multi-character string.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "my_list" attribute contains the value <code>,,a,,b,,c,</code>, the "tags"
+attribute contains the value <code>|alpha||beta|||gamma|</code>, and the "messy" attribute
+contains the value ` ,,a,,b,, `, then the following Expressions will result in
+the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. CompactDelimitedList Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${my_list:compactDelimitedList(',')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>a,b,c</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${tags:compactDelimitedList('|')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alpha|beta|gamma</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${messy:trim():compactDelimitedList(',')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>a,b</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
+<h3 id="trimdelimitedlist"><a class="anchor" href="#trimdelimitedlist"></a>trimDelimitedList</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Splits the Subject using the specified delimiter, removes leading
+and trailing empty tokens, and rejoins the remaining tokens using
+the same delimiter. Empty tokens between non-empty tokens are preserved. This
+behaves similarly to <code>trim()</code>, but operates on delimited token boundaries rather
+than whitespace characters.</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>delimiter</em></span> : <span class="argDesc">The delimiter used to split and rejoin the Subject.
+This may be a single character or a multi-character string.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "my_list" attribute contains the value <code>,,a,,b,,c,,</code>, the
+"path_parts" attribute contains the value <code>;;alpha;;beta;;</code>, and the "messy"
+attribute contains the value ` ,,a,,b,, `, then the following Expressions will
+result in the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. TrimDelimitedList Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${my_list:trimDelimitedList(',')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>a,,b,,c</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${path_parts:trimDelimitedList(';')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>alpha;;beta</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${messy:trim():trimDelimitedList(',')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>a,,b</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
+<h3 id="unique"><a class="anchor" href="#unique"></a>unique</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Returns the unique values from a delimited string while preserving the order of first occurrence. The function takes a delimiter as an argument and returns the deduplicated values joined by the same delimiter.</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>delimiter</em></span> : <span class="argDesc">The delimiter used to split and join the subject string</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">String</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "tags" attribute has the value "red,blue,red,green,blue,yellow", then the following
+Expressions will result in the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. Unique Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${tags:unique(',')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>red,blue,green,yellow</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${tags:unique(';')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>red,blue,red,green,blue,yellow</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the "paths" attribute has the value "C:\Users\test;D:\Data;C:\Users\test;E:\Backup", then:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. Path Deduplication</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${paths:unique(';')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>C:\Users\test;D:\Data;E:\Backup</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Special Cases</strong>: If the subject is null, returns an empty string. If the delimiter is null or empty, returns the original subject unchanged. Empty values are preserved (e.g., "a,,b,,c" becomes "a,,b,c").</p>
+</div>
 </div>
 <div class="sect2 function">
 <h3 id="append"><a class="anchor" href="#append"></a>append</h3>
@@ -2044,7 +2346,7 @@ or <code>false</code>.</span></p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Replace Examples</caption>
+<caption class="title">Table 16. Replace Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2102,7 +2404,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. ReplaceFirst Examples</caption>
+<caption class="title">Table 17. ReplaceFirst Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2163,7 +2465,7 @@ argument uses Capturing Groups, back references are allowed in the <em>replaceme
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. ReplaceAll Examples</caption>
+<caption class="title">Table 18. ReplaceAll Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2225,7 +2527,7 @@ It returns <code>null</code> if the argument string is not a valid attribute.</p
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. PadLeft Examples</caption>
+<caption class="title">Table 19. PadLeft Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2287,7 +2589,7 @@ It returns <code>null</code> if the argument string is not a valid attribute.</p
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. PadRight Examples</caption>
+<caption class="title">Table 20. PadRight Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2456,7 +2758,7 @@ of times to repeat the subject if <em>max repeats</em> is not supplied.</span></
 then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Repeat Examples</caption>
+<caption class="title">Table 21. Repeat Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2522,7 +2824,7 @@ expression and V is the string to return in case K matches the subject. Examples
 then the following Expressions will result in the following values:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. ReplaceByPattern Examples</caption>
+<caption class="title">Table 22. ReplaceByPattern Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3078,7 +3380,7 @@ Supports one of [SHA-384, SHA-224, SHA-256, MD2, SHA, SHA-512, MD5]. Warning: MD
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. find Examples</caption>
+<caption class="title">Table 23. find Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3132,7 +3434,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. matches Examples</caption>
+<caption class="title">Table 24. matches Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3187,7 +3489,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. indexOf Examples</caption>
+<caption class="title">Table 25. indexOf Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3246,7 +3548,7 @@ Expressions will provide the following results:</p>
 Expressions will provide the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. lastIndexOf Examples</caption>
+<caption class="title">Table 26. lastIndexOf Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3326,7 +3628,7 @@ Expressions will provide the following results:</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. jsonPath Examples</caption>
+<caption class="title">Table 27. jsonPath Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3414,7 +3716,7 @@ form of the updated JSON.</span></p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. jsonPathDelete Examples</caption>
+<caption class="title">Table 28. jsonPathDelete Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3497,7 +3799,7 @@ path is not in the JSON, the operation returns the original JSON without any mod
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. jsonPathAdd Examples</caption>
+<caption class="title">Table 29. jsonPathAdd Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3579,7 +3881,7 @@ form of the updated JSON.</span></p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. jsonPathSet Examples</caption>
+<caption class="title">Table 30. jsonPathSet Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3663,7 +3965,7 @@ form of the updated JSON.</span></p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. jsonPathPut Examples</caption>
+<caption class="title">Table 31. jsonPathPut Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3854,7 +4156,7 @@ Divide. This is to preserve backwards compatibility and to not force rounding er
 	the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. toRadix Examples</caption>
+<caption class="title">Table 32. toRadix Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -3921,7 +4223,7 @@ Divide. This is to preserve backwards compatibility and to not force rounding er
 	the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. toRadix Examples</caption>
+<caption class="title">Table 33. toRadix Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4050,7 +4352,7 @@ In order to run the correct method, the parameter types must be correct. The Exp
 	the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. format Examples</caption>
+<caption class="title">Table 34. format Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4138,7 +4440,7 @@ timeIsoInstant has the value "2022-12-03T10:15:30Z" and "timeRFC1123" has the va
 then the following Expressions will yield the following results:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. format Examples</caption>
+<caption class="title">Table 35. format Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4284,6 +4586,354 @@ the attribute to 1647613347678234567 nanoseconds since epoch.</p>
 </div>
 </div>
 <div class="sect2 function">
+<h3 id="plusduration"><a class="anchor" href="#plusduration"></a>plusDuration</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Adds a specified amount of time to a Date value using a human-readable expression such as <code>"1 week"</code> or <code>"3 months"</code>. Month and year adjustments follow calendar rules.</span></p>
+</div>
+<div class="paragraph">
+<p>If the subject is null, the function returns null.</p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Date</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>amount</em></span> : <span class="argDesc">A string in the form <code>"&lt;number&gt; &lt;unit&gt;"</code>. A space between the number and unit is required.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Supported Units</strong>: nanosecond(s), second(s), minute(s), hour(s), day(s), week(s), month(s), year(s)</p>
+</div>
+<div class="paragraph">
+<p>Units are case-insensitive.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Nanoseconds are accepted but have no effect on a <code>Date</code> subject because <code>java.util.Date</code> has millisecond precision. Use <code>plusInstantDuration</code> if nanosecond precision is required.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Date</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "date" attribute has the value <code>"04-08-2026"</code> (August 4, 2026), then the following Expressions will result in the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 36. plusDuration Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):plusDuration('1 week'):format('dd-MM-yyyy')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>11-08-2026</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):plusDuration('2 years'):format('dd-MM-yyyy')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-08-2028</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):plusDuration('3 months'):format('dd-MM-yyyy')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-11-2026</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):plusDuration('2 hours'):format('dd-MM-yyyy HH:mm:ss')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-08-2026 02:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):plusDuration('1 day')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the epoch milliseconds for the resulting Date.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 37. Calendar-Aware Behavior</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scenario</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Example</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Result</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Month-end clamping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jan 31 + 1 month</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feb 28 (or Feb 29 in a leap year)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Leap year clamping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feb 29, 2024 + 1 year</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feb 28, 2025</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Crossing a day boundary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aug 4 00:00:00 + 25 hours</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aug 5 01:00:00</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
+<h3 id="minusduration"><a class="anchor" href="#minusduration"></a>minusDuration</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Subtracts a specified amount of time from a Date value using a human-readable expression such as <code>"1 week"</code> or <code>"3 months"</code>. Month and year adjustments follow calendar rules.</span></p>
+</div>
+<div class="paragraph">
+<p>If the subject is null, the function returns null.</p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Date</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>amount</em></span> : <span class="argDesc">A string in the form <code>"&lt;number&gt; &lt;unit&gt;"</code>. A space between the number and unit is required.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Supported Units</strong>: nanosecond(s), second(s), minute(s), hour(s), day(s), week(s), month(s), year(s)</p>
+</div>
+<div class="paragraph">
+<p>Units are case-insensitive.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Nanoseconds are accepted but have no effect on a <code>Date</code> subject because <code>java.util.Date</code> has millisecond precision. Use <code>minusInstantDuration</code> if nanosecond precision is required.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Date</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "date" attribute has the value <code>"04-08-2026"</code> (August 4, 2026), then the following Expressions will result in the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 38. minusDuration Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):minusDuration('1 month'):format('dd-MM-yyyy')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-07-2026</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):minusDuration('2 weeks'):format('dd-MM-yyyy')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>21-07-2026</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):minusDuration('1 year'):format('dd-MM-yyyy')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-08-2025</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):minusDuration('1 second'):format('dd-MM-yyyy HH:mm:ss')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>03-08-2026 23:59:59</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):minusDuration('1 day')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the epoch milliseconds for the resulting Date.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 39. Calendar-Aware Behavior</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scenario</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Example</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Result</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Month-end clamping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mar 31 - 1 month</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feb 28 (or Feb 29 in a leap year)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Leap year clamping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feb 29, 2024 - 1 year</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feb 28, 2023</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Crossing a day boundary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aug 4 00:00:00 - 1 second</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aug 3 23:59:59</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
+<h3 id="plusinstantduration"><a class="anchor" href="#plusinstantduration"></a>plusInstantDuration</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Adds a specified amount of time to an Instant value using a human-readable expression such as <code>"1 week"</code> or <code>"3 months"</code>. Arithmetic is evaluated in UTC.</span></p>
+</div>
+<div class="paragraph">
+<p>If the subject is null, the function returns null.</p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>amount</em></span> : <span class="argDesc">A string in the form <code>"&lt;number&gt; &lt;unit&gt;"</code>. A space between the number and unit is required.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Supported Units</strong>: nanosecond(s), second(s), minute(s), hour(s), day(s), week(s), month(s), year(s)</p>
+</div>
+<div class="paragraph">
+<p>Units are case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "date" attribute has the value <code>"04-08-2026 00:00:00"</code>, then the following Expressions will result in the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 40. plusInstantDuration Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'UTC'):plusInstantDuration('1 week'):formatInstant('dd-MM-yyyy HH:mm:ss', 'UTC')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>11-08-2026 00:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'UTC'):plusInstantDuration('2 years'):formatInstant('dd-MM-yyyy HH:mm:ss', 'UTC')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-08-2028 00:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'UTC'):plusInstantDuration('3 months'):formatInstant('dd-MM-yyyy HH:mm:ss', 'UTC')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-11-2026 00:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'Australia/Sydney'):plusInstantDuration('3 months'):formatInstant('dd-MM-yyyy HH:mm:ss', 'Australia/Sydney')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-11-2026 01:00:00</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Notes</strong>:
+- Arithmetic is evaluated in UTC.</p>
+</div>
+</div>
+<div class="sect2 function">
+<h3 id="minusinstantduration"><a class="anchor" href="#minusinstantduration"></a>minusInstantDuration</h3>
+<div class="paragraph">
+<p><strong>Description</strong>: <span class="description">Subtracts a specified amount of time from an Instant value using a human-readable expression such as <code>"1 week"</code> or <code>"3 months"</code>. Arithmetic is evaluated in UTC.</span></p>
+</div>
+<div class="paragraph">
+<p>If the subject is null, the function returns null.</p>
+</div>
+<div class="paragraph">
+<p><strong>Subject Type</strong>: <span class="subject">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="argName"><em>amount</em></span> : <span class="argDesc">A string in the form <code>"&lt;number&gt; &lt;unit&gt;"</code>. A space between the number and unit is required.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Supported Units</strong>: nanosecond(s), second(s), minute(s), hour(s), day(s), week(s), month(s), year(s)</p>
+</div>
+<div class="paragraph">
+<p>Units are case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p><strong>Return Type</strong>: <span class="returnType">Instant</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong>: If the "date" attribute has the value <code>"04-08-2026 00:00:00"</code>, then the following Expressions will result in the following values:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 41. minusInstantDuration Examples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'UTC'):minusInstantDuration('1 week'):formatInstant('dd-MM-yyyy HH:mm:ss', 'UTC')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>28-07-2026 00:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'UTC'):minusInstantDuration('2 years'):formatInstant('dd-MM-yyyy HH:mm:ss', 'UTC')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-08-2024 00:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'UTC'):minusInstantDuration('3 months'):formatInstant('dd-MM-yyyy HH:mm:ss', 'UTC')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-05-2026 00:00:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toInstant('dd-MM-yyyy HH:mm:ss', 'Australia/Sydney'):minusInstantDuration('3 months'):formatInstant('dd-MM-yyyy HH:mm:ss', 'Australia/Sydney')}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>04-05-2026 00:00:00</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2 function">
 <h3 id="now"><a class="anchor" href="#now"></a>now</h3>
 <div class="paragraph">
 <p><strong>Description</strong>: <span class="description">Returns the current date and time as a Date data type object.</span></p>
@@ -4310,7 +4960,7 @@ was run then it would output <code>1453843201123</code>. This method provides mi
 manipulate the value.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. now Examples</caption>
+<caption class="title">Table 42. now Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4724,7 +5374,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. anyAttribute Examples</caption>
+<caption class="title">Table 43. anyAttribute Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4774,7 +5424,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. allAttributes Example</caption>
+<caption class="title">Table 44. allAttributes Example</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4825,7 +5475,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. anyMatchingAttribute Example</caption>
+<caption class="title">Table 45. anyMatchingAttribute Example</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4873,7 +5523,7 @@ provides several functions for evaluating the same conditions against groups of 
 	and "filename" contains "file.txt" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. anyMatchingAttributes Examples</caption>
+<caption class="title">Table 46. anyMatchingAttributes Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4930,7 +5580,7 @@ though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. anyDelineatedValue Examples</caption>
+<caption class="title">Table 47. anyDelineatedValue Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -4983,7 +5633,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. allDelineatedValues Examples</caption>
+<caption class="title">Table 48. allDelineatedValues Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -5040,7 +5690,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 37. join Examples</caption>
+<caption class="title">Table 49. join Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -5083,7 +5733,7 @@ an embedded Expression, though it does not have to be.</span></p>
 	and "number_list" contains "1,2,3,4,5" consider the following examples:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 38. count Examples</caption>
+<caption class="title">Table 50. count Examples</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -5121,7 +5771,7 @@ an embedded Expression, though it does not have to be.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-12 23:00:45 +0100
+Last updated 2026-04-07 17:31:28 +0200
 </div>
 </div>
 </body>

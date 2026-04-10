@@ -646,6 +646,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#nifi-registry-nar-provider">NiFi Registry NAR Provider</a></li>
 </ul>
 </li>
+<li><a href="#secrets_manager_properties">Secrets Manager Properties</a></li>
 </ul>
 </li>
 <li><a href="#upgrading_nifi">Upgrading NiFi</a>
@@ -3727,6 +3728,12 @@ Instructions requiring interaction with the UI assume the application is being a
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allows users to view/modify Parameter Contexts. Access to Parameter Contexts are inherited from the "access the controller" policies unless overridden.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Parameter Contexts</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>/parameter-contexts</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">access connectors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows users to view/modify Connectors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N/A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/connectors</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">query provenance</p></td>
@@ -7992,6 +7999,33 @@ then, that the Processor has used approximately 3.5 seconds (or 3500 millisecond
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="secrets_manager_properties"><a class="anchor" href="#secrets_manager_properties"></a>Secrets Manager Properties</h3>
+<div class="paragraph">
+<p>These properties configure the Secrets Manager, which is responsible for resolving secrets used by Connectors.
+The Secrets Manager delegates to Parameter Providers to retrieve secret values.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Property</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.secrets.manager.implementation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The fully qualified class name of the Secrets Manager implementation. Defaults to <code>org.apache.nifi.components.connector.secrets.ParameterProviderSecretsManager</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.secrets.manager.cache.duration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The duration for which resolved secret values are cached before being refreshed from the underlying Parameter Providers. Accepts any NiFi time duration value such as <code>5 mins</code>, <code>30 secs</code>, etc. A value of <code>0 sec</code> disables caching entirely. Defaults to <code>5 mins</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -8712,7 +8746,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-12 23:00:45 +0100
+Last updated 2026-04-07 17:31:28 +0200
 </div>
 </div>
 </body>

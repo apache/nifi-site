@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2161,6 +2165,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2451,13 +2459,13 @@
           
 
 
-<h3>PutDatabaseRecord 2.8.0</h3>
+<h3>PutDatabaseRecord 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>The PutDatabaseRecord processor uses a specified RecordReader to input (possibly multiple) records from an incoming flow file. These records are translated to SQL statements and executed as a single transaction. If any errors occur, the flow file is routed to failure or retry, and if the records are transmitted successfully, the incoming flow file is routed to success.  The type of statement executed by the processor is specified via the Statement Type property, which accepts some hard-coded values such as INSERT, UPDATE, and DELETE, as well as &#39;Use statement.type Attribute&#39;, which causes the processor to get the statement type from a flow file attribute.  IMPORTANT: If the Statement Type is UPDATE, then the incoming records must not alter the value(s) of the primary keys (or user-specified Update Keys). If such records are encountered, the UPDATE statement issued to the database may do nothing (if no existing records with the new primary key values are found), or could inadvertently corrupt the existing data (by changing records for which the new values of the primary keys exist).</dd>
+    <dd>The PutDatabaseRecord processor uses a specified RecordReader to input (possibly multiple) records from an incoming FlowFile. These records are translated to SQL statements and executed as a single transaction. If any errors occur, the FlowFile is routed to failure or retry, and if the records are transmitted successfully, the incoming FlowFile is routed to success.  The type of statement executed by the processor is specified via the Statement Type property, which accepts some hard-coded values such as INSERT, UPDATE, and DELETE, as well as &#39;Use statement.type Attribute&#39;, which causes the processor to get the statement type from a FlowFile attribute.  IMPORTANT: If the Statement Type is UPDATE, then the incoming records must not alter the value(s) of the primary keys (or user-specified Update Keys). If such records are encountered, the UPDATE statement issued to the database may do nothing (if no existing records with the new primary key values are found), or could inadvertently corrupt the existing data (by changing records for which the new values of the primary keys exist).</dd>
     <dt>Tags</dt>
     <dd>database, delete, insert, jdbc, put, record, sql, update</dd>
     <dt>Input Requirement</dt>
@@ -3029,7 +3037,17 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.dbcp.HikariCPConnectionPool/">org.apache.nifi.dbcp.HikariCPConnectionPool</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3480,6 +3498,16 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4889,6 +4917,11 @@ by prefixing the semicolon with a backslash character.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.grok.GrokReader/">org.apache.nifi.grok.GrokReader</a></div>
                         
                         
@@ -5103,6 +5136,11 @@ by prefixing the semicolon with a backslash character.
                         
                         
                         <div><a href="/components/org.apache.nifi.record.script.ScriptedReader/">org.apache.nifi.record.script.ScriptedReader</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5852,7 +5890,7 @@ by prefixing the semicolon with a backslash character.
         
         <tr>
             <td>putdatabaserecord.error</td>
-            <td class="uk-text-lighter">If an error occurs during processing, the flow file will be routed to failure or retry, and this attribute will be populated with the cause of the error.</td>
+            <td class="uk-text-lighter">If an error occurs during processing, the FlowFile will be routed to failure or retry, and this attribute will be populated with the cause of the error.</td>
         </tr>
         
         </tbody>

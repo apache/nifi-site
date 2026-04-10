@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Apache NiFi is an easy to use, powerful, and reliable system to process and distribute data">
-  <meta name="keywords" content="elasticsearch,elasticsearch7,elasticsearch8,elasticsearch9,index,json,put">
+  <meta name="keywords" content="elasticsearch,elasticsearch7,elasticsearch8,elasticsearch9,index,json,json array,ndjson,put">
   <title>PutElasticsearchJson - Apache NiFi</title>
   <meta property="og:title" content="PutElasticsearchJson">
   <meta property="og:type" content="article">
@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2161,6 +2165,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2451,15 +2459,15 @@
           
 
 
-<h3>PutElasticsearchJson 2.8.0</h3>
+<h3>PutElasticsearchJson 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-elasticsearch-restapi-nar</dd>
     <dt>Description</dt>
-    <dd>An Elasticsearch put processor that uses the official Elastic REST client libraries. Each FlowFile is treated as a document to be sent to the Elasticsearch _bulk API. Multiple FlowFiles can be batched together into each Request sent to Elasticsearch.</dd>
+    <dd>An Elasticsearch put processor that uses the official Elastic REST client libraries to write JSON data. Supports three input formats selectable via the &#34;Input Content Format&#34; property: NDJSON (one JSON object per line), JSON Array (a top-level array of objects, streamed for memory efficiency), and Single JSON (the entire FlowFile is one document). FlowFiles are accumulated up to the configured Max Batch Size and flushed to Elasticsearch in _bulk API requests. Large files that exceed the batch size are automatically split into multiple _bulk requests.</dd>
     <dt>Tags</dt>
-    <dd>elasticsearch, elasticsearch7, elasticsearch8, elasticsearch9, index, json, put</dd>
+    <dd>elasticsearch, elasticsearch7, elasticsearch8, elasticsearch9, index, json, json array, ndjson, put</dd>
     <dt>Input Requirement</dt>
     <dd>
         REQUIRED
@@ -2473,7 +2481,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.8.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2653,36 +2661,6 @@ invalid combinations of index operation and Bulk action fields.</p>
 </div>
 <div>
     <ul uk-accordion="multiple: true" id="property-descriptors">
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Batch Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The preferred number of FlowFiles to send over in a single batch</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Batch Size</dd>
-                    <dt>Description</dt>
-                    <dd>The preferred number of FlowFiles to send over in a single batch</dd>
-                    <dt>API Name</dt>
-                    <dd>Batch Size</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>100</dd>
-                    
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Environment variables defined at JVM level and system properties</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
@@ -3390,6 +3368,16 @@ invalid combinations of index operation and Bulk action fields.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
                     
@@ -3454,6 +3442,71 @@ invalid combinations of index operation and Bulk action fields.</p>
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Input Content Format</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Single JSON]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Identifier Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the field within each document to use as the Elasticsearch document ID. If the field is not present in a document or this property is left blank, no document ID is set and Elasticsearch will auto-generate one.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Identifier Field</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the field within each document to use as the Elasticsearch document ID. If the field is not present in a document or this property is left blank, no document ID is set and Elasticsearch will auto-generate one.</dd>
+                    <dt>API Name</dt>
+                    <dd>Identifier Field</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Input Content Format</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [JSON Array, NDJSON]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3517,6 +3570,55 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Input Content Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The format of the JSON content in each FlowFile. NDJSON: one JSON object per line (newline-delimited). JSON Array: a top-level JSON array of objects, streamed element-by-element for memory efficiency. Single JSON: the entire FlowFile is a single JSON document.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Input Content Format</dd>
+                    <dt>Description</dt>
+                    <dd>The format of the JSON content in each FlowFile. NDJSON: one JSON object per line (newline-delimited). JSON Array: a top-level JSON array of objects, streamed element-by-element for memory efficiency. Single JSON: the entire FlowFile is a single JSON document.</dd>
+                    <dt>API Name</dt>
+                    <dd>Input Content Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Single JSON</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                NDJSON
+                                <span uk-icon="info" uk-tooltip="One JSON object per line (newline-delimited)."></span></li>
+                            
+                            <li>
+                                JSON Array
+                                <span uk-icon="info" uk-tooltip="A top-level JSON array of objects, streamed element-by-element for memory efficiency."></span></li>
+                            
+                            <li>
+                                Single JSON
+                                <span uk-icon="info" uk-tooltip="The entire FlowFile is a single JSON document."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Log Error Responses</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, errors will be logged to the NiFi logs at the error log level. Otherwise, they will only be logged if debug logging is enabled on NiFi as a whole. The purpose of this option is to give the user the ability to debug failed operations without having to turn on debug logging.</div>
             </a>
@@ -3562,6 +3664,85 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Max Batch Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum amount of data to send in a single Elasticsearch _bulk API request. For NDJSON and JSON Array modes, FlowFiles are accumulated until this threshold is reached, then flushed. For Single JSON mode, this acts as a size-based safety limit: if the accumulated FlowFiles exceed this size before Max FlowFiles Per Batch is reached, the request is flushed early. Elasticsearch recommends 5-15 MB per bulk request for optimal performance. To disable the size-based limit, check &#34;Set Empty String&#34;.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Max Batch Size</dd>
+                    <dt>Description</dt>
+                    <dd>The maximum amount of data to send in a single Elasticsearch _bulk API request. For NDJSON and JSON Array modes, FlowFiles are accumulated until this threshold is reached, then flushed. For Single JSON mode, this acts as a size-based safety limit: if the accumulated FlowFiles exceed this size before Max FlowFiles Per Batch is reached, the request is flushed early. Elasticsearch recommends 5-15 MB per bulk request for optimal performance. To disable the size-based limit, check &#34;Set Empty String&#34;.</dd>
+                    <dt>API Name</dt>
+                    <dd>Max Batch Size</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>10 MB</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Max FlowFiles Per Batch</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum number of FlowFiles to include in a single Elasticsearch _bulk API request. If the accumulated FlowFiles exceed Max Batch Size before this count is reached, the request will be flushed early.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Max FlowFiles Per Batch</dd>
+                    <dt>Description</dt>
+                    <dd>The maximum number of FlowFiles to include in a single Elasticsearch _bulk API request. If the accumulated FlowFiles exceed Max Batch Size before this count is reached, the request will be flushed early.</dd>
+                    <dt>API Name</dt>
+                    <dd>Max FlowFiles Per Batch</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>100</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Input Content Format</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Single JSON]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Max JSON Field String Length</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum allowed length of a string value when parsing a JSON document or attribute.</div>
             </a>
@@ -3592,15 +3773,60 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Output Bulk Request</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If enabled, each Elasticsearch _bulk request body is written as a FlowFile to the &#34;bulk_request&#34; relationship. Useful for debugging. Each FlowFile contains the full NDJSON body exactly as sent to Elasticsearch.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Output Bulk Request</dd>
+                    <dt>Description</dt>
+                    <dd>If enabled, each Elasticsearch _bulk request body is written as a FlowFile to the &#34;bulk_request&#34; relationship. Useful for debugging. Each FlowFile contains the full NDJSON body exactly as sent to Elasticsearch.</dd>
+                    <dt>API Name</dt>
+                    <dd>Output Bulk Request</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Output Error Responses</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of flowfiles to the &#34;successful&#34; or &#34;errors&#34; relationships</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of FlowFiles to the &#34;successful&#34; or &#34;errors&#34; relationships</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Output Error Responses</dd>
                     <dt>Description</dt>
-                    <dd>If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of flowfiles to the &#34;successful&#34; or &#34;errors&#34; relationships</dd>
+                    <dd>If this is enabled, response messages from Elasticsearch marked as &#34;error&#34; will be output to the &#34;error_responses&#34; relationship.This does not impact the output of FlowFiles to the &#34;successful&#34; or &#34;errors&#34; relationships</dd>
                     <dt>API Name</dt>
                     <dd>Output Error Responses</dd>
                     
@@ -3665,14 +3891,14 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Scripted Upsert</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to add the scripted_upsert flag to the Upsert Operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the Upsert Document provided (from FlowFile content) will be empty, but sure to set the Client Service controller service&#39;s Suppress Null and Empty Values to Never Suppress or no &#34;upsert&#34; doc will be, included in the request to Elasticsearch and the operation will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to add the scripted_upsert flag to the Upsert operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the upsert document will be empty, ensure null suppression is disabled so that an empty &#34;upsert&#34; doc is included in the request — otherwise Elasticsearch will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error. For Single JSON mode, set the Client Service controller service&#39;s Suppress Null and Empty Values to Never Suppress. For NDJSON and JSON Array modes, set the Suppress Nulls property on this processor to Never Suppress.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Scripted Upsert</dd>
                     <dt>Description</dt>
-                    <dd>Whether to add the scripted_upsert flag to the Upsert Operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the Upsert Document provided (from FlowFile content) will be empty, but sure to set the Client Service controller service&#39;s Suppress Null and Empty Values to Never Suppress or no &#34;upsert&#34; doc will be, included in the request to Elasticsearch and the operation will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error</dd>
+                    <dd>Whether to add the scripted_upsert flag to the Upsert operation. If true, forces Elasticsearch to execute the Script whether or not the document exists, defaults to false. If the upsert document will be empty, ensure null suppression is disabled so that an empty &#34;upsert&#34; doc is included in the request — otherwise Elasticsearch will not create a new document for the script to execute against, resulting in a &#34;not_found&#34; error. For Single JSON mode, set the Client Service controller service&#39;s Suppress Null and Empty Values to Never Suppress. For NDJSON and JSON Array modes, set the Suppress Nulls property on this processor to Never Suppress.</dd>
                     <dt>API Name</dt>
                     <dd>Scripted Upsert</dd>
                     
@@ -3687,6 +3913,74 @@ invalid combinations of index operation and Bulk action fields.</p>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Suppress Nulls</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">When set to Always Suppress, null and empty values are removed from documents before they are sent to Elasticsearch.
+This setting applies to NDJSON and JSON Array formats for Index and Create operations only. For Single JSON, configure null suppression on the controller service instead.
+Performance note: for JSON Array the impact is negligible since documents are already being parsed. For NDJSON, each line must be parsed and re-serialized when suppression is enabled, which adds overhead compared to the default behaviour of passing lines through as raw bytes.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Suppress Nulls</dd>
+                    <dt>Description</dt>
+                    <dd>When set to Always Suppress, null and empty values are removed from documents before they are sent to Elasticsearch.
+This setting applies to NDJSON and JSON Array formats for Index and Create operations only. For Single JSON, configure null suppression on the controller service instead.
+Performance note: for JSON Array the impact is negligible since documents are already being parsed. For NDJSON, each line must be parsed and re-serialized when suppression is enabled, which adds overhead compared to the default behaviour of passing lines through as raw bytes.</dd>
+                    <dt>API Name</dt>
+                    <dd>Suppress Nulls</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>never-suppress</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Never Suppress
+                                <span uk-icon="info" uk-tooltip="Fields that are missing (present in the schema but not in the record), or that have a value of null/empty, will be written out as a null/empty value"></span></li>
+                            
+                            <li>
+                                Always Suppress
+                                <span uk-icon="info" uk-tooltip="Fields that are missing (present in the schema but not in the record), or that have a value of null/empty, will not be written out"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Input Content Format</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [JSON Array, NDJSON]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3876,7 +4170,7 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <tr>
             <td>MEMORY</td>
-            <td class="uk-text-lighter">The Batch of FlowFiles will be stored in memory until the bulk operation is performed.</td>
+            <td class="uk-text-lighter">At most one batch&#39;s worth of data will be buffered in memory at a time. The maximum memory usage is bounded by the Max Batch Size property.</td>
         </tr>
         
         </tbody>
@@ -3905,17 +4199,17 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <tr>
             <td>failure</td>
-            <td class="uk-text-lighter">All flowfiles that fail for reasons unrelated to server availability go to this relationship.</td>
+            <td class="uk-text-lighter">All FlowFiles that fail for reasons unrelated to server availability go to this relationship.</td>
         </tr>
         
         <tr>
             <td>original</td>
-            <td class="uk-text-lighter">All flowfiles that are sent to Elasticsearch without request failures go to this relationship.</td>
+            <td class="uk-text-lighter">All FlowFiles that are sent to Elasticsearch without request failures go to this relationship.</td>
         </tr>
         
         <tr>
             <td>retry</td>
-            <td class="uk-text-lighter">All flowfiles that fail due to server/cluster availability go to this relationship.</td>
+            <td class="uk-text-lighter">All FlowFiles that fail due to server/cluster availability go to this relationship.</td>
         </tr>
         
         <tr>

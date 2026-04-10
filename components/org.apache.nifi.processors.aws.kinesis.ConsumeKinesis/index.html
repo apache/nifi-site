@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2161,6 +2165,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2451,18 +2459,15 @@
           
 
 
-<h3>ConsumeKinesis 2.8.0</h3>
+<h3>ConsumeKinesis 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-aws-kinesis-nar</dd>
     <dt>Description</dt>
-    <dd>Consumes data from the specified AWS Kinesis stream and outputs a FlowFile for every processed Record (raw)
-or a FlowFile for a batch of processed records if a Record Reader and Record Writer are configured.
-The processor may take a few minutes on the first start and several seconds on subsequent starts
-to initialize before starting to fetch data.
-Uses DynamoDB for check pointing and coordination, and (optional) CloudWatch for metrics.
-</dd>
+    <dd>Consumes records from an Amazon Kinesis Data Stream. Uses DynamoDB-based checkpointing for reliable resumption after restarts.
+
+Note: when a shard is split or multiple shards are merged, this processor will consume from child and parent shards concurrently. It does not wait for parent shards to be fully consumed before reading child shards, so record ordering is not guaranteed across a split or merge boundary.</dd>
     <dt>Tags</dt>
     <dd>amazon, aws, consume, kinesis, record, stream</dd>
     <dt>Input Requirement</dt>
@@ -2478,7 +2483,7 @@ Uses DynamoDB for check pointing and coordination, and (optional) CloudWatch for
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeKinesis 2.8.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeKinesis 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2837,14 +2842,14 @@ If performance is a concern, it is recommended to use a Reader with a predefined
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Application Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the Kinesis application. This is used for DynamoDB table naming and worker coordination.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the Kinesis application. Used as the DynamoDB table name for checkpoint storage. When Consumer Type is Enhanced Fan-Out, this value is also used as the registered consumer name. This value should be unique for the stream.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Application Name</dd>
                     <dt>Description</dt>
-                    <dd>The name of the Kinesis application. This is used for DynamoDB table naming and worker coordination.</dd>
+                    <dd>The name of the Kinesis application. Used as the DynamoDB table name for checkpoint storage. When Consumer Type is Enhanced Fan-Out, this value is also used as the registered consumer name. This value should be unique for the stream.</dd>
                     <dt>API Name</dt>
                     <dd>Application Name</dd>
                     
@@ -2864,18 +2869,14 @@ If performance is a concern, it is recommended to use a Reader with a predefined
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">AWS Credentials Provider Service</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Controller Service that is used to obtain AWS credentials provider.
-Ensure that the credentials provided have access to Kinesis, DynamoDB and (optional) CloudWatch.
-</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Controller Service used to obtain AWS credentials provider.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>AWS Credentials Provider Service</dd>
                     <dt>Description</dt>
-                    <dd>The Controller Service that is used to obtain AWS credentials provider.
-Ensure that the credentials provided have access to Kinesis, DynamoDB and (optional) CloudWatch.
-</dd>
+                    <dd>The Controller Service used to obtain AWS credentials provider.</dd>
                     <dt>API Name</dt>
                     <dd>AWS Credentials Provider Service</dd>
                     
@@ -3541,46 +3542,18 @@ Ensure that the credentials provided have access to Kinesis, DynamoDB and (optio
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     </dd>
 
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
-                <span class="property-required">Checkpoint Interval</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Interval between checkpointing consumed Kinesis records. To checkpoint records each time the Processor is run, set this value to 0 seconds.
-
-More frequent checkpoint may reduce performance and increase DynamoDB costs,
-but less frequent checkpointing may result in duplicates when a Shard lease is lost or NiFi is restarted.
-</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Checkpoint Interval</dd>
-                    <dt>Description</dt>
-                    <dd>Interval between checkpointing consumed Kinesis records. To checkpoint records each time the Processor is run, set this value to 0 seconds.
-
-More frequent checkpoint may reduce performance and increase DynamoDB costs,
-but less frequent checkpointing may result in duplicates when a Shard lease is lost or NiFi is restarted.
-</dd>
-                    <dt>API Name</dt>
-                    <dd>Checkpoint Interval</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>5 sec</dd>
-                    
-                    
                     
                     <dt>Expression Language Scope</dt>
                     <dd>Not Supported</dd>
@@ -3686,6 +3659,33 @@ but less frequent checkpointing may result in duplicates when a Shard lease is l
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Endpoint Override URL</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">An optional endpoint override URL for both the Kinesis and DynamoDB clients.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Endpoint Override URL</dd>
+                    <dt>Description</dt>
+                    <dd>An optional endpoint override URL for both the Kinesis and DynamoDB clients.</dd>
+                    <dt>API Name</dt>
+                    <dd>Endpoint Override URL</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Initial Stream Position</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The position in the stream where the processor should start reading.</div>
             </a>
@@ -3708,11 +3708,11 @@ but less frequent checkpointing may result in duplicates when a Shard lease is l
                             
                             <li>
                                 Trim Horizon
-                                <span uk-icon="info" uk-tooltip="Start reading at the last untrimmed record in the shard in the system, which is the oldest data record in the shard."></span></li>
+                                <span uk-icon="info" uk-tooltip="Start reading at the last untrimmed record in the shard."></span></li>
                             
                             <li>
                                 Latest
-                                <span uk-icon="info" uk-tooltip="Start reading just after the most recent record in the shard, so that you always read the most recent data in the shard."></span></li>
+                                <span uk-icon="info" uk-tooltip="Start reading just after the most recent record in the shard."></span></li>
                             
                             <li>
                                 At Timestamp
@@ -3735,28 +3735,20 @@ but less frequent checkpointing may result in duplicates when a Shard lease is l
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Max Bytes to Buffer</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum size of Kinesis Records that can be buffered in memory before being processed by NiFi.
-If the buffer size exceeds the limit, the processor will stop consuming new records until free space is available.
-
-Using a larger value may increase the throughput, but will do so at the expense of using more memory.
-</div>
+                <span class="property-required">Max Batch Duration</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum amount of time to spend consuming records in a single invocation before committing the session and checkpointing.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Max Bytes to Buffer</dd>
+                    <dd>Max Batch Duration</dd>
                     <dt>Description</dt>
-                    <dd>The maximum size of Kinesis Records that can be buffered in memory before being processed by NiFi.
-If the buffer size exceeds the limit, the processor will stop consuming new records until free space is available.
-
-Using a larger value may increase the throughput, but will do so at the expense of using more memory.
-</dd>
+                    <dd>The maximum amount of time to spend consuming records in a single invocation before committing the session and checkpointing.</dd>
                     <dt>API Name</dt>
-                    <dd>Max Bytes to Buffer</dd>
+                    <dd>Max Batch Duration</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>100 MB</dd>
+                    <dd>5 sec</dd>
                     
                     
                     
@@ -3773,40 +3765,21 @@ Using a larger value may increase the throughput, but will do so at the expense 
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Metrics Publishing</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies where Kinesis usage metrics are published to.</div>
+                <span class="property-required">Max Batch Size</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum amount of data to consume in a single invocation before committing the session and checkpointing.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Metrics Publishing</dd>
+                    <dd>Max Batch Size</dd>
                     <dt>Description</dt>
-                    <dd>Specifies where Kinesis usage metrics are published to.</dd>
+                    <dd>The maximum amount of data to consume in a single invocation before committing the session and checkpointing.</dd>
                     <dt>API Name</dt>
-                    <dd>Metrics Publishing</dd>
+                    <dd>Max Batch Size</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>DISABLED</dd>
+                    <dd>10 MB</dd>
                     
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                Disabled
-                                <span uk-icon="info" uk-tooltip="No metrics are published"></span></li>
-                            
-                            <li>
-                                Logs
-                                <span uk-icon="info" uk-tooltip="Metrics are published to application logs"></span></li>
-                            
-                            <li>
-                                CloudWatch
-                                <span uk-icon="info" uk-tooltip="Metrics are published to Amazon CloudWatch"></span></li>
-                            
-                        </ul>
-                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
@@ -3815,6 +3788,101 @@ Using a larger value may increase the throughput, but will do so at the expense 
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Max Records Per Request</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum number of records to retrieve per GetRecords call. Maximum is 10,000.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Max Records Per Request</dd>
+                    <dt>Description</dt>
+                    <dd>The maximum number of records to retrieve per GetRecords call. Maximum is 10,000.</dd>
+                    <dt>API Name</dt>
+                    <dd>Max Records Per Request</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>100</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Consumer Type</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SHARED_THROUGHPUT]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Message Demarcator</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the string (interpreted as UTF-8) used to separate multiple Kinesis messages within a single FlowFile when Processing Strategy is DEMARCATOR.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Message Demarcator</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies the string (interpreted as UTF-8) used to separate multiple Kinesis messages within a single FlowFile when Processing Strategy is DEMARCATOR.</dd>
+                    <dt>API Name</dt>
+                    <dd>Message Demarcator</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Processing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [DEMARCATOR]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3852,7 +3920,7 @@ Using a larger value may increase the throughput, but will do so at the expense 
                             
                             <li>
                                 Inject Metadata
-                                <span uk-icon="info" uk-tooltip="Write the Kinesis Record value to the FlowFile record and add a sub-record to it with metadata."></span></li>
+                                <span uk-icon="info" uk-tooltip="Write the Kinesis Record value to the FlowFile record and add a sub-record with metadata."></span></li>
                             
                         </ul>
                     </dd>
@@ -3915,8 +3983,16 @@ Using a larger value may increase the throughput, but will do so at the expense 
                                 <span uk-icon="info" uk-tooltip="Write one FlowFile for each consumed Kinesis Record"></span></li>
                             
                             <li>
+                                LINE_DELIMITED
+                                <span uk-icon="info" uk-tooltip="Write one FlowFile containing multiple consumed Kinesis Records separated by line delimiters"></span></li>
+                            
+                            <li>
                                 RECORD
                                 <span uk-icon="info" uk-tooltip="Write one FlowFile containing multiple consumed Kinesis Records processed with Record Reader and Record Writer"></span></li>
+                            
+                            <li>
+                                DEMARCATOR
+                                <span uk-icon="info" uk-tooltip="Write one FlowFile containing multiple consumed Kinesis Records separated by a configurable demarcator"></span></li>
                             
                         </ul>
                     </dd>
@@ -3956,6 +4032,16 @@ Using a larger value may increase the throughput, but will do so at the expense 
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4626,22 +4712,14 @@ Using a larger value may increase the throughput, but will do so at the expense 
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Record Reader</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Record Reader to use for parsing the data received from Kinesis.
-
-The Record Reader is responsible for providing schemas for the records. If the schemas change frequently,
-it might hinder performance of the processor.
-</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The Record Reader to use for parsing the data received from Kinesis.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Record Reader</dd>
                     <dt>Description</dt>
-                    <dd>The Record Reader to use for parsing the data received from Kinesis.
-
-The Record Reader is responsible for providing schemas for the records. If the schemas change frequently,
-it might hinder performance of the processor.
-</dd>
+                    <dd>The Record Reader to use for parsing the data received from Kinesis.</dd>
                     <dt>API Name</dt>
                     <dd>Record Reader</dd>
                     
@@ -4889,6 +4967,11 @@ it might hinder performance of the processor.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.grok.GrokReader/">org.apache.nifi.grok.GrokReader</a></div>
                         
                         
@@ -5103,6 +5186,11 @@ it might hinder performance of the processor.
                         
                         
                         <div><a href="/components/org.apache.nifi.record.script.ScriptedReader/">org.apache.nifi.record.script.ScriptedReader</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5689,6 +5777,11 @@ it might hinder performance of the processor.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.json.JsonRecordSetWriter/">org.apache.nifi.json.JsonRecordSetWriter</a></div>
                         
                         
@@ -6044,6 +6137,11 @@ it might hinder performance of the processor.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.xml.XMLRecordSetWriter/">org.apache.nifi.xml.XMLRecordSetWriter</a></div>
                         
                         
@@ -6114,18 +6212,6 @@ it might hinder performance of the processor.
                         <ul>
                             
                             <li>
-                                AWS European Sovereign Cloud (Germany)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
-                            
-                            <li>
-                                AWS GovCloud (US-East)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-east-1"></span></li>
-                            
-                            <li>
-                                AWS GovCloud (US-West)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-west-1"></span></li>
-                            
-                            <li>
                                 Africa (Cape Town)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : af-south-1"></span></li>
                             
@@ -6184,6 +6270,46 @@ it might hinder performance of the processor.
                             <li>
                                 Asia Pacific (Tokyo)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : ap-northeast-1"></span></li>
+                            
+                            <li>
+                                AWS European Sovereign Cloud (Germany)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
+                            
+                            <li>
+                                aws global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-global"></span></li>
+                            
+                            <li>
+                                AWS GovCloud (US-East)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-east-1"></span></li>
+                            
+                            <li>
+                                AWS GovCloud (US-West)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-west-1"></span></li>
+                            
+                            <li>
+                                aws-cn global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-cn-global"></span></li>
+                            
+                            <li>
+                                aws-iso global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-global"></span></li>
+                            
+                            <li>
+                                aws-iso-b global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-b-global"></span></li>
+                            
+                            <li>
+                                aws-iso-e global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-e-global"></span></li>
+                            
+                            <li>
+                                aws-iso-f global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-f-global"></span></li>
+                            
+                            <li>
+                                aws-us-gov global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-us-gov-global"></span></li>
                             
                             <li>
                                 Canada (Central)
@@ -6298,34 +6424,6 @@ it might hinder performance of the processor.
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-west-2"></span></li>
                             
                             <li>
-                                aws global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-global"></span></li>
-                            
-                            <li>
-                                aws-cn global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-cn-global"></span></li>
-                            
-                            <li>
-                                aws-iso global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-global"></span></li>
-                            
-                            <li>
-                                aws-iso-b global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-b-global"></span></li>
-                            
-                            <li>
-                                aws-iso-e global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-e-global"></span></li>
-                            
-                            <li>
-                                aws-iso-f global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-f-global"></span></li>
-                            
-                            <li>
-                                aws-us-gov global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-us-gov-global"></span></li>
-                            
-                            <li>
                                 Use Custom Region
                                 <span uk-icon="info" uk-tooltip="User defined Region that can be a non-AWS region and/or come from Expression Language"></span></li>
                             
@@ -6374,14 +6472,14 @@ it might hinder performance of the processor.
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Stream Position Timestamp</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Timestamp position in stream from which to start reading Kinesis Records. The timestamp must be in ISO 8601 format.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Timestamp position in stream from which to start reading Kinesis Records. Must be in ISO 8601 format.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Stream Position Timestamp</dd>
                     <dt>Description</dt>
-                    <dd>Timestamp position in stream from which to start reading Kinesis Records. The timestamp must be in ISO 8601 format.</dd>
+                    <dd>Timestamp position in stream from which to start reading Kinesis Records. Must be in ISO 8601 format.</dd>
                     <dt>API Name</dt>
                     <dd>Stream Position Timestamp</dd>
                     
@@ -6438,21 +6536,18 @@ it might hinder performance of the processor.
         
         <tr>
             <td>CPU</td>
-            <td class="uk-text-lighter">The processor uses additional CPU resources when consuming data from Kinesis.
-The consumption is started immediately after this Processor is scheduled. The consumption ends only when the Processor is stopped.</td>
+            <td class="uk-text-lighter">The processor uses additional CPU resources when consuming data from Kinesis.</td>
         </tr>
         
         <tr>
             <td>NETWORK</td>
-            <td class="uk-text-lighter">The processor will continually poll for new Records,
-requesting up to a maximum number of Records/bytes per call. This can result in sustained network usage.</td>
+            <td class="uk-text-lighter">The processor will continually poll for new Records.</td>
         </tr>
         
         <tr>
             <td>MEMORY</td>
-            <td class="uk-text-lighter">ConsumeKinesis buffers Kinesis Records in memory until they can be processed.
-The maximum size of the buffer is controlled by the &#39;Max Bytes to Buffer&#39; property.
-In addition, the processor may cache some amount of data for each shard when the processor&#39;s buffer is full.</td>
+            <td class="uk-text-lighter">Records are fetched from Kinesis in the background and buffered in memory until they can be written to FlowFiles. Up to 200 fetch responses may be buffered per shard for both Shared Throughput and Enhanced Fan-Out. Each Shared Throughput response can contain up to the value of &#39;Max Records Per Request&#39; records (default 100) and up to 10 MB, so the theoretical maximum is 20,000 records or approximately 2 GB per shard at default settings. Each Enhanced Fan-Out push event can hold up to roughly 2 MB, for a theoretical maximum of approximately 400 MB per shard. In practice the buffer is typically much smaller because fetch threads block when the queue is full and most responses are well below the maximum size.
+</td>
         </tr>
         
         </tbody>
@@ -6500,12 +6595,12 @@ In addition, the processor may cache some amount of data for each shard when the
         
         <tr>
             <td>aws.kinesis.stream.name</td>
-            <td class="uk-text-lighter">The name of the Kinesis Stream from which all Kinesis Records in the FlowFile were read</td>
+            <td class="uk-text-lighter">The name of the Kinesis Stream from which records were read</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.shard.id</td>
-            <td class="uk-text-lighter">Shard ID from which all Kinesis Records in the FlowFile were read</td>
+            <td class="uk-text-lighter">Shard ID from which records were read</td>
         </tr>
         
         <tr>
@@ -6515,27 +6610,27 @@ In addition, the processor may cache some amount of data for each shard when the
         
         <tr>
             <td>aws.kinesis.first.sequence.number</td>
-            <td class="uk-text-lighter">A Sequence Number of the first Kinesis Record in the FlowFile</td>
+            <td class="uk-text-lighter">Sequence Number of the first Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.first.subsequence.number</td>
-            <td class="uk-text-lighter">A SubSequence Number of the first Kinesis Record in the FlowFile. Generated by KPL when aggregating records into a single Kinesis Record</td>
+            <td class="uk-text-lighter">Sub-Sequence Number of the first Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.last.sequence.number</td>
-            <td class="uk-text-lighter">A Sequence Number of the last Kinesis Record in the FlowFile</td>
+            <td class="uk-text-lighter">Sequence Number of the last Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.last.subsequence.number</td>
-            <td class="uk-text-lighter">A SubSequence Number of the last Kinesis Record in the FlowFile. Generated by KPL when aggregating records into a single Kinesis Record</td>
+            <td class="uk-text-lighter">Sub-Sequence Number of the last Kinesis Record in the FlowFile</td>
         </tr>
         
         <tr>
             <td>aws.kinesis.approximate.arrival.timestamp.ms</td>
-            <td class="uk-text-lighter">Approximate arrival timestamp of the last Kinesis Record in the FlowFile</td>
+            <td class="uk-text-lighter">Approximate arrival timestamp associated with the Kinesis Record or records in the FlowFile</td>
         </tr>
         
         <tr>
@@ -6545,12 +6640,17 @@ In addition, the processor may cache some amount of data for each shard when the
         
         <tr>
             <td>record.count</td>
-            <td class="uk-text-lighter">Number of records written to the FlowFiles by the Record Writer (if configured)</td>
+            <td class="uk-text-lighter">Number of records written to the FlowFile</td>
         </tr>
         
         <tr>
             <td>record.error.message</td>
-            <td class="uk-text-lighter">This attribute provides on failure the error message encountered by the Record Reader or Record Writer (if configured)</td>
+            <td class="uk-text-lighter">Error message encountered by the Record Reader or Record Writer (if configured)</td>
+        </tr>
+        
+        <tr>
+            <td>kinesis.millis.behind</td>
+            <td class="uk-text-lighter">How far behind the stream tail we are, in milliseconds</td>
         </tr>
         
         </tbody>

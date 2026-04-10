@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2161,6 +2165,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2451,7 +2459,7 @@
           
 
 
-<h3>TransformXml 2.8.0</h3>
+<h3>TransformXml 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2467,6 +2475,260 @@
     <dt>Supports Sensitive Dynamic Properties</dt>
     <dd>false</dd>
 </dl>
+
+
+
+
+<ul uk-accordion>
+    <li class="additional-details">
+        <a class="uk-accordion-title" href>Additional Details for TransformXml 2.9.0</a>
+        <div class="uk-accordion-content">
+            <!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<h1 id="transformxml">TransformXml</h1>
+<h2 id="xslt-transform-with-parameters">XSLT Transform with Parameters</h2>
+<p>XSLT parameters are placeholders within an XSLT stylesheet that allow external values
+to be passed into the transformation process at runtime.
+Parameters are accessible within a stylesheet as normal variables, using the <code>$name</code> syntax,
+provided they are declared using a top-level <code>xsl:param</code> element.
+If there is no such declaration, the supplied parameter value is silently ignored.</p>
+<h3 id="xslt-with-parameter-defined">XSLT with Parameter Defined</h3>
+<p>Consider the following XML</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;data&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;item&gt;</span>Some data<span style="color:#f92672">&lt;/item&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/data&gt;</span>
+</span></span></code></pre></div><p>and XSLT stylesheet</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0&#34;</span> <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;customParam&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;&#39;From XSLT&#39;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;root&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>
+</span></span><span style="display:flex;"><span>                Value Selected: <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$customParam&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/root&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:stylesheet&gt;</span>
+</span></span></code></pre></div><p>If the following parameter name <code>customParam</code> and parameter value <code>From NIFI</code> pair are added
+as a dynamic property, then the output would be</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;root&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>
+</span></span><span style="display:flex;"><span>        Value Selected: From NIFI<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/root&gt;</span>
+</span></span></code></pre></div><p>Note the  value of the <code>customParam</code> parameter became <code>From NIFI</code> even though
+the declared <code>xsl:param</code> element had a default value of <code>From XSLT</code>.</p>
+<h3 id="xslt-without-parameter-defined">XSLT without Parameter Defined</h3>
+<p>If the XSLT stylesheet does not have a top-level <code>xsl:param</code> element declared</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0&#34;</span> <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;root&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>
+</span></span><span style="display:flex;"><span>                Value Selected:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/root&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:stylesheet&gt;</span>
+</span></span></code></pre></div><p>even if the following parameter name <code>customParam</code> and parameter value <code>From NIFI</code> pair
+are added as a dynamic property, they are ignored and the output would be</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;root&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;message&gt;</span>
+</span></span><span style="display:flex;"><span>  Value Selected:
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/root&gt;</span>
+</span></span></code></pre></div><p>In a case where the parameter is not declared in a <code>xsl:param</code> element, but attempted to be used in an XSLT stylesheet,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;1.0&#34;</span> <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;root&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>
+</span></span><span style="display:flex;"><span>                Value Selected: <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$customParam&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/root&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:stylesheet&gt;</span>
+</span></span></code></pre></div><p>even if the following parameter name <code>customParam</code> and parameter value <code>From NIFI</code> pair are added as a dynamic property,
+the transform will fail with an error message containing text <code>Variable $customParam has not been declared</code>.</p>
+<h3 id="xslt-parameter-defined-with-required-type">XSLT Parameter Defined with Required Type</h3>
+<p>Starting in XSLT 2.0, an <code>as</code> attribute was added to parameters allowing for
+specifying the type of parameter. The following are some of the more common types supported and what
+valid values to use for each:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Type Name</th>
+          <th style="text-align: left">Type Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>xs:string</code></td>
+          <td style="text-align: left">Any string value.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:boolean</code></td>
+          <td style="text-align: left">A lowercase value of true or false.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:integer</code></td>
+          <td style="text-align: left">A signed integer value.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:float</code></td>
+          <td style="text-align: left">A 32-bit IEEE single-precision floating-point.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:double</code></td>
+          <td style="text-align: left">A 64-bit IEEE single-precision floating-point.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:date</code></td>
+          <td style="text-align: left">A date in ISO 8601 format YYYY-MM-DD</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:dateTime</code></td>
+          <td style="text-align: left">A date time in ISO 8601 format: YYYY-MM-DDThh:mm:ss with optional uses of Z to represent UTC or an offset (e.g. -05:00).</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:time</code></td>
+          <td style="text-align: left">A time in format HH:mm:ss or HH:mm:ss.SSS with optional uses of Z to represent UTC or an offset (e.g. -05:00).</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>xs:anyURI</code></td>
+          <td style="text-align: left">A valid URI.</td>
+      </tr>
+  </tbody>
+</table>
+<p>The following XSLT stylesheet demonstrates the use of specifying types in an XSLT
+and populating their values with dynamic properties.</p>
+<p>Consider the following XSLT stylesheet</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;xsl:stylesheet</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;3.0&#34;</span> <span style="color:#a6e22e">xmlns:xsl=</span><span style="color:#e6db74">&#34;http://www.w3.org/1999/XSL/Transform&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;stringParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:string&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;&#39;From XSLT&#39;&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;integerParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:integer&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;floatParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:float&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;0.0&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;doubleParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:double&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;0.0&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;booleanParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:boolean&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;false&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dateParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:date&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;xs:date(&#39;1970-01-01&#39;)&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;dateTimeParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:dateTime&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;xs:dateTime(&#39;1970-01-01T00:00:00&#39;)&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;timeParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:time&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;current-time()&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;utcTimeParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:time&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;current-time()&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;offsetTimeParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:time&#34;</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;current-time()&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:param</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;uriParam&#34;</span> <span style="color:#a6e22e">as=</span><span style="color:#e6db74">&#34;xs:anyURI&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;xsl:template</span> <span style="color:#a6e22e">match=</span><span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;report&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:string value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$stringParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:integer value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$integerParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:float value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$floatParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:double value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$doubleParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:boolean value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$booleanParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:date value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$dateParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:dateTime value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$dateTimeParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:time value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$timeParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:time UTC value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$utcTimeParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:time offset value is <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$offsetTimeParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:anyURI <span style="color:#f92672">&lt;xsl:value-of</span> <span style="color:#a6e22e">select=</span><span style="color:#e6db74">&#34;$uriParam&#34;</span><span style="color:#f92672">/&gt;&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/report&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/xsl:template&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/xsl:stylesheet&gt;</span>
+</span></span></code></pre></div><p>and the use of the XML from before</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;data&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;item&gt;</span>Some data<span style="color:#f92672">&lt;/item&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/data&gt;</span>
+</span></span></code></pre></div><p>If the following parameter name and parameter value pairs are added as dynamic properties</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Parameter Name</th>
+          <th style="text-align: left">Parameter Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">stringParam</td>
+          <td style="text-align: left">From NIFI</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">integerParam</td>
+          <td style="text-align: left">100</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">floatParam</td>
+          <td style="text-align: left">123.456</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">doubleParam</td>
+          <td style="text-align: left">12.78e-2</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">booleanParam</td>
+          <td style="text-align: left">true</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dateParam</td>
+          <td style="text-align: left">2026-01-01</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">dateTimeParam</td>
+          <td style="text-align: left">2026-01-01T00:00:00</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">timeParam</td>
+          <td style="text-align: left">12:34:56.789</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">utcTimeParam</td>
+          <td style="text-align: left">12:34:56Z</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">offsetTimeParam</td>
+          <td style="text-align: left">12:34:56-05:00</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">uriParam</td>
+          <td style="text-align: left"><a href="http://from-nifi.com">http://from-nifi.com</a></td>
+      </tr>
+  </tbody>
+</table>
+<p>then the resulting XML will be</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;report</span> <span style="color:#a6e22e">xmlns:xs=</span><span style="color:#e6db74">&#34;http://www.w3.org/2001/XMLSchema&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:string value is From NIFI<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:integer value is 100<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:float value is 123.456<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:double value is 0.1278<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:boolean value is true<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:date value is 2026-01-01<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:dateTime value is 2026-01-01T00:00:00<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:time value is 12:34:56.789<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:time UTC value is 12:34:56Z<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:time offset value is 12:34:56-05:00<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;message&gt;</span>Param of type xs:anyURI http://from-nifi.com<span style="color:#f92672">&lt;/message&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/report&gt;</span>
+</span></span></code></pre></div><p>Please note the &ldquo;static&rdquo; attribute added to the <code>xsl:param</code> element in 3.0
+does not work with the dynamic properties in NIFI because as implied, static means
+a parameter value must be known at compile time of the XSLT while the dynamic
+properties are supplied at run time of the actual transform.</p>
+
+        </div>
+    </li>
+</ul>
 
 
 
@@ -3069,6 +3331,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.PropertiesFileLookupService/">org.apache.nifi.lookup.PropertiesFileLookupService</a></div>
                         
                         
@@ -3342,6 +3609,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.lookup.XMLFileLookupService/">org.apache.nifi.lookup.XMLFileLookupService</a></div>
                         
                         
@@ -3447,14 +3719,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span>An XSLT transform parameter name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">These XSLT parameters are passed to the transformer</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">These XSLT parameters are passed to the transformer. See additional details for more information.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small dynamic-property-content">
                 <dl class="uk-description-list">
                     <dt>Name</dt>
                     <dd>An XSLT transform parameter name</dd>
                     <dt>Description</dt>
-                    <dd>These XSLT parameters are passed to the transformer</dd>
+                    <dd>These XSLT parameters are passed to the transformer. See additional details for more information.</dd>
                     <dt>Value</dt>
                     <dd>An XSLT transform parameter value</dd>
                     <dt>Expression Language Scope</dt>

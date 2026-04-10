@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2161,6 +2165,10 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2451,7 +2459,7 @@
           
 
 
-<h3>PutS3Object 2.8.0</h3>
+<h3>PutS3Object 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2473,7 +2481,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutS3Object 2.8.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutS3Object 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2635,6 +2643,16 @@ string is considered a set value.</p>
                         
                         
                         <div><a href="/components/org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService/">org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4091,6 +4109,16 @@ AWS S3 Java client will attempt to determine the correct content type if one has
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.processors.aws.s3.encryption.StandardS3EncryptionService/">org.apache.nifi.processors.aws.s3.encryption.StandardS3EncryptionService</a></div>
                         
                         
@@ -4644,7 +4672,17 @@ AWS S3 Java client will attempt to determine the correct content type if one has
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.processors.aws.s3.service.S3FileResourceService/">org.apache.nifi.processors.aws.s3.service.S3FileResourceService</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4950,14 +4988,14 @@ AWS S3 Java client will attempt to determine the correct content type if one has
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Multipart Part Size</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the part size for use when the PutS3Multipart Upload API is used. Flow files will be broken into chunks of this size for the upload process, but the last part sent can be smaller since it is not padded. The valid range is 50MB to 5GB.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the part size for use when the PutS3Multipart Upload API is used. FlowFiles will be broken into chunks of this size for the upload process, but the last part sent can be smaller since it is not padded. The valid range is 50MB to 5GB.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Multipart Part Size</dd>
                     <dt>Description</dt>
-                    <dd>Specifies the part size for use when the PutS3Multipart Upload API is used. Flow files will be broken into chunks of this size for the upload process, but the last part sent can be smaller since it is not padded. The valid range is 50MB to 5GB.</dd>
+                    <dd>Specifies the part size for use when the PutS3Multipart Upload API is used. FlowFiles will be broken into chunks of this size for the upload process, but the last part sent can be smaller since it is not padded. The valid range is 50MB to 5GB.</dd>
                     <dt>API Name</dt>
                     <dd>Multipart Part Size</dd>
                     
@@ -4980,14 +5018,14 @@ AWS S3 Java client will attempt to determine the correct content type if one has
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Multipart Threshold</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the file size threshold for switch from the PutS3Object API to the PutS3MultipartUpload API.  Flow files bigger than this limit will be sent using the stateful multipart process. The valid range is 50MB to 5GB.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the file size threshold for switch from the PutS3Object API to the PutS3MultipartUpload API.  FlowFiles bigger than this limit will be sent using the stateful multipart process. The valid range is 50MB to 5GB.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Multipart Threshold</dd>
                     <dt>Description</dt>
-                    <dd>Specifies the file size threshold for switch from the PutS3Object API to the PutS3MultipartUpload API.  Flow files bigger than this limit will be sent using the stateful multipart process. The valid range is 50MB to 5GB.</dd>
+                    <dd>Specifies the file size threshold for switch from the PutS3Object API to the PutS3MultipartUpload API.  FlowFiles bigger than this limit will be sent using the stateful multipart process. The valid range is 50MB to 5GB.</dd>
                     <dt>API Name</dt>
                     <dd>Multipart Threshold</dd>
                     
@@ -5147,6 +5185,16 @@ AWS S3 Java client will attempt to determine the correct content type if one has
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5897,18 +5945,6 @@ AWS S3 Java client will attempt to determine the correct content type if one has
                         <ul>
                             
                             <li>
-                                AWS European Sovereign Cloud (Germany)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
-                            
-                            <li>
-                                AWS GovCloud (US-East)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-east-1"></span></li>
-                            
-                            <li>
-                                AWS GovCloud (US-West)
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-west-1"></span></li>
-                            
-                            <li>
                                 Africa (Cape Town)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : af-south-1"></span></li>
                             
@@ -5967,6 +6003,46 @@ AWS S3 Java client will attempt to determine the correct content type if one has
                             <li>
                                 Asia Pacific (Tokyo)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : ap-northeast-1"></span></li>
+                            
+                            <li>
+                                AWS European Sovereign Cloud (Germany)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : eusc-de-east-1"></span></li>
+                            
+                            <li>
+                                aws global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-global"></span></li>
+                            
+                            <li>
+                                AWS GovCloud (US-East)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-east-1"></span></li>
+                            
+                            <li>
+                                AWS GovCloud (US-West)
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : us-gov-west-1"></span></li>
+                            
+                            <li>
+                                aws-cn global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-cn-global"></span></li>
+                            
+                            <li>
+                                aws-iso global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-global"></span></li>
+                            
+                            <li>
+                                aws-iso-b global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-b-global"></span></li>
+                            
+                            <li>
+                                aws-iso-e global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-e-global"></span></li>
+                            
+                            <li>
+                                aws-iso-f global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-f-global"></span></li>
+                            
+                            <li>
+                                aws-us-gov global region
+                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-us-gov-global"></span></li>
                             
                             <li>
                                 Canada (Central)
@@ -6079,34 +6155,6 @@ AWS S3 Java client will attempt to determine the correct content type if one has
                             <li>
                                 US West (Oregon)
                                 <span uk-icon="info" uk-tooltip="AWS Region Code : us-west-2"></span></li>
-                            
-                            <li>
-                                aws global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-global"></span></li>
-                            
-                            <li>
-                                aws-cn global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-cn-global"></span></li>
-                            
-                            <li>
-                                aws-iso global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-global"></span></li>
-                            
-                            <li>
-                                aws-iso-b global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-b-global"></span></li>
-                            
-                            <li>
-                                aws-iso-e global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-e-global"></span></li>
-                            
-                            <li>
-                                aws-iso-f global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-iso-f-global"></span></li>
-                            
-                            <li>
-                                aws-us-gov global region
-                                <span uk-icon="info" uk-tooltip="AWS Region Code : aws-us-gov-global"></span></li>
                             
                             <li>
                                 Use Custom Region
@@ -6599,7 +6647,17 @@ AWS S3 Java client will attempt to determine the correct content type if one has
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.PEMEncodedSSLContextProvider/">org.apache.nifi.ssl.PEMEncodedSSLContextProvider</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
