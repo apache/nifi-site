@@ -588,6 +588,10 @@ using several standard components. Components such as ExecuteProcess and Execute
 running operating system commands, while other scripted components support executing custom code using
 different programming languages. Configuring these components with untrusted commands or arguments is
 contrary to best practices, but it does not constitute of security issue for remediation.</p>
+<p>The application implements process management and diagnostic operations using the HTTP protocol, with the default
+configuration binding to the localhost address. Privileged administrators can configure process management on an
+alternative address, which can alter the security posture of the application. It is the responsibility of privileged
+administrators to implement other protection strategies when changing the default bind address.</p>
 <h2 id="reporting-process">Reporting Process</h2>
 <ul>
 <li>Notify the project on initial discovery of a potential security vulnerability</li>
@@ -615,6 +619,94 @@ contrary to best practices, but it does not constitute of security issue for rem
 </ul>
 <h1 id="published-vulnerabilities">Published Vulnerabilities</h1>
 <p>The following announcements include published vulnerabilities that apply directly to Apache NiFi components.</p>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-39816">CVE-2026-39816</h3>
+
+  <ul>
+    <li>Title: Missing Execute Code Required Permission on TinkerpopClientService</li>
+    <li>Published: 2026-04-13</li>
+    <li>Severity: High</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 2.0.0-M1 to 2.8.0</li>
+    <li>Fixed Versions: 2.9.0</li>
+    <li>Reporter: John Walker from ZeroPath</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-39816" target="_blank">CVE-2026-39816</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-39816" target="_blank">CVE-2026-39816</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-15800" target="_blank">NIFI-15800</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/11108" target="_blank">11108</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+The optional extension component TinkerpopClientService is missing the Restricted annotation with the Execute Code Required Permission in Apache NiFi 2.0.0-M1 through 2.8.0. The TinkerpopClientService
+supports configuration of ByteCode Submission for the Script Submission Type, enabling Groovy Script execution in the service prior to submitting the query. The missing Restricted annotation allows
+users without the Execute Code Permission to configure the Service in installations that use fine-grained authorization and have the optional TinkerpopClientService installed. Apache NiFi
+installations that do not have the nifi-other-graph-services-nar installed are not subject to this vulnerability. Upgrading to Apache NiFi 2.9.0 is the recommended mitigation.
+
+
+  </p>
+</div>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-25903">CVE-2026-25903</h3>
+
+  <ul>
+    <li>Title: Missing Authorization of Restricted Permissions for Component Updates</li>
+    <li>Published: 2026-02-16</li>
+    <li>Severity: High</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.1.0 to 2.7.2</li>
+    <li>Fixed Versions: 2.8.0</li>
+    <li>Reporter: David Handermann</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-25903" target="_blank">CVE-2026-25903</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-25903" target="_blank">CVE-2026-25903</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-15567" target="_blank">NIFI-15567</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/10871" target="_blank">10871</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.1.0 through 2.7.2 are missing authorization when updating configuration properties on extension components
+that have specific Required Permissions based on the Restricted annotation. The Restricted annotation indicates
+additional privileges required to add the annotated component to the flow configuration, but framework authorization did
+not check restricted status when updating a component previously added. The missing authorization requires a more
+privileged user to add a restricted component to the flow configuration, but permits a less privileged user to make
+property configuration changes. Apache NiFi installations that do not implement different levels of authorization for
+Restricted components are not subject to this vulnerability because the framework enforces write permissions as the
+security boundary. Upgrading to Apache NiFi 2.8.0 is the recommended mitigation.
+
+
+  </p>
+</div>
 <div class="vulnerability-container">
   <h3 id="CVE-2025-66524">CVE-2025-66524</h3>
 

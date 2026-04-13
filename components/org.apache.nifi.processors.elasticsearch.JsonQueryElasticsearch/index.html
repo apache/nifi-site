@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2160,11 +2164,11 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2455,13 +2459,13 @@
           
 
 
-<h3>JsonQueryElasticsearch 2.7.2</h3>
+<h3>JsonQueryElasticsearch 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-elasticsearch-restapi-nar</dd>
     <dt>Description</dt>
-    <dd>A processor that allows the user to run a query (with aggregations) written with the Elasticsearch JSON DSL. It does not automatically paginate queries for the user. If an incoming relationship is added to this processor, it will use the flowfile&#39;s content for the query. Care should be taken on the size of the query because the entire response from Elasticsearch will be loaded into memory all at once and converted into the resulting flowfiles.</dd>
+    <dd>A processor that allows the user to run a query (with aggregations) written with the Elasticsearch JSON DSL. It does not automatically paginate queries for the user. If an incoming relationship is added to this processor, it will use the flowfile&#39;s content for the query. Care should be taken on the size of the query because the entire response from Elasticsearch will be loaded into memory all at once and converted into the resulting FlowFiles.</dd>
     <dt>Tags</dt>
     <dd>elasticsearch, elasticsearch7, elasticsearch8, elasticsearch9, get, json, query, read</dd>
     <dt>Input Requirement</dt>
@@ -2477,7 +2481,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for JsonQueryElasticsearch 2.7.2</a>
+        <a class="uk-accordion-title" href>Additional Details for JsonQueryElasticsearch 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2903,6 +2907,11 @@ from their parent aggregation. The following is an example query that would be a
                         
                         
                         <div><a href="/components/org.apache.nifi.elasticsearch.ElasticSearchClientServiceImpl/">org.apache.nifi.elasticsearch.ElasticSearchClientServiceImpl</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4072,7 +4081,7 @@ from their parent aggregation. The following is an example query that would be a
         
         <tr>
             <td>failure</td>
-            <td class="uk-text-lighter">All flowfiles that fail for reasons unrelated to server availability go to this relationship.</td>
+            <td class="uk-text-lighter">All FlowFiles that fail for reasons unrelated to server availability go to this relationship.</td>
         </tr>
         
         <tr>
@@ -4082,7 +4091,7 @@ from their parent aggregation. The following is an example query that would be a
         
         <tr>
             <td>original</td>
-            <td class="uk-text-lighter">All original flowfiles that don&#39;t cause an error to occur go to this relationship.</td>
+            <td class="uk-text-lighter">All original FlowFiles that don&#39;t cause an error to occur go to this relationship.</td>
         </tr>
         
         </tbody>

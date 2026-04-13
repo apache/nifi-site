@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2160,11 +2164,11 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2455,7 +2459,7 @@
           
 
 
-<h3>ConsumeKafka 2.7.2</h3>
+<h3>ConsumeKafka 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2477,7 +2481,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeKafka 2.7.2</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeKafka 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2856,6 +2860,58 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Header Name Prefix</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A prefix to apply to the FlowFile attribute name when writing Kafka Record Header values.
+This is useful to avoid conflicts with reserved FlowFile attribute names such as &#39;uuid&#39;.
+For example, if set to &#39;kafka.header.&#39;, a Kafka header named &#39;uuid&#39; would be written as &#39;kafka.header.uuid&#39;.
+</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Header Name Prefix</dd>
+                    <dt>Description</dt>
+                    <dd>A prefix to apply to the FlowFile attribute name when writing Kafka Record Header values.
+This is useful to avoid conflicts with reserved FlowFile attribute names such as &#39;uuid&#39;.
+For example, if set to &#39;kafka.header.&#39;, a Kafka header named &#39;uuid&#39; would be written as &#39;kafka.header.uuid&#39;.
+</dd>
+                    <dt>API Name</dt>
+                    <dd>Header Name Prefix</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Processing Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [FLOW_FILE]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Kafka Connection Service</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Provides connections to Kafka Broker for publishing Kafka Records</div>
             </a>
@@ -2907,6 +2963,11 @@
                         
                         
                         <div><a href="/components/org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService/">org.apache.nifi.kafka.service.aws.AmazonMSKConnectionService</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3926,6 +3987,11 @@
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.grok.GrokReader/">org.apache.nifi.grok.GrokReader</a></div>
                         
                         
@@ -4906,6 +4972,11 @@ latency for individual records.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.grok.GrokReader/">org.apache.nifi.grok.GrokReader</a></div>
                         
                         
@@ -5711,6 +5782,11 @@ latency for individual records.
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.json.JsonRecordSetWriter/">org.apache.nifi.json.JsonRecordSetWriter</a></div>
                         
                         
@@ -6326,7 +6402,7 @@ latency for individual records.
         
         <tr>
             <td>kafka.timestamp</td>
-            <td class="uk-text-lighter">The timestamp of the message in the partition of the topic.</td>
+            <td class="uk-text-lighter">The timestamp of the message consumed from the topic or the minimum value of the timestamp in a batch of messages. The value of this timestamp depends on &#39;log.message.timestamp.type` kafka broker config (LOG_APPEND_TIME, CREATE_TIME, NO_TIMESTAMP_TYPE)</td>
         </tr>
         
         <tr>

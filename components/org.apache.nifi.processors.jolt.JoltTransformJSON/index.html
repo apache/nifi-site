@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2160,11 +2164,11 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2455,13 +2459,15 @@
           
 
 
-<h3>JoltTransformJSON 2.7.2</h3>
+<h3>JoltTransformJSON 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-jolt-nar</dd>
     <dt>Description</dt>
-    <dd>Applies a list of Jolt specifications to either the FlowFile JSON content or a specified FlowFile JSON attribute. If the JSON transform fails, the original FlowFile is routed to the &#39;failure&#39; relationship.</dd>
+    <dd>Reformat JSON to JSON using a Jolt Transform with Domain Specific Language manipulation instructions.
+The JOLT Community Edition documentation provides examples of supported operations and syntax standards.
+</dd>
     <dt>Tags</dt>
     <dd>cardinality, chainr, default, jolt, json, remove, shift, sort, transform</dd>
     <dt>Input Requirement</dt>
@@ -2477,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for JoltTransformJSON 2.7.2</a>
+        <a class="uk-accordion-title" href>Additional Details for JoltTransformJSON 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2767,6 +2773,10 @@ is a known issue identified within the Jolt library.</p>
                                 ATTRIBUTE
                                 <span uk-icon="info" uk-tooltip="Transformation applied to FlowFile attribute containing JSON"></span></li>
                             
+                            <li>
+                                JSON_LINES
+                                <span uk-icon="info" uk-tooltip="Transformation applied to FlowFile content containing JSON Lines or NDJSON"></span></li>
+                            
                         </ul>
                     </dd>
                     
@@ -2899,6 +2909,70 @@ is a known issue identified within the Jolt library.</p>
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>JSON Source</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [ATTRIBUTE, FLOW_FILE]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Retain Unicode Escape Sequences</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Allows for retaining Unicode escape sequences instead of resolving them (e.g. retain text \u00E9 without resolving to é)</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Retain Unicode Escape Sequences</dd>
+                    <dt>Description</dt>
+                    <dd>Allows for retaining Unicode escape sequences instead of resolving them (e.g. retain text \u00E9 without resolving to é)</dd>
+                    <dt>API Name</dt>
+                    <dd>Retain Unicode Escape Sequences</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>false</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
                 </dl>
             </div>
         </li>
@@ -2942,6 +3016,26 @@ is a known issue identified within the Jolt library.</p>
 
 
 
+
+<div class="component-section-header uk-margin">Restrictions</div>
+<div>
+    <table class="uk-table uk-table-small uk-table-divider uk-box-shadow-small">
+        <thead>
+        <tr>
+            <th class="uk-width-1-4">Required Permission</th>
+            <th class="uk-width-3-4">Explanation</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <tr>
+            <td>execute code</td>
+            <td class="uk-text-lighter">Enables configuration of custom code for Jolt Transforms</td>
+        </tr>
+        
+        </tbody>
+    </table>
+</div>
 
 
 
@@ -2987,7 +3081,7 @@ is a known issue identified within the Jolt library.</p>
         
         <tr>
             <td>mime.type</td>
-            <td class="uk-text-lighter">Always set to application/json</td>
+            <td class="uk-text-lighter">Set to application/json or application/jsonl based on configuration</td>
         </tr>
         
         </tbody>

@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2160,11 +2164,11 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2455,7 +2459,7 @@
           
 
 
-<h3>MonitorActivity 2.7.2</h3>
+<h3>MonitorActivity 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2583,14 +2587,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Copy Attributes</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, will copy all flow file attributes from the flow file that resumed activity to the newly created indicator flow file</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, will copy all FlowFile attributes from the FlowFile that resumed activity to the newly created indicator FlowFile</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Copy Attributes</dd>
                     <dt>Description</dt>
-                    <dd>If true, will copy all flow file attributes from the flow file that resumed activity to the newly created indicator flow file</dd>
+                    <dd>If true, will copy all FlowFile attributes from the FlowFile that resumed activity to the newly created indicator FlowFile</dd>
                     <dt>API Name</dt>
                     <dd>Copy Attributes</dd>
                     
@@ -2658,14 +2662,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Monitoring Scope</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specify how to determine activeness of the flow. &#39;node&#39; means that activeness is examined at individual node separately. It can be useful if DFM expects each node should receive flow files in a distributed manner. With &#39;cluster&#39;, it defines the flow is active while at least one node receives flow files actively. If NiFi is running as standalone mode, this should be set as &#39;node&#39;, if it&#39;s &#39;cluster&#39;, NiFi logs a warning message and act as &#39;node&#39; scope.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specify how to determine activeness of the flow. &#39;node&#39; means that activeness is examined at individual node separately. It can be useful if DFM expects each node should receive FlowFiles in a distributed manner. With &#39;cluster&#39;, it defines the flow is active while at least one node receives FlowFiles actively. If NiFi is running as standalone mode, this should be set as &#39;node&#39;, if it&#39;s &#39;cluster&#39;, NiFi logs a warning message and act as &#39;node&#39; scope.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Monitoring Scope</dd>
                     <dt>Description</dt>
-                    <dd>Specify how to determine activeness of the flow. &#39;node&#39; means that activeness is examined at individual node separately. It can be useful if DFM expects each node should receive flow files in a distributed manner. With &#39;cluster&#39;, it defines the flow is active while at least one node receives flow files actively. If NiFi is running as standalone mode, this should be set as &#39;node&#39;, if it&#39;s &#39;cluster&#39;, NiFi logs a warning message and act as &#39;node&#39; scope.</dd>
+                    <dd>Specify how to determine activeness of the flow. &#39;node&#39; means that activeness is examined at individual node separately. It can be useful if DFM expects each node should receive FlowFiles in a distributed manner. With &#39;cluster&#39;, it defines the flow is active while at least one node receives FlowFiles actively. If NiFi is running as standalone mode, this should be set as &#39;node&#39;, if it&#39;s &#39;cluster&#39;, NiFi logs a warning message and act as &#39;node&#39; scope.</dd>
                     <dt>API Name</dt>
                     <dd>Monitoring Scope</dd>
                     
@@ -2901,8 +2905,8 @@
         </thead>
         <tbody>
         <tr>
-            <td>LOCAL, CLUSTER</td>
-            <td class="uk-text-lighter">MonitorActivity stores the last timestamp at each node as state, so that it can examine activity at cluster wide. If &#39;Copy Attribute&#39; is set to true, then flow file attributes are also persisted. In local scope, it stores last known activity timestamp if the flow is inactive.</td>
+            <td>CLUSTER, LOCAL</td>
+            <td class="uk-text-lighter">MonitorActivity stores the last timestamp at each node as state, so that it can examine activity at cluster wide. If &#39;Copy Attribute&#39; is set to true, then FlowFile attributes are also persisted. In local scope, it stores last known activity timestamp if the flow is inactive.</td>
         </tr>
         </tbody>
     </table>

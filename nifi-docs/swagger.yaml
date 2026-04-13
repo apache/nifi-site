@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.7.2
+  version: 2.9.0
 security:
 - HTTPBearerJWT: []
 - CookieSecureAuthorizationBearer: []
@@ -94,7 +94,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/AuthenticationConfigurationEntity"
       security: []
-      summary: Retrieves the authentication configuration endpoint and status information
+      summary: Retrieves the authentication configuration details and status information
       tags:
       - Authentication
   /connections/{id}:
@@ -226,6 +226,1385 @@ paths:
       summary: Updates a connection
       tags:
       - Connections
+  /connectors:
+    post:
+      operationId: createConnector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectorEntity"
+        description: The connector configuration details.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors: []
+      summary: Creates a new connector
+      tags:
+      - Connectors
+  /connectors/{connectorId}/flow/process-groups/{processGroupId}:
+    get:
+      description: "Returns the flow for the specified process group within the connector's\
+        \ hierarchy. The processGroupId can be obtained from the managedProcessGroupId\
+        \ field of the ConnectorDTO for the root process group, or from child process\
+        \ groups within the flow. If the uiOnly query parameter is provided with a\
+        \ value of true, the returned entity may only contain fields that are necessary\
+        \ for rendering the NiFi User Interface. As such, the selected fields may\
+        \ change at any time, even during incremental releases, without warning. As\
+        \ a result, this parameter should not be provided by any client other than\
+        \ the UI."
+      operationId: getFlow
+      parameters:
+      - description: The connector id.
+        in: path
+        name: connectorId
+        required: true
+        schema:
+          type: string
+      - description: The process group id.
+        in: path
+        name: processGroupId
+        required: true
+        schema:
+          type: string
+      - description: Whether to return only UI-specific fields
+        in: query
+        name: uiOnly
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProcessGroupFlowEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the flow for a process group within a connector
+      tags:
+      - Connectors
+  /connectors/{connectorId}/flow/process-groups/{processGroupId}/controller-services:
+    get:
+      description: "Returns the controller services for the specified process group\
+        \ within the connector's hierarchy. The processGroupId can be obtained from\
+        \ the managedProcessGroupId field of the ConnectorDTO for the root process\
+        \ group, or from child process groups within the flow."
+      operationId: getControllerServicesFromConnectorProcessGroup
+      parameters:
+      - description: The connector id.
+        in: path
+        name: connectorId
+        required: true
+        schema:
+          type: string
+      - description: The process group id.
+        in: path
+        name: processGroupId
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to include parent/ancestor process groups
+        in: query
+        name: includeAncestorGroups
+        schema:
+          type: boolean
+          default: true
+      - description: Whether or not to include descendant process groups
+        in: query
+        name: includeDescendantGroups
+        schema:
+          type: boolean
+          default: false
+      - description: Whether or not to include services' referencing components in
+          the response
+        in: query
+        name: includeReferencingComponents
+        schema:
+          type: boolean
+          default: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ControllerServicesEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets all controller services for a process group within a connector
+      tags:
+      - Connectors
+  /connectors/{id}:
+    delete:
+      operationId: deleteConnector
+      parameters:
+      - description: The revision is used to verify the client is working with the
+          latest version of the flow.
+        in: query
+        name: version
+        schema:
+          $ref: "#/components/schemas/LongParameter"
+      - description: "If the client id is not specified, new one will be generated.\
+          \ This value (whether specified or generated) is included in the response."
+        in: query
+        name: clientId
+        schema:
+          $ref: "#/components/schemas/ClientIdParameter"
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
+        name: disconnectedNodeAcknowledged
+        schema:
+          type: boolean
+          default: false
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Deletes a connector
+      tags:
+      - Connectors
+    get:
+      operationId: getConnector
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets a connector
+      tags:
+      - Connectors
+    put:
+      operationId: updateConnector
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectorEntity"
+        description: The connector configuration details.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Updates a connector
+      tags:
+      - Connectors
+  /connectors/{id}/apply-update:
+    post:
+      description: This will apply any pending configuration changes to the connector.
+        The client can poll the connector endpoint to check when the update is complete.
+      operationId: applyConnectorUpdate
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectorEntity"
+        description: The connector configuration with revision.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Applies an update to a connector
+      tags:
+      - Connectors
+  /connectors/{id}/assets:
+    get:
+      description: Lists the assets that belong to the Connector with the given ID.
+      operationId: getAssets
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetsEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Lists the assets that belong to the Connector with the given ID
+      tags:
+      - Connectors
+    post:
+      description: This endpoint will create a new Asset in the Connector. The Asset
+        will be created with the given name and the contents of the file that is uploaded.
+      operationId: createAsset
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: Filename
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+        description: The contents of the asset
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssetEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Creates a new Asset in the given Connector
+      tags:
+      - Connectors
+  /connectors/{id}/assets/{assetId}:
+    get:
+      operationId: getAssetContent
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The asset id.
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Retrieves the content of the asset with the given id for a connector
+      tags:
+      - Connectors
+  /connectors/{id}/configuration-steps:
+    get:
+      operationId: getConnectorConfigurationSteps
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfigurationStepNamesEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets all configuration step names for a connector
+      tags:
+      - Connectors
+  /connectors/{id}/configuration-steps/{configurationStepName}:
+    get:
+      operationId: getConnectorConfigurationStep
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name.
+        in: path
+        name: configurationStepName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfigurationStepEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets a specific configuration step by name for a connector
+      tags:
+      - Connectors
+    put:
+      operationId: updateConnectorConfigurationStep
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name.
+        in: path
+        name: configurationStepName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfigurationStepEntity"
+        description: The configuration step configuration.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfigurationStepEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Updates a specific configuration step by name for a connector
+      tags:
+      - Connectors
+  ? /connectors/{id}/configuration-steps/{configurationStepName}/property-groups/{propertyGroupName}/properties/{propertyName}/allowable-values
+  : get:
+      description: Gets the allowable values for a specific property that supports
+        dynamic fetching of allowable values. The filter parameter can be used to
+        narrow down the results based on the property's filtering logic.
+      operationId: getConnectorPropertyAllowableValues
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name.
+        in: path
+        name: configurationStepName
+        required: true
+        schema:
+          type: string
+      - description: The property group name.
+        in: path
+        name: propertyGroupName
+        required: true
+        schema:
+          type: string
+      - description: The property name.
+        in: path
+        name: propertyName
+        required: true
+        schema:
+          type: string
+      - description: Optional filter to narrow down the allowable values.
+        in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorPropertyAllowableValuesEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the allowable values for a specific property in a connector's
+        configuration step
+      tags:
+      - Connectors
+  /connectors/{id}/configuration-steps/{configurationStepName}/verify-config:
+    post:
+      description: "This will initiate the process of verifying a given Connector\
+        \ Configuration Step. This may be a long-running task. As a result, this endpoint\
+        \ will immediately return a VerifyConnectorConfigStepRequestEntity, and the\
+        \ process of performing the verification will occur asynchronously in the\
+        \ background. The client may then periodically poll the status of the request\
+        \ by issuing a GET request to /connectors/{connectorId}/configuration-steps/{stepName}/verify-config/{requestId}.\
+        \ Once the request is completed, the client is expected to issue a DELETE\
+        \ request to /connectors/{connectorId}/configuration-steps/{stepName}/verify-config/{requestId}."
+      operationId: submitConfigurationStepVerificationRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name.
+        in: path
+        name: configurationStepName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyConnectorConfigStepRequestEntity"
+        description: The verify config request entity containing the configuration
+          step to verify.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyConnectorConfigStepRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Performs verification of a configuration step for a connector
+      tags:
+      - Connectors
+  /connectors/{id}/configuration-steps/{configurationStepName}/verify-config/{requestId}:
+    delete:
+      description: "Deletes the Verification Request with the given ID. After a request\
+        \ is created, it is expected that the client will properly clean up the request\
+        \ by DELETE'ing it, once the Verification process has completed. If the request\
+        \ is deleted before the request completes, then the Verification request will\
+        \ finish the step that it is currently performing and then will cancel any\
+        \ subsequent steps."
+      operationId: deleteConfigurationStepVerificationRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name.
+        in: path
+        name: configurationStepName
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Verification Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyConnectorConfigStepRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can remove it: []
+      summary: Deletes the Verification Request with the given ID
+      tags:
+      - Connectors
+    get:
+      description: "Returns the Verification Request with the given ID. Once a Verification\
+        \ Request has been created, that request can subsequently be retrieved via\
+        \ this endpoint, and the request that is fetched will contain the updated\
+        \ state, such as percent complete, the current state of the request, and any\
+        \ failures."
+      operationId: getConfigurationStepVerificationRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name.
+        in: path
+        name: configurationStepName
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Verification Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyConnectorConfigStepRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can get it: []
+      summary: Returns the Verification Request with the given ID
+      tags:
+      - Connectors
+  /connectors/{id}/controller-services/{controllerServiceId}/state:
+    get:
+      operationId: getConnectorControllerServiceState
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The controller service id.
+        in: path
+        name: controllerServiceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentStateEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Gets the state for a controller service within a connector
+      tags:
+      - Connectors
+  /connectors/{id}/controller-services/{controllerServiceId}/state/clear-requests:
+    post:
+      operationId: clearConnectorControllerServiceState
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The controller service id.
+        in: path
+        name: controllerServiceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/ComponentStateEntity"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComponentStateEntity"
+        description: "Optional component state to perform a selective key removal.\
+          \ If omitted, clears all state."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentStateEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Clears the state for a controller service within a connector
+      tags:
+      - Connectors
+  /connectors/{id}/drain:
+    delete:
+      operationId: cancelDrain
+      parameters:
+      - description: The revision is used to verify the client is working with the
+          latest version of the flow.
+        in: query
+        name: version
+        schema:
+          $ref: "#/components/schemas/LongParameter"
+      - description: "If the client id is not specified, new one will be generated.\
+          \ This value (whether specified or generated) is included in the response."
+        in: query
+        name: clientId
+        schema:
+          $ref: "#/components/schemas/ClientIdParameter"
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
+        name: disconnectedNodeAcknowledged
+        schema:
+          type: boolean
+          default: false
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid} or /operation/connectors/{uuid}: []
+      summary: Cancels the draining of FlowFiles for a connector
+      tags:
+      - Connectors
+    post:
+      description: "This will initiate draining of FlowFiles for a stopped connector.\
+        \ Draining allows the connector to process data that is currently in the flow\
+        \ but does not ingest any additional data. The connector must be in a STOPPED\
+        \ state before draining can begin. Once initiated, the connector will transition\
+        \ to a DRAINING state. Use the DELETE method on this endpoint to cancel an\
+        \ ongoing drain operation."
+      operationId: initiateDrain
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectorEntity"
+        description: The connector entity with revision.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid} or /operation/connectors/{uuid}: []
+      summary: Initiates draining of FlowFiles for a connector
+      tags:
+      - Connectors
+  /connectors/{id}/processors/{processorId}/state:
+    get:
+      operationId: getConnectorProcessorState
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The processor id.
+        in: path
+        name: processorId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentStateEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Gets the state for a processor within a connector
+      tags:
+      - Connectors
+  /connectors/{id}/processors/{processorId}/state/clear-requests:
+    post:
+      operationId: clearConnectorProcessorState
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The processor id.
+        in: path
+        name: processorId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/ComponentStateEntity"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComponentStateEntity"
+        description: "Optional component state to perform a selective key removal.\
+          \ If omitted, clears all state."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentStateEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Clears the state for a processor within a connector
+      tags:
+      - Connectors
+  /connectors/{id}/purge-requests:
+    post:
+      description: This will create a request to purge all FlowFiles from the connector.
+        The connector must be in a STOPPED state before purging can begin. This is
+        an asynchronous operation. The client should poll the returned URI to get
+        the status of the purge request.
+      operationId: createPurgeRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DropRequestEntity"
+          description: The request has been accepted. A HTTP response header will
+            contain the URI where the response can be polled.
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write Source Data - /data/connectors/{uuid}: []
+      summary: Creates a request to purge the FlowFiles for this connector
+      tags:
+      - Connectors
+  /connectors/{id}/purge-requests/{purge-request-id}:
+    delete:
+      operationId: removePurgeRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The purge request id.
+        in: path
+        name: purge-request-id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DropRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can remove it: []
+      summary: Cancels and/or removes a request to purge the FlowFiles for this connector
+      tags:
+      - Connectors
+    get:
+      operationId: getPurgeRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The purge request id.
+        in: path
+        name: purge-request-id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DropRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can get it: []
+      summary: Gets the current status of a purge request for the specified connector
+      tags:
+      - Connectors
+  /connectors/{id}/run-status:
+    put:
+      operationId: updateRunStatus
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectorRunStatusEntity"
+        description: The connector run status.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid} or /operation/connectors/{uuid}: []
+      summary: Updates run status of a connector
+      tags:
+      - Connectors
+  /connectors/{id}/search-results:
+    get:
+      description: Only search results from authorized components will be returned.
+      operationId: searchConnector
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The search term.
+        in: query
+        name: q
+        schema:
+          type: string
+          default: ""
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResultsEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Performs a search against the encapsulated process group of this connector
+        using the specified search term
+      tags:
+      - Connectors
+  /connectors/{id}/secrets:
+    get:
+      description: "Returns metadata for all secrets available from all secret providers.\
+        \ This endpoint is used when configuring a connector to discover available\
+        \ secrets. Note: Actual secret values are not included in the response for\
+        \ security reasons."
+      operationId: getSecrets
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SecretsEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Gets all secrets available for configuring a connector
+      tags:
+      - Connectors
+  /connectors/{id}/status:
+    get:
+      description: "Returns the status for the process group managed by the specified\
+        \ connector. The status includes status for all descendent components. When\
+        \ invoked with recursive set to true, it will return the current status of\
+        \ every component in the connector's encapsulated flow."
+      operationId: getConnectorStatus
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: "Whether all descendant groups and the status of their content\
+          \ will be included. Optional, defaults to false"
+        in: query
+        name: recursive
+        schema:
+          type: boolean
+          default: false
+      - description: "Whether or not to include the breakdown per node. Optional,\
+          \ defaults to false"
+        in: query
+        name: nodewise
+        schema:
+          type: boolean
+          default: false
+      - description: The id of the node where to get the status.
+        in: query
+        name: clusterNodeId
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProcessGroupStatusEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the status for the process group managed by a connector
+      tags:
+      - Connectors
+  /connectors/{id}/working-configuration:
+    delete:
+      description: This will discard any pending configuration changes for the connector
+        and revert to the last applied configuration.
+      operationId: discardConnectorUpdate
+      parameters:
+      - description: The revision is used to verify the client is working with the
+          latest version of the flow.
+        in: query
+        name: version
+        schema:
+          $ref: "#/components/schemas/LongParameter"
+      - description: "If the client id is not specified, new one will be generated.\
+          \ This value (whether specified or generated) is included in the response."
+        in: query
+        name: clientId
+        schema:
+          $ref: "#/components/schemas/ClientIdParameter"
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
+        name: disconnectedNodeAcknowledged
+        schema:
+          type: boolean
+          default: false
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Discards the working configuration of a connector
+      tags:
+      - Connectors
   /controller-services/{id}:
     delete:
       operationId: removeControllerService
@@ -699,7 +2078,7 @@ paths:
       - Controller Services
   /controller-services/{id}/run-status:
     put:
-      operationId: updateRunStatus_1
+      operationId: updateRunStatus_2
       parameters:
       - description: The controller service id.
         in: path
@@ -1026,7 +2405,7 @@ paths:
             to process it.
       security:
       - Write - /controller: []
-      summary: Retrieves the configuration for this NiFi
+      summary: Updates the configuration for this NiFi
       tags:
       - Controller
   /controller/controller-services:
@@ -1507,7 +2886,7 @@ paths:
       - Controller
   /controller/flow-analysis-rules/{id}/run-status:
     put:
-      operationId: updateRunStatus
+      operationId: updateRunStatus_1
       parameters:
       - description: The flow analysis rule id.
         in: path
@@ -1716,12 +3095,16 @@ paths:
     delete:
       operationId: deleteNar
       parameters:
-      - in: query
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
         name: disconnectedNodeAcknowledged
         schema:
           type: boolean
           default: false
-      - in: query
+      - description: Indicates if the NAR should be deleted even when components are
+          instantiated.
+        in: query
         name: force
         schema:
           type: boolean
@@ -2381,7 +3764,7 @@ paths:
             to process it.
       security:
       - Read - /controller: []
-      summary: Retrieves the types of flow  that this NiFi supports
+      summary: Retrieves the types of flow registry clients that this NiFi supports
       tags:
       - Controller
   /controller/reporting-tasks:
@@ -2635,12 +4018,14 @@ paths:
     put:
       operationId: extendInputPortTransactionTTL
       parameters:
-      - in: path
+      - description: The input port id.
+        in: path
         name: portId
         required: true
         schema:
           type: string
-      - in: path
+      - description: The transaction id.
+        in: path
         name: transactionId
         required: true
         schema:
@@ -2683,7 +4068,8 @@ paths:
         required: true
         schema:
           type: string
-      - in: path
+      - description: The transaction id.
+        in: path
         name: transactionId
         required: true
         schema:
@@ -2716,7 +4102,7 @@ paths:
             \ overloaded. Retrying the same request later may be successful"
       security:
       - Write - /data-transfer/input-ports/{uuid}: []
-      summary: Transfer flow files to the input port
+      summary: Transfer FlowFiles to the input port
       tags:
       - DataTransfer
   /data-transfer/output-ports/{portId}/transactions/{transactionId}:
@@ -2786,12 +4172,14 @@ paths:
     put:
       operationId: extendOutputPortTransactionTTL
       parameters:
-      - in: path
+      - description: The output port id.
+        in: path
         name: portId
         required: true
         schema:
           type: string
-      - in: path
+      - description: The transaction id.
+        in: path
         name: transactionId
         required: true
         schema:
@@ -2837,7 +4225,8 @@ paths:
         required: true
         schema:
           type: string
-      - in: path
+      - description: The transaction id.
+        in: path
         name: transactionId
         required: true
         schema:
@@ -2872,7 +4261,7 @@ paths:
             \ overloaded. Retrying the same request later may be successful"
       security:
       - Write - /data-transfer/output-ports/{uuid}: []
-      summary: Transfer flow files from the output port
+      summary: Transfer FlowFiles from the output port
       tags:
       - DataTransfer
   /data-transfer/{portType}/{portId}/transactions:
@@ -2885,7 +4274,8 @@ paths:
         required: true
         schema:
           type: string
-      - in: path
+      - description: The input or output port id.
+        in: path
         name: portId
         required: true
         schema:
@@ -3051,7 +4441,8 @@ paths:
         name: groupId
         schema:
           $ref: "#/components/schemas/BulletinBoardPatternParameter"
-      - description: The number of bulletins to limit the response to.
+      - description: "The number of bulletins to limit the response to. Optional,\
+          \ default is no limit."
         in: query
         name: limit
         schema:
@@ -3309,6 +4700,125 @@ paths:
       summary: Gets the status history for a connection
       tags:
       - Flow
+  /flow/connector-definition/{group}/{artifact}/{version}/{type}:
+    get:
+      description: "Note: This endpoint is subject to change as NiFi and it's REST\
+        \ API evolve."
+      operationId: getConnectorDefinition
+      parameters:
+      - description: The bundle group
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+      - description: The bundle artifact
+        in: path
+        name: artifact
+        required: true
+        schema:
+          type: string
+      - description: The bundle version
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: The connector type
+        in: path
+        name: type
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorDefinition"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The connector definition for the coordinates could not be located.
+      security:
+      - Read - /flow: []
+      summary: Retrieves the Connector Definition for the specified component type.
+      tags:
+      - Flow
+  /flow/connector-types:
+    get:
+      description: "Note: This endpoint is subject to change as NiFi and it's REST\
+        \ API evolve."
+      operationId: getConnectorTypes
+      parameters:
+      - description: "If specified, will only return types that are a member of this\
+          \ bundle group."
+        in: query
+        name: bundleGroupFilter
+        schema:
+          type: string
+      - description: "If specified, will only return types that are a member of this\
+          \ bundle artifact."
+        in: query
+        name: bundleArtifactFilter
+        schema:
+          type: string
+      - description: "If specified, will only return types whose fully qualified classname\
+          \ matches."
+        in: query
+        name: type
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorTypesEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /flow: []
+      summary: Retrieves the types of connectors that this NiFi supports
+      tags:
+      - Flow
+  /flow/connectors:
+    get:
+      operationId: getConnectors
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorsEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /flow: []
+      summary: Gets all connectors
+      tags:
+      - Flow
   /flow/content-viewers:
     get:
       operationId: getContentViewers
@@ -3489,11 +4999,6 @@ paths:
         \ parameter should not be provided by any client other than the UI."
       operationId: getControllerServicesFromController
       parameters:
-      - in: query
-        name: uiOnly
-        schema:
-          type: boolean
-          default: false
       - description: Whether or not to include services' referencing components in
           the response
         in: query
@@ -3501,6 +5006,11 @@ paths:
         schema:
           type: boolean
           default: true
+      - in: query
+        name: uiOnly
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           content:
@@ -3531,8 +5041,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CurrentUserEntity"
-      security:
-      - Read - /flow: []
       summary: Retrieves the user identity of the user making the request
       tags:
       - Flow
@@ -3982,6 +5490,7 @@ paths:
           - BULLETIN
           - CONNECTION
           - CLUSTER
+          - VERSION_INFO
       - description: Regular Expression Pattern to be applied against the sample name
           field
         in: query
@@ -4255,7 +5764,7 @@ paths:
         \ the NiFi User Interface. As such, the selected fields may change at any\
         \ time, even during incremental releases, without warning. As a result, this\
         \ parameter should not be provided by any client other than the UI."
-      operationId: getFlow
+      operationId: getFlow_1
       parameters:
       - description: The process group id.
         in: path
@@ -4482,7 +5991,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ActivateControllerServicesEntity"
-        description: "The request to schedule or unschedule. If the comopnents in\
+        description: "The request to schedule or unschedule. If the components in\
           \ the request are not specified, all authorized components will be considered."
         required: true
       responses:
@@ -5405,12 +6914,15 @@ paths:
       description: Only search results from authorized components will be returned.
       operationId: searchFlow
       parameters:
-      - in: query
+      - description: The search term.
+        in: query
         name: q
         schema:
           type: string
           default: ""
-      - in: query
+      - description: "The id of the currently visited process group. If not specified,\
+          \ then the root process group is used."
+        in: query
         name: a
         schema:
           type: string
@@ -5458,6 +6970,63 @@ paths:
       security:
       - Read - /flow: []
       summary: Gets the current status of this NiFi
+      tags:
+      - Flow
+  /flow/steps/{group}/{artifact}/{version}/{connectorType}/{stepName}:
+    get:
+      description: "Note: This endpoint is subject to change as NiFi and it's REST\
+        \ API evolve."
+      operationId: getStepDocumentation
+      parameters:
+      - description: The bundle group
+        in: path
+        name: group
+        required: true
+        schema:
+          type: string
+      - description: The bundle artifact
+        in: path
+        name: artifact
+        required: true
+        schema:
+          type: string
+      - description: The bundle version
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+      - description: The fully qualified Connector type
+        in: path
+        name: connectorType
+        required: true
+        schema:
+          type: string
+      - description: The configuration step name
+        in: path
+        name: stepName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StepDocumentationEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The step documentation for the coordinates could not be located.
+      security:
+      - Read - /flow: []
+      summary: Retrieves the step documentation for the specified Connector configuration
+        step.
       tags:
       - Flow
   /flowfile-queues/{id}/drop-requests:
@@ -6077,7 +7646,7 @@ paths:
       - InputPorts
   /input-ports/{id}/run-status:
     put:
-      operationId: updateRunStatus_2
+      operationId: updateRunStatus_3
       parameters:
       - description: The port id.
         in: path
@@ -6405,7 +7974,7 @@ paths:
       - OutputPorts
   /output-ports/{id}/run-status:
     put:
-      operationId: updateRunStatus_3
+      operationId: updateRunStatus_4
       parameters:
       - description: The port id.
         in: path
@@ -6479,9 +8048,7 @@ paths:
       - ParameterContexts
   /parameter-contexts/{contextId}/assets:
     get:
-      description: Lists the assets that belong to the Parameter Context with the
-        given ID.
-      operationId: getAssets
+      operationId: getAssets_1
       parameters:
       - description: The ID of the Parameter Context
         in: path
@@ -6510,7 +8077,7 @@ paths:
       security:
       - Read - /parameter-contexts/{id}: []
       summary: Lists the assets that belong to the Parameter Context with the given
-        ID
+        ID.
       tags:
       - ParameterContexts
     post:
@@ -6519,7 +8086,7 @@ paths:
         \ that is uploaded. The Asset will be created in the given Parameter Context,\
         \ and will be available for use by any component that references the Parameter\
         \ Context."
-      operationId: createAsset
+      operationId: createAsset_1
       parameters:
       - in: path
         name: contextId
@@ -6573,7 +8140,9 @@ paths:
         \ Context."
       operationId: deleteAsset
       parameters:
-      - in: query
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
         name: disconnectedNodeAcknowledged
         schema:
           type: boolean
@@ -6618,7 +8187,7 @@ paths:
       tags:
       - ParameterContexts
     get:
-      operationId: getAssetContent
+      operationId: getAssetContent_1
       parameters:
       - description: The ID of the Parameter Context
         in: path
@@ -6819,7 +8388,8 @@ paths:
         \ request to /parameter-contexts/validation-requests/{requestId}."
       operationId: submitValidationRequest
       parameters:
-      - in: path
+      - description: The ID of the ParameterContext
+        in: path
         name: contextId
         required: true
         schema:
@@ -7638,7 +9208,8 @@ paths:
         \ request to /parameter-providers/apply-parameters-requests/{requestId}."
       operationId: submitApplyParameters
       parameters:
-      - in: path
+      - description: The ID of the Parameter Provider
+        in: path
         name: providerId
         required: true
         schema:
@@ -8418,7 +9989,7 @@ paths:
       security:
       - Read - /process-groups/{uuid} - For this and all encapsulated process groups: []
       - Write Source Data - /data/{component-type}/{uuid} - For all encapsulated connections: []
-      summary: Creates a request to drop all flowfiles of all connection queues in
+      summary: Creates a request to drop all FlowFiles of all connection queues in
         this process group.
       tags:
       - ProcessGroups
@@ -8459,7 +10030,7 @@ paths:
       security:
       - Read - /process-groups/{uuid} - For this and all encapsulated process groups: []
       - Write Source Data - /data/{component-type}/{uuid} - For all encapsulated connections: []
-      summary: Cancels and/or removes a request to drop all flowfiles.
+      summary: Cancels and/or removes a request to drop all FlowFiles.
       tags:
       - ProcessGroups
     get:
@@ -8498,7 +10069,7 @@ paths:
       security:
       - Read - /process-groups/{uuid} - For this and all encapsulated process groups: []
       - Write Source Data - /data/{component-type}/{uuid} - For all encapsulated connections: []
-      summary: Gets the current status of a drop all flowfiles request.
+      summary: Gets the current status of a drop all FlowFiles request.
       tags:
       - ProcessGroups
   /process-groups/{id}/flow-contents:
@@ -9007,6 +10578,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ProcessGroupUploadEntity"
+        description: The Process Group Upload import details
       responses:
         "201":
           content:
@@ -9054,6 +10626,7 @@ paths:
                     for mutable requests to proceed.
                 file:
                   type: object
+                  description: The flow definition content
                 groupName:
                   type: string
                   description: The process group name.
@@ -9813,7 +11386,7 @@ paths:
       - Processors
   /processors/{id}/run-status:
     put:
-      operationId: updateRunStatus_4
+      operationId: updateRunStatus_5
       parameters:
       - description: The processor id.
         in: path
@@ -10429,16 +12002,16 @@ paths:
         name: clusterNodeId
         schema:
           type: string
-      - description: "Whether or not incremental results are returned. If false, provenance\
-          \ events are only returned once the query completes. This property is true\
-          \ by default."
+      - description: Whether or not to summarize provenance events returned. This
+          property is false by default.
         in: query
         name: summarize
         schema:
           type: boolean
           default: false
-      - description: Whether or not to summarize provenance events returned. This
-          property is false by default.
+      - description: "Whether or not incremental results are returned. If false, provenance\
+          \ events are only returned once the query completes. This property is true\
+          \ by default."
         in: query
         name: incrementalResults
         schema:
@@ -10614,7 +12187,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RemoteProcessGroupEntity"
-        description: The remote process group.
+        description: The remote process group configuration details.
         required: true
       responses:
         "200":
@@ -10702,7 +12275,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RemoteProcessGroupPortEntity"
-        description: The remote process group port.
+        description: The remote process group port configuration details.
         required: true
       responses:
         "200":
@@ -10750,7 +12323,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RemotePortRunStatusEntity"
-        description: The remote process group port.
+        description: The remote process group port run status details.
         required: true
       responses:
         "200":
@@ -10772,7 +12345,7 @@ paths:
             to process it.
       security:
       - Write - /remote-process-groups/{uuid} or /operation/remote-process-groups/{uuid}: []
-      summary: Updates run status of a remote port
+      summary: Updates run status of a remote input port
       tags:
       - RemoteProcessGroups
   /remote-process-groups/{id}/output-ports/{port-id}:
@@ -10798,7 +12371,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RemoteProcessGroupPortEntity"
-        description: The remote process group port.
+        description: The remote process group port configuration details.
         required: true
       responses:
         "200":
@@ -10846,7 +12419,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/RemotePortRunStatusEntity"
-        description: The remote process group port.
+        description: The remote process group port run status details.
         required: true
       responses:
         "200":
@@ -10868,7 +12441,7 @@ paths:
             to process it.
       security:
       - Write - /remote-process-groups/{uuid} or /operation/remote-process-groups/{uuid}: []
-      summary: Updates run status of a remote port
+      summary: Updates run status of a remote output port
       tags:
       - RemoteProcessGroups
   /remote-process-groups/{id}/run-status:
@@ -11334,7 +12907,7 @@ paths:
       - ReportingTasks
   /reporting-tasks/{id}/run-status:
     put:
-      operationId: updateRunStatus_5
+      operationId: updateRunStatus_6
       parameters:
       - description: The reporting task id.
         in: path
@@ -11647,8 +13220,7 @@ paths:
         schema:
           type: boolean
           default: false
-      - description: "Whether or not to include verbose details. Optional, defaults\
-          \ to false"
+      - description: "BASIC or VERBOSE verbosity details. Optional, defaults to BASIC"
         in: query
         name: diagnosticLevel
         schema:
@@ -13149,6 +14721,10 @@ components:
         id:
           type: string
           description: The identifier of the referenced asset.
+        missingContent:
+          type: boolean
+          description: Indicates if the content of the asset is missing.
+          readOnly: true
         name:
           type: string
           description: The name of the referenced asset.
@@ -13238,7 +14814,7 @@ components:
         count:
           type: integer
           format: int32
-          description: Preferred number of flow files to include in a transaction.
+          description: Preferred number of FlowFiles to include in a transaction.
         duration:
           type: string
           description: Preferred amount of time that a transaction should span.
@@ -13252,7 +14828,7 @@ components:
         count:
           type: integer
           format: int32
-          description: Preferred number of flow files to include in a transaction.
+          description: Preferred number of FlowFiles to include in a transaction.
         duration:
           type: string
           description: Preferred amount of time that a transaction should span.
@@ -13578,6 +15154,11 @@ components:
           description: Public interfaces defined in this bundle
           items:
             $ref: "#/components/schemas/DefinedType"
+        connectors:
+          type: array
+          description: Connectors provided in this bundle
+          items:
+            $ref: "#/components/schemas/ConnectorDefinition"
         controllerServices:
           type: array
           description: Controller Services provided in this bundle
@@ -13825,6 +15406,9 @@ components:
           - SUCCESSFUL
           - FAILED
           - SKIPPED
+        subject:
+          type: string
+          description: The subject of the verification step
         verificationStepName:
           type: string
           description: The name of the verification step
@@ -13860,6 +15444,121 @@ components:
           $ref: "#/components/schemas/ConfigurationAnalysisDTO"
       xml:
         name: configurationAnalysis
+    ConfigurationStep:
+      type: object
+      description: The configuration steps for this connector
+      properties:
+        description:
+          type: string
+          description: The description of the configuration step
+        documented:
+          type: boolean
+          description: Whether this configuration step has additional documentation
+        name:
+          type: string
+          description: The name of the configuration step
+        propertyGroups:
+          type: array
+          description: The property groups in this configuration step
+          items:
+            $ref: "#/components/schemas/ConnectorPropertyGroup"
+        stepDependencies:
+          type: array
+          description: The dependencies that this step has on other steps
+          items:
+            $ref: "#/components/schemas/ConfigurationStepDependency"
+    ConfigurationStepConfigurationDTO:
+      type: object
+      description: The list of configuration step configurations for this Connector.
+      properties:
+        configurationStepDescription:
+          type: string
+          description: The description of the configuration step.
+        configurationStepName:
+          type: string
+          description: The name of the configuration step.
+        dependencies:
+          type: array
+          description: The dependencies that this configuration step has on other
+            configuration steps' properties.
+          items:
+            $ref: "#/components/schemas/ConfigurationStepDependencyDTO"
+          uniqueItems: true
+        documented:
+          type: boolean
+          description: Whether extended documentation is available for this configuration
+            step.
+        propertyGroupConfigurations:
+          type: array
+          description: The list of property group configurations for this configuration
+            step.
+          items:
+            $ref: "#/components/schemas/PropertyGroupConfigurationDTO"
+    ConfigurationStepDependency:
+      type: object
+      description: The dependencies that this step has on other steps
+      properties:
+        dependentValues:
+          type: array
+          description: The values of the dependent property that enable this step
+          items:
+            type: string
+            description: The values of the dependent property that enable this step
+        propertyName:
+          type: string
+          description: The name of the property within the step that this step depends
+            on
+        stepName:
+          type: string
+          description: The name of the step that this step depends on
+    ConfigurationStepDependencyDTO:
+      type: object
+      description: The dependencies that this configuration step has on other configuration
+        steps' properties.
+      properties:
+        dependentValues:
+          type: array
+          description: "The values of the dependent property that satisfy this dependency.\
+            \ If null, any non-null value satisfies the dependency."
+          items:
+            type: string
+            description: "The values of the dependent property that satisfy this dependency.\
+              \ If null, any non-null value satisfies the dependency."
+          uniqueItems: true
+        propertyName:
+          type: string
+          description: The name of the property within the dependent step that must
+            have a value.
+        stepName:
+          type: string
+          description: The name of the configuration step that this step depends on.
+    ConfigurationStepEntity:
+      type: object
+      properties:
+        configurationStep:
+          $ref: "#/components/schemas/ConfigurationStepConfigurationDTO"
+        disconnectedNodeAcknowledged:
+          type: boolean
+          description: Acknowledges that this node is disconnected to allow for mutable
+            requests to proceed.
+        parentConnectorId:
+          type: string
+          description: The id of the parent connector.
+        parentConnectorRevision:
+          $ref: "#/components/schemas/RevisionDTO"
+      xml:
+        name: configurationStepEntity
+    ConfigurationStepNamesEntity:
+      type: object
+      properties:
+        configurationStepNames:
+          type: array
+          description: The list of configuration step names for a connector.
+          items:
+            type: string
+            description: The list of configuration step names for a connector.
+      xml:
+        name: configurationStepNamesEntity
     ConnectableComponent:
       type: object
       description: The destination of the connection.
@@ -14278,12 +15977,12 @@ components:
         predictedPercentBytes:
           type: integer
           format: int32
-          description: Predicted connection percent use regarding queued flow files
+          description: Predicted connection percent use regarding queued FlowFiles
             size and backpressure threshold if configured.
         predictedPercentCount:
           type: integer
           format: int32
-          description: Predicted connection percent use regarding queued flow files
+          description: Predicted connection percent use regarding queued FlowFiles
             count and backpressure threshold if configured.
         predictionIntervalSeconds:
           type: integer
@@ -14358,24 +16057,24 @@ components:
         percentUseBytes:
           type: integer
           format: int32
-          description: Connection percent use regarding queued flow files size and
+          description: Connection percent use regarding queued FlowFiles size and
             backpressure threshold if configured.
         percentUseCount:
           type: integer
           format: int32
-          description: Connection percent use regarding queued flow files count and
+          description: Connection percent use regarding queued FlowFiles count and
             backpressure threshold if configured.
         predictions:
           $ref: "#/components/schemas/ConnectionStatusPredictionsSnapshotDTO"
         queued:
           type: string
-          description: The total count and size of queued flowfiles formatted.
+          description: The total count and size of queued FlowFiles formatted.
         queuedCount:
           type: string
-          description: "The number of flowfiles that are queued, pretty printed."
+          description: "The number of FlowFiles that are queued, pretty printed."
         queuedSize:
           type: string
-          description: The total size of flowfiles that are queued formatted.
+          description: The total size of FlowFiles that are queued formatted.
         sourceId:
           type: string
           description: The id of the source of the connection.
@@ -14407,6 +16106,568 @@ components:
           uniqueItems: true
       xml:
         name: connectionsEntity
+    ConnectorActionDTO:
+      type: object
+      description: The available actions that can be performed on this Connector.
+      properties:
+        allowed:
+          type: boolean
+          description: "Whether this action is currently allowed to be performed,\
+            \ based on the state of the Connector. Note that a value of 'true' does\
+            \ not imply that the user has permission to perform the action."
+        description:
+          type: string
+          description: A description of what this action does.
+        name:
+          type: string
+          description: The name of the action.
+        reasonNotAllowed:
+          type: string
+          description: "The reason why this action is not allowed, or null if the\
+            \ action is allowed."
+    ConnectorConfigurationDTO:
+      type: object
+      description: The working configuration of the Connector.
+      properties:
+        configurationStepConfigurations:
+          type: array
+          description: The list of configuration step configurations for this Connector.
+          items:
+            $ref: "#/components/schemas/ConfigurationStepConfigurationDTO"
+    ConnectorDTO:
+      type: object
+      description: The Connector DTO
+      properties:
+        activeConfiguration:
+          $ref: "#/components/schemas/ConnectorConfigurationDTO"
+        availableActions:
+          type: array
+          description: The available actions that can be performed on this Connector.
+          items:
+            $ref: "#/components/schemas/ConnectorActionDTO"
+        bundle:
+          $ref: "#/components/schemas/BundleDTO"
+        configurationUrl:
+          type: string
+          description: "The URL for this connector's configuration/wizard custom UI,\
+            \ if applicable."
+        detailsUrl:
+          type: string
+          description: "The URL for this connector's details custom UI, if applicable."
+        extensionMissing:
+          type: boolean
+          description: Whether the extension for this connector is missing.
+        id:
+          type: string
+          description: The id of the component.
+        managedProcessGroupId:
+          type: string
+          description: The identifier of the root Process Group managed by this Connector.
+        multipleVersionsAvailable:
+          type: boolean
+          description: Whether multiple versions of this connector are available.
+        name:
+          type: string
+          description: The name of the Connector.
+        parentGroupId:
+          type: string
+          description: The id of parent process group of this component if applicable.
+        position:
+          $ref: "#/components/schemas/PositionDTO"
+        state:
+          type: string
+          description: The state of the Connector.
+          enum:
+          - RUNNING
+          - STOPPED
+        type:
+          type: string
+          description: The fully qualified type of the Connector.
+        validationErrors:
+          type: array
+          description: The validation errors for the connector.
+          items:
+            type: string
+            description: The validation errors for the connector.
+        validationStatus:
+          type: string
+          description: "Indicates whether the Connector is valid, invalid, or still\
+            \ in the process of validating"
+        versionedComponentId:
+          type: string
+          description: The ID of the corresponding component that is under version
+            control
+        workingConfiguration:
+          $ref: "#/components/schemas/ConnectorConfigurationDTO"
+    ConnectorDefinition:
+      type: object
+      description: Connectors provided in this bundle
+      properties:
+        additionalDetails:
+          type: boolean
+          description: Indicates if the component has additional details documentation
+        artifact:
+          type: string
+          description: The artifact name of the bundle that provides the referenced
+            type.
+        buildInfo:
+          $ref: "#/components/schemas/BuildInfo"
+        configurationSteps:
+          type: array
+          description: The configuration steps for this connector
+          items:
+            $ref: "#/components/schemas/ConfigurationStep"
+        deprecated:
+          type: boolean
+          description: Whether or not the component has been deprecated
+        deprecationAlternatives:
+          type: array
+          description: "If this component has been deprecated, this optional field\
+            \ provides alternatives to use"
+          items:
+            type: string
+            description: "If this component has been deprecated, this optional field\
+              \ provides alternatives to use"
+          uniqueItems: true
+        deprecationReason:
+          type: string
+          description: "If this component has been deprecated, this optional field\
+            \ can be used to provide an explanation"
+        explicitRestrictions:
+          type: array
+          description: Explicit restrictions that indicate a require permission to
+            use the component
+          items:
+            $ref: "#/components/schemas/Restriction"
+          uniqueItems: true
+        group:
+          type: string
+          description: The group name of the bundle that provides the referenced type.
+        providedApiImplementations:
+          type: array
+          description: "If this type represents a provider for an interface, this\
+            \ lists the APIs it implements"
+          items:
+            $ref: "#/components/schemas/DefinedType"
+        restricted:
+          type: boolean
+          description: Whether or not the component has a general restriction
+        restrictedExplanation:
+          type: string
+          description: An optional description of the general restriction
+        seeAlso:
+          type: array
+          description: The names of other component types that may be related
+          items:
+            type: string
+            description: The names of other component types that may be related
+          uniqueItems: true
+        stateful:
+          $ref: "#/components/schemas/Stateful"
+        systemResourceConsiderations:
+          type: array
+          description: The system resource considerations for the given component
+          items:
+            $ref: "#/components/schemas/SystemResourceConsideration"
+        tags:
+          type: array
+          description: The tags associated with this type
+          items:
+            type: string
+            description: The tags associated with this type
+          uniqueItems: true
+        type:
+          type: string
+          description: The fully-qualified class type
+        typeDescription:
+          type: string
+          description: The description of the type.
+        version:
+          type: string
+          description: The version of the bundle that provides the referenced type.
+    ConnectorEntity:
+      type: object
+      properties:
+        bulletins:
+          type: array
+          description: The bulletins for this component.
+          items:
+            $ref: "#/components/schemas/BulletinEntity"
+        component:
+          $ref: "#/components/schemas/ConnectorDTO"
+        disconnectedNodeAcknowledged:
+          type: boolean
+          description: Acknowledges that this node is disconnected to allow for mutable
+            requests to proceed.
+        id:
+          type: string
+          description: The id of the component.
+        operatePermissions:
+          $ref: "#/components/schemas/PermissionsDTO"
+        permissions:
+          $ref: "#/components/schemas/PermissionsDTO"
+        position:
+          $ref: "#/components/schemas/PositionDTO"
+        revision:
+          $ref: "#/components/schemas/RevisionDTO"
+        status:
+          $ref: "#/components/schemas/ConnectorStatusDTO"
+        uri:
+          type: string
+          description: The URI for futures requests to the component.
+      xml:
+        name: connectorEntity
+    ConnectorPropertyAllowableValuesEntity:
+      type: object
+      properties:
+        allowableValues:
+          type: array
+          description: The allowable values for the property.
+          items:
+            $ref: "#/components/schemas/AllowableValueEntity"
+        configurationStepName:
+          type: string
+          description: The name of the configuration step.
+        propertyGroupName:
+          type: string
+          description: The name of the property group.
+        propertyName:
+          type: string
+          description: The name of the property.
+      xml:
+        name: connectorPropertyAllowableValuesEntity
+    ConnectorPropertyDependency:
+      type: object
+      description: The properties that this property depends on
+      properties:
+        dependentValues:
+          type: array
+          description: The values of the dependent property that enable this property
+          items:
+            type: string
+            description: The values of the dependent property that enable this property
+        propertyName:
+          type: string
+          description: The name of the property that this property depends on
+    ConnectorPropertyDependencyDTO:
+      type: object
+      description: The dependencies this property has on other properties.
+      properties:
+        dependentValues:
+          type: array
+          description: The values of the dependent property that must be set for this
+            property to be applicable.
+          items:
+            type: string
+            description: The values of the dependent property that must be set for
+              this property to be applicable.
+          uniqueItems: true
+        propertyName:
+          type: string
+          description: The name of the property that this property depends on.
+    ConnectorPropertyDescriptor:
+      type: object
+      description: The properties in this group
+      properties:
+        allowableValues:
+          type: array
+          description: The allowable values for this property
+          items:
+            $ref: "#/components/schemas/PropertyAllowableValue"
+        allowableValuesFetchable:
+          type: boolean
+          description: Whether or not the allowable values can be fetched dynamically
+        defaultValue:
+          type: string
+          description: The default value of the property
+        dependencies:
+          type: array
+          description: The properties that this property depends on
+          items:
+            $ref: "#/components/schemas/ConnectorPropertyDependency"
+        description:
+          type: string
+          description: The description of the property
+        name:
+          type: string
+          description: The name of the property
+        propertyType:
+          type: string
+          description: The type of the property
+          enum:
+          - STRING
+          - INTEGER
+          - BOOLEAN
+          - FLOAT
+          - DOUBLE
+          - STRING_LIST
+          - SECRET
+          - ASSET
+          - ASSET_LIST
+        required:
+          type: boolean
+          description: Whether or not the property is required
+    ConnectorPropertyDescriptorDTO:
+      type: object
+      description: "The property descriptors for this property group, keyed by property\
+        \ name."
+      properties:
+        allowableValues:
+          type: array
+          description: Allowable values for the property. If empty then the allowed
+            values are not constrained.
+          items:
+            $ref: "#/components/schemas/AllowableValueEntity"
+        allowableValuesFetchable:
+          type: boolean
+          description: Whether the allowable values are dynamically fetchable based
+            on other property values.
+        defaultValue:
+          type: string
+          description: The default value for the property.
+        dependencies:
+          type: array
+          description: The dependencies this property has on other properties.
+          items:
+            $ref: "#/components/schemas/ConnectorPropertyDependencyDTO"
+          uniqueItems: true
+        description:
+          type: string
+          description: The description of the property.
+        name:
+          type: string
+          description: The name of the property.
+        required:
+          type: boolean
+          description: Whether the property is required.
+        type:
+          type: string
+          description: "The type of the property (STRING, INTEGER, BOOLEAN, DOUBLE,\
+            \ STRING_LIST)."
+    ConnectorPropertyGroup:
+      type: object
+      description: The property groups in this configuration step
+      properties:
+        description:
+          type: string
+          description: The description of the property group
+        name:
+          type: string
+          description: The name of the property group
+        properties:
+          type: array
+          description: The properties in this group
+          items:
+            $ref: "#/components/schemas/ConnectorPropertyDescriptor"
+    ConnectorRunStatusEntity:
+      type: object
+      properties:
+        disconnectedNodeAcknowledged:
+          type: boolean
+          description: Acknowledges that this node is disconnected to allow for mutable
+            requests to proceed.
+        revision:
+          $ref: "#/components/schemas/RevisionDTO"
+        state:
+          type: string
+          description: The run status of the Connector.
+          enum:
+          - RUNNING
+          - STOPPED
+          - DISABLED
+      xml:
+        name: entity
+    ConnectorStatusDTO:
+      type: object
+      description: The status of the connector.
+      properties:
+        aggregateSnapshot:
+          $ref: "#/components/schemas/ConnectorStatusSnapshotDTO"
+        groupId:
+          type: string
+          description: The id of the group this connector belongs to.
+        id:
+          type: string
+          description: The id of the connector.
+        name:
+          type: string
+          description: The name of the connector.
+        nodeSnapshots:
+          type: array
+          description: "A status snapshot for each node in the cluster. If the NiFi\
+            \ instance is a standalone instance, rather than a cluster, this may be\
+            \ null."
+          items:
+            $ref: "#/components/schemas/NodeConnectorStatusSnapshotDTO"
+        runStatus:
+          type: string
+          description: The run status of the connector.
+        statsLastRefreshed:
+          type: string
+          description: The timestamp of when the stats were last refreshed.
+        type:
+          type: string
+          description: The type of the connector.
+        validationStatus:
+          type: string
+          description: The validation status of the connector.
+          enum:
+          - VALID
+          - INVALID
+          - VALIDATING
+    ConnectorStatusSnapshotDTO:
+      type: object
+      description: The connector status snapshot from the node.
+      properties:
+        activeThreadCount:
+          type: integer
+          format: int32
+          description: The number of active threads for the connector.
+        bytesQueued:
+          type: integer
+          format: int64
+          description: The number of bytes queued in this connector's managed process
+            group.
+        bytesRead:
+          type: integer
+          format: int64
+          description: The number of bytes read by processors in this connector's
+            managed process group.
+        bytesReceived:
+          type: integer
+          format: int64
+          description: The number of bytes received by this connector's managed process
+            group.
+        bytesSent:
+          type: integer
+          format: int64
+          description: The number of bytes sent by this connector's managed process
+            group.
+        bytesWritten:
+          type: integer
+          format: int64
+          description: The number of bytes written by processors in this connector's
+            managed process group.
+        flowFilesQueued:
+          type: integer
+          format: int32
+          description: The number of FlowFiles queued in this connector's managed
+            process group.
+        flowFilesReceived:
+          type: integer
+          format: int32
+          description: The number of FlowFiles received by this connector's managed
+            process group.
+        flowFilesSent:
+          type: integer
+          format: int32
+          description: The number of FlowFiles sent by this connector's managed process
+            group.
+        groupId:
+          type: string
+          description: The id of the parent process group to which the connector belongs.
+        id:
+          type: string
+          description: The id of the connector.
+        idle:
+          type: boolean
+          description: Whether or not the connector is currently idle (no FlowFiles
+            queued and no FlowFiles processed recently).
+        idleDuration:
+          type: string
+          description: "A human-readable representation of how long the connector\
+            \ has been idle, or null if the connector is not idle."
+        idleDurationMillis:
+          type: integer
+          format: int64
+          description: "The number of milliseconds the connector has been idle, or\
+            \ null if the connector is not idle."
+        name:
+          type: string
+          description: The name of the connector.
+        processingPerformanceStatus:
+          $ref: "#/components/schemas/ProcessingPerformanceStatusDTO"
+        queued:
+          type: string
+          description: "The count/size of queued data, pretty-printed."
+        queuedCount:
+          type: string
+          description: "The count of queued FlowFiles, pretty-printed."
+        queuedSize:
+          type: string
+          description: "The size of queued data, pretty-printed."
+        read:
+          type: string
+          description: "The number of bytes read, pretty-printed."
+        received:
+          type: string
+          description: "The count/size of data that has been received by this connector,\
+            \ pretty-printed."
+        runStatus:
+          type: string
+          description: The run status of the connector.
+        sent:
+          type: string
+          description: "The count/size of data that has been sent by this connector,\
+            \ pretty-printed."
+        type:
+          type: string
+          description: The type of the connector.
+        written:
+          type: string
+          description: "The number of bytes written, pretty-printed."
+    ConnectorTypesEntity:
+      type: object
+      properties:
+        connectorTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentedTypeDTO"
+          uniqueItems: true
+      xml:
+        name: connectorTypesEntity
+    ConnectorValueReferenceDTO:
+      type: object
+      description: The property values for this property group.
+      properties:
+        assetReferences:
+          type: array
+          description: The asset references. Applicable when valueType is ASSET_REFERENCE.
+          items:
+            $ref: "#/components/schemas/AssetReferenceDTO"
+        fullyQualifiedSecretName:
+          type: string
+          description: The fully qualified secret name. Applicable when valueType
+            is SECRET_REFERENCE.
+        secretName:
+          type: string
+          description: The secret name. Applicable when valueType is SECRET_REFERENCE.
+        secretProviderId:
+          type: string
+          description: The secret provider identifier. Applicable when valueType is
+            SECRET_REFERENCE.
+        secretProviderName:
+          type: string
+          description: The secret provider name. Applicable when valueType is SECRET_REFERENCE.
+        value:
+          type: string
+          description: The string literal value. Applicable when valueType is STRING_LITERAL.
+        valueType:
+          type: string
+          description: "The type of value (STRING_LITERAL, ASSET_REFERENCE, or SECRET_REFERENCE)."
+    ConnectorsEntity:
+      type: object
+      properties:
+        connectors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConnectorEntity"
+          uniqueItems: true
+        currentTime:
+          type: string
+          description: The current time on the system.
+      xml:
+        name: connectorsEntity
     ContentViewerDTO:
       type: object
       description: The Content Viewers.
@@ -14551,14 +16812,14 @@ components:
           type: integer
           format: int32
           description: "The HTTP(S) Port on which this instance is listening for Remote\
-            \ Transfers of Flow Files. If this instance is not configured to receive\
-            \ Flow Files from remote instances, this will be null."
+            \ Transfers of FlowFiles. If this instance is not configured to receive\
+            \ FlowFiles from remote instances, this will be null."
         remoteSiteListeningPort:
           type: integer
           format: int32
           description: "The Socket Port on which this instance is listening for Remote\
-            \ Transfers of Flow Files. If this instance is not configured to receive\
-            \ Flow Files from remote instances, this will be null."
+            \ Transfers of FlowFiles. If this instance is not configured to receive\
+            \ FlowFiles from remote instances, this will be null."
         runningCount:
           type: integer
           format: int32
@@ -15065,7 +17326,7 @@ components:
             the NiFi.
         queued:
           type: string
-          description: The number of flowfiles queued in the NiFi.
+          description: The number of FlowFiles queued in the NiFi.
         runningCount:
           type: integer
           format: int32
@@ -15337,6 +17598,8 @@ components:
           items:
             $ref: "#/components/schemas/ComponentRestrictionPermissionDTO"
           uniqueItems: true
+        connectorsPermissions:
+          $ref: "#/components/schemas/PermissionsDTO"
         controllerPermissions:
           $ref: "#/components/schemas/PermissionsDTO"
         countersPermissions:
@@ -15400,6 +17663,11 @@ components:
         differenceType:
           type: string
           description: The type of difference
+        environmental:
+          type: boolean
+          description: "Whether this difference is environmental (e.g., bundle version\
+            \ change due to NiFi upgrade) rather than a user-initiated change. Environmental\
+            \ changes are typically not reverted when reverting local changes."
     DimensionsDTO:
       type: object
       properties:
@@ -15457,27 +17725,27 @@ components:
       properties:
         current:
           type: string
-          description: The count and size of flow files currently queued.
+          description: The count and size of FlowFiles currently queued.
         currentCount:
           type: integer
           format: int32
-          description: The number of flow files currently queued.
+          description: The number of FlowFiles currently queued.
         currentSize:
           type: integer
           format: int64
-          description: The size of flow files currently queued in bytes.
+          description: The size of FlowFiles currently queued in bytes.
         dropped:
           type: string
-          description: The count and size of flow files that have been dropped thus
+          description: The count and size of FlowFiles that have been dropped thus
             far.
         droppedCount:
           type: integer
           format: int32
-          description: The number of flow files that have been dropped thus far.
+          description: The number of FlowFiles that have been dropped thus far.
         droppedSize:
           type: integer
           format: int64
-          description: The size of flow files that have been dropped thus far in bytes.
+          description: The size of FlowFiles that have been dropped thus far in bytes.
         failureReason:
           type: string
           description: "The reason, if any, that this drop request failed."
@@ -15492,17 +17760,16 @@ components:
           description: The last time this drop request was updated.
         original:
           type: string
-          description: The count and size of flow files to be dropped as a result
-            of this request.
+          description: The count and size of FlowFiles to be dropped as a result of
+            this request.
         originalCount:
           type: integer
           format: int32
-          description: The number of flow files to be dropped as a result of this
-            request.
+          description: The number of FlowFiles to be dropped as a result of this request.
         originalSize:
           type: integer
           format: int64
-          description: The size of flow files to be dropped as a result of this request
+          description: The size of FlowFiles to be dropped as a result of this request
             in bytes.
         percentCompleted:
           type: integer
@@ -16832,8 +19099,8 @@ components:
         lineageRequestType:
           type: string
           description: The type of lineage request. PARENTS will return the lineage
-            for the flowfiles that are parents of the specified event. CHILDREN will
-            return the lineage for the flowfiles that are children of the specified
+            for the FlowFiles that are parents of the specified event. CHILDREN will
+            return the lineage for the FlowFiles that are children of the specified
             event. FLOWFILE will return the lineage for the specified flowfile.
           enum:
           - PARENTS
@@ -17016,6 +19283,12 @@ components:
     NarDetailsEntity:
       type: object
       properties:
+        connectorTypes:
+          type: array
+          description: The Connector types contained in the NAR
+          items:
+            $ref: "#/components/schemas/DocumentedTypeDTO"
+          uniqueItems: true
         controllerServiceTypes:
           type: array
           description: The ControllerService types contained in the NAR
@@ -17154,6 +19427,23 @@ components:
           description: The unique ID that identifies the node
         statusSnapshot:
           $ref: "#/components/schemas/ConnectionStatusSnapshotDTO"
+    NodeConnectorStatusSnapshotDTO:
+      type: object
+      description: "A status snapshot for each node in the cluster. If the NiFi instance\
+        \ is a standalone instance, rather than a cluster, this may be null."
+      properties:
+        address:
+          type: string
+          description: The API address of the node
+        apiPort:
+          type: integer
+          format: int32
+          description: The API port used to communicate with the node
+        nodeId:
+          type: string
+          description: The unique ID that identifies the node
+        statusSnapshot:
+          $ref: "#/components/schemas/ConnectorStatusSnapshotDTO"
     NodeCountersSnapshotDTO:
       type: object
       description: "A Counters snapshot for each node in the cluster. If the NiFi\
@@ -18530,14 +20820,14 @@ components:
           description: The id of the port.
         input:
           type: string
-          description: The count/size of flowfiles that have been accepted in the
+          description: The count/size of FlowFiles that have been accepted in the
             last 5 minutes.
         name:
           type: string
           description: The name of the port.
         output:
           type: string
-          description: The count/size of flowfiles that have been processed in the
+          description: The count/size of FlowFiles that have been processed in the
             last 5 minutes.
         runStatus:
           type: string
@@ -19482,6 +21772,7 @@ components:
           - RUNNING
           - STOPPED
           - DISABLED
+          - RUN_ONCE
         style:
           type: object
           additionalProperties:
@@ -19935,14 +22226,14 @@ components:
           description: The id of the processor.
         input:
           type: string
-          description: The count/size of flowfiles that have been accepted in the
+          description: The count/size of FlowFiles that have been accepted in the
             last 5 minutes.
         name:
           type: string
           description: The name of the prcessor.
         output:
           type: string
-          description: The count/size of flowfiles that have been processed in the
+          description: The count/size of FlowFiles that have been processed in the
             last 5 minutes.
         processingPerformanceStatus:
           $ref: "#/components/schemas/ProcessingPerformanceStatusDTO"
@@ -20031,7 +22322,7 @@ components:
         name: processorsRunStatusDetails
     PropertyAllowableValue:
       type: object
-      description: A list of the allowable values for the property
+      description: The allowable values for this property
       properties:
         description:
           type: string
@@ -20200,6 +22491,28 @@ components:
           $ref: "#/components/schemas/PropertyDescriptorDTO"
       xml:
         name: propertyDescriptor
+    PropertyGroupConfigurationDTO:
+      type: object
+      description: The list of property group configurations for this configuration
+        step.
+      properties:
+        propertyDescriptors:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ConnectorPropertyDescriptorDTO"
+          description: "The property descriptors for this property group, keyed by\
+            \ property name."
+        propertyGroupDescription:
+          type: string
+          description: The description of the property group.
+        propertyGroupName:
+          type: string
+          description: The name of the property group.
+        propertyValues:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ConnectorValueReferenceDTO"
+          description: The property values for this property group.
     PropertyHistoryDTO:
       type: object
       description: The history for the properties of the component.
@@ -20317,6 +22630,11 @@ components:
         componentType:
           type: string
           description: The type of the component that generated the event.
+        connectorId:
+          type: string
+          description: "The id of the connector that manages the component that generated\
+            \ the event. If the component is not managed by a connector, this will\
+            \ not be set."
         contentEqual:
           type: boolean
           description: Whether the input and output content claim is the same.
@@ -20334,6 +22652,9 @@ components:
         eventTime:
           type: string
           description: The timestamp of the event.
+        eventTimestamp:
+          type: string
+          description: Event Timestamp formatted using ISO8601
         eventType:
           type: string
           description: The type of the event.
@@ -20373,7 +22694,7 @@ components:
         inputContentClaimOffset:
           type: integer
           format: int64
-          description: The offset into the input content claim where the flowfiles
+          description: The offset into the input content claim where the FlowFiles
             content begins.
         inputContentClaimSection:
           type: string
@@ -20401,7 +22722,7 @@ components:
         outputContentClaimOffset:
           type: integer
           format: int64
-          description: The offset into the output content claim where the flowfiles
+          description: The offset into the output content claim where the FlowFiles
             content begins.
         outputContentClaimSection:
           type: string
@@ -20466,14 +22787,18 @@ components:
       properties:
         childUuids:
           type: array
-          description: The uuid of the childrent flowfiles of the provenance event.
+          description: The uuid of the children FlowFiles of the provenance event.
           items:
             type: string
-            description: The uuid of the childrent flowfiles of the provenance event.
+            description: The uuid of the children FlowFiles of the provenance event.
         clusterNodeIdentifier:
           type: string
           description: The identifier of the node that this event/flowfile originated
             from.
+        componentType:
+          type: string
+          description: "If the type is EVENT, this is the type of the component that\
+            \ generated the event."
         eventType:
           type: string
           description: "If the type is EVENT, this is the type of event."
@@ -20489,10 +22814,10 @@ components:
           description: The timestamp of the node in milliseconds.
         parentUuids:
           type: array
-          description: The uuid of the parent flowfiles of the provenance event.
+          description: The uuid of the parent FlowFiles of the provenance event.
           items:
             type: string
-            description: The uuid of the parent flowfiles of the provenance event.
+            description: The uuid of the parent FlowFiles of the provenance event.
         timestamp:
           type: string
           description: The timestamp of the node formatted.
@@ -20727,7 +23052,7 @@ components:
       properties:
         autoTerminate:
           type: boolean
-          description: Whether or not flowfiles sent to this relationship should auto
+          description: Whether or not FlowFiles sent to this relationship should auto
             terminate.
         description:
           type: string
@@ -20737,7 +23062,7 @@ components:
           description: The relationship name.
         retry:
           type: boolean
-          description: Whether or not flowfiles sent to this relationship should retry.
+          description: Whether or not FlowFiles sent to this relationship should retry.
       readOnly: true
     RemotePortRunStatusEntity:
       type: object
@@ -20936,7 +23261,7 @@ components:
         concurrentlySchedulableTaskCount:
           type: integer
           format: int32
-          description: The number of task that may transmit flowfiles to the target
+          description: The number of task that may transmit FlowFiles to the target
             port concurrently.
         connected:
           type: boolean
@@ -20964,7 +23289,7 @@ components:
           description: Whether the remote port is configured for transmission.
         useCompression:
           type: boolean
-          description: Whether the flowfiles are compressed when sent to the target
+          description: Whether the FlowFiles are compressed when sent to the target
             port.
         versionedComponentId:
           type: string
@@ -21093,11 +23418,11 @@ components:
           description: The name of the remote process group.
         received:
           type: string
-          description: The count/size of the flowfiles received from the remote process
+          description: The count/size of the FlowFiles received from the remote process
             group in the last 5 minutes.
         sent:
           type: string
-          description: The count/size of the flowfiles sent to the remote process
+          description: The count/size of the FlowFiles sent to the remote process
             group in the last 5 minutes.
         targetUri:
           type: string
@@ -21804,6 +24129,39 @@ components:
           $ref: "#/components/schemas/SearchResultsDTO"
       xml:
         name: searchResultsEntity
+    SecretDTO:
+      type: object
+      description: The list of secrets available from all secret providers.
+      properties:
+        description:
+          type: string
+          description: A description of the secret.
+        fullyQualifiedName:
+          type: string
+          description: "The fully qualified name of the secret, including the group\
+            \ name."
+        groupName:
+          type: string
+          description: The name of the group this secret belongs to.
+        name:
+          type: string
+          description: The name of the secret.
+        providerId:
+          type: string
+          description: The identifier of the secret provider that manages this secret.
+        providerName:
+          type: string
+          description: The name of the secret provider that manages this secret.
+    SecretsEntity:
+      type: object
+      properties:
+        secrets:
+          type: array
+          description: The list of secrets available from all secret providers.
+          items:
+            $ref: "#/components/schemas/SecretDTO"
+      xml:
+        name: secretsEntity
     SnippetDTO:
       type: object
       description: The snippet.
@@ -22038,6 +24396,13 @@ components:
           type: string
           format: date-time
           description: The timestamp of the snapshot.
+    StepDocumentationEntity:
+      type: object
+      properties:
+        stepDocumentation:
+          type: string
+      xml:
+        name: stepDocumentationEntity
     StorageUsageDTO:
       type: object
       description: The provenance repository storage usage.
@@ -22631,6 +24996,75 @@ components:
             \ did not fail"
           readOnly: true
       readOnly: true
+    VerifyConnectorConfigStepRequestDTO:
+      type: object
+      description: The verification request
+      properties:
+        complete:
+          type: boolean
+          description: Whether or not the request is completed
+          readOnly: true
+        configurationStep:
+          $ref: "#/components/schemas/ConfigurationStepConfigurationDTO"
+        configurationStepName:
+          type: string
+          description: The name of the configuration step being verified
+        connectorId:
+          type: string
+          description: The ID of the connector whose configuration step is being verified
+        failureReason:
+          type: string
+          description: "The reason for the request failing, or null if the request\
+            \ has not failed"
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: The timestamp of when the request was last updated
+          readOnly: true
+        percentCompleted:
+          type: integer
+          format: int32
+          description: A value between 0 and 100 (inclusive) indicating how close
+            the request is to completion
+          readOnly: true
+        requestId:
+          type: string
+          description: The ID of the request
+          readOnly: true
+        results:
+          type: array
+          description: The results of the verification
+          items:
+            $ref: "#/components/schemas/ConfigVerificationResultDTO"
+          readOnly: true
+        state:
+          type: string
+          description: A description of the current state of the request
+          readOnly: true
+        submissionTime:
+          type: string
+          format: date-time
+          description: The timestamp of when the request was submitted
+          readOnly: true
+        updateSteps:
+          type: array
+          description: "The steps that are required in order to complete the request,\
+            \ along with the status of each"
+          items:
+            $ref: "#/components/schemas/VerifyConfigUpdateStepDTO"
+          readOnly: true
+        uri:
+          type: string
+          description: The URI for the request
+          readOnly: true
+    VerifyConnectorConfigStepRequestEntity:
+      type: object
+      properties:
+        request:
+          $ref: "#/components/schemas/VerifyConnectorConfigStepRequestDTO"
+      xml:
+        name: verifyConnectorConfigStepRequestEntity
     VersionControlComponentMappingEntity:
       type: object
       properties:
@@ -22764,6 +25198,24 @@ components:
         name:
           type: string
           description: The name of the asset
+    VersionedComponentState:
+      type: object
+      description: "The state of the component, if exported with state"
+      properties:
+        clusterState:
+          type: object
+          additionalProperties:
+            type: string
+            description: "The cluster-scoped state of the component, or null if not\
+              \ exported"
+          description: "The cluster-scoped state of the component, or null if not\
+            \ exported"
+        localNodeStates:
+          type: array
+          description: "The local-scoped state of the component ordered by node ordinal\
+            \ index, or null if not exported"
+          items:
+            $ref: "#/components/schemas/VersionedNodeState"
     VersionedConnection:
       type: object
       description: The Connections
@@ -22810,12 +25262,13 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         destination:
           $ref: "#/components/schemas/ConnectableComponent"
         flowFileExpiration:
           type: string
-          description: The amount of time a flow file may be in the flow before it
-            will be automatically aged out of the flow. Once a flow file reaches this
+          description: The amount of time a FlowFile may be in the flow before it
+            will be automatically aged out of the flow. Once a FlowFile reaches this
             age it will be terminated from the flow the next time a processor attempts
             to start work on it.
         groupIdentifier:
@@ -22894,6 +25347,8 @@ components:
         comments:
           type: string
           description: The user-supplied comments for the component
+        componentState:
+          $ref: "#/components/schemas/VersionedComponentState"
         componentType:
           type: string
           enum:
@@ -22913,6 +25368,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         controllerServiceApis:
           type: array
           description: Lists the APIs this Controller Service implements.
@@ -23151,6 +25607,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         groupIdentifier:
           type: string
           description: The ID of the Process Group that this component belongs to
@@ -23193,6 +25650,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         groupIdentifier:
           type: string
           description: The ID of the Process Group that this component belongs to
@@ -23251,6 +25709,16 @@ components:
           enum:
           - TCP
           - UDP
+    VersionedNodeState:
+      type: object
+      description: The state entries for a single node
+      properties:
+        state:
+          type: object
+          additionalProperties:
+            type: string
+            description: The state key-value pairs for this node
+          description: The state key-value pairs for this node
     VersionedParameter:
       type: object
       description: The parameters in the context
@@ -23300,6 +25768,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         description:
           type: string
           description: The description of the parameter context
@@ -23373,6 +25842,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         concurrentlySchedulableTaskCount:
           type: integer
           format: int32
@@ -23438,6 +25908,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         connections:
           type: array
           description: The Connections
@@ -23567,10 +26038,10 @@ components:
         annotationData:
           type: string
           description: The annotation data for the processor used to relay configuration
-            between a custom UI and the procesosr.
+            between a custom UI and the processor.
         autoTerminatedRelationships:
           type: array
-          description: "The names of all relationships that cause a flow file to be\
+          description: "The names of all relationships that cause a FlowFile to be\
             \ terminated if the relationship is not connected elsewhere. This property\
             \ differs from the 'isAutoTerminate' property of the RelationshipDTO in\
             \ that the RelationshipDTO is meant to depict the current configuration,\
@@ -23578,7 +26049,7 @@ components:
             \ in order to change which Relationships should be auto-terminated."
           items:
             type: string
-            description: "The names of all relationships that cause a flow file to\
+            description: "The names of all relationships that cause a FlowFile to\
               \ be terminated if the relationship is not connected elsewhere. This\
               \ property differs from the 'isAutoTerminate' property of the RelationshipDTO\
               \ in that the RelationshipDTO is meant to depict the current configuration,\
@@ -23598,6 +26069,8 @@ components:
         comments:
           type: string
           description: The user-supplied comments for the component
+        componentState:
+          $ref: "#/components/schemas/VersionedComponentState"
         componentType:
           type: string
           enum:
@@ -23617,11 +26090,12 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         concurrentlySchedulableTaskCount:
           type: integer
           format: int32
           description: The number of tasks that should be concurrently schedule for
-            the processor. If the processor doesn't allow parallol processing then
+            the processor. If the processor doesn't allow parallel processing then
             any positive input will be ignored.
         executionNode:
           type: string
@@ -23645,8 +26119,8 @@ components:
           description: The component's name
         penaltyDuration:
           type: string
-          description: The amout of time that is used when the process penalizes a
-            flowfile.
+          description: The amount of time that is used when the process penalizes
+            a FlowFile.
         position:
           $ref: "#/components/schemas/Position"
         properties:
@@ -23757,10 +26231,11 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         concurrentlySchedulableTaskCount:
           type: integer
           format: int32
-          description: The number of task that may transmit flowfiles to the target
+          description: The number of task that may transmit FlowFiles to the target
             port concurrently.
         groupIdentifier:
           type: string
@@ -23793,7 +26268,7 @@ components:
           description: The ID of the port on the target NiFi instance
         useCompression:
           type: boolean
-          description: Whether the flowfiles are compressed when sent to the target
+          description: Whether the FlowFiles are compressed when sent to the target
             port.
     VersionedRemoteProcessGroup:
       type: object
@@ -23825,6 +26300,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         groupIdentifier:
           type: string
           description: The ID of the Process Group that this component belongs to
@@ -23895,6 +26371,8 @@ components:
         comments:
           type: string
           description: The user-supplied comments for the component
+        componentState:
+          $ref: "#/components/schemas/VersionedComponentState"
         componentType:
           type: string
           enum:
@@ -23914,6 +26392,7 @@ components:
           - PARAMETER_CONTEXT
           - PARAMETER_PROVIDER
           - FLOW_REGISTRY_CLIENT
+          - CONNECTOR
         groupIdentifier:
           type: string
           description: The ID of the Process Group that this component belongs to

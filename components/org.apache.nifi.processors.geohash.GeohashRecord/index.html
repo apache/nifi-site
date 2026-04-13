@@ -1000,10 +1000,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.asana.GetAsanaObject/">GetAsanaObject</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.aws.ml.polly.GetAwsPollyJobStatus/">GetAwsPollyJobStatus</a>
                 </li>
                 
@@ -1744,6 +1740,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.standard.UpdateGauge/">UpdateGauge</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.UpdateRecord/">UpdateRecord</a>
                 </li>
                 
@@ -1960,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.services.iceberg.gcs.GCSIcebergFileIOProvider/">GCSIcebergFileIOProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.grok.GrokReader/">GrokReader</a>
                 </li>
                 
@@ -2160,11 +2164,11 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.controller.asana.StandardAsanaClientProviderService/">StandardAsanaClientProviderService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.services.azure.StandardAzureCredentialsControllerService/">StandardAzureCredentialsControllerService</a>
+                  <a href="/components/org.apache.nifi.services.azure.StandardAzureIdentityFederationTokenProvider/">StandardAzureIdentityFederationTokenProvider</a>
                 </li>
                 
                 <li >
@@ -2455,7 +2459,7 @@
           
 
 
-<h3>GeohashRecord 2.7.2</h3>
+<h3>GeohashRecord 2.9.0</h3>
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2477,7 +2481,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for GeohashRecord 2.7.2</a>
+        <a class="uk-accordion-title" href>Additional Details for GeohashRecord 2.9.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -3002,6 +3006,11 @@ Geohash values given.</p>
                         
                         
                         <div><a href="/components/org.apache.nifi.excel.ExcelReader/">org.apache.nifi.excel.ExcelReader</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3814,6 +3823,11 @@ Geohash values given.</p>
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.json.JsonRecordSetWriter/">org.apache.nifi.json.JsonRecordSetWriter</a></div>
                         
                         
@@ -4205,14 +4219,14 @@ Geohash values given.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Routing Strategy</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how to route flowfiles after encoding or decoding being performed. SKIP will enrich those records that can be enriched and skip the rest. The SKIP strategy will route a flowfile to failure only if unable to parse the data. Otherwise, it will route the enriched flowfile to success, and the original input to original. SPLIT will separate the records that have been enriched from those that have not and send them to matched, while unenriched records will be sent to unmatched; the original input flowfile will be sent to original. The SPLIT strategy will route a flowfile to failure only if unable to parse the data. REQUIRE will route a flowfile to success only if all of its records are enriched, and the original input will be sent to original. The REQUIRE strategy will route the original input flowfile to failure if any of its records cannot be enriched or unable to be parsed</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how to route FlowFiles after encoding or decoding being performed. SKIP will enrich those records that can be enriched and skip the rest. The SKIP strategy will route a FlowFile to failure only if unable to parse the data. Otherwise, it will route the enriched FlowFile to success, and the original input to original. SPLIT will separate the records that have been enriched from those that have not and send them to matched, while unenriched records will be sent to unmatched; the original input FlowFile will be sent to original. The SPLIT strategy will route a FlowFile to failure only if unable to parse the data. REQUIRE will route a FlowFile to success only if all of its records are enriched, and the original input will be sent to original. The REQUIRE strategy will route the original input FlowFile to failure if any of its records cannot be enriched or unable to be parsed</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Routing Strategy</dd>
                     <dt>Description</dt>
-                    <dd>Specifies how to route flowfiles after encoding or decoding being performed. SKIP will enrich those records that can be enriched and skip the rest. The SKIP strategy will route a flowfile to failure only if unable to parse the data. Otherwise, it will route the enriched flowfile to success, and the original input to original. SPLIT will separate the records that have been enriched from those that have not and send them to matched, while unenriched records will be sent to unmatched; the original input flowfile will be sent to original. The SPLIT strategy will route a flowfile to failure only if unable to parse the data. REQUIRE will route a flowfile to success only if all of its records are enriched, and the original input will be sent to original. The REQUIRE strategy will route the original input flowfile to failure if any of its records cannot be enriched or unable to be parsed</dd>
+                    <dd>Specifies how to route FlowFiles after encoding or decoding being performed. SKIP will enrich those records that can be enriched and skip the rest. The SKIP strategy will route a FlowFile to failure only if unable to parse the data. Otherwise, it will route the enriched FlowFile to success, and the original input to original. SPLIT will separate the records that have been enriched from those that have not and send them to matched, while unenriched records will be sent to unmatched; the original input FlowFile will be sent to original. The SPLIT strategy will route a FlowFile to failure only if unable to parse the data. REQUIRE will route a FlowFile to success only if all of its records are enriched, and the original input will be sent to original. The REQUIRE strategy will route the original input FlowFile to failure if any of its records cannot be enriched or unable to be parsed</dd>
                     <dt>API Name</dt>
                     <dd>Routing Strategy</dd>
                     
@@ -4281,7 +4295,7 @@ Geohash values given.</p>
         
         <tr>
             <td>original</td>
-            <td class="uk-text-lighter">The original input flowfile will be sent to this relationship</td>
+            <td class="uk-text-lighter">The original input FlowFile will be sent to this relationship</td>
         </tr>
         
         <tr>
