@@ -9,9 +9,9 @@ menu:
     weight: 2
 ---
 
-<div class="version-deprecation-notice">
+<div class="uk-card uk-card-default uk-card-body uk-margin-bottom version-deprecation-notice">
   <strong>Apache NiFi Version 1 is no longer maintained.</strong>
-  This documentation applies to NiFi 1.x. For the latest documentation, see
+  This documentation applies to NiFi 1. For the latest documentation, see
   <a href="/components/">NiFi Version 2 Documentation</a>.
 </div>
 
