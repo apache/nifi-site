@@ -3,6 +3,28 @@
 
 <h3>{{ .Params.title }} {{ .Params.version }}</h3>
 
+{{ if .Params.deprecated }}
+<div class="uk-alert uk-alert-danger">
+    <strong>{{ .Params.title }}</strong> is <strong>deprecated</strong> and subject to removal in subsequent releases.
+
+    {{ if .Params.deprecationReason }}
+    <dl>
+        <dt>Background</dt>
+        <dd>{{ .Params.deprecationReason }}</dd>
+    </dl>
+    {{ end }}
+
+    {{ if .Params.deprecationAlternatives }}
+    <div class="uk-margin-top">Alternatives</div>
+    <ul class="uk-margin-remove-top">
+    {{ range .Params.deprecationAlternatives }}
+        <li><a class="uk-link-reset" href="/components/{{ . }}/">{{ . }}</a></li>
+    {{ end }}
+    </ul>
+    {{ end }}
+</div>
+{{ end }}
+
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>{{ .Params.group }} | {{ .Params.artifact }}</dd>
