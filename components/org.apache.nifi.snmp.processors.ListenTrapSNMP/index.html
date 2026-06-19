@@ -2459,7 +2459,7 @@
           
 
 
-<h3>ListenTrapSNMP 2.9.0</h3>
+<h3>ListenTrapSNMP 2.10.0</h3>
 
 
 
@@ -2483,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ListenTrapSNMP 2.9.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ListenTrapSNMP 2.10.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2503,7 +2503,7 @@
 <h2 id="summary">Summary</h2>
 <p>The ListenTrapSNMP processor listens for incoming SNMP traps and generates a FlowFile from the received Protocol Data Unit (PDU). It supports SNMPv1, SNMPv2c, and SNMPv3, utilizing the SNMP4J library.</p>
 <p>When configured to use SNMPv3, SNMPv1 and SNMPv2c are automatically disabled. As a result, traps using SNMPv1 or SNMPv2c message models will not be received or processed. This is done to enforce a higher level of security, as SNMPv1 and SNMPv2c transmit community strings in plaintext, making them vulnerable to interception and unauthorized access.</p>
-<p>For SNMPv3, security is based on a User-Based Security Model (USM). The &lsquo;USM Users Input Method&rsquo; property allows users to configure the USM user database in different ways. Below is an example JSON file defining two users as &ldquo;Json Content&rdquo;:</p>
+<p>For SNMPv3, security is based on a User-Based Security Model (USM). The &lsquo;USM Users Input Method&rsquo; property allows users to configure the USM user database in different ways. Below is an example JSON file defining three users as &ldquo;Json Content&rdquo;:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;securityName&#34;</span>: <span style="color:#e6db74">&#34;user1&#34;</span>,
@@ -2517,10 +2517,20 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authProtocol&#34;</span>: <span style="color:#e6db74">&#34;HMAC192SHA256&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authPassphrase&#34;</span>: <span style="color:#e6db74">&#34;authPassphrase2&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privProtocol&#34;</span>: <span style="color:#e6db74">&#34;AES256&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>: <span style="color:#e6db74">&#34;privPassphrase2&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>: <span style="color:#e6db74">&#34;privPassphrase2&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;localizationEngineID&#34;</span>:<span style="color:#e6db74">&#34;00:0A:95:9D:68:16&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;securityName&#34;</span>:<span style="color:#e6db74">&#34;user3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authProtocol&#34;</span>:<span style="color:#e6db74">&#34;HMAC384SHA512&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;authPassphrase&#34;</span>:<span style="color:#e6db74">&#34;authPassphrase3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privProtocol&#34;</span>:<span style="color:#e6db74">&#34;AES256&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;privPassphrase&#34;</span>:<span style="color:#e6db74">&#34;privPassphrase3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;localizationEngineID&#34;</span>:<span style="color:#e6db74">&#34;08A69E&#34;</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></div>
+</span></span></code></pre></div><p><strong>NOTE:</strong> <code>localizationEngineID</code> is not required, but if specified it must be a hex string either with or without colon delimiters.</p>
+
         </div>
     </li>
 </ul>

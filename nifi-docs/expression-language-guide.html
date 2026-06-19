@@ -4604,6 +4604,9 @@ the attribute to 1647613347678234567 nanoseconds since epoch.</p>
 <li>
 <p><span class="argName"><em>amount</em></span> : <span class="argDesc">A string in the form <code>"&lt;number&gt; &lt;unit&gt;"</code>. A space between the number and unit is required.</span></p>
 </li>
+<li>
+<p><span class="argName"><em>timezone</em></span> (optional) : <span class="argDesc">A timezone ID string (e.g. <code>"America/New_York"</code>, <code>"Europe/Vienna"</code>). When provided, calendar-unit arithmetic (days, weeks, months, years) is performed in the specified timezone so that wall-clock time is preserved across DST boundaries. When omitted, the JVM system default timezone is used.</span></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -4661,6 +4664,10 @@ Nanoseconds are accepted but have no effect on a <code>Date</code> subject becau
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):plusDuration('1 day')}</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the epoch milliseconds for the resulting Date.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('yyyy-MM-dd HH:mm:ss', 'Europe/Vienna'):plusDuration('1 day', 'Europe/Vienna'):format('yyyy-MM-dd HH:mm:ssXXX', 'Europe/Vienna')}</code> (where date = <code>"2026-03-29 00:00:00"</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2026-03-30 00:00:00+02:00</code> (DST-aware: wall-clock time preserved across spring-forward)</p></td>
+</tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
@@ -4691,6 +4698,11 @@ Nanoseconds are accepted but have no effect on a <code>Date</code> subject becau
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aug 4 00:00:00 + 25 hours</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aug 5 01:00:00</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DST spring-forward (with timezone)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mar 29 00:00:00 CET + 1 day (Europe/Vienna)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mar 30 00:00:00 CEST</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -4712,6 +4724,9 @@ Nanoseconds are accepted but have no effect on a <code>Date</code> subject becau
 <ul>
 <li>
 <p><span class="argName"><em>amount</em></span> : <span class="argDesc">A string in the form <code>"&lt;number&gt; &lt;unit&gt;"</code>. A space between the number and unit is required.</span></p>
+</li>
+<li>
+<p><span class="argName"><em>timezone</em></span> (optional) : <span class="argDesc">A timezone ID string (e.g. <code>"America/New_York"</code>, <code>"Europe/Vienna"</code>). When provided, calendar-unit arithmetic (days, weeks, months, years) is performed in the specified timezone so that wall-clock time is preserved across DST boundaries. When omitted, the JVM system default timezone is used.</span></p>
 </li>
 </ul>
 </div>
@@ -4770,6 +4785,10 @@ Nanoseconds are accepted but have no effect on a <code>Date</code> subject becau
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('dd-MM-yyyy'):minusDuration('1 day')}</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Returns the epoch milliseconds for the resulting Date.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${date:toDate('yyyy-MM-dd HH:mm:ss', 'America/New_York'):minusDuration('1 day', 'America/New_York'):format('yyyy-MM-dd HH:mm:ssXXX', 'America/New_York')}</code> (where date = <code>"2026-11-02 00:00:00"</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2026-11-01 00:00:00-04:00</code> (DST-aware: wall-clock time preserved across fall-back)</p></td>
+</tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
@@ -4799,6 +4818,11 @@ Nanoseconds are accepted but have no effect on a <code>Date</code> subject becau
 <td class="tableblock halign-left valign-top"><p class="tableblock">Crossing a day boundary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aug 4 00:00:00 - 1 second</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Aug 3 23:59:59</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DST fall-back (with timezone)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nov 2 00:00:00 EDT - 1 day (America/New_York)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nov 1 00:00:00 EDT</p></td>
 </tr>
 </tbody>
 </table>
@@ -5771,7 +5795,7 @@ an embedded Expression, though it does not have to be.</span></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:31:28 +0200
+Last updated 2026-06-15 16:07:03 -0700
 </div>
 </div>
 </body>

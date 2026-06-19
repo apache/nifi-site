@@ -2459,7 +2459,7 @@
           
 
 
-<h3>JsonQueryElasticsearch 2.9.0</h3>
+<h3>JsonQueryElasticsearch 2.10.0</h3>
 
 
 
@@ -2467,7 +2467,7 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-elasticsearch-restapi-nar</dd>
     <dt>Description</dt>
-    <dd>A processor that allows the user to run a query (with aggregations) written with the Elasticsearch JSON DSL. It does not automatically paginate queries for the user. If an incoming relationship is added to this processor, it will use the flowfile&#39;s content for the query. Care should be taken on the size of the query because the entire response from Elasticsearch will be loaded into memory all at once and converted into the resulting FlowFiles.</dd>
+    <dd>A processor that allows the user to run a query (with aggregations) written with the Elasticsearch JSON DSL. It does not automatically paginate queries for the user. If an incoming relationship is added to this processor, it will use the FlowFile&#39;s content for the query. Care should be taken on the size of the query because the entire response from Elasticsearch will be loaded into memory all at once and converted into the resulting FlowFiles.</dd>
     <dt>Tags</dt>
     <dd>elasticsearch, elasticsearch7, elasticsearch8, elasticsearch9, get, json, query, read</dd>
     <dt>Input Requirement</dt>
@@ -2483,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for JsonQueryElasticsearch 2.9.0</a>
+        <a class="uk-accordion-title" href>Additional Details for JsonQueryElasticsearch 2.10.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2622,14 +2622,14 @@ from their parent aggregation. The following is an example query that would be a
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Aggregation Results Split</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a flowfile containing all aggregations or one flowfile for each individual aggregation.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a FlowFile containing all aggregations or one FlowFile for each individual aggregation.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Aggregation Results Split</dd>
                     <dt>Description</dt>
-                    <dd>Output a flowfile containing all aggregations or one flowfile for each individual aggregation.</dd>
+                    <dd>Output a FlowFile containing all aggregations or one FlowFile for each individual aggregation.</dd>
                     <dt>API Name</dt>
                     <dd>Aggregation Results Split</dd>
                     
@@ -2643,11 +2643,11 @@ from their parent aggregation. The following is an example query that would be a
                             
                             <li>
                                 PER_HIT
-                                <span uk-icon="info" uk-tooltip="Flowfile per hit."></span></li>
+                                <span uk-icon="info" uk-tooltip="FlowFile per hit."></span></li>
                             
                             <li>
                                 PER_RESPONSE
-                                <span uk-icon="info" uk-tooltip="Flowfile per response."></span></li>
+                                <span uk-icon="info" uk-tooltip="FlowFile per response."></span></li>
                             
                         </ul>
                     </dd>
@@ -3516,14 +3516,14 @@ from their parent aggregation. The following is an example query that would be a
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Output No Hits</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a &#34;hits&#34; flowfile even if no hits found for query. If true, an empty &#34;hits&#34; flowfile will be output even if &#34;aggregations&#34; are output.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a &#34;hits&#34; FlowFile even if no hits found for query. If true, an empty &#34;hits&#34; FlowFile will be output even if &#34;aggregations&#34; are output.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Output No Hits</dd>
                     <dt>Description</dt>
-                    <dd>Output a &#34;hits&#34; flowfile even if no hits found for query. If true, an empty &#34;hits&#34; flowfile will be output even if &#34;aggregations&#34; are output.</dd>
+                    <dd>Output a &#34;hits&#34; FlowFile even if no hits found for query. If true, an empty &#34;hits&#34; FlowFile will be output even if &#34;aggregations&#34; are output.</dd>
                     <dt>API Name</dt>
                     <dd>Output No Hits</dd>
                     
@@ -3561,14 +3561,14 @@ from their parent aggregation. The following is an example query that would be a
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Query</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A query in JSON syntax, not Lucene syntax. Ex: {&#34;query&#34;:{&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}}. If this parameter is not set, the query will be read from the flowfile content. If the query (property and flowfile content) is empty, a default empty JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">A query in JSON syntax, not Lucene syntax. Ex: {&#34;query&#34;:{&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}}. If this parameter is not set, the query will be read from the FlowFile content. If the query (property and FlowFile content) is empty, a default empty JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Query</dd>
                     <dt>Description</dt>
-                    <dd>A query in JSON syntax, not Lucene syntax. Ex: {&#34;query&#34;:{&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}}. If this parameter is not set, the query will be read from the flowfile content. If the query (property and flowfile content) is empty, a default empty JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</dd>
+                    <dd>A query in JSON syntax, not Lucene syntax. Ex: {&#34;query&#34;:{&#34;match&#34;:{&#34;somefield&#34;:&#34;somevalue&#34;}}}. If this parameter is not set, the query will be read from the FlowFile content. If the query (property and FlowFile content) is empty, a default empty JSON Object will be used, which will result in a &#34;match_all&#34; query in Elasticsearch.</dd>
                     <dt>API Name</dt>
                     <dd>Query</dd>
                     
@@ -3607,14 +3607,14 @@ from their parent aggregation. The following is an example query that would be a
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Query Attribute</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If set, the executed query will be set on each result flowfile in the specified attribute.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If set, the executed query will be set on each result FlowFile in the specified attribute.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Query Attribute</dd>
                     <dt>Description</dt>
-                    <dd>If set, the executed query will be set on each result flowfile in the specified attribute.</dd>
+                    <dd>If set, the executed query will be set on each result FlowFile in the specified attribute.</dd>
                     <dt>API Name</dt>
                     <dd>Query Attribute</dd>
                     
@@ -3820,14 +3820,14 @@ from their parent aggregation. The following is an example query that would be a
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Search Results Split</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a flowfile containing all hits or one flowfile for each individual hit.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Output a FlowFile containing all hits or one FlowFile for each individual hit.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Search Results Split</dd>
                     <dt>Description</dt>
-                    <dd>Output a flowfile containing all hits or one flowfile for each individual hit.</dd>
+                    <dd>Output a FlowFile containing all hits or one FlowFile for each individual hit.</dd>
                     <dt>API Name</dt>
                     <dd>Search Results Split</dd>
                     
@@ -3841,11 +3841,11 @@ from their parent aggregation. The following is an example query that would be a
                             
                             <li>
                                 PER_HIT
-                                <span uk-icon="info" uk-tooltip="Flowfile per hit."></span></li>
+                                <span uk-icon="info" uk-tooltip="FlowFile per hit."></span></li>
                             
                             <li>
                                 PER_RESPONSE
-                                <span uk-icon="info" uk-tooltip="Flowfile per response."></span></li>
+                                <span uk-icon="info" uk-tooltip="FlowFile per response."></span></li>
                             
                         </ul>
                     </dd>
@@ -4122,17 +4122,17 @@ from their parent aggregation. The following is an example query that would be a
         
         <tr>
             <td>aggregation.name</td>
-            <td class="uk-text-lighter">The name of the aggregation whose results are in the output flowfile</td>
+            <td class="uk-text-lighter">The name of the aggregation whose results are in the output FlowFile</td>
         </tr>
         
         <tr>
             <td>aggregation.number</td>
-            <td class="uk-text-lighter">The number of the aggregation whose results are in the output flowfile</td>
+            <td class="uk-text-lighter">The number of the aggregation whose results are in the output FlowFile</td>
         </tr>
         
         <tr>
             <td>hit.count</td>
-            <td class="uk-text-lighter">The number of hits that are in the output flowfile</td>
+            <td class="uk-text-lighter">The number of hits that are in the output FlowFile</td>
         </tr>
         
         <tr>

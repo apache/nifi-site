@@ -1425,20 +1425,10 @@ Node but has now had its Primary Node role revoked).</p>
 <div class="sect2">
 <h3 id="restricted"><a class="anchor" href="#restricted"></a>Restricted</h3>
 <div class="paragraph">
-<p>A Restricted component is one that can be used to execute arbitrary unsanitized code provided by the operator
-through the NiFi REST API/UI or can be used to obtain or alter data on the NiFi host system using the NiFi OS
-credentials. These components could be used by an otherwise authorized NiFi user to go beyond the intended use of
-the application, escalate privilege, or could expose data about the internals of the NiFi process or the host
-system. All of these capabilities should be considered privileged, and admins should be aware of these
-capabilities and explicitly enable them for a subset of trusted users.</p>
-</div>
-<div class="paragraph">
-<p>A Processor, Controller Service, or Reporting Task can be marked with the @Restricted annotation. This
-will result in the component being treated as restricted and will require a user to be explicitly added to the
-list of users who can access restricted components. Once a user is permitted to access restricted components,
-they will be allowed to create and modify those components assuming all other permissions are permitted.
-Without access to restricted components, a user will still be aware these types of components exist but will
-be unable to create or modify them even with otherwise sufficient permissions.</p>
+<p>The <code>Restricted</code> class annotation has been removed (see <a href="https://issues.apache.org/jira/browse/NIP-24">NIP-24</a>).
+NiFi no longer treats components as a separate "restricted" category for authorization based on this annotation.
+Document sensitive capabilities in the component&#8217;s capability description and use standard authorization policies
+as appropriate for your deployment.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2945,36 +2935,33 @@ that references a Controller Service as such:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public static final PropertyDescriptor SSL_CONTEXT_SERVICE = new PropertyDescriptor.Builder()
-  .name("SSL Context Service")
-  .description("Specified the SSL Context Service that can be used to create secure connections")
+<pre class="highlight"><code class="language-java" data-lang="java">public static final PropertyDescriptor SSL_CONTEXT_PROVIDER = new PropertyDescriptor.Builder()
+  .name("SSL Context Provider")
+  .description("Specifies the service for securing connections encrypted with Transport Layer Security")
   .required(true)
-  .identifiesControllerService(SSLContextService.class)
+  .identifiesControllerService(SSLContextProvider.class)
   .build();</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Using this method, the user will be prompted to supply the SSL Context
-Service that should be used. This is
+Provider that should be used. This is
 done by providing the user with a drop-down menu from which they are
-able to choose any of the <code>SSLContextService</code>
-configurations that have been configured, regardless of the implementation.</p>
+able to choose any of the <code>SSLContextProvider</code>
+instances that have been configured, regardless of the implementation.</p>
 </div>
 <div class="paragraph">
 <p>In order to make use of this service, the Processor can use code such as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">final SSLContextService sslContextService = context.getProperty(SSL_CONTEXT_SERVICE)
-  .asControllerService(SSLContextService.class);</code></pre>
+<pre class="highlight"><code class="language-java" data-lang="java">final SSLContextProvider sslContextProvider = context.getProperty(SSL_CONTEXT_PROVIDER)
+  .asControllerService(SSLContextProvider.class);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Note here that <code>SSLContextService</code> is an interface that extends
-ControllerService. The only implementation
-at this time is the <code>StandardSSLContextService</code>. However, the
-Processor developer need not worry about this
-detail.</p>
+<p>Note here that <code>SSLContextProvider</code> is an interface that extends
+ControllerService.</p>
 </div>
 </div>
 </div>
@@ -3638,7 +3625,7 @@ far less complicated. Note here that the
 This is done so that any NAR that has a dependency on
 <code>my-controller-service-api-nar</code> will also be able to access
 all of the Controller Services that are provided by the
-<code>nifi-standard-services-api-nar</code>, such as the <code>SSLContextService</code>.
+<code>nifi-standard-services-api-nar</code>, such as the <code>SSLContextProvider</code>.
 In this same vein, it is not necessary to create a different
 "service-api" NAR for each service. Instead, it often
 makes sense to have a single "service-api" NAR that encapsulates the
@@ -3969,7 +3956,7 @@ worry about bothering us. Just ping the mailing list again.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:31:28 +0200
+Last updated 2026-06-15 16:07:02 -0700
 </div>
 </div>
 </body>

@@ -2459,7 +2459,7 @@
           
 
 
-<h3>JsonTreeReader 2.9.0</h3>
+<h3>JsonTreeReader 2.10.0</h3>
 
 
 
@@ -2483,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for JsonTreeReader 2.9.0</a>
+        <a class="uk-accordion-title" href>Additional Details for JsonTreeReader 2.10.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2892,51 +2892,6 @@ strategy).</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Allow Comments</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to allow comments when parsing the JSON document</div>
-            </a>
-            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
-                <dl class="uk-description-list">
-                    <dt>Display Name</dt>
-                    <dd>Allow Comments</dd>
-                    <dt>Description</dt>
-                    <dd>Whether to allow comments when parsing the JSON document</dd>
-                    <dt>API Name</dt>
-                    <dd>Allow Comments</dd>
-                    
-                    <dt>Default Value</dt>
-                    <dd>false</dd>
-                    
-                    
-                    <dt>Allowable Values</dt>
-                    <dd>
-                        <ul>
-                            
-                            <li>
-                                true
-                                </li>
-                            
-                            <li>
-                                false
-                                </li>
-                            
-                        </ul>
-                    </dd>
-                    
-                    
-                    <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
-                    <dt>Sensitive</dt>
-                    <dd>false</dd>
-                    <dt>Required</dt>
-                    <dd>true</dd>
-                    
-                </dl>
-            </div>
-        </li>
-        
-        <li class="property-descriptor">
-            <a class="uk-accordion-title" href>
                 <span class="">Date Format</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the format to use when reading/writing Date fields. If not specified, Date fields will be assumed to be number of milliseconds since epoch (Midnight, Jan 1, 1970 GMT). If specified, the value must match the Java java.time.format.DateTimeFormatter format (for example, MM/dd/yyyy for a two-digit month, followed by a two-digit day, followed by a four-digit year, all separated by &#39;/&#39; characters, as in 01/01/2017).</div>
             </a>
@@ -2965,20 +2920,70 @@ strategy).</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Max String Length</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum allowed length of a string value when parsing the JSON document</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The maximum allowed length of a string value when parsing the document</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Max String Length</dd>
                     <dt>Description</dt>
-                    <dd>The maximum allowed length of a string value when parsing the JSON document</dd>
+                    <dd>The maximum allowed length of a string value when parsing the document</dd>
                     <dt>API Name</dt>
                     <dd>Max String Length</dd>
                     
                     <dt>Default Value</dt>
                     <dd>20 MB</dd>
                     
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Parsing Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Set the strategy for the level of JSON specification conformity required</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Parsing Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>Set the strategy for the level of JSON specification conformity required</dd>
+                    <dt>API Name</dt>
+                    <dd>Parsing Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>STANDARD</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Standard
+                                <span uk-icon="info" uk-tooltip="Parse JSON per the JSON specification"></span></li>
+                            
+                            <li>
+                                Lenient
+                                <span uk-icon="info" uk-tooltip="Parse JSON leniently allowing Java comments (/**/ and //), Yaml comments (start of line begins with #)
+, leading plus sign in numbers (e.g. &#43;123), leading zeros in numbers (e.g. 0001),
+&#34;missing&#34; decimal numbers to end with a decimal point (e.g. 123.),
+&#34;missing value&#34; in an array (i.e. sequence of two commas, without value in-between e.g. [&#34;A&#34;,,&#34;C&#34;]),
+trailing comma in an array or member in an object, use of single quotes for quoting strings (i.e. use of an apostrophe)
+use of unquoted field names and use of unescaped control characters (ASCII characters with value less than 32)."></span></li>
+                            
+                        </ul>
+                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
@@ -3048,14 +3053,14 @@ strategy).</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Schema Application Strategy</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether the schema is defined for the whole JSON or for the selected part starting from &#34;Starting Field Name&#34;.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether the schema is defined for the whole document or for the selected part starting from &#34;Starting Field Name&#34;.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Schema Application Strategy</dd>
                     <dt>Description</dt>
-                    <dd>Specifies whether the schema is defined for the whole JSON or for the selected part starting from &#34;Starting Field Name&#34;.</dd>
+                    <dd>Specifies whether the schema is defined for the whole document or for the selected part starting from &#34;Starting Field Name&#34;.</dd>
                     <dt>API Name</dt>
                     <dd>Schema Application Strategy</dd>
                     
@@ -5481,14 +5486,14 @@ strategy).</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Starting Field Name</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Skips forward to the given nested JSON field (array or object) to begin processing.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Skips forward to the given nested field (array or object) to begin processing.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Starting Field Name</dd>
                     <dt>Description</dt>
-                    <dd>Skips forward to the given nested JSON field (array or object) to begin processing.</dd>
+                    <dd>Skips forward to the given nested field (array or object) to begin processing.</dd>
                     <dt>API Name</dt>
                     <dd>Starting Field Name</dd>
                     
@@ -5552,7 +5557,7 @@ strategy).</p>
                             
                             <li>
                                 Nested Field
-                                <span uk-icon="info" uk-tooltip="Skips forward to the given nested JSON field (array or object) to begin processing."></span></li>
+                                <span uk-icon="info" uk-tooltip="Skips forward to the given nested field (array or object) to begin processing."></span></li>
                             
                         </ul>
                     </dd>
