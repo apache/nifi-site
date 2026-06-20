@@ -2459,13 +2459,15 @@
           
 
 
-<h3>PutElasticsearchJson 2.9.0</h3>
+<h3>PutElasticsearchJson 2.10.0</h3>
+
+
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-elasticsearch-restapi-nar</dd>
     <dt>Description</dt>
-    <dd>An Elasticsearch put processor that uses the official Elastic REST client libraries to write JSON data. Supports three input formats selectable via the &#34;Input Content Format&#34; property: NDJSON (one JSON object per line), JSON Array (a top-level array of objects, streamed for memory efficiency), and Single JSON (the entire FlowFile is one document). FlowFiles are accumulated up to the configured Max Batch Size and flushed to Elasticsearch in _bulk API requests. Large files that exceed the batch size are automatically split into multiple _bulk requests.</dd>
+    <dd>An Elasticsearch put processor that uses the official Elastic REST client libraries to write JSON data. Supports three input formats selectable via the &#34;Input Content Format&#34; property: NDJSON (one JSON object per line), JSON Array (a top-level array of objects, streamed for memory efficiency), and Single JSON (the entire FlowFile is one document). FlowFiles are accumulated up to the configured Max Batch Size and flushed to Elasticsearch in _bulk API requests. Large files that exceed the batch size are automatically split into multiple _bulk requests. Records routed to the &#34;successful&#34; and &#34;errors&#34; relationships reflect the original FlowFile content, not the transformed document body sent to Elasticsearch (identifier/index/timestamp field extraction and null suppression are not reapplied), so the records remain suitable for replay.</dd>
     <dt>Tags</dt>
     <dd>elasticsearch, elasticsearch7, elasticsearch8, elasticsearch9, index, json, json array, ndjson, put</dd>
     <dt>Input Requirement</dt>
@@ -2481,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.9.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.10.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -3540,6 +3542,33 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="">Index Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the field within each document to use as the Elasticsearch index name. If the field is not present in a document or this property is left blank, the configured Index property value is used as the fallback.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Index Field</dd>
+                    <dt>Description</dt>
+                    <dd>The name of the field within each document to use as the Elasticsearch index name. If the field is not present in a document or this property is left blank, the configured Index property value is used as the fallback.</dd>
+                    <dt>API Name</dt>
+                    <dd>Index Field</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Index Operation</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The type of the operation used to index (create, delete, index, update, upsert)</div>
             </a>
@@ -3863,6 +3892,192 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Retain Identifier Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Identifier Field in the document body after extracting it for use as the Elasticsearch document ID. When true (default), the field is left in the document; set to false to remove it before indexing.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Retain Identifier Field</dd>
+                    <dt>Description</dt>
+                    <dd>Whether to keep the Identifier Field in the document body after extracting it for use as the Elasticsearch document ID. When true (default), the field is left in the document; set to false to remove it before indexing.</dd>
+                    <dt>API Name</dt>
+                    <dd>Retain Identifier Field</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>true</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Identifier Field</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Retain Index Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Index Field in the document body after extracting it for use as the Elasticsearch index name. When true (default), the field is left in the document; set to false to remove it before indexing.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Retain Index Field</dd>
+                    <dt>Description</dt>
+                    <dd>Whether to keep the Index Field in the document body after extracting it for use as the Elasticsearch index name. When true (default), the field is left in the document; set to false to remove it before indexing.</dd>
+                    <dt>API Name</dt>
+                    <dd>Retain Index Field</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>true</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Index Field</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Retain Timestamp Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Timestamp Field in the document body after copying its value to @timestamp. When true (default), the field is left in the document; set to false to remove it before indexing.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Retain Timestamp Field</dd>
+                    <dt>Description</dt>
+                    <dd>Whether to keep the Timestamp Field in the document body after copying its value to @timestamp. When true (default), the field is left in the document; set to false to remove it before indexing.</dd>
+                    <dt>API Name</dt>
+                    <dd>Retain Timestamp Field</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>true</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                true
+                                </li>
+                            
+                            <li>
+                                false
+                                </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Timestamp Field</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  value specified
+                                
+                                </span>
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Script</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The script for the document update/upsert. Only applies to Update/Upsert operations. Must be parsable as JSON Object. If left blank, the FlowFile content will be used for document update/upsert</div>
             </a>
@@ -3981,6 +4196,33 @@ Performance note: for JSON Array the impact is negligible since documents are al
                             
                         </ul>
                     </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="">Timestamp Field</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of a field within each document whose value will be written to Elasticsearch as the @timestamp field. If the field is absent or this property is left blank, no @timestamp is set.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Timestamp Field</dd>
+                    <dt>Description</dt>
+                    <dd>The name of a field within each document whose value will be written to Elasticsearch as the @timestamp field. If the field is absent or this property is left blank, no @timestamp is set.</dd>
+                    <dt>API Name</dt>
+                    <dd>Timestamp Field</dd>
+                    
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Environment variables defined at JVM level and system properties</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>false</dd>
                     
                 </dl>
             </div>

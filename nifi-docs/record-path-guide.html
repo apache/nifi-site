@@ -461,6 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#substringbeforelast">substringBeforeLast</a></li>
 <li><a href="#replace">replace</a></li>
 <li><a href="#replaceregex">replaceRegex</a></li>
+<li><a href="#replacenull">replaceNull</a></li>
 <li><a href="#concat">concat</a></li>
 <li><a href="#join">join</a></li>
 <li><a href="#anchored">anchored</a></li>
@@ -490,6 +491,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#filter_functions">Filter Functions</a>
 <ul class="sectlevel2">
 <li><a href="#contains">contains</a></li>
+<li><a href="#containsregex">containsRegex</a></li>
 <li><a href="#matchesregex">matchesRegex</a></li>
 <li><a href="#startswith">startsWith</a></li>
 <li><a href="#endswith">endsWith</a></li>
@@ -501,6 +503,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#math_functions">Math Functions</a>
 <ul class="sectlevel2">
 <li><a href="#tonumber">toNumber</a></li>
+<li><a href="#add">add</a></li>
+<li><a href="#subtract">subtract</a></li>
 <li><a href="#multiply">multiply</a></li>
 <li><a href="#divide">divide</a></li>
 </ul>
@@ -1175,6 +1179,36 @@ and the replacement value. The replacement value may optionally use back-referen
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>replaceRegex(/name, '(?&lt;hello&gt;[JD])', '${hello}x')</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Jxohn Dxoe</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="replacenull"><a class="anchor" href="#replacenull"></a>replaceNull</h3>
+<div class="paragraph">
+<p>Returns the value of the first argument when it is non-null. If the first argument evaluates to <code>null</code>, the function returns the replacement value.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>replaceNull( /details/vehicle, 'no vehicle' )</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no vehicle</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>replaceNull( /name, 'default' )</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John Doe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>replaceNull( /details/vehicle, /name )</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John Doe</p></td>
 </tr>
 </tbody>
 </table>
@@ -2522,6 +2556,38 @@ Given this example input, a RecordPath of <code>arrayOf(/elements[*], unescapeJs
 </table>
 </div>
 <div class="sect2">
+<h3 id="containsregex"><a class="anchor" href="#containsregex"></a>containsRegex</h3>
+<div class="paragraph">
+<p>Evaluates a Regular Expression against the contents of a String value and returns <code>true</code> if the String value contains a substring
+that matches the Regular Expression, <code>false</code> otherwise.
+This function requires 2 arguments: the String to run the regular expression against, and the regular expression to run.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/name[containsRegex(., 'o[gh]n')]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John Doe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/name[containsRegex(., 'John')]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">John Doe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/name[containsRegex(., 'o[xy]n')]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;returns no results&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="matchesregex"><a class="anchor" href="#matchesregex"></a>matchesRegex</h3>
 <div class="paragraph">
 <p>Evaluates a Regular Expression against the contents of a String value and returns <code>true</code> if the Regular Expression
@@ -2860,6 +2926,82 @@ only of white space (spaces, tabs, carriage returns, and new-line characters).</
 </table>
 </div>
 <div class="sect2">
+<h3 id="add"><a class="anchor" href="#add"></a>add</h3>
+<div class="paragraph">
+<p>Calculates the sum of two numbers.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add(2, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add('2.0', 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add(/flags, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add(2, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">57.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add(/load, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60.67</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="subtract"><a class="anchor" href="#subtract"></a>subtract</h3>
+<div class="paragraph">
+<p>Calculates the difference between two numbers.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RecordPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subtract(2, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subtract('2.0', 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subtract(/flags, 2)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subtract(2, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-53.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subtract(/load, /temp)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-49.33</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="multiply"><a class="anchor" href="#multiply"></a>multiply</h3>
 <div class="paragraph">
 <p>Calculates the product of two numbers.</p>
@@ -2940,7 +3082,7 @@ only of white space (spaces, tabs, carriage returns, and new-line characters).</
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:31:28 +0200
+Last updated 2026-06-15 16:07:03 -0700
 </div>
 </div>
 </body>

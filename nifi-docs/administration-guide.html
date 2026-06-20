@@ -1217,11 +1217,38 @@ with custom layout configuration.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>Components that run inside a Connector-managed flow also carry framework-supplied MDC values that identify the owning
+Connector:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>connectorId</code> contains the UUID of the Connector</p>
+</li>
+<li>
+<p><code>connectorName</code> contains the user-visible name of the Connector</p>
+</li>
+<li>
+<p><code>connectorComponent</code> contains the fully qualified class name of the Connector implementation</p>
+</li>
+<li>
+<p><code>connectorBundleGroup</code>, <code>connectorBundleArtifact</code>, <code>connectorBundleVersion</code> identify the NAR bundle the Connector was
+loaded from</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Additional implementation-specific MDC values may be supplied by the framework
+<code>ConnectorConfigurationProvider</code> extension via <code>getLoggingAttributes(String connectorId)</code>. The framework consults the
+provider at connector creation time and merges the result with the framework-managed keys above. Keys reserved by the
+framework (those listed above) cannot be overridden; attempts to do so are dropped and logged as a <code>WARN</code>.</p>
+</div>
+<div class="paragraph">
 <p>MDC named values can be added to a Logback pattern layout using the <code>mdc</code> conversion word.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;pattern&gt;%date %level [%thread] %mdc{processGroupId} %logger{40} %msg%n&lt;/pattern&gt;</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;pattern&gt;%date %level [%thread] %mdc{connectorId} %mdc{processGroupId} %logger{40} %msg%n&lt;/pattern&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5892,10 +5919,17 @@ documentation of the proxy for guidance for your deployment environment and use 
 <div class="ulist">
 <ul>
 <li>
-<p>By default, if NiFi is running securely it will only accept HTTP requests with a Host header matching the host[:port] that it is bound to. If NiFi is to accept requests directed to a different
-host[:port] the expected values need to be configured. This may be required when running behind a proxy or in a containerized environment. This is configured in a comma
-separated list in <em>nifi.properties</em> using the <code>nifi.web.proxy.host</code> property (e.g. <code>localhost:18443, proxyhost:443</code>). IPv6 addresses are accepted. Please refer to
-RFC 5952 Sections <a href="https://tools.ietf.org/html/rfc5952#section-4">4</a> and <a href="https://tools.ietf.org/html/rfc5952#section-6">6</a> for additional details.</p>
+<p>When configured with HTTPS enabled, the name in the <code>Host</code> header must match one of the DNS Subject Alternative Names
+included on the configured server X.509 certificate. The framework server also validates the name provided in the Server
+Name Indication extension during the TLS handshake against the configured server certificate. The server returns an HTTP
+400 Bad Request status when the requested <code>Host</code> header does not meet these requirements.</p>
+</li>
+<li>
+<p>The application supports providing alternative host addresses through either the <code>X-ProxyHost</code> or <code>X-Forwarded-Host</code>
+headers. The host address provided in one of these headers must be configured in the <code>nifi.web.proxy.host</code> property.
+The application uses the provided alternative host address to construct URLs that match the public address of the
+reverse proxy. The server returns an HTTP 421 Misdirected Request status when the requested proxy header value is not
+listed in the proxy host address property.</p>
 </li>
 <li>
 <p>NiFi will only accept HTTP requests with a X-ProxyContextPath, X-Forwarded-Context, or X-Forwarded-Prefix header if the value is allowed in the <code>nifi.web.proxy.context.path</code> property in
@@ -6130,12 +6164,12 @@ This cleanup mechanism takes into account only automatically created archived <e
 only considered if <code>nifi.security.user.login.identity.provider</code> is configured with a provider identifier. The default value is <code>./conf/login-identity-providers.xml</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.directory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The location of the nar library. The default value is <code>./lib</code> and probably should be left as is.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.restore.directory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The location that certain providers (e.g. UserGroupProviders) will look for previous configurations to restore from. There is no default value.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.restore.directory</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The location that certain providers (e.g. UserGroupProviders) will look for previous configurations to restore from. There is no default value.
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.nar.library.directory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The location of the nar library. The default value is <code>./lib</code> and probably should be left as is.<br>
 <br>
 <strong>NOTE</strong>: Additional library directories can be specified by using the <code>nifi.nar.library.directory.</code> prefix with unique suffixes and separate paths as values.<br>
 <br>
@@ -6481,6 +6515,10 @@ For example, if <code>nifi.content.repository.archive.max.usage.percentage</code
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.repository.archive.cleanup.frequency</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The frequency with which to schedule the content archive clean up task. The default value is <code>1 Minute</code>. A value lower than <code>1 Second</code> is not allowed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.claim.truncation.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When a Content Repository file is shared by many FlowFiles (see <code>nifi.content.claim.max.appendable.size</code>), the file cannot be deleted until every FlowFile that references it has been removed. If the last FlowFile written to such a file is itself large and is removed while earlier FlowFiles in the same file are still in use, NiFi can truncate the file at the offset where that final FlowFile began, reclaiming the disk space it occupied without touching any of the earlier FlowFiles. Truncation only ever applies to this trailing FlowFile; it is not a general defragmentation mechanism and does not reclaim space from FlowFiles in the middle of the file. When <code>nifi.content.repository.archive.enabled</code> is <code>false</code>, truncation runs whenever a trailing FlowFile becomes eligible. When archiving is enabled, truncation runs only while the container is under archive disk pressure (see <code>nifi.content.repository.archive.max.usage.percentage</code>), so that archiving handles reclamation under normal conditions and truncation supplements it when the archive cannot keep up. Set this property to <code>false</code> to disable tail-claim truncation entirely; doing so is always safe and simply forfeits this disk-reclamation optimization. The default value is <code>true</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -7358,10 +7396,14 @@ Providing three total network interfaces, including  <code>nifi.web.https.networ
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.proxy.host</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A comma separated list of allowed HTTP Host header values to consider when NiFi is running securely and will be receiving requests to a different host[:port] than it is bound to.
-For example, when running in a Docker container or behind a proxy (e.g. localhost:18443, proxyhost:443). By default, this value is blank meaning NiFi should only allow requests sent to the
-host[:port] that NiFi is bound to.
-Requests containing an invalid port in the Host or authority header return an HTTP 421 Misdirected Request status.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-separated list of allowed header values to consider when the application is running with
+HTTPS enabled and receives requests through a reverse proxy. Each value may include a domain name such as
+<code>nifi.apache.org</code> or a domain name with a port number such as <code>nifi.apache.org:8443</code>.</p>
+<p class="tableblock">Requests containing an invalid port in the <code>Host</code> or authority header return an HTTP 421 Misdirected Request status.
+Requests containing an <code>X-ProxyHost</code> or <code>X-Forwarded-Host</code> header with a value not listed in this property return an HTTP
+421 Misdirected Request status.</p>
+<p class="tableblock">Reverse proxy servers are responsible for filtering input request headers and providing allowed proxy host values to the
+application. Proxy host header values must be limited to including the domain name, without the port number.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.web.proxy.context.path</code></p></td>
@@ -8474,7 +8516,7 @@ nifi.nar.library.directory.otherCustomLibs=./other-custom-nars/lib</pre>
 <p>This section describes the process to use the Autoloading feature for custom processors.</p>
 </div>
 <div class="paragraph">
-<p>To use the autoloading feature, the <code>nifi.nar.library.autoload.directory</code> property must be configured to point at the desired directory. By default, this points at <code>./extensions</code>.</p>
+<p>To use the autoloading feature, the <code>nifi.nar.library.autoload.directory</code> property must be configured to point at the desired directory. By default, this points at <code>./extensions</code>. Prior to starting NiFi, ensure that this directory exists and has appropriate permissions for the nifi user and group.</p>
 </div>
 <div class="paragraph">
 <p>For example:</p>
@@ -8485,13 +8527,7 @@ nifi.nar.library.directory.otherCustomLibs=./other-custom-nars/lib</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Ensure that this directory exists and has appropriate permissions for the nifi user and group.</p>
-</div>
-<div class="paragraph">
-<p>Now, we must place our custom processor nar in the configured directory. The configured directory is relative to the NiFi Home directory; for example, let us say that our NiFi Home Dir is <code>/var/lib/nifi</code>, we would place our custom processor nar in <code>/var/lib/nifi/extensions</code>.</p>
-</div>
-<div class="paragraph">
-<p>Ensure that the file has appropriate permissions for the nifi user and group.</p>
+<p>Now, we must place our custom processor nar in the configured directory. The configured directory is relative to the NiFi Home directory; for example, let us say that our NiFi Home Dir is <code>/var/lib/nifi</code>, we would place our custom processor nar in <code>/var/lib/nifi/extensions</code>. Prior to copying a nar to the autoload directory, ensure that the file has appropriate permissions for the nifi user and group.</p>
 </div>
 <div class="paragraph">
 <p>Refresh the browser page and the custom processor should now be available when adding a new Processor to your flow.</p>
@@ -8746,7 +8782,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:31:28 +0200
+Last updated 2026-06-15 16:07:03 -0700
 </div>
 </div>
 </body>

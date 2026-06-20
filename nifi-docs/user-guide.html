@@ -2470,6 +2470,56 @@ If a Parameter Context is unset from a Process Group, it does <strong>NOT</stron
 <p>The value of a sensitive property must be set to a single Parameter reference. For example, values of <code>#{password}123</code> and <code>#{password}#{suffix}</code> are not allowed. Sending <code>#{password}123</code> would lead to exposing part of the sensitive property&#8217;s value. This is in contrast to a non-sensitive property, where a value such as <code>#{path}/child/file.txt</code> is valid.</p>
 </div>
 </div>
+<div class="sect4">
+<h5 id="parameter-value-references"><a class="anchor" href="#parameter-value-references"></a>Parameter Value References</h5>
+<div class="paragraph">
+<p>A Parameter&#8217;s <strong>value</strong> may itself be a reference to another Parameter. When a Parameter&#8217;s value is exactly <code>#{otherParameter}</code> (or <code>#{'Other Parameter'}</code> for names containing characters that are otherwise disallowed in unquoted references, such as spaces), the referencing Parameter is treated as a one-to-one alias of the referenced Parameter: at resolution time the alias&#8217;s effective value is replaced with the referenced Parameter&#8217;s value.</p>
+</div>
+<div class="paragraph">
+<p>This is a one-to-one alias only. The Parameter&#8217;s value must be a single reference and nothing else: literal text combined with a reference (<code>jdbc://#{db_host}:3306</code>) or multiple references (<code>#{a}#{b}</code>) are left as-is and not treated as aliases.</p>
+</div>
+<div class="paragraph">
+<p>The referenced Parameter may be any Parameter visible in the bound Parameter Context&#8217;s effective scope: a Parameter defined in the same Context, a Parameter inherited from another Parameter Context, or a Parameter sourced from a <a href="#parameter-providers">Parameter Provider</a>. The referencing and referenced Parameters must have the same sensitivity; otherwise the reference is left unresolved.</p>
+</div>
+<div class="paragraph">
+<p>Resolution is performed a single level deep&#8201;&#8212;&#8201;aliases of aliases are not followed. For example, if Parameter <code>A</code> has value <code>#{B}</code> and Parameter <code>B</code> has value <code>#{C}</code>, then <code>A</code> resolves to the literal value <code>#{C}</code>, not to the value of <code>C</code>.</p>
+</div>
+<div class="paragraph">
+<p>Updating the referenced Parameter&#8217;s value cascades transparently: components configured with the alias are identified as affected components and are stopped, validated, and restarted as part of the Parameter Context update, just as if they had referenced the underlying Parameter directly.</p>
+</div>
+<div class="paragraph">
+<p>To illustrate, assume a Parameter Context <code>Shared</code> defines <code>db_host</code> with value <code>myserver.example.com</code>, and a Parameter Context <code>App</code> inherits from <code>Shared</code> and defines an alias <code>host</code> with value <code>#{db_host}</code>. A processor bound to <code>App</code> configured with <code>#{host}</code> resolves to <code>myserver.example.com</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Aliasing Parameter (in App)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Referenced Parameter (in Shared)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Effective Property Value</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>host</code> = <code>#{db_host}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>db_host</code> = <code>myserver.example.com</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>myserver.example.com</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code> = <code>#{secret_value}</code> (sensitive)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secret_value</code> = <code>s3cr3t</code> (sensitive)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>s3cr3t</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code> = <code>jdbc://#{db_host}:3306</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>db_host</code> = <code>myserver.example.com</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jdbc://#{db_host}:3306</code> (not an alias - literal text plus reference)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="parameter-providers"><a class="anchor" href="#parameter-providers"></a>Parameter Providers</h4>
@@ -5816,7 +5866,7 @@ the <a href="administration-guide.html#nifi-system-administrators-guide">System 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-04-07 17:31:28 +0200
+Last updated 2026-06-15 16:07:03 -0700
 </div>
 </div>
 </body>

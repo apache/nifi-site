@@ -2459,7 +2459,9 @@
           
 
 
-<h3>PublishAMQP 2.9.0</h3>
+<h3>PublishAMQP 2.10.0</h3>
+
+
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2481,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PublishAMQP 2.9.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PublishAMQP 2.10.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2702,6 +2704,51 @@ to <a href="http://blog.dtzq.com/2012/06/rabbitmq-users-and-virtual-hosts.html">
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Delivery Guarantee</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Controls whether the processor waits for a publish confirmation (broker ack/nack) before routing the FlowFile. &#34;At least once&#34; enables RabbitMQ Publisher Confirms: the processor blocks until the broker acknowledges the message, and undeliverable messages (no matching queue binding) are reliably routed to &#39;failure&#39;. This prevents silent data loss at the cost of significantly higher latency, especially with remote brokers. &#34;At most once&#34; uses the original fire-and-forget mode: the message is sent without waiting for confirmation. Undeliverable messages are only logged as a warning and the FlowFile is still routed to &#39;success&#39;. This mode offers maximum throughput but provides no delivery guarantee.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Delivery Guarantee</dd>
+                    <dt>Description</dt>
+                    <dd>Controls whether the processor waits for a publish confirmation (broker ack/nack) before routing the FlowFile. &#34;At least once&#34; enables RabbitMQ Publisher Confirms: the processor blocks until the broker acknowledges the message, and undeliverable messages (no matching queue binding) are reliably routed to &#39;failure&#39;. This prevents silent data loss at the cost of significantly higher latency, especially with remote brokers. &#34;At most once&#34; uses the original fire-and-forget mode: the message is sent without waiting for confirmation. Undeliverable messages are only logged as a warning and the FlowFile is still routed to &#39;success&#39;. This mode offers maximum throughput but provides no delivery guarantee.</dd>
+                    <dt>API Name</dt>
+                    <dd>Delivery Guarantee</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>AT_MOST_ONCE</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                At most once
+                                <span uk-icon="info" uk-tooltip="Fire-and-forget: message is sent without waiting for a broker acknowledgement. Undeliverable messages (no matching queue binding) are logged as a warning and the FlowFile is routed to &#39;success&#39;. Offers maximum throughput."></span></li>
+                            
+                            <li>
+                                At least once
+                                <span uk-icon="info" uk-tooltip="Publisher Confirms are enabled: the processor blocks until the broker acknowledges the message (ack or nack). Undeliverable messages are reliably detected and routed to &#39;failure&#39;. Prevents silent data loss at the cost of higher latency, particularly with remote brokers."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
                     
                 </dl>
             </div>

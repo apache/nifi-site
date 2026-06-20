@@ -2459,7 +2459,9 @@
           
 
 
-<h3>PutBigQuery 2.9.0</h3>
+<h3>PutBigQuery 2.10.0</h3>
+
+
 
 <dl class="uk-description-list">
     <dt>Bundle</dt>
@@ -2481,7 +2483,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutBigQuery 2.9.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutBigQuery 2.10.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -4921,6 +4923,55 @@ details.</p>
                             <li>
                                 BATCH
                                 <span uk-icon="info" uk-tooltip="Use batching record handling strategy"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Unmatched Field Behavior</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how to handle fields in the incoming record that do not exist in the destination BigQuery table schema.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Unmatched Field Behavior</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies how to handle fields in the incoming record that do not exist in the destination BigQuery table schema.</dd>
+                    <dt>API Name</dt>
+                    <dd>Unmatched Field Behavior</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Ignore Unmatched Fields</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Ignore Unmatched Fields
+                                <span uk-icon="info" uk-tooltip="Any record field that does not map to a BigQuery table column is silently ignored."></span></li>
+                            
+                            <li>
+                                Warn on Unmatched Fields
+                                <span uk-icon="info" uk-tooltip="Any record field that does not map to a BigQuery table column is ignored, but a warning is logged per affected record."></span></li>
+                            
+                            <li>
+                                Fail on Unmatched Fields
+                                <span uk-icon="info" uk-tooltip="If a record contains a field that does not map to a BigQuery table column, the FlowFile is routed to the failure relationship. This decision is independent of Skip Invalid Rows, which only governs row-level serialization failures."></span></li>
                             
                         </ul>
                     </dd>

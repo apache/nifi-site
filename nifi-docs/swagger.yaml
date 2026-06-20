@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.9.0
+  version: 2.10.0
 security:
 - HTTPBearerJWT: []
 - CookieSecureAuthorizationBearer: []
@@ -371,6 +371,51 @@ paths:
       security:
       - Read - /connectors/{uuid}: []
       summary: Gets all controller services for a process group within a connector
+      tags:
+      - Connectors
+  /connectors/{connectorId}/flow/process-groups/{processGroupId}/parameter-context:
+    get:
+      description: "Returns the parameter context (with effective parameters, including\
+        \ those inherited from other contexts) bound to the specified process group\
+        \ within the connector's hierarchy. Sensitive parameter values are masked.\
+        \ Returns 204 No Content if the process group has no bound parameter context."
+      operationId: getParameterContextForConnectorProcessGroup
+      parameters:
+      - description: The connector id.
+        in: path
+        name: connectorId
+        required: true
+        schema:
+          type: string
+      - description: The process group id.
+        in: path
+        name: processGroupId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParameterContextEntity"
+        "204":
+          description: The specified process group has no bound parameter context.
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the parameter context bound to a process group within a connector
       tags:
       - Connectors
   /connectors/{id}:
@@ -1551,6 +1596,103 @@ paths:
       summary: Gets the status for the process group managed by a connector
       tags:
       - Connectors
+  /connectors/{id}/troubleshooting:
+    delete:
+      description: "Ends Troubleshooting mode for the Connector, restoring the authoritative\
+        \ flow. All components in the managed flow must be stopped and disabled, and\
+        \ the managed flow must have no active tasks."
+      operationId: endTroubleshooting
+      parameters:
+      - description: The revision is used to verify the client is working with the
+          latest version of the flow.
+        in: query
+        name: version
+        schema:
+          $ref: "#/components/schemas/LongParameter"
+      - description: "If the client id is not specified, new one will be generated.\
+          \ This value (whether specified or generated) is included in the response."
+        in: query
+        name: clientId
+        schema:
+          $ref: "#/components/schemas/ClientIdParameter"
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
+        name: disconnectedNodeAcknowledged
+        schema:
+          type: boolean
+          default: false
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid} or /operation/connectors/{uuid}: []
+      summary: Transitions a Connector out of Troubleshooting mode
+      tags:
+      - Connectors
+    post:
+      description: Places the Connector into Troubleshooting mode so that its managed
+        flow may be directly modified. Standard lifecycle operations are disabled
+        while in Troubleshooting mode.
+      operationId: enterTroubleshooting
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectorEntity"
+        description: The connector entity with revision.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectorEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid} or /operation/connectors/{uuid}: []
+      summary: Transitions a Connector into Troubleshooting mode
+      tags:
+      - Connectors
   /connectors/{id}/working-configuration:
     delete:
       description: This will discard any pending configuration changes for the connector
@@ -1868,7 +2010,8 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /controller-services/{uuid}: []
+      - Write - /controller-services/{uuid}: []
+      - Read - any referenced Controller Services - /controller-services/{uuid}: []
       summary: Performs verification of the Controller Service's configuration
       tags:
       - Controller Services
@@ -2437,7 +2580,6 @@ paths:
       security:
       - Write - /controller: []
       - Read - any referenced Controller Services - /controller-services/{uuid}: []
-      - Write - if the Controller Service is restricted - /restricted-components: []
       summary: Creates a new controller service
       tags:
       - Controller
@@ -2493,7 +2635,6 @@ paths:
       security:
       - Write - /controller: []
       - Read - any referenced Controller Services - /controller-services/{uuid}: []
-      - Write - if the Flow Analysis Rule is restricted - /restricted-components: []
       summary: Creates a new flow analysis rule
       tags:
       - Controller
@@ -2748,7 +2889,9 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /flow-analysis-rules/{uuid}: []
+      - Write - /controller: []
+      - Write - /flow-analysis-rules/{uuid}: []
+      - Read - any referenced Controller Services - /controller-services/{uuid}: []
       summary: Performs verification of the Flow Analysis Rule's configuration
       tags:
       - Controller
@@ -3260,7 +3403,6 @@ paths:
       security:
       - Write - /controller: []
       - Read - any referenced Controller Services - /controller-services/{uuid}: []
-      - Write - if the Parameter Provider is restricted - /restricted-components: []
       summary: Creates a new parameter provider
       tags:
       - Controller
@@ -3605,7 +3747,8 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /controller: []
+      - Write - /controller/registry-clients/{uuid}: []
+      - Read - any referenced Controller Services - /controller-services/{uuid}: []
       summary: Performs verification of the Registry Client's configuration
       tags:
       - Controller
@@ -3796,7 +3939,6 @@ paths:
       security:
       - Write - /controller: []
       - Read - any referenced Controller Services - /controller-services/{uuid}: []
-      - Write - if the Reporting Task is restricted - /restricted-components: []
       summary: Creates a new reporting task
       tags:
       - Controller
@@ -7151,7 +7293,7 @@ paths:
         required: true
         schema:
           type: string
-      - description: The flowfile uuid.
+      - description: The FlowFile uuid.
         in: path
         name: flowfile-uuid
         required: true
@@ -7206,7 +7348,7 @@ paths:
         required: true
         schema:
           type: string
-      - description: The flowfile uuid.
+      - description: The FlowFile uuid.
         in: path
         name: flowfile-uuid
         required: true
@@ -8914,7 +9056,8 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /parameter-providers/{uuid}: []
+      - Write - /parameter-providers/{uuid}: []
+      - Read - any referenced Controller Services - /controller-services/{uuid}: []
       summary: Performs verification of the Parameter Provider's configuration
       tags:
       - ParameterProviders
@@ -9871,7 +10014,6 @@ paths:
       security:
       - Write - /process-groups/{uuid}: []
       - Read - any referenced Controller Services - /controller-services/{uuid}: []
-      - Write - if the Controller Service is restricted - /restricted-components: []
       summary: Creates a new controller service
       tags:
       - ProcessGroups
@@ -9933,6 +10075,14 @@ paths:
         schema:
           type: boolean
           default: false
+      - description: If component state should be included in the exported flow definition.
+          Requires all processors to be stopped and all controller services to be
+          disabled.
+        in: query
+        name: includeComponentState
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           content:
@@ -9953,6 +10103,7 @@ paths:
             to process it.
       security:
       - Read - /process-groups/{uuid}: []
+      - Write - /process-groups/{uuid} - Only required when includeComponentState is true: []
       summary: Gets a process group for download
       tags:
       - ProcessGroups
@@ -10743,7 +10894,6 @@ paths:
       security:
       - Write - /process-groups/{uuid}: []
       - Read - any referenced Controller Services - /controller-services/{uuid}: []
-      - Write - if the Processor is restricted - /restricted-components: []
       summary: Creates a new processor
       tags:
       - ProcessGroups
@@ -10869,7 +11019,6 @@ paths:
       - Write - /process-groups/{uuid}: []
       - Read - /{component-type}/{uuid} - For all encapsulated components: []
       - Write - /{component-type}/{uuid} - For all encapsulated components: []
-      - Write - if the snapshot contains any restricted components - /restricted-components: []
       - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
           by a Property that is changed, added, or removed
         : []
@@ -10914,7 +11063,6 @@ paths:
       security:
       - Write - /process-groups/{uuid}: []
       - Read - /{component-type}/{uuid} - For each component in the snippet and their descendant components: []
-      - Write - if the snippet contains any restricted Processors - /restricted-components: []
       summary: Copies a snippet and discards it.
       tags:
       - ProcessGroups
@@ -11207,7 +11355,8 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /processors/{uuid}: []
+      - Write - /processors/{uuid}: []
+      - Read - any referenced Controller Services - /controller-services/{uuid}: []
       summary: Performs verification of the Processor's configuration
       tags:
       - Processors
@@ -12769,7 +12918,8 @@ paths:
           description: The request was valid but NiFi was not in the appropriate state
             to process it.
       security:
-      - Read - /reporting-tasks/{uuid}: []
+      - Write - /reporting-tasks/{uuid}: []
+      - Read - any referenced Controller Services - /controller-services/{uuid}: []
       summary: Performs verification of the Reporting Task's configuration
       tags:
       - ReportingTasks
@@ -14003,6 +14153,49 @@ paths:
       summary: Update the version of a Process Group with the given ID
       tags:
       - Versions
+  /versions/process-groups/{id}/branches:
+    post:
+      description: "Note: This endpoint is subject to change as NiFi and it's REST\
+        \ API evolve."
+      operationId: createFlowBranch
+      parameters:
+      - description: The process group id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFlowBranchRequestEntity"
+        description: The branch creation request.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionControlInformationEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /process-groups/{uuid}: []
+      - Write - /process-groups/{uuid}: []
+      summary: Creates a new branch for a version controlled Process Group
+      tags:
+      - Versions
   /versions/process-groups/{id}/download:
     get:
       operationId: exportFlowVersion
@@ -14088,7 +14281,6 @@ paths:
       - Write - /process-groups/{uuid}: []
       - Read - /{component-type}/{uuid} - For all encapsulated components: []
       - Write - /{component-type}/{uuid} - For all encapsulated components: []
-      - Write - if the template contains any restricted components - /restricted-components: []
       - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
           by a Property that is changed, added, or removed
         : []
@@ -14231,7 +14423,6 @@ paths:
       - Write - /process-groups/{uuid}: []
       - Read - /{component-type}/{uuid} - For all encapsulated components: []
       - Write - /{component-type}/{uuid} - For all encapsulated components: []
-      - Write - if the template contains any restricted components - /restricted-components: []
       - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
           by a Property that is changed, added, or removed
         : []
@@ -17146,6 +17337,8 @@ components:
           - ControllerService
           - ReportingTask
           - FlowRegistryClient
+          - ParameterProvider
+          - FlowAnalysisRule
         referencingComponents:
           type: array
           description: "If the referencing component represents a controller service,\
@@ -17583,6 +17776,28 @@ components:
           description: The Process Group ID that this active request will update
       xml:
         name: createActiveRequestEntity
+    CreateFlowBranchRequestEntity:
+      type: object
+      properties:
+        branch:
+          type: string
+          description: The name of the new branch to create
+        disconnectedNodeAcknowledged:
+          type: boolean
+          description: Acknowledges that this node is disconnected to allow for mutable
+            requests to proceed.
+        processGroupRevision:
+          $ref: "#/components/schemas/RevisionDTO"
+        sourceBranch:
+          type: string
+          description: The name of the source branch to create the new branch from.
+            Defaults to the branch currently tracking in NiFi.
+        sourceVersion:
+          type: string
+          description: The version on the source branch to use when creating the new
+            branch. Defaults to the version currently tracked by NiFi.
+      xml:
+        name: createFlowBranchRequestEntity
     CurrentUserEntity:
       type: object
       properties:
