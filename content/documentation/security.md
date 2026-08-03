@@ -72,6 +72,27 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-68979"
+title="Missing Authorization for Components Referenced by Parameter Context Updates"
+published="2026-08-03"
+severity="Medium"
+products="Apache NiFi"
+affectedVersions="1.10.0 to 2.10.0"
+fixedVersion="2.11.0"
+jira="NIFI-16148"
+pullRequest="11479"
+reporter="D0HY30N" >}}
+
+Apache NiFi 1.10.0 through 2.10.0 provide a Parameter Context update REST API method that does not enforce authorization checking on components referencing Parameter values. Updating a Parameter
+Context can change parameter values that affect referencing components, but framework authorization was limited to read and write privileges on the Parameter Context itself. As a result of the missing
+authorization, an authenticated user authorized to modify a Parameter Context, but not authorized on referencing components, could alter Parameter values affecting those components. In deployments
+where a Parameter value contains executable scripting content, updating a Parameter can result in code execution during automatic component validation, without starting the referencing component. The
+impact was limited to stopped components by existing verification checks, and the issue applies only to deployments that use component-level authorization policies. Upgrading to Apache NiFi 2.11.0 is
+the recommended mitigation, which aligns the Parameter Context update method authorization with other methods, adding authorization checking on affected components.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-62354"
 title="Incorrect Authorization for Parameter Context Validation Requests"
 published="2026-08-03"
