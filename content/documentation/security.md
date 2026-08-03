@@ -72,6 +72,26 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-68980"
+title="Authorization Bypass for Parameter Context Asset Deletion"
+published="2026-08-03"
+severity="Low"
+products="Apache NiFi"
+affectedVersions="2.0.0 to 2.10.0"
+fixedVersion="2.11.0"
+jira="NIFI-16154"
+pullRequest="11485"
+reporter="mak3bread (Minseong Kim)" >}}
+
+Apache NiFi 2.0.0 through 2.10.0 support creating, reading, and deleting Assets associated with Parameter Contexts through the REST API. The framework authorizes asset deletion against the owning
+Parameter Context using the supplied Parameter Context Identifier and Asset Identifier. The framework performed authorized based on the supplied Parameter Context Identifier without verifying the
+requested Identifier against the stored Identifier. Apache NiFi installations that do not implement different levels of authorization across Parameter Contexts are not subject to this vulnerability,
+because the framework enforces write permissions as the security boundary. Upgrading to Apache NiFi 2.11.0 is the recommended mitigation, which verifies Parameter Context ownership of the requested
+Asset before deletion using the same strategy applied to Asset read operations.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-68979"
 title="Missing Authorization for Components Referenced by Parameter Context Updates"
 published="2026-08-03"
