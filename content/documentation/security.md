@@ -72,6 +72,25 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-62354"
+title="Incorrect Authorization for Parameter Context Validation Requests"
+published="2026-08-03"
+severity="High"
+products="Apache NiFi"
+affectedVersions="1.10.0 to 2.10.0"
+fixedVersion="2.11.0"
+jira="NIFI-16112"
+pullRequest="11429"
+reporter="Nguyen Van Hiep from MBBank" >}}
+
+Authorization handling for Parameter Context validation requests in Apache NiFi 1.10.0 through 2.10.0 allows clients with read access to submit proposed Parameter values. The proposed values override
+current configuration, enabling users with read access to invoke predefined component validation methods with alternative settings. Apache NiFi installations that do not implement different levels of
+authorization for viewing and modifying Parameter Context configuration are not subject to this vulnerability. Upgrading to Apache NiFi 2.11.0 is the recommended mitigation, requiring write access to
+submit Parameter Context validation requests.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-54665"
 title="Missing Validation for Proxy Host Headers"
 published="2026-06-20"
