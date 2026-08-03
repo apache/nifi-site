@@ -150,7 +150,7 @@
     <div class="app-desc">REST API definition for Apache NiFi web services</div>
     <div class="app-desc">More information: <a href="https://nifi.apache.org">https://nifi.apache.org</a></div>
     <div class="app-desc">Contact Info: <a href="dev@nifi.apache.org">dev@nifi.apache.org</a></div>
-    <div class="app-desc">Version: 2.10.0</div>
+    <div class="app-desc">Version: 2.11.0</div>
     
     <div class="license-info">Apache 2.0</div>
     <div class="license-url">https://www.apache.org/licenses/LICENSE-2.0.html</div>
@@ -189,9 +189,13 @@
   <li><a href="#clearConnectorProcessorState"><code><span class="http-method">post</span> /connectors/{id}/processors/{processorId}/state/clear-requests</code></a></li>
   <li><a href="#createAsset"><code><span class="http-method">post</span> /connectors/{id}/assets</code></a></li>
   <li><a href="#createConnector"><code><span class="http-method">post</span> /connectors</code></a></li>
+  <li><a href="#createMigrationPayload"><code><span class="http-method">post</span> /connectors/{id}/migration-payloads</code></a></li>
+  <li><a href="#createMigrationRequest"><code><span class="http-method">post</span> /connectors/{id}/migration-requests</code></a></li>
   <li><a href="#createPurgeRequest"><code><span class="http-method">post</span> /connectors/{id}/purge-requests</code></a></li>
   <li><a href="#deleteConfigurationStepVerificationRequest"><code><span class="http-method">delete</span> /connectors/{id}/configuration-steps/{configurationStepName}/verify-config/{requestId}</code></a></li>
   <li><a href="#deleteConnector"><code><span class="http-method">delete</span> /connectors/{id}</code></a></li>
+  <li><a href="#deleteConnectorBacklogRequest"><code><span class="http-method">delete</span> /connectors/{id}/backlog-requests/{requestId}</code></a></li>
+  <li><a href="#deleteMigrationRequest"><code><span class="http-method">delete</span> /connectors/{id}/migration-requests/{requestId}</code></a></li>
   <li><a href="#discardConnectorUpdate"><code><span class="http-method">delete</span> /connectors/{id}/working-configuration</code></a></li>
   <li><a href="#endTroubleshooting"><code><span class="http-method">delete</span> /connectors/{id}/troubleshooting</code></a></li>
   <li><a href="#enterTroubleshooting"><code><span class="http-method">post</span> /connectors/{id}/troubleshooting</code></a></li>
@@ -199,14 +203,21 @@
   <li><a href="#getAssets"><code><span class="http-method">get</span> /connectors/{id}/assets</code></a></li>
   <li><a href="#getConfigurationStepVerificationRequest"><code><span class="http-method">get</span> /connectors/{id}/configuration-steps/{configurationStepName}/verify-config/{requestId}</code></a></li>
   <li><a href="#getConnector"><code><span class="http-method">get</span> /connectors/{id}</code></a></li>
+  <li><a href="#getConnectorBacklogRequest"><code><span class="http-method">get</span> /connectors/{id}/backlog-requests/{requestId}</code></a></li>
   <li><a href="#getConnectorConfigurationStep"><code><span class="http-method">get</span> /connectors/{id}/configuration-steps/{configurationStepName}</code></a></li>
   <li><a href="#getConnectorConfigurationSteps"><code><span class="http-method">get</span> /connectors/{id}/configuration-steps</code></a></li>
+  <li><a href="#getConnectorConnectionStatusHistory"><code><span class="http-method">get</span> /connectors/{id}/connections/{connectionId}/status/history</code></a></li>
   <li><a href="#getConnectorControllerServiceState"><code><span class="http-method">get</span> /connectors/{id}/controller-services/{controllerServiceId}/state</code></a></li>
+  <li><a href="#getConnectorProcessGroupStatusHistory"><code><span class="http-method">get</span> /connectors/{id}/process-groups/{processGroupId}/status/history</code></a></li>
   <li><a href="#getConnectorProcessorState"><code><span class="http-method">get</span> /connectors/{id}/processors/{processorId}/state</code></a></li>
+  <li><a href="#getConnectorProcessorStatusHistory"><code><span class="http-method">get</span> /connectors/{id}/processors/{processorId}/status/history</code></a></li>
   <li><a href="#getConnectorPropertyAllowableValues"><code><span class="http-method">get</span> /connectors/{id}/configuration-steps/{configurationStepName}/property-groups/{propertyGroupName}/properties/{propertyName}/allowable-values</code></a></li>
+  <li><a href="#getConnectorRemoteProcessGroupStatusHistory"><code><span class="http-method">get</span> /connectors/{id}/remote-process-groups/{remoteProcessGroupId}/status/history</code></a></li>
   <li><a href="#getConnectorStatus"><code><span class="http-method">get</span> /connectors/{id}/status</code></a></li>
   <li><a href="#getControllerServicesFromConnectorProcessGroup"><code><span class="http-method">get</span> /connectors/{connectorId}/flow/process-groups/{processGroupId}/controller-services</code></a></li>
   <li><a href="#getFlow"><code><span class="http-method">get</span> /connectors/{connectorId}/flow/process-groups/{processGroupId}</code></a></li>
+  <li><a href="#getMigrationRequest"><code><span class="http-method">get</span> /connectors/{id}/migration-requests/{requestId}</code></a></li>
+  <li><a href="#getMigrationSources"><code><span class="http-method">get</span> /connectors/{id}/migration-sources</code></a></li>
   <li><a href="#getParameterContextForConnectorProcessGroup"><code><span class="http-method">get</span> /connectors/{connectorId}/flow/process-groups/{processGroupId}/parameter-context</code></a></li>
   <li><a href="#getPurgeRequest"><code><span class="http-method">get</span> /connectors/{id}/purge-requests/{purge-request-id}</code></a></li>
   <li><a href="#getSecrets"><code><span class="http-method">get</span> /connectors/{id}/secrets</code></a></li>
@@ -214,6 +225,7 @@
   <li><a href="#removePurgeRequest"><code><span class="http-method">delete</span> /connectors/{id}/purge-requests/{purge-request-id}</code></a></li>
   <li><a href="#searchConnector"><code><span class="http-method">get</span> /connectors/{id}/search-results</code></a></li>
   <li><a href="#submitConfigurationStepVerificationRequest"><code><span class="http-method">post</span> /connectors/{id}/configuration-steps/{configurationStepName}/verify-config</code></a></li>
+  <li><a href="#submitConnectorBacklogRequest"><code><span class="http-method">post</span> /connectors/{id}/backlog-requests</code></a></li>
   <li><a href="#updateConnector"><code><span class="http-method">put</span> /connectors/{id}</code></a></li>
   <li><a href="#updateConnectorConfigurationStep"><code><span class="http-method">put</span> /connectors/{id}/configuration-steps/{configurationStepName}</code></a></li>
   <li><a href="#updateRunStatus"><code><span class="http-method">put</span> /connectors/{id}/run-status</code></a></li>
@@ -495,14 +507,17 @@
   <li><a href="#analyzeConfiguration2"><code><span class="http-method">post</span> /processors/{id}/config/analysis</code></a></li>
   <li><a href="#clearBulletins5"><code><span class="http-method">post</span> /processors/{id}/bulletins/clear-requests</code></a></li>
   <li><a href="#clearState3"><code><span class="http-method">post</span> /processors/{id}/state/clear-requests</code></a></li>
+  <li><a href="#deleteBacklogRequest"><code><span class="http-method">delete</span> /processors/{id}/backlog-requests/{requestId}</code></a></li>
   <li><a href="#deleteProcessor"><code><span class="http-method">delete</span> /processors/{id}</code></a></li>
   <li><a href="#deleteVerificationRequest2"><code><span class="http-method">delete</span> /processors/{id}/config/verification-requests/{requestId}</code></a></li>
+  <li><a href="#getBacklogRequest"><code><span class="http-method">get</span> /processors/{id}/backlog-requests/{requestId}</code></a></li>
   <li><a href="#getProcessor"><code><span class="http-method">get</span> /processors/{id}</code></a></li>
   <li><a href="#getProcessorDiagnostics"><code><span class="http-method">get</span> /processors/{id}/diagnostics</code></a></li>
   <li><a href="#getProcessorRunStatusDetails"><code><span class="http-method">post</span> /processors/run-status-details/queries</code></a></li>
   <li><a href="#getPropertyDescriptor3"><code><span class="http-method">get</span> /processors/{id}/descriptors</code></a></li>
   <li><a href="#getState2"><code><span class="http-method">get</span> /processors/{id}/state</code></a></li>
   <li><a href="#getVerificationRequest2"><code><span class="http-method">get</span> /processors/{id}/config/verification-requests/{requestId}</code></a></li>
+  <li><a href="#submitProcessorBacklogRequest"><code><span class="http-method">post</span> /processors/{id}/backlog-requests</code></a></li>
   <li><a href="#submitProcessorVerificationRequest"><code><span class="http-method">post</span> /processors/{id}/config/verification-requests</code></a></li>
   <li><a href="#terminateProcessor"><code><span class="http-method">delete</span> /processors/{id}/threads</code></a></li>
   <li><a href="#updateProcessor"><code><span class="http-method">put</span> /processors/{id}</code></a></li>
@@ -592,15 +607,20 @@
   </ul>
   <h4><a href="#Versions">Versions</a></h4>
   <ul>
+  <li><a href="#applyRebasedFlowVersion"><code><span class="http-method">put</span> /versions/process-groups/{id}/rebase</code></a></li>
   <li><a href="#createFlowBranch"><code><span class="http-method">post</span> /versions/process-groups/{id}/branches</code></a></li>
   <li><a href="#createVersionControlRequest"><code><span class="http-method">post</span> /versions/active-requests</code></a></li>
+  <li><a href="#deleteRebaseRequest"><code><span class="http-method">delete</span> /versions/rebase-requests/{id}</code></a></li>
   <li><a href="#deleteRevertRequest"><code><span class="http-method">delete</span> /versions/revert-requests/{id}</code></a></li>
   <li><a href="#deleteUpdateRequest1"><code><span class="http-method">delete</span> /versions/update-requests/{id}</code></a></li>
   <li><a href="#deleteVersionControlRequest"><code><span class="http-method">delete</span> /versions/active-requests/{id}</code></a></li>
   <li><a href="#exportFlowVersion"><code><span class="http-method">get</span> /versions/process-groups/{id}/download</code></a></li>
+  <li><a href="#getRebaseAnalysis"><code><span class="http-method">get</span> /versions/rebase-analysis/process-groups/{id}</code></a></li>
+  <li><a href="#getRebaseRequest"><code><span class="http-method">get</span> /versions/rebase-requests/{id}</code></a></li>
   <li><a href="#getRevertRequest"><code><span class="http-method">get</span> /versions/revert-requests/{id}</code></a></li>
   <li><a href="#getUpdateRequest"><code><span class="http-method">get</span> /versions/update-requests/{id}</code></a></li>
   <li><a href="#getVersionInformation"><code><span class="http-method">get</span> /versions/process-groups/{id}</code></a></li>
+  <li><a href="#initiateRebase"><code><span class="http-method">post</span> /versions/rebase-requests/process-groups/{id}</code></a></li>
   <li><a href="#initiateRevertFlowVersion"><code><span class="http-method">post</span> /versions/revert-requests/process-groups/{id}</code></a></li>
   <li><a href="#initiateVersionControlUpdate"><code><span class="http-method">post</span> /versions/update-requests/process-groups/{id}</code></a></li>
   <li><a href="#saveToFlowRegistry"><code><span class="http-method">post</span> /versions/process-groups/{id}</code></a></li>
@@ -3083,6 +3103,175 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="createMigrationPayload"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /connectors/{id}/migration-payloads</code></pre></div>
+    <div class="method-summary">Uploads a flow snapshot payload for a later Connector migration request (<span class="nickname">createMigrationPayload</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/octet-stream</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The migration payload snapshot </div>
+                </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MigrationPayloadEntity">MigrationPayloadEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "payload" : {
+    "payloadId" : "payloadId"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#MigrationPayloadEntity">MigrationPayloadEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="createMigrationRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /connectors/{id}/migration-requests</code></pre></div>
+    <div class="method-summary">Creates a Connector migration request (<span class="nickname">createMigrationRequest</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#MigrationRequestEntity">MigrationRequestEntity</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MigrationRequestEntity">MigrationRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "payloadId" : "payloadId",
+    "percentCompleted" : 0,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "localSource" : {
+      "processGroupId" : "processGroupId"
+    },
+    "connectorId" : "connectorId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#MigrationRequestEntity">MigrationRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="createPurgeRequest"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -3821,6 +4010,185 @@
     <h4 class="field-label">200</h4>
     
         <a href="#ConnectorEntity">ConnectorEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteConnectorBacklogRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /connectors/{id}/backlog-requests/{requestId}</code></pre></div>
+    <div class="method-summary">Deletes the Backlog Request with the given ID (<span class="nickname">deleteConnectorBacklogRequest</span>)</div>
+    <div class="method-notes">Deletes the Backlog Request with the given ID. After a request is created, it is expected that the client will properly clean up the request by DELETE&#x27;ing it once the backlog determination has completed. If the request is deleted before it completes, the background determination is cancelled.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">requestId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Backlog Request </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "percentCompleted" : 5,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "backlog" : {
+      "flowFileCount" : 6,
+      "formattedRecordCount" : "formattedRecordCount",
+      "lastCaughtUp" : "lastCaughtUp",
+      "byteCount" : 0,
+      "formattedByteCount" : "formattedByteCount",
+      "formattedLastCaughtUp" : "formattedLastCaughtUp",
+      "precision" : "EXACT",
+      "recordCount" : 1,
+      "formattedFlowFileCount" : "formattedFlowFileCount"
+    },
+    "componentId" : "componentId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteMigrationRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /connectors/{id}/migration-requests/{requestId}</code></pre></div>
+    <div class="method-summary">Deletes the Connector migration request with the given ID (<span class="nickname">deleteMigrationRequest</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>      <div class="param">requestId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MigrationRequestEntity">MigrationRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "payloadId" : "payloadId",
+    "percentCompleted" : 0,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "localSource" : {
+      "processGroupId" : "processGroupId"
+    },
+    "connectorId" : "connectorId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#MigrationRequestEntity">MigrationRequestEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -6020,6 +6388,99 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="getConnectorBacklogRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/backlog-requests/{requestId}</code></pre></div>
+    <div class="method-summary">Returns the Backlog Request with the given ID (<span class="nickname">getConnectorBacklogRequest</span>)</div>
+    <div class="method-notes">Returns the Backlog Request with the given ID. Once a Backlog Request has been created by performing a POST to /connectors/{id}/backlog-requests, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and the backlog once the request is complete.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">requestId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Backlog Request </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "percentCompleted" : 5,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "backlog" : {
+      "flowFileCount" : 6,
+      "formattedRecordCount" : "formattedRecordCount",
+      "lastCaughtUp" : "lastCaughtUp",
+      "byteCount" : 0,
+      "formattedByteCount" : "formattedByteCount",
+      "formattedLastCaughtUp" : "formattedLastCaughtUp",
+      "precision" : "EXACT",
+      "recordCount" : 1,
+      "formattedFlowFileCount" : "formattedFlowFileCount"
+    },
+    "componentId" : "componentId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="getConnectorConfigurationStep"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -6273,6 +6734,108 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="getConnectorConnectionStatusHistory"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/connections/{connectionId}/status/history</code></pre></div>
+    <div class="method-summary">Gets the status history for a connection within a connector (<span class="nickname">getConnectorConnectionStatusHistory</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">connectionId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connection id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "statusHistory" : {
+    "componentDetails" : {
+      "key" : "componentDetails"
+    },
+    "fieldDescriptors" : [ {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    }, {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    } ],
+    "generated" : "generated",
+    "aggregateSnapshots" : [ {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    }, {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    } ],
+    "nodeSnapshots" : [ {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    }, {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    } ]
+  },
+  "canRead" : true
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="getConnectorControllerServiceState"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -6338,6 +6901,108 @@
     <h4 class="field-label">200</h4>
     
         <a href="#ComponentStateEntity">ComponentStateEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getConnectorProcessGroupStatusHistory"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/process-groups/{processGroupId}/status/history</code></pre></div>
+    <div class="method-summary">Gets the status history for a process group within a connector (<span class="nickname">getConnectorProcessGroupStatusHistory</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">processGroupId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The process group id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "statusHistory" : {
+    "componentDetails" : {
+      "key" : "componentDetails"
+    },
+    "fieldDescriptors" : [ {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    }, {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    } ],
+    "generated" : "generated",
+    "aggregateSnapshots" : [ {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    }, {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    } ],
+    "nodeSnapshots" : [ {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    }, {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    } ]
+  },
+  "canRead" : true
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -6437,6 +7102,108 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="getConnectorProcessorStatusHistory"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/processors/{processorId}/status/history</code></pre></div>
+    <div class="method-summary">Gets the status history for a processor within a connector (<span class="nickname">getConnectorProcessorStatusHistory</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">processorId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The processor id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "statusHistory" : {
+    "componentDetails" : {
+      "key" : "componentDetails"
+    },
+    "fieldDescriptors" : [ {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    }, {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    } ],
+    "generated" : "generated",
+    "aggregateSnapshots" : [ {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    }, {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    } ],
+    "nodeSnapshots" : [ {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    }, {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    } ]
+  },
+  "canRead" : true
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="getConnectorPropertyAllowableValues"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -6506,6 +7273,108 @@
     <h4 class="field-label">200</h4>
     
         <a href="#ConnectorPropertyAllowableValuesEntity">ConnectorPropertyAllowableValuesEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getConnectorRemoteProcessGroupStatusHistory"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/remote-process-groups/{remoteProcessGroupId}/status/history</code></pre></div>
+    <div class="method-summary">Gets the status history for a remote process group within a connector (<span class="nickname">getConnectorRemoteProcessGroupStatusHistory</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">remoteProcessGroupId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The remote process group id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "statusHistory" : {
+    "componentDetails" : {
+      "key" : "componentDetails"
+    },
+    "fieldDescriptors" : [ {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    }, {
+      "formatter" : "formatter",
+      "field" : "field",
+      "description" : "description",
+      "label" : "label"
+    } ],
+    "generated" : "generated",
+    "aggregateSnapshots" : [ {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    }, {
+      "statusMetrics" : {
+        "key" : 0
+      },
+      "timestamp" : "2000-01-23T04:56:07.000+00:00"
+    } ],
+    "nodeSnapshots" : [ {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    }, {
+      "address" : "address",
+      "apiPort" : 6,
+      "statusSnapshots" : [ null, null ],
+      "nodeId" : "nodeId"
+    } ]
+  },
+  "canRead" : true
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -8134,6 +9003,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -8199,6 +9069,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -9528,6 +10399,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -9593,6 +10465,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -10834,6 +11707,175 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="getMigrationRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/migration-requests/{requestId}</code></pre></div>
+    <div class="method-summary">Gets the Connector migration request with the given ID (<span class="nickname">getMigrationRequest</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>      <div class="param">requestId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MigrationRequestEntity">MigrationRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "payloadId" : "payloadId",
+    "percentCompleted" : 0,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "localSource" : {
+      "processGroupId" : "processGroupId"
+    },
+    "connectorId" : "connectorId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#MigrationRequestEntity">MigrationRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getMigrationSources"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/migration-sources</code></pre></div>
+    <div class="method-summary">Lists the Versioned Process Groups that the Connector can be migrated from (<span class="nickname">getMigrationSources</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VersionedFlowMigrationSourcesEntity">VersionedFlowMigrationSourcesEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "migrationSources" : [ {
+    "parentProcessGroupId" : "parentProcessGroupId",
+    "processGroupId" : "processGroupId",
+    "readyForMigration" : true,
+    "registryClientId" : "registryClientId",
+    "bucketId" : "bucketId",
+    "processGroupName" : "processGroupName",
+    "flowId" : "flowId",
+    "flowName" : "flowName",
+    "version" : "version",
+    "ineligibilityReasons" : [ "ineligibilityReasons", "ineligibilityReasons" ]
+  }, {
+    "parentProcessGroupId" : "parentProcessGroupId",
+    "processGroupId" : "processGroupId",
+    "readyForMigration" : true,
+    "registryClientId" : "registryClientId",
+    "bucketId" : "bucketId",
+    "processGroupName" : "processGroupName",
+    "flowId" : "flowId",
+    "flowName" : "flowName",
+    "version" : "version",
+    "ineligibilityReasons" : [ "ineligibilityReasons", "ineligibilityReasons" ]
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VersionedFlowMigrationSourcesEntity">VersionedFlowMigrationSourcesEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="getParameterContextForConnectorProcessGroup"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -11741,6 +12783,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -11806,6 +12849,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -13135,6 +14179,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -13200,6 +14245,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -14926,6 +15972,97 @@
     <h4 class="field-label">200</h4>
     
         <a href="#VerifyConnectorConfigStepRequestEntity">VerifyConnectorConfigStepRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="submitConnectorBacklogRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /connectors/{id}/backlog-requests</code></pre></div>
+    <div class="method-summary">Initiates a request to determine the current backlog for a Connector (<span class="nickname">submitConnectorBacklogRequest</span>)</div>
+    <div class="method-notes">This will initiate the process of determining the backlog for a Connector. This may be a long-running task. As a result, this endpoint will immediately return a BacklogRequestEntity, and the process of determining the backlog will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /connectors/{id}/backlog-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /connectors/{id}/backlog-requests/{requestId}.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "percentCompleted" : 5,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "backlog" : {
+      "flowFileCount" : 6,
+      "formattedRecordCount" : "formattedRecordCount",
+      "lastCaughtUp" : "lastCaughtUp",
+      "byteCount" : 0,
+      "formattedByteCount" : "formattedByteCount",
+      "formattedLastCaughtUp" : "formattedLastCaughtUp",
+      "precision" : "EXACT",
+      "recordCount" : 1,
+      "formattedFlowFileCount" : "formattedFlowFileCount"
+    },
+    "componentId" : "componentId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -30952,6 +32089,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -31017,6 +32155,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -32346,6 +33485,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -32411,6 +33551,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -35734,6 +36875,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -35799,6 +36941,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -37128,6 +38271,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -37193,6 +38337,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -38758,6 +39903,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -38823,6 +39969,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -40152,6 +41299,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -40217,6 +41365,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -48682,6 +49831,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -48747,6 +49897,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -50076,6 +51227,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -50141,6 +51293,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -51841,6 +52994,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -51906,6 +53060,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -53235,6 +54390,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -53300,6 +54456,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -54956,6 +56113,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -55021,6 +56179,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -56350,6 +57509,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -56415,6 +57575,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -58171,6 +59332,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -58236,6 +59398,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -59565,6 +60728,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -59630,6 +60794,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -61392,6 +62557,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -61457,6 +62623,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -62786,6 +63953,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -62851,6 +64019,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -64505,6 +65674,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -64570,6 +65740,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -65899,6 +67070,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -65964,6 +67136,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -67718,6 +68891,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -67783,6 +68957,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -69112,6 +70287,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -69177,6 +70353,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -70840,6 +72017,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -70905,6 +72083,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -72234,6 +73413,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -72299,6 +73479,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -74062,6 +75243,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -74127,6 +75309,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -75456,6 +76639,7 @@
             "funnels" : [ null, null ],
             "inputPorts" : [ null, null ],
             "processors" : [ {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -75521,6 +76705,7 @@
               },
               "persistsState" : true
             }, {
+              "supportsBacklogReporting" : true,
               "deprecated" : true,
               "description" : "description",
               "multipleVersionsAvailable" : true,
@@ -77156,6 +78341,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -77221,6 +78407,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -78550,6 +79737,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -78615,6 +79803,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -80568,6 +81757,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -80633,6 +81823,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -81962,6 +83153,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -82027,6 +83219,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -83606,6 +84799,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -83671,6 +84865,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -85000,6 +86195,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -85065,6 +86261,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -88058,6 +89255,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -88123,6 +89321,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -89452,6 +90651,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -89517,6 +90717,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -91096,6 +92297,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -91161,6 +92363,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -92490,6 +93693,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -92555,6 +93759,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -95382,6 +96587,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -95447,6 +96653,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -96776,6 +97983,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -96841,6 +98049,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -98420,6 +99629,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -98485,6 +99695,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -99814,6 +101025,7 @@
               "funnels" : [ null, null ],
               "inputPorts" : [ null, null ],
               "processors" : [ {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -99879,6 +101091,7 @@
                 },
                 "persistsState" : true
               }, {
+                "supportsBacklogReporting" : true,
                 "deprecated" : true,
                 "description" : "description",
                 "multipleVersionsAvailable" : true,
@@ -104533,6 +105746,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -104598,6 +105812,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -105927,6 +107142,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -105992,6 +107208,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -109108,6 +110325,7 @@
       "funnels" : [ null, null ],
       "inputPorts" : [ null, null ],
       "processors" : [ {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -109173,6 +110391,7 @@
         },
         "persistsState" : true
       }, {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -112592,6 +113811,7 @@
       "funnels" : [ null, null ],
       "inputPorts" : [ null, null ],
       "processors" : [ {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -112657,6 +113877,7 @@
         },
         "persistsState" : true
       }, {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -114046,6 +115267,7 @@
         "funnels" : [ null, null ],
         "inputPorts" : [ null, null ],
         "processors" : [ {
+          "supportsBacklogReporting" : true,
           "deprecated" : true,
           "description" : "description",
           "multipleVersionsAvailable" : true,
@@ -114111,6 +115333,7 @@
           },
           "persistsState" : true
         }, {
+          "supportsBacklogReporting" : true,
           "deprecated" : true,
           "description" : "description",
           "multipleVersionsAvailable" : true,
@@ -115440,6 +116663,7 @@
         "funnels" : [ null, null ],
         "inputPorts" : [ null, null ],
         "processors" : [ {
+          "supportsBacklogReporting" : true,
           "deprecated" : true,
           "description" : "description",
           "multipleVersionsAvailable" : true,
@@ -115505,6 +116729,7 @@
           },
           "persistsState" : true
         }, {
+          "supportsBacklogReporting" : true,
           "deprecated" : true,
           "description" : "description",
           "multipleVersionsAvailable" : true,
@@ -117739,6 +118964,7 @@
       "funnels" : [ null, null ],
       "inputPorts" : [ null, null ],
       "processors" : [ {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -117804,6 +119030,7 @@
         },
         "persistsState" : true
       }, {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -119825,6 +121052,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -119890,6 +121118,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -121219,6 +122448,7 @@
           "funnels" : [ null, null ],
           "inputPorts" : [ null, null ],
           "processors" : [ {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -121284,6 +122514,7 @@
             },
             "persistsState" : true
           }, {
+            "supportsBacklogReporting" : true,
             "deprecated" : true,
             "description" : "description",
             "multipleVersionsAvailable" : true,
@@ -123454,6 +124685,7 @@
       "funnels" : [ null, null ],
       "inputPorts" : [ null, null ],
       "processors" : [ {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -123519,6 +124751,7 @@
         },
         "persistsState" : true
       }, {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -125532,6 +126765,7 @@
       "funnels" : [ null, null ],
       "inputPorts" : [ null, null ],
       "processors" : [ {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -125597,6 +126831,7 @@
         },
         "persistsState" : true
       }, {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -127005,6 +128240,7 @@
       "funnels" : [ null, null ],
       "inputPorts" : [ null, null ],
       "processors" : [ {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -127070,6 +128306,7 @@
         },
         "persistsState" : true
       }, {
+        "supportsBacklogReporting" : true,
         "deprecated" : true,
         "description" : "description",
         "multipleVersionsAvailable" : true,
@@ -127909,6 +129146,99 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="deleteBacklogRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /processors/{id}/backlog-requests/{requestId}</code></pre></div>
+    <div class="method-summary">Deletes the Backlog Request with the given ID (<span class="nickname">deleteBacklogRequest</span>)</div>
+    <div class="method-notes">Deletes the Backlog Request with the given ID. After a request is created, it is expected that the client will properly clean up the request by DELETE&#x27;ing it once the backlog determination has completed. If the request is deleted before it completes, the background determination is cancelled.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The processor id. </div>      <div class="param">requestId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Backlog Request </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "percentCompleted" : 5,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "backlog" : {
+      "flowFileCount" : 6,
+      "formattedRecordCount" : "formattedRecordCount",
+      "lastCaughtUp" : "lastCaughtUp",
+      "byteCount" : 0,
+      "formattedByteCount" : "formattedByteCount",
+      "formattedLastCaughtUp" : "formattedLastCaughtUp",
+      "precision" : "EXACT",
+      "recordCount" : 1,
+      "formattedFlowFileCount" : "formattedFlowFileCount"
+    },
+    "componentId" : "componentId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="deleteProcessor"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -128080,6 +129410,99 @@
     <h4 class="field-label">200</h4>
     
         <a href="#VerifyConfigRequestEntity">VerifyConfigRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getBacklogRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /processors/{id}/backlog-requests/{requestId}</code></pre></div>
+    <div class="method-summary">Returns the Backlog Request with the given ID (<span class="nickname">getBacklogRequest</span>)</div>
+    <div class="method-notes">Returns the Backlog Request with the given ID. Once a Backlog Request has been created by performing a POST to /processors/{processorId}/backlog-requests, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and the backlog once the request is complete.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The processor id. </div>      <div class="param">requestId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Backlog Request </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "percentCompleted" : 5,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "backlog" : {
+      "flowFileCount" : 6,
+      "formattedRecordCount" : "formattedRecordCount",
+      "lastCaughtUp" : "lastCaughtUp",
+      "byteCount" : 0,
+      "formattedByteCount" : "formattedByteCount",
+      "formattedLastCaughtUp" : "formattedLastCaughtUp",
+      "precision" : "EXACT",
+      "recordCount" : 1,
+      "formattedFlowFileCount" : "formattedFlowFileCount"
+    },
+    "componentId" : "componentId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -128627,6 +130050,97 @@
     <h4 class="field-label">200</h4>
     
         <a href="#VerifyConfigRequestEntity">VerifyConfigRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="submitProcessorBacklogRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /processors/{id}/backlog-requests</code></pre></div>
+    <div class="method-summary">Initiates a request to determine the current backlog for a processor that implements BacklogReportingProcessor (<span class="nickname">submitProcessorBacklogRequest</span>)</div>
+    <div class="method-notes">This will initiate the process of determining the backlog for a Processor. This may be a long-running task. As a result, this endpoint will immediately return a BacklogRequestEntity, and the process of determining the backlog will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /processors/{processorId}/backlog-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /processors/{processorId}/backlog-requests/{requestId}.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The processor id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "request" : {
+    "percentCompleted" : 5,
+    "lastUpdated" : "2000-01-23T04:56:07.000+00:00",
+    "backlog" : {
+      "flowFileCount" : 6,
+      "formattedRecordCount" : "formattedRecordCount",
+      "lastCaughtUp" : "lastCaughtUp",
+      "byteCount" : 0,
+      "formattedByteCount" : "formattedByteCount",
+      "formattedLastCaughtUp" : "formattedLastCaughtUp",
+      "precision" : "EXACT",
+      "recordCount" : 1,
+      "formattedFlowFileCount" : "formattedFlowFileCount"
+    },
+    "componentId" : "componentId",
+    "requestId" : "requestId",
+    "updateSteps" : [ {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    }, {
+      "failureReason" : "failureReason",
+      "description" : "description",
+      "complete" : true
+    } ],
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "complete" : true,
+    "uri" : "uri",
+    "submissionTime" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#BacklogRequestEntity">BacklogRequestEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -137943,6 +139457,98 @@
   </div> <!-- method -->
   <hr/>
   <h1><a name="Versions">Versions</a></h1>
+  <div class="method"><a name="applyRebasedFlowVersion"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /versions/process-groups/{id}/rebase</code></pre></div>
+    <div class="method-summary">Applies a rebased flow to a Process Group with the given ID on this node (<span class="nickname">applyRebasedFlowVersion</span>)</div>
+    <div class="method-notes">This endpoint is used internally to apply a rebase to a Process Group on each node of a cluster. It synchronizes the flow to the supplied merged snapshot and then resets the Version Control Information to the clean target version so that the preserved local changes are detected as local modifications. Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The process group id. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#VersionedFlowSnapshotEntity">VersionedFlowSnapshotEntity</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The rebased versioned flow snapshot. </div>
+                </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VersionControlInformationEntity">VersionControlInformationEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "disconnectedNodeAcknowledged" : true,
+  "processGroupRevision" : {
+    "clientId" : "clientId",
+    "lastModifier" : "lastModifier",
+    "version" : 2
+  },
+  "versionControlInformation" : {
+    "bucketName" : "bucketName",
+    "groupId" : "groupId",
+    "registryId" : "registryId",
+    "storageLocation" : "storageLocation",
+    "bucketId" : "bucketId",
+    "registryName" : "registryName",
+    "branch" : "branch",
+    "flowName" : "flowName",
+    "version" : "version",
+    "flowDescription" : "flowDescription",
+    "stateExplanation" : "stateExplanation",
+    "state" : "LOCALLY_MODIFIED",
+    "flowId" : "flowId"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VersionControlInformationEntity">VersionControlInformationEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="createFlowBranch"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -138083,6 +139689,98 @@
     <h4 class="field-label">200</h4>
     
         <a href="#String">String</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteRebaseRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /versions/rebase-requests/{id}</code></pre></div>
+    <div class="method-summary">Deletes the Rebase Request with the given ID (<span class="nickname">deleteRebaseRequest</span>)</div>
+    <div class="method-notes">Deletes the Rebase Request with the given ID. After a request is created via a POST to /versions/rebase-requests/process-groups/{id}, it is expected that the client will properly clean up the request by DELETE&#x27;ing it, once the Rebase process has completed. If the request is deleted before the request completes, then the Rebase request will finish the step that it is currently performing and then will cancel any subsequent steps. Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Rebase Request </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">disconnectedNodeAcknowledged (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Acknowledges that this node is disconnected to allow for mutable requests to proceed. default: false </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VersionedFlowUpdateRequestEntity">VersionedFlowUpdateRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "processGroupRevision" : {
+    "clientId" : "clientId",
+    "lastModifier" : "lastModifier",
+    "version" : 2
+  },
+  "request" : {
+    "percentCompleted" : 0,
+    "lastUpdated" : "lastUpdated",
+    "processGroupId" : "processGroupId",
+    "requestId" : "requestId",
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "versionControlInformation" : {
+      "bucketName" : "bucketName",
+      "groupId" : "groupId",
+      "registryId" : "registryId",
+      "storageLocation" : "storageLocation",
+      "bucketId" : "bucketId",
+      "registryName" : "registryName",
+      "branch" : "branch",
+      "flowName" : "flowName",
+      "version" : "version",
+      "flowDescription" : "flowDescription",
+      "stateExplanation" : "stateExplanation",
+      "state" : "LOCALLY_MODIFIED",
+      "flowId" : "flowId"
+    },
+    "complete" : true,
+    "uri" : "uri"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VersionedFlowUpdateRequestEntity">VersionedFlowUpdateRequestEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -138387,6 +140085,216 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="getRebaseAnalysis"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /versions/rebase-analysis/process-groups/{id}</code></pre></div>
+    <div class="method-summary">Gets a Rebase Analysis for a Process Group (<span class="nickname">getRebaseAnalysis</span>)</div>
+    <div class="method-notes">For a Process Group that is under Version Control, this will perform a rebase analysis by comparing local modifications against upstream changes between the current version and the specified target version. The analysis determines whether a rebase is allowed or if there are conflicts.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The process group id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">targetVersion (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The target version to rebase to. </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#RebaseAnalysisEntity">RebaseAnalysisEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "analysisFingerprint" : "analysisFingerprint",
+  "processGroupId" : "processGroupId",
+  "upstreamChanges" : [ {
+    "componentType" : "componentType",
+    "componentId" : "componentId",
+    "processGroupId" : "processGroupId",
+    "differences" : [ {
+      "differenceType" : "differenceType",
+      "environmental" : true,
+      "difference" : "difference"
+    }, {
+      "differenceType" : "differenceType",
+      "environmental" : true,
+      "difference" : "difference"
+    } ],
+    "componentName" : "componentName"
+  }, {
+    "componentType" : "componentType",
+    "componentId" : "componentId",
+    "processGroupId" : "processGroupId",
+    "differences" : [ {
+      "differenceType" : "differenceType",
+      "environmental" : true,
+      "difference" : "difference"
+    }, {
+      "differenceType" : "differenceType",
+      "environmental" : true,
+      "difference" : "difference"
+    } ],
+    "componentName" : "componentName"
+  } ],
+  "failureReason" : "failureReason",
+  "localChanges" : [ {
+    "conflictCode" : "conflictCode",
+    "componentType" : "componentType",
+    "differenceType" : "differenceType",
+    "componentId" : "componentId",
+    "fieldName" : "fieldName",
+    "registryValue" : "registryValue",
+    "componentName" : "componentName",
+    "localValue" : "localValue",
+    "classification" : "classification",
+    "conflictDetail" : "conflictDetail"
+  }, {
+    "conflictCode" : "conflictCode",
+    "componentType" : "componentType",
+    "differenceType" : "differenceType",
+    "componentId" : "componentId",
+    "fieldName" : "fieldName",
+    "registryValue" : "registryValue",
+    "componentName" : "componentName",
+    "localValue" : "localValue",
+    "classification" : "classification",
+    "conflictDetail" : "conflictDetail"
+  } ],
+  "currentVersion" : "currentVersion",
+  "rebaseAllowed" : true,
+  "targetVersion" : "targetVersion"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#RebaseAnalysisEntity">RebaseAnalysisEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getRebaseRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /versions/rebase-requests/{id}</code></pre></div>
+    <div class="method-summary">Returns the Rebase Request with the given ID (<span class="nickname">getRebaseRequest</span>)</div>
+    <div class="method-notes">Returns the Rebase Request with the given ID. Once a Rebase Request has been created by performing a POST to /versions/rebase-requests/process-groups/{id}, that request can subsequently be retrieved via this endpoint, and the request that is fetched will contain the updated state, such as percent complete, the current state of the request, and any failures. Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the Rebase Request </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VersionedFlowUpdateRequestEntity">VersionedFlowUpdateRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "processGroupRevision" : {
+    "clientId" : "clientId",
+    "lastModifier" : "lastModifier",
+    "version" : 2
+  },
+  "request" : {
+    "percentCompleted" : 0,
+    "lastUpdated" : "lastUpdated",
+    "processGroupId" : "processGroupId",
+    "requestId" : "requestId",
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "versionControlInformation" : {
+      "bucketName" : "bucketName",
+      "groupId" : "groupId",
+      "registryId" : "registryId",
+      "storageLocation" : "storageLocation",
+      "bucketId" : "bucketId",
+      "registryName" : "registryName",
+      "branch" : "branch",
+      "flowName" : "flowName",
+      "version" : "version",
+      "flowDescription" : "flowDescription",
+      "stateExplanation" : "stateExplanation",
+      "state" : "LOCALLY_MODIFIED",
+      "flowId" : "flowId"
+    },
+    "complete" : true,
+    "uri" : "uri"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VersionedFlowUpdateRequestEntity">VersionedFlowUpdateRequestEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
   <div class="method"><a name="getRevertRequest"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
@@ -138631,6 +140539,107 @@
     <h4 class="field-label">200</h4>
     
         <a href="#VersionControlInformationEntity">VersionControlInformationEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="initiateRebase"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /versions/rebase-requests/process-groups/{id}</code></pre></div>
+    <div class="method-summary">Initiate a Rebase Request for a Process Group with the given ID (<span class="nickname">initiateRebase</span>)</div>
+    <div class="method-notes">For a Process Group that is already under Version Control, this will initiate the action of rebasing the flow to a different version while preserving compatible local changes. This can be a lengthy process, as it will stop any Processors and disable any Controller Services necessary to perform the action and then restart them. As a result, the endpoint will immediately return a VersionedFlowUpdateRequestEntity, and the process of rebasing the flow will occur asynchronously in the background. The client may then periodically poll the status of the request by issuing a GET request to /versions/rebase-requests/{requestId}. Once the request is completed, the client is expected to issue a DELETE request to /versions/rebase-requests/{requestId}. Note: This endpoint is subject to change as NiFi and it&#x27;s REST API evolve.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The process group id. </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#RebaseRequestEntity">RebaseRequestEntity</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The rebase request details. </div>
+                </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VersionedFlowUpdateRequestEntity">VersionedFlowUpdateRequestEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "processGroupRevision" : {
+    "clientId" : "clientId",
+    "lastModifier" : "lastModifier",
+    "version" : 2
+  },
+  "request" : {
+    "percentCompleted" : 0,
+    "lastUpdated" : "lastUpdated",
+    "processGroupId" : "processGroupId",
+    "requestId" : "requestId",
+    "failureReason" : "failureReason",
+    "state" : "state",
+    "versionControlInformation" : {
+      "bucketName" : "bucketName",
+      "groupId" : "groupId",
+      "registryId" : "registryId",
+      "storageLocation" : "storageLocation",
+      "bucketId" : "bucketId",
+      "registryName" : "registryName",
+      "branch" : "branch",
+      "flowName" : "flowName",
+      "version" : "version",
+      "flowDescription" : "flowDescription",
+      "stateExplanation" : "stateExplanation",
+      "state" : "LOCALLY_MODIFIED",
+      "flowId" : "flowId"
+    },
+    "complete" : true,
+    "uri" : "uri"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#VersionedFlowUpdateRequestEntity">VersionedFlowUpdateRequestEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -139242,6 +141251,10 @@
     <li><a href="#AttributeDTO"><code>AttributeDTO</code></a></li>
     <li><a href="#AuthenticationConfigurationDTO"><code>AuthenticationConfigurationDTO</code></a></li>
     <li><a href="#AuthenticationConfigurationEntity"><code>AuthenticationConfigurationEntity</code></a></li>
+    <li><a href="#BacklogDTO"><code>BacklogDTO</code></a></li>
+    <li><a href="#BacklogRequestDTO"><code>BacklogRequestDTO</code></a></li>
+    <li><a href="#BacklogRequestEntity"><code>BacklogRequestEntity</code></a></li>
+    <li><a href="#BacklogUpdateStepDTO"><code>BacklogUpdateStepDTO</code></a></li>
     <li><a href="#BannerDTO"><code>BannerDTO</code></a></li>
     <li><a href="#BannerEntity"><code>BannerEntity</code></a></li>
     <li><a href="#BatchSettingsDTO"><code>BatchSettingsDTO</code></a></li>
@@ -139417,6 +141430,12 @@
     <li><a href="#ListingRequestDTO"><code>ListingRequestDTO</code></a></li>
     <li><a href="#ListingRequestEntity"><code>ListingRequestEntity</code></a></li>
     <li><a href="#LongParameter"><code>LongParameter</code></a></li>
+    <li><a href="#MigrationPayloadDTO"><code>MigrationPayloadDTO</code></a></li>
+    <li><a href="#MigrationPayloadEntity"><code>MigrationPayloadEntity</code></a></li>
+    <li><a href="#MigrationRequestDTO"><code>MigrationRequestDTO</code></a></li>
+    <li><a href="#MigrationRequestEntity"><code>MigrationRequestEntity</code></a></li>
+    <li><a href="#MigrationRequestLocalSourceDTO"><code>MigrationRequestLocalSourceDTO</code></a></li>
+    <li><a href="#MigrationUpdateStepDTO"><code>MigrationUpdateStepDTO</code></a></li>
     <li><a href="#MultiProcessorUseCase"><code>MultiProcessorUseCase</code></a></li>
     <li><a href="#NarCoordinateDTO"><code>NarCoordinateDTO</code></a></li>
     <li><a href="#NarDetailsEntity"><code>NarDetailsEntity</code></a></li>
@@ -139540,6 +141559,9 @@
     <li><a href="#ProvenanceSearchValueDTO"><code>ProvenanceSearchValueDTO</code></a></li>
     <li><a href="#ProvenanceSearchableFieldDTO"><code>ProvenanceSearchableFieldDTO</code></a></li>
     <li><a href="#QueueSizeDTO"><code>QueueSizeDTO</code></a></li>
+    <li><a href="#RebaseAnalysisEntity"><code>RebaseAnalysisEntity</code></a></li>
+    <li><a href="#RebaseChangeDTO"><code>RebaseChangeDTO</code></a></li>
+    <li><a href="#RebaseRequestEntity"><code>RebaseRequestEntity</code></a></li>
     <li><a href="#RegisteredFlow"><code>RegisteredFlow</code></a></li>
     <li><a href="#RegisteredFlowSnapshot"><code>RegisteredFlowSnapshot</code></a></li>
     <li><a href="#RegisteredFlowSnapshotMetadata"><code>RegisteredFlowSnapshotMetadata</code></a></li>
@@ -139630,6 +141652,8 @@
     <li><a href="#VersionedFlowCoordinates"><code>VersionedFlowCoordinates</code></a></li>
     <li><a href="#VersionedFlowDTO"><code>VersionedFlowDTO</code></a></li>
     <li><a href="#VersionedFlowEntity"><code>VersionedFlowEntity</code></a></li>
+    <li><a href="#VersionedFlowMigrationSourceDTO"><code>VersionedFlowMigrationSourceDTO</code></a></li>
+    <li><a href="#VersionedFlowMigrationSourcesEntity"><code>VersionedFlowMigrationSourcesEntity</code></a></li>
     <li><a href="#VersionedFlowSnapshotEntity"><code>VersionedFlowSnapshotEntity</code></a></li>
     <li><a href="#VersionedFlowSnapshotMetadataEntity"><code>VersionedFlowSnapshotMetadataEntity</code></a></li>
     <li><a href="#VersionedFlowSnapshotMetadataSetEntity"><code>VersionedFlowSnapshotMetadataSetEntity</code></a></li>
@@ -139911,6 +141935,56 @@
     </div>  <!-- field-items -->
   </div>
   <div class="model">
+    <h3><a name="BacklogDTO"><code>BacklogDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The backlog reported by the component, populated once the request has completed successfully.</div>
+    <div class="field-items">
+      <div class="param">byteCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The total number of bytes remaining on the source, if the component can determine it. format: int64</div>
+<div class="param">flowFileCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The number of FlowFiles remaining on the source, if the component can determine it. format: int64</div>
+<div class="param">formattedByteCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The byte count formatted for display in human-readable units (for example, &#x27;4.89 GB&#x27;). Populated whenever byteCount is populated. </div>
+<div class="param">formattedFlowFileCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The FlowFile count formatted for display with locale-appropriate grouping (for example, &#x27;1,025&#x27;). Populated whenever flowFileCount is populated. </div>
+<div class="param">formattedLastCaughtUp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Human-readable description of how long ago the component was last caught up, for example &#x27;5 mins ago&#x27;, &#x27;in 2 hours&#x27;, or &#x27;now&#x27;. Populated whenever lastCaughtUp is populated. </div>
+<div class="param">formattedRecordCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The record count formatted for display with locale-appropriate grouping (for example, &#x27;1,025&#x27;). Populated whenever recordCount is populated. </div>
+<div class="param">lastCaughtUp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The most recent moment the component observed itself as fully caught up with the source, formatted as an ISO-8601 UTC timestamp. </div>
+<div class="param">precision (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The precision of the numeric dimensions of this backlog. </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">EXACT</div><div class="param-enum">AT_LEAST</div>
+<div class="param">recordCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The number of records remaining on the source, if the component can determine it. format: int64</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BacklogRequestDTO"><code>BacklogRequestDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The request</div>
+    <div class="field-items">
+      <div class="param">backlog (optional)</div><div class="param-desc"><span class="param-type"><a href="#BacklogDTO">BacklogDTO</a></span>  </div>
+<div class="param">complete (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether or not the request is completed </div>
+<div class="param">componentId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the Processor or Connector whose backlog is being determined </div>
+<div class="param">failureReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The reason for the request failing, or null if the request has not failed </div>
+<div class="param">lastUpdated (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> The timestamp of when the request was last updated format: date-time</div>
+<div class="param">percentCompleted (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> A value between 0 and 100 (inclusive) indicating how close the request is to completion format: int32</div>
+<div class="param">requestId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the request </div>
+<div class="param">state (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A description of the current state of the request </div>
+<div class="param">submissionTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> The timestamp of when the request was submitted format: date-time</div>
+<div class="param">updateSteps (optional)</div><div class="param-desc"><span class="param-type"><a href="#BacklogUpdateStepDTO">array[BacklogUpdateStepDTO]</a></span> The steps that are required in order to complete the request, along with the status of each </div>
+<div class="param">uri (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The URI for the request </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BacklogRequestEntity"><code>BacklogRequestEntity</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">request (optional)</div><div class="param-desc"><span class="param-type"><a href="#BacklogRequestDTO">BacklogRequestDTO</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BacklogUpdateStepDTO"><code>BacklogUpdateStepDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The steps that are required in order to complete the request, along with the status of each</div>
+    <div class="field-items">
+      <div class="param">complete (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether or not this step has completed </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Explanation of what happens in this step </div>
+<div class="param">failureReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> An explanation of why this step failed, or null if this step did not fail </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
     <h3><a name="BannerDTO"><code>BannerDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
     
     <div class="field-items">
@@ -140115,7 +142189,7 @@
   </div>
   <div class="model">
     <h3><a name="ComponentDifferenceDTO"><code>ComponentDifferenceDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'>The list of differences for each component in the flow that is not the same between the two flows</div>
+    <div class='model-description'>The set of upstream changes between the current version and the target version in the flow registry</div>
     <div class="field-items">
       <div class="param">componentId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the component </div>
 <div class="param">componentName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the component </div>
@@ -140881,7 +142955,7 @@
 <div class="param">comments (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The comments for the controller service. </div>
 <div class="param">controllerServiceApis (optional)</div><div class="param-desc"><span class="param-type"><a href="#ControllerServiceApiDTO">array[ControllerServiceApiDTO]</a></span> Lists the APIs this Controller Service implements. </div>
 <div class="param">customUiUrl (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The URL for the controller services custom configuration UI if applicable. </div>
-<div class="param">deprecated (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the ontroller service has been deprecated. </div>
+<div class="param">deprecated (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the controller service has been deprecated. </div>
 <div class="param">descriptors (optional)</div><div class="param-desc"><span class="param-type"><a href="#PropertyDescriptorDTO">map[String, PropertyDescriptorDTO]</a></span> The descriptors for the controller service properties. </div>
 <div class="param">extensionMissing (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the underlying extension is missing. </div>
 <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The id of the component. </div>
@@ -141230,7 +143304,7 @@ As a result, this value should not be set to true by any client other than the U
 <div class="param">controllerServiceApis (optional)</div><div class="param-desc"><span class="param-type"><a href="#ControllerServiceApiDTO">array[ControllerServiceApiDTO]</a></span> If this type represents a ControllerService, this lists the APIs it implements. </div>
 <div class="param">deprecationReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The description of why the usage of this component is restricted. </div>
 <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The description of the type. </div>
-<div class="param">explicitRestrictions (optional)</div><div class="param-desc"><span class="param-type"><a href="#ExplicitRestrictionDTO">array[ExplicitRestrictionDTO]</a></span> An optional collection of explicit restrictions. If specified, these explicit restrictions will be enfored. </div>
+<div class="param">explicitRestrictions (optional)</div><div class="param-desc"><span class="param-type"><a href="#ExplicitRestrictionDTO">array[ExplicitRestrictionDTO]</a></span> An optional collection of explicit restrictions. If specified, these explicit restrictions will be enforced. </div>
 <div class="param">restricted (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether this type is restricted. </div>
 <div class="param">tags (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> The tags associated with this type. </div>
 <div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The fully qualified name of the type. </div>
@@ -141289,7 +143363,7 @@ As a result, this value should not be set to true by any client other than the U
   </div>
   <div class="model">
     <h3><a name="ExplicitRestrictionDTO"><code>ExplicitRestrictionDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'>An optional collection of explicit restrictions. If specified, these explicit restrictions will be enfored.</div>
+    <div class='model-description'>An optional collection of explicit restrictions. If specified, these explicit restrictions will be enforced.</div>
     <div class="field-items">
       <div class="param">explanation (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The description of why the usage of this component is restricted for this required permission. </div>
 <div class="param">requiredPermission (optional)</div><div class="param-desc"><span class="param-type"><a href="#RequiredPermissionDTO">RequiredPermissionDTO</a></span>  </div>
@@ -141966,6 +144040,61 @@ If the lineageRequestType is FLOWFILE and the flowfile uuid is also included in 
     
     <div class="field-items">
       <div class="param">long (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MigrationPayloadDTO"><code>MigrationPayloadDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The uploaded migration payload metadata.</div>
+    <div class="field-items">
+      <div class="param">payloadId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the uploaded migration payload. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MigrationPayloadEntity"><code>MigrationPayloadEntity</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">payload (optional)</div><div class="param-desc"><span class="param-type"><a href="#MigrationPayloadDTO">MigrationPayloadDTO</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MigrationRequestDTO"><code>MigrationRequestDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The migration request.</div>
+    <div class="field-items">
+      <div class="param">complete (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether or not the request is completed </div>
+<div class="param">connectorId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the Connector receiving the migration. </div>
+<div class="param">failureReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The reason for the request failing, or null if the request has not failed </div>
+<div class="param">lastUpdated (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> The timestamp of when the request was last updated format: date-time</div>
+<div class="param">localSource (optional)</div><div class="param-desc"><span class="param-type"><a href="#MigrationRequestLocalSourceDTO">MigrationRequestLocalSourceDTO</a></span>  </div>
+<div class="param">payloadId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of a previously uploaded migration payload. </div>
+<div class="param">percentCompleted (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> A value between 0 and 100 (inclusive) indicating how close the request is to completion format: int32</div>
+<div class="param">requestId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the request </div>
+<div class="param">state (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A description of the current state of the request </div>
+<div class="param">submissionTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> The timestamp of when the request was submitted format: date-time</div>
+<div class="param">updateSteps (optional)</div><div class="param-desc"><span class="param-type"><a href="#MigrationUpdateStepDTO">array[MigrationUpdateStepDTO]</a></span> The steps that are required in order to complete the request, along with the status of each </div>
+<div class="param">uri (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The URI for the request </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MigrationRequestEntity"><code>MigrationRequestEntity</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">request (optional)</div><div class="param-desc"><span class="param-type"><a href="#MigrationRequestDTO">MigrationRequestDTO</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MigrationRequestLocalSourceDTO"><code>MigrationRequestLocalSourceDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The local Process Group source for the migration request.</div>
+    <div class="field-items">
+      <div class="param">processGroupId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the local source Process Group to migrate. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MigrationUpdateStepDTO"><code>MigrationUpdateStepDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The steps that are required in order to complete the request, along with the status of each</div>
+    <div class="field-items">
+      <div class="param">complete (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether or not this step has completed </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Explanation of what happens in this step </div>
+<div class="param">failureReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> An explanation of why this step failed, or null if this step did not fail </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -143015,12 +145144,12 @@ This denotes which of the two scenarios is being encountered. </div>
     <h3><a name="ProcessorConfigDTO"><code>ProcessorConfigDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
     <div class='model-description'>The configuration details for the processor. These details will be included in a response if the verbose flag is included in a request.</div>
     <div class="field-items">
-      <div class="param">annotationData (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The annotation data for the processor used to relay configuration between a custom UI and the procesosr. </div>
+      <div class="param">annotationData (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The annotation data for the processor used to relay configuration between a custom UI and the processor. </div>
 <div class="param">autoTerminatedRelationships (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> The names of all relationships that cause a flow file to be terminated if the relationship is not connected elsewhere. This property differs from the &#x27;isAutoTerminate&#x27; property of the RelationshipDTO in that the RelationshipDTO is meant to depict the current configuration, whereas this property can be set in a DTO when updating a Processor in order to change which Relationships should be auto-terminated. </div>
 <div class="param">backoffMechanism (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Determines whether the FlowFile should be penalized or the processor should be yielded between retries. Possible returned values: PENALIZE_FLOWFILE, YIELD_PROCESSOR. See BackoffMechanism.class for more details. </div>
 <div class="param">bulletinLevel (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The level at which the processor will report bulletins. </div>
 <div class="param">comments (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The comments for the processor. </div>
-<div class="param">concurrentlySchedulableTaskCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> The number of tasks that should be concurrently schedule for the processor. If the processor doesn&#x27;t allow parallol processing then any positive input will be ignored. format: int32</div>
+<div class="param">concurrentlySchedulableTaskCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> The number of tasks that should be concurrently schedule for the processor. If the processor doesn&#x27;t allow parallel processing then any positive input will be ignored. format: int32</div>
 <div class="param">customUiUrl (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The URL for the processor&#x27;s custom configuration UI if applicable. </div>
 <div class="param">defaultConcurrentTasks (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">map[String, String]</a></span> Maps default values for concurrent tasks for each applicable scheduling strategy. </div>
 <div class="param">defaultSchedulingPeriod (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">map[String, String]</a></span> Maps default values for scheduling period for each applicable scheduling strategy. </div>
@@ -143073,6 +145202,7 @@ This denotes which of the two scenarios is being encountered. </div>
         <div class="param-enum-header">Enum:</div>
         <div class="param-enum">RUNNING</div><div class="param-enum">STOPPED</div><div class="param-enum">DISABLED</div><div class="param-enum">RUN_ONCE</div>
 <div class="param">style (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">map[String, String]</a></span> Styles for the processor (background-color : #eee). </div>
+<div class="param">supportsBacklogReporting (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the processor implements BacklogReportingProcessor and can report a backlog. </div>
 <div class="param">supportsBatching (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the processor supports batching. This makes the run duration settings available. </div>
 <div class="param">supportsParallelProcessing (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the processor supports parallel processing. </div>
 <div class="param">supportsSensitiveDynamicProperties (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the processor supports sensitive dynamic properties. </div>
@@ -143219,7 +145349,7 @@ This denotes which of the two scenarios is being encountered. </div>
       <div class="param">activeThreadCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> The number of threads currently executing in the processor. format: int32</div>
 <div class="param">bytesIn (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The size of the FlowFiles that have been accepted in the last 5 minutes format: int64</div>
 <div class="param">bytesOut (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The size of the FlowFiles transferred to a Connection in the last 5 minutes format: int64</div>
-<div class="param">bytesRead (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The number of bytes read by this Processor in the last 5 mintues format: int64</div>
+<div class="param">bytesRead (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The number of bytes read by this Processor in the last 5 minutes format: int64</div>
 <div class="param">bytesWritten (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The number of bytes written by this Processor in the last 5 minutes format: int64</div>
 <div class="param">executionNode (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Indicates the node where the process will execute. </div>
         <div class="param-enum-header">Enum:</div>
@@ -143229,7 +145359,7 @@ This denotes which of the two scenarios is being encountered. </div>
 <div class="param">groupId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The id of the parent process group to which the processor belongs. </div>
 <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The id of the processor. </div>
 <div class="param">input (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The count/size of FlowFiles that have been accepted in the last 5 minutes. </div>
-<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the prcessor. </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the processor. </div>
 <div class="param">output (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The count/size of FlowFiles that have been processed in the last 5 minutes. </div>
 <div class="param">processingPerformanceStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#ProcessingPerformanceStatusDTO">ProcessingPerformanceStatusDTO</a></span>  </div>
 <div class="param">read (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The number of bytes read in the last 5 minutes. </div>
@@ -143427,7 +145557,7 @@ This denotes which of the two scenarios is being encountered. </div>
 <div class="param">contentEqual (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the input and output content claim is the same. </div>
 <div class="param">details (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The event details. </div>
 <div class="param">eventDuration (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The event duration in milliseconds. format: int64</div>
-<div class="param">eventId (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The event id. This is a one up number thats unique per node. format: int64</div>
+<div class="param">eventId (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The event id. This is a one up number that&#x27;s unique per node. format: int64</div>
 <div class="param">eventTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The timestamp of the event. </div>
 <div class="param">eventTimestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Event Timestamp formatted using ISO8601 </div>
 <div class="param">eventType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The type of the event. </div>
@@ -143455,7 +145585,7 @@ This denotes which of the two scenarios is being encountered. </div>
 <div class="param">relationship (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The relationship to which the flowfile was routed if the event is of type ROUTE. </div>
 <div class="param">replayAvailable (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether or not replay is available. </div>
 <div class="param">replayExplanation (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Explanation as to why replay is unavailable. </div>
-<div class="param">sourceConnectionIdentifier (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the queue/connection from which the flowfile was pulled to genereate this event. May be null if the queue/connection is unknown or the flowfile was generated from this event. </div>
+<div class="param">sourceConnectionIdentifier (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the queue/connection from which the flowfile was pulled to generate this event. May be null if the queue/connection is unknown or the flowfile was generated from this event. </div>
 <div class="param">sourceSystemFlowFileId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The source system flowfile id. </div>
 <div class="param">transitUri (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The source/destination system uri if the event was a RECEIVE/SEND. </div>
     </div>  <!-- field-items -->
@@ -143562,6 +145692,44 @@ This denotes which of the two scenarios is being encountered. </div>
     <div class="field-items">
       <div class="param">byteCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> The size of objects in a queue. format: int64</div>
 <div class="param">objectCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> The count of objects in a queue. format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RebaseAnalysisEntity"><code>RebaseAnalysisEntity</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">analysisFingerprint (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A fingerprint representing the state of this analysis, used to verify the analysis is still valid when executing the rebase </div>
+<div class="param">currentVersion (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The current version of the flow in the Process Group </div>
+<div class="param">failureReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The reason the rebase is not allowed, or null if the rebase is allowed </div>
+<div class="param">localChanges (optional)</div><div class="param-desc"><span class="param-type"><a href="#RebaseChangeDTO">array[RebaseChangeDTO]</a></span> The list of local changes that were made to the flow since the last version control operation </div>
+<div class="param">processGroupId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the Process Group being rebased </div>
+<div class="param">rebaseAllowed (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the rebase is allowed based on the analysis of local and upstream changes </div>
+<div class="param">targetVersion (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The target version to rebase to </div>
+<div class="param">upstreamChanges (optional)</div><div class="param-desc"><span class="param-type"><a href="#ComponentDifferenceDTO">array[ComponentDifferenceDTO]</a></span> The set of upstream changes between the current version and the target version in the flow registry </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RebaseChangeDTO"><code>RebaseChangeDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The list of local changes that were made to the flow since the last version control operation</div>
+    <div class="field-items">
+      <div class="param">classification (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The classification of this change: COMPATIBLE, CONFLICTING, or UNSUPPORTED </div>
+<div class="param">componentId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the component that was changed </div>
+<div class="param">componentName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the component that was changed </div>
+<div class="param">componentType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The type of the component that was changed </div>
+<div class="param">conflictCode (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A code identifying the type of conflict, or null if the change is not conflicting </div>
+<div class="param">conflictDetail (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> A detailed description of the conflict, or null if the change is not conflicting </div>
+<div class="param">differenceType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The type of difference detected for this change </div>
+<div class="param">fieldName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the field that was changed, or null if not applicable </div>
+<div class="param">localValue (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The local value of the field, or null if not applicable </div>
+<div class="param">registryValue (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The registry value of the field, or null if not applicable </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RebaseRequestEntity"><code>RebaseRequestEntity</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">analysisFingerprint (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The fingerprint of the rebase analysis, used to verify the analysis is still valid when executing the rebase </div>
+<div class="param">versionControlInformationEntity (optional)</div><div class="param-desc"><span class="param-type"><a href="#VersionControlInformationEntity">VersionControlInformationEntity</a></span>  </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">
@@ -143838,7 +146006,7 @@ These validation errors represent the problems with the remote process group tha
     
     <div class="field-items">
       <div class="param">activeThreadCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> The number of active threads for the reporting task. format: int32</div>
-<div class="param">annotationData (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The annotation data for the repoting task. This is how the custom UI relays configuration to the reporting task. </div>
+<div class="param">annotationData (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The annotation data for the reporting task. This is how the custom UI relays configuration to the reporting task. </div>
 <div class="param">bundle (optional)</div><div class="param-desc"><span class="param-type"><a href="#BundleDTO">BundleDTO</a></span>  </div>
 <div class="param">comments (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The comments of the reporting task. </div>
 <div class="param">customUiUrl (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The URL for the custom configuration UI for the reporting task. </div>
@@ -144685,6 +146853,29 @@ As a result, this value should not be set to true by any client other than the U
     
     <div class="field-items">
       <div class="param">versionedFlow (optional)</div><div class="param-desc"><span class="param-type"><a href="#VersionedFlowDTO">VersionedFlowDTO</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VersionedFlowMigrationSourceDTO"><code>VersionedFlowMigrationSourceDTO</code></a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>The Versioned Process Groups that the Connector can be migrated from.</div>
+    <div class="field-items">
+      <div class="param">bucketId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The Flow Registry bucket identifier for the source Process Group. </div>
+<div class="param">flowId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The Flow Registry flow identifier for the source Process Group. </div>
+<div class="param">flowName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the versioned flow backing the source Process Group, as recorded in the Flow Registry. May be null when the registry has not yet supplied a name (for example, while the source&#x27;s version control state is SYNC_FAILURE). </div>
+<div class="param">ineligibilityReasons (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> User-facing descriptions of all conditions that currently prevent the source Process Group from being migrated. Empty when readyForMigration is true. Each entry describes a single remediable condition (running processors, queued FlowFiles, etc.); every applicable condition is included so the user can address them together. </div>
+<div class="param">parentProcessGroupId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the parent Process Group of the source Process Group. </div>
+<div class="param">processGroupId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the source Process Group. </div>
+<div class="param">processGroupName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The name of the source Process Group. </div>
+<div class="param">readyForMigration (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Whether the source Process Group is currently in a state that allows it to be migrated into the target Connector. When false, ineligibilityReasons describes what must change before the migration can proceed. </div>
+<div class="param">registryClientId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier of the Flow Registry client backing the source Process Group. </div>
+<div class="param">version (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The published version of the source Process Group. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VersionedFlowMigrationSourcesEntity"><code>VersionedFlowMigrationSourcesEntity</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">migrationSources (optional)</div><div class="param-desc"><span class="param-type"><a href="#VersionedFlowMigrationSourceDTO">array[VersionedFlowMigrationSourceDTO]</a></span> The Versioned Process Groups that the Connector can be migrated from. </div>
     </div>  <!-- field-items -->
   </div>
   <div class="model">

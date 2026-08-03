@@ -692,10 +692,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.twitter.ConsumeTwitter/">ConsumeTwitter</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.windows.event.log.ConsumeWindowsEventLog/">ConsumeWindowsEventLog</a>
                 </li>
                 
@@ -897,6 +893,14 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorage_v12/">FetchAzureBlobStorage_v12</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageMetadata/">FetchAzureBlobStorageMetadata</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageTags/">FetchAzureBlobStorageTags</a>
                 </li>
                 
                 <li >
@@ -2459,7 +2463,7 @@
           
 
 
-<h3>PutElasticsearchJson 2.10.0</h3>
+<h3>PutElasticsearchJson 2.11.0</h3>
 
 
 
@@ -2483,7 +2487,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.10.0</a>
+        <a class="uk-accordion-title" href>Additional Details for PutElasticsearchJson 2.11.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2511,6 +2515,47 @@ too large for it to handle. When failures do occur, this processor is capable of
 failed to an errors queue so that only failed FlowFiles can be processed downstream or replayed.</p>
 <p>The index, operation and (optional) type fields are configured with default values. The ID (optional unless the
 operation is &ldquo;index&rdquo;) can be set as an attribute on the FlowFile(s).</p>
+<h3 id="field-path-mode">Field Path Mode</h3>
+<p>The <strong>Identifier Field</strong>, <strong>Index Field</strong> and <strong>Timestamp Field</strong> properties each name a field within the document
+whose value is extracted (and used as the document ID, index name, or <code>@timestamp</code> respectively). The <strong>Field Path
+Mode</strong> property controls how those values are interpreted:</p>
+<ul>
+<li><strong>Literal Field Name</strong> (the default) — each value is the exact name of a top-level field. A <code>/</code> or <code>\</code> is just
+a character in the field name, so a value like <code>@metadata/id</code> matches a top-level field literally named
+<code>@metadata/id</code>.</li>
+<li><strong>Nested Field Path</strong> — each value is a <code>/</code>-delimited path into nested objects, as described below.</li>
+</ul>
+<h4 id="literal-field-name-default">Literal Field Name (default)</h4>
+<p>For the document:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;@metadata/id&#34;</span>: <span style="color:#e6db74">&#34;abc&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Hello, world&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>an Identifier Field of <code>@metadata/id</code> selects <code>abc</code> — the top-level field whose name is literally
+<code>@metadata/id</code>. The same value against <code>{&quot;@metadata&quot;: {&quot;id&quot;: &quot;abc&quot;}}</code> selects nothing, because there is no
+top-level field with that exact name.</p>
+<h4 id="nested-field-path">Nested Field Path</h4>
+<p>The remainder of this section applies when <strong>Field Path Mode</strong> is set to <strong>Nested Field Path</strong>. For the document:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;@metadata&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;abc&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;index&#34;</span>: <span style="color:#e6db74">&#34;my-index&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Hello, world&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>the Identifier Field path <code>@metadata/id</code> selects <code>abc</code></li>
+<li>the Index Field path <code>@metadata/index</code> selects <code>my-index</code></li>
+</ul>
+<h4 id="field-names-that-contain-a-slash">Field names that contain a slash</h4>
+<p>Because <code>/</code> separates path segments, a field whose name literally contains a <code>/</code> must have that slash escaped as <code>\/</code>,
+and a literal backslash must be escaped as <code>\\</code>. For example, for the document <code>{&quot;a/b&quot;: &quot;abc&quot;}</code> the path <code>a\/b</code> selects
+the top-level field named <code>a/b</code>.</p>
+<h4 id="removal-and-pruning">Removal and pruning</h4>
+<p>When the corresponding <strong>Retain</strong> property is set to <code>false</code>, the field is removed from the document body after its
+value is extracted. For a nested path, any parent object that is left empty by the removal is also pruned. For example,
+extracting and removing <code>@metadata/id</code> from <code>{&quot;@metadata&quot;: {&quot;id&quot;: &quot;abc&quot;}, &quot;message&quot;: &quot;Hello, world&quot;}</code> leaves
+<code>{&quot;message&quot;: &quot;Hello, world&quot;}</code>, with the now-empty <code>@metadata</code> object removed.</p>
 <h3 id="dynamic-templates">Dynamic Templates</h3>
 <p>Index and Create operations can use Dynamic Templates. The Dynamic Templates property must be parsable as a JSON object.</p>
 <h4 id="example---index-with-dynamic-templates">Example - Index with Dynamic Templates</h4>
@@ -3423,6 +3468,51 @@ invalid combinations of index operation and Bulk action fields.</p>
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Field Path Mode</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">How the Identifier Field, Index Field, and Timestamp Field property values are interpreted when locating a field within each document. In &#34;Literal Field Name&#34; mode (the default) each value is the exact name of a top-level field. In &#34;Nested Field Path&#34; mode each value is a &#34;/&#34;-delimited path into nested objects; see the processor&#39;s Additional Details for the full path syntax, including how to reference a field name that contains a literal &#34;/&#34;.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Field Path Mode</dd>
+                    <dt>Description</dt>
+                    <dd>How the Identifier Field, Index Field, and Timestamp Field property values are interpreted when locating a field within each document. In &#34;Literal Field Name&#34; mode (the default) each value is the exact name of a top-level field. In &#34;Nested Field Path&#34; mode each value is a &#34;/&#34;-delimited path into nested objects; see the processor&#39;s Additional Details for the full path syntax, including how to reference a field name that contains a literal &#34;/&#34;.</dd>
+                    <dt>API Name</dt>
+                    <dd>Field Path Mode</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Literal Field Name</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Literal Field Name
+                                <span uk-icon="info" uk-tooltip="The configured value is the exact name of a top-level field in the document; &#34;/&#34; and &#34;\&#34; are treated as literal characters. This is the default and matches the behavior of earlier releases."></span></li>
+                            
+                            <li>
+                                Nested Field Path
+                                <span uk-icon="info" uk-tooltip="The configured value is a &#34;/&#34;-delimited path into nested objects (e.g. &#34;@metadata/id&#34;). To reference a field name that contains a literal &#34;/&#34;, escape it as &#34;\/&#34;; a literal backslash is &#34;\\&#34;."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Identifier Attribute</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the FlowFile attribute containing the identifier for the document. If the Index Operation is &#34;index&#34;, this property may be left empty or evaluate to an empty value, in which case the document&#39;s identifier will be auto-generated by Elasticsearch. For all other Index Operations, the attribute must evaluate to a non-empty value.</div>
             </a>
@@ -3470,14 +3560,14 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Identifier Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the field within each document to use as the Elasticsearch document ID. If the field is not present in a document or this property is left blank, no document ID is set and Elasticsearch will auto-generate one.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the field within each document to use as the Elasticsearch document ID, interpreted as a literal field name or a nested &#34;/&#34;-delimited path per the Field Path Mode property. If the field is not present in a document or this property is left blank, no document ID is set and Elasticsearch will auto-generate one.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Identifier Field</dd>
                     <dt>Description</dt>
-                    <dd>The name of the field within each document to use as the Elasticsearch document ID. If the field is not present in a document or this property is left blank, no document ID is set and Elasticsearch will auto-generate one.</dd>
+                    <dd>The name of the field within each document to use as the Elasticsearch document ID, interpreted as a literal field name or a nested &#34;/&#34;-delimited path per the Field Path Mode property. If the field is not present in a document or this property is left blank, no document ID is set and Elasticsearch will auto-generate one.</dd>
                     <dt>API Name</dt>
                     <dd>Identifier Field</dd>
                     
@@ -3543,14 +3633,14 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Index Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the field within each document to use as the Elasticsearch index name. If the field is not present in a document or this property is left blank, the configured Index property value is used as the fallback.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the field within each document to use as the Elasticsearch index name, interpreted as a literal field name or a nested &#34;/&#34;-delimited path per the Field Path Mode property. If the field is not present in a document or this property is left blank, the configured Index property value is used as the fallback.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Index Field</dd>
                     <dt>Description</dt>
-                    <dd>The name of the field within each document to use as the Elasticsearch index name. If the field is not present in a document or this property is left blank, the configured Index property value is used as the fallback.</dd>
+                    <dd>The name of the field within each document to use as the Elasticsearch index name, interpreted as a literal field name or a nested &#34;/&#34;-delimited path per the Field Path Mode property. If the field is not present in a document or this property is left blank, the configured Index property value is used as the fallback.</dd>
                     <dt>API Name</dt>
                     <dd>Index Field</dd>
                     
@@ -3893,14 +3983,14 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Retain Identifier Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Identifier Field in the document body after extracting it for use as the Elasticsearch document ID. When true (default), the field is left in the document; set to false to remove it before indexing.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Identifier Field in the document body after extracting it for use as the Elasticsearch document ID. When true (default), the field is left in the document; set to false to remove it before indexing. For a nested (&#34;/&#34;-delimited) path, any parent object left empty by the removal is also pruned.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Retain Identifier Field</dd>
                     <dt>Description</dt>
-                    <dd>Whether to keep the Identifier Field in the document body after extracting it for use as the Elasticsearch document ID. When true (default), the field is left in the document; set to false to remove it before indexing.</dd>
+                    <dd>Whether to keep the Identifier Field in the document body after extracting it for use as the Elasticsearch document ID. When true (default), the field is left in the document; set to false to remove it before indexing. For a nested (&#34;/&#34;-delimited) path, any parent object left empty by the removal is also pruned.</dd>
                     <dt>API Name</dt>
                     <dd>Retain Identifier Field</dd>
                     
@@ -3955,14 +4045,14 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Retain Index Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Index Field in the document body after extracting it for use as the Elasticsearch index name. When true (default), the field is left in the document; set to false to remove it before indexing.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Index Field in the document body after extracting it for use as the Elasticsearch index name. When true (default), the field is left in the document; set to false to remove it before indexing. For a nested (&#34;/&#34;-delimited) path, any parent object left empty by the removal is also pruned.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Retain Index Field</dd>
                     <dt>Description</dt>
-                    <dd>Whether to keep the Index Field in the document body after extracting it for use as the Elasticsearch index name. When true (default), the field is left in the document; set to false to remove it before indexing.</dd>
+                    <dd>Whether to keep the Index Field in the document body after extracting it for use as the Elasticsearch index name. When true (default), the field is left in the document; set to false to remove it before indexing. For a nested (&#34;/&#34;-delimited) path, any parent object left empty by the removal is also pruned.</dd>
                     <dt>API Name</dt>
                     <dd>Retain Index Field</dd>
                     
@@ -4017,14 +4107,14 @@ invalid combinations of index operation and Bulk action fields.</p>
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Retain Timestamp Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Timestamp Field in the document body after copying its value to @timestamp. When true (default), the field is left in the document; set to false to remove it before indexing.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether to keep the Timestamp Field in the document body after copying its value to @timestamp. When true (default), the field is left in the document; set to false to remove it before indexing. For a nested (&#34;/&#34;-delimited) path, any parent object left empty by the removal is also pruned.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Retain Timestamp Field</dd>
                     <dt>Description</dt>
-                    <dd>Whether to keep the Timestamp Field in the document body after copying its value to @timestamp. When true (default), the field is left in the document; set to false to remove it before indexing.</dd>
+                    <dd>Whether to keep the Timestamp Field in the document body after copying its value to @timestamp. When true (default), the field is left in the document; set to false to remove it before indexing. For a nested (&#34;/&#34;-delimited) path, any parent object left empty by the removal is also pruned.</dd>
                     <dt>API Name</dt>
                     <dd>Retain Timestamp Field</dd>
                     
@@ -4204,14 +4294,14 @@ Performance note: for JSON Array the impact is negligible since documents are al
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Timestamp Field</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of a field within each document whose value will be written to Elasticsearch as the @timestamp field. If the field is absent or this property is left blank, no @timestamp is set.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of a field within each document whose value will be written to Elasticsearch as the @timestamp field, interpreted as a literal field name or a nested &#34;/&#34;-delimited path per the Field Path Mode property. If the field is absent or this property is left blank, no @timestamp is set.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Timestamp Field</dd>
                     <dt>Description</dt>
-                    <dd>The name of a field within each document whose value will be written to Elasticsearch as the @timestamp field. If the field is absent or this property is left blank, no @timestamp is set.</dd>
+                    <dd>The name of a field within each document whose value will be written to Elasticsearch as the @timestamp field, interpreted as a literal field name or a nested &#34;/&#34;-delimited path per the Field Path Mode property. If the field is absent or this property is left blank, no @timestamp is set.</dd>
                     <dt>API Name</dt>
                     <dd>Timestamp Field</dd>
                     

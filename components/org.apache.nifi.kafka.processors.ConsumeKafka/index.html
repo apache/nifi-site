@@ -692,10 +692,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.twitter.ConsumeTwitter/">ConsumeTwitter</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.windows.event.log.ConsumeWindowsEventLog/">ConsumeWindowsEventLog</a>
                 </li>
                 
@@ -897,6 +893,14 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorage_v12/">FetchAzureBlobStorage_v12</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageMetadata/">FetchAzureBlobStorageMetadata</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageTags/">FetchAzureBlobStorageTags</a>
                 </li>
                 
                 <li >
@@ -2459,7 +2463,7 @@
           
 
 
-<h3>ConsumeKafka 2.10.0</h3>
+<h3>ConsumeKafka 2.11.0</h3>
 
 
 
@@ -2467,7 +2471,7 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-kafka-nar</dd>
     <dt>Description</dt>
-    <dd>Consumes messages from Apache Kafka Consumer API. The complementary NiFi processor for sending messages is PublishKafka. The Processor supports consumption of Kafka messages, optionally interpreted as NiFi records. Please note that, at this time (in read record mode), the Processor assumes that all records that are retrieved from a given partition have the same schema. For this mode, if any of the Kafka messages are pulled but cannot be parsed or written with the configured Record Reader or Record Writer, the contents of the message will be written to a separate FlowFile, and that FlowFile will be transferred to the &#39;parse.failure&#39; relationship. Otherwise, each FlowFile is sent to the &#39;success&#39; relationship and may contain many individual messages within the single FlowFile. A &#39;record.count&#39; attribute is added to indicate how many messages are contained in the FlowFile. No two Kafka messages will be placed into the same FlowFile if they have different schemas, or if they have different values for a message header that is included by the &lt;Headers to Add as Attributes&gt; property.</dd>
+    <dd>Consumes messages from Apache Kafka Consumer API. The complementary NiFi processor for sending messages is PublishKafka. The Processor supports consumption of Kafka messages, optionally interpreted as NiFi records. Please note that, at this time (in read record mode), the Processor assumes that all records that are retrieved from a given partition have the same schema. For this mode, if any of the Kafka messages are pulled but cannot be parsed or written with the configured Record Reader or Record Writer, the contents of the message will be written to a separate FlowFile, and that FlowFile will be transferred to the &#39;parse.failure&#39; relationship. Otherwise, each FlowFile is sent to the &#39;success&#39; relationship and may contain many individual messages within the single FlowFile. A &#39;record.count&#39; attribute is added to indicate how many messages are contained in the FlowFile. No two Kafka messages will be placed into the same FlowFile if they have different schemas, or if they have different values for a message header that is included by the &lt;Headers to Add as Attributes&gt; property. Kafka Record Header values selected for output are represented according to the Header Format property: as text decoded with the configured Header Encoding character set, or as a lowercase hexadecimal string for binary-safe output.</dd>
     <dt>Tags</dt>
     <dd>Consume, Get, Ingest, Ingress, Kafka, PubSub, Record, Topic, avro, csv, json</dd>
     <dt>Input Requirement</dt>
@@ -2483,7 +2487,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ConsumeKafka 2.10.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ConsumeKafka 2.11.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2820,6 +2824,70 @@
                     <dt>Default Value</dt>
                     <dd>UTF-8</dd>
                     
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Header Format</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [string]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">Header Format</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how Kafka Record Header values are represented when written as FlowFile attributes or record fields</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Header Format</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies how Kafka Record Header values are represented when written as FlowFile attributes or record fields</dd>
+                    <dt>API Name</dt>
+                    <dd>Header Format</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>string</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                String
+                                <span uk-icon="info" uk-tooltip="The header value is decoded as a string using the configured Header Encoding character set."></span></li>
+                            
+                            <li>
+                                Hex Encoded
+                                <span uk-icon="info" uk-tooltip="The header value is interpreted as arbitrary binary data and is encoded as a lowercase hexadecimal string"></span></li>
+                            
+                        </ul>
+                    </dd>
                     
                     
                     <dt>Expression Language Scope</dt>
@@ -3642,7 +3710,7 @@ For example, if set to &#39;kafka.header.&#39;, a Kafka header named &#39;uuid&#
                             
                             <li>
                                 Hex Encoded
-                                <span uk-icon="info" uk-tooltip="The key is interpreted as arbitrary binary data and is encoded using hexadecimal characters with uppercase letters"></span></li>
+                                <span uk-icon="info" uk-tooltip="The key is interpreted as arbitrary binary data and is encoded as a lowercase hexadecimal string"></span></li>
                             
                             <li>
                                 Do Not Add Key as Attribute

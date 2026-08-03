@@ -692,10 +692,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.twitter.ConsumeTwitter/">ConsumeTwitter</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.windows.event.log.ConsumeWindowsEventLog/">ConsumeWindowsEventLog</a>
                 </li>
                 
@@ -897,6 +893,14 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorage_v12/">FetchAzureBlobStorage_v12</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageMetadata/">FetchAzureBlobStorageMetadata</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageTags/">FetchAzureBlobStorageTags</a>
                 </li>
                 
                 <li >
@@ -2459,7 +2463,7 @@
           
 
 
-<h3>ReplaceTextWithMapping 2.10.0</h3>
+<h3>ReplaceTextWithMapping 2.11.0</h3>
 
 
 
@@ -2467,7 +2471,8 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Updates the content of a FlowFile by evaluating a Regular Expression against it and replacing the section of the content that matches the Regular Expression with some alternate value provided in a mapping file.</dd>
+    <dd>Updates the content of a FlowFile by evaluating a Regular Expression against it and replacing the section of the content that
+matches the Regular Expression with some alternate value provided in a mapping file.</dd>
     <dt>Tags</dt>
     <dd>Change, Mapping, Modify, Regex, Regular Expression, Replace, Text, Update</dd>
     <dt>Input Requirement</dt>
@@ -2544,14 +2549,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Mapping File</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the file (including the full path) containing the Mappings.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The name of the file (including the full path) containing the Mappings or the actual mapping contents.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Mapping File</dd>
                     <dt>Description</dt>
-                    <dd>The name of the file (including the full path) containing the Mappings.</dd>
+                    <dd>The name of the file (including the full path) containing the Mappings or the actual mapping contents.</dd>
                     <dt>API Name</dt>
                     <dd>Mapping File</dd>
                     
@@ -2571,14 +2576,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Mapping File Refresh Interval</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The polling interval to check for updates to the mapping file. The default is 60s.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The polling interval to check for updates to the mapping file only if the mapping file is a file on the filesystem. The default is 60s.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Mapping File Refresh Interval</dd>
                     <dt>Description</dt>
-                    <dd>The polling interval to check for updates to the mapping file. The default is 60s.</dd>
+                    <dd>The polling interval to check for updates to the mapping file only if the mapping file is a file on the filesystem. The default is 60s.</dd>
                     <dt>API Name</dt>
                     <dd>Mapping File Refresh Interval</dd>
                     
