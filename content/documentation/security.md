@@ -72,6 +72,24 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-68981"
+title="Uncontrolled Resource Consumption through Decompression of HTTP Requests"
+published="2026-08-03"
+severity="High"
+products="Apache NiFi"
+affectedVersions="1.5.0 to 2.10.0"
+fixedVersion="2.11.0"
+jira="NIFI-16152"
+pullRequest="11489"
+reporter="mak3bread (Minseong Kim)" >}}
+
+Apache NiFi 1.5.0 through 2.10.0 support gzip-encoded HTTP requests for the application REST API using a Jersey encoding filter. The framework enforced a configurable maximum request size on the
+compressed payload rather than the decompressed output, allowing a malicious client to send crafted requests that could consume excessive amounts of memory. Upgrading to Apache NiFi 2.11.0 is the
+recommended mitigation, which relocates response compression to Jetty Server and disables decompression of gzip-encoded HTTP requests.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-68980"
 title="Authorization Bypass for Parameter Context Asset Deletion"
 published="2026-08-03"
