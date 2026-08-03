@@ -649,6 +649,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#secrets_manager_properties">Secrets Manager Properties</a></li>
 </ul>
 </li>
+<li><a href="#migrating-a-connector-from-a-versioned-process-group">Migrating a Connector from a Versioned Process Group</a>
+<ul class="sectlevel2">
+<li><a href="#prerequisites-for-a-local-migration">Prerequisites for a local migration</a></li>
+<li><a href="#migration-paths">Migration paths</a></li>
+<li><a href="#running-a-migration">Running a migration</a></li>
+<li><a href="#what-nifi-migrates">What NiFi migrates</a></li>
+<li><a href="#cleanup-after-a-successful-migration">Cleanup after a successful migration</a></li>
+<li><a href="#cluster-topology-rule-for-component-state">Cluster-topology rule for component state</a></li>
+</ul>
+</li>
 <li><a href="#upgrading_nifi">Upgrading NiFi</a>
 <ul class="sectlevel2">
 <li><a href="#preserve-custom-processors">Preserve Custom Processors</a></li>
@@ -5867,7 +5877,13 @@ X-ProxyContextPath - the path configured to map to the NiFi instance</pre>
 <div class="ulist">
 <ul>
 <li>
-<p>If NiFi is running securely, any proxy needs to be authorized to proxy user requests. These can be configured in the NiFi UI through the Global Menu. Once these permissions are in place, proxies
+<p>NiFi expects a single host or host and port combination in <code>X-ProxyHost</code> or <code>X-Forwarded-Host</code> header values. When routing requests through multiple servers, some proxy servers append to existing
+values, producing a comma-separated string composed of multiple hosts. NiFi rejects comma-separated values with an <code>HTTP 421</code> status. Reverse proxy servers must be configured to disable appending to
+existing values, or unset input values before forwarding requests. Servers such as Apache HTTP <a href="https://httpd.apache.org/docs/2.4/mod/mod_proxy.html">mod_proxy</a> should set <code>ProxyAddHeaders</code> to
+<code>Off</code> to avoid producing invalid comma-separated values.</p>
+</li>
+<li>
+<p>When running with HTTPS enabled, all proxy servers must be authorized to proxy user requests. These can be configured in the NiFi UI through the Global Menu. Once these permissions are in place, proxies
 can begin proxying user requests. The end user identity must be relayed in a HTTP header. For example, if the end user sent a request to the proxy, the proxy must authenticate the user. Following
 this the proxy can send the request to NiFi. In this request an HTTP header should be added as follows.</p>
 </li>
@@ -6124,7 +6140,7 @@ This cleanup mechanism takes into account only automatically created archived <e
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowcontroller.autoResumeState</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates whether -upon restart- the components on the NiFi graph should return to their last state. When running in cluster, all nodes should have the same value. The default value is <code>true</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates whether -upon restart- the components on the NiFi graph, including Processors, Controller Services, and other schedulable components, should return to their last state. When running in cluster, all nodes should have the same value. The default value is <code>true</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowcontroller.graceful.shutdown.period</code></p></td>
@@ -6132,7 +6148,7 @@ This cleanup mechanism takes into account only automatically created archived <e
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowcontroller.registry.sync.interval</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the recurring interval at which NiFi synchronizes the flow configuration with Flow Registry Clients. The default value is <code>30 min</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the default recurring interval at which NiFi synchronizes the flow configuration with Flow Registry Clients. The default value is <code>30 min</code>. This value is used for any Flow Registry Client that does not configure its own <code>Synchronization Interval</code> property; a Flow Registry Client that sets that property is synchronized at its own interval instead.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowservice.writedelay.interval</code></p></td>
@@ -8071,6 +8087,169 @@ The Secrets Manager delegates to Parameter Providers to retrieve secret values.<
 </div>
 </div>
 <div class="sect1">
+<h2 id="migrating-a-connector-from-a-versioned-process-group"><a class="anchor" href="#migrating-a-connector-from-a-versioned-process-group"></a>Migrating a Connector from a Versioned Process Group</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NiFi supports a one-time path that migrates a newly created Connector from a source Versioned Process Group.
+The source Versioned Process Group is used as a reference: the Connector reads it and updates its own managed flow to mirror the source&#8217;s configuration, parameters, and component state.
+The source flow itself is not installed onto the Connector.
+Only Connectors that implement migration support can use this capability.</p>
+</div>
+<div class="sect2">
+<h3 id="prerequisites-for-a-local-migration"><a class="anchor" href="#prerequisites-for-a-local-migration"></a>Prerequisites for a local migration</h3>
+<div class="paragraph">
+<p>When the source is a local Process Group on the same NiFi instance, the Process Group must satisfy all of the following requirements before NiFi will allow the migration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The source Process Group must be under version control.</p>
+</li>
+<li>
+<p>The source Process Group must be <code>UP_TO_DATE</code> with the latest published version in Flow Registry.</p>
+</li>
+<li>
+<p>All processors in the source Process Group must be stopped.</p>
+</li>
+<li>
+<p>All controller services in the source Process Group must be disabled.</p>
+</li>
+<li>
+<p>All queues in the source Process Group must be empty.</p>
+</li>
+<li>
+<p>The source Process Group must not reference controller services outside of the Process Group.</p>
+</li>
+<li>
+<p>The target Connector must be not yet configured, stopped, and not previously migrated.</p>
+</li>
+<li>
+<p>The target Connector&#8217;s active flow must be empty when migration begins. Connectors that ship a non-empty initial flow are not compatible with the migration path.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the source Process Group is not under version control, export it and use the uploaded payload path instead.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="migration-paths"><a class="anchor" href="#migration-paths"></a>Migration paths</h3>
+<div class="paragraph">
+<p>There are two ways to run the migration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Local Process Group migration:
+Select an eligible Process Group that already exists on the current NiFi canvas.
+NiFi validates the prerequisites listed above before starting the migration.</p>
+</li>
+<li>
+<p>Uploaded payload migration:
+Export a Process Group definition, including component state if the source flow has any, and upload the resulting flow snapshot payload to the Connector migration endpoint.
+This path is intended for non-version-controlled sources, sources exported from another NiFi instance, or any other source that cannot satisfy the local version-control requirements.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For uploaded payloads, NiFi does not require the source flow to be under version control.
+The Connector&#8217;s own migration support check determines whether the uploaded flow can be imported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="running-a-migration"><a class="anchor" href="#running-a-migration"></a>Running a migration</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new Connector instance.</p>
+</li>
+<li>
+<p>If the source Process Group is local and registry-backed, choose it from the Connector migration source list.</p>
+</li>
+<li>
+<p>If the source Process Group is not eligible for the local path, export it with component state included and upload the payload to the Connector migration payload endpoint.</p>
+</li>
+<li>
+<p>Start the Connector migration request.</p>
+</li>
+<li>
+<p>Poll the request until it completes.</p>
+</li>
+<li>
+<p>Open the Connector configuration and supply any missing secrets.</p>
+</li>
+<li>
+<p>Verify the configuration and start the Connector.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="what-nifi-migrates"><a class="anchor" href="#what-nifi-migrates"></a>What NiFi migrates</h3>
+<div class="paragraph">
+<p>During migration, NiFi provides the Connector with the exported flow definition, parameter contexts, referenced assets, and any attached component state for <code>@Stateful</code> components.
+The Connector performs the flow translation and updates its own managed flow to mirror the source.</p>
+</div>
+<div class="paragraph">
+<p>For local migrations, a Connector can also copy referenced assets from the source Process Group into the Connector&#8217;s own asset namespace.
+Uploaded payload migrations do not include live access to source assets, so any required asset content must be re-uploaded separately after the migration.</p>
+</div>
+<div class="paragraph">
+<p>Sensitive parameter values are not present in exported flow definitions.
+After migration, configure the Connector with any missing secret values before starting it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cleanup-after-a-successful-migration"><a class="anchor" href="#cleanup-after-a-successful-migration"></a>Cleanup after a successful migration</h3>
+<div class="paragraph">
+<p>After a successful local migration, NiFi disables the source Process Group and renames it with the `(Migrated) ` prefix.
+This makes it clear that the source flow has already been used as the basis for a Connector migration.</p>
+</div>
+<div class="paragraph">
+<p>Uploaded payloads and migration request state are kept only in memory for the lifetime of the request.
+When the request succeeds, fails, or is cancelled, NiFi removes the uploaded payload associated with that request.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cluster-topology-rule-for-component-state"><a class="anchor" href="#cluster-topology-rule-for-component-state"></a>Cluster-topology rule for component state</h3>
+<div class="paragraph">
+<p>When the source flow being migrated includes LOCAL component state for a stateful component (for example a <code>@Stateful</code> Processor or Controller Service), the destination cluster must have at least as many connected nodes as the source flow&#8217;s exported state references.
+The rule applied by the migration manager is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>size(component.localNodeStates) &lt;= number of connected nodes in the destination cluster</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the same rule that applies when importing a Versioned Process Group into a destination cluster.
+NiFi enforces it for both the local migration path and the uploaded payload path so that LOCAL state can be unambiguously distributed across the destination cluster.</p>
+</div>
+<div class="paragraph">
+<p>When the migration request fails with a message such as <code>Cannot import flow with component state: the flow definition contains local state from N source node(s) but the destination cluster has only M connected node(s)</code>, take one of the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reconnect any disconnected cluster nodes so that the destination cluster has at least <code>N</code> connected nodes, then re-run the migration.</p>
+</li>
+<li>
+<p>Re-export the source flow without component state (uncheck the "include component state" option) and re-upload the payload.
+The Connector will start with empty LOCAL state on every destination node, which is appropriate when the LOCAL state is reproducible from the upstream system.</p>
+</li>
+<li>
+<p>Migrate into a cluster that has at least <code>N</code> connected nodes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The migration request is also rejected when any cluster node is in the <code>CONNECTING</code>, <code>DISCONNECTED</code>, or <code>DISCONNECTING</code> state at the time the request is submitted, because component state and asset content cannot be synchronized to a node that is not currently connected.
+Reconnect the disconnected nodes and re-submit the request.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="upgrading_nifi"><a class="anchor" href="#upgrading_nifi"></a>Upgrading NiFi</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -8782,7 +8961,7 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 16:07:03 -0700
+Last updated 2026-07-30 23:48:12 +0200
 </div>
 </div>
 </body>

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.10.0
+  version: 2.11.0
 security:
 - HTTPBearerJWT: []
 - CookieSecureAuthorizationBearer: []
@@ -701,6 +701,132 @@ paths:
       summary: Retrieves the content of the asset with the given id for a connector
       tags:
       - Connectors
+  /connectors/{id}/backlog-requests:
+    post:
+      description: "This will initiate the process of determining the backlog for\
+        \ a Connector. This may be a long-running task. As a result, this endpoint\
+        \ will immediately return a BacklogRequestEntity, and the process of determining\
+        \ the backlog will occur asynchronously in the background. The client may\
+        \ then periodically poll the status of the request by issuing a GET request\
+        \ to /connectors/{id}/backlog-requests/{requestId}. Once the request is completed,\
+        \ the client is expected to issue a DELETE request to /connectors/{id}/backlog-requests/{requestId}."
+      operationId: submitConnectorBacklogRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BacklogRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Initiates a request to determine the current backlog for a Connector
+      tags:
+      - Connectors
+  /connectors/{id}/backlog-requests/{requestId}:
+    delete:
+      description: "Deletes the Backlog Request with the given ID. After a request\
+        \ is created, it is expected that the client will properly clean up the request\
+        \ by DELETE'ing it once the backlog determination has completed. If the request\
+        \ is deleted before it completes, the background determination is cancelled."
+      operationId: deleteConnectorBacklogRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Backlog Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BacklogRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can remove it: []
+      summary: Deletes the Backlog Request with the given ID
+      tags:
+      - Connectors
+    get:
+      description: "Returns the Backlog Request with the given ID. Once a Backlog\
+        \ Request has been created by performing a POST to /connectors/{id}/backlog-requests,\
+        \ that request can subsequently be retrieved via this endpoint, and the request\
+        \ that is fetched will contain the updated state, such as percent complete,\
+        \ the current state of the request, and the backlog once the request is complete."
+      operationId: getConnectorBacklogRequest
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Backlog Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BacklogRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can get it: []
+      summary: Returns the Backlog Request with the given ID
+      tags:
+      - Connectors
   /connectors/{id}/configuration-steps:
     get:
       operationId: getConnectorConfigurationSteps
@@ -1033,6 +1159,45 @@ paths:
       summary: Returns the Verification Request with the given ID
       tags:
       - Connectors
+  /connectors/{id}/connections/{connectionId}/status/history:
+    get:
+      operationId: getConnectorConnectionStatusHistory
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The connection id.
+        in: path
+        name: connectionId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusHistoryEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the status history for a connection within a connector
+      tags:
+      - Connectors
   /connectors/{id}/controller-services/{controllerServiceId}/state:
     get:
       operationId: getConnectorControllerServiceState
@@ -1218,6 +1383,223 @@ paths:
       summary: Initiates draining of FlowFiles for a connector
       tags:
       - Connectors
+  /connectors/{id}/migration-payloads:
+    post:
+      operationId: createMigrationPayload
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+        description: The migration payload snapshot
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationPayloadEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Uploads a flow snapshot payload for a later Connector migration request
+      tags:
+      - Connectors
+  /connectors/{id}/migration-requests:
+    post:
+      operationId: createMigrationRequest
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MigrationRequestEntity"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /connectors/{uuid}: []
+      summary: Creates a Connector migration request
+      tags:
+      - Connectors
+  /connectors/{id}/migration-requests/{requestId}:
+    delete:
+      operationId: deleteMigrationRequest
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      summary: Deletes the Connector migration request with the given ID
+      tags:
+      - Connectors
+    get:
+      operationId: getMigrationRequest
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MigrationRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      summary: Gets the Connector migration request with the given ID
+      tags:
+      - Connectors
+  /connectors/{id}/migration-sources:
+    get:
+      operationId: getMigrationSources
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionedFlowMigrationSourcesEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Lists the Versioned Process Groups that the Connector can be migrated
+        from
+      tags:
+      - Connectors
+  /connectors/{id}/process-groups/{processGroupId}/status/history:
+    get:
+      operationId: getConnectorProcessGroupStatusHistory
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The process group id.
+        in: path
+        name: processGroupId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusHistoryEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the status history for a process group within a connector
+      tags:
+      - Connectors
   /connectors/{id}/processors/{processorId}/state:
     get:
       operationId: getConnectorProcessorState
@@ -1304,6 +1686,45 @@ paths:
       security:
       - Write - /connectors/{uuid}: []
       summary: Clears the state for a processor within a connector
+      tags:
+      - Connectors
+  /connectors/{id}/processors/{processorId}/status/history:
+    get:
+      operationId: getConnectorProcessorStatusHistory
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The processor id.
+        in: path
+        name: processorId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusHistoryEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the status history for a processor within a connector
       tags:
       - Connectors
   /connectors/{id}/purge-requests:
@@ -1420,6 +1841,45 @@ paths:
       security:
       - Only the user that submitted the request can get it: []
       summary: Gets the current status of a purge request for the specified connector
+      tags:
+      - Connectors
+  /connectors/{id}/remote-process-groups/{remoteProcessGroupId}/status/history:
+    get:
+      operationId: getConnectorRemoteProcessGroupStatusHistory
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The remote process group id.
+        in: path
+        name: remoteProcessGroupId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusHistoryEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets the status history for a remote process group within a connector
       tags:
       - Connectors
   /connectors/{id}/run-status:
@@ -8563,6 +9023,7 @@ paths:
             to process it.
       security:
       - Read - /parameter-contexts/{parameterContextId}: []
+      - Write - /parameter-contexts/{parameterContextId}: []
       summary: Initiate a Validation Request to determine how the validity of components
         will change if a Parameter Context were to be updated
       tags:
@@ -8801,6 +9262,10 @@ paths:
       security:
       - Read - /parameter-contexts/{id}: []
       - Write - /parameter-contexts/{id}: []
+      - Read - for every component that is affected by the update: []
+      - Write - for every component that is affected by the update: []
+      - Read - for every currently inherited parameter context: []
+      - Read - for any new inherited parameter context: []
       summary: Modifies a Parameter Context
       tags:
       - ParameterContexts
@@ -11227,6 +11692,133 @@ paths:
       - Write - /processors/{uuid}: []
       - Read - any referenced Controller Services if this request changes the reference - /controller-services/{uuid}: []
       summary: Updates a processor
+      tags:
+      - Processors
+  /processors/{id}/backlog-requests:
+    post:
+      description: "This will initiate the process of determining the backlog for\
+        \ a Processor. This may be a long-running task. As a result, this endpoint\
+        \ will immediately return a BacklogRequestEntity, and the process of determining\
+        \ the backlog will occur asynchronously in the background. The client may\
+        \ then periodically poll the status of the request by issuing a GET request\
+        \ to /processors/{processorId}/backlog-requests/{requestId}. Once the request\
+        \ is completed, the client is expected to issue a DELETE request to /processors/{processorId}/backlog-requests/{requestId}."
+      operationId: submitProcessorBacklogRequest
+      parameters:
+      - description: The processor id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BacklogRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Write - /processors/{uuid}: []
+      summary: Initiates a request to determine the current backlog for a processor
+        that implements BacklogReportingProcessor
+      tags:
+      - Processors
+  /processors/{id}/backlog-requests/{requestId}:
+    delete:
+      description: "Deletes the Backlog Request with the given ID. After a request\
+        \ is created, it is expected that the client will properly clean up the request\
+        \ by DELETE'ing it once the backlog determination has completed. If the request\
+        \ is deleted before it completes, the background determination is cancelled."
+      operationId: deleteBacklogRequest
+      parameters:
+      - description: The processor id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Backlog Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BacklogRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can remove it: []
+      summary: Deletes the Backlog Request with the given ID
+      tags:
+      - Processors
+    get:
+      description: "Returns the Backlog Request with the given ID. Once a Backlog\
+        \ Request has been created by performing a POST to /processors/{processorId}/backlog-requests,\
+        \ that request can subsequently be retrieved via this endpoint, and the request\
+        \ that is fetched will contain the updated state, such as percent complete,\
+        \ the current state of the request, and the backlog once the request is complete."
+      operationId: getBacklogRequest
+      parameters:
+      - description: The processor id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Backlog Request
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BacklogRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can get it: []
+      summary: Returns the Backlog Request with the given ID
       tags:
       - Processors
   /processors/{id}/bulletins/clear-requests:
@@ -14229,6 +14821,239 @@ paths:
       summary: Gets the latest version of a Process Group for download
       tags:
       - Versions
+  /versions/process-groups/{id}/rebase:
+    put:
+      description: "This endpoint is used internally to apply a rebase to a Process\
+        \ Group on each node of a cluster. It synchronizes the flow to the supplied\
+        \ merged snapshot and then resets the Version Control Information to the clean\
+        \ target version so that the preserved local changes are detected as local\
+        \ modifications. Note: This endpoint is subject to change as NiFi and it's\
+        \ REST API evolve."
+      operationId: applyRebasedFlowVersion
+      parameters:
+      - description: The process group id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VersionedFlowSnapshotEntity"
+        description: The rebased versioned flow snapshot.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionControlInformationEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /process-groups/{uuid}: []
+      - Write - /process-groups/{uuid}: []
+      summary: Applies a rebased flow to a Process Group with the given ID on this
+        node
+      tags:
+      - Versions
+  /versions/rebase-analysis/process-groups/{id}:
+    get:
+      description: "For a Process Group that is under Version Control, this will perform\
+        \ a rebase analysis by comparing local modifications against upstream changes\
+        \ between the current version and the specified target version. The analysis\
+        \ determines whether a rebase is allowed or if there are conflicts."
+      operationId: getRebaseAnalysis
+      parameters:
+      - description: The process group id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The target version to rebase to.
+        in: query
+        name: targetVersion
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RebaseAnalysisEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /process-groups/{uuid}: []
+      summary: Gets a Rebase Analysis for a Process Group
+      tags:
+      - Versions
+  /versions/rebase-requests/process-groups/{id}:
+    post:
+      description: "For a Process Group that is already under Version Control, this\
+        \ will initiate the action of rebasing the flow to a different version while\
+        \ preserving compatible local changes. This can be a lengthy process, as it\
+        \ will stop any Processors and disable any Controller Services necessary to\
+        \ perform the action and then restart them. As a result, the endpoint will\
+        \ immediately return a VersionedFlowUpdateRequestEntity, and the process of\
+        \ rebasing the flow will occur asynchronously in the background. The client\
+        \ may then periodically poll the status of the request by issuing a GET request\
+        \ to /versions/rebase-requests/{requestId}. Once the request is completed,\
+        \ the client is expected to issue a DELETE request to /versions/rebase-requests/{requestId}.\
+        \ Note: This endpoint is subject to change as NiFi and it's REST API evolve."
+      operationId: initiateRebase
+      parameters:
+      - description: The process group id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RebaseRequestEntity"
+        description: The rebase request details.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionedFlowUpdateRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /process-groups/{uuid}: []
+      - Write - /process-groups/{uuid}: []
+      - Read - /{component-type}/{uuid} - For all encapsulated components: []
+      - Write - /{component-type}/{uuid} - For all encapsulated components: []
+      - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
+          by a Property that is changed, added, or removed
+        : []
+      summary: Initiate a Rebase Request for a Process Group with the given ID
+      tags:
+      - Versions
+  /versions/rebase-requests/{id}:
+    delete:
+      description: "Deletes the Rebase Request with the given ID. After a request\
+        \ is created via a POST to /versions/rebase-requests/process-groups/{id},\
+        \ it is expected that the client will properly clean up the request by DELETE'ing\
+        \ it, once the Rebase process has completed. If the request is deleted before\
+        \ the request completes, then the Rebase request will finish the step that\
+        \ it is currently performing and then will cancel any subsequent steps. Note:\
+        \ This endpoint is subject to change as NiFi and it's REST API evolve."
+      operationId: deleteRebaseRequest
+      parameters:
+      - description: Acknowledges that this node is disconnected to allow for mutable
+          requests to proceed.
+        in: query
+        name: disconnectedNodeAcknowledged
+        schema:
+          type: boolean
+          default: false
+      - description: The ID of the Rebase Request
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionedFlowUpdateRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can remove it: []
+      summary: Deletes the Rebase Request with the given ID
+      tags:
+      - Versions
+    get:
+      description: "Returns the Rebase Request with the given ID. Once a Rebase Request\
+        \ has been created by performing a POST to /versions/rebase-requests/process-groups/{id},\
+        \ that request can subsequently be retrieved via this endpoint, and the request\
+        \ that is fetched will contain the updated state, such as percent complete,\
+        \ the current state of the request, and any failures. Note: This endpoint\
+        \ is subject to change as NiFi and it's REST API evolve."
+      operationId: getRebaseRequest
+      parameters:
+      - description: The ID of the Rebase Request
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionedFlowUpdateRequestEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Only the user that submitted the request can get it: []
+      summary: Returns the Rebase Request with the given ID
+      tags:
+      - Versions
   /versions/revert-requests/process-groups/{id}:
     post:
       description: "For a Process Group that is already under Version Control, this\
@@ -14982,6 +15807,135 @@ components:
           $ref: "#/components/schemas/AuthenticationConfigurationDTO"
       xml:
         name: authenticationConfigurationEntity
+    BacklogDTO:
+      type: object
+      description: "The backlog reported by the component, populated once the request\
+        \ has completed successfully."
+      properties:
+        byteCount:
+          type: integer
+          format: int64
+          description: "The total number of bytes remaining on the source, if the\
+            \ component can determine it."
+        flowFileCount:
+          type: integer
+          format: int64
+          description: "The number of FlowFiles remaining on the source, if the component\
+            \ can determine it."
+        formattedByteCount:
+          type: string
+          description: "The byte count formatted for display in human-readable units\
+            \ (for example, '4.89 GB'). Populated whenever byteCount is populated."
+        formattedFlowFileCount:
+          type: string
+          description: "The FlowFile count formatted for display with locale-appropriate\
+            \ grouping (for example, '1,025'). Populated whenever flowFileCount is\
+            \ populated."
+        formattedLastCaughtUp:
+          type: string
+          description: "Human-readable description of how long ago the component was\
+            \ last caught up, for example '5 mins ago', 'in 2 hours', or 'now'. Populated\
+            \ whenever lastCaughtUp is populated."
+        formattedRecordCount:
+          type: string
+          description: "The record count formatted for display with locale-appropriate\
+            \ grouping (for example, '1,025'). Populated whenever recordCount is populated."
+        lastCaughtUp:
+          type: string
+          description: "The most recent moment the component observed itself as fully\
+            \ caught up with the source, formatted as an ISO-8601 UTC timestamp."
+        precision:
+          type: string
+          description: The precision of the numeric dimensions of this backlog.
+          enum:
+          - EXACT
+          - AT_LEAST
+        recordCount:
+          type: integer
+          format: int64
+          description: "The number of records remaining on the source, if the component\
+            \ can determine it."
+      readOnly: true
+    BacklogRequestDTO:
+      type: object
+      description: The request
+      properties:
+        backlog:
+          $ref: "#/components/schemas/BacklogDTO"
+        complete:
+          type: boolean
+          description: Whether or not the request is completed
+          readOnly: true
+        componentId:
+          type: string
+          description: The ID of the Processor or Connector whose backlog is being
+            determined
+        failureReason:
+          type: string
+          description: "The reason for the request failing, or null if the request\
+            \ has not failed"
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: The timestamp of when the request was last updated
+          readOnly: true
+        percentCompleted:
+          type: integer
+          format: int32
+          description: A value between 0 and 100 (inclusive) indicating how close
+            the request is to completion
+          readOnly: true
+        requestId:
+          type: string
+          description: The ID of the request
+          readOnly: true
+        state:
+          type: string
+          description: A description of the current state of the request
+          readOnly: true
+        submissionTime:
+          type: string
+          format: date-time
+          description: The timestamp of when the request was submitted
+          readOnly: true
+        updateSteps:
+          type: array
+          description: "The steps that are required in order to complete the request,\
+            \ along with the status of each"
+          items:
+            $ref: "#/components/schemas/BacklogUpdateStepDTO"
+          readOnly: true
+        uri:
+          type: string
+          description: The URI for the request
+          readOnly: true
+    BacklogRequestEntity:
+      type: object
+      properties:
+        request:
+          $ref: "#/components/schemas/BacklogRequestDTO"
+      xml:
+        name: backlogRequestEntity
+    BacklogUpdateStepDTO:
+      type: object
+      description: "The steps that are required in order to complete the request,\
+        \ along with the status of each"
+      properties:
+        complete:
+          type: boolean
+          description: Whether or not this step has completed
+          readOnly: true
+        description:
+          type: string
+          description: Explanation of what happens in this step
+          readOnly: true
+        failureReason:
+          type: string
+          description: "An explanation of why this step failed, or null if this step\
+            \ did not fail"
+          readOnly: true
+      readOnly: true
     BannerDTO:
       type: object
       properties:
@@ -15298,8 +16252,8 @@ components:
       description: The details of the source component.
     ComponentDifferenceDTO:
       type: object
-      description: The list of differences for each component in the flow that is
-        not the same between the two flows
+      description: The set of upstream changes between the current version and the
+        target version in the flow registry
       properties:
         componentId:
           type: string
@@ -17075,7 +18029,7 @@ components:
             if applicable.
         deprecated:
           type: boolean
-          description: Whether the ontroller service has been deprecated.
+          description: Whether the controller service has been deprecated.
         descriptors:
           type: object
           additionalProperties:
@@ -17914,7 +18868,7 @@ components:
         explicitRestrictions:
           type: array
           description: "An optional collection of explicit restrictions. If specified,\
-            \ these explicit restrictions will be enfored."
+            \ these explicit restrictions will be enforced."
           items:
             $ref: "#/components/schemas/ExplicitRestrictionDTO"
           uniqueItems: true
@@ -18040,7 +18994,7 @@ components:
     ExplicitRestrictionDTO:
       type: object
       description: "An optional collection of explicit restrictions. If specified,\
-        \ these explicit restrictions will be enfored."
+        \ these explicit restrictions will be enforced."
       properties:
         explanation:
           type: string
@@ -19458,6 +20412,109 @@ components:
         long:
           type: integer
           format: int64
+    MigrationPayloadDTO:
+      type: object
+      description: The uploaded migration payload metadata.
+      properties:
+        payloadId:
+          type: string
+          description: The identifier of the uploaded migration payload.
+    MigrationPayloadEntity:
+      type: object
+      properties:
+        payload:
+          $ref: "#/components/schemas/MigrationPayloadDTO"
+      xml:
+        name: migrationPayloadEntity
+    MigrationRequestDTO:
+      type: object
+      description: The migration request.
+      properties:
+        complete:
+          type: boolean
+          description: Whether or not the request is completed
+          readOnly: true
+        connectorId:
+          type: string
+          description: The identifier of the Connector receiving the migration.
+        failureReason:
+          type: string
+          description: "The reason for the request failing, or null if the request\
+            \ has not failed"
+          readOnly: true
+        lastUpdated:
+          type: string
+          format: date-time
+          description: The timestamp of when the request was last updated
+          readOnly: true
+        localSource:
+          $ref: "#/components/schemas/MigrationRequestLocalSourceDTO"
+        payloadId:
+          type: string
+          description: The identifier of a previously uploaded migration payload.
+        percentCompleted:
+          type: integer
+          format: int32
+          description: A value between 0 and 100 (inclusive) indicating how close
+            the request is to completion
+          readOnly: true
+        requestId:
+          type: string
+          description: The ID of the request
+          readOnly: true
+        state:
+          type: string
+          description: A description of the current state of the request
+          readOnly: true
+        submissionTime:
+          type: string
+          format: date-time
+          description: The timestamp of when the request was submitted
+          readOnly: true
+        updateSteps:
+          type: array
+          description: "The steps that are required in order to complete the request,\
+            \ along with the status of each"
+          items:
+            $ref: "#/components/schemas/MigrationUpdateStepDTO"
+          readOnly: true
+        uri:
+          type: string
+          description: The URI for the request
+          readOnly: true
+    MigrationRequestEntity:
+      type: object
+      properties:
+        request:
+          $ref: "#/components/schemas/MigrationRequestDTO"
+      xml:
+        name: migrationRequestEntity
+    MigrationRequestLocalSourceDTO:
+      type: object
+      description: The local Process Group source for the migration request.
+      properties:
+        processGroupId:
+          type: string
+          description: The identifier of the local source Process Group to migrate.
+    MigrationUpdateStepDTO:
+      type: object
+      description: "The steps that are required in order to complete the request,\
+        \ along with the status of each"
+      properties:
+        complete:
+          type: boolean
+          description: Whether or not this step has completed
+          readOnly: true
+        description:
+          type: string
+          description: Explanation of what happens in this step
+          readOnly: true
+        failureReason:
+          type: string
+          description: "An explanation of why this step failed, or null if this step\
+            \ did not fail"
+          readOnly: true
+      readOnly: true
     MultiProcessorUseCase:
       type: object
       description: A list of use cases that have been documented that involve this
@@ -21793,7 +22850,7 @@ components:
         annotationData:
           type: string
           description: The annotation data for the processor used to relay configuration
-            between a custom UI and the procesosr.
+            between a custom UI and the processor.
         autoTerminatedRelationships:
           type: array
           description: "The names of all relationships that cause a flow file to be\
@@ -21827,7 +22884,7 @@ components:
           type: integer
           format: int32
           description: The number of tasks that should be concurrently schedule for
-            the processor. If the processor doesn't allow parallol processing then
+            the processor. If the processor doesn't allow parallel processing then
             any positive input will be ignored.
         customUiUrl:
           type: string
@@ -21994,6 +23051,10 @@ components:
             type: string
             description: "Styles for the processor (background-color : #eee)."
           description: "Styles for the processor (background-color : #eee)."
+        supportsBacklogReporting:
+          type: boolean
+          description: Whether the processor implements BacklogReportingProcessor
+            and can report a backlog.
         supportsBatching:
           type: boolean
           description: Whether the processor supports batching. This makes the run
@@ -22411,7 +23472,7 @@ components:
         bytesRead:
           type: integer
           format: int64
-          description: The number of bytes read by this Processor in the last 5 mintues
+          description: The number of bytes read by this Processor in the last 5 minutes
         bytesWritten:
           type: integer
           format: int64
@@ -22445,7 +23506,7 @@ components:
             last 5 minutes.
         name:
           type: string
-          description: The name of the prcessor.
+          description: The name of the processor.
         output:
           type: string
           description: The count/size of FlowFiles that have been processed in the
@@ -22863,7 +23924,7 @@ components:
         eventId:
           type: integer
           format: int64
-          description: The event id. This is a one up number thats unique per node.
+          description: The event id. This is a one up number that's unique per node.
         eventTime:
           type: string
           description: The timestamp of the event.
@@ -22961,7 +24022,7 @@ components:
         sourceConnectionIdentifier:
           type: string
           description: The identifier of the queue/connection from which the flowfile
-            was pulled to genereate this event. May be null if the queue/connection
+            was pulled to generate this event. May be null if the queue/connection
             is unknown or the flowfile was generated from this event.
         sourceSystemFlowFileId:
           type: string
@@ -23166,6 +24227,94 @@ components:
           type: integer
           format: int32
           description: The count of objects in a queue.
+    RebaseAnalysisEntity:
+      type: object
+      properties:
+        analysisFingerprint:
+          type: string
+          description: "A fingerprint representing the state of this analysis, used\
+            \ to verify the analysis is still valid when executing the rebase"
+        currentVersion:
+          type: string
+          description: The current version of the flow in the Process Group
+        failureReason:
+          type: string
+          description: "The reason the rebase is not allowed, or null if the rebase\
+            \ is allowed"
+        localChanges:
+          type: array
+          description: The list of local changes that were made to the flow since
+            the last version control operation
+          items:
+            $ref: "#/components/schemas/RebaseChangeDTO"
+        processGroupId:
+          type: string
+          description: The ID of the Process Group being rebased
+        rebaseAllowed:
+          type: boolean
+          description: Whether the rebase is allowed based on the analysis of local
+            and upstream changes
+        targetVersion:
+          type: string
+          description: The target version to rebase to
+        upstreamChanges:
+          type: array
+          description: The set of upstream changes between the current version and
+            the target version in the flow registry
+          items:
+            $ref: "#/components/schemas/ComponentDifferenceDTO"
+          uniqueItems: true
+      xml:
+        name: rebaseAnalysisEntity
+    RebaseChangeDTO:
+      type: object
+      description: The list of local changes that were made to the flow since the
+        last version control operation
+      properties:
+        classification:
+          type: string
+          description: "The classification of this change: COMPATIBLE, CONFLICTING,\
+            \ or UNSUPPORTED"
+        componentId:
+          type: string
+          description: The ID of the component that was changed
+        componentName:
+          type: string
+          description: The name of the component that was changed
+        componentType:
+          type: string
+          description: The type of the component that was changed
+        conflictCode:
+          type: string
+          description: "A code identifying the type of conflict, or null if the change\
+            \ is not conflicting"
+        conflictDetail:
+          type: string
+          description: "A detailed description of the conflict, or null if the change\
+            \ is not conflicting"
+        differenceType:
+          type: string
+          description: The type of difference detected for this change
+        fieldName:
+          type: string
+          description: "The name of the field that was changed, or null if not applicable"
+        localValue:
+          type: string
+          description: "The local value of the field, or null if not applicable"
+        registryValue:
+          type: string
+          description: "The registry value of the field, or null if not applicable"
+    RebaseRequestEntity:
+      type: object
+      properties:
+        analysisFingerprint:
+          type: string
+          description: "The fingerprint of the rebase analysis, used to verify the\
+            \ analysis is still valid when executing the rebase"
+        versionControlInformationEntity:
+          $ref: "#/components/schemas/VersionControlInformationEntity"
+      xml:
+        name: rebaseRequestEntity
     RegisteredFlow:
       type: object
       properties:
@@ -23736,7 +24885,7 @@ components:
           description: The number of active threads for the reporting task.
         annotationData:
           type: string
-          description: The annotation data for the repoting task. This is how the
+          description: The annotation data for the reporting task. This is how the
             custom UI relays configuration to the reporting task.
         bundle:
           $ref: "#/components/schemas/BundleDTO"
@@ -25694,6 +26843,71 @@ components:
           $ref: "#/components/schemas/VersionedFlowDTO"
       xml:
         name: versionedFlowEntity
+    VersionedFlowMigrationSourceDTO:
+      type: object
+      description: The Versioned Process Groups that the Connector can be migrated
+        from.
+      properties:
+        bucketId:
+          type: string
+          description: The Flow Registry bucket identifier for the source Process
+            Group.
+        flowId:
+          type: string
+          description: The Flow Registry flow identifier for the source Process Group.
+        flowName:
+          type: string
+          description: "The name of the versioned flow backing the source Process\
+            \ Group, as recorded in the Flow Registry. May be null when the registry\
+            \ has not yet supplied a name (for example, while the source's version\
+            \ control state is SYNC_FAILURE)."
+        ineligibilityReasons:
+          type: array
+          description: "User-facing descriptions of all conditions that currently\
+            \ prevent the source Process Group from being migrated. Empty when readyForMigration\
+            \ is true. Each entry describes a single remediable condition (running\
+            \ processors, queued FlowFiles, etc.); every applicable condition is included\
+            \ so the user can address them together."
+          items:
+            type: string
+            description: "User-facing descriptions of all conditions that currently\
+              \ prevent the source Process Group from being migrated. Empty when readyForMigration\
+              \ is true. Each entry describes a single remediable condition (running\
+              \ processors, queued FlowFiles, etc.); every applicable condition is\
+              \ included so the user can address them together."
+        parentProcessGroupId:
+          type: string
+          description: The identifier of the parent Process Group of the source Process
+            Group.
+        processGroupId:
+          type: string
+          description: The identifier of the source Process Group.
+        processGroupName:
+          type: string
+          description: The name of the source Process Group.
+        readyForMigration:
+          type: boolean
+          description: "Whether the source Process Group is currently in a state that\
+            \ allows it to be migrated into the target Connector. When false, ineligibilityReasons\
+            \ describes what must change before the migration can proceed."
+        registryClientId:
+          type: string
+          description: The identifier of the Flow Registry client backing the source
+            Process Group.
+        version:
+          type: string
+          description: The published version of the source Process Group.
+    VersionedFlowMigrationSourcesEntity:
+      type: object
+      properties:
+        migrationSources:
+          type: array
+          description: The Versioned Process Groups that the Connector can be migrated
+            from.
+          items:
+            $ref: "#/components/schemas/VersionedFlowMigrationSourceDTO"
+      xml:
+        name: versionedFlowMigrationSourcesEntity
     VersionedFlowSnapshotEntity:
       type: object
       properties:

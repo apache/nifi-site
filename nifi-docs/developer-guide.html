@@ -586,6 +586,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#standard-build-instructions">Standard Build Instructions</a></li>
 </ul>
 </li>
+<li><a href="#supporting-migration-from-a-versioned-process-group">Supporting migration from a Versioned Process Group</a>
+<ul class="sectlevel2">
+<li><a href="#migration-contract">Migration contract</a></li>
+<li><a href="#accessing-the-source-flow">Accessing the source flow</a></li>
+<li><a href="#recording-configuration-changes">Recording configuration changes</a></li>
+<li><a href="#recording-component-state">Recording component state</a></li>
+<li><a href="#rewriting-parameters-and-assets">Rewriting parameters and assets</a></li>
+<li><a href="#sensitive-values">Sensitive values</a></li>
+<li><a href="#additional-expectations">Additional expectations</a></li>
+</ul>
+</li>
 <li><a href="#how-to-contribute-to-apache-nifi">How to contribute to Apache NiFi</a>
 <ul class="sectlevel2">
 <li><a href="#technologies">Technologies</a></li>
@@ -3896,6 +3907,199 @@ component identifier for tracing. Warning messages should also reference recomme
 </div>
 </div>
 <div class="sect1">
+<h2 id="supporting-migration-from-a-versioned-process-group"><a class="anchor" href="#supporting-migration-from-a-versioned-process-group"></a>Supporting migration from a Versioned Process Group</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Connectors can implement a one-time migration flow that uses a source Versioned Process Group as a reference for populating a freshly created Connector.
+This is intended for Connectors that can translate an exported flow definition, its parameter contexts, referenced assets, and any attached component state into their own managed flow.
+The source Versioned Process Group is not installed onto the Connector; instead, the Connector reads the source as input and updates its own flow to mirror the source&#8217;s configuration and state.</p>
+</div>
+<div class="paragraph">
+<p>Migration support is optional.
+Connectors opt in by implementing the optional capability interface <code>org.apache.nifi.components.connector.migration.MigratableConnector</code>.
+A Connector that does not implement <code>MigratableConnector</code> is never offered as a migration target and continues to behave as before.</p>
+</div>
+<div class="sect2">
+<h3 id="migration-contract"><a class="anchor" href="#migration-contract"></a>Migration contract</h3>
+<div class="paragraph">
+<p><code>MigratableConnector</code> is a separate interface that the Connector class must implement (typically alongside extending <code>AbstractConnector</code>). It exposes three methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>isMigrationSupported(ConnectorMigrationContext)</code> is a cheap, side-effect-free predicate.
+It should inspect <code>context.getSourceFlow()</code> and return <code>true</code> only when the Connector can be migrated from the source structure.
+Implementations should limit themselves to structural checks such as processor types, parameter names, and exported metadata.
+Component state and asset content are not available at listing time and must not be relied on; per-state precondition checks belong inside <code>migrateConfiguration</code> or <code>migrateState</code>.
+This method must not call <code>ConnectorMigrationContext.copyAssetFromSource(&#8230;&#8203;)</code> or any of the write APIs described below; the framework wraps the eligibility-time context so any such attempt is rejected with <code>IllegalStateException</code> and the Connector is filtered out of the listing.</p>
+</li>
+<li>
+<p><code>migrateConfiguration(ConnectorMigrationContext)</code> records the configuration the Connector wants on the other side of the migration.
+The Connector reads <code>context.getSourceFlow()</code> and records configuration changes via <code>context.setProperties(stepName, propertyValues)</code> (merge) or <code>context.replaceProperties(stepName, propertyValues)</code> (full replacement of the step).
+These calls are applied to a working copy of the Connector&#8217;s configuration that the framework seeded with the Connector&#8217;s current active configuration, so the working copy always reflects the fully-merged result.
+After <code>migrateConfiguration</code> returns, the framework drives <code>Connector.applyUpdate(workingContext, activeContext)</code> from that merged configuration so the managed Process Group is rebuilt by the same code path the framework uses on restart.
+The Connector must not call <code>updateFlow(&#8230;&#8203;)</code> from this method; the framework hands the Connector a read-only wrapper around the active <code>FlowContext</code>, so any direct <code>updateFlow(&#8230;&#8203;)</code> attempt is rejected with <code>IllegalStateException</code>.
+Component-state writes are also rejected in this phase: <code>setComponentState(&#8230;&#8203;)</code> throws because the managed components do not exist yet.</p>
+</li>
+<li>
+<p><code>migrateState(ConnectorMigrationContext)</code> runs after the framework has rebuilt the managed Process Group from the merged configuration.
+At this point every Processor and Controller Service in the source flow has a corresponding managed component in the active <code>FlowContext</code>, so the Connector can match each source <code>VersionedConfigurableExtension</code> to its managed counterpart by versioned identifier.
+The Connector records the desired <code>StateManager</code> state for each managed component via <code>context.setComponentState(versionedComponentId, versionedComponentState)</code>.
+After <code>migrateState</code> returns, the framework writes each staged <code>VersionedComponentState</code> into the corresponding managed component&#8217;s live <code>StateManager</code>.
+Configuration writes (<code>setProperties</code>, <code>replaceProperties</code>) and direct <code>updateFlow(&#8230;&#8203;)</code> calls are rejected in this phase for the same reasons described above.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The two phases together form a single, all-or-nothing migration. The framework only commits the merged configuration onto the Connector&#8217;s persisted active configuration after both <code>migrateState</code> and the framework&#8217;s subsequent state-application step have succeeded. Any failure in either phase rolls the migration back: the managed Process Group is restored from <code>getInitialFlow()</code>, the working configuration copy is discarded, any assets copied via <code>copyAssetFromSource(&#8230;&#8203;)</code> are deleted, and the Connector&#8217;s persisted configuration remains unchanged.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="accessing-the-source-flow"><a class="anchor" href="#accessing-the-source-flow"></a>Accessing the source flow</h3>
+<div class="paragraph">
+<p><code>ConnectorMigrationContext</code> exposes the source <code>VersionedExternalFlow</code> using <code>getSourceFlow()</code>.
+The source includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The exported <code>VersionedProcessGroup</code></p>
+</li>
+<li>
+<p>Parameter contexts</p>
+</li>
+<li>
+<p>Referenced assets</p>
+</li>
+<li>
+<p>Attached <code>VersionedComponentState</code> for <code>@Stateful</code> components</p>
+</li>
+<li>
+<p>Export metadata such as flow name, registry identifiers, and version</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The same context also indicates whether the request came from a local Process Group on the same NiFi instance or from an uploaded payload using <code>isLocalMigration()</code>.</p>
+</div>
+<div class="paragraph">
+<p>The active <code>FlowContext</code> is available via <code>context.getActiveFlowContext()</code> and is read-only during migration: it forwards reads (configuration, managed Process Group) to the live active flow context but rejects <code>updateFlow(&#8230;&#8203;)</code> with <code>IllegalStateException</code>. The Connector should treat this object as a window onto the current state of the Connector, not as a write target. After <code>migrateConfiguration</code> returns, the framework rebuilds the managed Process Group by calling <code>Connector.applyUpdate(workingContext, activeContext)</code> with this same active <code>FlowContext</code> as the target, so any component references the Connector resolves against <code>getActiveFlowContext()</code> remain valid once the migrated flow is applied.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recording-configuration-changes"><a class="anchor" href="#recording-configuration-changes"></a>Recording configuration changes</h3>
+<div class="paragraph">
+<p>A typical <code>migrateConfiguration</code> implementation translates the source flow into a representation the Connector can rebuild from later (often a serialized version of the source <code>VersionedExternalFlow</code> or a derived configuration), then stages it onto the Connector&#8217;s own configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Override
+public void migrateConfiguration(final ConnectorMigrationContext context) throws FlowUpdateException {
+    final VersionedExternalFlow sourceFlow = context.getSourceFlow();
+    final String serializedSourceFlow = OBJECT_MAPPER.writeValueAsString(sourceFlow);
+
+    // Record the configuration the Connector wants on the other side of the migration. The framework merges this
+    // delta onto the active configuration and then drives Connector.applyUpdate(workingContext, activeContext),
+    // which is the same path used on every restart - so the managed Process Group is rebuilt the same way after
+    // migration and after every subsequent restart.
+    context.setProperties(MIGRATION_STATE_STEP_NAME, Map.of(MIGRATED_SOURCE_FLOW_PROPERTY_NAME, serializedSourceFlow));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>setProperties</code> is additive: existing properties on the step keep their values unless the staged map overrides them.
+<code>replaceProperties</code> is destructive: the step is reset to exactly the supplied property map, and any pre-existing properties not present in the map are removed.</p>
+</div>
+<div class="paragraph">
+<p>The Connector&#8217;s <code>applyUpdate(workingContext, activeContext)</code> implementation reads the merged configuration from the supplied <code>workingContext</code>, rebuilds the desired managed Process Group, and calls <code>getInitializationContext().updateFlow(activeContext, rebuiltFlow)</code> to install it. Because the framework drives the same <code>applyUpdate(&#8230;&#8203;)</code> call during restart via <code>inheritConfiguration(&#8230;&#8203;)</code>, the migrated managed flow is rebuilt automatically on every restart from the persisted configuration; the Connector does not need to do anything extra to make migrations survive restarts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recording-component-state"><a class="anchor" href="#recording-component-state"></a>Recording component state</h3>
+<div class="paragraph">
+<p>After the managed Process Group has been rebuilt, <code>migrateState</code> records the <code>StateManager</code> state for individual managed components:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Override
+public void migrateState(final ConnectorMigrationContext context) {
+    final VersionedProcessGroup sourceGroup = context.getSourceFlow().getFlowContents();
+    for (final VersionedProcessor sourceProcessor : sourceGroup.getProcessors()) {
+        final VersionedComponentState sourceState = sourceProcessor.getComponentState();
+        if (sourceState != null) {
+            context.setComponentState(sourceProcessor.getIdentifier(), sourceState);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first argument to <code>setComponentState</code> is the source-side versioned identifier; the framework resolves it to the matching managed Processor or Controller Service and writes the supplied <code>VersionedComponentState</code> into that component&#8217;s live <code>StateManager</code>. Cluster-scope state is applied unconditionally on every node; per-node local-scope state is selected by node ordinal so a clustered migration installs the right entry on each node. Components whose <code>@Stateful</code> annotation does not declare a requested scope are skipped with a warning rather than failing the migration.</p>
+</div>
+<div class="paragraph">
+<p><code>setComponentState</code> only stages the desired state; the framework writes it after <code>migrateState</code> returns. If a Connector calls <code>setComponentState</code> more than once for the same versioned identifier, only the last call is applied.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rewriting-parameters-and-assets"><a class="anchor" href="#rewriting-parameters-and-assets"></a>Rewriting parameters and assets</h3>
+<div class="paragraph">
+<p>The exported source flow contains parameter contexts and any asset references that were attached to exported parameters.
+Connectors are responsible for mapping those values into their own target shape inside <code>migrateConfiguration</code>.</p>
+</div>
+<div class="paragraph">
+<p>A Connector can copy an asset from a local source Process Group into its own asset namespace using <code>ConnectorMigrationContext.copyAssetFromSource(String)</code>.
+This method is available only for local migrations.
+It throws <code>IllegalArgumentException</code> when the supplied source asset identifier is null or blank, and <code>IllegalStateException</code> when invoked for an uploaded-payload migration.
+Uploaded payloads do not have access to a live source asset namespace, so asset references from uploaded payloads must be handled outside of the migration request.</p>
+</div>
+<div class="paragraph">
+<p>The following example locates a source parameter&#8217;s referenced asset, copies it into the Connector&#8217;s own asset namespace, and records the returned <code>AssetReference</code> on the target property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">final VersionedParameter sourceParameter = findSourceParameter(context.getSourceFlow(), sourceParameterName);
+if (sourceParameter != null &amp;&amp; sourceParameter.getReferencedAssets() != null &amp;&amp; !sourceParameter.getReferencedAssets().isEmpty() &amp;&amp; context.isLocalMigration()) {
+    final VersionedAsset referencedAsset = sourceParameter.getReferencedAssets().getFirst();
+    final AssetReference assetReference = context.copyAssetFromSource(referencedAsset.getIdentifier());
+    context.setValueReference(targetStepName, targetPropertyName, assetReference);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sensitive-values"><a class="anchor" href="#sensitive-values"></a>Sensitive values</h3>
+<div class="paragraph">
+<p>Sensitive parameter values and other secret material are not present in the exported source flow.
+Connectors must leave those values unset during migration.
+After the migration completes, the user supplies the missing values through the normal Configure step before starting the Connector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="additional-expectations"><a class="anchor" href="#additional-expectations"></a>Additional expectations</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>isMigrationSupported(&#8230;&#8203;)</code> must not mutate flow state, parameter values, or assets.</p>
+</li>
+<li>
+<p><code>migrateConfiguration</code> and <code>migrateState</code> should either complete successfully or throw an exception. Any thrown exception aborts the migration and rolls back every side effect: copied assets are deleted, the managed Process Group is restored from <code>getInitialFlow()</code>, every component&#8217;s <code>StateManager</code> state is cleared, and the persisted active configuration is left unchanged.</p>
+</li>
+<li>
+<p>Migration is rejected once the Connector has been modified from the state it was created in.
+The framework considers a Connector modified when any configured property on its active or working configuration differs from that property&#8217;s declared default value, or when any Processor or Controller Service in the managed flow has stored component state.
+This check is evaluated at the time <code>migrateConfiguration</code> is invoked, and again whenever the <code>MIGRATE</code> allowable action is evaluated, so the user is shown why migration is unavailable.
+This check is restart-safe because the persisted configuration and any stored component state are recomputed each time from durable sources.</p>
+</li>
+<li>
+<p>Migration is one-shot from the framework&#8217;s point of view.
+Because a successful migration writes configuration and, typically, component state onto the Connector, the Connector is considered modified immediately afterward, and a subsequent migration request will be rejected until the Connector is discarded and a fresh one is created.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="how-to-contribute-to-apache-nifi"><a class="anchor" href="#how-to-contribute-to-apache-nifi"></a>How to contribute to Apache NiFi</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -3956,7 +4160,7 @@ worry about bothering us. Just ping the mailing list again.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-06-15 16:07:02 -0700
+Last updated 2026-07-30 23:48:11 +0200
 </div>
 </div>
 </body>

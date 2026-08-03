@@ -692,10 +692,6 @@
                 </li>
                 
                 <li >
-                  <a href="/components/org.apache.nifi.processors.twitter.ConsumeTwitter/">ConsumeTwitter</a>
-                </li>
-                
-                <li >
                   <a href="/components/org.apache.nifi.processors.windows.event.log.ConsumeWindowsEventLog/">ConsumeWindowsEventLog</a>
                 </li>
                 
@@ -897,6 +893,14 @@
                 
                 <li >
                   <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorage_v12/">FetchAzureBlobStorage_v12</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageMetadata/">FetchAzureBlobStorageMetadata</a>
+                </li>
+                
+                <li >
+                  <a href="/components/org.apache.nifi.processors.azure.storage.FetchAzureBlobStorageTags/">FetchAzureBlobStorageTags</a>
                 </li>
                 
                 <li >
@@ -2459,7 +2463,7 @@
           
 
 
-<h3>AvroSchemaRegistry 2.10.0</h3>
+<h3>AvroSchemaRegistry 2.11.0</h3>
 
 
 
@@ -2513,20 +2517,20 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
-                <span class="property-required">Validate Field Names</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Whether or not to validate the field names in the Avro schema based on Avro naming rules. If set to true, all field names must be valid Avro names, which must begin with [A-Za-z_], and subsequently contain only [A-Za-z0-9_]. If set to false, no validation will be performed on the field names.</div>
+                <span class="property-required">Validation Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Set the strategy for the level of Avro validation required for field names, namespaces and default values</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
-                    <dd>Validate Field Names</dd>
+                    <dd>Validation Strategy</dd>
                     <dt>Description</dt>
-                    <dd>Whether or not to validate the field names in the Avro schema based on Avro naming rules. If set to true, all field names must be valid Avro names, which must begin with [A-Za-z_], and subsequently contain only [A-Za-z0-9_]. If set to false, no validation will be performed on the field names.</dd>
+                    <dd>Set the strategy for the level of Avro validation required for field names, namespaces and default values</dd>
                     <dt>API Name</dt>
-                    <dd>Validate Field Names</dd>
+                    <dd>Validation Strategy</dd>
                     
                     <dt>Default Value</dt>
-                    <dd>true</dd>
+                    <dd>VALIDATE</dd>
                     
                     
                     <dt>Allowable Values</dt>
@@ -2534,12 +2538,16 @@
                         <ul>
                             
                             <li>
-                                true
-                                </li>
+                                Validate Schemas
+                                <span uk-icon="info" uk-tooltip="Validate incoming Avro schemas. Validation includes field name,
+namespace and default value validation. All field names must be valid Avro names
+that match the following regular expression [A-Za-z_][A-Za-z0-9_]* (i.e. a name that starts with a letter or an underscore, followed by zero or more alphanumeric
+characters or underscores), all namespaces must be one or more valid Avro names each matching the aforementioned regular expression and separated by periods
+and any default value specified must match the field type (e.g. a field with type int must specify a number such as 9)"></span></li>
                             
                             <li>
-                                false
-                                </li>
+                                Do Not Validate Schemas
+                                <span uk-icon="info" uk-tooltip="Do not validate field names, namespaces and default values of incoming schemas."></span></li>
                             
                         </ul>
                     </dd>
