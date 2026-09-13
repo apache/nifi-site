@@ -539,6 +539,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#nifi_sensitive_props_key">Encrypted Passwords in Flows</a>
 <ul class="sectlevel2">
 <li><a href="#property-encryption-algorithms">Property Encryption Algorithms</a></li>
+<li><a href="#property-encryption-providers">Property Encryption Providers</a>
+<ul class="sectlevel3">
+<li><a href="#sensitive-property-context">Sensitive Property Context</a></li>
+<li><a href="#provider-configuration">Provider Configuration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#admin-toolkit">NiFi Toolkit Administrative Tools</a></li>
@@ -1488,18 +1494,18 @@ will always REQUIRE two way SSL as the nodes will use their configured keystore/
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.autoreload.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the SSL context factory should be automatically reloaded if updates to the keystore and truststore are detected. By default, it is set to <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the SSL context factory should be automatically reloaded if updates to the keystore and truststore are detected. NiFi polls the configured store paths and compares content digests, resolving symbolic links at read time so Kubernetes Secret and projected-volume mounts are detected. By default, it is set to <code>false</code>.</p></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.autoreload.interval</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the interval at which the keystore and truststore are checked for updates. Only applies if <code>nifi.security.autoreload.enabled</code> is set to <code>true</code>. The default value is <code>10 secs</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the interval at which the configured keystore and truststore paths are digested and compared for updates. Only applies if <code>nifi.security.autoreload.enabled</code> is set to <code>true</code>. The default value is <code>10 secs</code>.</p></td>
 </tr>
 </tfoot>
 </table>
 <div class="paragraph">
-<p>Once the <code>nifi.security.autoreload.enabled</code> property is set to <code>true</code>, any valid changes to the configured keystore and truststore will cause NiFi&#8217;s SSL context factory to be reloaded, allowing clients to pick up the changes.  This is intended to allow expired certificates to be updated in the keystore and new trusted certificates to be added in the truststore, all without having to restart the NiFi server.</p>
+<p>Once the <code>nifi.security.autoreload.enabled</code> property is set to <code>true</code>, NiFi polls the configured keystore and truststore paths at the configured interval and reloads the SSL context factory when a content digest changes. Symbolic links are resolved when the files are read, so updates delivered through Kubernetes Secret or projected-volume mounts are detected. This is intended to allow expired certificates to be updated in the keystore and new trusted certificates to be added in the truststore, all without having to restart the NiFi server.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4576,6 +4582,74 @@ empty. NiFi writes the generated value to <code>nifi.properties</code> and logs 
 <p>Clustered installations of NiFi require the same value to be configured on all nodes.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="property-encryption-providers"><a class="anchor" href="#property-encryption-providers"></a>Property Encryption Providers</h3>
+<div class="paragraph">
+<p>A Property Encryption Provider is a framework extension, packaged in a NiFi Archive, for protecting sensitive values.
+NiFi loads and initializes the provider during startup using the class name configured in
+<code>nifi.security.property.encryption.provider.implementation</code>. When the property is empty or missing, NiFi loads the
+standard password-based implementation to support existing configurations.</p>
+</div>
+<div class="paragraph">
+<p>The standard distribution includes <code>org.apache.nifi.security.encryption.password.PasswordBasedPropertyEncryptionProvider</code>,
+which derives a secret key from <code>nifi.sensitive.props.key</code> using the Key Derivation Function selected in
+<code>nifi.sensitive.props.algorithm</code>. This provider reads and writes the encrypted representation described in
+<a href="#property-encryption-algorithms">Property Encryption Algorithms</a>.</p>
+</div>
+<div class="paragraph">
+<p>The configured provider protects the following values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sensitive component properties written to and read from the persisted flow configuration</p>
+</li>
+<li>
+<p>Sensitive Parameter values written to and read from the persisted flow configuration</p>
+</li>
+<li>
+<p>OpenID Connect authorized client tokens stored on behalf of authenticated users</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Because the standard password-based provider produces the representation described in
+<a href="#property-encryption-algorithms">Property Encryption Algorithms</a>, a flow configuration written by an earlier version of NiFi continues to load
+without additional migration.</p>
+</div>
+<div class="sect3">
+<h4 id="sensitive-property-context"><a class="anchor" href="#sensitive-property-context"></a>Sensitive Property Context</h4>
+<div class="paragraph">
+<p>NiFi supplies a Sensitive Property Context with every encryption and decryption operation. The context carries a
+category describing the kind of value being protected, together with attributes describing where the value is located.
+Component properties supply the component identifier, the component type, and the property name. Parameters supply the
+Parameter Context name and the Parameter name. Authorization tokens carry no attributes, because nothing describing the
+authenticated user is known before the stored token is decrypted.</p>
+</div>
+<div class="paragraph">
+<p>An implementation can supply the context to an external Key Management Service as encryption context, which binds the
+encrypted value to its location in the flow and records the location for auditing. NiFi supplies the same context when
+decrypting a value as it supplied when the value was encrypted. An implementation that binds the context to the
+encrypted value must therefore be prepared for a value to become unreadable if the component or the Parameter that owns
+it is renamed or recreated with a different identifier.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="provider-configuration"><a class="anchor" href="#provider-configuration"></a>Provider Configuration</h4>
+<div class="paragraph">
+<p>A provider can read additional configuration from properties that begin with
+<code>nifi.security.property.encryption.provider.properties.</code>. NiFi removes the prefix before supplying the properties to the
+provider, so <code>nifi.security.property.encryption.provider.properties.endpoint</code> is supplied to the provider as <code>endpoint</code>.
+Providers that call remote services, such as implementations backed by an external Key Management Service, can also
+use the TLS configuration that NiFi supplies during initialization.</p>
+</div>
+<div class="paragraph">
+<p>Changing the configured provider, or changing the key material that a provider uses, makes existing encrypted values
+unreadable. Sensitive values must be reentered after such a change unless the new configuration resolves to the same
+key material.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -5147,7 +5221,16 @@ Otherwise, NiFi will fail to startup.</p>
 <h4 id="local-state-provider"><a class="anchor" href="#local-state-provider"></a>Local State Provider</h4>
 <div class="paragraph">
 <p>By default, the Local State Provider is configured to be a <code>WriteAheadLocalStateProvider</code> that persists the data to the
-<code>$NIFI_HOME/state/local</code> directory.</p>
+<code>$NIFI_HOME/state/local</code> directory. It writes each state update to a journal and periodically checkpoints, which writes a snapshot
+of all state and removes the journal that the snapshot now covers. The <code>Checkpoint Interval</code> property controls how much time passes
+between checkpoints.</p>
+</div>
+<div class="paragraph">
+<p>Because the journal grows with every state update, a long checkpoint interval combined with frequent state updates can consume a
+significant amount of disk space. The optional <code>Maximum Journal Size</code> property bounds this growth by triggering a checkpoint as soon
+as the journal reaches the configured size, such as <code>100 MB</code>. The value is a threshold that triggers a checkpoint rather than a strict
+limit on the size of the journal, because the update that reaches the threshold is written in full before the checkpoint is performed.
+If the property is not specified, checkpoints occur only on the <code>Checkpoint Interval</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6381,6 +6464,10 @@ Switching repository implementations should only be done on an instance with zer
 <td class="tableblock halign-left valign-top"><p class="tableblock">The FlowFile Repository checkpoint interval. The default value is <code>20 secs</code>.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowfile.repository.checkpoint.max.journal.size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The amount of storage that the repository&#8217;s journal is allowed to consume before a checkpoint is performed, such as <code>100 MB</code>. This bounds the amount of disk space that the repository consumes between checkpoints, regardless of how many FlowFiles are updated. The value is a threshold that triggers a checkpoint rather than a strict limit on the size of the journal, because the update that reaches the threshold is written in full before the checkpoint is performed. If no value is specified, checkpoints occur only on the checkpoint interval. There is no default value.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.flowfile.repository.always.sync</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If set to <code>true</code>, any change to the repository will be synchronized to the disk, meaning that NiFi will ask the operating system not to cache the information. This is very expensive and can significantly reduce NiFi performance. However, if it is <code>false</code>, there could be the potential for data loss if either there is a sudden power loss or the operating system crashes. The default value is <code>false</code>.</p></td>
 </tr>
@@ -6484,7 +6571,9 @@ FlowFile Repository, if also on that disk, could become corrupt. To avoid this s
 individual FlowFile as a separate file in the content repository. Doing so would be very detrimental to performance, if each 120 byte FlowFile, for instance, was written to its own file. Instead,
 we continue writing to the same file until it reaches some threshold. This property configures that threshold. Setting the value too small can result in poor performance due to reading from and
 writing to too many files. However, a file can only be deleted from the content repository once there are no longer any FlowFiles pointing to it. Therefore, setting the value too large can result
-in data remaining in the content repository for much longer, potentially leading to the content repository running out of disk space. The default value is <code>50 KB</code>.</p></td>
+in data remaining in the content repository for much longer, potentially leading to the content repository running out of disk space. The default value is <code>50 KB</code>. Each Content Repository
+implementation reports the threshold that it wants the framework to use, so this property is honored only by the File System Content Repository. An alternate implementation may report a different
+threshold and ignore this property.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.content.repository.directory.default</code>*</p></td>
@@ -7491,12 +7580,20 @@ is allowed to return. The default value is empty, blocking all MBeans. Configuri
 <td class="tableblock halign-left valign-top"><p class="tableblock">The algorithm used to encrypt sensitive properties. The default value is <code>NIFI_PBKDF2_AES_GCM_256</code>.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.property.encryption.provider.implementation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The class name of the Property Encryption Provider loaded and initialized during application startup. The provider protects sensitive component properties, sensitive Parameter values, and OpenID Connect authorized client tokens. The default value is <code>org.apache.nifi.security.encryption.password.PasswordBasedPropertyEncryptionProvider</code>, which derives a secret key from <code>nifi.sensitive.props.key</code>. NiFi loads the default implementation when the value is blank. See <a href="#property-encryption-providers">Property Encryption Providers</a> for additional information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.property.encryption.provider.properties.</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The prefix for properties supplied to the configured Property Encryption Provider. NiFi removes the prefix from the property name before supplying the property to the provider. No properties are configured by default.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.autoreload.enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the SSL context factory should be automatically reloaded if updates to the keystore and truststore are detected. By default, it is set to <code>false</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies whether the SSL context factory should be automatically reloaded if updates to the keystore and truststore are detected. NiFi polls the configured store paths and compares content digests, resolving symbolic links at read time so Kubernetes Secret and projected-volume mounts are detected. By default, it is set to <code>false</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.autoreload.interval</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the interval at which the keystore and truststore are checked for updates. Only applies if <code>nifi.security.autoreload.enabled</code> is set to <code>true</code>. The default value is <code>10 secs</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the interval at which the configured keystore and truststore paths are digested and compared for updates. Only applies if <code>nifi.security.autoreload.enabled</code> is set to <code>true</code>. The default value is <code>10 secs</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.security.keystore</code>*</p></td>
@@ -7714,9 +7811,12 @@ long time before starting processing if we reach at least this number of nodes i
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.cluster.load.balance.host</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the hostname to listen on for incoming connections for load balancing data across the cluster. If not specified, will default to the value used by the
-<code>nifi.cluster.node.address</code> property. The value set here does not have to be a hostname/IP address that is addressable outside of the cluster. However, all nodes within the cluster must be able to
-connect to the node using this hostname/IP address.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the hostname to listen on for incoming connections for load balancing data
+across the cluster. If not specified, will default to the value used by the <code>nifi.cluster.node.address</code> property. The
+value set here does not have to be a hostname address that is addressable outside of the cluster. However, all nodes
+within the cluster must be able to connect to the node using this hostname address.</p>
+<p class="tableblock">When TLS encryption is enabled for cluster communication, this value must be set to a hostname that aligns with DNS
+Subject Alternative Names included on the server certificate configured in the application key store.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>nifi.cluster.load.balance.connections.per.node</code></p></td>
@@ -8961,7 +9061,6 @@ Leaving this parameter empty means listing all MBeans except those filtered out 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-07-30 23:48:12 +0200
 </div>
 </div>
 </body>

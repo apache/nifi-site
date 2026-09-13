@@ -150,7 +150,7 @@
     <div class="app-desc">REST API definition for Apache NiFi web services</div>
     <div class="app-desc">More information: <a href="https://nifi.apache.org">https://nifi.apache.org</a></div>
     <div class="app-desc">Contact Info: <a href="dev@nifi.apache.org">dev@nifi.apache.org</a></div>
-    <div class="app-desc">Version: 2.11.0</div>
+    <div class="app-desc">Version: 2.12.0</div>
     
     <div class="license-info">Apache 2.0</div>
     <div class="license-url">https://www.apache.org/licenses/LICENSE-2.0.html</div>
@@ -207,6 +207,7 @@
   <li><a href="#getConnectorConfigurationStep"><code><span class="http-method">get</span> /connectors/{id}/configuration-steps/{configurationStepName}</code></a></li>
   <li><a href="#getConnectorConfigurationSteps"><code><span class="http-method">get</span> /connectors/{id}/configuration-steps</code></a></li>
   <li><a href="#getConnectorConnectionStatusHistory"><code><span class="http-method">get</span> /connectors/{id}/connections/{connectionId}/status/history</code></a></li>
+  <li><a href="#getConnectorControllerService"><code><span class="http-method">get</span> /connectors/{id}/controller-services/{controllerServiceId}</code></a></li>
   <li><a href="#getConnectorControllerServiceState"><code><span class="http-method">get</span> /connectors/{id}/controller-services/{controllerServiceId}/state</code></a></li>
   <li><a href="#getConnectorProcessGroupStatusHistory"><code><span class="http-method">get</span> /connectors/{id}/process-groups/{processGroupId}/status/history</code></a></li>
   <li><a href="#getConnectorProcessorState"><code><span class="http-method">get</span> /connectors/{id}/processors/{processorId}/state</code></a></li>
@@ -6819,6 +6820,250 @@
     <h4 class="field-label">200</h4>
     
         <a href="#StatusHistoryEntity">StatusHistoryEntity</a>
+    <h4 class="field-label">400</h4>
+    NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Client could not be authenticated.
+        <a href="#"></a>
+    <h4 class="field-label">403</h4>
+    Client is not authorized to make this request.
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The specified resource could not be found.
+        <a href="#"></a>
+    <h4 class="field-label">409</h4>
+    The request was valid but NiFi was not in the appropriate state to process it.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getConnectorControllerService"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /connectors/{id}/controller-services/{controllerServiceId}</code></pre></div>
+    <div class="method-summary">Gets a controller service within a connector (<span class="nickname">getConnectorControllerService</span>)</div>
+    <div class="method-notes">If the uiOnly query parameter is provided with a value of true, the returned entity may only contain fields that are necessary for rendering the NiFi User Interface. As such, the selected fields may change at any time, even during incremental releases, without warning. As a result, this parameter should not be provided by any client other than the UI.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The connector id. </div>      <div class="param">controllerServiceId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The controller service id. </div>    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">uiOnly (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  default: false </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ControllerServiceEntity">ControllerServiceEntity</a>
+      
+    </div>
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "bulletins" : [ {
+    "sourceId" : "sourceId",
+    "canRead" : true,
+    "groupId" : "groupId",
+    "timestampIso" : "timestampIso",
+    "id" : 5,
+    "nodeAddress" : "nodeAddress",
+    "bulletin" : {
+      "sourceId" : "sourceId",
+      "level" : "level",
+      "sourceType" : "sourceType",
+      "groupId" : "groupId",
+      "timestampIso" : "timestampIso",
+      "id" : 1,
+      "sourceName" : "sourceName",
+      "stackTrace" : "stackTrace",
+      "category" : "category",
+      "message" : "message",
+      "nodeAddress" : "nodeAddress",
+      "timestamp" : "timestamp"
+    },
+    "timestamp" : "timestamp"
+  }, {
+    "sourceId" : "sourceId",
+    "canRead" : true,
+    "groupId" : "groupId",
+    "timestampIso" : "timestampIso",
+    "id" : 5,
+    "nodeAddress" : "nodeAddress",
+    "bulletin" : {
+      "sourceId" : "sourceId",
+      "level" : "level",
+      "sourceType" : "sourceType",
+      "groupId" : "groupId",
+      "timestampIso" : "timestampIso",
+      "id" : 1,
+      "sourceName" : "sourceName",
+      "stackTrace" : "stackTrace",
+      "category" : "category",
+      "message" : "message",
+      "nodeAddress" : "nodeAddress",
+      "timestamp" : "timestamp"
+    },
+    "timestamp" : "timestamp"
+  } ],
+  "disconnectedNodeAcknowledged" : true,
+  "component" : {
+    "bulletinLevel" : "bulletinLevel",
+    "deprecated" : true,
+    "multipleVersionsAvailable" : true,
+    "extensionMissing" : true,
+    "type" : "type",
+    "descriptors" : {
+      "key" : {
+        "supportsEl" : true,
+        "defaultValue" : "defaultValue",
+        "displayName" : "displayName",
+        "expressionLanguageScope" : "expressionLanguageScope",
+        "description" : "description",
+        "sensitive" : true,
+        "required" : true,
+        "dependencies" : [ {
+          "dependentValues" : [ "dependentValues", "dependentValues" ],
+          "propertyName" : "propertyName"
+        }, {
+          "dependentValues" : [ "dependentValues", "dependentValues" ],
+          "propertyName" : "propertyName"
+        } ],
+        "allowableValues" : [ {
+          "canRead" : true,
+          "allowableValue" : {
+            "displayName" : "displayName",
+            "description" : "description",
+            "value" : "value"
+          }
+        }, {
+          "canRead" : true,
+          "allowableValue" : {
+            "displayName" : "displayName",
+            "description" : "description",
+            "value" : "value"
+          }
+        } ],
+        "identifiesControllerService" : "identifiesControllerService",
+        "name" : "name",
+        "dynamic" : true
+      }
+    },
+    "controllerServiceApis" : [ {
+      "type" : "type"
+    }, {
+      "type" : "type"
+    } ],
+    "sensitiveDynamicPropertyNames" : [ "sensitiveDynamicPropertyNames", "sensitiveDynamicPropertyNames" ],
+    "supportsSensitiveDynamicProperties" : true,
+    "versionedComponentId" : "versionedComponentId",
+    "validationErrors" : [ "validationErrors", "validationErrors" ],
+    "id" : "id",
+    "state" : "ENABLED",
+    "bundle" : {
+      "artifact" : "artifact",
+      "version" : "version",
+      "group" : "group"
+    },
+    "referencingComponents" : [ {
+      "bulletins" : [ null, null ],
+      "disconnectedNodeAcknowledged" : true,
+      "component" : {
+        "descriptors" : { },
+        "referenceCycle" : true,
+        "activeThreadCount" : 6,
+        "groupId" : "groupId",
+        "name" : "name",
+        "referenceType" : "Processor",
+        "validationErrors" : [ "validationErrors", "validationErrors" ],
+        "id" : "id",
+        "state" : "state",
+        "type" : "type",
+        "referencingComponents" : [ null, null ],
+        "properties" : {
+          "key" : "properties"
+        }
+      },
+      "id" : "id",
+      "uri" : "uri"
+    }, {
+      "bulletins" : [ null, null ],
+      "disconnectedNodeAcknowledged" : true,
+      "component" : {
+        "descriptors" : { },
+        "referenceCycle" : true,
+        "activeThreadCount" : 6,
+        "groupId" : "groupId",
+        "name" : "name",
+        "referenceType" : "Processor",
+        "validationErrors" : [ "validationErrors", "validationErrors" ],
+        "id" : "id",
+        "state" : "state",
+        "type" : "type",
+        "referencingComponents" : [ null, null ],
+        "properties" : {
+          "key" : "properties"
+        }
+      },
+      "id" : "id",
+      "uri" : "uri"
+    } ],
+    "validationStatus" : "VALID",
+    "annotationData" : "annotationData",
+    "comments" : "comments",
+    "parentGroupId" : "parentGroupId",
+    "customUiUrl" : "customUiUrl",
+    "restricted" : true,
+    "name" : "name",
+    "persistsState" : true,
+    "properties" : {
+      "key" : "properties"
+    }
+  },
+  "parentGroupId" : "parentGroupId",
+  "id" : "id",
+  "position" : {
+    "x" : 0.8008281904610115,
+    "y" : 6.027456183070403
+  },
+  "uri" : "uri",
+  "operatePermissions" : {
+    "canRead" : true,
+    "canWrite" : true
+  },
+  "revision" : {
+    "clientId" : "clientId",
+    "lastModifier" : "lastModifier",
+    "version" : 2
+  },
+  "status" : {
+    "activeThreadCount" : 0,
+    "validationStatus" : "VALID",
+    "runStatus" : "ENABLED"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    
+        <a href="#ControllerServiceEntity">ControllerServiceEntity</a>
     <h4 class="field-label">400</h4>
     NiFi was unable to complete the request because it was invalid. The request should not be retried without modification.
         <a href="#"></a>
@@ -143270,7 +143515,7 @@ As a result, this value should not be set to true by any client other than the U
   </div>
   <div class="model">
     <h3><a name="DefinedType"><code>DefinedType</code></a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'>Indicates that this property is for selecting a controller service of the specified type</div>
+    <div class='model-description'>If this type represents a provider for an interface, this lists the APIs it implements</div>
     <div class="field-items">
       <div class="param">artifact (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The artifact name of the bundle that provides the referenced type. </div>
 <div class="param">group (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The group name of the bundle that provides the referenced type. </div>

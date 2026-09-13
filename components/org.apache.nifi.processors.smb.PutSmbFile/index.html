@@ -628,6 +628,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.sqs.ChangeSQSMessageVisibilityTimeout/">ChangeSQSMessageVisibilityTimeout</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CompressContent/">CompressContent</a>
                 </li>
                 
@@ -1956,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.gcp.cloudsql.GcpCloudSqlIamDatabasePasswordProvider/">GcpCloudSqlIamDatabasePasswordProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.gcp.credentials.service.GCPCredentialsControllerService/">GCPCredentialsControllerService</a>
                 </li>
                 
@@ -2432,6 +2440,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor/">RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
                 </li>
                 
@@ -2463,7 +2475,7 @@
           
 
 
-<h3>PutSmbFile 2.11.0</h3>
+<h3>PutSmbFile 2.12.0</h3>
 
 
 
@@ -2471,7 +2483,7 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-smb-nar</dd>
     <dt>Description</dt>
-    <dd>Writes the contents of a FlowFile to a samba network location. Use this processor instead of a cifs mounts if share access control is important.Configure the Hostname, Share and Directory accordingly: \\[Hostname]\[Share]\[path\to\Directory]</dd>
+    <dd>Writes the contents of a FlowFile to an SMB network location (e.g. Samba or Windows Server). Use this processor instead of a cifs mounts if share access control is important.Configure the Hostname, Share and Directory accordingly: \\[Hostname]\[Share]\[path\to\Directory]</dd>
     <dt>Tags</dt>
     <dd>samba, smb, cifs, files, put</dd>
     <dt>Input Requirement</dt>
@@ -2596,6 +2608,51 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Connection Configuration Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies whether SMB Client Provider Service or local processor properties are used to configure the SMB connection.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Connection Configuration Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies whether SMB Client Provider Service or local processor properties are used to configure the SMB connection.</dd>
+                    <dt>API Name</dt>
+                    <dd>Connection Configuration Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>Local Properties</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Controller Service
+                                <span uk-icon="info" uk-tooltip="Use SMB Client Provider Service to configure the SMB connection."></span></li>
+                            
+                            <li>
+                                Local Properties
+                                <span uk-icon="info" uk-tooltip="Use local processor properties to configure the SMB connection. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">Create Missing Directories</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">If true, then missing destination directories will be created. If false, FlowFiles are penalized and sent to failure.</div>
             </a>
@@ -2669,14 +2726,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Domain</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The domain used for authentication. Optional, in most cases username and password is sufficient.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The domain used for authentication. Optional, in most cases username and password is sufficient. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Domain</dd>
                     <dt>Description</dt>
-                    <dd>The domain used for authentication. Optional, in most cases username and password is sufficient.</dd>
+                    <dd>The domain used for authentication. Optional, in most cases username and password is sufficient. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Domain</dd>
                     
@@ -2689,6 +2746,25 @@
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -2696,14 +2772,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Enable DFS</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enables accessing Distributed File System (DFS) and following DFS links during SMB operations.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Enables accessing Distributed File System (DFS) and following DFS links during SMB operations. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Enable DFS</dd>
                     <dt>Description</dt>
-                    <dd>Enables accessing Distributed File System (DFS) and following DFS links during SMB operations.</dd>
+                    <dd>Enables accessing Distributed File System (DFS) and following DFS links during SMB operations. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Enable DFS</dd>
                     
@@ -2734,6 +2810,25 @@
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -2741,14 +2836,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Hostname</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The network host to which files should be written.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The network host of the SMB file server. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Hostname</dd>
                     <dt>Description</dt>
-                    <dd>The network host to which files should be written.</dd>
+                    <dd>The network host of the SMB file server. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Hostname</dd>
                     
@@ -2761,6 +2856,25 @@
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -2768,14 +2882,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Password</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The password used for authentication. Required if Username is set.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The password used for authentication. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Password</dd>
                     <dt>Description</dt>
-                    <dd>The password used for authentication. Required if Username is set.</dd>
+                    <dd>The password used for authentication. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Password</dd>
                     
@@ -2788,6 +2902,25 @@
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -2795,14 +2928,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Port</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The port to use for the SMB connection.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Port to use for connection. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Port</dd>
                     <dt>Description</dt>
-                    <dd>The port to use for the SMB connection.</dd>
+                    <dd>Port to use for connection. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Port</dd>
                     
@@ -2812,11 +2945,30 @@
                     
                     
                     <dt>Expression Language Scope</dt>
-                    <dd>Not Supported</dd>
+                    <dd>Environment variables and FlowFile Attributes</dd>
                     <dt>Sensitive</dt>
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2825,14 +2977,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Share</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The network share to which files should be written. This is the &#34;first folder&#34;after the hostname: \\hostname\[share]\dir1\dir2</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The network share that hosts the files. This is the &#34;first folder&#34;after the hostname: smb://hostname:port/[share]/dir1/dir2 Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Share</dd>
                     <dt>Description</dt>
-                    <dd>The network share to which files should be written. This is the &#34;first folder&#34;after the hostname: \\hostname\[share]\dir1\dir2</dd>
+                    <dd>The network share that hosts the files. This is the &#34;first folder&#34;after the hostname: smb://hostname:port/[share]/dir1/dir2 Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Share</dd>
                     
@@ -2844,6 +2996,25 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2904,15 +3075,739 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">SMB Client Provider Service</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies the SMB client provider to use for creating SMB connections.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>SMB Client Provider Service</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies the SMB client provider to use for creating SMB connections.</dd>
+                    <dt>API Name</dt>
+                    <dd>SMB Client Provider Service</dd>
+                    
+                    
+                    
+                    <dt>Service Interface</dt>
+                    <dd>org.apache.nifi.services.smb.SmbClientProviderService</dd>
+
+                    
+
+                    <dt>Service Implementations</dt>
+                    <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.services.smb.SmbjClientProviderService/">org.apache.nifi.services.smb.SmbjClientProviderService</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </dd>
+
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Controller Service]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="property-required">SMB Dialect</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The SMB dialect is negotiated between the client and the server by default to the highest common version supported by both end. In some rare cases, the client-server communication may fail with the automatically negotiated dialect. This property can be used to set the dialect explicitly (e.g. to downgrade to a lower version), when those situations would occur.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The SMB dialect is negotiated between the client and the server by default to the highest common version supported by both end. In some rare cases, the client-server communication may fail with the automatically negotiated dialect. This property can be used to set the dialect explicitly (e.g. to downgrade to a lower version), when those situations would occur. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>SMB Dialect</dd>
                     <dt>Description</dt>
-                    <dd>The SMB dialect is negotiated between the client and the server by default to the highest common version supported by both end. In some rare cases, the client-server communication may fail with the automatically negotiated dialect. This property can be used to set the dialect explicitly (e.g. to downgrade to a lower version), when those situations would occur.</dd>
+                    <dd>The SMB dialect is negotiated between the client and the server by default to the highest common version supported by both end. In some rare cases, the client-server communication may fail with the automatically negotiated dialect. This property can be used to set the dialect explicitly (e.g. to downgrade to a lower version), when those situations would occur. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>SMB Dialect</dd>
                     
@@ -2959,6 +3854,25 @@
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -2993,14 +3907,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Timeout</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Timeout for read and write operations.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Timeout for read and write operations. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Timeout</dd>
                     <dt>Description</dt>
-                    <dd>Timeout for read and write operations.</dd>
+                    <dd>Timeout for read and write operations. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Timeout</dd>
                     
@@ -3016,6 +3930,25 @@
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3023,14 +3956,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Use Encryption</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Turns on/off encrypted communication between the client and the server. The property&#39;s behavior is SMB dialect dependent: SMB 2.x does not support encryption and the property has no effect. In case of SMB 3.x, it is a hint/request to the server to turn encryption on if the server also supports it.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Turns on/off encrypted communication between the client and the server. The property&#39;s behavior is SMB dialect dependent: SMB 2.x does not support encryption and the property has no effect. In case of SMB 3.x, it is a hint/request to the server to turn encryption on if the server also supports it. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Use Encryption</dd>
                     <dt>Description</dt>
-                    <dd>Turns on/off encrypted communication between the client and the server. The property&#39;s behavior is SMB dialect dependent: SMB 2.x does not support encryption and the property has no effect. In case of SMB 3.x, it is a hint/request to the server to turn encryption on if the server also supports it.</dd>
+                    <dd>Turns on/off encrypted communication between the client and the server. The property&#39;s behavior is SMB dialect dependent: SMB 2.x does not support encryption and the property has no effect. In case of SMB 3.x, it is a hint/request to the server to turn encryption on if the server also supports it. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Use Encryption</dd>
                     
@@ -3061,6 +3994,25 @@
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3068,14 +4020,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Username</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The username used for authentication. If no username is set then anonymous authentication is attempted.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The username used for authentication. If no username is set then anonymous authentication is attempted. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Username</dd>
                     <dt>Description</dt>
-                    <dd>The username used for authentication. If no username is set then anonymous authentication is attempted.</dd>
+                    <dd>The username used for authentication. If no username is set then anonymous authentication is attempted. Deprecation notice: Local processor properties used to configure the SMB connection are deprecated and will be removed in the next major release. Use SMB Client Provider Service instead.</dd>
                     <dt>API Name</dt>
                     <dd>Username</dd>
                     
@@ -3087,6 +4039,25 @@
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Connection Configuration Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Local Properties]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
