@@ -72,6 +72,25 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-70469"
+title="Improper Handling of Case Sensitivity for Content-Encoding in HTTP Requests"
+published="2026-09-16"
+severity="High"
+products="Apache NiFi"
+affectedVersions="2.11.0"
+fixedVersion="2.12.0"
+jira="NIFI-16170"
+pullRequest="11509"
+reporter="mak3bread (Minseong Kim)" >}}
+
+Apache NiFi 2.11.0 disabled support for gzip-encoded HTTP requests for the application REST API and rejected requests that included the standard Content-Encoding header indicating gzip encoding. The
+framework enforcement filter did not check multiple instances of the Content-Encoding header and did not reject non-standard identifiers for gzip encoding, allowing a malicious client to send crafted
+requests that could consume excessive amounts of memory. Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which disables decompression of gzip-encoded HTTP requests regardless of header
+number or encoding identifiers.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-68981"
 title="Uncontrolled Resource Consumption through Decompression of HTTP Requests"
 published="2026-08-03"
