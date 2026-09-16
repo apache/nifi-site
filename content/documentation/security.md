@@ -72,6 +72,25 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-87976"
+title="Improper Limitation of Pathname in Persisted Extension Bundles"
+published="2026-09-16"
+severity="High"
+products="Apache NiFi Registry"
+affectedVersions="0.4.0 to 2.11.0"
+fixedVersion="2.12.0"
+jira="NIFI-16329"
+pullRequest="11662"
+reporter="lichoin" >}}
+
+Apache NiFi Registry 0.4.0 through 2.11.0 are subject to path manipulation when storing extension bundle content using group, artifact, and version coordinates from uploaded NAR manifests. The default
+file persistence provider used coordinates as filesystem path components without rejected parent-directory names, and the path-containment check compared an unnormalized resolved path. An
+authenticated user authorized to write and delete bundles in a bucket can upload a NAR with a crafted manifest resulting in file system operations outside of the file persistence directory. Upgrading
+to Apache NiFi Registry 2.12.0 is the recommended mitigation, which rejects parent-directory coordinates and requires a normalized path to remain a strict child of the storage root location.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-86089"
 title="Missing Process Group Authorization for Connector Migration"
 published="2026-09-16"
