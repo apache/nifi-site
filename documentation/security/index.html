@@ -563,7 +563,7 @@
 </div>
     <main>
   <div class="uk-container">
-    <h1 id="apache-hahahugoshortcode15s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
+    <h1 id="apache-hahahugoshortcode21s0hbhb-security">Apache <span class="ni">Ni</span><span class="fi">Fi</span>
  Security</h1>
 <p>Apache NiFi welcomes the responsible reporting of security vulnerabilities. Project Management Committee members will
 collaborate and respond to potential vulnerabilities, providing an assessment of the concern and a plan of action to
@@ -619,6 +619,227 @@ administrators to implement other protection strategies when changing the defaul
 </ul>
 <h1 id="published-vulnerabilities">Published Vulnerabilities</h1>
 <p>The following announcements include published vulnerabilities that apply directly to Apache NiFi components.</p>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-87976">CVE-2026-87976</h3>
+
+  <ul>
+    <li>Title: Improper Limitation of Pathname in Persisted Extension Bundles</li>
+    <li>Published: 2026-09-16</li>
+    <li>Severity: High</li>
+    <li>Products: Apache NiFi Registry</li>
+    <li>Affected Versions: 0.4.0 to 2.11.0</li>
+    <li>Fixed Versions: 2.12.0</li>
+    <li>Reporter: lichoin</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-87976" target="_blank">CVE-2026-87976</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-87976" target="_blank">CVE-2026-87976</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-16329" target="_blank">NIFI-16329</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/11662" target="_blank">11662</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi Registry 0.4.0 through 2.11.0 are subject to path manipulation when storing extension bundle content using group, artifact, and version coordinates from uploaded NAR manifests. The default
+file persistence provider used coordinates as filesystem path components without rejected parent-directory names, and the path-containment check compared an unnormalized resolved path. An
+authenticated user authorized to write and delete bundles in a bucket can upload a NAR with a crafted manifest resulting in file system operations outside of the file persistence directory. Upgrading
+to Apache NiFi Registry 2.12.0 is the recommended mitigation, which rejects parent-directory coordinates and requires a normalized path to remain a strict child of the storage root location.
+
+
+  </p>
+</div>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-86089">CVE-2026-86089</h3>
+
+  <ul>
+    <li>Title: Missing Process Group Authorization for Connector Migration</li>
+    <li>Published: 2026-09-16</li>
+    <li>Severity: Low</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 2.11.0</li>
+    <li>Fixed Versions: 2.12.0</li>
+    <li>Reporter: ZsZsec and Alpesh Bhagwatkar</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-86089" target="_blank">CVE-2026-86089</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-86089" target="_blank">CVE-2026-86089</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-16272" target="_blank">NIFI-16272</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/11606" target="_blank">11606</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 2.11.0 supports migrating the contents of a version-controlled Process Group into a Connector using REST API methods that list eligible migration sources and submit migration requests. The
+framework authorized both methods against the target Connector alone, without evaluating access to the Process Groups involved. The absence of Process Group authorization allowed an authenticated user
+with read access to a Connector to enumerate the identifiers, names, and flow registry details of version-controlled Process Groups outside the scope of granted read policies. It also allowed a user
+with write access to a Connector to migrate a Process Group without write access to that Process Group, copying the flow definition, referenced assets, and component state into the Connector, and
+leaving the source Process Group disabled and renamed. Migration excludes sensitive property values and requires the source Process Group to be stopped with empty queues, which limits the scope of
+exposure. Apache NiFi installations that do not implement component-level authorization policies for Process Groups are not subject to this vulnerability, because the framework enforces Connector
+write permissions as the security boundary. Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which filters migration sources to Process Groups the requesting user is authorized to read,
+and requires write access to the source Process Group when submitting a migration request.
+
+
+  </p>
+</div>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-82561">CVE-2026-82561</h3>
+
+  <ul>
+    <li>Title: Missing Authorization for Components Referenced in Flow Update Methods</li>
+    <li>Published: 2026-09-16</li>
+    <li>Severity: Medium</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 1.5.0 to 2.11.0</li>
+    <li>Fixed Versions: 2.12.0</li>
+    <li>Reporter: n0mi1k</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-82561" target="_blank">CVE-2026-82561</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-82561" target="_blank">CVE-2026-82561</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-16263" target="_blank">NIFI-16263</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/11601" target="_blank">11601</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 1.5.0 through 2.11.0 provide REST API methods that replace the entire contents of a Process Group using a client-supplied flow definition, covering Process Group flow replacement together
+with versioned flow update and rebase operations. Framework authorization for these methods was limited to read and write privileges on the Process Group itself, unlike the corresponding asynchronous
+update request methods, which also authorize the components encapsulated in the Process Group along with referenced Controller Services, Parameter Contexts, and Parameter Providers. As a result of the
+missing authorization, an authenticated user with write access to a Process Group could supply a flow definition that modifies or removes components in descendant Process Groups protected by more
+restrictive access policies, and could bind components to Controller Services and Parameter Contexts without authorization for those referenced components. Existing verification checks limited the
+impact to stopped components, and the issue applies only to deployments that use component-level authorization policies, because the framework enforces write permissions as the security boundary.
+Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which applies consistent reference resolution and component authorization across Process Group replacement and versioned flow update
+methods.
+
+
+  </p>
+</div>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-81866">CVE-2026-81866</h3>
+
+  <ul>
+    <li>Title: Missing Authorization for Assets and Secrets Referenced by Connector Configuration</li>
+    <li>Published: 2026-09-16</li>
+    <li>Severity: Low</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 2.9.0 to 2.11.0</li>
+    <li>Fixed Versions: 2.12.0</li>
+    <li>Reporter: h1ei1 and Arpit Jain</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-81866" target="_blank">CVE-2026-81866</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-81866" target="_blank">CVE-2026-81866</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-16205" target="_blank">NIFI-16205</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/11547" target="_blank">11547</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 2.9.0 through 2.11.0 provide Connector configuration update and verification REST API methods that do not enforce authorization checking on Assets and Secrets referenced in proposed
+configuration. Updating or verifying a Connector configuration step can apply Asset and Secret references, but framework authorization was limited to write privileges on the Connector itself. As a
+result of the missing authorization, an authenticated user authorized to modify a Connector, but not authorized to read a referenced Parameter Provider, could apply Secret values backed by that
+Parameter Provider. The same methods also accepted Asset identifiers without verifying that the Asset belonged to the Connector being configured. Apache NiFi installations that do not implement
+different levels of authorization across Connectors and Parameter Providers are not subject to this vulnerability, because the framework enforces write permissions on the Connector as the security
+boundary. Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which authorizes read access to referenced Parameter Providers and verifies Connector ownership of referenced Assets during
+configuration update and verification.
+
+
+  </p>
+</div>
+<div class="vulnerability-container">
+  <h3 id="CVE-2026-70469">CVE-2026-70469</h3>
+
+  <ul>
+    <li>Title: Improper Handling of Case Sensitivity for Content-Encoding in HTTP Requests</li>
+    <li>Published: 2026-09-16</li>
+    <li>Severity: High</li>
+    <li>Products: Apache NiFi</li>
+    <li>Affected Versions: 2.11.0</li>
+    <li>Fixed Versions: 2.12.0</li>
+    <li>Reporter: mak3bread (Minseong Kim)</li>
+    <li>References
+      <ul>
+        <li>
+          CVE Record: <a href="https://www.cve.org/CVERecord?id=CVE-2026-70469" target="_blank">CVE-2026-70469</a>
+        </li>
+        <li>
+          NVD Record: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-70469" target="_blank">CVE-2026-70469</a>
+        </li>
+        <li>
+          Apache Jira Issue: <a href="https://issues.apache.org/jira/browse/NIFI-16170" target="_blank">NIFI-16170</a>
+        </li>
+        
+        <li>
+          GitHub Pull Request: <a href="https://github.com/apache/nifi/pull/11509" target="_blank">11509</a>
+        </li>
+        
+      </ul>
+    </li>
+  </ul>
+
+  <p class="vulnerability-description">
+    
+
+Apache NiFi 2.11.0 disabled support for gzip-encoded HTTP requests for the application REST API and rejected requests that included the standard Content-Encoding header indicating gzip encoding. The
+framework enforcement filter did not check multiple instances of the Content-Encoding header and did not reject non-standard identifiers for gzip encoding, allowing a malicious client to send crafted
+requests that could consume excessive amounts of memory. Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which disables decompression of gzip-encoded HTTP requests regardless of header
+number or encoding identifiers.
+
+
+  </p>
+</div>
 <div class="vulnerability-container">
   <h3 id="CVE-2026-68981">CVE-2026-68981</h3>
 
