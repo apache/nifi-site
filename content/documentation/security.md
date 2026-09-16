@@ -72,6 +72,29 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-86089"
+title="Missing Process Group Authorization for Connector Migration"
+published="2026-09-16"
+severity="Low"
+products="Apache NiFi"
+affectedVersions="2.11.0"
+fixedVersion="2.12.0"
+jira="NIFI-16272"
+pullRequest="11606"
+reporter="ZsZsec and Alpesh Bhagwatkar" >}}
+
+Apache NiFi 2.11.0 supports migrating the contents of a version-controlled Process Group into a Connector using REST API methods that list eligible migration sources and submit migration requests. The
+framework authorized both methods against the target Connector alone, without evaluating access to the Process Groups involved. The absence of Process Group authorization allowed an authenticated user
+with read access to a Connector to enumerate the identifiers, names, and flow registry details of version-controlled Process Groups outside the scope of granted read policies. It also allowed a user
+with write access to a Connector to migrate a Process Group without write access to that Process Group, copying the flow definition, referenced assets, and component state into the Connector, and
+leaving the source Process Group disabled and renamed. Migration excludes sensitive property values and requires the source Process Group to be stopped with empty queues, which limits the scope of
+exposure. Apache NiFi installations that do not implement component-level authorization policies for Process Groups are not subject to this vulnerability, because the framework enforces Connector
+write permissions as the security boundary. Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which filters migration sources to Process Groups the requesting user is authorized to read,
+and requires write access to the source Process Group when submitting a migration request.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-82561"
 title="Missing Authorization for Components Referenced in Flow Update Methods"
 published="2026-09-16"
