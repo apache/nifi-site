@@ -72,6 +72,29 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-82561"
+title="Missing Authorization for Components Referenced in Flow Update Methods"
+published="2026-09-16"
+severity="Medium"
+products="Apache NiFi"
+affectedVersions="1.5.0 to 2.11.0"
+fixedVersion="2.12.0"
+jira="NIFI-16263"
+pullRequest="11601"
+reporter="n0mi1k" >}}
+
+Apache NiFi 1.5.0 through 2.11.0 provide REST API methods that replace the entire contents of a Process Group using a client-supplied flow definition, covering Process Group flow replacement together
+with versioned flow update and rebase operations. Framework authorization for these methods was limited to read and write privileges on the Process Group itself, unlike the corresponding asynchronous
+update request methods, which also authorize the components encapsulated in the Process Group along with referenced Controller Services, Parameter Contexts, and Parameter Providers. As a result of the
+missing authorization, an authenticated user with write access to a Process Group could supply a flow definition that modifies or removes components in descendant Process Groups protected by more
+restrictive access policies, and could bind components to Controller Services and Parameter Contexts without authorization for those referenced components. Existing verification checks limited the
+impact to stopped components, and the issue applies only to deployments that use component-level authorization policies, because the framework enforces write permissions as the security boundary.
+Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which applies consistent reference resolution and component authorization across Process Group replacement and versioned flow update
+methods.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-81866"
 title="Missing Authorization for Assets and Secrets Referenced by Connector Configuration"
 published="2026-09-16"
