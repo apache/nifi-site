@@ -628,6 +628,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.sqs.ChangeSQSMessageVisibilityTimeout/">ChangeSQSMessageVisibilityTimeout</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CompressContent/">CompressContent</a>
                 </li>
                 
@@ -1956,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.gcp.cloudsql.GcpCloudSqlIamDatabasePasswordProvider/">GcpCloudSqlIamDatabasePasswordProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.gcp.credentials.service.GCPCredentialsControllerService/">GCPCredentialsControllerService</a>
                 </li>
                 
@@ -2432,6 +2440,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor/">RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
                 </li>
                 
@@ -2463,7 +2475,7 @@
           
 
 
-<h3>JWTBearerOAuth2AccessTokenProvider 2.11.0</h3>
+<h3>JWTBearerOAuth2AccessTokenProvider 2.12.0</h3>
 
 
 
@@ -2471,7 +2483,11 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-oauth2-provider-nar</dd>
     <dt>Description</dt>
-    <dd>Provides OAuth 2.0 access tokens that can be used as Bearer authorization header in HTTP requests. This controller service is for implementing the OAuth 2.0 JWT Bearer Flow.</dd>
+    <dd>Provides OAuth 2.0 access tokens that can be used as Bearer authorization header in HTTP requests.
+This controller service is for implementing the OAuth 2.0 JWT Bearer Flow. The JWT assertion can either be
+built and signed locally using a Private Key Service, or supplied by an external OAuth2AccessTokenProvider,
+allowing an externally-issued JWT to be chained as the client assertion presented to the token endpoint.
+</dd>
     <dt>Tags</dt>
     <dd>access token, authorization, hjwt, oauth2, provider</dd>
     <dt>Input Requirement</dt>
@@ -2487,7 +2503,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for JWTBearerOAuth2AccessTokenProvider 2.11.0</a>
+        <a class="uk-accordion-title" href>Additional Details for JWTBearerOAuth2AccessTokenProvider 2.12.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2840,6 +2856,51 @@ with a key prefixed by <code>CLAIM.</code>) as well as custom form parameters fo
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Assertion Strategy</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Determines how the RFC 7523 JWT assertion presented to the Token Endpoint is produced.</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Assertion Strategy</dd>
+                    <dt>Description</dt>
+                    <dd>Determines how the RFC 7523 JWT assertion presented to the Token Endpoint is produced.</dd>
+                    <dt>API Name</dt>
+                    <dd>Assertion Strategy</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>SELF_SIGNED</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Self-Signed
+                                <span uk-icon="info" uk-tooltip="Build and sign the JWT assertion locally using a Private Key Service."></span></li>
+                            
+                            <li>
+                                External Provider
+                                <span uk-icon="info" uk-tooltip="Use the token from an external OAuth2AccessTokenProvider directly as the JWT assertion."></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Audience</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The audience claim (aud) for the JWT. Space-separated list of audiences if multiple are expected.</div>
             </a>
@@ -2860,6 +2921,757 @@ with a key prefixed by <code>CLAIM.</code>) as well as custom form parameters fo
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
+                <span class="property-required">External Assertion Provider</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">An OAuth2AccessTokenProvider whose token is used directly as the JWT assertion. Use this to
+chain an externally-issued JWT (for example, from another identity provider&#39;s workload identity
+federation) as the RFC 7523 client assertion presented to this service&#39;s Token Endpoint.
+</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>External Assertion Provider</dd>
+                    <dt>Description</dt>
+                    <dd>An OAuth2AccessTokenProvider whose token is used directly as the JWT assertion. Use this to
+chain an externally-issued JWT (for example, from another identity provider&#39;s workload identity
+federation) as the RFC 7523 client assertion presented to this service&#39;s Token Endpoint.
+</dd>
+                    <dt>API Name</dt>
+                    <dd>External Assertion Provider</dd>
+                    
+                    
+                    
+                    <dt>Service Interface</dt>
+                    <dd>org.apache.nifi.oauth2.OAuth2AccessTokenProvider</dd>
+
+                    
+
+                    <dt>Service Implementations</dt>
+                    <dd>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider/">org.apache.nifi.oauth2.JWTBearerOAuth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <div><a href="/components/org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider/">org.apache.nifi.oauth2.StandardOauth2AccessTokenProvider</a></div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </dd>
+
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [EXTERNAL_PROVIDER]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2917,6 +3729,25 @@ with a key prefixed by <code>CLAIM.</code>) as well as custom form parameters fo
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -2989,6 +3820,25 @@ value to ${UUID()}.
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3015,6 +3865,25 @@ value to ${UUID()}.
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>false</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3043,6 +3912,11 @@ value to ${UUID()}.
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3716,6 +4590,25 @@ value to ${UUID()}.
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3773,6 +4666,25 @@ value to ${UUID()}.
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3821,6 +4733,25 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
                     <dd>false</dd>
                     <dt>Required</dt>
                     <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
                     
                 </dl>
             </div>
@@ -3899,6 +4830,25 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
                     <dt>Required</dt>
                     <dd>true</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -3926,6 +4876,11 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -4514,9 +5469,9 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
                         
                         
                         
+                        
+                        
                         <div><a href="/components/org.apache.nifi.ssl.StandardRestrictedSSLContextService/">org.apache.nifi.ssl.StandardRestrictedSSLContextService</a></div>
-                        
-                        
                         
                         
                         
@@ -4649,6 +5604,25 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
                     <dt>Required</dt>
                     <dd>false</dd>
                     
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Assertion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [SELF_SIGNED]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
                 </dl>
             </div>
         </li>
@@ -4703,6 +5677,11 @@ If set to true, an instance of SSLContextProvider must be configured with a cert
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

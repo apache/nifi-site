@@ -628,6 +628,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.sqs.ChangeSQSMessageVisibilityTimeout/">ChangeSQSMessageVisibilityTimeout</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CompressContent/">CompressContent</a>
                 </li>
                 
@@ -1956,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.gcp.cloudsql.GcpCloudSqlIamDatabasePasswordProvider/">GcpCloudSqlIamDatabasePasswordProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.gcp.credentials.service.GCPCredentialsControllerService/">GCPCredentialsControllerService</a>
                 </li>
                 
@@ -2432,6 +2440,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor/">RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
                 </li>
                 
@@ -2463,7 +2475,7 @@
           
 
 
-<h3>ValidateRecord 2.11.0</h3>
+<h3>ValidateRecord 2.12.0</h3>
 
 
 
@@ -2471,7 +2483,7 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Validates the Records of an incoming FlowFile against a given schema. All records that adhere to the schema are routed to the &#34;valid&#34; relationship while records that do not adhere to the schema are routed to the &#34;invalid&#34; relationship. It is therefore possible for a single incoming FlowFile to be split into two individual FlowFiles if some records are valid according to the schema and others are not. Any FlowFile that is routed to the &#34;invalid&#34; relationship will emit a ROUTE Provenance Event with the Details field populated to explain why records were invalid. In addition, to gain further explanation of why records were invalid, DEBUG-level logging can be enabled for the &#34;org.apache.nifi.processors.standard.ValidateRecord&#34; logger.</dd>
+    <dd>Validates the Records of an incoming FlowFile against a given schema. All records that adhere to the schema are routed to the &#34;valid&#34; relationship while records that do not adhere to the schema are routed to the &#34;invalid&#34; relationship. It is therefore possible for a single incoming FlowFile to be split into two individual FlowFiles if some records are valid according to the schema and others are not. Any FlowFile that is routed to the &#34;invalid&#34; relationship will emit a ROUTE Provenance Event with the Details field populated to explain why records were invalid. In addition, to gain further explanation of why records were invalid, DEBUG-level logging can be enabled for the &#34;org.apache.nifi.processors.standard.ValidateRecord&#34; logger. If the incoming FlowFile contains no records, no output FlowFile is produced for any relationship and the incoming FlowFile is removed.</dd>
     <dt>Tags</dt>
     <dd>record, schema, validate</dd>
     <dt>Input Requirement</dt>
@@ -2487,7 +2499,7 @@
 
 <ul uk-accordion>
     <li class="additional-details">
-        <a class="uk-accordion-title" href>Additional Details for ValidateRecord 2.11.0</a>
+        <a class="uk-accordion-title" href>Additional Details for ValidateRecord 2.12.0</a>
         <div class="uk-accordion-content">
             <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
@@ -2504,6 +2516,14 @@
   limitations under the License.
 -->
 <h1 id="validaterecord">ValidateRecord</h1>
+<h2 id="flowfiles-that-contain-no-records">FlowFiles that contain no records</h2>
+<p>ValidateRecord validates records one at a time as they are read from the incoming FlowFile. If the Record Reader
+returns no records - for example, a CSV input that contains only a header line - the processor has nothing to validate.
+In this case no output is produced: no FlowFile is routed any relationship, and the incoming FlowFile is removed.</p>
+<p>If a downstream flow needs to react to empty inputs, detect them before ValidateRecord. For example, a preceding
+record-based processor such as ConvertRecord writes a <code>record.count</code> attribute (including <code>record.count = 0</code> for empty
+inputs when its <em>Include Zero Record FlowFiles</em> property is enabled), which a RouteOnAttribute processor can then use to
+handle empty FlowFiles separately.</p>
 <h2 id="examples-for-the-effect-of-force-types-from-readers-schema-property">Examples for the effect of Force Types From Reader&rsquo;s Schema property</h2>
 <p>The processor first reads the data from the incoming FlowFile using the specified Record Reader, which uses a schema.
 Then, depending on the value of the Schema Access Strategy property, the processor can either use the reader&rsquo;s schema,
@@ -3017,6 +3037,11 @@ in <strong>Example 2</strong>, but instead of JsonRecordSetWriter, we used XMLRe
                         
                         
                         <div><a href="/components/org.apache.nifi.excel.ExcelReader/">org.apache.nifi.excel.ExcelReader</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -3839,6 +3864,11 @@ in <strong>Example 2</strong>, but instead of JsonRecordSetWriter, we used XMLRe
                         
                         
                         
+                        
+                        
+                        
+                        
+                        
                         <div><a href="/components/org.apache.nifi.json.JsonRecordSetWriter/">org.apache.nifi.json.JsonRecordSetWriter</a></div>
                         
                         
@@ -4467,6 +4497,11 @@ in <strong>Example 2</strong>, but instead of JsonRecordSetWriter, we used XMLRe
                         
                         
                         <div><a href="/components/org.apache.nifi.text.FreeFormTextRecordSetWriter/">org.apache.nifi.text.FreeFormTextRecordSetWriter</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -5263,6 +5298,11 @@ in <strong>Example 2</strong>, but instead of JsonRecordSetWriter, we used XMLRe
                         
                         
                         <div><a href="/components/org.apache.nifi.db.schemaregistry.DatabaseTableSchemaRegistry/">org.apache.nifi.db.schemaregistry.DatabaseTableSchemaRegistry</a></div>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         

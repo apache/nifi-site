@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   title: Apache NiFi REST API
-  version: 2.11.0
+  version: 2.12.0
 security:
 - HTTPBearerJWT: []
 - CookieSecureAuthorizationBearer: []
@@ -941,6 +941,8 @@ paths:
             to process it.
       security:
       - Write - /connectors/{uuid}: []
+      - Read - any referenced Parameter Providers - /parameter-providers/{uuid}: []
+      - Read - /connectors/{uuid} when referencing Assets owned by the connector: []
       summary: Updates a specific configuration step by name for a connector
       tags:
       - Connectors
@@ -1056,6 +1058,8 @@ paths:
             to process it.
       security:
       - Write - /connectors/{uuid}: []
+      - Read - any referenced Parameter Providers - /parameter-providers/{uuid}: []
+      - Read - /connectors/{uuid} when referencing Assets owned by the connector: []
       summary: Performs verification of a configuration step for a connector
       tags:
       - Connectors
@@ -1196,6 +1200,55 @@ paths:
       security:
       - Read - /connectors/{uuid}: []
       summary: Gets the status history for a connection within a connector
+      tags:
+      - Connectors
+  /connectors/{id}/controller-services/{controllerServiceId}:
+    get:
+      description: "If the uiOnly query parameter is provided with a value of true,\
+        \ the returned entity may only contain fields that are necessary for rendering\
+        \ the NiFi User Interface. As such, the selected fields may change at any\
+        \ time, even during incremental releases, without warning. As a result, this\
+        \ parameter should not be provided by any client other than the UI."
+      operationId: getConnectorControllerService
+      parameters:
+      - description: The connector id.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The controller service id.
+        in: path
+        name: controllerServiceId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: uiOnly
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ControllerServiceEntity"
+        "400":
+          description: NiFi was unable to complete the request because it was invalid.
+            The request should not be retried without modification.
+        "401":
+          description: Client could not be authenticated.
+        "403":
+          description: Client is not authorized to make this request.
+        "404":
+          description: The specified resource could not be found.
+        "409":
+          description: The request was valid but NiFi was not in the appropriate state
+            to process it.
+      security:
+      - Read - /connectors/{uuid}: []
+      summary: Gets a controller service within a connector
       tags:
       - Connectors
   /connectors/{id}/controller-services/{controllerServiceId}/state:
@@ -1456,6 +1509,7 @@ paths:
             to process it.
       security:
       - Write - /connectors/{uuid}: []
+      - Write - /process-groups/{uuid} - For a migration from a local Process Group: []
       summary: Creates a Connector migration request
       tags:
       - Connectors
@@ -1557,6 +1611,7 @@ paths:
             to process it.
       security:
       - Read - /connectors/{uuid}: []
+      - Read - /process-groups/{uuid} - For each Process Group returned: []
       summary: Lists the Versioned Process Groups that the Connector can be migrated
         from
       tags:
@@ -10731,6 +10786,11 @@ paths:
       security:
       - Read - /process-groups/{uuid}: []
       - Write - /process-groups/{uuid}: []
+      - Read - /{component-type}/{uuid} - For all encapsulated components: []
+      - Write - /{component-type}/{uuid} - For all encapsulated components: []
+      - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
+          by a Property that is changed, added, or removed
+        : []
       summary: Replace Process Group contents with the given ID with the specified
         Process Group contents
       tags:
@@ -14742,6 +14802,11 @@ paths:
       security:
       - Read - /process-groups/{uuid}: []
       - Write - /process-groups/{uuid}: []
+      - Read - /{component-type}/{uuid} - For all encapsulated components: []
+      - Write - /{component-type}/{uuid} - For all encapsulated components: []
+      - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
+          by a Property that is changed, added, or removed
+        : []
       summary: Update the version of a Process Group with the given ID
       tags:
       - Versions
@@ -14865,6 +14930,11 @@ paths:
       security:
       - Read - /process-groups/{uuid}: []
       - Write - /process-groups/{uuid}: []
+      - Read - /{component-type}/{uuid} - For all encapsulated components: []
+      - Write - /{component-type}/{uuid} - For all encapsulated components: []
+      - ? Read - /parameter-contexts/{uuid} - For any Parameter Context that is referenced
+          by a Property that is changed, added, or removed
+        : []
       summary: Applies a rebased flow to a Process Group with the given ID on this
         node
       tags:
@@ -18803,8 +18873,8 @@ components:
           format: date-time
     DefinedType:
       type: object
-      description: Indicates that this property is for selecting a controller service
-        of the specified type
+      description: "If this type represents a provider for an interface, this lists\
+        \ the APIs it implements"
       properties:
         artifact:
           type: string

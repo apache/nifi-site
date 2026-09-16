@@ -628,6 +628,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.sqs.ChangeSQSMessageVisibilityTimeout/">ChangeSQSMessageVisibilityTimeout</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CompressContent/">CompressContent</a>
                 </li>
                 
@@ -1956,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.gcp.cloudsql.GcpCloudSqlIamDatabasePasswordProvider/">GcpCloudSqlIamDatabasePasswordProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.gcp.credentials.service.GCPCredentialsControllerService/">GCPCredentialsControllerService</a>
                 </li>
                 
@@ -2432,6 +2440,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor/">RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
                 </li>
                 
@@ -2463,7 +2475,7 @@
           
 
 
-<h3>UnpackContent 2.11.0</h3>
+<h3>UnpackContent 2.12.0</h3>
 
 
 
@@ -2471,7 +2483,7 @@
     <dt>Bundle</dt>
     <dd>org.apache.nifi | nifi-standard-nar</dd>
     <dt>Description</dt>
-    <dd>Unpacks the content of FlowFiles that have been packaged with one of several different Packaging Formats, emitting one to many FlowFiles for each input FlowFile. Supported formats are TAR, ZIP, and FlowFile Stream packages.</dd>
+    <dd>Unpacks the content of FlowFiles that have been packaged with one of several different Packaging Formats, emitting one to many FlowFiles for each input FlowFile. Supported formats are TAR, ZIP, and FlowFile Stream packages. For ZIP, every entry that provides a CRC-32 checksum is validated against the uncompressed bytes, including entries that are not extracted because of File Filter. A mismatch means the archive is corrupt: any FlowFiles already created for earlier entries are removed and the original FlowFile is routed to failure.</dd>
     <dt>Tags</dt>
     <dd>Unpack, archive, flowfile-stream, flowfile-stream-v3, tar, un-merge, zip</dd>
     <dt>Input Requirement</dt>
@@ -2582,14 +2594,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">File Filter</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only files contained in the archive whose names match the given regular expression will be extracted (tar/zip only)</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Only files contained in the archive whose names match the given regular expression will be extracted (tar/zip only). ZIP CRC-32 checksums are still validated for every entry that provides one, even when the entry is not extracted.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>File Filter</dd>
                     <dt>Description</dt>
-                    <dd>Only files contained in the archive whose names match the given regular expression will be extracted (tar/zip only)</dd>
+                    <dd>Only files contained in the archive whose names match the given regular expression will be extracted (tar/zip only). ZIP CRC-32 checksums are still validated for every entry that provides one, even when the entry is not extracted.</dd>
                     <dt>API Name</dt>
                     <dd>File Filter</dd>
                     
@@ -2698,11 +2710,11 @@
                             
                             <li>
                                 flowfile-stream-v2
-                                </li>
+                                <span uk-icon="info" uk-tooltip="FlowFile Stream V2 is deprecated"></span></li>
                             
                             <li>
                                 flowfile-tar-v1
-                                </li>
+                                <span uk-icon="info" uk-tooltip="FlowFile TAR V1 is deprecated"></span></li>
                             
                         </ul>
                     </dd>
@@ -2722,14 +2734,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="">Password</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Password used for decrypting Zip archives encrypted with ZipCrypto or AES. Configuring a password disables support for alternative Zip compression algorithms.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Password used for decrypting Zip archives encrypted with ZipCrypto or AES. Configuring a password disables support for alternative Zip compression algorithms. CRC-32 validation is not applied when a password is configured because the encrypted Zip reader does not expose the uncompressed checksum.</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Password</dd>
                     <dt>Description</dt>
-                    <dd>Password used for decrypting Zip archives encrypted with ZipCrypto or AES. Configuring a password disables support for alternative Zip compression algorithms.</dd>
+                    <dd>Password used for decrypting Zip archives encrypted with ZipCrypto or AES. Configuring a password disables support for alternative Zip compression algorithms. CRC-32 validation is not applied when a password is configured because the encrypted Zip reader does not expose the uncompressed checksum.</dd>
                     <dt>API Name</dt>
                     <dd>Password</dd>
                     
@@ -2790,7 +2802,7 @@
         
         <tr>
             <td>failure</td>
-            <td class="uk-text-lighter">The original FlowFile is sent to this relationship when it cannot be unpacked for some reason</td>
+            <td class="uk-text-lighter">The original FlowFile is sent to this relationship when it cannot be unpacked for some reason, including a ZIP CRC-32 mismatch</td>
         </tr>
         
         <tr>
@@ -2863,7 +2875,7 @@
         </tr>
         
         <tr>
-            <td>segment.original.filename </td>
+            <td>segment.original.filename</td>
             <td class="uk-text-lighter">The filename of the parent FlowFile. Extensions of .tar, .zip or .pkg are removed because the MergeContent processor automatically adds those extensions if it is used to rebuild the original FlowFile</td>
         </tr>
         

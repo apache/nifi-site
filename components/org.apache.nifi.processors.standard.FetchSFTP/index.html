@@ -628,6 +628,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.aws.sqs.ChangeSQSMessageVisibilityTimeout/">ChangeSQSMessageVisibilityTimeout</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.standard.CompressContent/">CompressContent</a>
                 </li>
                 
@@ -1956,6 +1960,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.processors.gcp.cloudsql.GcpCloudSqlIamDatabasePasswordProvider/">GcpCloudSqlIamDatabasePasswordProvider</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.processors.gcp.credentials.service.GCPCredentialsControllerService/">GCPCredentialsControllerService</a>
                 </li>
                 
@@ -2432,6 +2440,10 @@
                 </li>
                 
                 <li >
+                  <a href="/components/org.apache.nifi.flowanalysis.rules.RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor/">RequireLoadBalancedConnectionAfterPrimaryNodeSourceProcessor</a>
+                </li>
+                
+                <li >
                   <a href="/components/org.apache.nifi.flowanalysis.rules.RequireServerSSLContextService/">RequireServerSSLContextService</a>
                 </li>
                 
@@ -2463,7 +2475,7 @@
           
 
 
-<h3>FetchSFTP 2.11.0</h3>
+<h3>FetchSFTP 2.12.0</h3>
 
 
 
@@ -2609,14 +2621,14 @@
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
                 <span class="property-required">Completion Strategy</span>
-                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies what to do with the original file on the server once it has been pulled into NiFi. If the Completion Strategy fails, a warning will be logged but the data will still be transferred.</div>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies what to do with the original file on the server once it has been fetched</div>
             </a>
             <div class="uk-accordion-content uk-padding-small property-descriptor-content">
                 <dl class="uk-description-list">
                     <dt>Display Name</dt>
                     <dd>Completion Strategy</dd>
                     <dt>Description</dt>
-                    <dd>Specifies what to do with the original file on the server once it has been pulled into NiFi. If the Completion Strategy fails, a warning will be logged but the data will still be transferred.</dd>
+                    <dd>Specifies what to do with the original file on the server once it has been fetched</dd>
                     <dt>API Name</dt>
                     <dd>Completion Strategy</dd>
                     
@@ -3064,6 +3076,74 @@
         
         <li class="property-descriptor">
             <a class="uk-accordion-title" href>
+                <span class="property-required">Move Conflict Resolution</span>
+                <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">Specifies how to handle the case when the destination file already exists when Completion Strategy is set to Move files
+</div>
+            </a>
+            <div class="uk-accordion-content uk-padding-small property-descriptor-content">
+                <dl class="uk-description-list">
+                    <dt>Display Name</dt>
+                    <dd>Move Conflict Resolution</dd>
+                    <dt>Description</dt>
+                    <dd>Specifies how to handle the case when the destination file already exists when Completion Strategy is set to Move files
+</dd>
+                    <dt>API Name</dt>
+                    <dd>Move Conflict Resolution</dd>
+                    
+                    <dt>Default Value</dt>
+                    <dd>FAIL</dd>
+                    
+                    
+                    <dt>Allowable Values</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                Fail
+                                <span uk-icon="info" uk-tooltip="Leave the source file unchanged and log failure status"></span></li>
+                            
+                            <li>
+                                Replace
+                                <span uk-icon="info" uk-tooltip="When the destination file already exists, delete it and rename the source file to the destination.
+This option supports SFTP servers such as OpenSSH that do not implement atomic overwrite on rename.
+"></span></li>
+                            
+                        </ul>
+                    </dd>
+                    
+                    
+                    <dt>Expression Language Scope</dt>
+                    <dd>Not Supported</dd>
+                    <dt>Sensitive</dt>
+                    <dd>false</dd>
+                    <dt>Required</dt>
+                    <dd>true</dd>
+                    
+                    <dt>Dependencies</dt>
+                    <dd>
+                        <ul>
+                            
+                            <li>
+                                <span>Completion Strategy</span>
+                                <span class="uk-text-light">is set to any
+                                
+                                  of
+                                
+                                </span>
+                                
+                                [Move File]
+                                
+                            </li>
+                            
+                        </ul>
+                    </dd>
+                    
+                </dl>
+            </div>
+        </li>
+        
+        <li class="property-descriptor">
+            <a class="uk-accordion-title" href>
                 <span class="">Move Destination Directory</span>
                 <div class="uk-width-2-3 uk-align-right uk-margin-remove uk-text-truncate uk-text-lighter">The directory on the remote server to move the original file to once it has been ingested into NiFi. This property is ignored unless the Completion Strategy is set to &#39;Move File&#39;. The specified directory must already exist on the remote system if &#39;Create Directory&#39; is disabled, or the rename will fail.</div>
             </a>
@@ -3223,6 +3303,11 @@
 
                     <dt>Service Implementations</dt>
                     <dd>
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
