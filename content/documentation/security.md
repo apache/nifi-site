@@ -72,6 +72,28 @@ Severity ratings represent the determination of project members based on an eval
 The following announcements include published vulnerabilities that apply directly to Apache NiFi components.
 
 {{< vulnerability
+id="CVE-2026-81866"
+title="Missing Authorization for Assets and Secrets Referenced by Connector Configuration"
+published="2026-09-16"
+severity="Low"
+products="Apache NiFi"
+affectedVersions="2.9.0 to 2.11.0"
+fixedVersion="2.12.0"
+jira="NIFI-16205"
+pullRequest="11547"
+reporter="h1ei1 and Arpit Jain" >}}
+
+Apache NiFi 2.9.0 through 2.11.0 provide Connector configuration update and verification REST API methods that do not enforce authorization checking on Assets and Secrets referenced in proposed
+configuration. Updating or verifying a Connector configuration step can apply Asset and Secret references, but framework authorization was limited to write privileges on the Connector itself. As a
+result of the missing authorization, an authenticated user authorized to modify a Connector, but not authorized to read a referenced Parameter Provider, could apply Secret values backed by that
+Parameter Provider. The same methods also accepted Asset identifiers without verifying that the Asset belonged to the Connector being configured. Apache NiFi installations that do not implement
+different levels of authorization across Connectors and Parameter Providers are not subject to this vulnerability, because the framework enforces write permissions on the Connector as the security
+boundary. Upgrading to Apache NiFi 2.12.0 is the recommended mitigation, which authorizes read access to referenced Parameter Providers and verifies Connector ownership of referenced Assets during
+configuration update and verification.
+
+{{</ vulnerability >}}
+
+{{< vulnerability
 id="CVE-2026-70469"
 title="Improper Handling of Case Sensitivity for Content-Encoding in HTTP Requests"
 published="2026-09-16"
