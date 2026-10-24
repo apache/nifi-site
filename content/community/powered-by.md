@@ -119,8 +119,8 @@ along with other technologies like Apache Hadoop and Apache Spark.
 ## [Wordfully](https://wordfully.ai)
 
 Wordfully uses NiFi to collect service events and correction summaries from APIs and object storage.
-The flow validates incoming records and sends them to reporting or monitoring systems,
-with failed records routed for inspection.
+The flow validates incoming records and sends them to reporting or monitoring systems.
+It routes failed records for inspection.
 
 ## [Xebia](https://xebia.com)
 
