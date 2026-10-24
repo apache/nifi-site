@@ -116,6 +116,12 @@ lake solution that integrates best practices around metadata management, governa
 Big's 150+ big data implementation projects. Kylo uses Apache NiFi as the underlying scheduler and orchestration engine,
 along with other technologies like Apache Hadoop and Apache Spark.
 
+## [Wordfully](https://wordfully.ai)
+
+Wordfully uses NiFi to collect service events and correction summaries from APIs and object storage.
+The flow validates incoming records and sends them to reporting or monitoring systems.
+It routes failed records for inspection.
+
 ## [Xebia](https://xebia.com)
 
 Xebia is a Dutch service company in the data science and engineering space. The company helps customers ingest and
