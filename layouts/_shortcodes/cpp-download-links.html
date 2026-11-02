@@ -6,12 +6,17 @@
   {{- $downloadVersion = (.Site.Params.minifiCppPreviousProjectVersion) -}}
 {{- end -}}
 
+{{- $separator := "-" -}}
+{{- with .Get "separator" -}}
+  {{- $separator = . -}}
+{{- end -}}
+
 {{- $extension := "" -}}
 {{- with .Get "extension" -}}
   {{- $extension = . -}}
 {{- end -}}
 
-{{- $downloadFilePath := (print "nifi-minifi-cpp/" $downloadVersion "/nifi-minifi-cpp-" $downloadVersion "-" $extension) -}}
+{{- $downloadFilePath := (print "nifi-minifi-cpp" $separator $downloadVersion "/nifi-minifi-cpp-" $downloadVersion "-" $extension) -}}
 
 <div class="uk-margin-top download-links">
   <a class="uk-button uk-button-primary uk-button-small"
