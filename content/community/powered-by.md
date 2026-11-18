@@ -10,6 +10,10 @@ menu:
 # Powered by Apache {{< project-label >}}
 
 
+## [Affenhand](https://www.affenhand.de)
+
+Affenhand uses NiFi to build its product feeds for Google Shopping and partner portals outside of WordPress. Each night the flow pages through the WooCommerce REST API, enriches every product with purchase price and supplier data from the inventory system and only publishes items that are available and priced above cost. Records that fail these checks are routed to separate lists for the shop team. The same run merges supplier stock lists and creates reorder proposals per supplier for the purchasing team. A detailed write-up (in German) is available at [pw.is](https://pw.is/apache-nifi-onlineshop/).
+
 ## [Cloudera](https://cloudera.com)
 
 Cloudera offers several capabilities for data ingestion and data flow design to enable universal data distribution from
